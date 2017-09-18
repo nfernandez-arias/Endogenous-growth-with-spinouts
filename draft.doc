@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="http://www.nongnu.org/elyxer/">
+<meta name="create-date" content="2017-07-28">
+<link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all">
+<title>Non-compete Covenants: Knowledge Spillovers, Hold-ups, and Economic Growth through Innovation</title>
+</head>
+<body>
+<div id="globalWrapper">
+<h1 class="title">
+Non-compete Covenants: Knowledge Spillovers, Hold-ups, and Economic Growth through Innovation
+</h1>
+<h2 class="author">
+Nicolas Fernandez-Arias
+</h2>
+<h1 class="Section">
+<a class="toc" name="toc-Section-1">1</a> Introduction
+</h1>
+<div class="Unindented">
+There is a large literature considering the optimal enforcement of non-competes (for an excellent survey, see Marx &amp; Fleming 2012). The general consensus that has emerged is that enforcement of non-competes is deleterious to the development of a vibrant labor market and startup culture. In fact, starting with Gilson 1999, many authors have ascribed Sililcon Valley’s displacement of former high-tech hub Route 128 to California’s blanket refusal to enforce such contracts.<span class="FootOuter"><span class="SupFootMarker"> [A] </span><span class="HoverFoot"><span class="SupFootMarker"> [A] </span>Citation.</span></span> This story receives support from a variety of empirical papers, exploiting both time-series and cross-sectional variation (across US states) in the enforcement of non-competes.<span class="FootOuter"><span class="SupFootMarker"> [B] </span><span class="HoverFoot"><span class="SupFootMarker"> [B] </span>Cite relevant literature here.</span></span>
+</div>
+<div class="Indented">
+One may be tempted to conclude from this body of work that non-compete agreements deter growth (I certainly am). Yet the evidence does not yet fully support this view. Especially in light of evidence from Marx et. al. 2015 that there is brain drain from enforcing states to nonenforcing states, the overperformance of non-enforcing jurisdictions could simply be redistribution of economic activity rather than aggregate economic growth.<span class="FootOuter"><span class="SupFootMarker"> [C] </span><span class="HoverFoot"><span class="SupFootMarker"> [C] </span>Need to do back-of-the-envelope calculation with estimates from that paper.</span></span> More broadly, to date there has not been an aggregate welfare analysis using a workhorse general equilibrium macroeconomic model of long-run industry evolution.
+</div>
+<div class="Indented">
+There are three main questions that can in principle be answered with a general equilibrium model and not with the kinds of studies that have so far been conducted. First, welfare in an economy where all workers are bound by non-competes can be compared to welfare in an economy where non-competes are not enforced. Next, can we write a general equilibrium model with enforcing and non-enforcing regions which can reproduce the existing empirical evidence (i.e. brain drain causing differential performance). Finally, in reality, workers and jobs are heterogeneous, so that in certain cases non-competes have relatively more pros than cons. In this vein, one can ask the question: to what extent does the market endogenously assign / enforce non-competes to workers whose consequent lack of mobilty is on balance relatively less harmful to the aggregate economy?<span class="FootOuter"><span class="SupFootMarker"> [D] </span><span class="HoverFoot"><span class="SupFootMarker"> [D] </span>e.g. principal agent problems &ldquo;Should you make your employee sign a non-compete&rdquo; paper.</span></span> 
+</div>
+<div class="Indented">
+The contribution of this paper is to provide a theoretical framework for conducting an analysis of the first question above. I develop a model based on Klette &amp; Kortum 2004 (itself a modification of Hopenhayn 1992), endogenizing knowledge spillovers by way of worker flows. To perform this analysis the model must be rich enough to include the various decisions by employers and employees that can be distorted by the presence of non-competes. These include firm investments in R&amp;D, firm investments in the worker’s human capital, and employee’s investments in their own human capital. <span class="FootOuter"><span class="SupFootMarker"> [E] </span><span class="HoverFoot"><span class="SupFootMarker"> [E] </span>The model, by necessity, must have many parameters or assumptions (about relationships between the fewer assumed parameters). There is no way around this. I will offer some guidance as to how to obtain empirical discpiline on these parameters. My hope is that the policy prescriptions to emerge from my analysis will depend in a clear way on certain key elasticities, which will suggest a future path for research to uncover these for different industries. </span></span> 
+</div>
+<div class="Indented">
+The paper connects three literatures: (1) the work on the contribution of entrants / incumbents to aggregate growth. Haltiwanger et. al. 2015, Akcigit &amp; Kerr 2017<span class="FootOuter"><span class="SupFootMarker"> [F] </span><span class="HoverFoot"><span class="SupFootMarker"> [F] </span>They actually suggest using their model to study non-compete enforcement, but they only have in mind startups, not workers moving around across incumbents. Moreover, I had this idea before I finished reading their paper...</span></span>, Acemoglu &amp; Cao (sp?) 201x; and (2) the work on spillovers / startups due to employee flows such as Franco &amp; Filson 2006, Klepper &amp; Sleeper, and others; and (3) the more general literature on industry dynamics and the effects on growth of changing rates of entry and reallaction (c.f. Acemoglu, Akcigit et. al. &ldquo;Investment Reallocation and Growth&rdquo;, Klette &amp; Kortum itself, and so on). 
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-2">2</a> Data
+</h1>
+<div class="Unindented">
+Want to match the firm size distribution, the entry rate, the firm growth rate as a function of age and size, and, ideally, rates of workers moving from incumbents to start-ups or competitors. Need to think about this more - really, will need to work out the model to see what kinds of moments can identify the relevant parameters. 
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-3">3</a> Model
+</h1>
+<div class="Unindented">
+Akcigit &amp; Kerr 2017 assume a representative agent and push all heterogeneity into heterogeneity of <i>firms </i>in their economy. Then the representative agent simply holds a portfolio of all firms in the economy. This is not quite microfounded in the sense that the agents should then have an incentive to instruct all of the firms to collude with each other, and hence each firm wouldn’t be maximizing its own <i>individual </i>profit. In other words, creative destruction externalities would be internalized. So they have simply abstracted away from firm ownership, but continue to assume that individual firms maximize their own profits.
+</div>
+<div class="Indented">
+Can I use the same trick? I certainly can’t assume a representative household, since that 
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-3.1">3.1</a> Preferences and Final Good Technology
+</h2>
+<h3 class="Subsubsection-">
+<a class="toc" name="toc-Subsubsection--1"></a>There is a continuum of households indexed by <span class="formula"><i>i</i> ∈ [0, 1]</span>. Each household 
+</h3>
+<div class="Unindented">
+<h1 class="biblio">
+References
+</h1>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-1"><span class="bib-index">1</span></a>] </span> <span class="bib-authors">April Mitchell Franco, Darren Filson</span>. <span class="bib-title">Spin-outs: knowledge diffusion through employee mobility</span>. <i><span class="bib-journal">RAND Journal of Economics</span></i>, <span class="bib-year">2006</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-2"><span class="bib-index">2</span></a>] </span> <span class="bib-authors">Daron Acemoglu, Dan Cao</span>. <span class="bib-title">Innovation by entrants and incumbents</span>. <i><span class="bib-journal">Journal of Economic Theory</span></i>, <span class="bib-year">2015</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-3"><span class="bib-index">3</span></a>] </span> <span class="bib-authors">Guido Buenstorf, Christoph Engel, Sven Fischer, Werner Gueth</span>. <span class="bib-title">Non-compete clauses, employee effort and spin-off entrepreneurship: A laboratory experiment</span>. <i><span class="bib-journal">Research Policy</span></i>, <span class="bib-year">2016</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-4"><span class="bib-index">4</span></a>] </span> <span class="bib-authors">Harald Uhlig</span>. <span class="bib-title">A Law of Large Numbers for Large Economies</span>. <i><span class="bib-journal">Economic Theory</span></i>, <span class="bib-year">1996</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-5"><span class="bib-index">5</span></a>] </span> <span class="bib-authors">Hugo A. Hopenhayn</span>. <span class="bib-title">Entry, Exit, and Firm Dynamics in Long Run Equilibrium</span>. <i><span class="bib-journal">Econometrica</span></i>, <span class="bib-year">1992</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-6"><span class="bib-index">6</span></a>] </span> <span class="bib-authors">Hugo Hopenhayn, Richard Rogerson</span>. <span class="bib-title">Job Turnover and Policy Evaluation: A General Equilibrium Analysis</span>. <i><span class="bib-journal">Journal of Political Economy</span></i>, <span class="bib-year">1993</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-7"><span class="bib-index">7</span></a>] </span> <span class="bib-authors">Hyo Kang, Lee Fleming</span>. <span class="bib-title">Large Firm Advantage and Entrepreneurial Disadvantage: Non-competes and Market Concentration</span>. <i><span class="bib-journal">Working Paper</span></i>, <span class="bib-year">2017</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-8"><span class="bib-index">8</span></a>] </span> <span class="bib-authors">Jakob Klette, Samuel Kortum</span>. <span class="bib-title">Innovating Firms and Aggregate Innovation</span>. <i><span class="bib-journal">Journal of Political Economy</span></i>, <span class="bib-year">2004</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-9"><span class="bib-index">9</span></a>] </span> <span class="bib-authors">James E. Rauch</span>. <span class="bib-title">Dynastic entrepreneurship, entry, and non-compete enforcement</span>. <i><span class="bib-journal">Working Paper</span></i>, <span class="bib-year">2015</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-10"><span class="bib-index">10</span></a>] </span> <span class="bib-authors">Ji Youn Kim, H. Kevin Steensma</span>. <span class="bib-title">Employee Mobility, Spin-outs, and Knowledge Spill-in: How Incumbent Firms Can Learn from New Ventures</span>. <i><span class="bib-journal">Strategic Management Journal</span></i>, <span class="bib-year">2017</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-11"><span class="bib-index">11</span></a>] </span> <span class="bib-authors">John E. Jankowski</span>. <span class="bib-title">Business Use of Intellectual Property Protection Documented in NSF Survey</span>. <i><span class="bib-journal">NSF Info Brief</span></i>, <span class="bib-year">2012</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-12"><span class="bib-index">12</span></a>] </span> <span class="bib-authors">Luca Colombo, Herbert Dawid, Mariacristina Piva, Marco Vivarelli</span>. <span class="bib-title">Does Easy Start-Up Formation Hamper Incumbents' R&D Investment? A Theoretical and Empirical Analysis</span>. <i><span class="bib-journal">Working Paper</span></i>, <span class="bib-year">2013</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-13"><span class="bib-index">13</span></a>] </span> <span class="bib-authors">Manuel Adelino, Song Ma, David Robinson</span>. <span class="bib-title">Firm Age, Investment Opportunities, and Job Creation</span>. <i><span class="bib-journal">Journal of Finance</span></i>, <span class="bib-year">2017</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-14"><span class="bib-index">14</span></a>] </span> <span class="bib-authors">Mark J. Garmaise</span>. <span class="bib-title">Ties that Truly Bind: Noncompetition Agreements, Executive Compensation, and Firm Investment</span>. <i><span class="bib-journal">Journal of Law, Economics, & Organization</span></i>, <span class="bib-year">2011</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-15"><span class="bib-index">15</span></a>] </span> <span class="bib-authors">Matt Marx, Jasjit Singh, Lee Fleming</span>. <span class="bib-title">Regional disadvantage? Employee non-compete agreements and brain drain</span>. <i><span class="bib-journal">Research Policy</span></i>, <span class="bib-year">2015</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-16"><span class="bib-index">16</span></a>] </span> <span class="bib-authors">Matt Marx, Lee Fleming</span>. <span class="bib-title">Innovation Policy and the Economy</span>. <span class="bib-publisher">NBER</span>, <span class="bib-year">2012</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-17"><span class="bib-index">17</span></a>] </span> <span class="bib-authors">Matthias Kraekel, Dirk Sliwka</span>. <span class="bib-title">Should You Allow Your Employee to Become Your Competitor? On Non-Compete Agreements in Employment Contracts</span>. <i><span class="bib-journal">International Economic Review</span></i>, <span class="bib-year">2009</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-18"><span class="bib-index">18</span></a>] </span> <span class="bib-authors">Mitsuru Igami</span>. <span class="bib-title">Estimating the Innovator's Dilemma: Structural Analysis of Creative Destruction in the Hard Disk Drive Industry, 1981-1988</span>. <i><span class="bib-journal">Working Paper</span></i>, <span class="bib-year">2015</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-19"><span class="bib-index">19</span></a>] </span> <span class="bib-authors">Natarajan Balasubramanian, Jin Woo Chang, Mariko Sakakibara, Jagadeesh Sivadasan, Evan P. Starr</span>. <span class="bib-title">Locked In? The Enforceability of Covenants Not to Compete and the Careers of High-Tech Workers</span>. <i><span class="bib-journal">Working Paper</span></i>, <span class="bib-year">2017</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-20"><span class="bib-index">20</span></a>] </span> <span class="bib-authors">Lorin M. Hitt Prasanna Tambe</span>. <span class="bib-title">Job Hopping, Information Technology Spillovers, and Productivity Growth</span>. <i><span class="bib-journal">Management Science</span></i>, <span class="bib-year">2017</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-21"><span class="bib-index">21</span></a>] </span> <span class="bib-authors">Rasmus Lentz, Dale T. Mortensen</span>. <span class="bib-title">An Empirical Model of Growth Through Product Innovation</span>. <i><span class="bib-journal">Econometrica</span></i>, <span class="bib-year">2008</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-22"><span class="bib-index">22</span></a>] </span> <span class="bib-authors">Ronald J. Gilson</span>. <span class="bib-title">The Legal Infrastructure of High Technology Industrial Districts: Silicon Valley, Route 128, and Covenants Not to Compete</span>. <i><span class="bib-journal">New York University Law Review</span></i>, <span class="bib-year">1999</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-23"><span class="bib-index">23</span></a>] </span> <span class="bib-authors">Russell Golman, Steven Klepper</span>. <span class="bib-title">Spinoffs and Clustering</span>. <i><span class="bib-journal">RAND Journal of Economics</span></i>, <span class="bib-year">2016</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-24"><span class="bib-index">24</span></a>] </span> <span class="bib-authors">Sampsa Samila, Olav Sorenson</span>. <span class="bib-title">Non-compete Covenants: Incentives to Innovate or Impediments to Growth</span>. <i><span class="bib-journal">Management Science</span></i>, <span class="bib-year">2011</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-25"><span class="bib-index">25</span></a>] </span> <span class="bib-authors">Steven Klepper, Sally Sleeper</span>. <span class="bib-title">Entry by Spinoffs</span>. <i><span class="bib-journal">Management Science</span></i>, <span class="bib-year">2005</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-26"><span class="bib-index">26</span></a>] </span> <span class="bib-authors">Suman Ghosh, Kameshwari Shankar</span>. <span class="bib-title">Optimal Enforcement of Noncompete Covenants</span>. <i><span class="bib-journal">Economic Inquiry</span></i>, <span class="bib-year">2016</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-27"><span class="bib-index">27</span></a>] </span> <span class="bib-authors">Toby E. Stuart, Olav Sorenson</span>. <span class="bib-title">Liquidity Events and the Geographic Distribution of Entrepreneurial Activity</span>. <i><span class="bib-journal">Adminstrative Science Quarterly</span></i>, <span class="bib-year">2003</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-28"><span class="bib-index">28</span></a>] </span> <span class="bib-authors">Ufuk Akcigit, William R. Kerr</span>. <span class="bib-title">Growth through Heterogeneous Innovations</span>. <i><span class="bib-journal">Journal of Political Economy</span></i>, <span class="bib-year">2017</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-29"><span class="bib-index">29</span></a>] </span> <span class="bib-authors">Wesley M. Cohen, Steven Klepper</span>. <span class="bib-title">Firm Size and the Nature of Innovation Within Industries: The Case of Process and Product R&D</span>. <i><span class="bib-journal">The Review of Economics and Statistics</span></i>, <span class="bib-year">1996</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-30"><span class="bib-index">30</span></a>] </span> <span class="bib-authors">Wesley M. Cohen</span>. <span class="bib-title">Handbook of the Economics of Innovation</span>. <span class="bib-publisher">Elsevier</span>, <span class="bib-year">2010</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-31"><span class="bib-index">31</span></a>] </span> <span class="bib-authors">Zoltan J. Acs, David B. Audretsch</span>. <span class="bib-title">Innovation in Large and Small Firms: An Empirical Analysis</span>. <i><span class="bib-journal">American Economic Review</span></i>, <span class="bib-year">1988</span>.
+</p>
+<p class="biblio">
+<span class="entry">[<a class="biblioentry" name="biblio-32"><span class="bib-index">32</span></a>] </span> <span class="bib-authors">Zvi Griliches</span>. <span class="bib-title">The Search for R&D Spillovers</span>. <i><span class="bib-journal">Scandinavian Journal of Economics</span></i>, <span class="bib-year">1992</span>.
+</p>
+
+</div>
+
+</div>
+</body>
+</html>

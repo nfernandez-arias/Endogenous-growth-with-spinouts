@@ -1,0 +1,630 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Notes about Draft
+\end_layout
+
+\begin_layout Section
+Model
+\end_layout
+
+\begin_layout Standard
+Akcigit & Kerr 2017 (AK) assume a representative agent and push all heterogeneit
+y into heterogeneity of 
+\emph on
+firms 
+\emph default
+in their economy.
+ Then the representative agent simply holds a portfolio of all firms in
+ the economy.
+ This is not quite microfounded in the sense that the agents should then
+ have an incentive to instruct all of the firms to collude with each other,
+ and hence each firm wouldn't be maximizing its own 
+\emph on
+individual 
+\emph default
+profit.
+ In other words, creative destruction externalities would be internalized.
+ So they have simply abstracted away from firm ownership, but continue to
+ assume that individual firms maximize their own profits.
+\end_layout
+
+\begin_layout Standard
+This trick works in AK because knowledge is embodied in the 
+\emph on
+firm
+\emph default
+.
+ However, the whole point of my model is that workers have the knowledge,
+ and worker flows are what is behind knowledge spillovers.
+ Thus, I need to have knowledge embodied in workers.
+ Each worker will have a set of intermediate goods that he is capable of
+ 
+\begin_inset Quotes eld
+\end_inset
+
+teaching
+\begin_inset Quotes erd
+\end_inset
+
+ a firm how to produce.
+ Therefore there will be a bunch of different wages and value functions
+ to compute, it seems completely infeasible.
+\end_layout
+
+\begin_layout Subsection
+Research & Development
+\end_layout
+
+\begin_layout Itemize
+There are some tricky issues around getting incumbents to innovate on their
+ own products: if they have the same R&D technology as entrants, they won't
+ find it profitable because they are to some extent cannibalizing their
+ own businesses.
+ So we need to give them a better technology and calibrate that parameter,
+ I guess.
+\end_layout
+
+\begin_layout Itemize
+Internal vs.
+ external innovation is not the focus of my model, but it will be interesting
+ to incorporate eventually because incumbent innovation is another decision
+ that may be distorted by lack of property rights.
+ However, my model will still be capable of reducing investment in R&D by
+ entrants: non-competes will slow the entry of new competitors, but will
+ also increase the payoff of a successful innovation, leading to more intensive
+ innovation efforts.
+ 
+\end_layout
+
+\begin_layout Itemize
+In AK, potential entrants engage in 
+\begin_inset Quotes eld
+\end_inset
+
+undirected
+\begin_inset Quotes erd
+\end_inset
+
+ R&D.
+ This is fine for his model, but it is analytically more convenient in my
+ model for all potential entrants to perform 
+\begin_inset Quotes eld
+\end_inset
+
+directed
+\begin_inset Quotes erd
+\end_inset
+
+ R&D.
+ This ensures that, once knowledge has become widely known, the free-entry
+ condition holds for each 
+\begin_inset Formula $j$
+\end_inset
+
+, rather than simply in expectation.
+ In turn, this allows us to simplify the computation of the equilibrium
+ wage: once the frontier quality of 
+\begin_inset Formula $uj$
+\end_inset
+
+ becomes publicly known, the wage paid to workers employed in that industry
+ is simply their marginal product.
+ 
+\end_layout
+
+\begin_layout Itemize
+Finally, a note: when something goes into the public domain, there is a
+ mass of firms that then engage in R&D on it.
+ For simplicity, I will just assume that these firms are publicly owned
+ in equal shares by all agents in the economy.
+ 
+\end_layout
+
+\begin_layout Subsection
+Knowledge spillovers
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+NOTE: TO SIMPLIFY LABOR ALLOCATION DECISION, ASSUME THAT RATE OF ACQUIRING
+ KNOWLEDGE IS INVERSELY PROPORTIONAL TO THE GAP BETWEEN THE TECHNOLOGY 
+\begin_inset Formula $j$
+\end_inset
+
+ AND THE ECONOMY AVERAGE QUALITY.
+ 
+\series default
+This is a way of ensuring that the 
+\begin_inset Quotes eld
+\end_inset
+
+spin-off value
+\begin_inset Quotes erd
+\end_inset
+
+ to the worker is the same from working at every firm (except that firms
+ will also vary in their current 
+\begin_inset Formula $m_{j}$
+\end_inset
+
+, which affects tihe value...).
+ This implies that equilibrium requires that...marginal products be equalized?
+ This is already going to happen naturally, so what this means is that 
+\end_layout
+
+\begin_layout Standard
+Consider the firm producing good 
+\begin_inset Formula $j$
+\end_inset
+
+.
+ By Assumption 1, it is the only firm producing this good.
+ 
+\end_layout
+
+\begin_layout Standard
+The key assumption in this paper is that knowledge in the firm spills over
+ to workers employed there.
+ These workers then form the mass of potential entrants who can invest in
+ R&D to discover the next quality improvement for good 
+\begin_inset Formula $j$
+\end_inset
+
+.
+ Since there is a limited mass of entrants and R&D exhibits decreasing returns
+ to scale (think through this), they will earn flow profits from engaging
+ in R&D.
+ 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+It will be important to tweak the assumptions above to ensure that the value
+ of learning how to make intermediate good 
+\begin_inset Formula $j$
+\end_inset
+
+ is the same as the value of learning how to make good 
+\begin_inset Formula $j'$
+\end_inset
+
+ for all 
+\begin_inset Formula $j\ne j'$
+\end_inset
+
+.
+ This ensures that the wage paid to labor will be the same, vastly simplifying
+ the analysis.
+ This is tricky, though, because when an invention is first discovered,
+ the flow profit immediately jumps to its best level.
+ Meanwhile, there are very few agents who have the knowledge, implying a
+ large rent from engaging in R&D to replace the firm at these initial stages.
+ This introduces memory into the process...hindering the stationarity of the
+ environment.
+ The solution is to think about the 
+\begin_inset Quotes eld
+\end_inset
+
+state
+\begin_inset Quotes erd
+\end_inset
+
+ of the industry for good 
+\begin_inset Formula $j$
+\end_inset
+
+.
+ In general, this is summarized by the quality 
+\begin_inset Formula $q_{j}$
+\end_inset
+
+ and by the mass of informed agents.
+ We can separately solve for the wage paid in industries 
+\begin_inset Formula $j$
+\end_inset
+
+ for which knowledge has already diffused to the broader public.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Also, at some other Poisson rate, knowledge simply flows to the broader
+ public and thereafter there is free entry into R&D.
+ At this point, the rents on conducting R&D disappear.
+ 
+\end_layout
+
+\begin_layout Standard
+It will be challenging to model workers deciding at each point in their
+ life whether or not they would like to continue being an entrepreneur or
+ a worker.
+ If a worker who owns a startup decides to become a worker, what do they
+ do with the startup? Sell it? To whom? It just adds a whole complicated
+ market for equity investments that I don't feel like modeling (yet, at
+ least...).
+ Two alternatives are: 
+\end_layout
+
+\begin_layout Enumerate
+Assume worker can supply labor (to any firm) while an entrepreneur.
+\end_layout
+
+\begin_layout Enumerate
+Assume that the worker decides once whether to become an entrepreneur.
+\end_layout
+
+\begin_layout Standard
+Finally, the last problem is having too much heterogeneity among workers.
+ If I am a worker with profile 
+\begin_inset Formula $\{q_{j}\}$
+\end_inset
+
+ of knowledge, what will I do? The easiest way to avoid any complication
+ is to simply assume that there are no span-of-control problems.
+ Since there are no complementarities between the different activities that
+ can be performed by a worker, we get a Klette & Kortum-like result that
+ a worker's value function will be the sum of value functions corresponding
+ to workers each having only one piece of knowledge, simplifying the analysis
+ dramatically.
+ Such a worker will: 
+\end_layout
+
+\begin_layout Enumerate
+Run any businesses he currently owns (maximizing profit individually, i.e.
+ not collluding.
+ will own a measure zero set of firms so I don't think it would be possible
+ to collude).
+ 
+\end_layout
+
+\begin_layout Enumerate
+Engage in R&D in any fields in which he has up-to-date knowledge.
+\end_layout
+
+\begin_layout Enumerate
+Supply labor to a firm of 
+\end_layout
+
+\begin_layout Subsubsection
+Details
+\end_layout
+
+\begin_layout Standard
+Not sure how to deal with this.
+ A few problems: 
+\end_layout
+
+\begin_layout Itemize
+If there were no process by which 
+\begin_inset Formula $m_{j}$
+\end_inset
+
+ could decrease, then this equation would lead to unbounded growth.
+ Then the total mass of workers with knowledge would exceed the total mass
+ of workers.
+ In the above equation, we 
+\begin_inset Quotes eld
+\end_inset
+
+assumed
+\begin_inset Quotes erd
+\end_inset
+
+ (hopefully can be proved...) that workers immediately switch somewhere else
+ upon learning.
+ Therefore, this means that either (1) that isn't true in the case where
+ 
+\begin_inset Formula $m_{j}$
+\end_inset
+
+ never decreases, which makes sense, since the only steady state in that
+ kind of situation is that everyone knows everything, in which it can't
+ be that anyone has anything they don't know; or (2) that ...
+ fuck i forgot what i was going to say
+\end_layout
+
+\begin_layout Itemize
+If we then integrate 
+\begin_inset Formula $m_{j}$
+\end_inset
+
+ it should return to us a positive measure mass of total agents who have
+ knowledge, shouldn't it? If every worker had the knowledge for every blueprint
+ But this should definitely be small..If this mass is 
+\begin_inset Formula $M$
+\end_inset
+
+, then 
+\begin_inset Formula 
+\begin{eqnarray*}
+M & = & \int_{0}^{1}m_{j}dj\\
+M_{t+\Delta} & = & M_{t}+\int_{0}^{1}\nu\Delta l_{j}dj-\int_{0}^{1}\Delta\tau(q_{j},m_{j})m_{j}dj-\int_{0}^{1}\Delta\theta m_{j}dj\\
+\dot{M} & = & \nu\tilde{L}-\int_{0}^{1}\tau(q_{j},m_{j})m_{j}dj-\theta M
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+If 
+\begin_inset Formula $M$
+\end_inset
+
+ is constant on the BGP, we will have 
+\begin_inset Formula 
+\[
+\nu\tilde{L}-\int_{0}^{1}\tau(q_{j},m_{j})m_{j}dj=\theta M
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+How to compute the RHS? Tricky, because we don't want to keep track of individua
+l product lines.
+ If I had to guess, we want to come up with some stationary joint distribution
+ 
+\begin_inset Formula $p(q,m)$
+\end_inset
+
+ of 
+\begin_inset Formula $q$
+\end_inset
+
+ and 
+\begin_inset Formula $m$
+\end_inset
+
+, so that we can do 
+\begin_inset Formula 
+\[
+\int_{0}^{1}\tau(q_{j},m_{j})m_{j}dj=\int\tau(q,m)m\cdot p(q,m)dqdm
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+To be honest I am pretty confused about this, it's worth thinking about
+ more.
+ What would the economy look like if *everyone* knew how to do everything?
+ We wouldn't have 
+\begin_inset Formula $m_{j}=1$
+\end_inset
+
+ for all 
+\begin_inset Formula $j$
+\end_inset
+
+.
+ We'd have 
+\begin_inset Formula $m_{j}=+\infty$
+\end_inset
+
+ for all 
+\begin_inset Formula $j$
+\end_inset
+
+, since 
+\begin_inset Formula $m_{j}$
+\end_inset
+
+ is essentially measuring the 
+\begin_inset Quotes eld
+\end_inset
+
+length
+\begin_inset Quotes erd
+\end_inset
+
+ of the list of individuals who have the knowledge.
+ Since this is a positive measure group of individuals, this list is infinite.
+ 
+\end_layout
+
+\begin_layout Itemize
+How would I do this in a discrete space model?
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Would have a set of 
+\begin_inset Formula $N$
+\end_inset
+
+ intermediate goods indexed by 
+\begin_inset Formula $j=1,\ldots,N$
+\end_inset
+
+, each of size 
+\begin_inset Formula $\Delta=1/N$
+\end_inset
+
+, meaning that they employ 
+\begin_inset Formula $l_{j}$
+\end_inset
+
+ workers at any given time, such that 
+\begin_inset Formula 
+\[
+\sum_{j}l_{j}/N=L
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Similarly, there are 
+\begin_inset Formula $m_{j}/N$
+\end_inset
+
+ workers who have the blueprints.
+ So the total number of workers with blueprints is 
+\begin_inset Formula 
+\[
+\sum_{j}m_{j}/N=M
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+In the discrete case, the assumption that workers switch as soon as they
+ learn may not be satisfied.
+ But let's proceed with it, and see where it takes us.
+\end_layout
+
+\begin_layout Itemize
+Suppose we assume that workers switch as soon as they learn.
+ Then they are acquiring knowledge at the rate 
+\begin_inset Formula 
+\begin{eqnarray*}
+M_{t+\Delta} & = & M_{t}+\Delta\nu\sum_{j}l_{j}/N-\Delta\sum_{j}\tau(q_{j},m_{j})m_{j}/N-\Delta\theta\sum_{j}m_{j}/N\\
+M_{t+\Delta}-M_{t} & = & \Delta\nu\sum_{j}l_{j}/N-\Delta\sum_{j}\tau(q_{j},m_{j})m_{j}/N-\Delta\theta\sum_{j}m_{j}/N
+\end{eqnarray*}
+
+\end_inset
+
+If 
+\begin_inset Formula $M$
+\end_inset
+
+ is constant, then 
+\begin_inset Formula 
+\[
+\nu L=\sum_{j}\tau(q_{j},m_{j})m_{j}/N+\theta M
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+If everyone knew how to do everything, we would have 
+\begin_inset Formula $m_{j}/N=L$
+\end_inset
+
+ for all 
+\begin_inset Formula $j$
+\end_inset
+
+.
+ Thus we would have 
+\begin_inset Formula 
+\begin{eqnarray*}
+M & = & \sum_{j}m_{j}/N\\
+ & = & \sum_{j}L=LN
+\end{eqnarray*}
+
+\end_inset
+
+which goes to infinity as 
+\begin_inset Formula $N\to\infty$
+\end_inset
+
+.
+ This makes sense: if everyone knows everything and firms are infinitesimal,
+ then there is an infinity of person 
+\begin_inset Formula $\times$
+\end_inset
+
+ knowledge pairs.
+ Thus, only have finite 
+\begin_inset Formula $M$
+\end_inset
+
+ if the mass of people who know about the firm scales with the size of the
+ firm.
+\end_layout
+
+\end_deeper
+\end_body
+\end_document

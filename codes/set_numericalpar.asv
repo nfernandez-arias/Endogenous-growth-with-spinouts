@@ -1,0 +1,18 @@
+function [numericalpar] = set_numericalpar()
+    
+    qmin = 0.001; %maybe set to 0, need to see if it works or fucks things up
+    qmax = 
+    numericalpar.qgrid_numpoints = 100;
+    numericalpar.mgrid_numpoints = 100;
+    
+    
+   
+end
+
+    
+    
+    
+    
+    
+    
+    

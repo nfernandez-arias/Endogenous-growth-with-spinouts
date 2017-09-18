@@ -1,0 +1,611 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1.25in
+\topmargin 1.25in
+\rightmargin 1.25in
+\bottommargin 1.25in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Non-competes paper - Bullet points
+\end_layout
+
+\begin_layout Subsubsection*
+Preferences and labor endowment
+\end_layout
+
+\begin_layout Itemize
+Continuum of individuals indexed by 
+\begin_inset Formula $i\in[0,1]$
+\end_inset
+
+.
+ Individuals are risk-neutral with discount rate 
+\begin_inset Formula $\rho$
+\end_inset
+
+: maximize 
+\begin_inset Formula 
+\[
+U=\int_{0}^{\infty}\exp(-\rho t)C(t)dt
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Individuals endowed with unit of labor, which can be supplied to final good
+ production (
+\begin_inset Formula $l^{F}$
+\end_inset
+
+), intermediate good production 
+\begin_inset Formula $(l^{I})$
+\end_inset
+
+, and R&D (
+\begin_inset Formula $l^{RD}$
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Itemize
+Aggregate labor market satisfies 
+\begin_inset Formula 
+\[
+L_{t}^{F}+L_{t}^{I}+L_{t}^{RD}=1
+\]
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Subsubsection*
+Final good technology
+\end_layout
+
+\begin_layout Itemize
+Consumption consists of a final good.
+ Produced using labor and a continuum of intermediate goods 
+\begin_inset Formula $j\in[0,1]$
+\end_inset
+
+ with production technology 
+\begin_inset Formula 
+\[
+Y(t)=\frac{L^{\beta}(t)}{1-\beta}\int_{0}^{1}q_{j}^{\beta}(t)k_{j}^{1-\beta}(t)dj
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $q_{j}$
+\end_inset
+
+ is quality, 
+\begin_inset Formula $k_{j}$
+\end_inset
+
+ is quantity
+\end_layout
+
+\begin_layout Itemize
+CES production structure ensures constant markups –> tractability
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection*
+Intermediate good technology
+\end_layout
+
+\begin_layout Itemize
+Each good 
+\begin_inset Formula $j$
+\end_inset
+
+ is produced with a linear technology 
+\begin_inset Formula 
+\[
+k_{j}=\overline{q}l_{j}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\overline{q}=\int_{0}^{1}q_{j}dj$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Assumptions guarantee that only the technology leader produces in equilbrium
+ –> no limit pricing
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection*
+Research and development
+\end_layout
+
+\begin_layout Itemize
+Successful R&D project on quality 
+\begin_inset Formula $q$
+\end_inset
+
+ renders its owner an incument with quality 
+\begin_inset Formula $(1+\lambda)q$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+Incumbent and mass 
+\begin_inset Formula $m_{j}$
+\end_inset
+
+ of entrants work on R&D on machine 
+\begin_inset Formula $j$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Innovations effort 
+\begin_inset Formula $z$
+\end_inset
+
+ requires 
+\begin_inset Formula $z$
+\end_inset
+
+ units R&D labor generates innovations at Poisson rate 
+\begin_inset Formula 
+\begin{eqnarray*}
+R_{I}(z_{I};\overline{z}) & = & \chi_{I}z_{I}\phi(\overline{z})\\
+R_{E}(z_{E}:;\overline{z}) & = & \chi_{E}z_{E}\phi(\overline{z})
+\end{eqnarray*}
+
+\end_inset
+
+for 
+\begin_inset Formula $\phi(z)$
+\end_inset
+
+ decreasing such that 
+\begin_inset Formula $z\phi(z)$
+\end_inset
+
+ is increasing, and where 
+\begin_inset Formula 
+\[
+\overline{z}=\int_{0}^{m}z(l)dl+z_{I}
+\]
+
+\end_inset
+
+is the total innovation effort in that machine line
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Incumbents are large and take into account their effect on 
+\begin_inset Formula $\overline{z}$
+\end_inset
+
+, but entrants are small and do not
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+An entrant can only hire 
+\begin_inset Formula $\xi>0$
+\end_inset
+
+ units of R&D labor; in equilibrium, total entrant effort is 
+\begin_inset Formula $\overline{z}_{j}^{E}=\min(M,m)\xi$
+\end_inset
+
+, where 
+\begin_inset Formula $M$
+\end_inset
+
+ is the mass that is present when there is free entry
+\end_layout
+
+\begin_layout Subsubsection*
+Knowledge spillovers and non-competes
+\end_layout
+
+\begin_layout Itemize
+Individual supplying R&D labor to either an incumbent or an entrant on a
+ project on quality 
+\begin_inset Formula $q$
+\end_inset
+
+ acquires the ability to spin-off and form his own R&D project at Poisson
+ rate 
+\begin_inset Formula $\nu$
+\end_inset
+
+ per unit of R&D labor
+\end_layout
+
+\begin_layout Itemize
+Therefore, if 
+\begin_inset Formula $l_{j}^{RD}$
+\end_inset
+
+ is the total amount of R&D labor used by the incumbent and entrants in
+ machine line 
+\begin_inset Formula $j$
+\end_inset
+
+, 
+\begin_inset Formula 
+\begin{eqnarray*}
+\dot{n}_{j} & = & \nu l_{j}^{RD}-vn_{j}\\
+\dot{m}_{j} & = & vn_{j}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+This means that we actually have three state variables, 
+\begin_inset Formula $(q,n,m)$
+\end_inset
+
+, which is a problem.
+ No way around this - will simply need to use few grid points on 
+\begin_inset Formula $(q,n,m)$
+\end_inset
+
+ and interpolate.
+ Should still be feasible...
+\end_layout
+
+\begin_layout Itemize
+R&D race 
+\begin_inset Formula $j$
+\end_inset
+
+ becomes free entry at exogenous rate 
+\begin_inset Formula $\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Easier model to solve: assume non-competes are permanent.
+ Then 
+\begin_inset Formula $\theta$
+\end_inset
+
+ becomes really important for fitting data (otherwise there is no entry
+ in the model, just incumbents incrementally improving their quality).
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection*
+Equilibrium
+\end_layout
+
+\begin_layout Itemize
+Focus on recursive BGP where state variables are either constant (e.g.
+ distributions, productivity-normazlied wages) or grow at constant rate
+ 
+\begin_inset Formula $g$
+\end_inset
+
+ (e.g.
+ output, productivity, wages), and where the only aggregate state variable
+ is the joint distribution of 
+\begin_inset Formula $(\tilde{q},m,n)$
+\end_inset
+
+ in the economy (and where individual 
+\begin_inset Formula $(\tilde{q},m,n)$
+\end_inset
+
+ is the individual state of each firm).
+ Here 
+\begin_inset Formula $\tilde{q}=q/\overline{q}$
+\end_inset
+
+, that is, it is the quality relative to the economy average.
+ From now on I will simply use the notation 
+\begin_inset Formula $q$
+\end_inset
+
+ for 
+\begin_inset Formula $\tilde{q}$
+\end_inset
+
+ where there is no confusion.
+\end_layout
+
+\begin_layout Itemize
+After doing some math (e.g.
+ solving all static optimization problems, normalizing non-stationary BGPs
+ by 
+\begin_inset Formula $\overline{q}$
+\end_inset
+
+ and rewriting in stationary form, etc.), we can say that an equilibrium
+ is defined by a set of functions and numbers satisfying certain conditions.
+ These are summarized below:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Prices: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $\overline{w}=\tilde{\beta}=\beta^{\beta}[1-\beta]^{1-2\beta}$
+\end_inset
+
+ is the constant normalized wage in the final goods production and intermediate
+ goods production occupations.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $w(q,m,n)$
+\end_inset
+
+ is the normalized wage in the R&D occupation, for an intermediate good
+ at frontier quality 
+\begin_inset Formula $q$
+\end_inset
+
+ with mass 
+\begin_inset Formula $n+m$
+\end_inset
+
+ of workers who have learned the R&D technology, a mass 
+\begin_inset Formula $m$
+\end_inset
+
+ of which has been released from their non-competes.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Aggregate states (non-price):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $\overline{z}_{E}(q,m,n)$
+\end_inset
+
+,
+\begin_inset Formula $\overline{z}_{E}^{B}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+No need to include 
+\begin_inset Formula $\overline{z}_{I}(q,m,n)$
+\end_inset
+
+ here, consistency below is enough.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Incumbent firm flow profit function: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $\pi(q,m,n)=\pi q$
+\end_inset
+
+ where 
+\begin_inset Formula $\pi=L^{F}(1-\beta)\tilde{\beta}$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Firm functions 
+\begin_inset Formula $A(q,m,n),B(q,m,n),W^{NC}(q,m,n),W^{F}(q,m,n)$
+\end_inset
+
+ and policy functions 
+\begin_inset Formula $z_{I}(q,m,n),z_{I}^{B}(q),z_{E}(q,m,n),z_{E}^{B}(q)$
+\end_inset
+
+ such that, given aggregate states and prices, are the maximizers of the
+ HJBs below: 
+\begin_inset Formula 
+\begin{eqnarray*}
+(r-g)B(q) & = & \pi q-gqB'(q)\\
+ &  & +\max_{z\ge0}z\phi(\overline{z}_{E}^{B}+z)\big[A((1+\lambda)q,0,0)-B(q)\big]-\overline{w}z\\
+ &  & -\overline{z}_{E}^{B}\phi(\overline{z}_{E}^{B}+z)B(q)\\
+(r+\theta-g)A(q,m,n) & = & \pi q+\theta B(q)-gqA_{q}(q,m,n)\\
+ &  & +\max_{z\ge0}\Big\{ z\phi(\overline{z}_{E}(q,m,n)+z)\big[A((1+\lambda)q,0,0)-A(q,m,n)\big]\\
+ &  & -w(q,m,n)z+\big(\nu(z+\overline{z}_{E}(q,m,n))-vn\big)A_{n}(q,m,n)\\
+ &  & +vnA_{m}(q,m,n)-\overline{z}_{E}(q,m,n)\phi(\overline{z}_{E}(q,m,n)+z)A(q,m,n)\Big\}\\
+(r+\theta-g)W^{F}(q,m,n) & = & \max_{0\le z\le\xi}\Big\{ z\phi(z_{I}(q,m,n)+\overline{z}_{E}(q,m,n))\big[A((1+\lambda)q,0,0)-W^{F}(q,m,n)\big]\\
+ &  & -w(q,m,n)z\Big\}\\
+ &  & -(z_{I}(q,m,n)+\overline{z}_{E}(q,m,n))\phi(z_{I}(q,m,n)+\overline{z}_{E}(q,m,n))W^{F}(q,m,n)\\
+ &  & -gqW^{F}(q,m,n)\\
+ &  & +\big(\nu(z_{I}(q,m,n)+\overline{z}_{E}(q,m,n)-vn)\big)A_{n}(q,m,n)+vnA_{m}(q,m,n)\\
+(r+\theta-g)W^{NC}(q,m,n) & = & vW^{F}(q,m,n)-gqW_{q}^{NC}(q,m,n)\\
+ &  & +\big(\nu(z_{I}(q,m,n)+\overline{z}_{E}(q,m,n))-vn\big)W_{n}^{F}(q,m,n)\\
+ &  & +vnW_{m}^{F}(q,m,n)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Helps to write down entrant optimality conditions.
+ Due to the fact that entrant R&D functions are individually CRS, if an
+ entrant is producing R&D they are producing at a corner, 
+\begin_inset Formula $z_{E}(q,m,n)=\xi$
+\end_inset
+
+ and 
+\begin_inset Formula $z_{E}^{B}=\xi$
+\end_inset
+
+.
+ When R&D knowledge 
+\begin_inset Formula $q$
+\end_inset
+
+ is common knowledge, free entry determines the mass 
+\begin_inset Formula $M(q)$
+\end_inset
+
+ of firms attempting innovation.
+ Since there is free entry, we have 
+\begin_inset Formula $W^{F}=0$
+\end_inset
+
+ Thus, the free entry condition boils down to
+\begin_inset Formula 
+\[
+\phi(z_{I}^{B}(q)+M(q)\xi)\big[A((1+\lambda)q,0,0)\big]=w(q,m,n)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Worker optimality: workers must be indifferent between all types of labor
+ in equilibrium.
+ Hence, 
+\begin_inset Formula 
+\[
+w(q,m,n)=\overline{w}+\nu W^{NC}(q,m,n)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Labor allocation satisfying 
+\begin_inset Formula 
+\[
+L^{F}+L^{I}+L^{RD}=1
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\[
+L^{RD}=\int_{0}^{1}l_{j}^{RD}dj
+\]
+
+\end_inset
+
+and so on.
+\end_layout
+
+\end_deeper
+\end_body
+\end_document
