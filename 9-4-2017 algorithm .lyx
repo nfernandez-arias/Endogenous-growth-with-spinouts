@@ -96,7 +96,7 @@ Guess
 \begin_deeper
 \begin_layout Enumerate
 Guess 
-\begin_inset Formula $w(q,m),F(q)$
+\begin_inset Formula $w(q,m,n),F(q,n)$
 \end_inset
 
 .
@@ -119,16 +119,16 @@ Guess
 Incumbents: 
 \series default
 Solve for 
-\begin_inset Formula $A(q,m),B(q)$
+\begin_inset Formula $A(q,m,n)$
 \end_inset
 
  and policies 
-\begin_inset Formula $z_{I}^{A}(q,m),z_{I}^{B}(q)$
+\begin_inset Formula $z_{I}^{A}(q,m,n)$
 \end_inset
 
  using Moll's iterative method.
  Will take as given innovation intensity by entrants, 
-\begin_inset Formula $\overline{z}_{E}(q,m)=\xi\min(m,F(q))$
+\begin_inset Formula $\overline{z}_{E}(q,m,n)=\xi\min(m,F(q,n))$
 \end_inset
 
  (and hence 
@@ -139,11 +139,11 @@ Solve for
  HJBs are
 \begin_inset Formula 
 \begin{eqnarray*}
-(r+\theta-g)A(q,m) & = & \max_{z}\pi(q)+\theta B(q)\\
- &  & +\chi_{I}z\phi(z+\overline{z}_{E}(q,m))\big(A((1+\lambda)q,0)-A(q,m)\big)\\
- &  & -\chi_{E}\overline{z}_{E}\phi(z+\overline{z}_{E}(q,m))A(q,m)\\
- &  & +\nu(\overline{z}_{E}(q,m)+z)A_{m}(q,m)\\
- &  & -gqA_{q}(q,m)
+(r+\theta-g)A(q,m,n) & = & \max_{z}\pi(q)+\theta B(q)\\
+ &  & +\chi_{I}z\phi(z+\overline{z}_{E}(q,m,n))\big(A((1+\lambda)q,0,0)-A(q,m,n)\big)\\
+ &  & -\chi_{E}\overline{z}_{E}\phi(z+\overline{z}_{E}(q,m,n))A(q,m,n)\\
+ &  & +\nu(\overline{z}_{E}(q,m,n)+z)A_{m}(q,m,n)\\
+ &  & -gqA_{q}(q,m,n)
 \end{eqnarray*}
 
 \end_inset
@@ -151,7 +151,7 @@ Solve for
 and 
 \begin_inset Formula 
 \begin{eqnarray*}
-(r+\theta-g)B(q) & = & \max_{z}\pi(q)+\chi_{I}z\phi(z+\xi F(q))\big(A((1+\lambda)q,0)-B(q)\big)\\
+(r+\theta-g)B(q) & = & \max_{z}\pi(q)+\chi_{I}z\phi(z+\xi F(q))\big(A((1+\lambda)q,0,0)-B(q)\big)\\
  &  & -\chi_{E}\xi F(q)\phi(z+\xi F(q))B(q)\\
  &  & -gqB'(q)
 \end{eqnarray*}
@@ -167,7 +167,7 @@ and
 Entrants: 
 \series default
 Solve for 
-\begin_inset Formula $W^{NC}(q,m),W^{F}(q,m)$
+\begin_inset Formula $W^{NC}(q,m,n),W^{F}(q,m,n)$
 \end_inset
 
  and 
@@ -176,18 +176,18 @@ Solve for
 
  using Moll's iterative method.
  Define 
-\begin_inset Formula $\tau(q,m)=(\chi_{I}z_{I}(q,m)+\chi_{E}\overline{z}_{E}(q,m))\phi(z_{I}(q,m)+\overline{z}_{E}(q,m))$
+\begin_inset Formula $\tau(q,m,n)=(\chi_{I}z_{I}(q,m,n)+\chi_{E}\overline{z}_{E}(q,m,n))\phi(z_{I}(q,m,n)+\overline{z}_{E}(q,m,n))$
 \end_inset
 
  and 
-\begin_inset Formula $L(q,m)=z_{I}(q,m)+\overline{z}_{E}(q,m)$
+\begin_inset Formula $L(q,m,n)=z_{I}(q,m,n)+\overline{z}_{E}(q,m,n)$
 \end_inset
 
 .
  HJBs are 
 \begin_inset Formula 
 \begin{eqnarray*}
-(r+\theta+\tau(q,m)-g)W^{F}(q,m) & = & \max_{z}\chi_{E}z\phi(z_{I}(q,m)+\overline{z}_{E}(q,m))\big(A((1+\lambda)q,0)-W^{F}(q,m)\big)\\
+(r+\theta+\tau(q,m,n)-g)W^{F}(q,m,n) & = & \max_{z}\chi_{E}z\phi(z_{I}(q,m)+\overline{z}_{E}(q,m))\big(A((1+\lambda)q,0,0)-W^{F}(q,m,n)\big)\\
  &  & -w(q,m)z-gqW_{q}^{F}(q,m)+\nu L(q,m)W_{m}^{F}(q,m)
 \end{eqnarray*}
 
@@ -205,7 +205,7 @@ and
 Really, it comes down to setting 
 \begin_inset Formula 
 \[
-F^{*}(q)=\sup\{m:\chi_{E}\phi(z_{I}(q,m)+\overline{z}_{E}(q,m))(A((1+\lambda)q,0)-W^{F}(q,m))\ge w(q,m)\}
+F^{*}(q,n)=\sup\{m:\chi_{E}\phi(z_{I}(q,m,n)+\overline{z}_{E}(q,m,n))(A((1+\lambda)q,0,0)-W^{F}(q,m,n))\ge w(q,m,n)\}
 \]
 
 \end_inset
@@ -229,7 +229,7 @@ Check
 
 \begin_layout Enumerate
 Check 
-\begin_inset Formula $F^{*}(q)=F(q)$
+\begin_inset Formula $F^{*}(q,n)=F(q,n)$
 \end_inset
 
 .

@@ -1,0 +1,273 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Subsection*
+Hilary notes
+\end_layout
+
+\begin_layout Itemize
+FINISH EXISTING THEORETICAL WORK SLIDE
+\end_layout
+
+\begin_layout Itemize
+Be very explicit about all of the forces with non-competes in the motivation
+\end_layout
+
+\begin_layout Itemize
+Pretend they are dumb freshmen etc
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes eld
+\end_inset
+
+No welfare theorems here of course
+\begin_inset Quotes erd
+\end_inset
+
+ - explain why
+\end_layout
+
+\begin_layout Itemize
+Emphasize that this is a relevant policy question
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Most states do not enforce
+\end_layout
+
+\begin_layout Itemize
+One very important state does not enforce
+\end_layout
+
+\begin_layout Itemize
+States are trying to imitate California (Hawaii already did this!)
+\end_layout
+
+\begin_layout Itemize
+Add states that are 
+\begin_inset Quotes eld
+\end_inset
+
+thinking about changes
+\begin_inset Quotes erd
+\end_inset
+
+ to map
+\end_layout
+
+\begin_layout Itemize
+Probably even start with the policy motivation, then go to the economics
+ of it 
+\begin_inset Quotes eld
+\end_inset
+
+here's the question, it's timely and pressing, here's why we're not sure
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Open with this hook, take motivation off of road map, then put road map
+\end_layout
+
+\begin_layout Itemize
+History of non-competes in California - is this why policymakers think this?
+ Etc.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Important: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+States believe this is a unilaterally optimal policy, but this isn't sure
+\end_layout
+
+\begin_layout Itemize
+Even if it is, what about the tragedy of the commons re: the aggregate economy?
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Agglomeration stuff (not tmrw but for later)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Maybe also why Calif better - gets everyone in one place
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Further question (outside scope but interesting):
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Clearly we cant force states to enforce
+\end_layout
+
+\begin_layout Itemize
+Can we set the frame of the game states play so as to make the nash equilibrium
+ more pro enforcement? or just better in general
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+e.g.
+ (idealized) - penalize states for brain draining other states (obvioulsy
+ can't do it but would work)
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+Reorganize Data slide - problem with Crunchbase 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes eld
+\end_inset
+
+Denote as k_j
+\begin_inset Quotes erd
+\end_inset
+
+ instead of 
+\begin_inset Quotes eld
+\end_inset
+
+denote by k_j
+\begin_inset Quotes erd
+\end_inset
+
+ slide 11
+\end_layout
+
+\begin_layout Itemize
+Flowchart of worker's optimal policies (like leaving once they learn etc.)
+\end_layout
+
+\begin_layout Itemize
+Flowchart of the experiences of an R&D 
+\end_layout
+
+\begin_layout Subsection*
+Mauricio iand Charly notea
+\end_layout
+
+\begin_layout Itemize
+Make clearer the difference of patent models and this
+\end_layout
+
+\begin_layout Itemize
+Have better answers for actually how they are enforced etc
+\end_layout
+
+\begin_layout Itemize
+Slide with description of model
+\end_layout
+
+\begin_layout Itemize
+Have a better answer for how my model answers the question even though no
+ endogenous contracting and leaving out a lot of mechanisms
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Charly thinks it's cool enough to just show effects of non-competes and
+ not asking about enforcement / endogenous contracting 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Mau: Can i see brain drain in Crunchbase data?
+\end_layout
+
+\begin_layout Itemize
+Yann: 
+\end_layout
+
+\begin_layout Itemize
+Krueger: Milken institute review article on non-competes
+\end_layout
+
+\end_body
+\end_document

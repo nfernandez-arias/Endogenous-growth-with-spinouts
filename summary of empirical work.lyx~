@@ -1,0 +1,385 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Empirical evidence on effect of non-competes
+\end_layout
+
+\begin_layout Subsubsection*
+Vanilla statistical analysis (no IV, no quasi-experiments):
+\end_layout
+
+\begin_layout Itemize
+Stuart & Sorenson 2003: Liquidity events and the geographic distribution
+ of entrepreneurial activity.
+ Study biotechnology industry.
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+
+\series bold
+Results:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Weak non-compete regimes realize 217 percent higher founding rates than
+ strong non-compete regimes (raw).
+ Not driven by California - 200 percent in sample excluding.
+\end_layout
+
+\begin_layout Enumerate
+1-year lagged local IPO concentration, defined as 
+\begin_inset Formula 
+\[
+IPO_{it}=\sum_{j}\frac{\ln(\text{market cap of IPO }j)}{1+d_{ij}}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $d_{ij}$
+\end_inset
+
+ captures the distance from the location 
+\begin_inset Formula $i$
+\end_inset
+
+ to the location of IPO 
+\begin_inset Formula $j$
+\end_inset
+
+.
+ Similarly, acquisitions are 
+\begin_inset Formula 
+\[
+ACQ_{it}=\sum_{j}\frac{\ln(\text{market value of acquisition }j)}{1+d_{ij}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Regression is (heuristically) 
+\begin_inset Formula 
+\begin{eqnarray*}
+\lambda_{it} & = & \alpha_{k(i)}+\gamma_{t}+\beta X_{i,t-1}+\eta IPO_{i,t-1}+\tilde{\eta}(IPO_{i,t-1}\times NC_{i})\\
+ &  & +\xi ACQ_{i,t-1}+\tilde{\xi}(ACQ_{i,t-1}\times NC_{i})
+\end{eqnarray*}
+
+\end_inset
+
+where 
+\begin_inset Formula $\lambda_{it}$
+\end_inset
+
+ is the hazard rate of business formation in MSA 
+\begin_inset Formula $i$
+\end_inset
+
+ at time 
+\begin_inset Formula $t$
+\end_inset
+
+, 
+\begin_inset Formula $\alpha_{k(i)}$
+\end_inset
+
+ is a state fixed effect (
+\begin_inset Formula $k(i)$
+\end_inset
+
+ is the state of MSA 
+\begin_inset Formula $i$
+\end_inset
+
+), 
+\begin_inset Formula $\gamma_{t}$
+\end_inset
+
+ is a time fixed-effect, 
+\begin_inset Formula $X_{i,t-1}$
+\end_inset
+
+ are MSA controls (lagged one period), 
+\begin_inset Formula $IPO_{i,t-1},ACQ_{i,t-1}$
+\end_inset
+
+ are defined as in (b) above, and 
+\begin_inset Formula $NC_{i}$
+\end_inset
+
+ is a dummy which equals 1 if non-competes are enforced.
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+It's actually not a regression, really
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Relevant result is that 
+\begin_inset Formula $\tilde{\eta}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{\xi}$
+\end_inset
+
+ are both statistically significant and negative: 
+\begin_inset Formula $\tilde{\eta}\approx-0.01$
+\end_inset
+
+, 
+\begin_inset Formula $\tilde{\xi}\approx-0.02$
+\end_inset
+
+.
+ The way they interpret: the median IPO ($61 million valuation) occurring
+ in an MSA in a weak enforcement state (i.e.
+ 
+\begin_inset Formula $d_{ij}=0$
+\end_inset
+
+?) increases the founding rate in that MSA by 26% (statisticaly significant)
+\begin_inset Quotes erd
+\end_inset
+
+; in enforcing states, the effect is non statistically significantly different
+ from zero.
+ Similarly, the median acquisition ($262 million valuation) in an MSA by
+ a non-biotech enterprise generates a 50% increase in founding rate (in
+ weak enforcement states).
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Notes: 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+No consideration of endogeneity in this relationship, etc.
+ so maybe not getting the true causal effect.
+\end_layout
+
+\begin_layout Enumerate
+Not very surprising: of course you should expect more spinoffs after an
+ IPO than 
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Subsubsection*
+Instrumental variables
+\end_layout
+
+\begin_layout Itemize
+Samila and Sorenson 2011: 
+\begin_inset Quotes eld
+\end_inset
+
+Noncompete covenants - incentives to innovate or impediments to growth
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+
+\series bold
+Results:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Use national average endowment returns as instrument for supply of venture
+ capital - when local institutional investors randomly have high returns,
+ some of these go into local venture capital funds (assumption: venture
+ capital portfolios are local, the rest of the portfolio is not).
+ i.e.
+ depends on 
+\begin_inset Quotes eld
+\end_inset
+
+home bias
+\begin_inset Quotes erd
+\end_inset
+
+ assumption
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Assumption documented in Sorenson and Stuart 2001
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Find that 
+\series bold
+exogenous increases in supply of venture capital increase start-up activity,
+ patenting, employment, and payroll more in regions that do not enforce
+ non-competes / enforce them weakly versus enforce them fully.
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Quantitative: 
+\series default
+states which do not enforce agreements have an elasticity to supply of venture
+ capital that is twice / three times as high as states which do enforce.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Notes:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Consistent with my story.
+ Startups / spinouts are funded by venture capital, so in regional economies
+ where new ideas are more likely to be implemented in spinouts / start-ups
+ than inside existing firms, VC supply has a larger effect.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Size of coefficients suggests that many of these 
+\begin_inset Quotes eld
+\end_inset
+
+new jobs
+\begin_inset Quotes erd
+\end_inset
+
+ are in existing firms - that there is a positive feedback loop.
+ For, if all of the new jobs came from startups, the average start-up would
+ need to employ 150 people.
+ Interesting on its own (evidence of spillovers from startups to existing
+ firms), but doesn't contradict my story, either (in my story, enforcing
+ states wouldn't be as sensitive to local supply of VC funding, but it doesn't
+ mean that they don't have even larger responses to local injections of
+ capital more generally, since VC focuses on funding startups).
+ 
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Subsubsection*
+Michigan natural experiment
+\end_layout
+
+\begin_layout Itemize
+Marx, Singh Fleming RP 2015: analyze NBER patent database to identify emigration
+ of inventors from Michigan.
+ Sample: inventors with at least two patents, at least one of which is before
+ MARA.
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Descriptive: rate of emigration from Michigan grew from 0.24% to 0.32% between
+ 1975-1985 and 1985-1996, while the rate of emigration from non-enforcing
+ states 
+\emph on
+fell 
+\emph default
+from 0.20% to 0.13% between 1975-1985 and 1985-1996.
+\end_layout
+
+\begin_layout Enumerate
+Causal: based on logit model authors conclude Michigan resident goes from
+ 0.04% to 0.31% after, and non-Michigan goes from 0.04% to 0.07% afterwards
+\end_layout
+
+\end_deeper
+\end_body
+\end_document

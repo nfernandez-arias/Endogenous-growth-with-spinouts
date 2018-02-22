@@ -1,0 +1,7 @@
+\beamer@sectionintoc {1}{Data}{9}{0}{1}
+\beamer@sectionintoc {2}{Model}{10}{0}{2}
+\beamer@subsectionintoc {2}{1}{Overview}{10}{0}{2}
+\beamer@subsectionintoc {2}{2}{R\&D and knowledge spillovers}{13}{0}{2}
+\beamer@subsectionintoc {2}{3}{Optimization}{17}{0}{2}
+\beamer@subsectionintoc {2}{4}{Equilibrium}{22}{0}{2}
+\beamer@sectionintoc {3}{Extensions}{23}{0}{3}

@@ -1,0 +1,83 @@
+%% LyX 2.2.3 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{babel}
+\begin{document}
+
+\title{Computer Algorithm: }
+\maketitle
+
+\subsection*{High-level overview and logic}
+
+A ``good'' computer algorithm does two things. (1) It decompose
+the larger problem into a nested (i.e. recursive) sequence of smaller
+problems (e.g. in this case, fixed point problem for an operator on
+a lower-dimensional vector space); and (2) each of these subproblems
+is guaranteed to have a solution. The purpose of (1) is that it makes
+it more clear how to update a guess. With a scalar problem this is
+often as simple as checking one inequality. The purpose of (2) is
+to make this procedure coherent. In general (1) is easy \textendash{}
+even trivial \textendash{} to accomplish: simply split up a large
+dimensional guess/verify/update into a series of guesses and verifications
+and updates. But to accomplish (1) while accomplishing (2) as well
+requires some economic logic, i.e. the inner problem is a partial
+equilibrium model given a guess in an outer problem. 
+\begin{enumerate}
+\item Find $L^{F}$ that satisfies the resource constraint on labor. To
+do this, need to guess $L^{F}$, then...
+\begin{enumerate}
+\item Compute growth rate given $L^{f}$. To do this, need to guess growth
+rate $g$, then... 
+\begin{enumerate}
+\item Compute (partial)-equilibrium given $L^{f},g$. To do this, need to
+guess $w(q,m,n)$, then...
+\begin{enumerate}
+\item Compute Nash equilibrium given $L^{f},g$ and $w(q,m,n)$.\footnote{Conjecture: pure strategy NE exists and is unique. Reasoning: }
+\end{enumerate}
+\item Then can check consistency: $w(q,m,n)+\nu W^{NC}(q,m,n)=\overline{w}$
+\end{enumerate}
+\item Then check consistency: $g=g^{*}$ where $g^{*}$ is computed by simulating
+the model over time
+\end{enumerate}
+\item Then check consistency: $L^{F}+L^{I}+L^{RD}=1$.
+\end{enumerate}
+
+\subsection*{Details}
+
+The details that are missing are the following: 
+\begin{enumerate}
+\item Initial guesses for (indicated by subscript $0$)
+\begin{enumerate}
+\item $L_{0}^{F}$
+\item $g_{0}(L^{F})$
+\item $w_{0}(q,m,n|g,L^{F})$
+\end{enumerate}
+\item Update rules (indicated by subscript $1$):
+\begin{enumerate}
+\item $ $
+\item $w_{1}(q,m,n)$
+\item $g_{1}$
+\end{enumerate}
+\item Guess $L^{f}$
+\begin{enumerate}
+\item Guess $g$
+\begin{enumerate}
+\item Guess $w(q,m,n)$
+\begin{enumerate}
+\item Compute Nash Equilibrium of innovation race game between incumbent
+firms and entrant firms, assuming they can hire exactly what workers
+they want at exogenous wage $w(q,m,n)$. 
+\item Involves initial guesses of $z_{E}(q,m,n)$, $F^{*}(q,n)$ and/or
+$z_{I}(q,m,n)$. 
+\item Outputs policy functions $z_{E}(q,m,n)=\xi\min(m,F^{*}(q,n)$ and
+$z_{I}(q,m,n)$, as well as value functions $A(q,m,n),W^{NC}(q,m,n),W^{F}(q,m,n)$.
+\end{enumerate}
+\end{enumerate}
+\end{enumerate}
+\end{enumerate}
+
+\end{document}

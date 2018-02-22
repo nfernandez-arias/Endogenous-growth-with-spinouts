@@ -1,0 +1,31 @@
+%% LyX 2.2.3 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{babel}
+\usepackage{amsmath}
+\begin{document}
+The PDE is 
+\[
+W(q,m,n)=-qW_{q}+nW_{m}+(K-n)W_{n}+\max(0,C[A-W(q,m,n)]-D)
+\]
+
+Simplified, but I don't think it affects the answer. Just removed
+some multiplicative constants. Can be simplified further if it's easier
+to think about, 
+\[
+W(q,m,n)=-qW_{q}+nW_{m}+(K-n)W_{n}+C[A-W(q,m,n)]-D
+\]
+
+I think I have the boundary conditions 
+
+\begin{align*}
+W_q(0,m,n) &= 0 \\
+W_m(q,\overline{m},n) &= 0
+\end{align*}
+
+but I don't think I have an analogous one for $W_n(q,m,n^*)$.
+
+
+\end{document}

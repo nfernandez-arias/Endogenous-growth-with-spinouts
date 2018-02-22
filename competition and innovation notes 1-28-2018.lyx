@@ -1,0 +1,220 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "lmodern" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 11
+\spacing onehalf
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Competition and Innovation Incentives
+\end_layout
+
+\begin_layout Itemize
+The standard way to augment the Aghion & Howitt endogenous growth model
+ to account for competition is to posit a certain number of firms engaging
+ in a patent race.
+ Competition is then simply the degree of collusion in the product market
+ when firms are neck-and-neck.
+ 
+\end_layout
+
+\begin_layout Itemize
+More competition makes 
+\begin_inset Formula $\pi_{0}$
+\end_inset
+
+, flow profits when neck-and-neck, lower.
+\end_layout
+
+\begin_layout Itemize
+Thus 
+\begin_inset Formula $\pi_{1}-\pi_{0}$
+\end_inset
+
+, the flow increase from becoming the leader, is higher, increasing the
+ incentives for neck-and-neck firms to innovate.
+ This is the 
+\begin_inset Quotes eld
+\end_inset
+
+escape competition
+\begin_inset Quotes erd
+\end_inset
+
+ effect.
+\end_layout
+
+\begin_layout Itemize
+At the same time, the incentive to innovate is made smaller for impatient
+ laggard firms.
+ 
+\end_layout
+
+\begin_layout Itemize
+The problem with this? 
+\emph on
+This does not really capture what we mean by 
+\begin_inset Quotes eld
+\end_inset
+
+increased competition.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+When competition increases, flow profits when neck-and-neck decrease.
+ But we keep constant the number of firms engaging in the patent race, which
+ might be shutting down an important mechanism by which more competition
+ reduces the expected length of a monopoly.
+ 
+\end_layout
+
+\begin_layout Itemize
+Of course, this can still happen endogenously in the above model.
+ 
+\end_layout
+
+\begin_layout Itemize
+But the key point is: harsher competition between the same number of competitors
+ is not the only form of 
+\begin_inset Quotes eld
+\end_inset
+
+more competition
+\begin_inset Quotes erd
+\end_inset
+
+; simply having more competitors could have different effects in this case.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Moreover: is it 
+\emph on
+efficient 
+\emph default
+to incentivize innovation in this way?
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+By lowering 
+\begin_inset Formula $\pi_{0}$
+\end_inset
+
+, we increase the private benefits to innovation.
+ Essentially, by eliminating the neck-and-neck firms' pseudo-monopoly position,
+ we give the monopoly rents to the consumers.
+ But now the neck-and-neck firms act like entrants engaging in 
+\begin_inset Quotes eld
+\end_inset
+
+business stealing
+\begin_inset Quotes erd
+\end_inset
+
+ - except the rents they are stealing are the consumers'.
+ This is fine, though, because they do not steal 
+\end_layout
+
+\begin_layout Itemize
+The private benefits to the neck and neck firms are the social benefits
+ plus the fact that they now get more of the social pie.
+ So they will invest inefficiently high amounts.
+\end_layout
+
+\begin_layout Itemize
+If for some reason you had too little innovation, this could be good.
+ But is this the case here? While the laggard firms may have a small incentive
+ to innovate...shouldn't they? If anything, as laggards, they innovate 
+\emph on
+too much 
+\emph default
+in equilibrium, since they are trying to steal business from incumbents...
+\end_layout
+
+\begin_layout Itemize
+But what if you had a complete monopoly? All of the surplus goes to the
+ incumbent.
+ If all the surplus goes to the incumbent, you have a Pareto-efficient level
+ of innovation.
+ When you start adding 
+\end_layout
+
+\end_deeper
+\end_body
+\end_document

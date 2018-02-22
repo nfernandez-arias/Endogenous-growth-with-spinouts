@@ -1,0 +1,722 @@
+%% LyX 2.2.3 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[12pt,english]{article}
+\renewcommand{\rmdefault}{cmr}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{setspace}
+\onehalfspacing
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% Special footnote code from the package 'stblftnt.sty'
+%% Author: Robin Fairbairns -- Last revised Dec 13 1996
+\let\SF@@footnote\footnote
+\def\footnote{\ifx\protect\@typeset@protect
+    \expandafter\SF@@footnote
+  \else
+    \expandafter\SF@gobble@opt
+  \fi
+}
+\expandafter\def\csname SF@gobble@opt \endcsname{\@ifnextchar[%]
+  \SF@gobble@twobracket
+  \@gobble
+}
+\edef\SF@gobble@opt{\noexpand\protect
+  \expandafter\noexpand\csname SF@gobble@opt \endcsname}
+\def\SF@gobble@twobracket[#1]#2{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+  \theoremstyle{remark}
+  \newtheorem{rem}{\protect\remarkname}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{xcolor}
+\usepackage[toc,page]{appendix}
+\definecolor{winered}{rgb}{0.5,0,0}
+\usepackage[colorlinks=true, allcolors= winered]{hyperref}
+
+\usepackage{type1cm}
+\renewcommand\normalsize{%
+   \@setfontsize\normalsize{11.5pt}{12pt}
+   \abovedisplayskip 12\p@ \@plus3\p@ \@minus6\p@
+   \abovedisplayshortskip \z@ \@plus3\p@
+   \belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@
+   \belowdisplayskip \abovedisplayskip
+   \let\@listi\@listI}\normalsize 
+
+\makeatother
+
+\usepackage{babel}
+  \providecommand{\remarkname}{Remark}
+
+\begin{document}
+
+\title{Non-compete Covenants: Knowledge Spillovers, Hold-ups, and Economic
+Growth through Innovation}
+
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Introduction}
+
+There is a large literature considering the optimal enforcement of
+non-competes (for an excellent survey, see Marx \& Fleming 2012).
+The tentative consensus that has emerged is that enforcement of non-competes
+is bad for workers and bad for growth. In fact, starting with Gilson
+1999, many authors have ascribed Sililcon Valley's displacement of
+former high-tech hub Route 128 to California's blanket refusal to
+enforce such contracts.\footnote{Citation.} This story receives support
+from a variety of empirical papers, exploiting both time-series and
+cross-sectional variation (across US states) in the enforcement of
+non-competes.\footnote{Cite relevant literature here.}
+
+One may be tempted to conclude from this body of work that non-compete
+agreements deter growth (I certainly am). Yet the evidence does not
+yet fully support this view. Especially in light of evidence from
+Marx et. al. 2015 that there is brain drain from enforcing states
+to nonenforcing states, the overperformance of non-enforcing jurisdictions
+could simply be redistribution of economic activity rather than aggregate
+economic growth.\footnote{Need to do back-of-the-envelope calculation with estimates from that
+paper.} More broadly, to date there has not been an aggregate welfare analysis
+using a workhorse general equilibrium macroeconomic model of long-run
+industry evolution.
+
+There are three main questions that can in principle be answered with
+a general equilibrium model and not with the kinds of studies that
+have so far been conducted. First, welfare in an economy where all
+workers are bound by non-competes can be compared to welfare in an
+economy where non-competes are not enforced. Next, can we write a
+general equilibrium model with enforcing and non-enforcing regions
+which can reproduce the existing empirical evidence (i.e. brain drain
+causing differential performance). Finally, in reality, workers and
+jobs are heterogeneous, so that in certain cases non-competes have
+relatively more pros than cons. In this vein, one can ask the question:
+to what extent does the market endogenously assign / enforce non-competes
+to workers whose consequent lack of mobilty is on balance relatively
+less harmful to the aggregate economy?\footnote{e.g. principal agent problems ``Should you make your employee sign
+a non-compete'' paper.} 
+
+The contribution of this paper is to provide a theoretical framework
+for conducting an analysis of the first question above. I develop
+a model based on Klette \& Kortum 2004 (itself a modification of Hopenhayn
+1992), endogenizing knowledge spillovers by way of worker flows. To
+perform this analysis the model must be rich enough to include the
+various decisions by employers and employees that can be distorted
+by the presence of non-competes. These include firm investments in
+R\&D, firm investments in the worker's human capital, and employee's
+investments in their own human capital. \footnote{The model, by necessity, must have many parameters or assumptions
+(about relationships between the fewer assumed parameters). There
+is no way around this. I will offer some guidance as to how to obtain
+empirical discpiline on these parameters. My hope is that the policy
+prescriptions to emerge from my analysis will depend in a clear way
+on certain key elasticities, which will suggest a future path for
+research to uncover these for different industries. } 
+
+The paper connects three literatures: (1) the work on the contribution
+of entrants / incumbents to aggregate growth. Haltiwanger et. al.
+2015, Akcigit \& Kerr 2017\footnote{They actually suggest using their model to study non-compete enforcement,
+but they only have in mind startups, not workers moving around across
+incumbents. Moreover, I had this idea before I finished reading their
+paper...}, Acemoglu \& Cao (sp?) 201x; and (2) the work on spillovers / startups
+due to employee flows such as Franco \& Filson 2006, Klepper \& Sleeper,
+and others; and (3) the more general literature on industry dynamics
+and the effects on growth of changing rates of entry and reallaction
+(c.f. Acemoglu, Akcigit et. al. ``Investment Reallocation and Growth'',
+Klette \& Kortum itself, and so on). 
+
+In a standard quality ladder model (i.e. Aghion \& Howitt, Grossman
+\& Helpman), agents invest in knowledge capital because it allows
+them to earn, for a time, monopoly profits. When entering, entrants
+\emph{creatively destroy }incumbents' monopoloy positions, leading
+their pivate payoff from innovation to be higher than the social payoff;
+simultaneously, incumbents (and entrants) do not enjoy all the social
+benefits of their investments (since there will be spillovers), hence
+they underinvest in knowledge relative to the social optimum. Depending
+on parameters, one force is stronger than the other and the decentralized
+equilibrium exhibits too much or too little innovation relative to
+the first-best. My model builds on these models by endogenizing the
+mechansim by which knowledge diffuses through the economy. In particular,
+\emph{using }knowledge requires employing workers, and this inevitably
+\emph{diffuses }that knowledge, harming one's monopoly poisition. 
+
+Franco \& Filson 2006 (\cite{franco_filson2006}) study a model of
+knowledge creation, diffusion and spinoffs in which the competitive
+equilibrium is Pareto optimal. In their model, however, there is no
+creative destruction: if someone imitates my knowledge, the profits
+I earn from my knowledge do not decrease. The only externality is
+that of knowledge spillover, and this externality is internalized
+in equilibrium by high-knowledge firms paying lower wages. The outcome
+is hence Pareto optimal.
+
+My model differs due to the creative destruction. In the absence of
+some contract that prevents this spillover, the private value of knowledge
+in the economy decreases. It is not enough for employees to ``compensate''
+the creator of knowledge by paying them the social value of the knowledge,
+because in equilibrium, the inability to sustain monopoly power leads
+knowledge to be worth less. To see the intuition most clearly, consider
+a case that does not appear in the model but illustrates the concept
+most clearly: an auction. Suppose that I can put in effort to uncover
+the true value of the item being auctioned, but that I can only do
+so by hiring at least one other person. Suppose that I also cannot
+prevent this person from using the knowledge, but that there is a
+competitive fringe of such agents that I may choose to hire. In equilibrium,
+they will compete against each other and hence will compensate me
+for the knowledge they will extract from the match. However, they
+also internalize the fact that they will have to compete with me in
+the auction, and hence neither of us will have a surplus. The knowledge
+is worth nothing in equilibrum, and I will not invest to obtain it. 
+
+\footnote{\textbf{DEPRECATED: }The logic is essentially that spinning out is
+a weakly positive sum game; as a result, employees will be willing
+to take lower wages that exactly compensate (or even more than fully
+compensate) the incumbents for the leaking knowledge. To break this
+result (and create a need, either individually or in aggregate, for
+noncompete agreements), we need to make spinouts a negative-sum game.
+This can be accomplished in multiple ways. Workers can be made risk-averse
+(they compete with other spinouts, and cannot insure against this
+idiosyncratic risk); financial frictions can be introduced to make
+spinning out more costly; firms can have private information about
+the quality of knowledge the worker will learn (many ways to model
+this) \textendash{} adverse selection problem leads to market unraveling,
+which is the just the same thing as everyone being bound by non-competes.}
+
+Finally, can this model be used to explain any macroeconomic series,
+such as the decrease in dynamism (specifically, decrease in short-term
+jobs)? Well, an increase in the use of non-competes certainly {*}could{*}
+in principle, but I don't think it's a decrease in the turnover rate
+of high-skill jobs that's really causing this shift. It seems like
+it's short-term work (potentially the rise of temp agencies etc.)
+that does this. Plus, I'm not really that interested in this...sure,
+that would make this a more traditional ``macro-labor'' paper, but
+whatever...this is a legitimately interesting question, in my opinion,
+and my model is a step closer to knowing the answer than anything
+out there..
+\begin{rem}
+My model has bite to the extent that R\&D decisions are affected by
+the presence of non-competes. There are two types of distortions in
+my model, each of which affects both types of firms (incumbents and
+entrants).
+\end{rem}
+\begin{enumerate}
+\item Invest less in R\&D because it increases the rate of increase of competition
+(idea is spilled over to more people). I.e. {*}the act{*} of investing
+in R\&D reduces your monopoly position (in this case, a monopoly on
+R\&D on this product line). 
+\item Invest less in R\&D because the ``prize'' of a monopoly position
+is less valuable, due to increased rate of creative destruction.
+\end{enumerate}
+This \emph{does not }appear to capture standard arguments:
+\begin{enumerate}
+\item Invest less in R\&D because once you have the idea, producing with
+it leads to competition. 
+\item Invest less in worker's human capital (because, once you invest in
+it, they can leave - principal agent issues with long-term wage contracts).
+\item Worker's investment in their own human capital (similar arguments).
+\end{enumerate}
+This makes the whole paper a bit unsatisfying, but remember: this
+is a first pass. Other versions of the model could incorporate these
+other factors. 
+\begin{rem}
+There is an issue in my model that stems from the interaction of the
+2-d continum across goods and across entrants within a good, and the
+fact that any individual entrant's arrival destroys every other entrant's
+intellectual property. In AK 2017, the authors write the following
+HJB for a potential entrant (simplifying some stuff for exposition):
+\[
+rV_{0}=\max_{x_{e}}x_{e}\Big[V(q_{j}+\overline{q})-V_{0}\Big]-x_{e}\overline{q}\nu
+\]
+
+However, as is commonly done, the dependence on $t$ stands in for the underlying dependence of the value $V_0$ on the aggregate state $q(\cdot)$. The
+fully recursive HJB is:
+\begin{eqnarray*}
+rV_{0}(q(\cdot)) & = & \max_{x_{e}}x_{e}\Big[V(q_{j}+\lambda\overline{q})-V_{0}(q(\cdot))\Big]-c(x_{e},q(\cdot))\\
+ &  & +\tau_{j}(q(\cdot))\Big[V_{0}(\tilde{q}(\cdot))-V_{0}(q(\cdot))\Big]
+\end{eqnarray*}
+
+where $\tau_{j}(q(\cdot))$ is aggregate innovation arrival rate on
+line $j$ (i.e. from a different entrant) given the aggregate state
+$q(\cdot)$, and where $\tilde{q}(\cdot)=q(\cdot)$ except at $j$,
+where $\tilde{q}(j)=q(j)+\lambda\overline{q}$. AK are free to ignore this part of the HJB because they do not need to calculate the resulting $V_0 (q(\cdot))$ to compute the equilibrium allocation. They only extract the FOC from the above, which is the same in either case. 
+
+This is not the case in my model, where I need to calculate $W^F(q,m,n)$ in order to check that workers are behaving optimally. For reference, the relevant term in the HJB in my model is 
+\[
+\tau(q,m,n)\phi(\tau(q,m,n))\Big[0-W^{F}(q,m,n)\Big]
+\]
+
+because when a different entrant successfully enters, a potential
+entrant in my model loses a positive value of intellectual capital
+(rather than simply continuing to be an entrant with the same value
+as in AK 2017). Therefore, I need to take seriously the question of
+how the intensities of own innovation and others' innovation compare
+to each other. 
+
+On the one hand, it seems that an individual entrant should consider his own intensity of winning the race to be infinitesimal compared to the intensity of someone else - the incumbent or another entrant - winning the race instead, since they are of mass 1 compared to his mass 0.
+
+On the other hand -- here is my idea to salvage this -- all of the value functions for an individual are \emph{also small}. So, while $\tau(q,m,n)$ is very large compared to $z\phi(\tau(q,m,n))di$, the reward from a successful innovation is to make the infinitesimal entrant "large" relative to $di$. So maybe these forces cancel out, and the flow value from own innovation is of the same order of magnitude as the flow loss from others' innovation. Think about this in the shower. 
+\end{rem}
+
+\section{Data and Calibration}
+
+Directly, my model generates predictions about:
+\begin{enumerate}
+\item The wage $w(\tilde{q},m)$
+\item The amount of innovation effort (hence R\&D employment / spending)
+$z_{I}(\tilde{q},m),z_{E}(\tilde{q},m),\tilde{z}_{E}$. 
+\item The growth rate, $g$. 
+\end{enumerate}
+Unfortunately, I do not have data on $\tilde{q}$ or $m$ so I cannot
+use these predictions to calibrate the model as they are written.
+There are two ways to proceed:
+\begin{enumerate}
+\item Match marginal distributions such as the raw distribution of wages,
+innovations efforts, etc. 
+\item Add ``labels'' to the model that then can be used to match to the
+data.
+\begin{enumerate}
+\item AK 2017 is an example of this. They construct a random process, the
+number of citations for a patent, that is a function of random processes
+already present in the model (and then doesn't feed back in), in a
+plausible way (larger innovations are more likely to be cited). This
+then generates a link between the model parameters and the citation
+distribution, which can be measured. 
+\item In my case, there are a few ways to do this: 
+\begin{enumerate}
+\item Let spinouts in the model correspond to spinouts in the data (if we
+can get this data), and let succesful entrants in the model (once
+knowledge required to participate in the product $j$ race becomes
+publicly known) correspond to non-spinouts in the data. Then the fraction
+of new entrants that are spinouts (or, better yet, the distribution
+across businesses of their likelihood of generating spin-outs (but
+have to normalize by size)) becomes a moment that can discipline the
+model.
+\end{enumerate}
+\end{enumerate}
+\end{enumerate}
+However, there is a problem. There is much else that, in the data,
+generates wage dispersion. Thus, in order for this calibration to
+make sense, we really want to match the residual wage dispersion. 
+
+\section{Model}
+
+{[}\textbf{THIS POINT IS WELL UNDERSTOOD AND COVERED IN ACEMOGLU'S
+TEXTBOOK.{]}} Akcigit \& Kerr 2017 (AK) assume a representative agent
+and push all heterogeneity into heterogeneity of \emph{firms }in their
+economy. Then the representative agent simply holds a portfolio of
+all firms in the economy. This is not quite microfounded in the sense
+that the agents should then have an incentive to instruct all of the
+firms to collude with each other, and hence each firm wouldn't be
+maximizing its own \emph{individual }profit. In other words, creative
+destruction externalities would be internalized. So they have simply
+abstracted away from firm ownership, but continue to assume that individual
+firms maximize their own profits. 
+
+This trick works in AK because knowledge is embodied in the \emph{firm}.
+However, the whole point of my model is that workers have the knowledge,
+and worker flows are what is behind knowledge spillovers. Thus, I
+need to have knowledge embodied in workers. Each worker will have
+a set of intermediate goods that he is capable of ``teaching'' a
+firm how to produce. Therefore there will be a bunch of different
+wages and value functions to compute, it seems completely infeasible.
+
+\subsection{Preferences and Final Good Technology}
+
+\subsubsection*{\textmd{There is a continuum of individuals indexed by $i\in[0,1]$.
+Each individual maximizes}\protect\footnote{AK uses log preferences, but I don't think it affects results (other
+than changing $r=\rho$ to $r=\rho+\dot{C}/C$)}\textmd{ 
+\[
+U=\int_{0}^{\infty}\exp(-\rho t)C(t)dt
+\]
+}}
+
+Each individual is endowed with one unit of labor that it supplies
+to the market inelastically. Individuals have access to a short-term
+risk-free bond market, with exogenous interest rate $r=\rho$. Individuals
+can also form intermediate goods firms (described below). 
+
+Individuals consume a unique final good $Y(t)$. The final good is
+produced by labor and a continuum of intermediate goods $j\in[0,1]$
+with production technology\footnote{Requiring labor input for the final good simplifies the computation
+of equilibrium.} 
+\[
+Y(t)=\frac{L^{\beta}(t)}{1-\beta}\int_{0}^{1}q_{j}^{\beta}(t)k_{j}^{1-\beta}(t)dj
+\]
+
+Here, $k_{j}(t)$ is the quantity of the intermediate good $j$ and
+$q(t)$ is its quality. Normalize the price of the final good $Y(t)$
+to be one in every period without loss of generality. The final good
+is produced competitively with input prices taken as given. From now
+on, the time index $t$ will be supressed where it causes no confusion. 
+
+There is a\textbf{ }unit mass of incument firms\textbf{ }producing
+intermediate goods in equilibrium\footnote{Don't know if it's necessary to talk about the measure $F$ here.
+My best guess is that it \emph{may }be helpful in dealing with labor
+market clearing, but I really don't understand the role of it to be
+honest. }. Each good $j\in[0,1]$ is produced with a linear technology, 
+\[
+k_{j}=\overline{q}l_{j}
+\]
+
+where $\overline{q}$ is the average quality level in the economy.
+Borrowing Assumption 1 from AK, only the leader in good $j$ will
+produce good $j$ at any given time.\footnote{This assumption implies that the price will be constant in $q$, but
+quantity sold will vary such that profit will scale with $q_{j}$.
+Alternatively, we could have assumed that $k_{j}=q_{j}l_{j}$. Then
+the CES demand structure would imply that $p_{j}=\frac{w}{(1-\beta)q_{j}}$.
+However, it would not necessarily imply that $k_{j}=k$ as in my 3rd
+year paper, since we have assumed that $q_{j}^{\beta}$, rather than
+$q_{j}$, enters the final good production function. Look into this
+eventually, it doesn't seem like an important detail. In both cases
+the growth rate of the economy is just the growth rate of $\overline{q}$.} 
+
+Individuals can supply labor in three capacities: final good production
+($L^{F}$), intermediate good production ($L^{I}$), and R\&D ($L^{RD}$).
+The labor market satisfies 
+\[
+L_{t}^{F}+L_{t}^{I}+L_{t}^{RD}\le1
+\]
+
+There is no goods market clearing condition because agents can borrow
+from abroad \textbf{{[}UNDERSTAND THIS{]}.}
+
+\subsection{Research \& Development}
+
+\subsubsection{Incumbent R\&D}
+
+Incumbent firms undertake R\&D to improve the quality of the product
+they sell. A successful R\&D project on product $j$ of quality $q$
+renders its owner an incumbent producing product $j$ with quality
+$(1+\lambda)q_{j}$. Define $\overline{z}=\int_{0}^{m_{j}}z_{l}dl+z_{I}$
+as the total innovation effort undertaken on product $j$. Innovation
+effort $z$ requires $z$ units of R\&D labor, and generates innovations
+at rate
+\[
+R_{I}(z;\overline{z})=\chi_{I}z\phi(\overline{z})
+\]
+To capture the net effect of all congestion and agglomeration externalities,
+we introduce the function $\phi$ of total innovation effort. In general
+this could have any form to reflect these externalities; here, to
+keep the model simple, we assume $\phi$ is decreasing, with $\lim_{z\to0}\phi(z)=+\infty$
+and $\lim_{z\to\infty}\phi(z)=0$. In particular, let $\phi(\overline{z})=\overline{z}^{\psi-1}$
+for $\psi<1.$ 
+
+\subsubsection{Entrant R\&D}
+
+The R\&D technology for entrants differs only in the constant $\chi_{E}$:\footnote{This constant is only introduced to increase the quantitative flexibility
+of the model. Even with $\chi_{E}=\chi_{I}$, incumbents invest in
+R\&D effort when there are no entrants (due to $\lim_{z\to0}\phi(z)=+\infty$),
+and eventually stop innovation effort as more and more R\&D startups
+are formed. (This is another prediction of my model which could be
+used to discipline the model). }
+\[
+R_{E}(z;\overline{z})=\chi_{E}z\phi(\overline{z})
+\]
+
+Note that entrants are ``small'' and do not take into account their
+effect on decreasing returns to R\&D in the sector. To pin down the
+size of an individual entrant, assume that each startup can hire at
+most $\xi>0$ units of R\&D labor. Then $\overline{z}=\int_{0}^{m_{j}}z_{l}dl+z_{I}=\xi m_{j}+z_{I}$. 
+
+Finally, when the R\&D technology becomes public, entry occurs until
+$m_{j}$ reaches the value $m_{t}(q)$ at which entrants make zero
+profits in expectation. It can be shown that 
+
+\subsection{Knowledge spillovers}
+
+\subsubsection{Details}
+
+{[}ADD SPILLOVERS FROM ENTRANTS EMPLOYING R\&D WORKERS AS WELL, IF
+POSSIBLE. COULD EVEN HAVE DIFF ABILITY TO ENFORCE NONCOMPETES{]}
+
+An individual who supplies $l_{j}$ units of R\&D labor to either
+an incumbent producing machine line $j$ of quality $q$ (to invent
+quality $(1+\lambda)q$) \textendash{} or a spin-out competing with
+this incumbent to invent $(1+\lambda)q$ \textendash{} acquires the
+ability to ``spin-off'' and compete in thee R\&D race at an instantaneous
+Poisson rate $\nu l_{j}$. \footnote{Making spillovers a function of R\&D employment, not total employment,
+both (1) makes sense intuitively, and (2) keeps the intermediate goods
+firms' \emph{good output }decision simple and static, simplifying
+the model significantly. Of course, their R\&D decision will now be
+distorted by the effect of employment on knowledge leaks. But this
+is the kind of result we want in the model - spin-outs distorting
+R\&D and growth. }\footnote{Why perform R\&D instead of simply forming a competitor of the incumbent
+producing the machine of quality $q_{j}$? We can assume they learn
+how to make machine $q_{j}$ and still preserve this behavior by adding
+something analogoous to Assumption 1 here as well. If any spin-out
+has to pay a small cost to play, and we assume that competition \emph{within
+}machine line is Bertrand (why? why not?), then no one will spin-out
+until they discover a truly superior quality product. } I conjecture that as soon as an individual acquires this knowledge,
+they will switch their R\&D labor supply to a different machine line,
+since the wage will be pushed down by workers willing to work for
+less in order to acquire this knowledge. This means that 
+\[
+\dot{m}_{j}=\nu\hat{l}_{j}
+\]
+
+where $\hat{l}_{j}$ is the amount of labor used for R\&D in sector
+$j$. 
+
+\subsection{Non-competes}
+
+In the version of the model with non-competes, workers will be unable
+to spin-out until $T_{c}$ years after leaving employment at their
+employer.\footnote{For tractability, will actually assume a Poisson process ``shocks''
+the workers out of ``employment restricted'' status. Calibrate this
+shock so that the average non-compete is $T_{c}$ years long. } During this time, the worker can work in any other industry but not
+the industry he was previously working at. However, there is a significant
+probability that the knowledge will become fully public, reducing
+the payoff to potentially attaining knowledge. 
+
+\subsection{Equilibrium}
+
+\subsubsection{Production}
+
+{[}\textbf{FIX HJBS TO TAKE INTO ACCOUNT NEW R\&D FUNCTION }- see
+stuff in notebook about finding the root of the FOC, need to use numeric
+method, but looks like objective is monotonic so can simply do binary
+search to find the zero{]}
+
+Let $\theta$ denote the (exogenous) rate at which knowledge enters
+the public domain and let $\overline{z}_{E}^{t}(q_{j},m_{j})$ denote
+the (endogenous) rate at which a new spinoff is formed in product
+line $j$ of quality $q$ at time $t$, given the efforts of the mass
+$m_{j}$ of potential entrants. Let $\pi_{t}(q_{j})$ denote the time-$t$
+flow profit to an incumbent with quality $q_{j}$ (given optimal monopolistic
+competition pricing). Let $A_{t}(q_{j},m_{j})$ denote the time-$t$
+value of a frontier firm producing a good of quality $q_{j}$ and
+mass $m_{j}$ of potential entrants\footnote{In general, $A_{t}$ would also depend on $j$. However, $j$ only
+affects the value through $q_{j}$ and $m_{j}$ so we can drop the
+$j$ superscript on $A$ and write simply $A_{t}(q,m)$. Later, we
+will normalize by the average quality level in the economy and show
+that $A_{t}(q,m)=Q_{t}A(q/Q_{t},m)$.} Then $A_{t}(q,m)$ satisfies the HJB 
+\begin{eqnarray*}
+\big(r+\theta+\tau_{t}(q,m)\big)A_{t}(q,m) & = & \max_{z}\pi_{t}(q)+\theta B_{t}(q)+z\phi(z+\overline{z}_{E})\Big[A_{t}((1+\lambda)q,0)-A_{t}(q,m)\Big]\\
+ &  & +\nu(\overline{z}_{E}(q,m)+z)\partial_{m}A_{t}(q,m)-w_{t}(q,m)z+\partial_{t}A_{t}(q,m)
+\end{eqnarray*}
+
+Let $\sigma_{t}(q_{j})$ denote the (endogenous) rate at which startups
+are formed once knowledge $q_{j}$ is in the public domain. Let $B_{t}(q_{j})$
+denote the time-$t$ value of a quality $q_{j}$ frontier firm whose
+knowledge has entered the public domain. Let $w_{t}$ denote the wage
+paid to R\&D labor when the knowledge has entered the public domain
+(this will be equal to the final goods wage in equilibrium, due to
+indifference condition). Then $B_{t}(q)$ satisfies the HJB 
+\[
+\big(r+\sigma_{t}(q)\big)B_{t}(q)=\pi_{t}(q)+\partial_{t}B_{t}(q)+\max_{z}z\phi(\overline{z}_{E}+z)[A_{t}((1+\lambda)q,0)-B_{t}(q)]-w_{t}z
+\]
+
+Maximization in the final goods sector and by the producers yields
+(see AK) 
+\[
+w_{t}=\tilde{\beta}\overline{q}_{t}
+\]
+
+where 
+\[
+\tilde{\beta}\equiv\beta^{\beta}[1-\beta]^{1-2\beta}
+\]
+
+\subsubsection{Individuals}
+
+Because individuals simply maximize the present-value of their consumption,
+and because their wages from supplying labor do not depend on their
+entrepreneurial efforts, we can simply think of the behavior of individuals
+as resulting from the separate maximization of the utilization of
+their various forms of capital: their time and their knowledge. 
+
+Individuals supply labor to production of the intermediate goods as
+well as to R\&D. Therefore, the flow value that a worker receives
+from R\&D employment must be equal to the wage rate for intermediate
+goods production,
+\[
+w_{t}=\tilde{\beta}\overline{q}_{t}
+\]
+
+\subsubsection{Spin-outs}
+
+Let $W_{t}^{NC}(q,m)$ denote the value to an individual of having
+acquired the technology to form a spin-out in a machine line of current
+quality $q$ and mass of competing entrants $m$, but bound by a non-compete
+agreement. Let $W_{t}^{F}(q,m)$ denote the value to an individual
+once the non-compete has expired ($F$ for ``Free-agent''). Individuals
+flow out of competition restriction at instantaneous Poisson rate
+$v=1/T_{c}$.\footnote{This ensures that the average length of a non-compete is $T_{c}$
+years.} Recall that ideas enter the public domain at rate $\theta$ and are
+improved upon at rate $\tau_{t}(q,m)$. In both of these events, the
+value to an individual with the technology goes to zero: in the former
+case, due to free entry; in the latter case, due to Assumption 1.
+Further, recall that $\dot{m}$ is proportional to $\hat{L}_{j}$,
+and let $\hat{L}_{t}(q,m)$ denote the equilibrium labor allocation.
+Therefore, $W_{t}^{NC}(q,m)$ satisfies the HJB 
+\[
+(r+\theta+\tau_{t}(q,m)+v)W_{t}^{NC}(q,m)=vW_{t}^{F}(q,m)+\partial_{m}W_{t}^{NC}(q,m)\hat{L}_{t}(q,m)+\partial_{t}W_{t}^{NC}(q,m)
+\]
+
+I assume that R\&D workers employed by spin-outs learn at the same
+rate as those employed by incumbents. Therefore they earn the same
+wage $w_{t}(q,m)$ whether employed by incumbents or spin-outs. Therefore,
+$W_{t}^{F}(q,m)$ satisfies the HJB 
+\begin{eqnarray*}
+\big(r+\theta+\tau_{t}(q,m)\big)W_{t}^{F}(q,m) & = & \max_{z}\Big\{ z\big[A_{t}((1+\lambda)q,0)-W_{t}^{F}(q,m)\big]-w_{t}(q,m)R_{E}(z)\Big\}\\
+ &  & +\partial_{m}W_{t}^{F}(q,m)\nu(\hat{L}_{t}(q,m)+mL_{t}^{E}(q,m))+\partial_{t}W_{t}^{F}(q,m)
+\end{eqnarray*}
+
+and $z_{E}(q,m)$ is the argmax. Note that, in contrast with the incumbent,
+individual spin-out does not take into account the effect of its level
+of employment on the spillovers of knowledge. This is because each
+individual spin-out is infinitesimal relative to the entire mass of
+spin-outs or to the mass of the incumbent. \textbf{{[}make sure this
+makes sense{]}.}
+
+The effective flow wage received by a worker, including the flow value
+of the possibility of acquiring valuable knowledge, is given by 
+\[
+w(q,m)+\nu W_{t}^{NC}(q,m)
+\]
+
+Due to Inada conditions on the R\&D technology, we know we will have
+an interior solution. Therefore workers must be indifferent between
+supplying R\&D to each type, and hence 
+\[
+w_{t}(q,m)+\nu W_{t}^{NC}(q,m)=\tilde{\beta}\overline{q}_{t}
+\]
+
+\subsubsection{BGP}
+
+Let $\tilde{q}=q/\overline{q}.$ In this section, I look for a balanced
+growth path with a stationary joint distribution of $(\tilde{q},m)$;
+where policies are functions of $(\tilde{q},m)$ and invariant over
+time\footnote{Hence so are endogenous variables such as $\tau_{t}(q,m)$.};
+and where $Q$, wages, and value functions all grow at exponential
+rate $\gamma$. 
+
+First, recall that $\pi_{t}(q)=\pi q$. Suppose we are on a BGP with
+growth rate $g$ and $B_{t}(q)=e^{gt}\tilde{B}(\tilde{q})$. Then
+\[
+\partial_{t}e^{gt}\tilde{B}(e^{-gt}q)=ge^{gt}\tilde{B}(\tilde{q})-ge^{gt}\tilde{q}\tilde{B}'(\tilde{q})
+\]
+
+and the HJB becomes, after dividing by $e^{gt}$ and rearranging,
+\begin{eqnarray*}
+\overbrace{(r+\sigma(\tilde{q})-g)}^{\text{Effective discount factor}}\tilde{B}(\tilde{q}) & = & \underbrace{\pi\tilde{q}}_{\text{Flow profits}}-\underbrace{g\tilde{q}\tilde{B}'(\tilde{q})}_{\text{Obsolescence}}
+\end{eqnarray*}
+
+Next, suppose $A_{t}(q,m)=e^{gt}\tilde{A}(\tilde{q},m)$. Then 
+\[
+\partial_{t}e^{gt}\tilde{A}(\tilde{q},m)]=ge^{gt}\tilde{A}(\tilde{q},m)-ge^{gt}\tilde{q}\partial_{q}\tilde{A}(\tilde{q},m)
+\]
+
+and the HJB becomes
+\begin{eqnarray*}
+\big(r+\theta+\tau(\tilde{q},m)-g\big)\tilde{A}(\tilde{q},m) & = & \overbrace{\pi\tilde{q}}^{\text{Flow profit}}+\overbrace{\theta\tilde{B}(\tilde{q})}^{\text{Knowledge becomes public}}-\overbrace{g\tilde{q}\partial_{q}\tilde{A}(\tilde{q},m)}^{\text{Obsolescence}}\\
+ &  & +\max_{z}\Big\{\underbrace{z\big[\tilde{A}((1+\lambda)\tilde{q},0)-\tilde{A}(\tilde{q},m)\big]}_{\text{Expected flow capital gain from R\&D}}\\
+ &  & +\underbrace{\partial_{m}\tilde{A}(\tilde{q},m)(\nu R_{I}(z)+L_{E}^{R}(\tilde{q},m))}_{\text{Knowledge spillover cost of R\&D}}-\underbrace{w(\tilde{q},m)R_{I}(z)}_{\text{Direct cost of R\&D}}\Big\}
+\end{eqnarray*}
+
+Next, consider the value function $W_{t}^{NC}(q,m),W_{t}^{F}(q,m).$
+Supposing $W_{t}^{NC}(q,m)=e^{gt}\tilde{W}^{NC}(\tilde{q},m)$ and
+$W_{t}^{F}(q,m)=e^{gt}\tilde{W}^{F}(\tilde{q},m)$, have
+\begin{eqnarray*}
+\partial_{t}[e^{gt}W^{NC}(e^{-gt}q,m)] & = & ge^{gt}W^{NC}(e^{-gt}q,m)-ge^{gt}\tilde{q}\partial_{\tilde{q}}W^{NC}(e^{-gt}q,m)\\
+\partial_{t}[e^{gt}W^{F}(e^{-gt}q,m)] & = & ge^{gt}W^{F}(e^{-gt}q,m)-ge^{gt}\tilde{q}\partial_{\tilde{q}}W^{F}(e^{-gt}q,m)
+\end{eqnarray*}
+
+The HJBs become
+\begin{eqnarray*}
+(r+\theta+\tau(\tilde{q},m)+v-g)\tilde{W}^{NC}(\tilde{q},m) & = & \overbrace{v\tilde{W}^{F}(\tilde{q},m)}^{\text{Expiry of non-compete}}+\overbrace{\partial_{m}\tilde{W}^{NC}(\tilde{q},m)\nu L^{R}(\tilde{q},m)}^{\text{Loss of rents due to knowledge spillovers}}\\
+ &  & -\underbrace{g\tilde{q}\partial_{\tilde{q}}\tilde{W}^{NC}(\tilde{q},m)}_{\text{Obsolescence}}\\
+(r+\theta+\tau(\tilde{q},m)-g)\tilde{W}^{F}(\tilde{q},m) & = & \overbrace{\max_{z}\Big\{ z\big[\tilde{A}((1+\lambda)\tilde{q},0)-\tilde{W}^{F}(\tilde{q},m)\big]-w(\tilde{q},m)R_{E}(z)\Big\}}^{\text{(Net) flow value from R\&D}}\\
+ &  & +\underbrace{\partial_{m}\tilde{W}^{F}(\tilde{q},m)\nu(z+L_{E}^{R}(\tilde{q},m)}_{\text{Loss of rents due to knowledge spillovers}}-\underbrace{g\tilde{q}\partial_{\tilde{q}}\tilde{W}^{F}(\tilde{q},m)}_{\text{Obsolescence}}
+\end{eqnarray*}
+
+\subsubsection{Stationary joint distribution of $q$ and $m$}
+
+There is clearly no stationary distribution of $q$. But maybe of
+$q/Q$? Even then, not clear - it could spread out over time due to
+memorylessness. But whatever, just try to calculate, given $\theta,\tau_{t},z_{I}(q,m),z_{E}(q,m),\tilde{z}_{E}$
+($\tilde{z}_{E}$ is the rate of innovation by entrants once the idea
+is in the public domain). 
+
+\section{Quantitative Analysis}
+
+\subsection{Computer Algorithm 1 }
+
+I solve the model as a fixed point over $g,L^{F},\overline{z}_{E}(\tilde{q},m),\overline{z}_{E}^{0}(\tilde{q})$.
+{[}MAY NEED TO ADD ANOTHER aggregate variable, $L_{E}(\tilde{q},m)$
+because it affects rate of drift in $m$ direction{]}. The computational
+loop has the following steps:
+\begin{enumerate}
+\item Guess $g,L^{F},\overline{z}_{E}(\tilde{q},m),\overline{z}_{E}^{0}(\tilde{q})$.
+Compute $\pi(\tilde{q})=\pi\tilde{q}$ for $\pi=\pi(L^{F};\text{parameters})$
+\begin{enumerate}
+\item Solve for $z_{I}^{A}(\tilde{q},m),A(\tilde{q},m),z_{I}^{B}(\tilde{q}),B(\tilde{q})$
+using $\pi(\tilde{q})$ and other guesses.
+\begin{enumerate}
+\item Solve for $A,B$ and $z_{I}^{A},z_{I}^{B}$ by policy function iteration
+method used in Kaplan \& Moll's HACT papers. Do we think such a fixed
+point exists? Yes: we are essentially solving for the value of how
+much a firm would want to invest if creative destruction were exogenous
+and given by $\tau(\tilde{q},m)$ and wages were exogenous and given
+by $w(\tilde{q},m)$. This is a well-defined problem which has the
+HJB, so no reason to think it won't converge. 
+\begin{enumerate}
+\item Finding $z_{I}^{A}(\tilde{q},m)$ is harder with the new setup - there
+is no explicit expression for it. However, we can use some method
+to find a solution to the FOC. 
+\end{enumerate}
+\item Solve individual entrant problems: compute $z_{E}(\tilde{q},m)$ and
+$z_{E}^{0}(\tilde{q})$ given $A(\tilde{q},0)$.
+\begin{enumerate}
+\item Given assumptions, we will have $z_{E}(\tilde{q},m)=\xi$ as long
+as 
+\end{enumerate}
+\item Set $F=\overline{z}_{E}^{0}(\tilde{q})/z_{E}(\tilde{q},m)$.
+\item Check consistency of aggregate variables $\tau(\tilde{q},m),\sigma(\tilde{q}),w(\tilde{q},m)$
+by updating to new $\tau,\sigma$ values according to (defining $\overline{z}(\tilde{q},m)=z_{E}(\tilde{q},m)+z_{I}(\tilde{q},m)$
+and $\overline{z}_{E}(\tilde{q},m)=\min(m(\tilde{q}),m\xi)$):
+\begin{enumerate}
+\item Check consistency of $\tau$: $\tau(\tilde{q},m)=\big(\chi_{I}z_{I}(\tilde{q},m)+\chi_{E}z_{E}(\tilde{q},m)\big)\phi(\overline{z}(\tilde{q},m))$
+\item Public domain free-entry condition: $\tilde{z}_{E}A((1+\lambda)\tilde{q},0)=wR_{E}(\tilde{z}_{E},\tilde{q})=w\tilde{z}_{E}\phi(F\tilde{z}_{E})$,
+which becomes 
+\[
+A((1+\lambda)\tilde{q},0)=w\phi(F\tilde{z}_{E})
+\]
+(guaranteed to hold for some $\tilde{z}_{E}$, and same $\tilde{z}_{E}$
+for each $\tilde{q}$ as well) and set $\sigma^{+}=F\tilde{z}_{E}$.
+\item R\&D labor indifference condition: $w(\tilde{q},m)=\tilde{\beta}-\nu\tilde{A}((1+\lambda)\tilde{q},m)$
+\end{enumerate}
+\item If not converged, go to step (1ai) with new guesses for these aggregate
+variables. 
+\end{enumerate}
+\item Given $\tau,\sigma,z_{I}(\tilde{q},m)$, compute stationary joint
+distribution $\mu(q,m)$. Two ways to do this:
+\begin{enumerate}
+\item Solve Kolmogorov Forward partial differential equation.
+\item Simulate the economy for many periods starting with some initial distribution
+and policy rules computed above, and then numerically approximate
+the resulting distribution (probably easier).
+\end{enumerate}
+\item Update growth rate using $g=\lambda(\int_{0}^{\infty}\sigma(q)\mu(q,0)dq+\int_{0}^{\infty}\tau(q,m)\mu(q,m)dqdm$).
+\item If not converged, go to step (2).
+\item Finally, check labor market clearing: $L^{F}+L^{I}(L^{F})+L^{RD}(L^{F})=1$.
+If excess demand for labor, lower $L^{F}$ and return to step 1. 
+\end{enumerate}
+\end{enumerate}
+
+\subsection{Computer Algorithm 2}
+\begin{enumerate}
+\item Guess a growth rate $g$
+\begin{enumerate}
+\item Guess an R\&D labor allocation, $\hat{L}(q,m)$
+\end{enumerate}
+\end{enumerate}
+\bibliographystyle{plain}
+\nocite{*}
+\bibliography{sources}
+
+\end{document}

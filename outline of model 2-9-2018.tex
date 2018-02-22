@@ -1,0 +1,401 @@
+%% LyX 2.2.3 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+
+\title{Outline of Non-competes and Spinouts Project}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{To-do list}
+\begin{itemize}
+	\item Theory:
+	\begin{itemize}
+		\item Understand how screening with buyout menu works in business-stealing case of Shi's paper (closest analogue to my case)
+		\begin{itemize}
+			\item Suppose that there is business stealing, $\nu > 0$. Without knowledge depreciation, $\eta > 0$, still get trivial buyout menu. 
+			\item Further, to make sense of this in my model, $\eta > 0$ should really be called "relative knowledge depreciation", because it makes present value of damage to firm from worker competition decrease slower over time than value to worker 
+			\item This allows ex-ante profitable screening by using a buyout menu
+			\item Need to think more about this
+		\end{itemize}
+		\item How does Shi's "entry" extension, and light discussion, relate to my setting?
+		\begin{itemize}
+			\item For Shi, the question is the surplus division between incumbents and entrants; hence she brings in the Hosios-type logic as her conjecture for what would determine optimality
+			\item However, Shi's paper exlusively deals with the producer surplus and assumes that it is unequivocally increased by more ex-post efficient reallocation of managerial inputs. This misses the "third party": the consumer.
+			\item If more competition lowers the total value of the corporate sector (incumbents + entrants +  workers) by shifting value to consumers of its output, this interacts further with everyone's "entry" decision (i.e. reduces innovation by incumbents and spinoffs, reduces entry by spinoffs if they have to pay an entry fee, etc.)
+		\end{itemize}
+		\item Tractability of contracting in my framework
+		\begin{itemize}
+			\item Hard to make firm's problem tractable when it has multiple former employees all with different non-compete contracts
+			\item May have to bring model closer to Shi's case
+			\item Now that I've thought more, ask Ezra again about what his suggestion was...
+		\end{itemize}
+		\item Think about modeling choices - do they correspond to something in the data?
+		\begin{itemize}
+			\item Doing R\&D is what causes employee learning (so additional margin)
+			\item Entrants are infinitesimal (changes social / bilateral tradeoffs of non-competes, since entry implies more destruction of monopoly power)
+			\item Maximum scale of entrants
+		\end{itemize}
+		\item Actually solve the model
+		\begin{itemize}
+			\item Even if firms are not free to choose length of non-compete, have 3 state variables
+			\item Bring to two if they must make them permanent, then can let them choose. But big sacrifice
+			\item If firms can choose everything and multiple employees, problem explodes...
+		\end{itemize}
+	\end{itemize}
+	\item Empirical evidence:
+	\begin{itemize}
+		\item Who starts non-competes? Is it ex-managers or ex-regular employees? Would be great to have VentureOne for this; Muendler-Rauch does not discuss the previous occupation of managers of spinouts
+		\item Empirically, do R\&D workers ever buy out their non-competes? If so, is it ever a buyout clause (as with managers, and in Shi 2017), or is it ex-post renegotiation?
+		\item Kiyotaki's point: is there any way to look inside "knowledge workers" to see who uses non-competes, who doesn't, and what are the differences in the setting? This would tell me what the main frictions are.
+	\end{itemize}
+\end{itemize}
+
+
+\begin{comment}
+\section{Why are non-competes used}
+
+\subsection{Preliminaries}
+\begin{itemize}
+\item If ex-post it is always bilaterally optimal for the worker not to
+compete with the incumbent, non-competes will always be used and never
+bought out. The worker will be compensated ex-ante, receiving utility
+equal to his reservation wage plus his share of net surplus.
+\item If the worker competing is always ex-post bilaterally optimal, non-competes
+can still be ex-ante optimal:
+\begin{itemize}
+\item If value of knowledge is too high, making initial worker wages without
+non-competes low / negative, financial frictions can get in the way,
+making this infeasible.
+\item Worker risk aversion
+\item Worker impatience relative to firm (perhaps due to liquidity concerns
+from financial frictions)
+\item Asymmetric information on the part of the worker about his ability
+to learn the knowledge / use it to harm the incumbent
+\end{itemize}
+\item However, given the assumption that competing is always ex-post bilaterally
+optimal, the ex-ante bilateral value of non-competes depends crucially
+on the ability of the worker to buy out the non-compete.
+\begin{itemize}
+\item Financial frictions can make ex-post buyouts unaffordable, which by
+assumption reduces 
+\item Commitment could aid this...
+\item ...but the same asymmetric information problems from above could harm
+that.
+\item In these cases, non-competes are bilaterally suboptimal.
+\end{itemize}
+\item \textbf{Caveat: }If the worker is made to sign a non-compete after
+accepting the job offer and turning down other offers (as in non-consideration
+states), the firm will seek to maximize its own utility given the
+means at its disposal. Given that the firm cannot simply lower the
+wage paid, the firm may seek to increase its utility by imposing a
+non-compete on the worker, \emph{even if }this reduces the bilateral
+value. This is an important point: the intuition that contracting
+maximizes bilateral value actually needs to be refined: it maximizes
+bilateral value \emph{among the contracts that give the worker the
+utility he gets at the optimum.} This maximizes bilateral value if
+transfers are possible, because then all feasible bilateral utility
+values result from contracts that can be modified to contracts where
+the worker receives his reservation utility.
+\end{itemize}
+
+\subsection{A more realistic setting}
+\begin{itemize}
+\item If in some states it is optimal, and in some states suboptimal, for
+the worker to compete with the incumbent, then non-competes will be
+used.
+\item My model is basically: unmodeled contracting, financial and information
+frictions prevent ex-post renegotiation, firms face the choice between
+non-competes or not, they choose non-competes. Depending on the model
+structure they will either be long or short. 
+\end{itemize}
+
+\end{comment}
+
+\section{Effect of non-compete enforcement: some stylized facts}
+\begin{enumerate}
+\item Non-enforcing regions exhibit a larger response of entrepreneurship,
+patenting, employment, and income to exogenous increases in the supply
+of VC funding (Samila-Sorenson 2011).
+\begin{enumerate}
+\item NB: I am skeptical of this, since they do not allow for population,
+or composition of population, to mediate the effect of VC funding
+increases. Since higher-impact, more collaborative entrepreneurs tend
+to relocate to non-enforcing regions (Marx 2015), local population
+of potential innovators / entrepreneurs etc. would be negatively correlated
+with non-compete enforcement, biasing the results in the direction
+of their conclusion.
+\end{enumerate}
+\item Exogenous increase in enforcement leads to less frequent job switching;
+the effect is stronger for workers with firm-specific skills or who
+specialize in narrow technical occupation (Marx 2009).
+\item Exogenous increase in enforcement leads to brain drain of inventors
+/ knowledge workers towards non-enforcing regions; the effect is stronger
+for higher-impact, more collaborative workers (Marx 2015).
+\item Non-enforcing states have higher mobility, higher wages and higher
+wage growth (Balasubramaniam 2017). 
+\begin{enumerate}
+\item NB: I am a bit skeptical of this result because are we really comparing
+the same worker, same firm? They take steps to justify this, need to re-read closely.
+\end{enumerate}
+\item Wages only don't get a boost in non-Consideration enforcing states;
+wages and training higher in (consideration) enforcing states (Starr
+2015 ``Consider this...'')
+\item In Brazilian data, spinouts take on 23\% of employees of incumbent with them on average (Muendler et al 2012)
+\end{enumerate}
+
+
+\subsection{Caveat on stylized facts}
+\begin{itemize}
+	\item Difficult to explain Fact 5 in a rational model.
+	\item Moreover, Fact 5 suggests that Facts 1-4 also can only be explained with a non-rational model. 
+	\item Would be nice to have a version of Facts 1-4, but focusing on the difference between non-enforcing states and on states that enforce but require due "consideration"
+\end{itemize}
+
+\section{Model}
+
+The model builds on neo-Schumpeterian endogenous growth theory, specifically the work of Aghion-Howitt and Grossman-Helpman, via Hopenhayn 1992, Klette-Kortum 2004 and more recently Acemoglu et al 2013 and Akcigit-Kerr 2017. Time $t \ge 0$ is continuous. Essentially the model endogenizes the process of entry into the patent race for discovering the next level on the quality ladder: entrants are formed by former R\&D employees of the incumbent firm. 
+
+\subsection{Households}
+
+In this section I describe the general assumptions on households: their preferences and their labor endowment.
+
+\subsubsection{Preferences}
+
+There is a unit mass of households indexed by $i\in[0,1]$. There is
+no representative household, as competition between businesses formed
+by households is crucial to my analysis.\footnote{Equivalently, Akcigit \& Kerr 2017 assume a representative household but maintain that  
+the firms in which it holds stock do not cooperate.} Households are risk-neutral, maximizing objective function 
+\[
+U=\int_{0}^{\infty}\exp(-\rho t)C_tdt
+\]
+
+where $C_t \ge 0$ is consumption of the final good, whose production I will describe in the next section. They borrow and lend short-term on bond markets at the endogenous risk-free interest rate $r_t = \rho$. 
+
+\subsubsection{Endowment}
+
+Household $i$ is endowed with a unit flow of labor $l_t = 1$, which can be sold to final good firms ($l^F_t$), or to intermediate good firms for production ($l^I_t$) or for R\&D  ($l^{RD}_t$). Labor markets are competitive. The individual resource constraint is
+\begin{align*}
+l^F_{it} + l^I_{it} + l^{RD}_{it} \le 1
+\end{align*}
+Defining aggregate labor supply $L^m_t = \int_0^1 l^m_{it} di$ for $m = F,I,RD$, the aggregate resource constraint is 
+\begin{align*}
+L^F_t + L^I_t + L^{RD}_t \le 1
+\end{align*} 
+
+\subsection{Final goods}
+
+As in Akcigit \& Kerr 2017, final goods are produced by a competitive firm with a CRS production function,\footnote{Labor here is difficult to interpret, but adds tractability by giving a closed form for the household's reservation wage}. 
+
+\begin{align*}
+Y_t = (L^F_t)^{\beta} \int_0^1 q_{jt}^{\beta} y_{jt}^{1-\beta} dj
+\end{align*}
+
+where $q_{jt}$ is the leading edge quality of good $j$ at time $t$.\footnote{Under certain conditions on technology and competition between providers of the same good, the leading edge quality is the only quality used in equilibrium. This is meant as an abstraction to improve tractability. Formal proof in the Appendix.} There is no storage technology, so $c_{jt} = y_{jt}$ and $C_t = Y_t$ in equilibrium. Ownership of the final goods firm is irrelevant as it has zero profits in equilibrium due to CRS and perfect competition. 
+
+\subsection{Intermediate goods}
+Below I describe the assumptions on intermediate goods firms. I start by describing their production technology, then their R\&D technology and the contracting problem / frictions that lead to non-competes being used when they are enforceable. I conclude by describing the creative destruction cycle that drives productivity growth in the economy. 
+\subsubsection{Production}
+
+At any given time $t$, each good $j$ has a firm monopolizing its production, to which I refer as incumbent $j$.\footnote{As implied by the final goods production function, the intermediate goods market is monopolistically competitive} Define the average (leading) quality level in the economy by
+
+\begin{align*}
+\overline{q}_t = \int_0^1 q_{jt} dj
+\end{align*}
+
+This firm has production function $y_{jt} = \overline{q} l_{jt}^I$.\footnote{An alternative setup is to assume that $y_{jt} = q_{jt} l_{jt}^I$ and that $q_{jt}$ rather than $q_{jt}^{\beta}$ enters the final good production function. The important point, for tractability, is that equilibrium prices be such that the equilibrium allocation is $y_{jt} \equiv y_t$.}
+
+\subsubsection{Research and development}
+
+Productivity growth in the model is driven by improvements to technology for producing the intermediate good. In turn, these are driven by R\&D expenditures by incumbent firms and entrants (their spinouts). 
+\paragraph{Incumbents}
+Incumbent $j$ can hire a flow of R\&D labor $l_j$, generating a Poisson flow probability of learning a production technology for quality $(1+\lambda)q_j$. The technology for this process is
+\begin{align*}
+R_I(l_j,L_j^{RD}) \equiv \chi_I l_j \phi (L_j^{RD})
+\end{align*}
+where $L_j^{RD,m}$ for $m=I(E)$ is the total flow R\&D labor hired to work on improving good $j$ by incumbents (entrants) and 
+\begin{align*}
+L_j^{RD} = L_j^{RD,I} + L_j^{RD,E} 
+\end{align*}
+is total R\&D labor allocated to improving good $j$. The function $\phi(\cdot)$ encodes congestion and is described below; for now note that it will be assumed to be decreasing.
+\paragraph{Entrants}
+At the same time, a mass $m_j$ of entrants, indexed by $k \in [0,m_j]$, engages in R\&D. Entrant $k$ has technology 
+\begin{align*}
+R_E(l_j,L_j^{RD}) \equiv \chi_{E,k} l_j \phi (L_j^{RD})  
+\end{align*}
+where $\chi_{E,k} \ge 0$ is drawn from the distribution $G(\cdot)$.\footnote{More on this in the sub-section below labeled "Non-competes"} Total entrant R\&D is calculated as 
+\begin{align*}
+L_j^{RD,E} = \int_0^{m_j} l_{jk} dk
+\end{align*}
+In this setup, entrants are infinitesimal and hence do not take into account their effect on congestion when choosing their optimal level of R\&D activity. In order to pin down the distribution of activity across entrants, I assume an extreme form of decreasing-returns-to-scale production: entrants can hire a maximum flow of of $\xi > 0$ units of R\&D labor.\footnote{One interpretation of this assumption is that entrants have less access to capital than incumbents, making the constraint on managerial ability of the founder a more tightly binding constraint - he cannot hire more managers. Would be nice to have some empirical justification for this assumption.}
+
+\paragraph{Congestion}
+The function $\phi(\cdot)$ is a reduced form representation of congestion in the R\&D race.\footnote{It is useful to assume Inada conditions on $\phi$ and that $L\phi(L)$ is non-decreasing.} It will be assumed decreasing, so that more aggregate R\&D decreases the individual marginal return to R\&D. Two microfoundations of $\phi$ are relevant here. First, from the perspective of a large R\&D lab, such as the incumbent, there are only so many approaches that can be tried to improve on a technology. As more R\&D labor is hired, resources are allocated to less and less promising avenues, reducing marginal productivity of these resources. Second, from the perspective of any R\&D lab, incumbent or entrant, more R\&D by competitors attempting the same approach reduces the probability of being the first to succeed in innovating. This lowers the return of conducting R\&D.\footnote{This $\phi$ construction is standard in the Neo-Schumpeterian endogenous growth literature; see Acemoglu 2008  (texbook). A choice $\phi(L) = L^{-1}$ roughly represents a zero-sum game, where the aggregate arrival rate of new technologies does not depend on R\&D effort, only the allocation thereof; while a choice $\phi(L) \equiv \textrm{constant}$ represents no congestion, where technologies arrive in proportion to the aggregate spending on them. In the calibration, an intermediate case is taken; a typical choice is $\phi(L) \approx L^{-1/2}$. Typically, this is calibrated to match the elasticity of R\&D output (e.g., citation-weighted patents) to R\&D inputs (e.g. real expenditures on R\&D or R\&D employment).}
+
+\subsubsection{Creative destruction}
+
+\paragraph{Endogenous entry by spinouts}
+In the baseline Neo-Schumpeterian models of endogenous growth, there is free entry into R\&D. The mass $m_j$ is thus determined endogenously by a free-entry condition. An improvement to quality immediately spills over to the rest of the economy, becoming the base upon which all entrants innovate.  Instead, in my model, entry into R\&D can only occur by a worker who was previously employed at the incumbent \emph{and} successfully learned the technology on the job. In other words, all entrants are spinouts.\footnote{This assumption can be relaxed if we want to match data on entry by non-spinout firms} Entrants work at maximum capacity as long as R\&D is profitable in expectation, that is as long as $m_j$ is less than the mass that would prevail with free entry. 
+
+\paragraph{Timing and details of screative destruction} 
+Suppose that there is a discovery in some good $j$ with quality $q_{jt}$ at time $t$. I make one key 
+\begin{enumerate}
+	\item At the beginning of $t$, the incumbent and mass $\tilde{m} = \lim_{t' \uparrow t} m_{jt'}$ of spinouts perform R\&D
+	\item Either the incumbent or one of the spinouts wins race, discovers technology $(1+\lambda)q$, becomes new incumbent
+	\item Knowledge held by losers of race expires: mass $m$ of entrants jumps to $m_{jt} = 0$
+\end{enumerate}
+
+\subsection{Contracting: introducing non-competes, etc.}
+\begin{itemize}
+	\item Do I need to microfound the optimal contracting problem, or can I simply assume that "enforcement" means "everyone uses"? 
+	\begin{itemize}
+		\item Empirically, in tech industries most non-competes look pretty similar, and are simple contracts (e.g. no buyout menu)
+		\item However, people seem to want to know what the friction is that leads firms-employees to sign non-competes
+		\item My opinion is that it would be better to model it
+		\item To that end I have a discussion (Section 3) regarding under what circumstances the availability of non-compete clauses can increase bilateral value 
+	\end{itemize}
+	\item If we choose to model it, how do we model it? For tractability purposes, unless I switch to a framework where each firm only deals with one worker throughout its lifetime (as in Shi 2017), there are some constraints to prevent too many state variables:
+	\begin{itemize}
+		\item Non-competes must be memoryless, i.e. expiry upon arrival of a Poisson process
+		\item Short-term contracts (contracts only stipulate what happens in different contingencies that happen "later this instant" so to speak), to avoid tracking promised utilities.
+		\item All workers hired must have the same contract, to avoid keeping track of mass of agents 
+		\item Even in easiest setting, as long as non-competes are not permanent, the firm will have three state variables. Difficult problem.
+	\end{itemize}
+\end{itemize}
+The first version of the paper (in the slides) simply assumed a certain non-compete length in enforcing states without solving an optimal contracting problem. 
+
+Below I take a stab at solving a simple version of the optimal contracting problem. Throughout, I assume that ex-post renegotiation is impossible, so that non-competes simply prevent any and all spinouts. Empirically, this assumption seems to hold at least for R\&D workers. See discussion in Section 3.
+
+\paragraph{Optimal contract when $\mathcal{C} = (w,p)$}
+At each instant the firm offers a wage $w$ which is coupled with a probability $p$ that the worker is bound by a permanent non-compete. Both the firm and the worker learn whether the worker is bound by a non-compete at the moment the worker learns how to spin out. Unsurprisingly, the result will be that $p \in {0,1}$ except on a knife edge of the state space. But, at least the optimal contract can be solved pretty easily.
+
+Consider a firm in state $(q,m)$ at time $t$. I will use the fact that on a BGP, the firm's state is $(\tilde{q},m)$ and does not depend on $t$. Because of this, the endogenous growth rate $g$ will appear in some of the equations below.\footnote{Specifically, the firm will drift at rate $-g\tilde{q}$ in the $\tilde{q}$ direction of the state space and this will be reflected in the HJBs} 
+
+The firm has endogenous value $V^I(\tilde{q},m)$, which satisfies the HJB equation (omitting the arguments when clear) 
+\begin{align*}
+rV^I = \pi(q) - g\tilde{q}V^I_{\tilde{q}}+ \max_{\ell,\mathcal{C}} \Big\{ \chi_I \ell \phi\big(\ell + L^E\big)\big[V^I((1+\lambda)\tilde{q},0) - V^I\big] \\ - \chi_E L^E \phi (\ell + L^E ) V^I - \big(w + (1-p) \nu V^I_m \big) \ell \Big\}
+\end{align*}
+where the contract $C$ satisfies the participation constraint 
+\begin{align}
+w + (1-p) \nu V^E \ge \overline{w}
+\end{align}
+where $\overline{w}$ is the wage the worker can earn in the production sector. At the firm's optimum, the participation constraint will be binding, since he can attract as many workers as he needs as long as he satisfies it. Substituting the IR constraint into the firm's HJB yields 
+\begin{align*}
+rV^I = \pi(q) - g\tilde{q}V^I_{\tilde{q}}+ \max_{\ell,p} \Big\{ \chi_I \ell \phi\big(\ell + L^E\big)\big[V^I((1+\lambda)\tilde{q},0) - V^I\big] \\ - \chi_E L^E \phi (\ell + L^E ) V^I - \big(\overline{w} - (1-p)\nu V^E+ (1-p) \nu V^I_m \big) \ell \Big\}
+\end{align*}
+The choice of contract reduces then to a choice of $p$. The firm wants to maximize the value it obtains from the R\&D labor it hires. Increasing $p$ to $p + \Delta$ increases the wage paid to the employee in proportion to the non-pecuniary benefits the worker accrues by working for the firm, $\nu V^E(\tilde{q},m) \Delta$. At the same time, a higher $p$ also increases the flow value of each unit of R\&D labor in proportion to the non-pecuniary losses to the firm from the increased rate of spinouts, $\nu V_m^I (\tilde{q},m) \Delta$. On a knife-edge, $V^E(\tilde{q},m) = - V_m^I (\tilde{q},m)$ and the firm chooses an interior optimum. If instead $|V_m^I| > V^E$, the firm sets $p = 1$ and if $|V_m^I| = V^E$ the firm sets $p = 0$. 
+
+Now suppose there is randomness in the realization of $\chi_E$. Ex-post, the firm sometimes wants to allow competition, sometimes not. The only different is that the participation constraint changes to 
+\begin{align}
+w + (1-p) \nu \mathbf{E}_{\chi_E}[V^E(\tilde{q},m;\chi_E)] \ge \overline{w}
+\end{align}
+where the abuse of notation $V^E(\tilde{q},m;\chi_E)$ denotes the value the entrant will obtain conditional on the realization $\chi_E$ of his R\&D productivity. Proceeding exactly as before, conclude that the firm uses a non-compete as long as $\nu \mathbf{E}_{\chi_E}[V^E(\tilde{q},m,\chi_E)] < |V_m^I|$.\footnote{In equilibrium, as $m$ grows, the high $\chi_E$ entrants will drive out the low $\chi_E$ entrants. A prediction of the model, hence, is that the average quality of spinouts increases over time simply through selection} 
+
+Since high quality entrants eventually drive out low quality entrants (they would do it immediately if they weren't size constrained), the quality increases over time. Hence, the firm is more likely to allow competition. Therefore, if the firm allows competition when $m = 0$, the firm will always allow competition. Thus, we only need to check whether the firm wants to allow competition initially, and then they will always allow competition. The one caveat, of course, is that $\tilde{q}$ is drifting this entire time. If $\tilde{q}$ affects whether the firm wants to allow competition, this could change things. Not sure how to think about this. 
+
+\paragraph{Optimal contract when $\mathcal{C} = (w,\tau)$}
+Now suppose that the contract consists of $C = (w, \tau)$ where $\tau$ is the Poisson rate at which non-competes expire. Now the firm's problem has three state variables, $(\tilde{q},m,n)$, where $n$ is the mass of agents who have the knowledge but are currently waiting for their non-competes to expire. One immediate problem that arises is the fact that if the firm makes employees sign different contracts at different times, in order to forecast the evolution of entry the firm needs to keep track of the measure of each type of worker that is currently out there waiting for non-compete expiry. This immediately leads to the problem becoming completely intractable. 
+
+The HJB solved by the incumbent is then 
+\begin{align*}
+rV^I = \pi(q) - g\tilde{q}V^I_{\tilde{q}} + + \max_{\ell,\mathcal{C}} \Big\{ \chi_I \ell \phi\big(\ell + L^E\big)\big[V^I((1+\lambda)\tilde{q},0) - V^I\big] \\ - \chi_E L^E \phi (\ell + L^E) V^I - \big(w + \nu V^I_m \big) \ell \Big\}
+\end{align*}
+As before, the worker's participation constraint will be binding, so (omitting state space arguments, but leaving the $\tau$ argument for clarity)
+\begin{align*}
+w = \overline{w} - \nu V^{E,NC} (\tau)
+\end{align*}
+where $V^{E,NC}$ is the value to the worker of the knowledge he learns from his employer, while still bound by the non-compete. Note the dependence on $\tau$, which emerges from the HJB for $V^{E,NC}$. Let $\sigma$ denote the (endogenous) aggregate rate of discoveries, 
+\begin{align*}
+\sigma = \big( \chi_I L^I + \chi_E L^E \big) \phi (L^I + L^E) 
+\end{align*}
+and let $V^{E,F}$ denote the value of an entrant once his non-compete has expired. The HJB on $V^{E,NC}$ is 
+\begin{align*}
+(r+\tau + \sigma)V^{E,NC} = \dot{\tilde{q}} V^{E,NC}_{\tilde{q}} + \tau V^{E,F}
+\end{align*}
+As before, the participation constraint binds at the optimal contract. Substituting into the HJB, get 
+\begin{align*}
+rV^I &= \pi(q) + \dot{\tilde{q}}V^I_{\tilde{q}} + \dot{m} V^I_m \\ &+ \max_{\ell,\mathcal{C}} \Big\{ \dot{n} (\tau) V^I_n + \chi_I \ell \phi\big(\ell + L^E\big)\big[V^I((1+\lambda)\tilde{q},0) - V^I\big] \\ &- \chi_E L^E \phi (\ell + L^E) V^I - \big(\overline{w} - \nu V^{E,NC}(\tau) + \nu V^I_n \big) \ell \Big\}
+\end{align*}
+Note that $\dot{n}$ depends on $\tau$. We have to be careful, though, because the firm cannot ex-post change the non-compete length of previously separated workers, so we need to take into account that it is only the marginal worker whose non-compete is being chosen. Analytically this is confusing, but intuitively, the firm considers whether the value it gains from paying the worker less is worth the value it loses from the worker potentially competing one day in the future. As before, the firm-worker pair maximizes bilateral value. Hence the firm for sure uses a permanent non-compete as long as $\chi_E \le \chi_I$, and pays the worker a flow wage of $\overline{w}$. 
+
+In fact, the firm-worker decide whether, in expectation, it pays bilaterally for the worker to compete. If not, the firm imposes a permanent non-compete. But I'm far from proving this, and it's not really a useful result either, because I want firms to make employees sign non-permanent non-competes.
+
+\paragraph{Long-term contracts}
+Suppose the firm can commit to a long-term contract. If the firm only ever hired one worker, I need to solve one constrained optimization problem to determine the optimal contract. But if the firm hires multiple workers, in general I need to solve for the optimal contract the firm would offer given the states of all of its other contracts! The promised utility approach simplifies this, since the state of each previously signed contract is summarized by a promised utility for the worker. But still, a priori I would need to keep track of the entire distribution of utilities promised by the firm.
+
+Therefore, if I want to think about long-term contracts, I need to think of a model much closer to Shi 2017. 
+
+\section{Discussion: why non-competes?}
+\paragraph{Summary of findings}
+\begin{itemize}
+	\item In rational framework, firm-worker pair design a contract to maximize their bilateral value
+	\begin{itemize}
+		\item Because spin outs do not internalize their monopoly power, the pair only wants spinouts when $\chi_E - \chi_I$ is large enough
+	\end{itemize}
+	\item If ex-post renegotiation is frictionless (incl. local commitment) non-competes are not necessary even to achieve the bilaterally efficient outcome
+	\begin{itemize}
+		\item Key assumption: frictionless negotiation. In particular no asymmetric information or financial frictions
+		\item If a non-compete, worker pays firm ex-post for the right to compete; otherwise, firm pays worker ex-post to prevent competition 
+	\end{itemize}
+	\item Borrowing constraints (worker) prevent ex-post renegotiation, make enforcement matter for bilateral efficiency
+	\begin{itemize}
+		\item With non-competes, even though in a NPV sense worker is willing to pay the firm for the right to compete whenever it is jointly optimal, he cannot afford this because he cannot raise cash against future profits. Profitable spinouts do not occur. (Rauch 2015)
+	\end{itemize}
+	\item Asymmetric information can also shut down ex-post renegotiation
+	\begin{itemize}
+		\item Non-compete case: workers willing to pay $P$ to get out of non-compete must have $V>P$; if $W$ is the (unknown) cost to the firm of the spinout, could have $E[W | V > P] > P$. For example, if $W = \rho V$ for $\rho < 1$, all spinouts are optimal ex-post, but if the right tail of the $V$ distribution is fat enough, $E[\rho V | V > P] > P$ for all $P$ and no ex-post trade of the right is possible.
+		\item No non-compete case: if firm offers $P$ to prevent spinout, workers with $V < P$ will accept. Even if $W = (1+\rho) V$, so that it is ex-post optimal for no spinouts to occur, if there are always enough low $V$ ideas, $E[(1+\rho)V | V < P] < P$, so the firm is not willing to pay $P$.
+	\end{itemize}
+	\item Commitment can maybe help
+	\begin{itemize}
+		\item Speculation: if the funds the worker can raise against the PV of his knowledge $V$ are given by an increasing function $f(V)$, the firm can screen $V$ using a buyout menu. Under some circumstances this could work better than with no commitment. The function $f$ however is a bad approximation of reality if there are many other factors affecting fund-raising ability that do not affect $V$ as well. Then any price will attract many low-quality spinouts to buyout as well, who will just compete away the monopoly profits without actually enhancing much value.  
+		\item However, we don't really see this for tech workers (anecdotal, need more data on this)
+	\end{itemize}
+	\item Furthermore, asymmetric information can still prevent efficiency in these cases
+	\begin{itemize}
+		\item Non-compete case: Suppose that $W = (1-\rho) V$ with probability $1/2$ and $W = (1+\rho)V$ with probability $1/2$, so that half of spinouts are ex-post optimal and half are not. If the firm charges $P$, workers with $f(V)>P$ will buyout, but this clearly does not help since half of the spinouts are ex-post sub-optimal at any $P$. 
+		\item Commitment only helps if buyout menus help screen: $E[W | V]$ should be be a convex function $g(V)$ which starts out below $V$ and ends up above $V$. 
+		\item In reality, the firm can charge a non-linear price schedule in reduction of non-compete length. This additional instrument might help screening, as in Shi 2017. I am still working on this. 
+	\end{itemize}
+	\item If local commitment costly (e.g. need to work at former employer in order to commit locally, not ideal match), non-competes can increase bilateral efficiency
+	\item Non-competes also give the worker insurance, across states and across time - higher wage now, no big windfalls later - so may be optimal if the firm is less risk-averse / more linear intertemporal utility than the worker (likely the case)
+	\item Finally: if firms are using non-competes as a way to extract a little bit more surplus from workers after they've signed the contract, then the bilateral efficiency result is lost. Firms might find it in their interest to destroy some joint surplus, in order to get a larger share for themselves (since they can reset the worker's utility to his new reservation wage, given that he's rejected his other job offers). This seems empirically relevant, given the results on consideration etc. If workers don't realize this will happen to them (i.e. they are naive, not on the REE), they will of course not be compensated in equilibrium for this risk. If they do foresee this will happen, they will require a larger wage offer up-front; however, ex-post the firm will still make them sign a non-compete, destroying some value in the process; the net effect is that workers utility is still at their promised utility and the firm absorbs all of the losses from its inability to commit.
+\end{itemize}
+
+Below: some notes that led to the above discussion. Not the clearest / most organized. 
+
+If the worker can commit not to compete "this instant"\footnote{Imagine a costless version of committing not to compete by continuing to show up to work at the original firm.} and ex-post\footnote{Once the worker learns the technology and is considering spinning out.} renegotiation is frictionless, the ex-post bilaterally efficient outcome will obtain.\footnote{In fact, if we allow e.g. households to negotiate with the incumbent-worker pair, Coase's theorem implies that the outcome will be ex-post \emph{socially} efficient. This is an unrealistic setting, but it is a useful conceptual benchmark to keep in mind.} Since the firm-worker pair's problem does not exhibit any time inconsistency, and preferences are linear, this implies that the ex-ante bilaterally efficient outcome will obtain as well. In addition, the distribution of surplus between the firm and the worker is unchanged. To be more concrete, ex-post the firm will offer the worker a wage high enough to buy his commitment not to compete that instant, forever after. In the previous period, the worker will accept a lower wage, knowing there is a possibility of a windfall in the next period. In expectation, agents have the same utility as though a non-compete were used.
+
+Of course, in a non-enforcing state workers can only commit not to compete "this instant" if they continue to work for the original firm.\footnote{Note that this is not possible in my model currently, as I have assumed entrepreneurship requires no resources} If the firm is no longer the worker's best match, the ex-post bilateral value is lower relative than in the case where the worker could freely commit not to compete "this instant". Thus the ex-ante bilateral value is lower and the firm-worker pair would prefer to use an actual non-compete.
+
+In addition, ex-post renegotiation is not frictionless.  Asymmetric information can lead to adverse selection making the ex-post sale of the right to compete impossible. Financial frictions can prevent workers from buying out their non-competes (Rauch 2015). This makes non-competes matter much more for ex-post outcomes.\footnote{Also, as is typical, differing preferences - between firm and worker - regarding consumption smoothing - across states or across time - can also make one or the other contract more bilaterally efficient. I abstract from these details for now, but they may be empirically relevant}
+If ex-post renegotiation is completely shut down, non-competes prevent all spinouts and non-enforcement allows all spinouts. The firm and worker then must decide if eliminating spinouts maximizes their bilateral value.
+
+Suppose $G(\cdot)$ is concentrated on $\chi_E = \chi_I$. In this case, it is ex-post bilaterally optimal for spinouts not to occur, since all they do is reduce monopoly rents. Still, a spinout can be socially optimal because the incumbent dedicates too few resources to R\&D (he does not internalize the effect of R\&D on consumer surplus). Non-competes give the incumbent the ability to stop these ex-post efficient spinouts, so non-competes are socially suboptimal ex-post. However, enforcement may still be optimal for the same reason that patents are granted: incentivizing the creation of intellectual property.
+
+If instead $\chi_E > \chi_I$ by a sufficient amount, it is ex-post bilaterally (and socially) optimal for such a spinout to occur. If the entire support of $G()$ has this property, non-competes will not be used in equilibrium and there will be no difference between enforcement and enforcement regimes. 
+
+Similarly, if $\chi_E < \chi_I$ by a sufficient amount, it is ex-post bilaterally (and socially) optimal for a spinout not to occur. That it is bilaterally optimal for it not to occur is clear from the above. The social suboptimality stems from the net effect of (1) more resources allocated to R\&D by entrants, which leads to more R\&D (2) misallocation of resources from more productive incumbents to entrants. In this case, non-competes will be used if enforceable, and this will be socially optimal.
+
+What happens if the productivity of spinouts can fall in any of the above-described ranges? The incumbent then wants to use a non-compete to prevent entry by relatively unproductive spinouts (note: the maximum "unprodutive" productivity will be some $\chi_E > \chi_I$), but will be willing to accept a payment ex-post to void the non-compete in order to screen the high-productivity spinouts.
+
+As discussed above, without costs of renegotiation the outcome is ex-post bilaterally optimal. We are left with the extent to which this bilaterally optimal contract is socially efficient. Intuitively, since the incumbent-worker pair act as a monopolist, one might expect that unfettered application of non-competes would lead to inefficiently low entry, thus optimal policy might be expected to restrain to some degree the usage of non-competes.\footnote{An outright \emph{ban} on non-competes could still be welfare-reducing.}. 
+
+In reality, however, there are significant renegotiation costs. This means that whether or not a non-compete is signed affects greatly the ex-post outcome.
+
+\end{document}

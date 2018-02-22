@@ -1,0 +1,62 @@
+%% LyX 2.2.3 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{babel}
+\usepackage{amsmath}
+\begin{document}
+	I want to solve the ODE	
+\begin{align}
+\frac{d\pi_t}{dt} = \rho \pi(t) - \kappa x(t)
+\end{align}
+
+where $x_t$ is some given function. The author claims that you can ``solve forward'' the ODE to obtain 
+
+\begin{align*}
+\pi(t) = \kappa \int_0^{\infty} e^{-\rho s} x(t+s) ds
+\end{align*}
+
+He does not derive it, and I'd like to be able to show this myself. It may involve assuming something about $\pi_t$ not ``exploding'' as $t \to \infty$ (it definitely requires assuming some initial / terminal data based on economic theory, otherwise there clearly wouldn't be one solution)
+
+I know that, in a difference equation, solving forward is just substituting in the difference equation iteratively forward. So I figured that by analogy solving forward a difference equation would begin by writing down the expression
+
+\begin{align*}
+\pi(t) =  \lim_{l \to \infty} \pi(l) + \int_0^{\infty} \pi ' (t+s) ds
+\end{align*}
+
+assume the limit above is 0 (which is an unreasonable assumptionto make, honestly), and substitute in (1) to get 
+
+\begin{align*}
+\pi(t) = \int_0^{\infty} \rho \pi(t+s)-\kappa x(t+s) ds
+\end{align*}
+
+But this doesn't get me anywhere (and like I said above it requires me making a bizarre assumption, so the second step isn't even really justified).
+
+I can however get the result in the text by solving a difference equation and taking a limit (heuristically at least). Just rewrite the ODE in finite difference (true in the limit as $\Delta \to 0$)
+
+\begin{align*}
+\pi(t+\Delta) &= \pi(t) + \Delta (\rho \pi(t) - \kappa x(t)) \\
+\Rightarrow \pi(t) &= \pi(t+\Delta) - \Delta (\rho \pi(t) - \kappa x(t)) \\
+\Rightarrow (1+\Delta\rho)\pi(t) &= \pi(t+\Delta) + \Delta \kappa x(t) \\
+\Rightarrow \pi(t) &= (1+\Delta \rho)^{-1} \Big(\pi(t+\Delta) + \Delta \kappa x(t)\Big)\\
+\end{align*}
+
+Then recursively substitute this same equation starting at $\pi(t+\Delta)$, etc. to obtain 
+
+\begin{align*}
+\pi(t) &= \lim_{k \to \infty} (1+\Delta \rho)^{-k} \pi(t+k\Delta) \\
+	   & + \sum_{j=1}^{\infty} (1+\Delta\rho)^{-j} \Delta \kappa x\big(t+ (j-1)\Delta\big)
+\end{align*}
+
+Taking the limit as $\Delta \to 0$, this (heuristically, i'm not being rigorous) becomes 
+
+\begin{align*}
+\pi(t) = \lim_{T \to \infty} e^{-\rho T} \pi(T) + \kappa \int_0^{\infty} e^{-\rho s} x(t+s) ds
+\end{align*}
+
+Then I just need to assume that $\pi(T)$ does not explode faster than exponential rate $\rho$ as $T \to \infty$, which is an economically reasonable assumption, and I get the result in the text.
+
+I basically want to understand how to do this rigorously using just the algebra of differentiation and integration...I know there's a way, I just don't know shit about differential equations.
+
+\end{document}

@@ -1,0 +1,129 @@
+\begin{frame}
+\begin{itemize}
+	\item Monopoly power can be good...
+	\begin{itemize}
+		\item (Bilaterally) wasteful spinouts are not formed (less jointly inefficient creative destruction)
+		\item Less inefficient congestion in innovation "arms" race
+		\item More appropriation of rents from innovation $\rightarrow$ private returns closer to social returns 
+	\end{itemize}
+	\item ...and it can be bad:
+	\begin{itemize}
+		\item Monopoly on Production $\rightarrow$ static distortion
+		\item Monopoly on R\&D $\rightarrow$ dynamic distortion (if demand for efficiency units of output is downward sloping in quality)
+		\item Can think of this as reducing the social returns from innovation. Monopoly brings private return equal to social, but reduces social return (relative to first-best) due to static and dynamic distortions
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Worker optimization timeline}
+\begin{table}
+	\begin{tabular}{p{0.8\textwidth}}
+		\centering
+		Allocates labor to R\&D and final and intermediate good production \\
+		$\downarrow$\\
+		While performing R\&D for good $j$ hit by knowledge shock with intensity $\nu$ per unit of R\&D labor supplied to $j$ \\
+		$\downarrow$\\
+		No longer works for good $j$ until next step on ladder (because already has knowledge) \\
+		$\downarrow$\\
+		When hit by non-compete expiry shock, and provided $m<M(q)$ threshold mass of entrants, hires $\xi$ units of R\&D labor and enters R\&D race (continue to work throughout -- no worker / entrepreneurship choice)
+	\end{tabular}
+\end{table}
+\end{frame}
+
+\subsection{Optimization}
+\begin{frame}{Final goods production}
+\begin{align*}
+Y(t) &= (1-\beta)^{-1} L(t)^{\beta}\Bigg(\Big(\int_0^1 q_j(t)^\beta 
+k_j^{1-\beta}(t)dj \Big)^{1/(1-\beta)}\Bigg)^{1-\beta}
+\end{align*}
+\begin{itemize}
+	\item CRS implies no profits
+	\item CES implies constant markups $\mu = (1-\beta)^{-1}$ in equilibrium
+	
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Worker optimization timeline}
+\begin{table}
+	\begin{tabular}{p{0.8\textwidth}}
+		\centering
+		Allocates labor to R\&D and final and intermediate good production \\
+		$\downarrow$\\
+		While performing R\&D for good $j$ hit by knowledge shock with intensity $\nu$ per unit of R\&D labor supplied to $j$ \\
+		$\downarrow$\\
+		No longer works for good $j$ until next step on ladder (because already has knowledge) \\
+		$\downarrow$\\
+		When hit by non-compete expiry shock, and provided $m<M(q)$ threshold mass of entrants, hires $\xi$ units of R\&D labor and enters R\&D race (continue to work throughout -- no worker / entrepreneurship choice)
+	\end{tabular}
+\end{table}
+\end{frame}
+
+\subsection{R\&D and knowledge spillovers}
+\begin{frame}{Model: R\&D overview}
+\begin{itemize}
+	\item R\&D improves quality of intermediate goods, generates long-run growth
+	\item Incumbent has monopoly on good $j$ production
+	\item Incumbent initially has monopoly on good $j$ R\&D
+	\item R\&D leaks knowledge to R\&D employees who then become entrants after non-competes expire 
+	\item Incumbent and entrants perform R\&D to improve quality to $(1+\lambda) q_j$
+	\item Winner of race becomes incumbent with monopoly
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Existing theoretical work}
+\begin{itemize}
+	\small 
+	\item Some theoretical work:
+	\begin{itemize}
+		\item Franco-Filson 2006, Shankar-Ghosh 2013, Franco-Mitchell 2008, Rauch 2015, Kraekel-Sliwka 2009, Hellman-Perotti 2005 
+		\item Shankar-Ghosh 2013: most similar tradeoff and reason for reallocation, but no empirics, not fully dynamic (3-periods)
+		\item Franco-Filson 2006: no creative destruction leads to misleading Pareto efficiency without non-competes
+		\item Shi 2017: has optimal contracting and is fully dynamic, but focuses on hold-up problem (a different margin) and poaching rather than spinouts. also, unrealistic calibration.
+		\item Franco-Mitchell 2008: two enforcing regions, reproduces SV overtaking Rt. 128, but 2-period model, so can't look at GE effects on forward-looking decisions such as innovation (hence growth)
+		\item Rauch 2015: Dynamic (OLG), emphasizes financial frictions; more limited contract space (empirically relevant case though); one region
+		\item Others: Kraekel-Sliwka 2009, Hellmann-Perotti 2005, etc.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{More important criticism}
+\begin{itemize}
+	\item My hypothesis: calibration to differences in outcomes across enforcement regions without a model of the effect of spillovers will bias optimal policy towards non-enforcement
+	\item If spillovers benefit non-enforcing region at the expense of enforcing region, calibrated parameters will exaggerate costs of enforcement, optimal policy conclusions will be biased
+	\item I.e. One would not use difference in corporate activity across states (even properly controlling for confounding factors conducive to corporate activity) to identify effect of aggregate corporate tax rate on aggregate corporate activity, unless one takes into account reallocation of corporate activity (due to this and other factors)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Proposal (cont.)}
+\begin{itemize}
+	\item Calibrate / test with micro data / existing empirical work (e.g. cross-sectional results, brain drain)
+	\begin{itemize}
+		\item Can do first pass taking as given that I observe spillovers directly
+		\item However, brain drain from Michigan only one aspect of spillovers
+		\item If a few parameters govern that and other spillovers, can use Michigan micro data to calibrate those parameters and then estimate degree of spillovers through lens of the model
+		\item Residual difference across regions is non-spillover effect of non-compete enforcement 
+	\end{itemize}
+	\item Use calibrated innovation parameters to explore policy counterfactuals (can use model with one region for this)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What do I mean exactly by a non-compete}
+\begin{itemize}
+	\item Basic idea: worker cedes right to his labor to his employer
+	\item In equilibrium employer compensates employee for this right 
+	\item In theory optimal contract would include buyout clause, or at least the option for renegotiation once a threat is made, structured to minimize bilaterally wasteful competition and maximize implicit payments to worker through bilaterally effficient spinouts
+	\item Empirically, such complex contracts are almost never used for tech workers, the focus of this paper (Rauch 2015)  
+	\item In this paper: no buyout clauses, no renegotiation
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Other reasons for non-competes}
+\begin{itemize}
+	\item Other roles for non-competes (increase bilateral value)
+	\begin{itemize}
+		\item Firm can insure employees against spinout risk
+		\item Firm can overcome adverse selection in market for employees
+	\end{itemize}
+	\item When these are not considerations, employee and firm can come close to synthesizing an "effective non-compete" by paying the worker a higher wage to remain employed instead of spinning out ("flow"-commitment power) 
+\end{itemize}
+\end{frame}

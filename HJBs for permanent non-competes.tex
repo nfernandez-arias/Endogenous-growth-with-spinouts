@@ -1,0 +1,53 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+
+\title{HJBs for Permanent non-competes case}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\subsection*{Incumbent}
+HJB equation: 
+\begin{align*}
+V(q,m) &= -gqV_q(q,m) \\
+	   &+ \max_{\ell} \big\{ -w(q,m;x) \ell + x\nu \ell V_m (q,m)  \\ 
+	   &+ \ell \phi (\ell + L^E(q,m))\big[V((1+\lambda)q,0)-V(q,m)\big] \big\} 
+\end{align*}
+
+Boundary conditions: 
+
+
+\subsection*{Worker not bound by non-compete}
+HJB equation:
+\begin{align*}
+W(q,m) &= -gqW_q(q,m) \\
+	   &+ \max_{\ell} \big\{-w(q,m;x)\ell \\
+	   &+ \ell \phi (L^I(q,m) + L^E(q,m)) \big[ V((1+\lambda)q,0)-W(q,m) \big]\big\}
+\end{align*}
+Boundary conditions: 
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
