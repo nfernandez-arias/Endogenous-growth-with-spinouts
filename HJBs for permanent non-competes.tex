@@ -28,7 +28,23 @@ V(q,m) &= -gqV_q(q,m) \\
 	   &+ \ell \phi (\ell + L^E(q,m))\big[V((1+\lambda)q,0)-V(q,m)\big] \big\} 
 \end{align*}
 
+At optimum, the wage is given by 
+
 Boundary conditions: 
+\begin{align*}
+V(0,m) &= 0 \\
+\forall m \ge M(q): V_m(q,m) &= 0
+\end{align*}
+
+Solution method: Moll's approach. Guess a terminal condition $V(q,m,T)$ and integrate the HJB backwards in time until convergence to the stationary value. Depends on future becoming insignificant as we go to infinite past, which holds in models with discounting. So it should work. 
+
+How to ensure that boundary conditions are satisfied? Seems like one easy way is to make sure that the initial guess satisfies them. Based on the algorithm, the guess $L^E(q,m)$ becomes constant past $m = M^* (q)$, which is one of the objects we are iterating to find a fixed point over. Since $q$ drifts downwards (and jumps in $q$ set $m = 0$ again), and finally since $M^*(q)$ is increasing (a guess, but I'm pretty sure will hold in equilibrium), this implies that $V(q,m)$ is constant for $m \ge M^*(q)$. So we simply impose this guess, plus $V(0,m) = 0$, on our initial guess, and we solve the time-dependent PDE, 
+
+\begin{align*}
+V_t(q,m,t) &= - rV(q,m,t) - gqV_q(q,m,t) \\
+					&+ \max_{\ell} \big\{  -w(q,m;x)\ell + x\nu \ell V_m (q,m,t) \\
+					&+ \ell \phi (\ell + L^E(q,m)) \big[ V((1+\lambda)q,0,t)- V(q,m,t)  \big] \big\}
+\end{align*}
 
 
 \subsection*{Worker not bound by non-compete}

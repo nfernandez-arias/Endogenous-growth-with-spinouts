@@ -1,0 +1,55 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+
+\title{Computer Algorithm: permanent non-competes}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+	
+	
+\begin{enumerate}
+	\item Guess $L^F$
+	\begin{enumerate}
+		\item Guess $g$
+		\begin{enumerate}
+			\item Guess $w(q,m)$, the wage paid to labor not bound by non-competes\footnote{Labor bound by non-competes will receive wage $\overline{w}$, which can be written in closed form as function of parameters}
+			\begin{enumerate}
+				\item Guess $M(q)$, which implies guess for $L^E(q,m) = \xi \min(m,M(q))$
+				
+				\item Guess $x(q,m)$, the non-compete policy of the incumbent\footnote{Entrants are infinitesimal relative to their industry $j$ hence not take into account their effect on industry $j$ aggregates; hence, they perceive no cost from leaking knowledge and endogenously do not require their employees to sign non-competes}.
+				
+				\item Using these guesses, solve for $V(q,m),W(q,m)$ using Moll's algorithm. For now, just set boundary conditions on initial (really, final) guess and hope it works, come back to this if it doesn't. Boundary on $V(q,m,T)$ comes from $V(0,m) = 0$ and $V_m(q,m) = 0$ for $m > M(q)$. Boundary on $W(q,m,T)$ comes, again, from $W(0,m) = 0$ and $W(q,m) = 0$ for $m > M(q)$.  
+				
+				\item Check that $x(q,m)$ is consistent with incumbent optimality: $x(q,m) = 1$ exactly when $|V_m(q,m)| < W(q,m)$ and zero $x(q,m) = 0$ otherwise. If not, return to (1aiB) and guess a new value $x(q,m)$.\footnote{I think this will converge, but it's not entirely obvious since there is a strategic interaction - the guess $x(q,m)$ affects $W(q,m)$ which then affects the optimal $x(q,m)$.} 
+				
+				\item Check that $M(q)$, and hence $L^E(q,m)$, is consistent with entrant optimality: that is, 
+				\begin{align*}
+				M(q) = \sup \big\{m: \chi_E \phi (L^I(q,m) +L^E(q,m) (V((1+\lambda)q,0) - W(q,m)) > w(q,m) \big\}
+				\end{align*}
+				If not, return to (1aiA) and guess a new value for $M(q)$.\footnote{Again, not 100\% sure if this will converge...}
+			\end{enumerate}
+			\item Check that $w(q,m) = \overline{w} - \nu W(q,m)$. If not, return to (1ai) and make a new guess.
+		\end{enumerate} 
+		\item Now, given $L^I(q,m),L^E(q,m)$ computed above, compute stationary distribution of $(q,m)$ and then aggregate to compute growth rate $g^*$. If not equal to guess $g$, return to (1a) and guess a new value of $g$.
+	\end{enumerate}
+	\item Finally, the above allocation gives us functions $L^I(L^F),L^{R\&D}(L^F)$. Check that $L^I + L^{R\&D} + L^F = 1$; otherwise, go back to (1) and guess a new value of $L^F$. 
+\end{enumerate}
+
+
+
+
+\end{document}

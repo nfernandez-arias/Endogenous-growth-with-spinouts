@@ -7,10 +7,10 @@ Created on Mon Sep 18 20:56:31 2017
 
 import numpy as np
 import scipy.interpolate as interp
-from scipy import optimize
+from scipy import optimize 
 from numba import jit
 
-def set_model():   
+def set_modelpar():   
 
     d = {}
     
@@ -55,7 +55,7 @@ def set_algopar():
     d['delta_q'] = 0.01
     
     # Algorithm tolerances
-    d['HJB_AB_tol'] = 10e-5
+    d['HJB_V_tol'] = 10e-5
     d['HJB_W_tol'] = 10e-5
     d['Lf_tol'] = 10e-5
     d['g_tol'] = 10e-5
@@ -70,33 +70,32 @@ def set_init_guesses_global(pa,pm):
     d['Lf0'] =  0.1
     d['g0'] = 0.015
     d['w0'] = pm['wbar']*np.ones(pa['q_grid_2d'].shape)
-    d['F0'] = np.ones(pa['q_grid_2d'].shape)
+    d['M0'] = np.ones(pa['q_grid_2d'].shape)
+    d['x0'] = np.ones(pa['q_grid_2d'].shape)
     
     return d
     
-def set_init_guesses_AB(pa,pm,ig):
+def set_init_guesses_V(pa,pm,ig):
 
     d = {}
 
     d['prof'] = pa['q_grid_2d'] * ig['Lf0'] *  (1 - pm['beta']) * pm['wbar']
     
-    # Reasonable initial guess: value of simply making those 
-    d['A0'] = d['prof'] / (pm['rho'] + ig['g0']) 
+    # Reasonable initial guess: value of simply making flow profits as relative quality declines 
+    # to zero, assuming no risk of bein overtaken in our industry. Easiest to calculate this value 
+    # directly and then normalize, because then it is just a constant flow profit, and it amounts to this:     
+    d['V0'] = d['prof'] / pm['rho']
     
     return d
 
-def set_init_guesses_W(pa,pm,ig,A,A_interp,zI):
+def set_init_guesses_W(pa,pm,ig,V,V_interp,zI):
     
     d = {}
 
-    d['A_win'] = A_interp((1+pm['lambda']) * pa['q_grid_2d'],np.zeros(pa['m_grid_2d'].shape))
+    d['V_win'] = V_interp((1+pm['lambda']) * pa['q_grid_2d'],np.zeros(pa['m_grid_2d'].shape))
     
-    d['zE'] = pm['xi'] * np.minimum(pa['m_grid_2d'],ig['F0'])
-    
-    # Set initial guess for W_F
-    # d['W_F'] =
-    
-    # Will we need inintial guess for W_NC? I think no, because we can solve it gi#ven W_F simply by integrating.
+    # Set initial guess for W - all zeros seems a reasonable choice that fits the boundary conditions
+    d['W0'] = np.zeros(pa['q_grid_2d'].shape)
     
     return d
     
@@ -111,32 +110,34 @@ def phi(z):
 
 
 
-def solve_HJB_A(pa,pm,ig):
+def solve_HJB_V(pa,pm,ig):
 
     out = {}
     
-    d = set_init_guesses_AB(pa,pm,ig)
+    d = set_init_guesses_V(pa,pm,ig)
     # flow profits as function of q
-    prof = d[prof]
-    A0 = d[A0]
+    prof = d['prof']
+    V0 = d['V0']
     
     # Initial guesses for value functions A(q,m,n) and B(q) 
     # are contained in argument ig
     
-    zE = pm['xi'] * np.minimum(pa['m_grid_2d'],ig['F0'])
+    zE = pm['xi'] * np.minimum(pa['m_grid_2d'],ig['M0'])
+    x0 = ig['x0']
     
-    zmax = np.ones(A0.shape)
+    zmax = np.ones(V0.shape)
     
     HJB_d = 1
     count = 1
     
-    A1 = np.ones(A0.shape)
+    V1 = np.ones(V0.shape)
     #B1 = np.ones(B0.shape)
     
-    while HJB_d > pa['HJB_AB_tol']:
+    while HJB_d > pa['HJB_V_tol']:
     #while count <= 100:  
         # First step is to create interpolant
-        A0_interp = interp.Rbf(pa['q_grid_2d'],pa['m_grid_2d'],A0)
+        V0_interp = interp.Rbf(pa['q_grid_2d'],pa['m_grid_2d'],V0)
+        V0plus = V0_interp((1+pm['lambda'])*pa['q_grid_2d'],np.zeros(pa['m_grid_2d'].shape))
        #B0_interp = interp.Rbf(pa['q_grid_3d'],pa['m_grid_3d'],pa['n_grid_3d'],B0)
         
         # Interpolate onto finer grid 
@@ -153,89 +154,89 @@ def solve_HJB_A(pa,pm,ig):
         
         for i_q,q in enumerate(pa['q_grid']):   
             for i_m,m in enumerate(pa['m_grid']):    
-                for i_n,n in enumerate(pa['n_grid']):
-                    
-                    # Should probably rewrite this as a function and jit THIS, 
-                    # so that it runs once and figures out what its types should be.
-                    # If I understand how numba works correctly...
-                    
-                    # Use interpolation + finite difference to compute all derivative terms on the RHS
-                    
-                    Aq = pa['delta_q']**(-1) * (A0_interp(q+pa['delta_q'],m,n) - A0[i_q,i_m,i_n]) 
-                    Am = pa['delta_m']**(-1) * (A0_interp(q,m + pa['delta_m'],n) - A0[i_q,i_m,i_n])
-                    An = pa['delta_n']**(-1) * (A0_interp(q,m,n+pa['delta_n']) - A0[i_q,i_m,i_n]) 
-                    
-                    # Construct anonymous function for maximizing
-                    
-                    rhs = lambda z: -( -ig['w0'][i_q,i_m,i_n] * z 
-                                     + pm['chi_I']*z*phi(z+zE[i_q,i_m,i_n])*A0_interp((1+pm['lambda'])*q,0,0) 
-                                     - (pm['chi_I']*z + pm['chi_E']*zE[i_q,i_m,i_n])*phi(z+zE[i_q,i_m,i_n])*A0[i_q,i_m,i_n] 
-                                     + pm['nu']*z*An )
-                    
-                    optimum = optimize.minimize(rhs,1,bounds = [(0.01,2)], method = 'L-BFGS-B', options={'maxiter': 100, 'disp': True})
-                    zmax[i_q,i_m,i_n] = optimum.x
-                    z = optimum.x
-                    #zmax = 0.5
-                    # Update 
-                    
-                    A1[i_q,i_m,i_n] = ( A0[i_q,i_m,i_n] 
-                                        + pa['delta_t']*(-rhs(z) + prof[i_q,i_m,i_n] - ig['g0']*q*Aq 
-                                        + pm['nu']*zE[i_q,i_m,i_n] * An
-                                        + (1/pm['T_nc']) * n * (Am - An) - (pm['rho'] -ig['g0']) * A0[i_q,i_m,i_n]))
+                
+                
+                # Should probably rewrite this as a function and jit THIS, 
+                # so that it runs once and figures out what its types should be.
+                # If I understand how numba works correctly...
+                
+                # Use interpolation + finite difference to compute all derivative terms on the RHS
+                # Upwind scheme: take forward difference when drift is positive, backward difference when drift 
+                # is negative. Hence, take backward difference when computing Vq, forward difference when computing Vm
+                
+                Vq = pa['delta_q']**(-1) * (-1)*(V0_interp(q-pa['delta_q'],m) - V0[i_q,i_m])  
+                Vm = pa['delta_m']**(-1) * (V0_interp(q,m + pa['delta_m']) - V0[i_q,i_m])
+
+                # Construct anonymous function for maximizing
+                
+                rhs = lambda z: -( - x0[i_q,i_m] * ig['w0'][i_q,i_m] * z 
+                                 + pm['chi_I']*z*phi(z+zE[i_q,i_m])*V0plus[i_q,i_m] 
+                                 - (pm['chi_I']*z + pm['chi_E']*zE[i_q,i_m])*phi(z+zE[i_q,i_m])*V0[i_q,i_m] 
+                                 + (1- x0[i_q,i_m]) *  pm['nu']*z*Vm )
+                
+                optimum = optimize.minimize(rhs,1,bounds = [(0.001,10)], method = 'L-BFGS-B', options={'maxiter': 100, 'disp': True})
+                zmax[i_q,i_m] = optimum.x
+                z = optimum.x
+                #zmax = 0.5
+                # Update 
+                
+                V1[i_q,i_m] = ( V0[i_q,i_m] 
+                                    + pa['delta_t']*(-rhs(z) + prof[i_q,i_m] - ig['g0']*q*Vq 
+                                    + pm['nu']*zE[i_q,i_m] * Vm - (pm['rho'] -ig['g0']) * V0[i_q,i_m]))
                     
         # Compute distance between A0 and A1
         
-        HJB_d = np.sum(np.square(A0-A1)) 
+        HJB_d = np.sum(np.square(V0-V1)) 
         
         # Update guesses
-        A0 = A1
+        V0 = V1
         #B0 = B1
         
         count = count + 1
-        
-    out['A'] = A0
-    out['A_interp'] = interp.Rbf(pa['q_grid_3d'],pa['m_grid_3d'],pa['n_grid_3d'],A0)
+    
+    V1_interp = interp.Rbf(pa['q_grid_2d'],pa['m_grid_2d'],V0)
+    Vplus = V1_interp((1+pm['lambda'])*pa['q_grid_2d'],np.zeros(pa['m_grid_2d'].shape))
+    
+    out['V'] = V0
+    out['Vplus'] = Vplus
     out['zI'] = zmax
     #out['B0'] = B0
     return out
 
     
-def solve_HJB_W(pa,pm,ng,A,A_interp,zI):
+def solve_HJB_W(pa,pm,ig,Vplus,zI):
+    
+    zE = pm['xi'] * np.minimum(pa['m_grid_2d'],ig['M0'])
+    tau = zE + zI
     
     
-    tau = d['zE'] + zI
+    d = set_init_guesses_W(pa,pm,ig,Vplus,zI)
     
+    W0 = d['W0']
     
-    d = set_init_guesses_W(pa,pm,ng,A,A_interp,zI)
+    W0_interp = interp.Rbf(pa['q_grid_2d'],pa['m_grid_2d'],W0)
     
-    W_NC0 = d['W_NC0']
-    W_F0 = d['W_F0']    
-        
     out = {}
     
-    W_NC = W_NC0
-    W_F = W_F0 
+    HJB_d = 1
+    count = 1
     
-    out['W_NC'] = W_NC
-    out['W_F'] = W_F
+    while HJB_d > pa['HJB_W_tol']:
+        
+        for i_q,q in enumerate(pa['q_grid']):   
+            for i_m,m in enumerate(pa['m_grid']):    
+                
+                Wq = pa['delta_q']**(-1) * (-1) * (W0_interp(q-pa['delta_q'],m) - W0[i_q,i_m])
+                Wm = pa['delta_m']**(-1) * (W0_interp(q,m+pa['delta_m']) - W0[i_q,i_m]) 
+        
+                
+                
+                
+    W = W0
+    
+    out['W']
     
     return out
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 
 
@@ -254,27 +255,23 @@ def solve_model(pa,pm,ig):
     ng['Lf0'] = ig['Lf0']
     ng['g0'] = ig['g0']
     ng['w0'] = ig['w0']
-    ng['F0'] = ig['F0']
+    ng['M0'] = ig['F0']
+    ng['x0'] = ig['x0']
     
     while Lf_d > pa['Lf_tol']:
-        
-        
-        while g_d > pa['g_tol']:
-        
-          
+        while g_d > pa['g_tol']:   
             while wF_d > pa['wF_tol']: 
                 
-                A_out = solve_HJB_A(pa,pm,ng)
+                V_out = solve_HJB_V(pa,pm,ng)
                 # Compute aggregate innovation effort
-                W_F,W_NC = solve_HJB_W(pa,pm,ng,A_out['A'],A_out['A_interp'],A_out['zI'])
+                W = solve_HJB_W(pa,pm,ng,V_out['V'],V_out['V_interp'],V_out['zI'])
                 
                 
                 
     out = {}
            
-    out['A_out'] = A_out
-    out['W_NC'] = W_NC
-    out['W_F'] = W_F
+    out['V_out'] = V_out
+    out['W'] = W
     
     return out
                 

@@ -1,0 +1,68 @@
+%% LyX 2.2.3 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{babel}
+\begin{document}
+\begin{enumerate}
+\item Guess $L^{F}$. 
+\begin{enumerate}
+\item Guess $g$.
+\begin{enumerate}
+\item Guess $w(q,m,n),F(q,n)$. Compute $\pi(q)$ from $L^{F}$. Solve for
+optimal policies and value functions:
+\begin{enumerate}
+\item \textbf{Incumbents: }Solve for $A(q,m,n)$ and policies $z_{I}^{A}(q,m,n)$
+using Moll's iterative method. Will take as given innovation intensity
+by entrants, $\overline{z}_{E}(q,m,n)=\xi\min(m,F(q,n))$ (and hence
+$\overline{z}_{E}^{0}(q)=\xi F(q)$). HJBs are
+\begin{eqnarray*}
+(r+\theta-g)A(q,m,n) & = & \max_{z}\pi(q)+\theta B(q)\\
+ &  & +\chi_{I}z\phi(z+\overline{z}_{E}(q,m,n))\big(A((1+\lambda)q,0,0)-A(q,m,n)\big)\\
+ &  & -\chi_{E}\overline{z}_{E}\phi(z+\overline{z}_{E}(q,m,n))A(q,m,n)\\
+ &  & +\nu(\overline{z}_{E}(q,m,n)+z)A_{m}(q,m,n)\\
+ &  & -gqA_{q}(q,m,n)
+\end{eqnarray*}
+and 
+\begin{eqnarray*}
+(r+\theta-g)B(q) & = & \max_{z}\pi(q)+\chi_{I}z\phi(z+\xi F(q))\big(A((1+\lambda)q,0,0)-B(q)\big)\\
+ &  & -\chi_{E}\xi F(q)\phi(z+\xi F(q))B(q)\\
+ &  & -gqB'(q)
+\end{eqnarray*}
+\item \textbf{Entrants: }Solve for $W^{NC}(q,m,n),W^{F}(q,m,n)$ and $F^{*}(q)$
+using Moll's iterative method. Define $\tau(q,m,n)=(\chi_{I}z_{I}(q,m,n)+\chi_{E}\overline{z}_{E}(q,m,n))\phi(z_{I}(q,m,n)+\overline{z}_{E}(q,m,n))$
+and $L(q,m,n)=z_{I}(q,m,n)+\overline{z}_{E}(q,m,n)$. HJBs are 
+\begin{eqnarray*}
+(r+\theta+\tau(q,m,n)-g)W^{F}(q,m,n) & = & \max_{z}\chi_{E}z\phi(z_{I}(q,m)+\overline{z}_{E}(q,m))\big(A((1+\lambda)q,0,0)-W^{F}(q,m,n)\big)\\
+ &  & -w(q,m)z-gqW_{q}^{F}(q,m)+\nu L(q,m)W_{m}^{F}(q,m)
+\end{eqnarray*}
+and 
+\begin{eqnarray*}
+(r+\theta+\tau(q,m)-g+v)W^{NC}(q,m) & = & vW^{F}(q,m)-gqW_{q}^{NC}(q,m)\\
+ &  & +\nu L(q,m)W_{m}^{NC}(q,m)
+\end{eqnarray*}
+Really, it comes down to setting 
+\[
+F^{*}(q,n)=\sup\{m:\chi_{E}\phi(z_{I}(q,m,n)+\overline{z}_{E}(q,m,n))(A((1+\lambda)q,0,0)-W^{F}(q,m,n))\ge w(q,m,n)\}
+\]
+\end{enumerate}
+\item Check consistency
+\begin{enumerate}
+\item Check $w(q,m)+\nu W^{NC}(q,m)=w$.
+\item Check $F^{*}(q,n)=F(q,n)$. If these things do not hold, update guesses
+for $w(q,m),F(q)$ using some rule to be determined, and go back to
+(1ai). 
+\end{enumerate}
+\end{enumerate}
+\item Check consistency: compute stationary distributions and integrate
+to compute growth rate $g^{*}$. If not converged, update guess for
+$g$ and go back to (1a).
+\end{enumerate}
+\item Finally, check labor market clearing: make sure that $L^{F}+L^{I}(L^{F})+L^{RD}(L^{F})=1$.
+If too high, lower $L^{F}$ guess and go back to step 1. 
+\end{enumerate}
+
+\end{document}

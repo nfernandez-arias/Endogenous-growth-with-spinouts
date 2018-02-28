@@ -7,30 +7,25 @@ Created on Mon Sep 18 20:56:31 2017
 
 import numpy as np
 import scipy.interpolate as interp
-from scipy import """
-optimize
-frmba i
-""" mport jit
+from scipoptimize 
+y import from numba import jit
 
-def set_    
+rt jrpareparfpar set_model():   
+
     d = {}
-     = {}
     
-        ho"] = 0.01
-       beta"] = 0.2
-    d["wbar"] = d['beta']**d['beta']*(1-d['beta'])**    *d['beta'])  
+    d["rho"] = 0.01
+    d["beta"] = 0.2
+    d["wbar"] = d['beta']**d['beta']*(1-d['beta'])**(1-2*d['beta'])  
     d["chi_I"] = 1
     d["chi_E"] = 1 
     d["psi_I"] = 0.5
-      "psi_E"] = 0.5   
-     ["lambda"] = 1    
-    d["nu"] = 0.       d["theta"]     05
-    d["T2
-
-    
-    return d
-    
-   '] = 0.2
+    d["psi_E"] = 0.5   
+    d["lambda"] = 1.1  
+    d["nu"] = 0.1
+    d["theta"] = 0.05
+    d["T_nc"] = 2
+    d['xi'] = 0.2
     
     return d
 
@@ -271,7 +266,7 @@ def solve_model(pa,pm,ig):
                 
                 A_out = solve_HJB_A(pa,pm,ng)
                 # Compute aggregate innovation effort
-     """W_F = solve_HJB_W(pa,pm,ng,A_out['A'],A_out['A_interp'],A_out['zI'])
+                W_F,W_NC = solve_HJB_W(pa,pm,ng,A_out['A'],A_out['A_interp'],A_out['zI'])
                 
                 
                 
