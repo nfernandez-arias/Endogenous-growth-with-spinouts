@@ -16,19 +16,18 @@
 \newtheorem*{remark}{Remark}
 \begin{document}
 
-\title{HJBs for Permanent non-competes case}
+\title{Solving HJBs for permanent non-competes case}
 \author{Nicolas Fernandez-Arias}
 \maketitle
 
+\section{HJB equations}
 \subsection*{Incumbent}
 HJB equation: 
 \begin{align*}
-V(q,m) &= -gqV_q(q,m) \\
-	   &+ \max_{\ell} \big\{ -w(q,m;x) \ell + x\nu \ell V_m (q,m)  \\ 
+rV(q,m) &= \tilde{\pi} q + \nu z_E(q,m) V_m(q,m) - gqV_q(q,m) \\
+	   &+ \max_{\ell \ge 0, x \in \{0,1\}} \big\{ -w(q,m;x) \ell + x\nu \ell V_m (q,m)  \\ 
 	   &+ \ell \phi (\ell + L^E(q,m))\big[V((1+\lambda)q,0)-V(q,m)\big] \big\} 
 \end{align*}
-
-At optimum, the wage is given by 
 
 Boundary conditions: 
 \begin{align*}
@@ -55,6 +54,15 @@ W(q,m) &= -gqW_q(q,m) \\
 	   &+ \ell \phi (L^I(q,m) + L^E(q,m)) \big[ V((1+\lambda)q,0)-W(q,m) \big]\big\}
 \end{align*}
 Boundary conditions: 
+
+\section*{Finite difference}
+
+\subsection*{Incumbent}
+\subsubsection*{Explicit method}
+
+Define $\Delta_t$
+
+
 
 
 

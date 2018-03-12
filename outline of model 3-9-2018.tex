@@ -26,10 +26,19 @@
 \begin{itemize}
 	\item Work
 	\begin{itemize}
-		\item Go to library people (Tuesday morning 9 am), figure out stuff about VentureOne (how to get access, price?, can we get a trial? etc.)
+		\item Continue to work on VentureSource / VentureOne data
+		\begin{itemize}
+			\item Talk to Esteban about Jamie's tentative \$3,500 quote, given >80-90\% coverage of bio information in all state-years. 
+		\end{itemize}
 		\item If that doesn't work, try talking to Professor Schwed...maybe he knows about how to get at VentureOne
-		\item Meet with Rogerson Tuesday afternoon to discuss project - if he's interested, could help with getting funding for VentureOne... 
+		\item Think about Rogerson's criticisms
+		\begin{itemize}
+			\item Need to be able to defend my model as "a good model of spinouts" before using it to figure out the effect of non-competes on spinouts. In particular, he didn't like the fact that you compete by entering the same race rather than entering the product market (neither did I, really)
+		\end{itemize}
 		\item Solve model with permanent non-competes option. If too hard, try model with permanent non-competes required to see what happens
+		\begin{itemize}
+			\item Having some issues implementing Moll's algorithm - it's not converging. Implicit method seems impossible. Probably need to talk to someone in order to get this to work, but will try to get it to work this weekend.
+		\end{itemize}
 	\end{itemize}
 	\item Theory:
 	\begin{itemize}
@@ -134,7 +143,8 @@ structure they will either be long or short.
 
 \end{comment}
 
-\section{Effect of non-compete enforcement: some stylized facts}
+\section{Spinout process and effect of non-compete enforcement: some stylized facts}
+\subsection{Effect of non-competes}
 \begin{enumerate}
 	\item Non-enforcing regions exhibit a larger response of entrepreneurship,
 	patenting, employment, and income to exogenous increases in the supply
@@ -164,19 +174,38 @@ structure they will either be long or short.
 	wages and training higher in (consideration) enforcing states (Starr
 	2015 ``Consider this...'')
 	\item In Brazilian data, spinouts take on 23\% of employees of incumbent with them on average (Muendler et al 2012)
-	\item In US data (LEHD): standard deviation increase in enforceability is associated with (1) 0.13 p.p. decrease in mean WSO entry rate, and (2) 1.1\% increase in initial size of WSOs (measured by employment). Breaking down size increase, impact is 1.5\% on the 25th percentile of size distribution but only 0.4\% on 75th percentile of size distribution, consistent with screening theory. (Starr, Balasubramaniam \& Sakakibara M Sci 2018)
+	\item In US data (LEHD): standard deviation increase in enforceability is associated with (1) 0.13 p.p. decrease in mean WSO entry rate, and (2) 1.1\% increase in initial size of WSOs (measured by employment). Breaking down size increase, impact is 1.5\% on the 25th percentile of size distribution but only 0.4\% on 75th percentile of size distribution, consistent with screening theory (though, see criticism (iii) below). (Starr, Balasubramaniam \& Sakakibara M Sci 2018)
 	\begin{enumerate}
 		\item By doing triple-diff (WSO vs non-WSO, non-law vs. law, more enforcement vs less enforcement), identify solely the screening effect on WSOs (because law CNCs not enforced throughout the US): in their ``model," CNC enforcement prevents low quality WSOs, which also tend to be smaller.
 		\item Critiques: 
 		\begin{enumerate}
+			\item \textbf{Model not brought to data in a rigorous way:} As is common in management literature, hypotheses are simply ``x should increase with y". No discussion of what parameter setting in the ``formal model'' is supported by the empirical results, hence (1) can't know if the model can  \textit{simultaneously} generate all of the empirical results, and (2) can't really extrapolate with the model - any extrapolation is simply based on the reduced-form empirical results they obtain.
+			\item \textbf{Identification assumptions not robust to migration story:} If in fact migration is contaminating the raw cross-section via a sorting mechanism (of more start-up-prone people moving to weaker enforcement areas), we would expect such migration to occur in a given industry to the extent that that industry is sensitive to non-compete enforcement. Thus, we cannot control for this by doing the triple-diff design in this paper: even if there is a migration effect in relevant industries, if law is unaffected, the migration effect will be absent there, hence we do not control for it.
+			\item \textbf{Utterly partial equilibrium:} Don't even really solve for an equilibrium of an economy...simply solve a 2-period game between incumbents and entrants, with a lot of ad-hoc functional forms based on utterly nothing. 
 			\item \textbf{Hard to interpret:} No objective measure of ``enforceability", rendering meaningless ``a standard deviation'' in enforceability. Need to tie the results to specific policies that can then be used to discipline a model. 
-			\item \textbf{Flawed hypothesis derivation:} Authors claim that screening effect should lead to a larger change in 25th percentile of size distribution than in 75th percentile. This does not follow from their model.\footnote{Suppose $F(x): [0,1] \to [0,1]$ is the cdf and we truncate at some value $x_0$. The new cdf is $G(x) = \frac{F(x)-F(x_0)}{1-F(x_0)}$. Denote by $x_a^i,x_b^i$ the $a,b$ percentiles of the distribution $i=F,G$;  WLOG, assume $a < b$. Their argument holds if $x_b^G - x_a^G < x_b^F - x_a^F$. With some algebra, get $F(x_b^G) - F(x_a^G) = \frac{K((b-a)/100)}{2}$ with $K = 1-F(x_0)$, and $F(x_b) - F(x_a) = (b-a)/100$ of course. We can also write $F(x_b^G) - F(x_a^G) = \int_{x_a^G}^{x_b^G} f(x)dx$ and $F(x_b^F) - F(x_a^F) = \int_{x_a^F}^{x_b^F} f(x) dx$. The former integral is therefore equal to $K < 1$ times the latter integral. If, for example, $f$ is decreasing and $K$ is sufficiently close to $1$ (relative to rate of decrease in $f$), this immediately implies that $x_b^G - x_a^G > x_b^F - x_a^F$, contradicting the authors' argument. This case seems empirically relevant, since the measured effect is quite small and it seems reasonable (at least plausible) that $f$, the density of the human capital distribution, is decreasing, at least when considering the universe of people who might ever start spinouts.}
+			\item \textbf{Non-robust hypothesis derivation:} Authors claim that screening effect should lead to a larger change in 25th percentile of size distribution than in 75th percentile. This only follows from their model because they have assumed (1) that the distribution of human capital is uniform, and (2) that initial WSO size is a linear function of human capital of the founder.\footnote{Suppose $F(x): [0,1] \to [0,1]$ is the cdf and we truncate at some value $x_0$. The new cdf is $G(x) = \frac{F(x)-F(x_0)}{1-F(x_0)}$. Denote by $x_a^i,x_b^i$ the $a,b$ percentiles of the distribution $i=F,G$;  WLOG, assume $a < b$. Their argument holds if $x_b^G - x_a^G < x_b^F - x_a^F$. With some algebra, get $F(x_b^G) - F(x_a^G) = \frac{b-a}{100}K$ with $K = 1-F(x_0)$, and $F(x_b) - F(x_a) = \frac{b-a}{100}$ of course. We can also write $F(x_b^G) - F(x_a^G) = \int_{x_a^G}^{x_b^G} f(x)dx$ and $F(x_b^F) - F(x_a^F) = \int_{x_a^F}^{x_b^F} f(x) dx$. The former integral is therefore equal to $K < 1$ times the latter integral. If, for example, $f$ is decreasing and $K$ is sufficiently close to $1$ (relative to rate of decrease in $f$), this immediately implies that $x_b^G - x_a^G > x_b^F - x_a^F$, contradicting the authors' argument. This case seems empirically relevant, since the measured effect is quite small and it seems reasonable (at least plausible) that $f$, the density of the human capital distribution, is decreasing, at least when considering the universe of people who might ever start spinouts. Or, even if $f$ is constant, since they are interested in $h(x)$, the \textbf{initial size} of a WSO, the result can also be broken by assuming e.g. $h(x)$ is convex. Authors claim in endnote 13 that the results hold as long as $h(\cdot)$ is increasing, which is incorrect.}
 		\end{enumerate}
 	\end{enumerate}
 	\item (ibid) In US data (LEHD): higher enforceability associated with higher earnings of founders pre WSO, also consistent with screening theory 
 	\item  
 
 \end{enumerate} 
+
+\subsection{Spinouts}
+\begin{enumerate}
+	\item Compared to non-spinout startups they are:
+	\begin{itemize}
+		\item larger at start
+		\item grow faster
+		\item more survival 
+	\end{itemize}	
+	\item Employee-started businesses are:
+	\begin{itemize}
+		\item more likely to be in a similar industry to the previous employer
+		\item more likely to trade in similar markets to previous employer (compared to same industry startups that are not from that employer and/or not spinouts, check details)
+	\end{itemize}
+	\item Finally, a model where spinouts are driven by the asymmetric information concerning the quality of employees' ideas 
+\end{enumerate}
 
 
 \subsection{Caveat on stylized facts}
@@ -186,7 +215,59 @@ structure they will either be long or short.
 	\item Would be nice to have a version of Facts 1-4, but focusing on the difference between non-enforcing states and on states that enforce but require due "consideration"
 \end{itemize}
 
-\section{Model}
+\section{Modelling}
+\subsection{Overarching framework}
+
+There are several key margins involved in the question of spinouts and the effect of non-competes.
+
+\paragraph{Firm investment and non-competition}
+\begin{enumerate}
+	\item Given the employment contract that emerges, firms and workers make their human capital / idea-generation decisions given the rewards they will receive for them. This also directly affects the spinouts that occur, which 
+	\item Given the reasons for which workers want to spin out vs implement ideas in the firm (e.g. adverse selection in market for ideas as below, or things like disagreement about the quality of the idea), there are some costs / benefits associated with spinning out. Firms will structure employment contracts in such a way to maximize the bilateral value of the firm worker pair (unless the worker is irrational in some way...)
+\end{enumerate}
+
+\paragraph{Spinouts}
+\begin{enumerate}
+	\item Reason for spinouts: 
+	\begin{itemize}
+		\item Chatterjee \& Rossi-Hansberg IER 2012: Asymmetric information friction in the market for ideas + cost of spinning out (either opportunity cost or resource cost) leads to a selection mechanism: higher quality ideas are spun out, lower quality ideas are sold to the firm.\footnote{If asymmetry of information / market failure in the market for ideas is the key friction, it also explains why workers typically do not buy out of their noncompetes. Also, asymmetry of information regarding the a priori ability of the worker to have ideas (and / or to form spinouts) is useful for generating an important role for non-competes, since this asymmetry leads to adverse selection, making it hard to find a market-clearing price for "the opportunity to learn the firm's knowledge".}
+		\item Disagreement over quality of idea
+		\item "Old firms cannot implement new ideas" concept, c.f. Acemoglu \& Akcigit, ``Innovation, reallocation and growth"
+	\end{itemize}
+	\item Reason for the reasons for spinouts:
+	\begin{itemize}
+		\item Anton \& Yao 1994, 1995: Whence is this asymmetric information friction? Lack of property rights. Without property rights, it is impossible to explain the quality of the idea without giving the idea away. Hence, the quality of the idea is private information, taking us to the model of Chatterjee \& Rossi-Hansberg 2012.
+		\item Supposing that somehow the worker is able to fully describe the idea to his employer. There may still be disagreement - either different priors, or different observed signals. 
+		\item Finally, this is a big research question. I'm not sure why this happens, but it seems like a general principle. Maybe related to the learning-by-doing thing. 
+	\end{itemize}
+\end{enumerate}
+
+\subsection{Questions to answer} 
+
+\begin{enumerate}
+	\item Think about which relationships / mechanisms discussed above are affected by the enforceability of non-competes / the presence of a non-compete in the employment contract:
+	\begin{itemize}
+		\item The rate at which workers acquire the knowledge necessary to start new businesses can be affected
+		\item It 
+	\end{itemize}
+	\item Do we explicitly model the employee selling some projects to the firm? Makes sense that employee would not know whether the idea he generates will be of a type that will be sold to the firm or of a type that he will spin out. If this is true, then it will weaken the effect of CNC enforceability on a worker's idea-generation effort.
+	\item Do we allow workers to 
+\end{enumerate}
+
+\section{Ideas for new model 3-10-2018}
+
+\begin{enumerate}
+	\item What happens if we say each $j$ has itself an expanding variety model, and you have to be producing one of these varieties in order to create the next rung in the original ladder (which will displace all varieties of this rung)
+	\item Would be nice if I could give up the patent race aspect and have 
+	\item What about going back to ``workers have ideas", but keeping creative destruction. When you make a spinout in the technology sector it's because you think you have a way of making a better product. But it takes you some time to get there - you have to spinout, and form the firm which then designs the better version of the product that you're offering. You cannot instantly compete. Hence it makes sense to model people as entering the race to create the next best level of technology. 
+ 
+\end{enumerate}
+
+
+
+
+
+\section{Existing model: Klette \& Kortum-style, permanent non-competes, etc.}
 
 The model builds on neo-Schumpeterian endogenous growth theory, specifically the work of Aghion-Howitt and Grossman-Helpman, via Hopenhayn 1992, Klette-Kortum 2004 and more recently Acemoglu et al 2013 and Akcigit-Kerr 2017. Time $t \ge 0$ is continuous. Essentially the model endogenizes the process of entry into the patent race for discovering the next level on the quality ladder: entrants are formed by former R\&D employees of the incumbent firm. 
 
