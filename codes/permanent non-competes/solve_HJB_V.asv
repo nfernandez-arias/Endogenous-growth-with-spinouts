@@ -18,9 +18,8 @@ function out = solve_HJB_V(pa,pm,ig)
     Vq = ones(size(V0));
     Vm = ones(size(V0));
     
-    % Movie parameter
-    frame_freq = 10;
-    F(round(d.maxcount / frame_freq)) = struct('cdata',[],'colormap',[]);
+    fram
+    F(d.maxcount / 10) = struct('cdata',[],'colormap',[]);
     f = figure('visible','off');
     
     while ((count <= d.maxcount))
@@ -94,13 +93,13 @@ function out = solve_HJB_V(pa,pm,ig)
            
         % Make plots for movie
         
-        if mod(count,frame_freq) == 0
+        if mod(count,10) == 0
             surf(pa.q_grid_2d,pa.m_grid_2d,V0)
             title('V(q,m)')
             zlim([0,20])
-            F(count/frame_freq) = getframe(f);
+            F(count) = getframe(f);
         end
-        count = count + 1
+        count = count + 1;
         
     end
     

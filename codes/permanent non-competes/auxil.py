@@ -23,8 +23,8 @@ def set_modelpar():
     d["rho"] = 0.01
     d["beta"] = 0.2
     d["wbar"] = d['beta']**d['beta']*(1-d['beta'])**(1-2*d['beta'])  
-    d["chi_I"] = 0.1
-    d["chi_E"] = 0.1
+    d["chi_I"] = 0
+    d["chi_E"] = 0
     d["psi_I"] = 0.5
     d["psi_E"] = 0.5   
     d["lambda"] = 1.2  
@@ -56,7 +56,7 @@ def set_algopar():
     d['q_grid_2d_FINE'],d['m_grid_2d_FINE'] = np.meshgrid(d['q_grid_FINE'],d['m_grid_FINE'],indexing='ij')
     
     # Size of finite difference step for computing derivatives 
-    d['delta_t'] = 0.0001
+    d['delta_t'] = 0.1
     d['delta_m'] = 0.01
     d['delta_q'] = 0.01
     
@@ -92,11 +92,11 @@ def set_init_guesses_V(pa,pm,ig):
     # Reasonable initial guess: value of simply making flow profits as relative quality declines 
     # to zero, assuming no risk of bein overtaken in our industry. Easiest to calculate this value 
     # directly and then normalize, because then it is just a constant flow profit, and it amounts to this:     
-    d['V0'] = 1 + d['prof'] / pm['rho']
-    #d['V0'] = np.ones(d['prof'].shape)
+    #d['V0'] = d['prof'] / pm['rho']
+    d['V0'] = np.zeros(d['prof'].shape)
     
     
-    d['maxcount'] = 500;
+    d['maxcount'] = 1000;
     
     return d
 
@@ -258,7 +258,7 @@ def solve_HJB_V(pa,pm,ig):
         #wait = input("Press Enter to continue ...")
         
         HJB_d = np.sum(np.square(V0-V1))
-        print([count,HJB_d])
+        print([count,HJB_d / pa['delta_t']])
         #HJB_d_printed = Decimal(HJB_d)
         #"{1:.5f}".format(HJB_d)
         #print(HJB_d_printed)
