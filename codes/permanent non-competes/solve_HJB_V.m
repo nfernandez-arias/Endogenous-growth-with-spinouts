@@ -6,7 +6,7 @@ function out = solve_HJB_V(pa,pm,ig)
     V0 = d.V0;
     
     zE = pm.xi * min(pa.m_grid_2d,ig.M0);
-    x0 = ig.x0;
+    %x0 = ig.x0;
     
     zmax = ones(size(V0));
     ymax = ones(size(V0));
@@ -19,11 +19,10 @@ function out = solve_HJB_V(pa,pm,ig)
     Vm = ones(size(V0));
     
     % Movie parameter
-    frame_freq = 10;
-    F(round(d.maxcount / frame_freq)) = struct('cdata',[],'colormap',[]);
-    f = figure('visible','off');
+    frame_freq = 1;
+    F(1) = struct('cdata',[],'colormap',[]);
     
-    while ((count <= d.maxcount))
+    while ((HJB_d > pa.HJB_V_tol) && (count <= d.maxcount))
         
         V0_interp = griddedInterpolant(pa.q_grid_2d,pa.m_grid_2d,V0);
         Vplus = V0_interp((1+pm.lambda) * pa.q_grid_2d, zeros(size(pa.m_grid_2d)));
@@ -64,21 +63,7 @@ function out = solve_HJB_V(pa,pm,ig)
                                     + pm.nu*zE(i_q,i_m) * Vm(i_q,i_m) - (pm.rho -ig.g0) * V0(i_q,i_m)));
                 
                 end
-            end  
-            
-            %{
-            for i_m = 1:length(pa.m_grid)
-                
-                if fval1 > fval0
-                    rhs_rec = -rhs1(zmax(1,i_m));
-                    prof_rec = prof(1,i_m);
-                    
-                
-                
-            end
-            %}
-            
-            
+            end            
         end
         
         
@@ -93,14 +78,20 @@ function out = solve_HJB_V(pa,pm,ig)
         
            
         % Make plots for movie
-        
+        %{
         if mod(count,frame_freq) == 0
+			f = figure('visible','off');
             surf(pa.q_grid_2d,pa.m_grid_2d,V0)
             title('V(q,m)')
-            zlim([0,20])
+            xlabel('q')
+            ylabel('m')
+            zlim([0,1.5*max(max(d.V0))])
+            drawnow
             F(count/frame_freq) = getframe(f);
         end
+        %}
         count = count + 1
+        
         
     end
     

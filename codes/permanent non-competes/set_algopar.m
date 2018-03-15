@@ -1,9 +1,12 @@
 function d = set_algopar()
     
-    d.q_numpoints = 40;
-    d.q_max = 1.5;
+    % Grids
+
+    d.q_numpoints = 15;
+    d.q_max = 2;
     d.q_min = 0;
-    d.m_numpoints = 5;
+    d.m_numpoints = 15;
+    d.m_min = 0;
     d.m_max = 1; 
     d.q_grid = linspace(d.q_min,d.q_max,d.q_numpoints);
     d.m_grid = linspace(0,d.m_max,d.m_numpoints);
@@ -15,16 +18,34 @@ function d = set_algopar()
     d.m_grid_FINE = linspace(0,d.m_max,d.m_numpoints_FINE);
     [d.q_grid_2d_FINE,d.m_grid_2d_FINE] = ndgrid(d.q_grid_FINE,d.m_grid_FINE);
     
-    d.delta_t = 0.01;
+    % Finite difference
+    
+    d.delta_t = 1;
     d.delta_m = 0.0001;
     d.delta_q = 0.0001;
     
-    d.HJB_V_tol = 10e-6 * d.delta_t;
-    d.HJB_W_tol = 10e-5 * d.delta_t;
-    d.Lf_tol = 10e-5;
-    d.g_tol = 10e-5;
-    d.wF_tol = 10e-5;
-    d.M_tol = 10e-5; 
-    d.x_tol = 10e-5;
+    % Simulations
+    
+    d.sim_delta_t = 0.1;
+    d.num_draws = 100;
+    d.run_time = 10;
+    
+    % Guess updating
+    % _UR suffix means "update rate"
+    d.M0_UR = 0.2;
+    d.g0_UR = 0.1;
+    d.w0_UR = 0.1;
+    d.Lf0_UR = 0.1;
+    
+    % Tolerances
+    d.HJB_V_tol = 10e-3 * d.delta_t;
+    d.HJB_W_tol = 10e-4 * d.delta_t;
+    d.Lf_tol = 10e-3;
+    d.g_tol = 10e-3;
+    d.wF_tol = 10e-3;
+    d.M_tol = 10e-2; 
+    d.x_tol = 10e-3;
+    
+ 
 
 end

@@ -24,22 +24,34 @@
 
 \section{To-do list}
 \begin{itemize}
+	\item Thinking about my paper (new 3-15-2018): 
+	\begin{itemize}
+		\item The VentureOne data is not worth getting if all I am doing is constructing a ``more accurate'' measure of within-industry spinouts
+		\item If that is all it offers, then just use the moments from the empirical work that has been done using LEHD data and Muendler-Rauch type identification of WSOs
+		\item One thing that hasn't been explored fully: the effect of consideration laws on spinouts. I could run this empirical exercise on the VentureOne data + LBD or Compustat data, using a diff-in-diff strategy. Starr does this in "consider this" using LEHD data, but his focus is on training and wages, not on spinouts. Hence, complementing his data with my data on the relevance of consideration laws for spinouts could work. 
+		\item Another aspect that cannot be inferred from the LEHD data is OCCUPATION at the previous employer. This may be inferrable, to some degree, by parsing the VentureOne data.
+		\item Finally, of course, there is the VC financing issue. It could be interesting to use this to analyze, for example, the mechanism underlying the interpretation of Samila-Sorenson's paper on supply of VC funding and spinouts - could actually look at what happens to VC funding of spinouts depending on their instruments, and if we can actually see the mechanism happening
+	\end{itemize}
 	\item Work
 	\begin{itemize}
 		\item Continue to work on VentureSource / VentureOne data
 		\begin{itemize}
-			\item Talk to Esteban about Jamie's tentative \$3,500 quote, given >80-90\% coverage of bio information in all state-years. 
+			\item Can VentureOne be matched with LBD and / or Compustat?
+			\item Can I argue that it will be useful for Princeton students generally
+			\item Are there empirical facts we can learn from VentureOne that are independent of my model? 
 		\end{itemize}
-		\item If that doesn't work, try talking to Professor Schwed...maybe he knows about how to get at VentureOne
 		\item Think about Rogerson's criticisms
 		\begin{itemize}
 			\item Need to be able to defend my model as "a good model of spinouts" before using it to figure out the effect of non-competes on spinouts. In particular, he didn't like the fact that you compete by entering the same race rather than entering the product market (neither did I, really)
+			\item To this end, need to solve my simple model and inspect the mechanisms and see if there is something in the model which is falsified by the data. if not, then it is a reasonable model and we can proceed.
 		\end{itemize}
 		\item Solve model with permanent non-competes option. If too hard, try model with permanent non-competes required to see what happens
 		\begin{itemize}
-			\item Having some issues implementing Moll's algorithm - it's not converging. Implicit method seems impossible. Probably need to talk to someone in order to get this to work, but will try to get it to work this weekend.
+			\item VERY IMPORTANT to have some results before the presentation
+			\item Explicit scheme seems too slow, for sure too slow for calibration
+			\item Implicit scheme seems doable, since I can calculate Vplus by linearly interpolating. May need to use a log-spaced grid. think about this.
 		\end{itemize}
-	\end{itemize}
+	\end{itemize}	
 	\item Theory:
 	\begin{itemize}
 		\item Understand how screening with buyout menu works in business-stealing case of Shi's paper (closest analogue to my case)
@@ -303,7 +315,7 @@ L^F_t + L^I_t + L^{RD}_t \le 1
 As in Akcigit \& Kerr 2017, final goods are produced by a competitive firm with a CRS production function,\footnote{Labor here is difficult to interpret, but adds tractability by giving a closed form for the household's reservation wage}. 
 
 \begin{align*}
-Y_t = (L^F_t)^{\beta} \int_0^1 q_{jt}^{\beta} y_{jt}^{1-\beta} dj
+Y_t = \frac{(L^F_t)^{\beta}}{1-\beta} \int_0^1 q_{jt}^{\beta} y_{jt}^{1-\beta} dj
 \end{align*}
 
 where $q_{jt}$ is the leading edge quality of good $j$ at time $t$.\footnote{Under certain conditions on technology and competition between providers of the same good, the leading edge quality is the only quality used in equilibrium. This is meant as an abstraction to improve tractability. Formal proof in the Appendix.} There is no storage technology, so $c_{jt} = y_{jt}$ and $C_t = Y_t$ in equilibrium. Ownership of the final goods firm is irrelevant as it has zero profits in equilibrium due to CRS and perfect competition. 

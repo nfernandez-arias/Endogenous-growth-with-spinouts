@@ -7,13 +7,26 @@ pa.HJB_V_tol;
 tic 
 V_out = solve_HJB_V(pa,pm,ig);
 toc
-
-v = VideoWriter('myFile.avi');
+%% 
+v = VideoWriter('myFile_V.avi');
 open(v);
 for f = 1:length(V_out.F)
     writeVideo(v,V_out.F(f).cdata)
 end
 close(v);
+
+%%
+tic
+W_out = solve_HJB_W(pa,pm,ig,V_out.Vplus,V_out.zI);
+
+
+w = VideoWriter('myFile_W.avi');
+open(w);
+for f = 1:length(W_out.F)
+    writeVideo(w,W_out.F(f).cdata)
+end
+close(w);
+
 
 %movie(f,V_out.F)
 %mplay(f)
