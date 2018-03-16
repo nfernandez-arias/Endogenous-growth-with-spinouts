@@ -3,13 +3,13 @@ function out = solve_model(pa,pm,ig)
     Lf_d = 1;
     g_d = 1;
     w_d = 1;
-    M_d = 1;
+    zE0_d = 1;
     HJB_d = 1;
     
     ng.Lf0 = ig.Lf0;
     ng.g0 = ig.g0;
     ng.w0 = ig.w0;
-    ng.M0 = ig.M0;
+    ng.zE0 = ig.zE0;
     
     
     frame_freq = 1;
@@ -28,9 +28,9 @@ function out = solve_model(pa,pm,ig)
             
             while ((w_d > pa.wF_tol) && (w_count <= ig.w_maxcount))
                 
-                M_count = 1;
+                zE0_count = 1;
                 
-                while ((M_d > pa.M_tol) && (M_count <= ig.M_maxcount))
+                while ((zE0_d > pa.zE0_tol) && (zE0_count <= ig.zE0_maxcount))
 
                     V_out = solve_HJB_V(pa,pm,ng);
                     W_out = solve_HJB_W(pa,pm,ng,V_out);
@@ -39,26 +39,26 @@ function out = solve_model(pa,pm,ig)
                     % If not, change guess for M(q,m) to M1, calculate M_d, and 
                     % reset M0 = M1 
                     
-                    M_count = M_count + 1
+                    zE0_count = zE0_count + 1
                     
-                    M_d = sqrt(sumsqr(W_out.M - ng.M0))
+                    zE0_d = sqrt(sumsqr(W_out.zE0 - ng.zE0))
                     
                     % update, with smoothing coefficient
-                    ng.M0 = pa.M0_UR .* W_out.M + (1 - pa.M0_UR) .* ng.M0;
+                    ng.zE0 = pa.zE0_UR .* W_out.zE0 + (1 - pa.zE0_UR) .* ng.zE0;
                     
                     ng.V = V_out.V;
             
-                    Mds(M_count) = M_d;
+                    zE0ds(zE0_count) = zE0_d;
                     
-                    if mod(M_count,frame_freq) == 0
-                        surf(pa.q_grid_2d,pa.m_grid_2d,ng.M0)
+                    if mod(zE0_count,frame_freq) == 0
+                        surf(pa.q_grid_2d,pa.m_grid_2d,ng.zE0)
                         title('M(q,m)')
                         xlabel('q')
                         ylabel('m')
                         zlim([0,3])
                         drawnow
                         F(M_count/frame_freq) = getframe(f);
-                        %size(F(count/frame_freq).cdata)
+                        %sizE0(F(count/frame_freq).cdata)
                     end
                     
                     
@@ -66,10 +66,10 @@ function out = solve_model(pa,pm,ig)
                 end
                 
                 figure(gcf)
-                plot(1:M_count,Mds)
-                title('Evolution of M_d')
+                plot(1:zE0_count,zE0ds)
+                title('Evolution of zE0')
                 xlabel('iteration')
-                ylabel('M')
+                ylabel('zE0_d')
                 
                 pause
 

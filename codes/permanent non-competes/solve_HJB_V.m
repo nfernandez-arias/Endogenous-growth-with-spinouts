@@ -4,8 +4,8 @@ function out = solve_HJB_V(pa,pm,ig)
     
     prof = d.prof;
     V0 = d.V0;
-    
-    zE = pm.xi * min(pa.m_grid_2d,ig.M0);
+    zE = ig.zE0;
+    %zE = pm.xi * min(pa.m_grid_2d,ig.M0);
     %x0 = ig.x0;
     
     zmax = ones(size(V0));
@@ -51,7 +51,7 @@ function out = solve_HJB_V(pa,pm,ig)
                     zmax(i_q,i_m) = z1;
                     
                     V1(i_q,i_m) = ( V0(i_q,i_m) ...
-                                    + pa.delta_t*(-rhs1(zmax(i_q,i_m)) + prof(i_q,i_m) - ig.g0*q*Vq(i_q,i_m) ...
+                                    + pa.delta_t_V*(-rhs1(zmax(i_q,i_m)) + prof(i_q,i_m) - ig.g0*q*Vq(i_q,i_m) ...
                                     + pm.nu*zE(i_q,i_m) * Vm(i_q,i_m) - (pm.rho -ig.g0) * V0(i_q,i_m)));
                 else 
                     
@@ -59,7 +59,7 @@ function out = solve_HJB_V(pa,pm,ig)
                     zmax(i_q,i_m) = z0;
                     
                     V1(i_q,i_m) = ( V0(i_q,i_m) ...
-                                    + pa.delta_t*(-rhs0(zmax(i_q,i_m)) + prof(i_q,i_m) - ig.g0*q*Vq(i_q,i_m) ...
+                                    + pa.delta_t_V*(-rhs0(zmax(i_q,i_m)) + prof(i_q,i_m) - ig.g0*q*Vq(i_q,i_m) ...
                                     + pm.nu*zE(i_q,i_m) * Vm(i_q,i_m) - (pm.rho -ig.g0) * V0(i_q,i_m)));
                 
                 end
@@ -71,7 +71,7 @@ function out = solve_HJB_V(pa,pm,ig)
         HJB_d = sqrt(sumsqr(V1-V0));
         
 
-        HJB_d / pa.delta_t
+        HJB_d / pa.delta_t_V
         
         
         V0 = V1;

@@ -13,6 +13,6 @@ else
 end
 
 %d.V0 = 0.1*ones(size(d.prof));
-d.maxcount = 200;
+d.maxcount = 500;
 
 end

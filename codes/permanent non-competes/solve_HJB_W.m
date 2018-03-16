@@ -4,9 +4,12 @@ function out = solve_HJB_W(pa,pm,ig,V_out)
     Vplus = V_out.Vplus;
     zI = V_out.zI;
     x0 = V_out.y; % non-compete policy by incumbents
-
+	
+	zE = ig.zE0;
+	
+	% DEPRECATED
     % translate M0 into guess about aggregate innovation effort by entrants
-    zE = pm.xi * min(pa.m_grid_2d,ig.M0);
+    %zE = pm.xi * min(pa.m_grid_2d,ig.M0);
 
     tau = zE + zI;
     %x0 = ig.x0;
@@ -40,7 +43,7 @@ function out = solve_HJB_W(pa,pm,ig,V_out)
                 Wm = pa.delta_m^(-1) * (W0_interp(q,m+pa.delta_m) - W0(i_q,i_m));
                 
                 
-                W1(i_q,i_m) = W0(i_q,i_m) + pa.delta_t * (-(pm.rho - ig.g0) * W0(i_q,i_m) - ig.g0*q*Wq + (x0(i_q,i_m)*zI(i_q,i_m)+zE(i_q,i_m)) * pm.nu * Wm    ...
+                W1(i_q,i_m) = W0(i_q,i_m) + pa.delta_t_W * (-(pm.rho - ig.g0) * W0(i_q,i_m) - ig.g0*q*Wq + (x0(i_q,i_m)*zI(i_q,i_m)+zE(i_q,i_m)) * pm.nu * Wm    ...
                                                               +(pm.chi_I*zI(i_q,i_m) + pm.chi_E*zE(i_q,i_m)) * phi(tau(i_q,i_m))* (-W0(i_q,i_m)) ...
                                                               + ( pm.chi_E * phi(tau(i_q,i_m)) * (Vplus(i_q,i_m) - W0(i_q,i_m)) > ig.w0(i_q,i_m)) ...
                                                                  * pm.xi * (pm.chi_E * phi(zI(i_q,i_m) + zE(i_q,i_m)) * (Vplus(i_q,i_m) - W0(i_q,i_m)) - ig.w0(i_q,i_m)));
@@ -69,12 +72,16 @@ function out = solve_HJB_W(pa,pm,ig,V_out)
         count = count + 1
         
     end
+    
+    % Compute implied aggregate policy
+    zE1 = pm.xi * pa.m_grid_2d .* (pm.chi_E * phi(tau) .* (Vplus - W0) > ig.w0);
                     
     W = W0;
     
     out.W = W;
     out.count = count;
-    out.zE = zE;
+    out.zE0 = zE;
+    out.zE1 = zE1;
     out.tau = tau;
     out.M = (pm.chi_E * phi(tau) .* (Vplus - W0) > ig.w0);
     out.F = F;

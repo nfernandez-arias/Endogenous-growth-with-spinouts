@@ -11,6 +11,6 @@ function d = set_modelpar()
     d.nu = 0.2;
     d.theta = 0.05;
     d.T_nc = 2;
-    d.xi = 0.05;   
+    d.xi = 0.2;   
     
 end
