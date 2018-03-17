@@ -2,10 +2,10 @@ function d = set_algopar()
     
     % Grids
 
-    d.q_numpoints = 20;
+    d.q_numpoints = 30;
     d.q_max = 3;
     d.q_min = 0;
-    d.m_numpoints = 40;
+    d.m_numpoints = 30;
     d.m_min = 0;
     d.m_max = 3; 
     d.q_grid = linspace(d.q_min,d.q_max,d.q_numpoints);
@@ -35,14 +35,14 @@ function d = set_algopar()
     
     % Guess updating
     % _UR suffix means "update rate"
-    d.zE0_UR = 0.1;
+    d.zE0_UR = 0.5;
     d.g0_UR = 0.1;
     d.w0_UR = 0.1;
     d.Lf0_UR = 0.1;
     
     % Tolerances
-    d.HJB_V_tol = 10e-4 * d.delta_t_V;
-    d.HJB_W_tol = 10e-4 * d.delta_t_W;
+    d.HJB_V_tol = 10e-3 * d.delta_t_V;
+    d.HJB_W_tol = 10e-2 * d.delta_t_W;
     d.Lf_tol = 10e-3;
     d.g_tol = 10e-3;
     d.wF_tol = 10e-3;

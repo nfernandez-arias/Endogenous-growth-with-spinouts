@@ -73,6 +73,10 @@ function out = solve_HJB_W(pa,pm,ig,V_out)
         
     end
     
+    score = pm.chi_E * phi(tau) .* (Vplus - W0) - ig.w0;
+    UR = abs(score) / max(max(score));
+    
+    
     % Compute implied aggregate policy
     zE1 = pm.xi * pa.m_grid_2d .* (pm.chi_E * phi(tau) .* (Vplus - W0) > ig.w0);
                     
@@ -83,7 +87,8 @@ function out = solve_HJB_W(pa,pm,ig,V_out)
     out.zE0 = zE;
     out.zE1 = zE1;
     out.tau = tau;
-    out.M = (pm.chi_E * phi(tau) .* (Vplus - W0) > ig.w0);
+    out.UR = UR;
+    % out.M = (pm.chi_E * phi(tau) .* (Vplus - W0) > ig.w0);
     out.F = F;
 
 end

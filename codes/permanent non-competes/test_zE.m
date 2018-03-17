@@ -53,9 +53,14 @@ while ((zE0_d > pa.zE_tol) && (zE0_count <= ig.zE_maxcount))
     
 
     zE0_d = sqrt(sumsqr(W_out.zE1 - ng.zE0))
-
+	
+	UR = W_out.UR;
+	
+	% adaptive smoothing coeffficient
+	ng.zE0 = UR .* pa.zE0_UR .* W_out.zE1 + (1-UR .* pa.zE0_UR) .* ng.zE0;
+	
     % update, with smoothing coefficient
-    ng.zE0 = pa.zE0_UR .* W_out.zE1 + (1 - pa.zE0_UR) .* ng.zE0;
+    %ng.zE0 = pa.zE0_UR .* W_out.zE1 + (1 - pa.zE0_UR) .* ng.zE0;
 
     ng.V = V_out.V;
 
@@ -90,8 +95,8 @@ close(m);
 
 f = figure
 surf(pa.q_grid_2d,pa.m_grid_2d,pm.chi_E * phi(W_out.tau) .* (V_out.Vplus - W_out.W) - ig.w0)
-title('zE(q,m)')
+title('Marginal benefit of innovation effort for entrants')
 xlabel('q')
 ylabel('m')
-zlim([0,3])
+zlim([-1,3])
 drawnow
