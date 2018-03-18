@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6300) (preloaded format=pdflatex 2018.1.5)  14 MAR 2018 13:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6300) (preloaded format=pdflatex 2018.1.5)  18 MAR 2018 13:42
 entering extended mode
 **"./outline of model 3-9-2018.tex"
 ("outline of model 3-9-2018.tex"
@@ -291,25 +291,26 @@ File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 27.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 47.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 47.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 47.
  [1
 
 {C:/Users/Nico/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-Overfull \hbox (1.9453pt too wide) in paragraph at lines 67--68
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 59.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 59.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 59.
+ [2]
+Overfull \hbox (1.9453pt too wide) in paragraph at lines 79--80
 []\T1/lmr/m/n/12 Entrants are in-finites-i-mal (changes so-cial / bi-lat-eral t
 rade-offs of non-competes,
  []
 
-[2] [3] [4]
+[3] [4]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 186.
- [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17]
-[18] [19] [20] ("outline of model 3-9-2018.aux") ) 
+(Font)              <5> on input line 198.
+ [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18]
+[19] [20] [21] ("outline of model 3-9-2018.aux") ) 
 Here is how much of TeX's memory you used:
  2326 strings out of 493328
  30686 string characters out of 3136542
@@ -341,9 +342,9 @@ e1/public/lm/lmri12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/l
 m/lmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy6.pfb
 ><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy7.pfb><C:/Program
  Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy8.pfb>
-Output written on "outline of model 3-9-2018.pdf" (20 pages, 369535 bytes).
+Output written on "outline of model 3-9-2018.pdf" (21 pages, 374190 bytes).
 PDF statistics:
- 166 PDF objects out of 1000 (max. 8388607)
+ 169 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,7 +1,7 @@
 %%
 clear
 pm = set_modelpar();
-pa = set_algopar();
+pa = set_algopar(pm);
 ig = set_init_guesses_global(pa,pm); 
 
 ng.Lf0 = ig.Lf0;
@@ -63,6 +63,7 @@ while ((zE0_d > pa.zE_tol) && (zE0_count <= ig.zE_maxcount))
     %ng.zE0 = pa.zE0_UR .* W_out.zE1 + (1 - pa.zE0_UR) .* ng.zE0;
 
     ng.V = V_out.V;
+    ng.W = W_out.W;
 
     zEds(zE0_count) = zE0_d;
 	

@@ -5,6 +5,8 @@ function out = solve_HJB_V(pa,pm,ig)
     prof = d.prof;
     V0 = d.V0;
     zE = ig.zE0;
+    phi = pm.phi;
+    scaleFactor = pm.scaleFactor;
     %zE = pm.xi * min(pa.m_grid_2d,ig.M0);
     %x0 = ig.x0;
     
@@ -14,7 +16,7 @@ function out = solve_HJB_V(pa,pm,ig)
     HJB_d = 1;
     count = 1;
     
-    V1 = ones(size(V0));
+    V1 = zeros(size(V0));
     Vq = ones(size(V0));
     Vm = ones(size(V0));
     
@@ -28,20 +30,27 @@ function out = solve_HJB_V(pa,pm,ig)
         Vplus = V0_interp((1+pm.lambda) * pa.q_grid_2d, zeros(size(pa.m_grid_2d)));
         
         
-        for i_q = 1:length(pa.q_grid)
+        %Vq(1,:) = zeros(size(Vq(1,:)));
+        
+        
+        
+        for i_q = 2:length(pa.q_grid)
             for i_m = 1:length(pa.m_grid)
                 
                 q = pa.q_grid_2d(i_q,i_m);
                 m = pa.m_grid_2d(i_q,i_m);
                 
+                %Vq(i_q,i_m) = (pa.Delta_q(i_q,i_m))^(-1) * (-1) * (V0(i_q - 1,i_m) - V0(i_q, i_m));
+                %Vm(i_q,i_m) = (pa.delta-
+                
                 Vq(i_q,i_m) = (pa.delta_q)^(-1) * (-1) * (V0_interp(q - pa.delta_q,m) - V0(i_q,i_m));
                 Vm(i_q,i_m) = (pa.delta_m)^(-1) * (V0_interp(q,m+pa.delta_m) - V0(i_q,i_m));
                 
-                rhs1 = @(z) -(-pm.wbar * z + pm.chi_I*z*phi(z + zE(i_q,i_m))*(Vplus(i_q,i_m) ...
-                                    - V0(i_q,i_m)) + pm.chi_E*zE(i_q,i_m)*phi(z+zE(i_q,i_m))*(-V0(i_q,i_m)));
+                rhs1 = @(z) -(-pm.wbar * z + pm.chi_I*z*phi(z + zE(i_q,i_m)) * scaleFactor(q) *(Vplus(i_q,i_m) ...
+                                    - V0(i_q,i_m)) + pm.chi_E*zE(i_q,i_m)*phi(z+zE(i_q,i_m))* scaleFactor(q) * (-V0(i_q,i_m)));
                 
-                rhs0 = @(z) -(-ig.w0(i_q,i_m) * z + pm.nu * Vm(i_q,i_m) * z + pm.chi_I * z * phi(z + zE(i_q,i_m)) * (Vplus(i_q,i_m) - V0(i_q,i_m)) ...
-                                                + pm.chi_E*zE(i_q,i_m)*phi(z + zE(i_q,i_m))*(-V0(i_q,i_m)));
+                rhs0 = @(z) -(-ig.w0(i_q,i_m) * z + pm.nu * Vm(i_q,i_m) * z + pm.chi_I * z * phi(z + zE(i_q,i_m)) * scaleFactor(q) * (Vplus(i_q,i_m) - V0(i_q,i_m)) ...
+                                                + pm.chi_E*zE(i_q,i_m)*phi(z + zE(i_q,i_m))* scaleFactor(q) * (-V0(i_q,i_m)));
     
                 [z1,fval1] = fminbnd(rhs1,0,10);
                 [z0,fval0] = fminbnd(rhs0,0,10);
@@ -65,6 +74,10 @@ function out = solve_HJB_V(pa,pm,ig)
                 end
             end            
         end
+        
+        
+        % Implicit update step:
+        
         
         
         

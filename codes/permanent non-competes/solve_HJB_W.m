@@ -4,6 +4,8 @@ function out = solve_HJB_W(pa,pm,ig,V_out)
     Vplus = V_out.Vplus;
     zI = V_out.zI;
     x0 = V_out.y; % non-compete policy by incumbents
+	phi = pm.phi;
+	scaleFactor = pm.scaleFactor;
 	
 	zE = ig.zE0;
 	
@@ -23,7 +25,7 @@ function out = solve_HJB_W(pa,pm,ig,V_out)
     HJB_d = 1;
     count = 1;
     
-    W1 = ones(size(W0));
+    W1 = zeros(size(W0));
     
     frame_freq = 10000;
     F(1) = struct('cdata',[],'colormap',[]);
@@ -33,7 +35,7 @@ function out = solve_HJB_W(pa,pm,ig,V_out)
         
         W0_interp = griddedInterpolant(pa.q_grid_2d,pa.m_grid_2d,W0);
         
-        for i_q = 1:length(pa.q_grid)
+        for i_q = 2:length(pa.q_grid)
             for i_m = 1:length(pa.m_grid)  
                 
                 q = pa.q_grid_2d(i_q,i_m);
@@ -44,9 +46,9 @@ function out = solve_HJB_W(pa,pm,ig,V_out)
                 
                 
                 W1(i_q,i_m) = W0(i_q,i_m) + pa.delta_t_W * (-(pm.rho - ig.g0) * W0(i_q,i_m) - ig.g0*q*Wq + (x0(i_q,i_m)*zI(i_q,i_m)+zE(i_q,i_m)) * pm.nu * Wm    ...
-                                                              +(pm.chi_I*zI(i_q,i_m) + pm.chi_E*zE(i_q,i_m)) * phi(tau(i_q,i_m))* (-W0(i_q,i_m)) ...
+                                                              +(pm.chi_I*zI(i_q,i_m) + pm.chi_E*zE(i_q,i_m)) * phi(tau(i_q,i_m)) * scaleFactor(q) * (-W0(i_q,i_m)) ...
                                                               + ( pm.chi_E * phi(tau(i_q,i_m)) * (Vplus(i_q,i_m) - W0(i_q,i_m)) > ig.w0(i_q,i_m)) ...
-                                                                 * pm.xi * (pm.chi_E * phi(zI(i_q,i_m) + zE(i_q,i_m)) * (Vplus(i_q,i_m) - W0(i_q,i_m)) - ig.w0(i_q,i_m)));
+                                                                 * pm.xi * (pm.chi_E * phi(zI(i_q,i_m) + zE(i_q,i_m)) * scaleFactor(q) * (Vplus(i_q,i_m) - W0(i_q,i_m)) - ig.w0(i_q,i_m)));
                                 
             end
         end
@@ -74,11 +76,11 @@ function out = solve_HJB_W(pa,pm,ig,V_out)
     end
     
     score = pm.chi_E * phi(tau) .* (Vplus - W0) - ig.w0;
-    UR = abs(score) / max(max(score));
+    UR = abs(score ./ max(max(score))).^(1/pa.zE0_UR_exponent);
     
     
     % Compute implied aggregate policy
-    zE1 = pm.xi * pa.m_grid_2d .* (pm.chi_E * phi(tau) .* (Vplus - W0) > ig.w0);
+    zE1 = pm.xi * pa.m_grid_2d .* (pm.chi_E * phi(tau) .* scaleFactor(pa.q_grid_2d) .* (Vplus - W0) > ig.w0);
                     
     W = W0;
     

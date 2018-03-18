@@ -199,7 +199,11 @@ structure they will either be long or short.
 		\end{enumerate}
 	\end{enumerate}
 	\item (ibid) In US data (LEHD): higher enforceability associated with higher earnings of founders pre WSO, also consistent with screening theory 
-	\item  
+	\item Varying non-compete enforcement moves economy along a tradeoff between firm investment and employee mobility (Jeffers JMP 2017). Issues: 
+	\begin{enumerate}
+		\item Different kinds of changes - hard to compare - I want to isolate change in consideration laws (in her sample, only Colorado has this)
+		\item Issues with interpretation: short-term effects, so not comparing steady states. In particular, unenforceable non-competes may all of a sudden become enforceable, but perhaps are inefficient contracts that wouldn't have been signed under different rules. Very unclear, from her paper, in which states this is possible.
+	\end{enumerate}
 
 \end{enumerate} 
 
@@ -257,6 +261,14 @@ There are several key margins involved in the question of spinouts and the effec
 \subsection{Questions to answer} 
 
 \begin{enumerate}
+	\item DO WE HAVE A STATIONARY DISTRIBUTION? I would think $\tilde{q}$ would keep spreading out over time no matter what in the baseline model, since everything points to $w(q,m)$ being lower and the rewards from innovation being higher so that $s(q,m)$ will be heavily increasing in $q$. How to prevent this??
+	\begin{itemize}
+		\item One solution is to make the efficiency of the R\&D technology decrease in $q/\overline{q}$, allowing lagging goods to "catch up". What is a reasonable way to do this? 
+		\begin{itemize}
+			\item Right now, reduced form: decreasing function $h(\tilde{q})$, so that rate of innovation is $(\chi_I z^I(q,m) + \chi_E z^E(q,m))\phi(\tau(q,m)) h(q)$. In terms of determining the optimal $z$, and hence the proving existence of a stationary distribution, this is equivalent to raising the effective wage paid by firms engaging in R\&D by $h(q)^{-1}$ -- whether or not they require non-competes.  
+		\end{itemize}
+		\item With some intensity $\theta$, good $j$ is rendered obsolete and is replaced by a good of quality $q = 1$. So, goods become higher and higher quality until they are one day replaced. The problem is that this is an unnatural interpretation, and so the model may have weird implications: in the model, the replacing good is of lower quality. We can interpret this as changing tastes, I suppose. But it's not great.  	 
+	\end{itemize}
 	\item Think about which relationships / mechanisms discussed above are affected by the enforceability of non-competes / the presence of a non-compete in the employment contract:
 	\begin{itemize}
 		\item The rate at which workers acquire the knowledge necessary to start new businesses can be affected
@@ -264,6 +276,7 @@ There are several key margins involved in the question of spinouts and the effec
 	\end{itemize}
 	\item Do we explicitly model the employee selling some projects to the firm? Makes sense that employee would not know whether the idea he generates will be of a type that will be sold to the firm or of a type that he will spin out. If this is true, then it will weaken the effect of CNC enforceability on a worker's idea-generation effort.
 	\item Do we allow workers to 
+	
 \end{enumerate}
 
 \section{Ideas for new model 3-10-2018}
@@ -338,17 +351,18 @@ Productivity growth in the model is driven by improvements to technology for pro
 \paragraph{Incumbents}
 Incumbent $j$ can hire a flow of R\&D labor $l_j$, generating a Poisson flow probability of learning a production technology for quality $(1+\lambda)q_j$. The technology for this process is
 \begin{align*}
-R_I(l_j,L_j^{RD}) \equiv \chi_I l_j \phi (L_j^{RD})
+R_I(l_j,L_j^{RD},q_j / \overline{q}) \equiv \chi_I l_j \phi (L_j^{RD}) f(q_j / \overline{q})
 \end{align*}
 where $L_j^{RD,m}$ for $m=I(E)$ is the total flow R\&D labor hired to work on improving good $j$ by incumbents (entrants) and 
 \begin{align*}
-L_j^{RD} = L_j^{RD,I} + L_j^{RD,E} 
+L_j^{RD} &= L_j^{RD,I} + L_j^{RD,E} \\
+L_j^{RD,I} &= l_j
 \end{align*}
-is total R\&D labor allocated to improving good $j$. The function $\phi(\cdot)$ encodes congestion and is described below; for now note that it will be assumed to be decreasing.
+is total R\&D labor allocated to improving good $j$. The function $\phi(\cdot)$ encodes congestion and is described below; for now note that it will be assumed to be decreasing. The function $f$ encodes, also decreasing, is necessary to generate a stationary distribution for $q/\overline{q}$; it encodes the fact that it is more difficult to improve on a more advanced product. While ad-hoc, this assumption is no more ad-hoc than the standard assumptions imposed in these models in order to obtain a BGP, such as the fact that the R\&D technology (or, equivalently, the human capital of the R\&D workers) scales (linearly) with TFP. 
 \paragraph{Entrants}
 At the same time, a mass $m_j$ of entrants, indexed by $k \in [0,m_j]$, engages in R\&D. Entrant $k$ has technology 
 \begin{align*}
-R_E(l_j,L_j^{RD}) \equiv \chi_{E,k} l_j \phi (L_j^{RD})  
+R_E(l_j,L_j^{RD}) \equiv \chi_{E,k} l_j \phi (L_j^{RD}) f(q_j / \overline{q})  
 \end{align*}
 where $\chi_{E,k} \ge 0$ is drawn from the distribution $G(\cdot)$.\footnote{More on this in the sub-section below labeled "Non-competes"} Total entrant R\&D is calculated as 
 \begin{align*}

@@ -9,8 +9,16 @@ function d = set_modelpar()
     d.psi_E = 0.5;  
     d.lambda = 1.2;  
     d.nu = 0.2;
-    d.theta = 0.05;
-    d.T_nc = 2;
+    %d.theta = 0.05;
+    %d.T_nc = 2;
     d.xi = 0.2;   
+    d.p1 = -0.5;
+    d.p2 = -0.1;
+    
+    
+    % Aggregate decreasing returns to scale in innovation effort
+    d.phi = @(z) z.^(d.p1);
+    % Decreasing efficiency of R&D for higher quality goods 
+    d.scaleFactor = @(z) z.^(d.p2);
     
 end
