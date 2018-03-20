@@ -92,7 +92,7 @@ for f = 1:length(F)
 end
 close(m);
 
-%% Other stuff
+%% Marginal benefit from innovation for entrants
 
 f = figure
 surf(pa.q_grid_2d,pa.m_grid_2d,pm.chi_E * phi(W_out.tau) .* (V_out.Vplus - W_out.W) - ig.w0)
@@ -101,3 +101,22 @@ xlabel('q')
 ylabel('m')
 zlim([-1,3])
 drawnow
+
+%% Vplus
+f = figure
+surf(pa.q_grid_2d,pa.m_grid_2d,V_out.Vplus)
+title('V^+(q,m)')
+xlabel('q')
+ylabel('m')
+zlim([0,1.5 * max(max(V_out.V))])
+drawnow
+
+%% zI
+f = figure
+surf(pa.q_grid_2d,pa.m_grid_2d,V_out.zI)
+title('z^I(q,m)')
+xlabel('q')
+ylabel('m')
+zlim([0,3])
+drawnow
+

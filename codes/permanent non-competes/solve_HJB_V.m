@@ -10,7 +10,7 @@ function out = solve_HJB_V(pa,pm,ig)
     %zE = pm.xi * min(pa.m_grid_2d,ig.M0);
     %x0 = ig.x0;
     
-    zmax = ones(size(V0));
+    zmax = zeros(size(V0));
     ymax = ones(size(V0));
     
     HJB_d = 1;
@@ -25,6 +25,9 @@ function out = solve_HJB_V(pa,pm,ig)
     F(1) = struct('cdata',[],'colormap',[]);
     
     while ((HJB_d > pa.HJB_V_tol) && (count <= d.maxcount))
+    
+		%pa.q_grid_2d 
+		%pause 
         
         V0_interp = griddedInterpolant(pa.q_grid_2d,pa.m_grid_2d,V0);
         Vplus = V0_interp((1+pm.lambda) * pa.q_grid_2d, zeros(size(pa.m_grid_2d)));
@@ -43,7 +46,7 @@ function out = solve_HJB_V(pa,pm,ig)
                 %Vq(i_q,i_m) = (pa.Delta_q(i_q,i_m))^(-1) * (-1) * (V0(i_q - 1,i_m) - V0(i_q, i_m));
                 %Vm(i_q,i_m) = (pa.delta-
                 
-                Vq(i_q,i_m) = (pa.delta_q)^(-1) * (-1) * (V0_interp(q - pa.delta_q,m) - V0(i_q,i_m));
+                Vq(i_q,i_m) = (pa.d_q)^(-1) * (-1) * (V0_interp(q - pa.d_q,m) - V0(i_q,i_m));
                 Vm(i_q,i_m) = (pa.delta_m)^(-1) * (V0_interp(q,m+pa.delta_m) - V0(i_q,i_m));
                 
                 rhs1 = @(z) -(-pm.wbar * z + pm.chi_I*z*phi(z + zE(i_q,i_m)) * scaleFactor(q) *(Vplus(i_q,i_m) ...

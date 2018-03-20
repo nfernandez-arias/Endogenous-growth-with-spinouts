@@ -41,7 +41,7 @@ function out = solve_HJB_W(pa,pm,ig,V_out)
                 q = pa.q_grid_2d(i_q,i_m);
                 m = pa.m_grid_2d(i_q,i_m);
                 
-                Wq = pa.delta_q^(-1) * (-1) * (W0_interp(q-pa.delta_q,m) - W0(i_q,i_m));
+                Wq = pa.d_q^(-1) * (-1) * (W0_interp(q-pa.d_q,m) - W0(i_q,i_m));
                 Wm = pa.delta_m^(-1) * (W0_interp(q,m+pa.delta_m) - W0(i_q,i_m));
                 
                 

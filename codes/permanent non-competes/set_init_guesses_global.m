@@ -12,6 +12,6 @@ function d = set_init_guesses_global(pa,pm)
     d.Lf_maxcount = 1;
     d.g_maxcount = 1;
     d.w_maxcount = 1;
-    d.zE_maxcount = 50;
+    d.zE_maxcount = 10;
     
 end
