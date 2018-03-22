@@ -10,6 +10,16 @@ function out = makeA_W(pa,pm,ig,z,zI,yI)
 	%%%%% NEED TO FIX (i1,i1) entries to take into account both 
 	%%% the event of displacement by an incumbent, by another entrant, or by oneself - there will be THREE TERMS
 	%%% instead of two terms as in makeA_V.
+	
+	%% Did the above - still not working - there is something else going on...
+	%%% AAH!!! FOUND IT! The below is not right - need to take out anything that 
+	%%% has to do with Vplus, set to 0, and then put the corresponding stuff 
+	%%% in flovec(idx(i_q,i_m)). To do this, define the anonymous function 
+	%%% idx as here but in solve_HJB_W, loop through the indices 
+	%%% and assign the value corresponding to the flow value from 
+	%%% the intensity of receiving the payoff Vplus. Here, can avoid
+	%%% extrapolation issues by simply using the already calculated 
+	%%% matrix V_out.Vplus. Almost there!
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	idx = @(i_q,i_m) (i_q - 1) * Imax_m + i_m;
@@ -37,7 +47,7 @@ function out = makeA_W(pa,pm,ig,z,zI,yI)
 		%}
 		
 		out(i1,i1) = ... %-ig.g0*q / pa.Delta_q(i_q) ...
-					 -(pm.chi_E*z(i_q,i_m) + pm.chi_E*ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
+					 -(pm.chi_I*zI(i_q,i_m) + pm.chi_E*(ig.zE0(i_q,i_m) + z(i_q,i_m))) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
 					 - pm.nu * (ig.zE0(i_q,i_m) + (1-yI(i_q,i_m))*zI(i_q,i_m)) / pa.Delta_m(i_m);
 		
 		
@@ -54,7 +64,7 @@ function out = makeA_W(pa,pm,ig,z,zI,yI)
 			
 			
 			out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) ...
-					     -(pm.chi_E*z(i_q,i_m) + pm.chi_E*ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
+					     -(pm.chi_I*zI(i_q,i_m) + pm.chi_E*(ig.zE0(i_q,i_m) + z(i_q,i_m))) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
 					     - pm.nu * (ig.zE0(i_q,i_m) + (1-yI(i_q,i_m))*zI(i_q,i_m)) / pa.Delta_m(i_m);
 					     
 	
@@ -75,7 +85,7 @@ function out = makeA_W(pa,pm,ig,z,zI,yI)
 			i1 = idx(i_q,i_m);
 		
 			out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) ...
-					     -(pm.chi_E*z(i_q,i_m) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
+					     -((pm.chi_I*zI(i_q,i_m) + pm.chi_E*ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q)) ...
 					     - pm.nu * (ig.zE0(i_q,i_m) + (1-yI(i_q,i_m))*zI(i_q,i_m)) / pa.Delta_m(i_m);
 			
 			out(i1,idx(i_q-1,i_m)) = ig.g0 * q / pa.Delta_q(i_q);
@@ -98,7 +108,7 @@ function out = makeA_W(pa,pm,ig,z,zI,yI)
 		q = pa.q_grid(i_q);
 		
 		out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) ...
-					     -(pm.chi_E*ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
+					     -(pm.chi_I * zI(i_q,i_m) + pm.chi_E*ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
 					     - pm.nu * (ig.zE0(i_q,i_m) + (1-yI(i_q,i_m))*zI(i_q,i_m)) / pa.Delta_m(i_m);
 			
 		out(i1,idx(i_q-1,i_m)) = ig.g0 * q / pa.Delta_q(i_q);
@@ -124,7 +134,7 @@ function out = makeA_W(pa,pm,ig,z,zI,yI)
 	
 	i1 = idx(i_q,i_m);
 		
-	out(i1,i1) = -(pm.chi_E*z(i_q,i_m) + pm.chi_E*ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
+	out(i1,i1) = -(pm.chi_I*zI(i_q,i_m) + pm.chi_E*(ig.zE0(i_q,i_m) + z(i_q,i_m))) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
 				 %-ig.g0*q / pa.Delta_q(i_q)
 	
 
@@ -138,7 +148,7 @@ function out = makeA_W(pa,pm,ig,z,zI,yI)
 	
 		i1 = idx(i_q,i_m);
 		
-		out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) - (pm.chi_I * z(i_q,i_m) + pm.chi_E * ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
+		out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) - (pm.chi_I*zI(i_q,i_m) + pm.chi_E*(ig.zE0(i_q,i_m) + z(i_q,i_m))) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
 					 
 		out(i1,idx(i_q-1,i_m)) = ig.g0 * q / pa.Delta_q(i_q);
 		
@@ -154,7 +164,7 @@ function out = makeA_W(pa,pm,ig,z,zI,yI)
 	
 		i1 = idx(i_q,i_m);
 	
-		out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) - (pm.chi_E * ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
+		out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) - (pm.chi_I * zI(i_q,i_m) + pm.chi_E * ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
 		
 		out(i1,idx(i_q-1,i_m)) = ig.g0 * q / pa.Delta_q(i_q);
 		
@@ -171,7 +181,7 @@ function out = makeA_W(pa,pm,ig,z,zI,yI)
 	
 	i1 = idx(i_q,i_m);
 	
-	out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) - ( pm.chi_E * ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
+	out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) - (pm.chi_I * zI(i_q,i_m) + pm.chi_E * ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
 		
 	out(i1,idx(i_q-1,i_m)) = ig.g0 * q / pa.Delta_q(i_q);
 	
