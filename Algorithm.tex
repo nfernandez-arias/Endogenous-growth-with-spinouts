@@ -87,7 +87,7 @@ Discretization:
 with 
 \begin{align*}
 f_{i,j}^n &= \pi_{i,j} + x_{i,j}^n (-\overline{w} z_{i,j}^n) + (1-x_{i,j}^n) (-w_{i,j} z_{i,j}^n) \\
-\xi_{i,j}^n &= -gq/\Delta^q_i - (\chi_I z_{i,j}^n + \chi_E z_{i,j}^E) \phi(z_{i,j}^n +z_{i,j}^E) h(q_i) \\
+\xi_{i,j}^n &= -gq/\Delta^q_i - (\chi_I z_{i,j}^n + \chi_E z_{i,j}^E) \phi(z_{i,j}^n +z_{i,j}^E) h(q_i) - \nu(z_{i,j}^E + (1-x_{i,j}^n)z_{i,j}^n) / \Delta^m_i\\
 \eta_{i,j}^n &= gq/\Delta^q_i \\
 \gamma_{i,j}^n &= \nu(z_{i,j}^E + (1-x_{i,j}^n)z_{i,j}^n) / \Delta^m_i \\
 \sigma_{i,j}^n &= \chi_I z_{i,j}^n \phi (z_{i,j}^n + z_{i,j}^E) h(q_i) \\

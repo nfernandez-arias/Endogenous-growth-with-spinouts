@@ -42,7 +42,7 @@ function out = solve_HJB_W(pa,pm,ig,V_out)
                 m = pa.m_grid_2d(i_q,i_m);
                 
                 Wq = pa.d_q^(-1) * (-1) * (W0_interp(q-pa.d_q,m) - W0(i_q,i_m));
-                Wm = pa.delta_m^(-1) * (W0_interp(q,m+pa.delta_m) - W0(i_q,i_m));
+                Wm = pa.d_m^(-1) * (W0_interp(q,m+pa.d_m) - W0(i_q,i_m));
                 
                 
                 W1(i_q,i_m) = W0(i_q,i_m) + pa.delta_t_W * (-(pm.rho - ig.g0) * W0(i_q,i_m) - ig.g0*q*Wq + (x0(i_q,i_m)*zI(i_q,i_m)+zE(i_q,i_m)) * pm.nu * Wm    ...

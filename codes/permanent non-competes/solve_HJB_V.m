@@ -32,7 +32,6 @@ function out = solve_HJB_V(pa,pm,ig)
         V0_interp = griddedInterpolant(pa.q_grid_2d,pa.m_grid_2d,V0);
         Vplus = V0_interp((1+pm.lambda) * pa.q_grid_2d, zeros(size(pa.m_grid_2d)));
         
-        
         %Vq(1,:) = zeros(size(Vq(1,:)));
         
         
@@ -47,7 +46,7 @@ function out = solve_HJB_V(pa,pm,ig)
                 %Vm(i_q,i_m) = (pa.delta-
                 
                 Vq(i_q,i_m) = (pa.d_q)^(-1) * (-1) * (V0_interp(q - pa.d_q,m) - V0(i_q,i_m));
-                Vm(i_q,i_m) = (pa.delta_m)^(-1) * (V0_interp(q,m+pa.delta_m) - V0(i_q,i_m));
+                Vm(i_q,i_m) = (pa.d_m)^(-1) * (V0_interp(q,m+pa.d_m) - V0(i_q,i_m));
                 
                 rhs1 = @(z) -(-pm.wbar * z + pm.chi_I*z*phi(z + zE(i_q,i_m)) * scaleFactor(q) *(Vplus(i_q,i_m) ...
                                     - V0(i_q,i_m)) + pm.chi_E*zE(i_q,i_m)*phi(z+zE(i_q,i_m))* scaleFactor(q) * (-V0(i_q,i_m)));
@@ -62,26 +61,52 @@ function out = solve_HJB_V(pa,pm,ig)
                     ymax(i_q,i_m) = 1;
                     zmax(i_q,i_m) = z1;
                     
-                    V1(i_q,i_m) = ( V0(i_q,i_m) ...
-                                    + pa.delta_t_V*(-rhs1(zmax(i_q,i_m)) + prof(i_q,i_m) - ig.g0*q*Vq(i_q,i_m) ...
-                                    + pm.nu*zE(i_q,i_m) * Vm(i_q,i_m) - (pm.rho -ig.g0) * V0(i_q,i_m)));
+                    %V1(i_q,i_m) = ( V0(i_q,i_m) ...
+                    %                + pa.delta_t_V*(-rhs1(zmax(i_q,i_m)) + prof(i_q,i_m) - ig.g0*q*Vq(i_q,i_m) ...
+                    %                + pm.nu*zE(i_q,i_m) * Vm(i_q,i_m) - (pm.rho -ig.g0) * V0(i_q,i_m)));
                 else 
                     
                     ymax(i_q,i_m) = 0;
                     zmax(i_q,i_m) = z0;
                     
-                    V1(i_q,i_m) = ( V0(i_q,i_m) ...
-                                    + pa.delta_t_V*(-rhs0(zmax(i_q,i_m)) + prof(i_q,i_m) - ig.g0*q*Vq(i_q,i_m) ...
-                                    + pm.nu*zE(i_q,i_m) * Vm(i_q,i_m) - (pm.rho -ig.g0) * V0(i_q,i_m)));
+                    %V1(i_q,i_m) = ( V0(i_q,i_m) ...
+                    %                + pa.delta_t_V*(-rhs0(zmax(i_q,i_m)) + prof(i_q,i_m) - ig.g0*q*Vq(i_q,i_m) ...
+                    %                + pm.nu*zE(i_q,i_m) * Vm(i_q,i_m) - (pm.rho -ig.g0) * V0(i_q,i_m)));
                 
                 end
-            end            
+            end
         end
         
+        % Construct matrices for computation of next step in implicit method
+        Amat = makeA_V(pa,pm,ig,zmax,ymax);
+        %max(max(isnan(Amat)))
+        %pause
+        V0prime = V0';
+        
+        Bmat = (pa.delta_t_V^(-1) + (pm.rho - ig.g0)) * eye(size(Amat)) - Amat;
+        
+        %figure
+        %spy(Bmat)
+        %pause
+        
+        
+        % Compute flow payoff for computing update step 
+        % Remember - conditioning on whether a non-compete is used!
+        flowvec = prof - (1-ymax) .* zmax.*ig.w0 - ymax .* zmax .* pm.wbar;
+        flowvec = flowvec';
+        flowvec = flowvec(:);
+        
+        % Define RHS of equation to be solved
+        bvec = flowvec + pa.delta_t_V^(-1) * V0prime(:);
+        
+        Bmat = sparse(Bmat);
+        bvec = sparse(bvec);
         
         % Implicit update step:
-        
-        
+        %tic 
+        V1 = full(reshape(Bmat \ bvec,length(pa.m_grid),length(pa.q_grid))');
+        %toc 
+        %pause
         
         
         HJB_d = sqrt(sumsqr(V1-V0));

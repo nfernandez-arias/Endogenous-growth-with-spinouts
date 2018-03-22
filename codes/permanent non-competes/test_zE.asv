@@ -9,7 +9,6 @@ ng.g0 = ig.g0;
 ng.zE0 = ig.zE0;
 ng.w0 = ig.w0;
 
-
 %%
 
 frame_freq = 1;
@@ -42,7 +41,7 @@ while ((zE0_d > pa.zE_tol) && (zE0_count <= ig.zE_maxcount))
     title('W(q,m)')
     xlabel('q')
     ylabel('m')
-    zlim([-10,0.00001 + 1.5 * max(max(W_out.W))])
+    zlim([-,0.00001 + 1.5 * max(max(W_out.W))])
     drawnow
     pause
     %}
@@ -100,19 +99,8 @@ surf(pa.q_grid_2d,pa.m_grid_2d,pm.chi_E * phi(W_out.tau) .* (V_out.Vplus - W_out
 title('Marginal benefit of innovation effort for entrants')
 xlabel('q')
 ylabel('m')
-zlim([-1,.5*max(max(V_out.Vplus - W_out.W))])
-drawnow
-
-%% zE1
-
-f = figure
-surf(pa.q_grid_2d,pa.m_grid_2d,W_out.zE1)
-title('zE1(q,m)')
-xlabel('q')
-ylabel('m')
 zlim([-1,3])
 drawnow
-
 
 %% Vplus
 f = figure

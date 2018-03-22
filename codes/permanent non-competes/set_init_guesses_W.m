@@ -10,6 +10,6 @@ function d = set_init_guesses_W(pa,pm,ig,Vplus,zI)
 	   
 	end
 
-    d.maxcount = 1000;
+    d.maxcount = 500;
     
 end
