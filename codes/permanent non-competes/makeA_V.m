@@ -117,8 +117,8 @@ function out = makeA_V(pa,pm,ig,z,y)
 	
 	i1 = idx(i_q,i_m);
 		
-	%out(i1,i1) = ... %-ig.g0*q / pa.Delta_q(i_q) ...
-				 %-(pm.chi_I*z(i_q,i_m) + pm.chi_E*ig.zE0(i_q,i_m)) * pm.phi(z(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) / pa.Delta_m(i_m);
+	out(i1,i1) = -(pm.chi_I*z(i_q,i_m) + pm.chi_E*ig.zE0(i_q,i_m)) * pm.phi(z(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
+				%-ig.g0*q / pa.Delta_q(i_q)
 	
 
 	%out(i1,idx(i_q,i_m+1)) = pm.nu * (ig.zE0(i_q,i_m) + (1-y(i_q,i_m))*z(i_q,i_m)) / pa.Delta_m(i_m);

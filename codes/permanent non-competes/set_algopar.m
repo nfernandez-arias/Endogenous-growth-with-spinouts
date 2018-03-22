@@ -63,7 +63,7 @@ function d = set_algopar(pm)
     
     %% Finite difference
     d.delta_t_V = 100;
-    d.delta_t_W = 0.01;
+    d.delta_t_W = 100;
     d.d_m = 0.0001;
     d.d_q = 0.0001;
     
@@ -82,7 +82,7 @@ function d = set_algopar(pm)
     
     %% Tolerances
     d.HJB_V_tol = 10e-4 * d.delta_t_V;
-    d.HJB_W_tol = 7e-3 * d.delta_t_W;
+    d.HJB_W_tol = 10e-5 * d.delta_t_W;
     d.Lf_tol = 10e-3;
     d.g_tol = 10e-3;
     d.wF_tol = 10e-3;

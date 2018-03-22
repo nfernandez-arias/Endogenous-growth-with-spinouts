@@ -1,9 +1,16 @@
-function out = makeA_W(pa,pm,ig,z,y)
+function out = makeA_W(pa,pm,ig,z,zI,yI)
 
 	Imax_q = length(pa.q_grid);
 	Imax_m = length(pa.m_grid);
 	
 	%scalefactor = pm.scalefactor;
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%% NEED TO FIX (i1,i1) entries to take into account both 
+	%%% the event of displacement by an incumbent, by another entrant, or by oneself - there will be THREE TERMS
+	%%% instead of two terms as in makeA_V.
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	idx = @(i_q,i_m) (i_q - 1) * Imax_m + i_m;
 	
@@ -30,11 +37,11 @@ function out = makeA_W(pa,pm,ig,z,y)
 		%}
 		
 		out(i1,i1) = ... %-ig.g0*q / pa.Delta_q(i_q) ...
-					 -(pm.chi_I*z(i_q,i_m) + pm.chi_E*ig.zE0(i_q,i_m)) * pm.phi(z(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
-					 - pm.nu * (ig.zE0(i_q,i_m) + (1-y(i_q,i_m))*z(i_q,i_m)) / pa.Delta_m(i_m);
+					 -(pm.chi_E*z(i_q,i_m) + pm.chi_E*ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
+					 - pm.nu * (ig.zE0(i_q,i_m) + (1-yI(i_q,i_m))*zI(i_q,i_m)) / pa.Delta_m(i_m);
 		
 		
-		out(i1,idx(i_q,i_m+1)) = pm.nu * (ig.zE0(i_q,i_m) + (1-y(i_q,i_m))*z(i_q,i_m)) / pa.Delta_m(i_m);
+		out(i1,idx(i_q,i_m+1)) = pm.nu * (ig.zE0(i_q,i_m) + (1-yI(i_q,i_m))*z(i_q,i_m)) / pa.Delta_m(i_m);
 	
 		
 		for i_q = 2:Imax_q-(pa.q_m-1)-1
@@ -47,15 +54,15 @@ function out = makeA_W(pa,pm,ig,z,y)
 			
 			
 			out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) ...
-					     -(pm.chi_I*z(i_q,i_m) + pm.chi_E*ig.zE0(i_q,i_m)) * pm.phi(z(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
-					     - pm.nu * (ig.zE0(i_q,i_m) + (1-y(i_q,i_m))*z(i_q,i_m)) / pa.Delta_m(i_m);
+					     -(pm.chi_E*z(i_q,i_m) + pm.chi_E*ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
+					     - pm.nu * (ig.zE0(i_q,i_m) + (1-yI(i_q,i_m))*zI(i_q,i_m)) / pa.Delta_m(i_m);
 					     
 	
 			out(i1,idx(i_q-1,i_m)) = ig.g0 * pa.q_grid(i_q) / pa.Delta_q(i_q);
 			
-			out(i1,idx(i_q,i_m+1)) = pm.nu * (ig.zE0(i_q,i_m) + (1-y(i_q,i_m))*z(i_q,i_m)) / pa.Delta_m(i_m);
+			out(i1,idx(i_q,i_m+1)) = pm.nu * (ig.zE0(i_q,i_m) + (1-yI(i_q,i_m))*zI(i_q,i_m)) / pa.Delta_m(i_m);
 			
-			out(i1,idx(i_q + pa.q_m,1)) = pm.chi_I * z(i_q,i_m) * pm.phi(z(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(pa.q_grid(i_q));
+			out(i1,idx(i_q + pa.q_m,1)) = pm.chi_E * z(i_q,i_m) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(pa.q_grid(i_q));
 			
 		end
 		
@@ -68,12 +75,12 @@ function out = makeA_W(pa,pm,ig,z,y)
 			i1 = idx(i_q,i_m);
 		
 			out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) ...
-					     -(pm.chi_E*ig.zE0(i_q,i_m)) * pm.phi(z(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
-					     - pm.nu * (ig.zE0(i_q,i_m) + (1-y(i_q,i_m))*z(i_q,i_m)) / pa.Delta_m(i_m);
+					     -(pm.chi_E*z(i_q,i_m) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
+					     - pm.nu * (ig.zE0(i_q,i_m) + (1-yI(i_q,i_m))*zI(i_q,i_m)) / pa.Delta_m(i_m);
 			
 			out(i1,idx(i_q-1,i_m)) = ig.g0 * q / pa.Delta_q(i_q);
 			
-			out(i1,idx(i_q,i_m+1)) = pm.nu * (ig.zE0(i_q,i_m) + (1-y(i_q,i_m))*z(i_q,i_m)) / pa.Delta_m(i_m);
+			out(i1,idx(i_q,i_m+1)) = pm.nu * (ig.zE0(i_q,i_m) + (1-yI(i_q,i_m))*zI(i_q,i_m)) / pa.Delta_m(i_m);
 			
 			%out(i1,idx(i_q,1)) = pm.chi_I * z(i_q,i_m) * pm.phi(z(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) * (1 - pm.lambda/((1+pm.lambda)^(1/pa.q_m) - 1));
 			
@@ -91,12 +98,12 @@ function out = makeA_W(pa,pm,ig,z,y)
 		q = pa.q_grid(i_q);
 		
 		out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) ...
-					     -(pm.chi_E*ig.zE0(i_q,i_m)) * pm.phi(z(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
-					     - pm.nu * (ig.zE0(i_q,i_m) + (1-y(i_q,i_m))*z(i_q,i_m)) / pa.Delta_m(i_m);
+					     -(pm.chi_E*ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
+					     - pm.nu * (ig.zE0(i_q,i_m) + (1-yI(i_q,i_m))*zI(i_q,i_m)) / pa.Delta_m(i_m);
 			
 		out(i1,idx(i_q-1,i_m)) = ig.g0 * q / pa.Delta_q(i_q);
 		
-		out(i1,idx(i_q,i_m+1)) = pm.nu * (ig.zE0(i_q,i_m) + (1-y(i_q,i_m))*z(i_q,i_m)) / pa.Delta_m(i_m);
+		out(i1,idx(i_q,i_m+1)) = pm.nu * (ig.zE0(i_q,i_m) + (1-yI(i_q,i_m))*zI(i_q,i_m)) / pa.Delta_m(i_m);
 		
 		%out(i1,idx(i_q,1)) = pm.chi_I * z(i_q,i_m) * pm.phi(z(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) * (1 + pm.lambda/(1-(1+pm.lambda)^(-1/pa.q_m)));
 		
@@ -117,13 +124,13 @@ function out = makeA_W(pa,pm,ig,z,y)
 	
 	i1 = idx(i_q,i_m);
 		
-	%out(i1,i1) = ... %-ig.g0*q / pa.Delta_q(i_q) ...
-				 %-(pm.chi_I*z(i_q,i_m) + pm.chi_E*ig.zE0(i_q,i_m)) * pm.phi(z(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) / pa.Delta_m(i_m);
+	out(i1,i1) = -(pm.chi_E*z(i_q,i_m) + pm.chi_E*ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
+				 %-ig.g0*q / pa.Delta_q(i_q)
 	
 
-	%out(i1,idx(i_q,i_m+1)) = pm.nu * (ig.zE0(i_q,i_m) + (1-y(i_q,i_m))*z(i_q,i_m)) / pa.Delta_m(i_m);
+	%out(i1,idx(i_q,i_m+1)) = pm.nu * (ig.zE0(i_q,i_m) + (1-yI(i_q,i_m))*z(i_q,i_m)) / pa.Delta_m(i_m);
 	
-	out(i1,idx(i_q + pa.q_m,1)) = pm.chi_I * z(i_q,i_m) * pm.phi(z(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
+	out(i1,idx(i_q + pa.q_m,1)) = pm.chi_I * z(i_q,i_m) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
 	
 	for i_q = 2:Imax_q-(pa.q_m-1)-1
 	
@@ -131,11 +138,11 @@ function out = makeA_W(pa,pm,ig,z,y)
 	
 		i1 = idx(i_q,i_m);
 		
-		out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) - (pm.chi_I * z(i_q,i_m) + pm.chi_E * ig.zE0(i_q,i_m)) * pm.phi(z(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
+		out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) - (pm.chi_I * z(i_q,i_m) + pm.chi_E * ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
 					 
 		out(i1,idx(i_q-1,i_m)) = ig.g0 * q / pa.Delta_q(i_q);
 		
-		out(i1,idx(i_q + pa.q_m,1)) = pm.chi_I * z(i_q,i_m) * pm.phi(z(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
+		out(i1,idx(i_q + pa.q_m,1)) = pm.chi_I * z(i_q,i_m) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
 		
 	end
 	
@@ -147,7 +154,7 @@ function out = makeA_W(pa,pm,ig,z,y)
 	
 		i1 = idx(i_q,i_m);
 	
-		out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) - (pm.chi_E * ig.zE0(i_q,i_m)) * pm.phi(z(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
+		out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) - (pm.chi_E * ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
 		
 		out(i1,idx(i_q-1,i_m)) = ig.g0 * q / pa.Delta_q(i_q);
 		
@@ -164,7 +171,7 @@ function out = makeA_W(pa,pm,ig,z,y)
 	
 	i1 = idx(i_q,i_m);
 	
-	out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) - ( pm.chi_E * ig.zE0(i_q,i_m)) * pm.phi(z(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
+	out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) - ( pm.chi_E * ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
 		
 	out(i1,idx(i_q-1,i_m)) = ig.g0 * q / pa.Delta_q(i_q);
 	

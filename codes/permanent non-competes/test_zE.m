@@ -56,6 +56,7 @@ while ((zE0_d > pa.zE_tol) && (zE0_count <= ig.zE_maxcount))
     zE0_d = sqrt(sumsqr(W_out.zE1 - ng.zE0))
 	
 	UR = W_out.UR;
+	UR = ones(size(W_out.UR));
 	
 	% adaptive smoothing coeffficient
 	ng.zE0 = UR .* pa.zE0_UR .* W_out.zE1 + (1-UR .* pa.zE0_UR) .* ng.zE0;
