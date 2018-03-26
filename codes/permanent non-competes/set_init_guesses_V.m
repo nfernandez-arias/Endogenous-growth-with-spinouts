@@ -13,6 +13,6 @@ function d = set_init_guesses_V(pa,pm,ig)
 	end
 
 	%d.V0 = 0.1*ones(size(d.prof));
-	d.maxcount = 10;
+	d.maxcount = 20;
 
 end

@@ -77,7 +77,29 @@ function out = solve_HJB_W(pa,pm,ig,V_out)
         
         % Compute flow payoff for computing update step 
         % Remember - conditioning on whether a non-compete is used!
-        flowvec = -zmax.*ig.w0;
+        
+        flowvec = zeros(size(pa.q_grid_2d));
+        
+        % Need to define flowvec this way because 
+        % cannot evaluate scaleFactor for q = 0. Alternatively,
+        % could just define scaleFactor so it is hardcoded 0 when q = 0.... probably better, oh well.
+        for i_q = 2:length(pa.q_grid)
+			for i_m = 1:length(pa.m_grid)
+				
+				flowvec(i_q,i_m) = zmax(i_q,i_m)*(pm.chi_E * phi(zI(i_q,i_m) + zE(i_q,i_m)) * pm.scaleFactor(pa.q_grid_2d(i_q,i_m)) * Vplus(i_q,i_m) - ig.w0(i_q,i_m));
+				
+			end
+		end
+		
+		i_q = 1;
+		
+		for i_m = 1:length(pa.m_grid)
+			
+			flowvec(i_q,i_m) = zmax(i_q,i_m)*(pm.chi_E * phi(zI(i_q,i_m) + zE(i_q,i_m)) * Vplus(i_q,i_m) - ig.w0(i_q,i_m));
+		
+		end
+				
+        %flowvec = zmax.*(pm.chi_E * phi(zI + zE) * pm.scaleFactor(pa.q_grid_2d) .* Vplus - ig.w0);
         flowvec = flowvec';
         flowvec = flowvec(:);
         

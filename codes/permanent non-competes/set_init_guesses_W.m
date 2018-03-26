@@ -6,10 +6,10 @@ function d = set_init_guesses_W(pa,pm,ig,Vplus,zI)
 		
 	else 
 		
-		d.W0 = ones(size(pa.q_grid_2d));
+		d.W0 = zeros(size(pa.q_grid_2d));
 	   
 	end
 
-    d.maxcount = 500;
+    d.maxcount =  20;
     
 end

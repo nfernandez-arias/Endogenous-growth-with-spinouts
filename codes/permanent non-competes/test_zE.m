@@ -9,15 +9,17 @@ ng.g0 = ig.g0;
 ng.zE0 = ig.zE0;
 ng.w0 = ig.w0;
 
-
+zE0_d = 1;
 %%
 
 frame_freq = 1;
-F(1) = struct('cdata',[],'colormap',[]);
+%F(1) = struct('cdata',[],'colormap',[]);
 zE0_count = 1;
 
 
-zE0_d = 1;
+%zE0_d = 1;
+
+tic
 
 while ((zE0_d > pa.zE_tol) && (zE0_count <= ig.zE_maxcount))
 
@@ -30,6 +32,7 @@ while ((zE0_d > pa.zE_tol) && (zE0_count <= ig.zE_maxcount))
     xlabel('q')
     ylabel('m')
     zlim([0,1.5 * max(max(V_out.V))])
+    colorbar
     drawnow
     pause
     %}
@@ -50,16 +53,17 @@ while ((zE0_d > pa.zE_tol) && (zE0_count <= ig.zE_maxcount))
     % Next, check that M(q,m) is consistent with entrant optimality
     % If not, change guess for M(q,m) to M1, calculate zE0_d, and 
     % reset zE0 = M1 
-
     
-
-    zE0_d = sqrt(sumsqr(W_out.zE1 - ng.zE0))
 	
 	UR = W_out.UR;
-	UR = ones(size(W_out.UR));
+	%UR = ones(size(W_out.UR));
 	
 	% adaptive smoothing coeffficient
-	ng.zE0 = UR .* pa.zE0_UR .* W_out.zE1 + (1-UR .* pa.zE0_UR) .* ng.zE0;
+	zE0_new = UR .* pa.zE0_UR .* W_out.zE1 + (1-UR .* pa.zE0_UR) .* ng.zE0;
+	
+	zE0_d = sqrt(sumsqr(zE0_new - ng.zE0))
+	
+	ng.zE0 = zE0_new;
 	
     % update, with smoothing coefficient
     %ng.zE0 = pa.zE0_UR .* W_out.zE1 + (1 - pa.zE0_UR) .* ng.zE0;
@@ -85,6 +89,25 @@ while ((zE0_d > pa.zE_tol) && (zE0_count <= ig.zE_maxcount))
     zE0_count = zE0_count + 1
 end 
 
+toc
+
+%% Compute stationary distribution
+
+idx_drop = 1;
+
+tic
+Amat = makeA_V(pa,pm,ig,V_out.zI,V_out.y);
+Amat = Amat';
+Amat(idx_drop,:) = zeros(1,length(Amat(idx_drop,:)));
+Amat(idx_drop,idx_drop) = 1;
+rhsvec = zeros(size(Amat,2),1);
+rhsvec(idx_drop) = 1;
+muvec = Amat\rhsvec;
+mumat = reshape(muvec,length(pa.m_grid),length(pa.q_grid))';
+muvec = muvec / sum(muvec(:,1));
+toc
+
+
 %% 
 
 m = VideoWriter('myFile_zE.avi');
@@ -94,8 +117,18 @@ for f = 1:length(F)
 end
 close(m);
 
-%% Marginal benefit from innovation for entrants
+%% Stationary distribution
 
+f = figure
+surf(pa.q_grid_2d,pa.m_grid_2d,mumat)
+title('\mu(q,m)')
+xlabel('q')
+ylabel('m')
+zlim([0,1])
+drawnow
+
+
+%% Marginal benefit from innovation for entrants
 f = figure
 surf(pa.q_grid_2d,pa.m_grid_2d,pm.chi_E * phi(W_out.tau) .* (V_out.Vplus - W_out.W) - ig.w0)
 title('Marginal benefit of innovation effort for entrants')
@@ -132,4 +165,24 @@ xlabel('q')
 ylabel('m')
 zlim([0,3])
 drawnow
+
+%% W_out.UR
+f = figure
+surf(pa.q_grid_2d,pa.m_grid_2d,W_out.UR)
+title('UR(q,m)')
+xlabel('q')
+ylabel('m')
+zlim([0,1])
+drawnow
+
+%% tau
+f = figure
+surf(pa.q_grid_2d,pa.m_grid_2d,W_out.tau)
+title('\tau(q,m)')
+xlabel('q')
+ylabel('m')
+zlim([0,3])
+drawnow
+
+
 

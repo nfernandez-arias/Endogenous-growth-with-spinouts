@@ -292,7 +292,7 @@ There are several key margins involved in the question of spinouts and the effec
 
 
 
-\section{Existing model: Klette \& Kortum-style, permanent non-competes, etc.}
+\section{Existing model: case of permanent non-competes}
 
 The model builds on neo-Schumpeterian endogenous growth theory, specifically the work of Aghion-Howitt and Grossman-Helpman, via Hopenhayn 1992, Klette-Kortum 2004 and more recently Acemoglu et al 2013 and Akcigit-Kerr 2017. Time $t \ge 0$ is continuous. Essentially the model endogenizes the process of entry into the patent race for discovering the next level on the quality ladder: entrants are formed by former R\&D employees of the incumbent firm. 
 
@@ -310,7 +310,7 @@ the firms in which it holds stock do not cooperate.} Households are risk-neutral
 U=\int_{0}^{\infty}\exp(-\rho t)C_tdt
 \]
 
-where $C_t \ge 0$ is consumption of the final good, whose production I will describe in the next section. They borrow and lend short-term on bond markets at the endogenous risk-free interest rate $r_t = \rho$. 
+where $C_t \ge 0$ is consumption of the final good, whose production I will describe in the next section. They borrow and lend short-term on bond markets at the endogenous risk-free interest rate $r_t = \rho$. The model can easily be extended to the case of CRRA preferences.
 
 \subsubsection{Endowment}
 
@@ -378,13 +378,56 @@ The function $\phi(\cdot)$ is a reduced form representation of congestion in the
 \paragraph{Endogenous entry by spinouts}
 In the baseline Neo-Schumpeterian models of endogenous growth, there is free entry into R\&D. The mass $m_j$ is thus determined endogenously by a free-entry condition. An improvement to quality immediately spills over to the rest of the economy, becoming the base upon which all entrants innovate.  Instead, in my model, entry into R\&D can only occur by a worker who was previously employed at the incumbent \emph{and} successfully learned the technology on the job. In other words, all entrants are spinouts.\footnote{This assumption can be relaxed if we want to match data on entry by non-spinout firms} Entrants work at maximum capacity as long as R\&D is profitable in expectation, that is as long as $m_j$ is less than the mass that would prevail with free entry. 
 
-\paragraph{Timing and details of screative destruction} 
+\paragraph{Timing and details of creative destruction} 
 Suppose that there is a discovery in some good $j$ with quality $q_{jt}$ at time $t$. 
 \begin{enumerate}
 	\item At the beginning of $t$, the incumbent and mass $\tilde{m} = \lim_{t' \uparrow t} m_{jt'}$ of spinouts perform R\&D
 	\item Either the incumbent or one of the spinouts wins race, discovers technology $(1+\lambda)q$, becomes new incumbent
 	\item Knowledge held by losers of race expires: mass $m$ of entrants jumps to $m_{jt} = 0$
 \end{enumerate}
+
+\subsection{BGP Equilibrium}
+
+\subsubsection{Stationary distribution}
+
+The innovation intensity $z$ of a firm (incumbent or entrant) innovating on good $j$ depends on quality $q_j$ and mass of entrants $m_j$. To have a BGP, it suffices to have a stationary distribution $\mu(q,m)$.\footnote{In principle it would be possible to have a BGP even without a stationary distribution, as long as $g$ is constant. But it is hard to imagine such an equilibrium.}
+
+My baseline model does not actually admit a stationary distribution because:
+\begin{enumerate}
+	\item Movement through the state space is not scale independent, because the model does not satisfy Gibrat's law since $\tau(q,m)\phi(\tau(q,m))$ is not constant
+	\item There is neither a reflecting boundary nor death and reinjection
+\end{enumerate}
+
+Acemoglu and Cao 2015 considers a model similar to mine. Their baseline model admits a BGP in spite of not generating a stationary distribution in $\mu(q)$, because $\tau(q,m) = \tau^*$. However, they generate an endogenous reflecting boundary in order to solve (2) above, thus generating a Zipf's law which matches the empirical firm size distribution. Also, the model exhibits a Gibrat's law, which matches the micro data on firm growth. Gibrat's law plus reflecting boundary is also what generates a Zipf's law. 
+
+I can introduce the same feature in my model, which would create a reflecting boundary. However, I do not have (1) in any case, so it is not clear if this is sufficient for a stationary distribution. Given that I have to introduce a function which $f(q)$ which scales down the effectiveness of R\&D, the natural question is whether I can achieve a stationary distribution in this way without the lower boundary at all. On the other hand, it could be useful to use the model's prediction of the correlation between firm size and R\&D to discipline the model.
+
+In any case: matching Zipf's law in Acemoglu \& Cao 2015 comes from the scale-independent growth, but this is a direct result of the ad-hoc assumptions in that model which generate a linear value function in the tail of the distribution, and ad-hoc assumptions on the R\&D technology that are necessary in order to generate a BGP. 
+
+HOWEVER: My model *will* generate a result consistent with the data: spinouts are larger than entrants. 
+
+\paragraph{Tail of innvation rate distribution}
+In equilibrium, $w(q,m) = \overline{w} - \nu W(q,m)$ due to the assumptions. 
+
+One way to think of this: since the bilateral value will be optimized, a non-compete will be used unless $\nu W(q,m) < V_m(q,m)$, in which case a non-compete will be used. Is there a reason to think this will occur for large $q$? Not clear what would generate this in my model. If $\chi_E >> \chi_I$ or the innovation step for entrants is much larger as in Acemoglu \& Cao, then non-competes will not be used (given that we have excluded ex-post renegotiation). The fact that non-competes are used is then only consistent with the negative competition effects outweighing the increased efficiency of allowing spinoffs. This is because the model ignores: 
+
+\begin{enumerate}
+	\item 
+\end{enumerate}
+
+If it ends up being the case that $W(q,m) < V_m(q,m)$ for large $q$, then firms with large $q$ will use non-competes, paying $\overline{w}$. If we then choose the decay function $f(q)=q^{-1}$, we will have $z^I(q,m) = z^*(q,m)$ in the tail. 
+
+However, since entrants are small, they do not require employees to sign non-competes. Moreover, following ``Arrow's replacement effect"-logic, they tend to dominate R\&D once there are enough of them, since R\&D quickly becomes unprofitable for incumbents. Since they will not satisfy $z^E(q,m) \equiv z^*$ in the right tail, we really need to give up hope of this. 
+
+And, in general, they will pay $w(q,m) = \overline{w} - \nu (W(q,m) - V_m(q,m))$. Eventually $V_m(q,m) = 0$ for large enough $m$...but for such $m$, it is also the case that $W(q,m) = 0$. At this point, then, everyone pays $\overline{w}$ and hence, with proper choice of scaleFacor $f(q) = q^{-1}$, will have $z^E(q,m) = z^*$ for $m > M(q)$. 
+
+However, for smaller $m$, things are different, etc...
+
+I don't think there's any way to get my model to generate this, and I wouldn't even want to anyway - check the empirical stuff on the correlation of R\&D spending and firm size.  
+
+
+
+ 
 
 \subsection{Contracting}
 

@@ -1,0 +1,170 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+
+\title{Stylized facts and related literature}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Introduction}
+
+In this document, I first outline the stylized facts that have emerged from the empirical literature on the aggregate distribution of firms characteristics, microeconomic firm dynamics (entry, exit, investment in R\&D, other forms of investment), industry evolution and non-compete contracts. Next, I discuss the existing models in the literature that have been written to explain these facts. Finally, I argue why the novel ingredients in my model (1) help the model to explain these facts; and, more importantly, (2) make the model a better guide to the effects of non-compete enforcement on spinout entrepreneurship and productivity growth than existing models or than simply extrapolating in a model-free way from the existing empirical estimates.
+
+\section{Stylized facts}
+\subsection{Joint distribution of firm size, productivity, R\&D expenditure, wages}
+
+\begin{enumerate}
+	\item Luttmer 2007: Firm size distribution (measured by employment) is well-approximated by Pareto distribution with tail index $\zeta = 1.06$
+\end{enumerate}
+
+\subsection{Dynamics of productivity growth: creative destruction, spinouts, entry, exit, imitation, etc.}
+\begin{enumerate}
+	\item Gibrat's law: firm growth rate conditional on survival is independent of size. Some caveats from Dunne-Roberts-Samuelson (Sutton 1997). Conditional on survival, 
+	\begin{itemize}
+		\item Large firms grow more slowly than small firms, but are less likely to exit
+		\item Old firms grow more slowly than young firms, but are less likely to exit
+	\end{itemize}
+	\item Muendler-Rauch-Tocoian 2012, Brazil.
+	\begin{itemize}
+		\item employee spinouts account for between 1/6 and 1/3 of new firms 
+		\item employee spinouts are larger than unrelated firms at entry. director/manager spinouts 85\% larger; five-or-more-employee spinouts are 12\% larger
+		\item employee spinouts 5-yr failure rate is 8.5 pp lower than for unrelated firms
+		\item employee spinouts 5-yr absorption rate is 2.5 p.p. higher than for unrelated firms (and 28\% of absorbed spinouts are absorbed by their parents)
+		\item spinouts take on 23\% of employees of incumbent with them on average
+	\end{itemize} 
+\end{enumerate}
+
+\paragraph{Exit}
+\begin{enumerate}
+	\item Luttmer 2007, SBA data 1988-2006: exit rate is 10.4\% / yr for < 20 employees, 2.5\% / yr for > 500 employees.
+\end{enumerate}
+
+\subsection{Use of non-compete contracts}
+
+\subsection{Effects of non-compete enforcement or non-compete contracts}
+\paragraph{On worker mobility}
+\begin{enumerate}
+	\item Fallick et al. REStat 2006: employer-employer mobility rates are 40\% higher in Silicon Valley computer cluster than in computer clusters in non-enforcing states.\footnote{Uses CPS data. An important caveat: in regressions that control for a Silicon Valley effect in addition to a California effect (on the rate of changing jobs within industry, which is what non-competes are relevant for), the California effect is no longer statistically significant! The two effects are jointly significant at the 1\% level, but the Silicon Valley has both a larger t-statistic and a substantially larger magnitude. In my reading, this is evidence that there is something special about Silicon Valley relative to the rest of California's computer industry. None of these industries have non-competes. At best, we can simply say that the data are consistent with the \textit{possibility} that non-competes can lead to more mobility, but you still need to get lucky for it to happen, explaining why not all of California has more mobility, but the \textit{only} cluster which experiences this increased mobility is located in California. A bit of a stretch.}
+	\item Balasubramaniam et al 2017, "Locked in? The enforceability of CNCs and the careers of high-tech workers": going from median to maximum enforcement increases mean job spell length by 8 pp
+	\item Marx 2009: Enforcement leads to less frequent job switching (mean job spell length increases by 8 pp); the effect is stronger for workers with firm-specific skills or who specialize in narrow technical occupation  
+\end{enumerate}
+
+\paragraph{On wages}
+\begin{enumerate}
+	\item Balasubramaniam et al. 2017: going from median to maximum enforcement reduces wages of high tech workers by 3 pp more than non-high tech workers
+	\item Starr 2017, "Consider this: training wages and the enforceability of CNCs": increase from non-enforcement to mean enforcement leads to a 14\% increase in training, but a 4\% decrease in hourly wages. Decrease in hourly wages driven by thinner right tail of wage distribution
+\end{enumerate}
+
+\paragraph{On investment (by incumbents or employees), spinouts and entrepreneurship}
+\begin{enumerate}
+	\item Garmaise 2011, "Ties that truly bind": studies Execucomp database, finds the non-compete enforcement reduces executive mobility and wages, interprets as evidence that executives invest less in their own human capital moreso than firms invest more in their capital / IP / etc.
+	\item Jeffers JMP 2018, "The impact of restricting labor mobility on corporate investment and entrepreneurship": finds that varying non-compete enforcement generates a tradeoff of \textbf{\$2 million of additional capital investment from publicly-held firms for every lost new firm entry}.\footnote{Gets exogenous variation in non-compete enforcement from rulings by state supreme court judges; observes employee occupation better than usual bc has LinkedIn data; controls for firm and industry-time fixed effects.}
+	\item Starr-Balasubramaniam-Sakakibara MSci 2018, "Screening Spinouts...": In US data (LEHD): standard deviation increase in enforceability is associated with
+	\begin{enumerate}
+		\item 0.13 p.p. decrease in mean WSO entry rate 
+		\item 1.1\% increase in initial size of WSOs (measured by employment). Breaking down size increase, impact is 1.5\% on the 25th percentile of size distribution but only 0.4\% on 75th percentile of size distribution 
+		\item Note: I have issues with this paper, see "Outline of model 3-9-2018"
+	\end{enumerate}
+	\item ibid:  higher enforceability associated with higher earnings of founders pre WSO
+	\item Samila-Sorenson 2011: Non-enforcing regions exhibit a larger response of entrepreneurship, patenting, employment, and income to exogenous increases in the supply
+	of VC funding
+	\item Marx 2015: Enforcement leads to brain drain of inventors / knowledge workers towards non-enforcing regions; the effect is stronger
+	for higher-impact, smore collaborative workers (Marx 2015).
+	\item Starr 2017, "Consider this...": enforcement does not decrease self-sponsored employee training
+\end{enumerate}
+
+\paragraph{On knowledge spillovers}
+\begin{enumerate}
+	\item Matray JMP 2014, "The local spillovers of listed firms": finds that \textbf{non-compete enforcement halves the degree of local knowledge spillovers}.\footnote{Uses clever instrument the generates exogenous variation in the innovation intensity of some firms in a region, then looks at the effect on other firms using a diff-in-diff.} 
+\end{enumerate}
+
+\paragraph{Effects of "Due consideration" statutes}
+\begin{enumerate}
+	\item Starr 2017, "Consider this...": negative wage effects of enforceability driven by consideration laws. If consideration beyond continued employment is required, enforcement does not lower wages.
+	\item Starr-Bishara-Prescott, "Non-competes in the US labor force"
+	\begin{itemize}
+		\item 20\% of employees have non-competes
+		\item 40\% have signed one in the past
+		\item More likely in high-skill, high-paying jobs, but also surprisingly common in low-skill, low-paying jobs
+		\item less than 10\% of employees negotiate over noncompetes
+		\item 1/3 of non-competes are signed after accepting job offer, 2/3 of job applicants had no alternative job opportunities when they were asked to agree to a noncompete
+		\item People who have alternative employment options, and are presented the noncompete before accepting the offer, earn 19\% higher wages, receive 14\% more training, and are 13\% more satisfied in their job than those not bound by noncompetes
+		\item Those asked to sign after accepting an offer are 15\% less satisfied and experience no wage and training benefits
+		\item Bizarrely, non-competes are as frequently included in contracts when they are unenforceable in the state of employment...
+		\item ...and have the same effects even in unenforceable states
+	\end{itemize}
+	
+\end{enumerate}
+
+
+\section{Related models}
+
+\paragraph{Spinouts, entrepreneurship and growth}
+\begin{itemize}
+	\item Rossi-Hansberg \& Chatterjee IER 2012, "Spinoffs and the market for ideas"
+	\item Franco \& Filson RAND 2006, "Spin-outs: knowledge diffusion through employee mobility"
+	\item Klepper \& Sleeper Management Science 2005, "Entry by Spinoffs"
+	\item Golman \& Klepper RAND 2016, "Spinoffs and clustering"
+	\item Klepper AER 1996, "Entry, Exit, Growth and Innovation over the Product Life Cycle"
+\end{itemize}
+
+
+\paragraph{Firm dynamics (entry, exit, size distribution), innovation and aggregate productivity growth}
+\begin{itemize}
+	\item Acemoglu \& Cao JET 2015, "Innovation by entrants and incumbents"
+	\item Akcigit \& Kerr JPE 2017, "Growth through heterogeneous innovations"
+	\item Grossman \& Helpman REStud 1991, "Quality ladders in the Theory of Growth"
+	\item Aghion \& Howitt ECTA 1992, "A model of growth through creative destruction"
+	\item Luttmer QJE 2007, "Selection, growth and the size distribution of firms"
+	\item Luttmer JET 2011, "Technology diffusion and growth"\footnote{Expands on the variety of knowledge spillover processes analyzed, discusses when and how they lead to Pareto's distribution / Zipf's law}
+\end{itemize}
+
+\paragraph{Non-competes}
+\begin{itemize}
+	\item Shi JMP 2017, "Restrictions on Executive Mobility and Reallocation - The Aggregate Effect of Non-Competition Contracts"
+	\begin{itemize}
+		\item One shortcoming is that it focuses on executives
+		\item Also, firms cannot renegotiate ex-post, but they are able to include buyout clauses in the original agreement.
+		\item Issues: i think underestimates negative effect of non-competes, because uses data on partial correlation of total firm investment and non-compete enforceability. The type of investment in the model, however, leaves with the worker when he is hired. Presumably, other forms of investment will be less sensitive to the risk of workers leaving. 
+	\end{itemize}
+	\item Franco \& Mitchell JEcMgmtStrat 2008, "Covenants not to compete, labor mobility, and industry dynamics"
+	\item Rauch 2015, "Dynastic entrepreneurship, entry and non-compete enforcement": borrowing constraints prevent ex-post renegotiation of non-compete contracts, enforcement is suboptimal 
+	\item Shankar Ghosh, 
+	\item Starr, Balasubramaniam \& Sakakibara MSci 2018, "Screening spinouts"
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

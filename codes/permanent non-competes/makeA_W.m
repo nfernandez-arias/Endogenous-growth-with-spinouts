@@ -47,7 +47,7 @@ function out = makeA_W(pa,pm,ig,z,zI,yI)
 		%}
 		
 		out(i1,i1) = ... %-ig.g0*q / pa.Delta_q(i_q) ...
-					 -(pm.chi_I*zI(i_q,i_m) + pm.chi_E*(ig.zE0(i_q,i_m) + z(i_q,i_m))) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
+					 ... %-(pm.chi_I*zI(i_q,i_m) + pm.chi_E*(ig.zE0(i_q,i_m) + z(i_q,i_m))) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
 					 - pm.nu * (ig.zE0(i_q,i_m) + (1-yI(i_q,i_m))*zI(i_q,i_m)) / pa.Delta_m(i_m);
 		
 		
@@ -72,7 +72,7 @@ function out = makeA_W(pa,pm,ig,z,zI,yI)
 			
 			out(i1,idx(i_q,i_m+1)) = pm.nu * (ig.zE0(i_q,i_m) + (1-yI(i_q,i_m))*zI(i_q,i_m)) / pa.Delta_m(i_m);
 			
-			out(i1,idx(i_q + pa.q_m,1)) = pm.chi_E * z(i_q,i_m) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(pa.q_grid(i_q));
+			%out(i1,idx(i_q + pa.q_m,1)) = pm.chi_E * z(i_q,i_m) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(pa.q_grid(i_q));
 			
 		end
 		
@@ -85,7 +85,7 @@ function out = makeA_W(pa,pm,ig,z,zI,yI)
 			i1 = idx(i_q,i_m);
 		
 			out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) ...
-					     -((pm.chi_I*zI(i_q,i_m) + pm.chi_E*ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q)) ...
+					     -(pm.chi_I*zI(i_q,i_m) + pm.chi_E*(ig.zE0(i_q,i_m) + z(i_q,i_m))) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
 					     - pm.nu * (ig.zE0(i_q,i_m) + (1-yI(i_q,i_m))*zI(i_q,i_m)) / pa.Delta_m(i_m);
 			
 			out(i1,idx(i_q-1,i_m)) = ig.g0 * q / pa.Delta_q(i_q);
@@ -108,7 +108,7 @@ function out = makeA_W(pa,pm,ig,z,zI,yI)
 		q = pa.q_grid(i_q);
 		
 		out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) ...
-					     -(pm.chi_I * zI(i_q,i_m) + pm.chi_E*ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
+					     -(pm.chi_I * zI(i_q,i_m) + pm.chi_E*(ig.zE0(i_q,i_m) + z(i_q,i_m))) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q) ...
 					     - pm.nu * (ig.zE0(i_q,i_m) + (1-yI(i_q,i_m))*zI(i_q,i_m)) / pa.Delta_m(i_m);
 			
 		out(i1,idx(i_q-1,i_m)) = ig.g0 * q / pa.Delta_q(i_q);
@@ -134,13 +134,13 @@ function out = makeA_W(pa,pm,ig,z,zI,yI)
 	
 	i1 = idx(i_q,i_m);
 		
-	out(i1,i1) = -(pm.chi_I*zI(i_q,i_m) + pm.chi_E*(ig.zE0(i_q,i_m) + z(i_q,i_m))) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
+	%out(i1,i1) = -(pm.chi_I*zI(i_q,i_m) + pm.chi_E*(ig.zE0(i_q,i_m) + z(i_q,i_m))) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
 				 %-ig.g0*q / pa.Delta_q(i_q)
 	
-
+	
 	%out(i1,idx(i_q,i_m+1)) = pm.nu * (ig.zE0(i_q,i_m) + (1-yI(i_q,i_m))*z(i_q,i_m)) / pa.Delta_m(i_m);
 	
-	out(i1,idx(i_q + pa.q_m,1)) = pm.chi_I * z(i_q,i_m) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
+	%out(i1,idx(i_q + pa.q_m,1)) = pm.chi_I * z(i_q,i_m) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
 	
 	for i_q = 2:Imax_q-(pa.q_m-1)-1
 	
@@ -152,7 +152,7 @@ function out = makeA_W(pa,pm,ig,z,zI,yI)
 					 
 		out(i1,idx(i_q-1,i_m)) = ig.g0 * q / pa.Delta_q(i_q);
 		
-		out(i1,idx(i_q + pa.q_m,1)) = pm.chi_I * z(i_q,i_m) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
+		%out(i1,idx(i_q + pa.q_m,1)) = pm.chi_I * z(i_q,i_m) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
 		
 	end
 	
@@ -164,7 +164,7 @@ function out = makeA_W(pa,pm,ig,z,zI,yI)
 	
 		i1 = idx(i_q,i_m);
 	
-		out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) - (pm.chi_I * zI(i_q,i_m) + pm.chi_E * ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
+		out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) - (pm.chi_I * zI(i_q,i_m) + pm.chi_E * (ig.zE0(i_q,i_m) + z(i_q,i_m))) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
 		
 		out(i1,idx(i_q-1,i_m)) = ig.g0 * q / pa.Delta_q(i_q);
 		
@@ -181,7 +181,7 @@ function out = makeA_W(pa,pm,ig,z,zI,yI)
 	
 	i1 = idx(i_q,i_m);
 	
-	out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) - (pm.chi_I * zI(i_q,i_m) + pm.chi_E * ig.zE0(i_q,i_m)) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
+	out(i1,i1) = -ig.g0*q / pa.Delta_q(i_q) - (pm.chi_I * zI(i_q,i_m) + pm.chi_E * (ig.zE0(i_q,i_m) + z(i_q,i_m))) * pm.phi(zI(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(q);
 		
 	out(i1,idx(i_q-1,i_m)) = ig.g0 * q / pa.Delta_q(i_q);
 	
