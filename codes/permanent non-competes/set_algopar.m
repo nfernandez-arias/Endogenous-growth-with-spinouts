@@ -12,7 +12,7 @@ function d = set_algopar(pm)
     % For implicit method: log-spaced grid.
     d.q_upbar = 5;
     d.q_lowbar = 0.01;
-    d.q_m = 3;
+    d.q_m = 2;
 	d.q_n = floor((d.q_m / log(1+pm.lambda)) * (log(d.q_upbar) - log(d.q_lowbar)));
     
     d.q_grid = zeros(size(1:(d.q_n+2)));
@@ -40,7 +40,7 @@ function d = set_algopar(pm)
     %d.m_max = 3; 
     %d.m_grid = linspace(0,d.m_max,d.m_numpoints);
     
-    d.m_numpoints = 50;
+    d.m_numpoints = 25;
     d.m_min = log(0.001) / log(10);
     d.m_max = log(6) / log(10);
     d.m_grid = logspace(d.m_min,d.m_max,d.m_numpoints);
@@ -63,7 +63,7 @@ function d = set_algopar(pm)
     
     %% Finite difference
     d.delta_t_V = 100;
-    d.delta_t_W = 1;
+    d.delta_t_W = 0.1;
     d.d_m = 0.0001;
     d.d_q = 0.0001;
     
@@ -74,8 +74,8 @@ function d = set_algopar(pm)
     
     %% Guess updating
     % _UR suffix means "update rate"
-    d.zE0_UR = 0.1;
-    d.zE0_UR_exponent = 3;
+    d.zE0_UR = 0.3;
+    d.zE0_UR_exponent = 2;
     d.g0_UR = 0.1;
     d.w0_UR = 0.1;
     d.Lf0_UR = 0.1;

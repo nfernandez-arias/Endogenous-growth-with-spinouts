@@ -1,0 +1,136 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+
+\title{Equilibrium production wage determination}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+
+Have 
+\begin{align*}
+Y = L_F^{\beta}\Bigg( \Big(\int_0^1 q_j^{\beta} x_j^{1-\beta} dj \Big)^{1/(1-\beta)} \Bigg)^{1-\beta}
+\end{align*}
+
+Maximization:  
+\begin{align*}
+\max_{\{x_j\}_{j\in [0,1]}} \int_0^1 q_j^{\beta} x_j^{1-\beta} 
+\end{align*}
+
+subject to 
+\begin{align*}
+\int_0^1 p_j x_j dj \le E
+\end{align*}
+
+Lagrangean has FOCs: for each $j \in [0,1]$, 
+\begin{align*}
+(1-\beta)q_j^{\beta} x_j^{-\beta} &= \sigma p_j \\
+					 q_j^{\beta}  &= \sigma p_j (1-\beta)^{-1} x_j^{\beta}
+\end{align*}
+
+where $\sigma$ is a Lagrange multiplier. In equilibrium, every $j$ will charge the same price
+\begin{align*}
+p_j = \frac{w}{\overline{q}(1-\beta)}
+\end{align*}
+
+Therefore, for all $i,j$, we get 
+\begin{align*}
+x_i = \frac{q_i}{q_j} x_j
+\end{align*}
+
+Substituting into budget constraint and solving for $x_i$ yields
+\begin{align*}
+x_i = \frac{q_i}{\overline{q}} \times \frac{E}{p}
+\end{align*}
+
+\paragraph{Lab equipment model} If R\&D were done using final goods, we can write $E$ as a function of $L_F$ using the equation:
+\begin{align*}
+L_F &= 1 - \int_0^1 l_j dj \\
+	&= 1- \frac{E}{p}
+\end{align*}
+
+Further, we can substitute to obtain an expression for production in terms of $L_F,E$, assuming expenditures on capital goods are optimal given the quality distribution. First, do some algebra to get an expression for the optimal CES aggregator given price $p$, qualities $\{q_j\}_{j \in [0,1]}$ and spending $E$: 
+\begin{align*}
+\Big(\big(\int_0^1 q_j^{\beta} x_j^{1-\beta} dj \big)^{1/(1-\beta)} \Big)^{1-\beta} &= \Big(\big(\int_0^1 q_j^{\beta} \big(\frac{q_j}{\overline{q}}\frac{E}{p}\big)^{1-\beta} dj\big)^{1/(1-\beta)} \Big)^{1-\beta} \\
+&= \big(\frac{1}{\overline{q}}\frac{E}{p}\big)^{1-\beta} \Big(\big(\int_0^1 q_j dj \big)^{1/(1-\beta)} \Big)^{1-\beta} \\
+&= \big(\frac{1}{\overline{q}p}\big)^{1-\beta} \overline{q} E^{1-\beta} \\
+&= \overline{q}^{\beta} p^{\beta - 1} E^{1-\beta}
+\end{align*}
+
+Substitute this into the final goods production function:
+\begin{align*}
+Y(L_F,E;\overline{q}) = \overline{q}^{\beta} p^{\beta - 1} L_F^{\beta} E^{1-\beta}
+\end{align*}
+
+This yields FOCs for $L_F$ and $E$:
+\begin{align*}
+\beta \overline{q}^{\beta} p^{\beta - 1} L_F^{\beta -1} E^{1-\beta} &= w \\ 
+(1-\beta) \overline{q}^{\beta} p^{\beta - 1} L_F^{\beta} E^{-\beta} &= 1 
+\end{align*}
+
+because the price of one unit of $E$ is, by definition, equal to 1. 
+
+Finally recall our equation for $p$: 
+\begin{align*}
+p = \frac{w}{\overline{q}(1-\beta)}
+\end{align*}
+
+Hence we have four equations in four unknowns $\{ L_F,E,w,p \}$ and parameters:
+\begin{align}
+L_F	&= 1- \frac{E}{p} \label{L_F_E_eq}\\
+\beta \overline{q}^{\beta} p^{\beta - 1} L_F^{\beta -1} E^{1-\beta} &= w \\ 
+(1-\beta) \overline{q}^{\beta} p^{\beta - 1} L_F^{\beta} E^{-\beta} &= 1 \\
+p &= \frac{w}{\overline{q}(1-\beta)}
+\end{align}
+
+This part of the model is therefore determined separately from the R\&D side of the model. Intuitively, I haven't proven that there exists a closed-form solution -- this is shown by Akcigit \& Kerr 2017, which is exactly the same framework. To check these conditions we could substitute that solution and check there is no contradiction.
+
+\begin{align*}
+content...
+\end{align*}
+
+
+\paragraph{My model} In my model, R\&D is done using labor drawn from the same pool as intermediate and final goods production. Now we cannot derive (\ref{L_F_E_eq}) because 
+
+\begin{align*}
+L_F = 1 - \int_0^1 l_j^I dj - \int_0^1 l_j^{RD} dj
+\end{align*}
+
+Hence, we cannot derive a formula relating $E$ and $L$ without appealing to $z(m),\hat{z}(m)$ in order to compute the last term in the equation above. But those require solving the HJBs, etc. The static and dynamic aspects of the model now interact. 
+
+\paragraph{Possible solutions} The only way to eliminate this feature is to entirely decouple the production and R\&D labor markets. In addition, we must assume elastic labor supply in the R\&D market in order to make the model an endogenous growth model. Also note that we can't endogenize the elasticity of R\&D labor supply by using some kind of decision to specialize in final goods production or R\&D with some initial heterogeneity in relative productivities in each form of employment, because this couples the labor markets, eliminating the tractability. Hence, the only way to have a tractable, non-trivial model is to assume a separate population of potential R\&D workers with some aggregate labor supply elasticity.
+
+\paragraph{New algorithm}
+In light of this, we need a new algorithm.
+\begin{enumerate}
+	\item Guess $L^{RD}$, the BGP labor supply to R\&D
+	\item Now we know the labor supply available to production, hence can solve for all static production variables $L^F,L^I,w,p,\pi$ in closed form
+	\item Given these, solve HJBs numerically using iterative procedure described above
+	\item Next, solve KF equation to compute stationary distribution $\mu(m)$
+	\item Using $\mu(m)$ and policy functions from previous step, integrate to compute aggregate labor demand 
+	\item Check market clearing in R\&D market $L^{RD} = \int l(m) + \hat{l}(m) d\mu(m)$. If market does not clear, update guess $L^{RD}$ and go back to Step 1 
+\end{enumerate}
+
+My original algorithm was needlessly complex. 
+
+
+
+
+
+
+
+\end{document}

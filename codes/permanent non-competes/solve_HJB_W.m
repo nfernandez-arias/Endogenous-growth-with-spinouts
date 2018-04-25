@@ -27,7 +27,7 @@ function out = solve_HJB_W(pa,pm,ig,V_out)
     
     W1 = zeros(size(W0));
     
-    frame_freq = 10000;
+    frame_freq = 1;
     F(1) = struct('cdata',[],'colormap',[]);
     f = figure('visible','off');
     
@@ -127,7 +127,7 @@ function out = solve_HJB_W(pa,pm,ig,V_out)
             ylabel('m')
             zlim([0,5])
             drawnow
-            set(gca,'Xdir','reverse','Ydir','reverse')
+            %set(gca,'Xdir','reverse','Ydir','reverse')
             F(round(count/frame_freq)) = getframe(f);
             %size(F(count/frame_freq).cdata)
         end

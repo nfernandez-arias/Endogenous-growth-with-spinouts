@@ -1,0 +1,106 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+
+\title{Empirics of my model: overview}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Introduction}
+It would be nice to actually solve my model. And nest it and the standard model in a general model, and then the discrepancies between it and the standard model can be used for identification.
+
+
+\section{Stylized facts}
+
+
+\section{Identification}
+We can imagine a model with 7 parameters: $\{\lambda,\nu,\chi,p,\xi,\beta,\rho \}$. This assumes the same innovation technology for entrants and incumbents. There will still be R\&D by incumbents in equilibrium since free entry does not occur immediately. 
+
+\subsection{Level of innovation intensity}
+
+\subsection{Relative innovation intensities}
+One key prediction of my model is on the time-path of the ratio of innovation effort by incumbents and entrants. This time path is determined by $p,\lambda,\nu$. 
+
+Incumbents and entrants have R\&D technology given by:
+\begin{align*}
+R(z) &= \chi z \phi(z) \\
+\hat{R}(z;\bar{z}) &= \chi z \phi(\chi) \\
+\phi(z) &= z^{-p}
+\end{align*}
+
+and given a choice of curvature and level productivity of this function, $\lambda$ is identified by the extent to which entrants innovate relative to incumbents. In equilibrium, entrant innovation effort is given by
+\begin{align*}
+\hat{z}(m) &= \xi \min(m,M) \\ 
+M &= \Big[ \frac{\tilde{\beta}}{\lambda V(0)} \Big]^{-1/p}
+\end{align*}
+
+and incumbent innovation effort is
+\begin{align*}
+z(m) = \Big[ \frac{\tilde{\beta} - \nu W(m) - \nu V'(m)}{(1-p)(\lambda V(0) - V(m))} \Big]^{-1/p}
+\end{align*}
+
+This implies that, for all $m$, we have
+\begin{align}
+\frac{z(m)}{\hat{z}(m)} &= \Big[ \frac{\tilde{\beta} - \nu W(m) - \nu V'(m)}{\tilde{\beta}} \times \frac{\lambda V(0)}{(1-p)(\lambda V(0) - V(m))} \Big]^{-1/p} \label{relative_innovation_intensities} \\
+ &= D(m) (1-p)^{1/p}
+\end{align}
+
+In addition, the fact that $V'(m) = 0,W(m) = 0 \text{ if } m \ge M$ implies that, for $m > M$, $D(m) = D(M)$ and so
+\begin{align}
+\frac{z(m)}{\hat{z}(m)} = D(M) (1-p)^{1/p}
+\end{align}
+
+\paragraph{Identification of p} 
+First, consider equation (\ref{relative_innovation_intensities}). From here we see that $p$ shifts the ratio for all $m$ in a similar way. In particular, taking logs, get
+\begin{align}
+\log(z(m)) &= \log(\hat{z}(m)) - \frac{1}{p} \log \big( D(m) \big) - \frac{\log(1-p)}{p} \\
+		   &= \log(\hat{z}(m)) - \underbrace{\frac{1}{p} \big(D(m) - D(M) \big)}_{\text{Slope in }m} - \underbrace{\frac{\log(1-p) + D(M)}{p}}_{\text{Level shift}}
+\end{align}
+
+Hence, taking other parameters as given, $p$ determines:\footnote{I am only keeping track of \textit{direct effects} of changing $p$. Changing $p$ also changes the function $D$ through its effect on equilibrium values $V,W$. Still thinking about how to make this all work.}
+\begin{enumerate}
+	\item First term: higher $p$ attenuates the rate of change of ratio in $m$
+	\item Second term: $p$ shifts level of ratio. Direction?
+\end{enumerate}
+
+\paragraph{Identification of $\lambda,\nu$}
+We have defined
+\begin{align*}
+D(m) = \Big( \frac{\tilde{\beta}-\nu W(m) - \nu V'(m)}{\tilde{\beta}} \times \frac{\lambda V(0)}{(1-p)(\lambda V(0) - V(m))} \Big)^{-1/p}
+\end{align*}
+
+
+
+
+
+
+
+\section{Extensions}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

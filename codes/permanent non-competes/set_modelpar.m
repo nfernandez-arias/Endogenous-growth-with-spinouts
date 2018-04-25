@@ -13,7 +13,7 @@ function d = set_modelpar()
     %d.T_nc = 2;
     d.xi = 0.1;   
     d.p1 = -0.5;
-    d.p2 = 0;
+    d.p2 = -1;
     
     
     % Aggregate decreasing returns to scale in innovation effort

@@ -170,7 +170,7 @@ drawnow
 f = figure
 surf(pa.q_grid_2d,pa.m_grid_2d,V_out.Vplus)
 title('V^+(q,m)')
-xlabel('q') 
+xlabel('q')
 ylabel('m')                                                                                                                                  
 zlim([0,1.5 * max(max(V_out.V))])
 drawnow

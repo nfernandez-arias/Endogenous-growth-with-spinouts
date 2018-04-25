@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6300) (preloaded format=pdflatex 2018.1.5)  27 MAR 2018 15:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6300) (preloaded format=pdflatex 2018.1.5)  19 APR 2018 12:00
 entering extended mode
-**./presentation_WORKSHOP_12-14-2017.tex
-(presentation_WORKSHOP_12-14-2017.tex
+**./presentation_WORKSHOP_3-29-2018.tex
+(presentation_WORKSHOP_3-29-2018.tex
 LaTeX2e <2017-04-15>
 Babel <3.9r> and hyphenation patterns for 75 language(s) loaded.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\beamer\beamer.cls"
@@ -666,16 +666,6 @@ emedefault.sty"
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\beamer\themes\outer\beamerouterth
 emedefault.sty")))
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\beamer\themes\theme\beamerthemeBo
-adilla.sty"
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\beamer\themes\color\beamercolorth
-emerose.sty")
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\beamer\themes\inner\beamerinnerth
-emerounded.sty")
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\beamer\themes\color\beamercolorth
-emedolphin.sty")
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\beamer\themes\outer\beamerouterth
-emeinfolines.sty"))
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\inputenc.sty"
 Package: inputenc 2015/03/17 v1.2c Input encoding file
 \inpenc@prehook=\toks43
@@ -1018,29 +1008,59 @@ Package caption Info: Hyperref support is turned off
 )
 (C:\Users\Nico\AppData\Roaming\MiKTeX\2.9\tex\latex\appendixnumberbeamer\append
 ixnumberbeamer.sty)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.sty"
+Package: babel 2016/04/23 3.9r The Babel package
+
+*************************************
+* Local config file bblopts.cfg used
+*
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\arabi\bblopts.cfg"
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
+ babel
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\babel-english\english.ldf"
+Language: english 2017/01/24 v3.3q English support from the babel system
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.def"
+File: babel.def 2016/04/23 3.9r Babel common definitions
+\babel@savecnt=\count155
+\U@D=\dimen197
+LaTeX Info: Redefining \textlatin on input line 1448.
+)
+\l@canadian = a dialect from \language\l@american 
+\l@australian = a dialect from \language\l@british 
+\l@newzealand = a dialect from \language\l@british 
+))
+(C:\Users\Nico\AppData\Roaming\MiKTeX\2.9\tex\latex\bbm\bbm.sty
+Package: bbm 1999/03/15 V 1.2 provides fonts for set symbols - TH
+LaTeX Font Info:    Overwriting math alphabet `\mathbbm' in version `bold'
+(Font)                  U/bbm/m/n --> U/bbm/bx/n on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathbbmss' in version `bold'
+(Font)                  U/bbmss/m/n --> U/bbmss/bx/n on input line 35.
+)
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\verbatim.sty"
 Package: verbatim 2014/10/28 v1.5q LaTeX2e package for verbatim enhancements
 \every@verbatim=\toks45
 \verbatim@line=\toks46
 \verbatim@in@stream=\read2
 )
-(presentation_WORKSHOP_12-14-2017.aux)
-\openout1 = `presentation_WORKSHOP_12-14-2017.aux'.
+(presentation_WORKSHOP_3-29-2018.aux)
+\openout1 = `presentation_WORKSHOP_3-29-2018.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1050,14 +1070,14 @@ LaTeX Font Info:    ... okay on input line 16.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: includehead includefoot 
-* h-part:(L,W,R)=(10.95003pt, 342.2953pt, 10.95003pt)
+* h-part:(L,W,R)=(28.45274pt, 307.28987pt, 28.45274pt)
 * v-part:(T,H,B)=(0.0pt, 273.14662pt, 0.0pt)
 * \paperwidth=364.19536pt
 * \paperheight=273.14662pt
-* \textwidth=342.2953pt
+* \textwidth=307.28987pt
 * \textheight=244.6939pt
-* \oddsidemargin=-61.31996pt
-* \evensidemargin=-61.31996pt
+* \oddsidemargin=-43.81725pt
+* \evensidemargin=-43.81725pt
 * \topmargin=-72.26999pt
 * \headheight=14.22636pt
 * \headsep=0.0pt
@@ -1078,16 +1098,16 @@ LaTeX Font Info:    ... okay on input line 16.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count155
-\scratchdimen=\dimen197
+\scratchcounter=\count156
+\scratchdimen=\dimen198
 \scratchbox=\box53
-\nofMPsegments=\count156
-\nofMParguments=\count157
+\nofMPsegments=\count157
+\nofMParguments=\count158
 \everyMPshowfont=\toks47
-\MPscratchCnt=\count158
-\MPscratchDim=\dimen198
-\MPnumerator=\count159
-\makeMPintoPDFobject=\count160
+\MPscratchCnt=\count159
+\MPscratchDim=\dimen199
+\MPnumerator=\count160
+\makeMPintoPDFobject=\count161
 \everyMPtoPDFconversion=\toks48
 ) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -1104,7 +1124,7 @@ G,.JBIG2,.JB2,.eps]
 )
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box54
-Package hyperref Info: Link coloring OFF on input line 16.
+Package hyperref Info: Link coloring OFF on input line 21.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -1112,68 +1132,68 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count161
+\c@section@level=\count162
 )
-LaTeX Info: Redefining \ref on input line 16.
-LaTeX Info: Redefining \pageref on input line 16.
-LaTeX Info: Redefining \nameref on input line 16.
+LaTeX Info: Redefining \ref on input line 21.
+LaTeX Info: Redefining \pageref on input line 21.
+LaTeX Info: Redefining \nameref on input line 21.
 
-(presentation_WORKSHOP_12-14-2017.out) (presentation_WORKSHOP_12-14-2017.out)
+(presentation_WORKSHOP_3-29-2018.out) (presentation_WORKSHOP_3-29-2018.out)
 \@outlinefile=\write5
-\openout5 = `presentation_WORKSHOP_12-14-2017.out'.
+\openout5 = `presentation_WORKSHOP_3-29-2018.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 16.
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 21.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 16.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 21.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 16.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 16.
+(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 16.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 16.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 16.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 21.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 16.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 16.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 16.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 21.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 16.
+(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 16.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 16.
+(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 21.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 16.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 16.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 21.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 16.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 21.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 16.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmr/bx/n on input line 16.
+(Font)                  OT1/cmss/bx/n --> OT1/cmr/bx/n on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/bx/n on input line 16.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/bx/n on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 16.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 16.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/bx/n on input line 16.
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 16.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/bx/n on input line 21.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 21.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
-(Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 1
-6.
+(Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 2
+1.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
 (Font)                  OT1/cmss/bx/it --> OT1/mathkerncmss/m/sl on input line 
-16.
+21.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
 (Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on inp
-ut line 16.
+ut line 21.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\beamer\translator\dicts\translato
 r-basic-dictionary\translator-basic-dictionary-English.dict"
@@ -1202,348 +1222,139 @@ Dictionary: translator-theorem-dictionary, Language: English
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 
-(presentation_WORKSHOP_12-14-2017.nav)
-Overfull \hbox (95.3373pt too wide) in paragraph at lines 16--16
- [][][][]  
- []
-
-
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[1
+(presentation_WORKSHOP_3-29-2018.nav) [1
 
 {C:/Users/Nico/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-LaTeX Font Info:    Try loading font information for U+msa on input line 35.
+LaTeX Font Info:    Try loading font information for U+msa on input line 38.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 35.
+LaTeX Font Info:    Try loading font information for U+msb on input line 38.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input 
-line 35.
+line 38.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\sansmathaccent\ot1mathkerncmss.fd
 "
 File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
-)
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
+) [2
 
-[2
+] [3
 
-]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
+] [4
 
-[3
+] [5
 
-]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
+] [6
 
-[4
+] [7
 
-]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
+] [8
 
-[5
+] [9
+
+] [10
+
+] [11
+
+] [12
 
 ]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[6
-
-]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[7
-
-]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[8
-
-]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[9
-
-]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[10
-
-]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[11
-
-]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[12
-
-]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
+Overfull \hbox (2.17352pt too wide) in paragraph at lines 233--233
+[]  
  []
 
 [13
 
-]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
+] [14
 
-[14
+] [15
 
-]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
+] [16
 
-[15
+] [17
+
+] [18
 
 ]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
+LaTeX Font Info:    Try loading font information for U+bbm on input line 326.
 
-[16
+(C:\Users\Nico\AppData\Roaming\MiKTeX\2.9\tex\latex\bbm\ubbm.fd
+File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
+) [19
 
-]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[17
+] [20
 
 ]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[18
-
-]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[19
-
-]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[20
-
-]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
+Overfull \hbox (2.17352pt too wide) in paragraph at lines 359--359
+[]  
  []
 
 [21
 
-]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
+] [22
 
-[22
+] [23
 
-]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
+] [24
 
-[23
+] [25
 
-]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
+] [26
 
-[24
+] [27
+
+] [28
 
 ]
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[25
-
-]
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\translate ' on input line 446.
-
-
-<figures/nc_incidence_industry_and_occupation.png, id=782, 629.35126pt x 498.06
-075pt>
-File: figures/nc_incidence_industry_and_occupation.png Graphic file (type png)
- <use figures/nc_incidence_industry_and_occupation.png>
-Package pdftex.def Info: figures/nc_incidence_industry_and_occupation.png used 
-on input line 457.
-(pdftex.def)             Requested size: 239.15596pt x 189.26505pt.
-
-Overfull \vbox (4.25856pt too high) detected at line 457
- []
-
-
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[26
-
- <./figures/nc_incidence_industry_and_occupation.png>]
-<figures/nc_incidence_business_interest.png, id=812, 705.23476pt x 512.51476pt>
-File: figures/nc_incidence_business_interest.png Graphic file (type png)
-<use figures/nc_incidence_business_interest.png>
-Package pdftex.def Info: figures/nc_incidence_business_interest.png used on inp
-ut line 466.
-(pdftex.def)             Requested size: 260.93277pt x 189.62749pt.
-
-Overfull \vbox (4.621pt too high) detected at line 466
- []
-
-
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[27
-
- <./figures/nc_incidence_business_interest.png>]
-<figures/nc_incidence_enforceability.png, id=844, 658.25925pt x 504.08325pt>
-File: figures/nc_incidence_enforceability.png Graphic file (type png)
-
-<use figures/nc_incidence_enforceability.png>
-Package pdftex.def Info: figures/nc_incidence_enforceability.png used on input 
-line 475.
-(pdftex.def)             Requested size: 243.55211pt x 186.50787pt.
-
-Overfull \vbox (1.50139pt too high) detected at line 475
- []
-
-
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[28
-
- <./figures/nc_incidence_enforceability.png>]
-<figures/fairchild_spinouts.png, id=875, 481.19775pt x 496.85625pt>
+<figures/fairchild_spinouts.png, id=826, 481.19775pt x 496.85625pt>
 File: figures/fairchild_spinouts.png Graphic file (type png)
 
 <use figures/fairchild_spinouts.png>
-Package pdftex.def Info: figures/fairchild_spinouts.png used on input line 484.
+Package pdftex.def Info: figures/fairchild_spinouts.png used on input line 570.
 
 (pdftex.def)             Requested size: 182.85704pt x 188.80733pt.
-
-Overfull \vbox (3.80084pt too high) detected at line 484
- []
-
-
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[29
+ [29
 
  <./figures/fairchild_spinouts.png>]
-<figures/map_bishara_2009.png, id=905, 425.79076pt x 277.63725pt>
-File: figures/map_bishara_2009.png Graphic file (type png)
-
-<use figures/map_bishara_2009.png>
-Package pdftex.def Info: figures/map_bishara_2009.png used on input line 493.
-(pdftex.def)             Requested size: 298.0515pt x 194.34474pt.
-
-Overfull \vbox (9.33826pt too high) detected at line 493
- []
-
-
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[30
-
- <./figures/map_bishara_2009.png>]
-<figures/crunchbase_founding_dates.png, id=934, 813.63976pt x 311.36325pt>
-File: figures/crunchbase_founding_dates.png Graphic file (type png)
-
-<use figures/crunchbase_founding_dates.png>
-Package pdftex.def Info: figures/crunchbase_founding_dates.png used on input li
-ne 502.
-(pdftex.def)             Requested size: 325.45013pt x 124.54309pt.
-
-Overfull \hbox (95.3373pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[31
-
- <./figures/crunchbase_founding_dates.png>]
 \tf@nav=\write6
-\openout6 = `presentation_WORKSHOP_12-14-2017.nav'.
+\openout6 = `presentation_WORKSHOP_3-29-2018.nav'.
 
 \tf@toc=\write7
-\openout7 = `presentation_WORKSHOP_12-14-2017.toc'.
+\openout7 = `presentation_WORKSHOP_3-29-2018.toc'.
 
 \tf@snm=\write8
-\openout8 = `presentation_WORKSHOP_12-14-2017.snm'.
+\openout8 = `presentation_WORKSHOP_3-29-2018.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 512.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 512.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 580.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 580.
 
-(presentation_WORKSHOP_12-14-2017.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 512.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 512.
-Package rerunfilecheck Info: File `presentation_WORKSHOP_12-14-2017.out' has no
-t changed.
-(rerunfilecheck)             Checksum: 2A9A6124FA8ABB50AA68762F781F36FC;290.
+(presentation_WORKSHOP_3-29-2018.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 580.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 580.
+Package rerunfilecheck Info: File `presentation_WORKSHOP_3-29-2018.out' has not
+ changed.
+(rerunfilecheck)             Checksum: C2A2CFB7C2EC1CFD6796CB4BC2D8E746;249.
  ) 
 Here is how much of TeX's memory you used:
- 18752 strings out of 493328
- 356247 string characters out of 3136542
- 432806 words of memory out of 3000000
- 21761 multiletter control sequences out of 15000+200000
- 17081 words of font info for 62 fonts, out of 3000000 for 9000
+ 19000 strings out of 493328
+ 356330 string characters out of 3136542
+ 440140 words of memory out of 3000000
+ 22010 multiletter control sequences out of 15000+200000
+ 20142 words of font info for 77 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 56i,21n,57p,820b,590s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb>
-<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cmextra/cmex9.pf
-b><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
+ 56i,21n,55p,818b,583s stack positions out of 5000i,500n,10000p,200000b,50000s
+ <C:\Users\Nico\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\public\bbm\dpi600\bb
+m10.pk><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10
+.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cmextra/cme
+x9.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10
+.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.p
+fb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb>
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:
 /Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/Pr
 ogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/Prog
@@ -1552,17 +1363,21 @@ m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Program F
 iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss9.pfb><C:/Program File
 s (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/Program File
 s (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi10.pfb><C:/Program Files
- (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi8.pfb><C:/Program Files (
-x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi9.pfb><C:/Program Files (x8
-6)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)
-/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files (x86)/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files (x86)/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Program Files (x86)/MiKTeX 2
-.9/fonts/type1/public/amsfonts/symbols/msam7.pfb>
-Output written on presentation_WORKSHOP_12-14-2017.pdf (31 pages, 1417127 bytes
-).
+ (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi12.pfb><C:/Program Files 
+(x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi8.pfb><C:/Program Files (x
+86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi9.pfb><C:/Program Files (x86
+)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Program Files (x86)/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files (x86)/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files (x86)/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files (x86)/MiKTeX 2.9/f
+onts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Program Files (x86)/MiKTeX 2.9/font
+s/type1/public/amsfonts/symbols/msam10.pfb><C:/Program Files (x86)/MiKTeX 2.9/f
+onts/type1/public/amsfonts/symbols/msam7.pfb>
+Output written on presentation_WORKSHOP_3-29-2018.pdf (29 pages, 691893 bytes).
+
 PDF statistics:
- 1040 PDF objects out of 1200 (max. 8388607)
- 81 named destinations out of 1000 (max. 500000)
- 127 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 949 PDF objects out of 1000 (max. 8388607)
+ 68 named destinations out of 1000 (max. 500000)
+ 88 words of extra memory for PDF output out of 10000 (max. 10000000)
 

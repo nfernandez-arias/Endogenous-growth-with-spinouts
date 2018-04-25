@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6300) (preloaded format=pdflatex 2018.1.5)  26 MAR 2018 19:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6300) (preloaded format=pdflatex 2018.1.5)  28 MAR 2018 23:49
 entering extended mode
 **"./outline of model 3-9-2018.tex"
 ("outline of model 3-9-2018.tex"
@@ -310,17 +310,24 @@ rade-offs of non-competes,
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 198.
  [5] [6] [7] [8] [9] [10] [11] [12] [13]
-Overfull \hbox (7.67827pt too wide) in paragraph at lines 405--406
+Overfull \hbox (2.51349pt too wide) in paragraph at lines 402--404
+\T1/lmr/m/n/12 Since free en-try re-quires zero ex-pected prof-its, in equi-lib
+-rium we also have $\OML/lmm/m/it/12 W\OT1/lmr/m/n/12 (\OML/lmm/m/it/12 q; M\OT
+1/lmr/m/n/12 (\OML/lmm/m/it/12 q\OT1/lmr/m/n/12 )) =
+ []
+
+[14]
+Overfull \hbox (7.67827pt too wide) in paragraph at lines 424--425
 []\T1/lmr/m/n/12 In any case: match-ing Zipf's law in Ace-moglu & Cao 2015 come
 s from the scale-independent
  []
 
-[14] [15] [16] [17] [18] [19] [20] [21] [22] [23]
+[15] [16] [17] [18] [19] [20] [21] [22] [23] [24]
 ("outline of model 3-9-2018.aux") ) 
 Here is how much of TeX's memory you used:
  2326 strings out of 493328
  30686 string characters out of 3136542
- 99902 words of memory out of 3000000
+ 98902 words of memory out of 3000000
  5813 multiletter control sequences out of 15000+200000
  92268 words of font info for 58 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -348,9 +355,9 @@ ri12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C
 :/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy6.pfb><C:/Program Fi
 les (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy7.pfb><C:/Program Files (x86)/Mi
 KTeX 2.9/fonts/type1/public/lm/lmsy8.pfb>
-Output written on "outline of model 3-9-2018.pdf" (23 pages, 381405 bytes).
+Output written on "outline of model 3-9-2018.pdf" (24 pages, 384241 bytes).
 PDF statistics:
- 175 PDF objects out of 1000 (max. 8388607)
+ 178 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

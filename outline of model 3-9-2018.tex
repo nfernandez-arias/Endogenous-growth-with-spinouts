@@ -390,6 +390,25 @@ Suppose that there is a discovery in some good $j$ with quality $q_{jt}$ at time
 
 \subsubsection{Stationary distribution}
 
+\paragraph{Esteban's suggestion}
+\begin{itemize}
+	\item Doesn't like Acemoglu \& Cao's suggestion
+	\item Analyze problem from ``firm level" and ``good $\nu$ level"
+	\item The fact that an individual firm eventually gets to a large value of $m$ so that it is no longer worth innovating themselves (due to Arrow's replacement effect) guarantees that an individual firm will eventually be replaced.
+	\item One simple way is to have the replacing firm displace the incumbent, but only enters with $q_t = \overline{q}_t$, so $\tilde{q}_t = 1$. But still factor that into the aggregate growth rate. Interpretation: the replacing firm does not appropriate returns proportional to $q$ but rather appropriates returns proportional to $\overline{q}_t$. This helps make the effort by entrants not scale up with $\tilde{q}$, which is necessary, but this is not quite sufficient as incumbents will still be tempted to put in more effort. Will still have $\tau(q,m)$ increasing in $q$ due to incumbents. I also just don't like this...it's messy...
+	\item Another suggestion made by Esteban had to do with managing the $m$ stock. When a firm makes an improvement, it jumps to $(1+\lambda)q,m$ instead of $(1+\lambda)q,0$. Can add some decay in $m$ due to knowledge depreciation. The problem with this approach is that the free entry condition determining $M(q)$ is still (assuming that due to Arrow's replacement effect, entrants eventually are the only ones who do R\&D)
+	\begin{align*}
+	\phi(M(q))\big[ V((1+\lambda)q,M(q)) - W(q,M(q)) \big] = w(q,M(q))
+	\end{align*}
+	Since free entry requires zero expected profits, in equilibrium we also have $W(q,M(q)) = 0$ and hence $w(q,M(q)) = \overline{w}$. The free-entry condition becomes 
+	\begin{align*}
+	\phi(M(q))V((1+\lambda)q,M(q)) = \overline{w}
+	\end{align*}
+	Now, suppose that 
+\end{itemize}
+
+\paragraph{Notes from before Esteban meeting 3-26-2018}
+
 The innovation intensity $z$ of a firm (incumbent or entrant) innovating on good $j$ depends on quality $q_j$ and mass of entrants $m_j$. To have a BGP, it suffices to have a stationary distribution $\mu(q,m)$.\footnote{In principle it would be possible to have a BGP even without a stationary distribution, as long as $g$ is constant. But it is hard to imagine such an equilibrium.}
 
 My baseline model does not actually admit a stationary distribution because:
