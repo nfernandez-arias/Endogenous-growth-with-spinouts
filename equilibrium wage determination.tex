@@ -20,44 +20,113 @@
 \author{Nicolas Fernandez-Arias}
 \maketitle
 
+\section{Preliminaries}
+\textbf{Final goods production technology:}
+\begin{align}
+Y = L_F^{\beta}\Bigg( \Big(\int_0^1 q_j^{\beta} x_j^{1-\beta} dj \Big)^{1/(1-\beta)} \Bigg)^{1-\beta} \label{final_good_technology}
+\end{align}
 
-Have 
-\begin{align*}
-Y = L_F^{\beta}\Bigg( \Big(\int_0^1 q_j^{\beta} x_j^{1-\beta} dj \Big)^{1/(1-\beta)} \Bigg)^{1-\beta}
-\end{align*}
-
-Maximization:  
+\textbf{Final goods optimization:}
 \begin{align*}
 \max_{\{x_j\}_{j\in [0,1]}} \int_0^1 q_j^{\beta} x_j^{1-\beta} 
 \end{align*}
 
-subject to 
+Subject to constraint:  
 \begin{align*}
 \int_0^1 p_j x_j dj \le E
 \end{align*}
 
-Lagrangean has FOCs: for each $j \in [0,1]$, 
+FOCs from Lagrangean: for each $j \in [0,1]$, 
 \begin{align*}
-(1-\beta)q_j^{\beta} x_j^{-\beta} &= \sigma p_j \\
-					 q_j^{\beta}  &= \sigma p_j (1-\beta)^{-1} x_j^{\beta}
+(1-\beta)q_j^{\beta} x_j^{-\beta} &= \lambda p_j \\
+					 q_j^{\beta}  &= \lambda p_j (1-\beta)^{-1} x_j^{\beta}
 \end{align*}
 
-where $\sigma$ is a Lagrange multiplier. In equilibrium, every $j$ will charge the same price
+where $\lambda$ is a Lagrange multiplier. 
+
+For all $i,j$, we have 
 \begin{align*}
-p_j = \frac{w}{\overline{q}(1-\beta)}
+x_i = x_j \frac{q_i}{q_j} \Big(\frac{p_j}{p_i}\Big)^{1/\beta}
 \end{align*}
 
-Therefore, for all $i,j$, we get 
+Multiplying both sides of the above by $p_i$ and integrating yields
+\begin{align}
+E = \int_0^1 p_i x_i di &= \int_0^1 p_i x_j \frac{q_i}{q_j} \Big(\frac{p_j}{p_i}\Big)^{1/\beta} dj \label{x_E_eq1}
+\end{align}
+
+Denote the elasticity of substitution by $\sigma$; have $\sigma = \frac{1}{\beta}$. Define the price index
+\begin{align}
+P = \Big(\int_0^1 q_i p_i^{1-\sigma} di \Big)^{1/(1-\sigma)} \label{eq_price_index}
+\end{align}
+
+Substituting (\ref{eq_price_index}) into (\ref{x_E_eq1}) yields the final demand equation:
+\begin{align}
+\frac{x_j}{q_j} &= \frac{E}{P} \Big(\frac{p_j}{P}\Big)^{-1/\beta} \label{eq_x_demand_betaversion} \\
+			    &= \frac{E}{P} \Big(\frac{p_j}{P}\Big)^{-\sigma} \label{eq_x_demand}
+\end{align}
+
+Define effective aggregate capital input:
+\begin{align}
+X &\equiv \Big( \int_0^1 q_j^{\beta} x_j^{1-\beta} dj \Big)^{1/(1-\beta)} \\
+  &= \Big( \int_0^1 q_j^{1/\sigma} x_j^{(\sigma - 1)/\sigma} dj \Big)^{\sigma/(\sigma - 1)} \label{X_def}
+\end{align}
+
+Equations (\ref{eq_price_index}), (\ref{eq_x_demand}), and (\ref{X_def}) imply that the price of obtaining one unit of $X$ is the price index $P$: 
+\begin{align}
+X &= \Big(\int_0^1 q_j^{1/\sigma} x_j^{(\sigma - 1)/\sigma} dj \Big) ^{\sigma/(\sigma -1)} \nonumber \\
+  &= \Big(\int_0^1 q_j^{1/\sigma} q_j^{(\sigma - 1)/\sigma} \frac{E^{(\sigma-1)/\sigma}}{P^{((\sigma -1)/\sigma) (1-\sigma)}} p_j^{1-\sigma}dj \Big) ^{\sigma/(\sigma -1)} \nonumber \\
+  &= \frac{E}{P^{1-\sigma}} \Big( \int_0^1 q_j p_j^{1-\sigma} dj \Big)^{\sigma/(\sigma -1)} \nonumber \\
+  &= \frac{E}{P^{1-\sigma}}P^{-\sigma} \nonumber \\
+  &= \frac{E}{P} \label{eq_X_E_P}
+\end{align}
+
+Plugging into (\ref{final_good_technology}) yields 
 \begin{align*}
-x_i = \frac{q_i}{q_j} x_j
+Y = L_F^{\beta} X^{1-\beta} 
 \end{align*}
 
-Substituting into budget constraint and solving for $x_i$ yields
+Profit maximization by the final goods firms over $L_F,X$ implies
+\begin{align}
+\beta L_F^{\beta -1} X^{1-\beta} &= w \label{FOC_L} \\ 
+(1-\beta) L_F^{\beta} X^{-\beta} &= P \label{FOC_X}
+\end{align}
+
+The inverse demand of the intermediate goods producers can be derived by using rearranging (\ref{FOC_X}) to obtain an expression for $X$ in terms of $L_F,P$ and parameters; and then substituting this and (\ref{eq_X_E_P}) into (\ref{eq_x_demand}) to obtain an expression relating $x_j,p_j,L_F$ and hopefully $P$ cancels out...(it should):
+
+First, rearranging (\ref{FOC_X}) we get 
+\begin{align}
+X &= \Big(\frac{1-\beta}{P}\Big)^{1/\beta} L_F \label{big_X_eq}
+\end{align}
+
+Substituting (\ref{eq_X_E_P}) into (\ref{eq_x_demand_betaversion}) yields:
+\begin{align}
+\frac{x_j}{q_j} = X \Big(\frac{p_j}{P}\Big)^{-1/\beta} \label{x_demand_X}
+\end{align}
+
+Now substitute (\ref{big_X_eq}) into (\ref{x_demand_X}) to obtain 
+\begin{align}
+\frac{x_j}{q_j} &= \Big(\frac{p_j}{1-\beta}\Big)^{-1/\beta} L_F  \nonumber \\
+p_j &= (1-\beta) L_F^{\beta} q_j^{\beta} x_j^{-\beta}
+\end{align}
+
+Since the producers face the same demand curve for their goods as in AK 2017 (conditional on $L_F$), prices and quantities are the same in equilibrium:
 \begin{align*}
-x_i = \frac{q_i}{\overline{q}} \times \frac{E}{p}
+x_j &= \Big[ \frac{(1-\beta)}{}
 \end{align*}
 
-\paragraph{Lab equipment model} If R\&D were done using final goods, we can write $E$ as a function of $L_F$ using the equation:
+
+
+
+
+
+
+
+
+
+
+
+\break
+\section{Lab equipment model} If R\&D were done using final goods, we can write $E$ as a function of $L_F$ using the equation:
 \begin{align*}
 L_F &= 1 - \int_0^1 l_j dj \\
 	&= 1- \frac{E}{p}
