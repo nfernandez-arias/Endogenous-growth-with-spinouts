@@ -14,12 +14,12 @@
 \definecolor{mygreen1}{RGB}{34,139,35}
 
 
-\title{A Model of Productivity Growth through Creative Destruction by Employee Spinouts}
+\title{A Model of Productivity Growth through Creative Destruction by Employee Spinout: Updates}
 \author{Nicolas Fernandez-Arias}
 \date[May 1, 2018]{May 1, 2018}
 
 \begin{document}
-	
+	  
 \frame{\titlepage}
 
 \begin{comment}
@@ -119,6 +119,18 @@
 %%% GOING TO NEED TO FIX ALL OF THIS SHIT TOMORROW MORNING!!!%%% 
 %%%% BUT I THINK YOU WILL GET SOME USEFUL FEEDBACK! THIS HOPEFULLY WILL NOT BE A DISASTER!!!%%%%
 
+\begin{frame}{Updates - Overview}
+	\begin{itemize}
+		\item Preliminary proposal for nesting model in general model 
+		\begin{itemize}
+			\item For now: exogenous shock that makes knowledge public
+			\item Potential improvement: immediately allow free entry into R\&D race, but endow spinouts with some extra productivity relative to these entrants. Over time, spinouts drive entrants out of the market.
+			\item Very different implications, but hard to observe
+		\end{itemize}
+		\item Ideas for calibration / identification of parameters
+	\end{itemize}
+\end{frame}
+
 \begin{frame}{Model overview}
 \begin{itemize}
 	\item Time $t$ is continuous 
@@ -131,8 +143,10 @@
 \end{itemize}
 \end{frame}
 
+
 \section{Model}
 \subsection{Overview}
+\begin{comment}
 \begin{frame}{Model overview}
 \begin{itemize}	
 	\item Builds on (nests) standard quality ladders model of endogenous growth (Grossman \& Helpman 1991)
@@ -142,6 +156,7 @@
 	\item \textbf{New ingredient:} R\&D workers learn on the job how to form spinouts which compete in R\&D race with incumbents
 \end{itemize}
 \end{frame}
+\end{comment}
 
 \begin{frame}{Model: Intermediate goods production}
 \begin{itemize}
@@ -151,9 +166,9 @@
 	\item $x_j$ is amount produced 
 	\item Each good produced with technology
 	\begin{align*}
-	x_j = \overline{q} l_j
+	x_j = \bar{q} l_j
 	\end{align*}
-	where $\overline{q} = \int_0^1 q_j dj$ is the average quality level of the economy
+	where $\bar{q} = \int_0^1 q_j dj$ is the average quality level of the economy
 	\item Each good $j$ has monopolist, standard assumptions to guarantee no limit pricing 
 	\item Demand (final goods production) CES across goods $j$ implies constant markup
 \end{itemize}
@@ -161,14 +176,15 @@
 
 \begin{frame}{Model: R\&D race}
 \begin{table}
+	\small
 	\begin{tabular}{p{0.8\textwidth}}
 		\centering
-		At time $t$ with average quality $\overline{q}_t$, incumbent in the R\&D race for good $j$ of quality $q_j$ begins with monopoly on good $j$ R\&D \\
+		At time $t$ with average quality $\bar{q}_t$, incumbent in the R\&D race for good $j$ of quality $q_j$ begins with monopoly on good $j$ R\&D \\
 		$\downarrow$\\
-		\begin{enumerate}
-			\item 	Hires R\&D labor; at rate $\nu (q_j/\overline{q}_t)^{-1}$ per unit of R\&D labor hired, employees learn, adding to mass of potential entrants (\textbf{scaling factor $(q_j/\overline{q}_t)^{-1}$ for BGP})) \\
-			\item Meanwhile, with arrival rate $\theta$, ``knowledge spillover" shock hits and makes knowledge public
-		\end{enumerate}
+		\begin{itemize}
+			\item 	Hires R\&D labor; at rate $\nu (q_j/\bar{q}_t)^{-1}$ per unit of R\&D labor hired, employees learn, adding to mass of potential entrants (\textbf{scaling factor $(q_j/\bar{q}_t)^{-1}$ for BGP})) \\
+			\textcolor{mygreen1}{\item Simultaneously, with arrival rate $\theta$, ``knowledge spillover" shock hits $\rightarrow$ \textbf{free entry} into R\&D race}
+		\end{itemize}
 	
 		$\downarrow$\\
 		At some point, either an incumbent or an entrant firm wins the race, and obtains a monopoly on production and R\&D on good $j$ of quality $\lambda q_j$
@@ -179,18 +195,18 @@
 \begin{frame}{Model: R\&D technology}
 \begin{itemize}
 	\small
-	\item Consider an intermediate $j$ with relative quality $\tilde{q} = q / \overline{q}$
+	\item Consider an intermediate $j$ with relative quality $\tilde{q} = q / \bar{q}$
 	\item \textbf{Scaling assumption for BGP:} flow cost of $\tilde{q}z$ units of labor yields $z$ units of effective labor 
 	\item $z$,$\hat{z}$ units of R\&D effort by incumbent and entrant respectively yields victory in the R\&D race at Poisson rate
 	\begin{align*}
 	R(z) &= \chi z \phi(z) \\
-	\hat{R}(\hat{z};\overline{z}) &= \hat{\chi} \hat{z} \eta(\overline{z}) 
+	\hat{R}(\hat{z};\bar{z}) &= \hat{\chi} \hat{z} \eta(\bar{z}) 
 	\end{align*}
-	where $\overline{z} = \int_0^{m} \hat{z}(m')dm'$ is total good-$j$ R\&D effort by entrants.
+	where $\bar{z} = \int_0^{m} \hat{z}(m')dm'$ is total good-$j$ R\&D effort by entrants.
 	\item Entrant $m'$ can perform $\hat{z}\le\xi$ units of R\&D effort (equilibrium does not pin down; look for equilibria where $\hat{z}(m') \in \{0,\xi \}$)
 	\item Aggregate rate of innovations:
 	\begin{align*}
-	\tau = \chi z \phi(z) + \hat{\chi} \overline{z} \eta(\overline{z})
+	\tau = \chi z \phi(z) + \hat{\chi} \bar{z} \eta(\bar{z})
 	\end{align*}
 \end{itemize}
 \end{frame}
@@ -212,11 +228,19 @@
 
 \begin{frame}{Intermediate goods firms optimization: incumbent static optimization}
 \begin{itemize}
+	\footnotesize
 	\item Static optimization in product market: CES final goods production implies constant markup
-	\item In equilibrium, flow profits $\pi(q) = \pi q$, with
+	\item Regardless of the aggregate supply of labor, have
 	\begin{align*}
-	\pi &= L(1-\beta)\tilde{\beta} \\ 
-	\tilde{\beta} &= \beta^{\beta} (1-\beta)^{1-2\beta}
+		\bar{w} &= \tilde{\beta} \bar{q}  \\
+		\tilde{\beta} &= \beta^{\beta} (1-\beta)^{2-2\beta} 
+	\end{align*}
+	where $L^F$ is labor allocated to final goods production. 
+	\item Taking as given research labor allocation $L^{RD}$, have closed forms for $L^F,L^I$ and static profits $\pi(q)$ for an incumbent with technology $q$,
+	\begin{align*}
+	L^F &= \frac{\beta(1-L^{RD})}{\beta + (1-\beta)^2} \\
+	L^I &= 1 - L^{RD} - L^F \\
+	\pi &= \beta(1-\beta)^{\frac{2-\beta}{\beta}} \tilde{\beta}^{-1} L^F q
 	\end{align*}
 \end{itemize}
 \end{frame}
@@ -226,10 +250,10 @@
 	\item HJB equation for incumbent:
 	\footnotesize
 	\begin{align*}
-	(\rho + \overbrace{\hat{\chi} \overline{z}(q,m,t)\eta(\overline{z}(q,m,t))}^{\text{Entrant innovation rate}}) V(q,m,t) &= \overbrace{\pi q}^{\text{Flow profits}} + \overbrace{V_t(q,m,t)}^{\text{Changing aggregate state}} \\ 
+	(\rho + \overbrace{\hat{\chi} \bar{z}(q,m,t)\eta(\bar{z}(q,m,t))}^{\text{Entrant innovation rate}}) V(q,m,t) &= \overbrace{\pi q}^{\text{Flow profits}} + \overbrace{V_t(q,m,t)}^{\text{Changing aggregate state}} \\ 
 	 +  \overbrace{\nu \bar{z}(q,m,t) V_m(q,m,t)}^{\text{Knowledge spillovers from entrant R\&D}} & + \textcolor{mygreen1}{\overbrace{\theta \Big(V(q,M,t) - V(q,m,t)\Big)}^{\text{Knowledge becomes public}}}\\
-	 + \max_{\textcolor{myred1}{z}} \Big\{\underbrace{\chi \textcolor{myred1}{z}\phi(\textcolor{myred1}{z})}_{\text{Arrival rate of R\&D victory}} &\overbrace{\textcolor{myblue1}{\Big(V(\lambda q,0,t)-V(q,m,t)\Big)}}^{\text{NPV of successful innovation}} \\
-	 -\underbrace{\textcolor{myred1}{z}(q/\overline{q}_t)}_{\text{R\&D labor}} \big(\underbrace{w(q,m,t)}_{\text{R\&D wage}} - & \overbrace{\nu (q/\overline{q}_t)^{-1} V_m(q,m,t)}^{\text{Knowledge spillovers from own R\&D}}\big)\Big \} 
+	 + \max_{\textcolor{myred1}{z}} \Big\{\underbrace{\chi \textcolor{myred1}{z}\phi(\textcolor{myred1}{z})}_{\text{Arrival rate of R\&D victory}} &\textcolor{myblue1}{\overbrace{\Big(V(\lambda q,0,t)-V(q,m,t)\Big)}^{\text{NPV of successful innovation}}} \\
+	 -\underbrace{\textcolor{myred1}{z}(q/\bar{q}_t)}_{\text{R\&D labor}} \big(\underbrace{w(q,m,t)}_{\text{R\&D wage}} - & \overbrace{\nu (q/\bar{q}_t)^{-1} V_m(q,m,t)}^{\text{Knowledge spillovers from own R\&D}}\big)\Big \}
 	\end{align*}
 \end{itemize}
 \end{frame}
@@ -239,10 +263,10 @@
 	\item HJB equation for entrant: 
 	\footnotesize
 	\begin{align*}
-	(\rho +  \overbrace{\hat{\chi} \overline{z}(q,m,t)\eta(\overline{z}(q,m,t))}^{\text{Entrant innovation rate}}) & W(q,m,t) = \overbrace{W_t(q,m,t)}^{\text{Changing aggregate state}} \\
+	(\rho +  \overbrace{\hat{\chi} \bar{z}(q,m,t)\eta(\bar{z}(q,m,t)+ )}^{\text{Entrant innovation rate}}) & W(q,m,t) = \overbrace{W_t(q,m,t)}^{\text{Changing aggregate state}} \\
 	 + \overbrace{\nu \bar{z}(q,m,t) W_m(q,m,t)}^{\text{Knowledge spillovers from entrant R\&D}} &+ \textcolor{mygreen1}{\overbrace{\theta \Big(W(q,M,t) - W(q,m,t)\Big)}^{\text{Knowledge becomes public}}} \\
-	 + \max_{\textcolor{myred1}{z}} \Big \{ \overbrace{\hat{\chi} {\textcolor{myred1}{z}} \eta(\overline{z}(q,m,t))}^{\text{Arrival rate of R\&D victory}} & \overbrace{\textcolor{myblue1}{\Big( V(\lambda q,0,t) - W(q,m,t) \Big)}}^{\text{NPV of successful innovation}} \\
-	& - \underbrace{\textcolor{myred1}{z}(q/\overline{q}_t)}_{\text{R\&D labor}} \underbrace{w(q,m,t)}_{\text{R\&D wage}}  \Big\}
+	 + \max_{\textcolor{myred1}{z}} \Big \{ \overbrace{\hat{\chi} {\textcolor{myred1}{z}} \eta(\bar{z}(q,m,t))}^{\text{Arrival rate of R\&D victory}} & \textcolor{myblue1}{\overbrace{\Big( V(\lambda q,0,t) - W(q,m,t) \Big)}^{\text{NPV of successful innovation}}} \\
+	& - \underbrace{\textcolor{myred1}{z}(q/\bar{q}_t)}_{\text{R\&D labor}} \underbrace{w(q,m,t)}_{\text{R\&D wage}}  \Big\}
 	\end{align*}
 \end{itemize}
 \end{frame}
@@ -282,16 +306,13 @@
 \begin{frame}{Household optimization}
 \small
 \begin{itemize}
-\item Workers indifferent between occupations (Final goods production, intermediate goods production, R\&D)
-\item In equilibrium, closed form for final goods wage  $\overline{w}_t = \tilde{\beta} \overline{q}_t$ where $\overline{w}$ is a function of parameters
-\item Indifference condition intermediate goods wage $w^I_t = \overline{w}_t$ 
-\item R\&D wage at product $j$ depends on state of the product, which is $(q,m)$
-\item For now, no employment / entrepreneurship choice; hope to include eventually
-\item Household block of the model boils down to equilibrium condition
+\item Workers indifferent between occupations (Final goods production, intermediate goods production, R\&D). 
+\item \textbf{For production:} Indifference requires requires same wage in final goods and intermediate goods production: $w_t^I = w_t^F = \bar{w}$.
+\item \textbf{For R\&D:} Indifference now requires \textbf{total compensation} from R\&D -- including \textbf{expected value of knowledge earned} -- to be equal to $\bar{w}$, i.e.
 \begin{align*}
-w(q,m,t) + \nu W^{NC}(q,m,t) &= \overline{w}_t
+w(m,t) + \nu W(m,t) &= \bar{w}_t
 \end{align*}
-where $W^{NC}_t(q,m)$ is the value of the knowledge to open an entrant in a good $j$ in state $(q,m)$ at time $t$ 
+where $W(m,t)$ is the value at time $t$ of the knowledge to open an entrant in a good which is currently in state $m$
 \end{itemize}
 \end{frame}
 
@@ -321,7 +342,7 @@ where $W^{NC}_t(q,m)$ is the value of the knowledge to open an entrant in a good
 				 & - \underbrace{\tau(q,m,t)\mu(q,m,t)}_{\text{Innovation arrival: jump } (q,m) \to (\lambda q,0)} \\
 				 & + \underbrace{\mathbbm{1}_{\{m = 0 \}}\lambda^{-1} \int \tau(\lambda^{-1}q,m',t) d\mu(\lambda^{-1}q,m',t)}_{\text{Innovation arrival: jump } (\lambda^{-1}q,m') \to (q,0)}
 	\end{align*}
-	\item $a^q(q,m,t),a^m(q,m,t)$ are drift in $q,m$ direction, respectively, computed from $z(q,m,t)$ and $\overline{z}(q,m,t)$
+	\item $a^q(q,m,t),a^m(q,m,t)$ are drift in $q,m$ direction, respectively, computed from $z(q,m,t)$ and $\bar{z}(q,m,t)$
 	\item Last term for $m = 0$ arises because receiving inflows from $(\lambda^{-1}q,m')$ for all $m'$ 
 	\item Factor $\lambda^{-1}$ due to $d(\lambda q) = \lambda dq$
 \end{itemize}
@@ -332,30 +353,30 @@ where $W^{NC}_t(q,m)$ is the value of the knowledge to open an entrant in a good
 \begin{itemize}
 	\footnotesize
 	\item For notation, below I sometimes omit dependence of functions on $(q,m,t)$
-	\item Growth rate $g$ of average quality $\overline{q}_t$, value functions $V,W$, individual R\&D policies $z$ and $\hat{z}$, aggregate R\&D intensity $\tau$, entrant R\&D intensity $\overline{z}$, prices of intermediate goods, final and intermediate goods wage $\overline{w}$, and a distribution $d\mu$ such that: 
+	\item Growth rate $g$ of average quality $\bar{q}_t$, value functions $V,W$, individual R\&D policies $z$ and $\hat{z}$, aggregate R\&D intensity $\tau$, entrant R\&D intensity $\bar{z}$, prices of intermediate goods, final and intermediate goods wage $\bar{w}$, and a distribution $d\mu$ such that: 
 	\begin{itemize}
 		\footnotesize
 		\item Intermediate goods firms and final goods firms statically optimize production decisions
 		\item Value functions $V,W$ solve HJB eqs, individual policy functions optimal given value functions
 		\item Distribution $\mu(q,m,t)$ satisfies KF equation (time dependent, haven't shown)
-		\item Final and intermediate goods wage satisfy $\overline{w} = \Gamma(\beta)$
-		\item R\&D wages satisfy indifference condition $w(q,m,t) + \nu (q/\overline{q}_t)^{-1} W(q,m,t) = \overline{w}$
+		\item Final and intermediate goods wage satisfy $\bar{w} = \Gamma(\beta)$
+		\item R\&D wages satisfy indifference condition $w(q,m,t) + \nu (q/\bar{q}_t)^{-1} W(q,m,t) = \bar{w}$
 		\item Labor resource constraint: $L^F + L^I + L^{RD} = 1$
-		\item Growth is constant at $g$, and consistent with R\&D policy functions and distribution $\mu(q,m,t)$: $g = (\lambda -1) \int \tau(q,m,t) (q/\overline{q}_t) d\mu(q,m,t)$
+		\item Growth is constant at $g$, and consistent with R\&D policy functions and distribution $\mu(q,m,t)$: $g = (\lambda -1) \int \tau(q,m,t) (q/\bar{q}_t) d\mu(q,m,t)$
 	\end{itemize} 
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Finding a BGP}
 \begin{itemize}
-	\item Recall that in equilibrium, $w(q,m,t) = \tilde{\beta}\cdot\overline{q}_t - \nu W(q,m,t)$
+	\item Recall that in equilibrium, $w(q,m,t) = \tilde{\beta}\cdot\bar{q}_t - \nu W(q,m,t)$
 	\item Taking this into account, in equilibrium the following holds: 
 	\footnotesize
 	\begin{align*}
-	(\rho + \overbrace{\hat{\chi} \overline{z}(q,m,t)\eta(\overline{z}(q,m,t))}^{\text{Entrant innovation rate}}) V(q,m,t) = \overbrace{\pi q}^{\text{Flow profits}} &+ \overbrace{V_t(q,m,t)}^{\text{Changing aggregate state}} \\ 
+	(\rho + \overbrace{\hat{\chi} \bar{z}(q,m,t)\eta(\bar{z}(q,m,t))}^{\text{Entrant innovation rate}}) V(q,m,t) = \overbrace{\pi q}^{\text{Flow profits}} &+ \overbrace{V_t(q,m,t)}^{\text{Changing aggregate state}} \\ 
 	+  \overbrace{\nu \bar{z}(q,m,t) V_m(q,m,t)}^{\text{Knowledge spillovers from entrant R\&D}}  &\\
 	+ \max_{\textcolor{myred1}{z}} \Big\{\underbrace{\chi \textcolor{myred1}{z}\phi(\textcolor{myred1}{z})}_{\text{Arrival rate of R\&D victory}} &\overbrace{\textcolor{myblue1}{\Big(V(\lambda q,0,t)-V(q,m,t)\Big)}}^{\text{NPV of successful innovation}} \\
-	-\underbrace{\textcolor{myred1}{z}(q/\overline{q}_t)}_{\text{R\&D labor}} \underbrace{\big(\tilde{\beta}\cdot\overline{q}_t - \nu (q/\overline{q}_t)^{-1}W(q,m,t)}_{\text{Equilibrium R\&D wage}} - & \overbrace{\nu (q/\overline{q}_t)^{-1} V_m(q,m,t)}^{\text{Knowledge spillovers from own R\&D}}\big)\Big \} 
+	-\underbrace{\textcolor{myred1}{z}(q/\bar{q}_t)}_{\text{R\&D labor}} \underbrace{\big(\tilde{\beta}\cdot\bar{q}_t - \nu (q/\bar{q}_t)^{-1}W(q,m,t)}_{\text{Equilibrium R\&D wage}} - & \overbrace{\nu (q/\bar{q}_t)^{-1} V_m(q,m,t)}^{\text{Knowledge spillovers from own R\&D}}\big)\Big \} 
 	\end{align*}
 \end{itemize}
 \end{frame}
@@ -363,14 +384,14 @@ where $W^{NC}_t(q,m)$ is the value of the knowledge to open an entrant in a good
 \begin{frame}{Finding a BGP: Guess and verify}
 \begin{itemize}
 	\item Guess and verify: abusing notation, value of \textbf{incumbent} is $V(q,m,t) = qV(m)$, value of \textbf{entrant} is $W(q,m,t) = qW(m)$
-	\item Given these guesses, makes sense to guess $\overline{z}(m,q,t) = \overline{z}(m) = \xi \min(m,M)$ for some $M > 0$
+	\item Given these guesses, makes sense to guess $\bar{z}(m,q,t) = \bar{z}(m) = \xi \min(m,M)$ for some $M > 0$
 	\item Plugging guess into incumbent HJB yields: for $m < M$,
 	\begin{align*}
-	(\rho + \hat{\chi}\xi m \eta(\xi m) ) V(m) &= \pi + \nu \xi m V'(m) \\
+	(\rho +  \hat{\chi}\xi m \eta(\xi m) ) V(m) &= \pi + \textcolor{mygreen1}{\overbrace{\theta \Big(V(M) - V(m) \Big)}^{\text{Knowledge becomes public}}} + \nu \xi m V'(m) \\
 	&+ \max_{z} \Big\{ \chi z \phi(z) (\lambda V(0) - V(m))   \\
-	&- \chi z (\overline{w} - \nu (W(m) + V'(m)) \Big\}
+	&- z (\bar{w} - \nu (W(m) + V'(m)) \Big\}
 	\end{align*}
-	where $\overline{w} = \tilde{\beta}$. 
+	where $\bar{w} = \tilde{\beta}$. 
 	\item Boundary condition: $V'(m) = 0$ for $m \ge M$
 \end{itemize}
 \end{frame}
@@ -381,28 +402,32 @@ where $W^{NC}_t(q,m)$ is the value of the knowledge to open an entrant in a good
 	\item Similarly, HJB equation for entrant becomes: for $m < M$, 
 	\small
 	\begin{align*}
-	(\rho + \hat{\chi}\xi m \eta(\xi m) ) W(m) &= \nu \xi m W'(m) \\
+	(\rho + \hat{\chi}\xi m \eta(\xi m) ) W(m) &= \textcolor{mygreen1}{\overbrace{\theta \Big(W(M) - W(m)\Big)}^{\text{Knowledge becomes public}}} + \nu \xi m W'(m) \\
 	&+ \max_{z} \Big\{ \chi z \eta(\xi m) (\lambda V(0) - W(m))   \\
-	&- \chi z (\overline{w} - \nu W(m) \Big\}
+	&- z (\bar{w} - \nu W(m) \Big\}
 	\end{align*}
 	\item Boundary condition: $W(M) = 0$ 
-	\item Entrant optimality implies that $M$ is determined by free-entry condition
+	\item Equilibrium $M$ pinned down by free-entry condition
 	\begin{align*}
-	\eta(M) \lambda V(0) = \overline{w}
+	\eta(M) \lambda V(0) = \bar{w}
 	\end{align*}
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Finding a BGP: Solving the HJBs numerically}
+\begin{comment}
+
+\begin{frame}{Finding BGP: Solving HJBs numerically (I)}
 \begin{enumerate}
-	\item Guess $W(\cdot)$
+	\item NEED TO FIX - still working on this
+	\item Guess R\&D wage $w(\cdot)$
 	\item Solve for $V(\cdot),M$ given $W(\cdot)$: 
 	\begin{enumerate}
 		\item Guess $V(0)$
 		\item Free entry condition and $V(0)$ determine $M$
-		\item HJB and boundary condition $V'(M) = 0$ determine $V(M)$
-		\item Integrate backward starting from $V(M)$, using $w(m) = \overline{w} - \nu W(m)$, to compute $\hat{V}(0)$
-		\item If $\hat{V}(0) \ne V(0)$, update guess and return to Step 2.1
+		\item $M$ determines entrant strategy: $z^E(m) = \xi \min(m,M)$
+		\item Integrate backward HJB and boundary condition $V'(M) = 0$ 
+		\item Check that $V(0)$ in solution is the same as guess; if not, update and return to 2.1
+		\item Convergence guaranteed if mapping from $V(0)$ guess to $V(0)$ output is continuous and monotonic, both of which seem correct (but I haven't checked yet, working on code).
 	\end{enumerate}
 	\item Using $M$ computed from the previous step, solve for implied $W(\cdot)$
 	\begin{enumerate}
@@ -443,14 +468,13 @@ where $W^{NC}_t(q,m)$ is the value of the knowledge to open an entrant in a good
 	\item Finally, compute total rate at which mass 
 \end{itemize}
 \end{frame}
-\end{comment}
 
 \begin{frame}{Finding a BGP: Algorithm}
 \begin{itemize}
 	\item The numerical algorithm I propose for computing a BGP is as follows:
 	\begin{enumerate}
 		\item Guess $L^F$, the labor supply to final goods production
-		\item This guess pins down equilibrium profit flow $\pi$ and final goods / intermediate goods wage $\overline{w}$
+		\item This guess pins down equilibrium profit flow $\pi$ and final goods / intermediate goods wage $\bar{w}$
 		\item Given these, solve HJBs numerically using iterative procedure described above
 		\item Next, solve KF equation to compute stationary distribution $\mu(m)$
 		\item Using $\mu(m)$ and policy functions from previous step, integrate to compute aggregate labor demand 
@@ -467,7 +491,7 @@ where $W^{NC}_t(q,m)$ is the value of the knowledge to open an entrant in a good
 \begin{itemize}
 	\item In usual Neo-Schumpeterian growth models, technology scaling assumptions guarantee that arrival rate of innovations is independent of $q$
 	\item Aggregate growth rate can be computed without reference to distribution of goods across different quality levels
-	\item My model does not have this property, stemming from the worker indifference condition $w(q,m) = \overline{w} - \nu W(q,m)$
+	\item My model does not have this property, stemming from the worker indifference condition $w(q,m) = \bar{w} - \nu W(q,m)$
 	\item Other models of spinouts generally have this property as well
 \end{itemize}
 \end{frame}
@@ -479,11 +503,11 @@ where $W^{NC}_t(q,m)$ is the value of the knowledge to open an entrant in a good
 	\small
 	\item To see a case with a BGP, consider the case where $\hat{\chi} = 0$ (could also consider case of free entry)
 	\item This implies $m=0$, so $m$ no longer a state variable
-	\item Wage satisfies $w(q) = \overline{w}$ since workers do not learn on the job
+	\item Wage satisfies $w(q) = \bar{w}$ since workers do not learn on the job
 	\item Model becomes a standard quality ladders endogenous growth model with no entry 
 	\begin{align*}
 	(\rho - g)V(\tilde{q}) &= \pi \tilde{q} - g\tilde{q}V'(\tilde{q}) \\
-	& + \max_{z} \Big z\chi\phi(z) {\Big(V(\lambda\tilde{q})-V(\tilde{q})\Big)} - \tilde{q} z \overline{w}\} 
+	& + \max_{z} \Big z\chi\phi(z) {\Big(V(\lambda\tilde{q})-V(\tilde{q})\Big)} - \tilde{q} z \bar{w}\} 
 	\end{align*}
 \end{itemize}
 \end{frame}
@@ -492,15 +516,15 @@ where $W^{NC}_t(q,m)$ is the value of the knowledge to open an entrant in a good
 \begin{itemize}
 	\item Guess and verify $V(\tilde{q}) = V_0 \tilde{q}$: 
 	\begin{align*}
-	(\rho - g) V_0 \textcolor{myred1}{\tilde{q}} = \tilde{\pi}\textcolor{myred1}{\tilde{q}} - g\textcolor{myred1}{\tilde{q}}V_0 + \max_z \Big\{ z\chi \phi(z) \Big(\lambda \textcolor{myred1}{\tilde{q}}V_0 - \textcolor{myred1}{\tilde{q}} V_0 \Big)- \textcolor{myred1}{\tilde{q}} z \overline{w}  \Big\}
+	(\rho - g) V_0 \textcolor{myred1}{\tilde{q}} = \tilde{\pi}\textcolor{myred1}{\tilde{q}} - g\textcolor{myred1}{\tilde{q}}V_0 + \max_z \Big\{ z\chi \phi(z) \Big(\lambda \textcolor{myred1}{\tilde{q}}V_0 - \textcolor{myred1}{\tilde{q}} V_0 \Big)- \textcolor{myred1}{\tilde{q}} z \bar{w}  \Big\}
 	\end{align*}
 	\item FOC for $z$
 	\begin{align*}
-	\chi((\phi(z) + z\phi ' (z) (\lambda -1)V_0 = \overline{w}
+	\chi((\phi(z) + z\phi ' (z) (\lambda -1)V_0 = \bar{w}
 	\end{align*} 
 	\item Does not involve $q$ so gives $z^*(q) = z^*$:
 	\begin{align*}
-	z^* = \Big( \frac{\chi(\lambda-1)V_0}{\overline{w}} \Big)^{\frac{1}{p}}
+	z^* = \Big( \frac{\chi(\lambda-1)V_0}{\bar{w}} \Big)^{\frac{1}{p}}
 	\end{align*}
 \end{itemize}
 \end{frame}
@@ -509,18 +533,16 @@ where $W^{NC}_t(q,m)$ is the value of the knowledge to open an entrant in a good
 \begin{itemize}
 	\item Cancelling $\tilde{q}$ terms confirms guess, get expression for $V_0$ given by
 	\begin{align*}
-	(\rho + \chi z^* \phi(z^*)(1-\lambda))  V_0 = \tilde{\pi} - z^* \overline{w}
+	(\rho + \chi z^* \phi(z^*)(1-\lambda))  V_0 = \tilde{\pi} - z^* \bar{w}
 	\end{align*}
 	\item Plugging in expression for $z^*$ yields 
 	\begin{align*}
-	V_0 = \frac{\tilde{\pi} - \Big( \frac{\chi(\lambda-1)V_0}{\overline{w}} \Big)^{\frac{1}{p}} \overline{w}}{\rho + \Big( \frac{\chi(\lambda-1)V_0}{\overline{w}} \Big)^{\frac{1}{p} - 1}}
+	V_0 = \frac{\tilde{\pi} - \Big( \frac{\chi(\lambda-1)V_0}{\bar{w}} \Big)^{\frac{1}{p}} \bar{w}}{\rho + \Big( \frac{\chi(\lambda-1)V_0}{\bar{w}} \Big)^{\frac{1}{p} - 1}}
 	\end{align*}
 	\item RHS is continuous and, for $p \in (0,1)$, strictly decreasing in $V_0$
 	\item Intermediate value theorem implies existence and uniqueness of solution $V_0$, confirming guess 
 \end{itemize}
 \end{frame}
-
-\end{comment}
 
 \begin{frame}{Efficiency}
 \begin{itemize}
@@ -534,7 +556,6 @@ where $W^{NC}_t(q,m)$ is the value of the knowledge to open an entrant in a good
 	\item Also standard: potential for inefficiently high creative destruction due to entrants not internalizing their ``business stealing" effect
 \end{itemize}
 \end{frame}
-
 
 \section{Extensions}
 \begin{frame}{Next steps}
@@ -555,6 +576,143 @@ where $W^{NC}_t(q,m)$ is the value of the knowledge to open an entrant in a good
 	\end{itemize}
 \end{itemize}
 \end{frame}
+
+
+
+\begin{frame}{Identification}
+	\item What fraction of entrants are spinouts?
+	\begin{itemize}
+		\item Employer-employee matched data (LEHD, Brazilian data, German data): identify spinouts as in Muendler et al. 2012
+		\item Establishment level data (same datasets): identify entrant firms, rate of entry, etc.
+		\item \textbf{Problem:} entrants in data are not just creative destruction. Will overestimate number of entrants, hence overestimate role of within-industry spinouts in entry. 
+		\item \textbf{Problem:} firms have more than one product. \textbf{Solution:} 
+	\end{itemize}
+	\item What fraction of winners of R\&D race are spinouts?
+	\begin{itemize}
+		\item How to identify winners of R\&D race in the data? (1) entrants that are still around after $n$ years, for some $n$; (2) entrants that grow to a certain percentile in the firm-size distribution  
+	\end{itemize}
+	\item Average R\&D expenditure given the state $m$ of an industry?
+\end{frame}
+\end{comment}
+
+\begin{frame}{Alternative nesting of model}
+\begin{itemize}
+	\item The above feels ad-hoc. I am arbitrarily restricting entrants until a reduced form shock occurs.
+	\item Another possibility: endow employees who learn on the job with a more efficient R\&D
+	\item Specifically, if $\bar{z}$ is total innovation effort by entrants (spinouts or not), the R\&D production functions are (for spinouts, non-spinouts, respectively):
+	\begin{align*}
+		\hat{R}_S (\hat{z}_S; \bar{z}) &= \hat{\chi}_S \hat{z}_S \eta(\bar{z}) \\ 
+		\hat{R}_E (\hat{z}_E; \bar{z}) &= \hat{\chi}_E \hat{z}_E \eta(\bar{z}) 
+	\end{align*}
+	\item Nests standard model when $\hat{\chi}_E \ge \hat{\chi}_S$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Identification}
+\begin{itemize}
+	\item Specialize $\phi(z) = \eta(z) = z^{-\psi}$
+	\item Parameters in baseline model: $\{\beta,\rho,\lambda,\chi,\psi,\nu,\xi,\theta\}$
+	\item No closed forms so even when a certain moment ``identifies" a parameter, I will have to do identification with indirect inference. 
+	\item General parameters: $\{\rho,\beta\}$
+	\item R\&D parameters: $\{\psi,\lambda, \chi\}$
+	\item Spinout parameters: $\{ \nu,\xi,\theta \}$
+	\begin{itemize}
+		\item Empirical component of my paper
+		\item Attempt to identify using data on spinouts and creative destruction (details on next slide)
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Identification: $\rho, \beta$}
+\begin{itemize}
+	\item Calibrating $\rho$:
+	\begin{itemize}
+		\item Agents in model are risk-neutral $\Rightarrow$ Interest rate = $\rho$
+		\item To get realistic interest rate, have to assume unrealistic discount factor
+	\end{itemize}
+	\item Calibrating $\beta$:
+	\begin{itemize}
+		\item In model, $\beta$ determines elasticity of substitution across intermediate goods varieties labor share of final goods firm value-added
+		\item In my model, makes more sense to have realistic markups than realistic labor share of final goods production
+		\item Idea: follow AK 2017 in identifying based on profit / sales ratio (of, say, incumbent firms)
+		\item How to interpret final goods labor in this model if I think of intermediate goods as actually goods? Retail workers? Does this pose a problem given that I have required R\&D workers to be indifferent? 
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Identification: R\&D parameters $\psi, \lambda, \chi$}
+\begin{itemize}
+	\item Difficult to disentangle using data generated from a single BGP 
+	\item Setting $\psi$:
+	\begin{itemize}
+		\item Literature has identified using (1) elasticity of R\&D spending to tax changes, (2) elasticity of patents to R\&D spending
+		\item Both suggest $\psi \approx 2$
+	\end{itemize}
+	\item Calibrating $\lambda$:
+	\begin{itemize}
+		\item Literature has typically tried various values (approx 1.2) and checked robustness
+		\item AK 2017: identify based on patent citation distribution
+	\end{itemize}
+	\item Calibrating $\chi$:
+	\begin{itemize}
+		\item Given other R\&D parameters, can identify from measures of R\&D intensity  
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Identification of spinout parameters}
+\begin{itemize}
+	\item Identifying $\theta$:
+	\begin{itemize}
+		\item Idea: fraction of existing firms which are spinouts? 
+		\item Idea: fraction of startups which are spinouts?
+	\end{itemize}
+	\item What fraction of winners of R\&D race are spinouts?
+	\begin{itemize}
+		\item How to identify winners of R\&D race in the data? (1) entrants that are still around after $n$ years, for some $n$; (2) entrants that grow to a certain percentile in the firm-size distribution  
+	\end{itemize}
+
+	\item Employer-employee matched data (LEHD, Brazilian data, German data): identify spinouts as in Muendler et al. 2012
+	\item Establishment level data (same datasets): identify entrant firms, rate of entry, etc.
+	\item \textbf{Problem:} entrants in data are not just creative destruction. Will overestimate number of entrants, hence overestimate role of within-industry spinouts in entry. 
+	\item \textbf{Problem:} firms have more than one product.
+	\item Average R\&D expenditure given the state $m$ of an industry?
+
+	\item What fraction of winners of R\&D race are spinouts?
+
+	\item Average R\&D expenditure given the state $m$ of an industry? 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Identification of Alternative Nesting}
+\begin{itemize}
+	\small
+	\item To the extent that $\hat{\chi}_S > \hat{\chi}_E$, the model has predictions on:
+	\begin{enumerate}
+		\item The fraction of firms which started out as spinouts vs. ordinary entrants
+		\item How the likelihood of successful overtaking by a spinout increases with the time since the last innovation 
+		\item Stark model will likely have trouble matching data - eventually, create some attenuation by adding heterogeneity in R\&D productivity of both spinouts and entrants...but I am getting ahead of myself.
+	\end{enumerate}
+	\item If I can come up with a proxy for $m$ or ``time since last innovation" in the data, I can identify this mechanism.  
+	\item Need a proxy for "how many products are currently being developed that compete with this product". 
+	\item Idea: Extend Muendler 2012 logic. Entrants that hire many employees of an existing firm are classified as spinouts. But entrants that hire some employees are still more likely to be competing firms than entrants that hire no employees. 
+	\item \textbf{I can distinguish much more reliably between these two using VentureSource data. }
+	\item Ideas in the literature for identifying these things? 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Identification: next steps}
+\begin{itemize}
+	\item Previous slides were for baseline model which assumed same R\&D technology for incumbents and entrants
+	\item May be helpful to allow $\psi,\lambda,\chi$ to differ between incumbents and entrants
+	\begin{itemize}
+		\item Empirical evidence suggests incumbents focus on incremental innovations while entrants focus on more substantial innovations
+		\item Probably reasonable to assume $\psi$ the same for incumbents and entrants, but can do robustness checks.
+		\item $\chi,\lambda$ should be allowed to vary: can identify using patent data as in AK 2017. 
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
 
 % Appendix for figures
 

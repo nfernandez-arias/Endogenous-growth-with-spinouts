@@ -1,0 +1,224 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+
+\title{Technical details of equilibrium of my model}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Preliminaries}
+\textbf{Final goods production technology:}
+\begin{align}
+Y = L_F^{\beta}\Bigg( \Big(\int_0^1 q_j^{\beta} x_j^{1-\beta} dj \Big)^{1/(1-\beta)} \Bigg)^{1-\beta} \label{final_good_technology}
+\end{align}
+
+\textbf{Final goods optimization:}
+\begin{align*}
+\max_{\{x_j\}_{j\in [0,1]}} \int_0^1 q_j^{\beta} x_j^{1-\beta} 
+\end{align*}
+
+Subject to constraint:  
+\begin{align*}
+\int_0^1 p_j x_j dj \le E
+\end{align*}
+
+FOCs from Lagrangean: for each $j \in [0,1]$, 
+\begin{align*}
+(1-\beta)q_j^{\beta} x_j^{-\beta} &= \lambda p_j \\
+					 q_j^{\beta}  &= \lambda p_j (1-\beta)^{-1} x_j^{\beta}
+\end{align*}
+
+where $\lambda$ is a Lagrange multiplier. 
+
+For all $i,j$, we have 
+\begin{align*}
+x_i = x_j \frac{q_i}{q_j} \Big(\frac{p_j}{p_i}\Big)^{1/\beta}
+\end{align*}
+
+Multiplying both sides of the above by $p_i$ and integrating yields
+\begin{align}
+E = \int_0^1 p_i x_i di &= \int_0^1 p_i x_j \frac{q_i}{q_j} \Big(\frac{p_j}{p_i}\Big)^{1/\beta} dj \label{x_E_eq1}
+\end{align}
+
+Denote the elasticity of substitution by $\sigma$; have $\sigma = \frac{1}{\beta}$. Define the price index
+\begin{align}
+P = \Big(\int_0^1 q_i p_i^{1-\sigma} di \Big)^{1/(1-\sigma)} \label{eq_price_index}
+\end{align}
+
+Substituting (\ref{eq_price_index}) into (\ref{x_E_eq1}) yields the final demand equation:
+\begin{align}
+\frac{x_j}{q_j} &= \frac{E}{P} \Big(\frac{p_j}{P}\Big)^{-1/\beta} \label{eq_x_demand_betaversion} \\
+			    &= \frac{E}{P} \Big(\frac{p_j}{P}\Big)^{-\sigma} \label{eq_x_demand}
+\end{align}
+
+Define effective aggregate capital input:
+\begin{align}
+X &\equiv \Big( \int_0^1 q_j^{\beta} x_j^{1-\beta} dj \Big)^{1/(1-\beta)} \\
+  &= \Big( \int_0^1 q_j^{1/\sigma} x_j^{(\sigma - 1)/\sigma} dj \Big)^{\sigma/(\sigma - 1)} \label{X_def}
+\end{align}
+
+Equations (\ref{eq_price_index}), (\ref{eq_x_demand}), and (\ref{X_def}) imply that the price of obtaining one unit of $X$ is the price index $P$: 
+\begin{align}
+X &= \Big(\int_0^1 q_j^{1/\sigma} x_j^{(\sigma - 1)/\sigma} dj \Big) ^{\sigma/(\sigma -1)} \nonumber \\
+  &= \Big(\int_0^1 q_j^{1/\sigma} q_j^{(\sigma - 1)/\sigma} \frac{E^{(\sigma-1)/\sigma}}{P^{((\sigma -1)/\sigma) (1-\sigma)}} p_j^{1-\sigma}dj \Big) ^{\sigma/(\sigma -1)} \nonumber \\
+  &= \frac{E}{P^{1-\sigma}} \Big( \int_0^1 q_j p_j^{1-\sigma} dj \Big)^{\sigma/(\sigma -1)} \nonumber \\
+  &= \frac{E}{P^{1-\sigma}}P^{-\sigma} \nonumber \\
+  &= \frac{E}{P} \label{eq_X_E_P}
+\end{align}
+
+Plugging into (\ref{final_good_technology}) yields 
+\begin{align*}
+Y = L_F^{\beta} X^{1-\beta} 
+\end{align*}
+
+Profit maximization by the final goods firms over $L_F,X$ implies
+\begin{align}
+\beta L_F^{\beta -1} X^{1-\beta} &= w \label{FOC_L} \\ 
+(1-\beta) L_F^{\beta} X^{-\beta} &= P \label{FOC_X}
+\end{align}
+
+The inverse demand of the intermediate goods producers can be derived by using rearranging (\ref{FOC_X}) to obtain an expression for $X$ in terms of $L_F,P$ and parameters; and then substituting this and (\ref{eq_X_E_P}) into (\ref{eq_x_demand}) to obtain an expression relating $x_j,p_j,L_F$.
+
+First, rearranging (\ref{FOC_X}) we get 
+\begin{align}
+X &= \Big(\frac{1-\beta}{P}\Big)^{1/\beta} L_F \label{big_X_eq}
+\end{align}
+
+Substituting (\ref{eq_X_E_P}) into (\ref{eq_x_demand_betaversion}) yields:
+\begin{align}
+\frac{x_j}{q_j} = X \Big(\frac{p_j}{P}\Big)^{-1/\beta} \label{x_demand_X}
+\end{align}
+
+Now substitute (\ref{big_X_eq}) into (\ref{x_demand_X}) to obtain 
+\begin{align}
+\frac{x_j}{q_j} &= \Big(\frac{p_j}{1-\beta}\Big)^{-1/\beta} L_F  \nonumber \\
+p_j &= (1-\beta) L_F^{\beta} q_j^{\beta} x_j^{-\beta}
+\end{align}
+
+Since the producers face the same demand curve for their goods as in AK 2017 (conditional on $L_F$), prices and quantities are the same  in equilibrium (except for extra constant $(1-\beta)$ in $x_j$ expression):
+\begin{align}
+x_j &= \Big[ \frac{(1-\beta)^2 \overline{q}}{w}\Big]^{1/\beta} L_F q_j \label{x_demand_LF} \\
+p_j &= \frac{w}{(1-\beta)\overline{q}} \label{pj_eq}
+\end{align}
+
+Now we plug back into the profit equation to obtain equilibrium profits (as a function of $L_F, q_j,w$).\footnote{If, as in AK 2017, I had multiplied the final goods technology by a factor $(1-\beta)^{-1}$, I would get $\pi = \beta (1-\beta)^{\frac{1-\beta}{\beta}}\Big(\frac{\bar{q}}{w}\Big)^{\frac{1-\beta}{\beta}}$, as they obtain.} 
+\begin{align}
+\pi_j &= (p_j - c_j) x_j \nonumber \\
+      &= \Big(\frac{1}{1-\beta} - 1\Big)\frac{w}{\overline{q}} x_j \nonumber \\
+\pi_j &= \beta (1-\beta)^{\frac{2-\beta}{\beta}} \Big( \frac{\overline{q}}{w}  \Big)^{\frac{1-\beta}{\beta}} L_Fq_j\label{pi_eq_L} 
+\end{align}
+
+Next, since $p_j \equiv \bar{p}$ in equilibrium, we can derive an expression for $P$ in terms of $\beta,w,\bar{q}$,
+\begin{align}
+P &= \Big(\int_0^1 q_j p_j^{\frac{\beta-1}{\beta}} dj \Big)^{\frac{\beta}{\beta-1}} \nonumber \\
+P &= \bar{p} \bar{q}^{\frac{\beta}{\beta-1}} \nonumber \\
+  &= \frac{w}{(1-\beta)\bar{q}}\bar{q}^{\frac{\beta}{\beta-1}} \nonumber \\
+P(w)  &= \frac{w}{1-\beta}\bar{q}^{\frac{1}{\beta-1}} \label{Pw_def}
+\end{align}
+
+Using (\ref{FOC_L}), (\ref{FOC_X}) and (\ref{Pw_def}), we obtain a system of two equations in $(L/X)$ and the wage $w$:
+\begin{align*}
+	\beta (\frac{L}{X})^{\beta -1} &= w \\
+	(1-\beta) (\frac{L}{X})^{\beta} &= P(w) \\
+									&= \frac{w}{1-\beta}\bar{q}^{\frac{1}{\beta -1}}
+\end{align*}
+
+Solving this system for $w$ yields\footnote{If I scale the final goods production function by $(1-\beta)^{-1}$ I would get $\tilde{\beta} = \beta^{\beta}(1-\beta)^{1-2\beta}$, as in AK 2017}
+\begin{align}
+	w &= \tilde{\beta}\bar{q} \\
+	\tilde{\beta}  &= \beta^{\beta} (1-\beta)^{2 - 2\beta}
+\end{align}
+
+
+\break
+\section{Lab equipment model} If R\&D were done using final goods, we can write $E$ as a function of $L_F$ using the equation:
+\begin{align*}
+L_F &= 1 - \int_0^1 l_j dj \\
+	&= 1- \frac{E}{p}
+\end{align*}
+
+Further, we can substitute to obtain an expression for production in terms of $L_F,E$, assuming expenditures on capital goods are optimal given the quality distribution. First, do some algebra to get an expression for the optimal CES aggregator given price $p$, qualities $\{q_j\}_{j \in [0,1]}$ and spending $E$: 
+\begin{align*}
+\Big(\big(\int_0^1 q_j^{\beta} x_j^{1-\beta} dj \big)^{1/(1-\beta)} \Big)^{1-\beta} &= \Big(\big(\int_0^1 q_j^{\beta} \big(\frac{q_j}{\overline{q}}\frac{E}{p}\big)^{1-\beta} dj\big)^{1/(1-\beta)} \Big)^{1-\beta} \\
+&= \big(\frac{1}{\overline{q}}\frac{E}{p}\big)^{1-\beta} \Big(\big(\int_0^1 q_j dj \big)^{1/(1-\beta)} \Big)^{1-\beta} \\
+&= \big(\frac{1}{\overline{q}p}\big)^{1-\beta} \overline{q} E^{1-\beta} \\
+&= \overline{q}^{\beta} p^{\beta - 1} E^{1-\beta}
+\end{align*}
+
+Substitute this into the final goods production function:
+\begin{align*}
+Y(L_F,E;\overline{q}) = \overline{q}^{\beta} p^{\beta - 1} L_F^{\beta} E^{1-\beta}
+\end{align*}
+
+This yields FOCs for $L_F$ and $E$:
+\begin{align*}
+\beta \overline{q}^{\beta} p^{\beta - 1} L_F^{\beta -1} E^{1-\beta} &= w \\ 
+(1-\beta) \overline{q}^{\beta} p^{\beta - 1} L_F^{\beta} E^{-\beta} &= 1 
+\end{align*}
+
+because the price of one unit of $E$ is, by definition, equal to 1. 
+
+Finally recall our equation for $p$: 
+\begin{align*}
+p = \frac{w}{\overline{q}(1-\beta)}
+\end{align*}
+
+Hence we have four equations in four unknowns $\{ L_F,E,w,p \}$ and parameters:
+\begin{align}
+L_F	&= 1- \frac{E}{p} \label{L_F_E_eq}\\
+\beta \overline{q}^{\beta} p^{\beta - 1} L_F^{\beta -1} E^{1-\beta} &= w \\ 
+(1-\beta) \overline{q}^{\beta} p^{\beta - 1} L_F^{\beta} E^{-\beta} &= 1 \\
+p &= \frac{w}{\overline{q}(1-\beta)}
+\end{align}
+
+This part of the model is therefore determined separately from the R\&D side of the model. Intuitively, I haven't proven that there exists a closed-form solution -- this is shown by Akcigit \& Kerr 2017, which is exactly the same framework. To check these conditions we could substitute that solution and check there is no contradiction.
+
+\begin{align*}
+content...
+\end{align*}
+
+
+\paragraph{My model} In my model, R\&D is done using labor drawn from the same pool as intermediate and final goods production. Now we cannot derive (\ref{L_F_E_eq}) because 
+
+\begin{align*}
+L_F = 1 - \int_0^1 l_j^I dj - \int_0^1 l_j^{RD} dj
+\end{align*}
+
+Hence, we cannot derive a formula relating $E$ and $L$ without appealing to $z(m),\hat{z}(m)$ in order to compute the last term in the equation above. But those require solving the HJBs, etc. The static and dynamic aspects of the model now interact. 
+
+\paragraph{Possible solutions} The only way to eliminate this feature is to entirely decouple the production and R\&D labor markets. In addition, we must assume elastic labor supply in the R\&D market in order to make the model an endogenous growth model. Also note that we can't endogenize the elasticity of R\&D labor supply by using some kind of decision to specialize in final goods production or R\&D with some initial heterogeneity in relative productivities in each form of employment, because this couples the labor markets, eliminating the tractability. Hence, the only way to have a tractable, non-trivial model is to assume a separate population of potential R\&D workers with some aggregate labor supply elasticity.
+
+\paragraph{New algorithm}
+In light of this, we need a new algorithm.
+\begin{enumerate}
+	\item Guess $L^{RD}$, the BGP labor supply to R\&D
+	\item Now we know the labor supply available to production, hence can solve for all static production variables $L^F,L^I,w,p,\pi$ in closed form
+	\item Given these, solve HJBs numerically using iterative procedure described above
+	\item Next, solve KF equation to compute stationary distribution $\mu(m)$
+	\item Using $\mu(m)$ and policy functions from previous step, integrate to compute aggregate labor demand 
+	\item Check market clearing in R\&D market $L^{RD} = \int l(m) + \hat{l}(m) d\mu(m)$. If market does not clear, update guess $L^{RD}$ and go back to Step 1 
+\end{enumerate}
+
+My original algorithm was needlessly complex. 
+
+
+
+
+
+
+
+\end{document}

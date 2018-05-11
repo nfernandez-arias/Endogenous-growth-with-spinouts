@@ -1,0 +1,125 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+\title{Algorithm notes}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{High level overview}
+
+\begin{enumerate}
+	\item Guess $L^{RD}$
+	\item Compute $\bar{w},\pi$ (and $L^F,L^I$) for $\bar{q} = 1$ using static production firm optimization
+	\item Solve HJBs to compute incumbent and entrant innovation effort.
+	\item Solve KF equation to compute stationary distribution over $m$
+	\item Check that policy functions aggregate to $\tilde{L} = L^{RD}$.
+	\begin{itemize}
+		\item If $\tilde{L} > L^{RD}$, guess higher $L^{RD}$. 
+		\item If $\tilde{L} < L^{RD}$, guess lower $L^{RD}$.
+		\item Convergence: viewing $\tilde{L}$ as a function of the guess $L^{RD}$, we see that $\tilde{L}(0)$ > 0, $\tilde{L}(1) = 0$ (since static profits are zero in that case), $\tilde{L}$ is monotonic and continuous.\footnote{Haven't shown continuity but probably holds.}
+	\end{itemize}
+\end{enumerate}
+
+\section{Details}
+The difficult part of the algorithm is to find wages such that the policies and HJBs are consistent with wages. Define
+\begin{align*}
+\tau(m) = \chi_Sz_S(m)\eta(z_S(m) + z_E(m)) + \chi_Ez_E(m)\eta(z_S(m) + z_E(m))
+\end{align*}
+This consists of finding $V(\cdot),z_I(\cdot),W(\cdot),w(\cdot),\bar{z},M_s$ such that
+\begin{enumerate}
+	\item $V(\cdot),z_I(\cdot)$ solves incumbent HJB with boundary condition $V'(M_s) = 0$ and $z_S(m) = \xi \min(m,M_s)$ and $z_E(m) = \max(0,\bar{z}-z_S(m))$, 
+	\begin{align*}
+	(\rho + \tau(m)) V(m) &= \pi + \nu (z_S(m) + z_E(m)) V'(m) \\
+	&+ \max_{z_I \ge 0} \Big\{ z_I \Big( \chi_I \phi(z_I) \Big(\lambda V(0) - V(m) \Big) - (w(m) + V'(m)) \Big) \Big\}
+	\end{align*}
+	\item $W(\cdot)$ solves potential spinout HJB with policy $z^*(m) = z_S(m) = \xi \min(m,M_s)$ and boundary condition $W(M_s) = 0$ and the same assumptions about aggregate innovation effort $z_S,z_E$ as in 1,
+	\begin{align*}
+	(\rho + \tau(m)) W(m) &= \nu (z_S(m) + z_E(m) + z_I(m) )W'(m) \\
+	&+ \max_{0 \le z_S \le \xi} \Big\{ z_S\Big(\chi_S \eta(z_S(m) + z_E(m))\Big( \lambda V(0) - W(m) \Big) - w(m) \Big)    \Big\}
+	\end{align*}
+	(Note the fact that returns are individually constant returns to scale)
+	\item Non-spinout free entry: $\chi_E \eta(\bar{z}) V(0) = \bar{w}$
+	\item Spinout free entry: $\chi_S \eta(\xi M_s) V(0) = \bar{w}$
+	\item Worker indifference condition: $w(m) = \bar{w} - \nu W(m)$
+\end{enumerate}
+
+\paragraph{Brute force approach}
+\begin{enumerate}
+	\item Guess wage $w(\cdot)$
+	\item Iterate on aggregate spinout effort $z_S(\cdot)$ and $\bar{z}$ to find equilibrium of game which does not impose the indifference condition. Interpretation: partial equilibrium, without considering labor supply decisions. 
+	\item Iterate on $w(\cdot)$ until we find one such that $W(\cdot)$ from previous step that is consistent with indifference condition
+\end{enumerate}
+
+\paragraph{Using equilibrium relationships}
+The goal would be to impose in the algorithm the fact that in equilibrium 
+\begin{align*}
+z_S(m) &= \xi \min(m,M_s) \\
+\chi_E \eta(\bar{z}) V(0) &= \bar{w} \\ 
+\chi_S \eta(\xi M_s) V(0) &= \bar{w} 
+\end{align*}
+
+But the problem is that for generic $w(m)$, it may not be the case that the optimum takes the form in the equilibrium. I could search for an optimum within the a certain class of policies...but it's not as clear to me that this would converge. It probably makes sense to do the brute force approach first, and switch to this if that doesn't work.
+
+\section{Model parameters}
+
+The model parameters are:
+\begin{itemize}
+	\item Discount rate $\rho$
+	\item Labor share (and elasticity of substitution) $\beta$
+	\item Incumbent R\&D productivity $\chi_I$
+	\item Entrant R\&D productivity $\chi_E$
+	\item Spinout R\&D productivity $\chi_S$
+	\item Incumbent R\&D elasticity $\gamma_I$
+	\item Entrant R\&D elasticity $\gamma_E$
+	\item Spinout R\&D elasticity $\gamma_S$
+	\item Incumbent quality step $\lambda_I$
+	\item Entrant quality step $\lambda_E$
+	\item Spinout quality step $\lambda_S$
+	\item Learning rate $\nu$
+	\item Entrant size $\xi$
+\end{itemize}
+
+The baseline calibration will assume that incumbents and entrants have the same R\&D technology, but draw from different sources of ideas. All entrants - spinouts or not - draw from the same source of ideas.
+\begin{itemize}
+	\item $\chi_I = \chi_S$
+	\item $\chi_E < \chi_S$
+	\item $\chi_S < \chi_E$
+	\item $\lambda_I = \lambda_E$
+\end{itemize}
+
+\subsection{Algorithm parameters (grids, etc.)}
+
+In the original algorithm I had not realized I could get rid of a state variable by appropriately scaling the exogenous change in the R\&D technology with the quality of the good. I now assume that the efficiency of the R\&D technology is inversely proportional to the relative quality of the good being improved upon. For goods that are much higher than average quality, it costs more to improve them. This ensures that the R\&D policy function of a firm does not depend on its relative quality $q$. This both simplifies the firm's problem (by eliminating a state variable) and makes the model actually have a BGP.\footnote{R\&D policy functions vary only along the dimension ($m$) where there is a stationary distribution. There is no stationary distribution of relative qualities $q/\bar{q}$, but this is not a problem since R\&D policy functions do not depend on this variable. Hence we do not need to know the distribution to aggregate.}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

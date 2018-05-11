@@ -5,21 +5,20 @@ function d = set_modelpar()
     d.wbar = d.beta^d.beta*(1-d.beta)^(1-2*d.beta);
     d.chi_I = 0.03;
     d.chi_E = 0.03;
+    d.chi_S = 0.06;
     d.psi_I = 0.5;
-    d.psi_E = 0.5;  
-    d.lambda = 0.2;  
+	d.psi_SE = 0.5;
+    d.lambda_I = 0.2;
+    d.lambda_SE = 0.2;
+    d.lambda = d.lambda_I;  
     d.nu = 0.2;
-    %d.theta = 0.05;
-    %d.T_nc = 2;
     d.xi = 0.1;   
-    d.p1 = -0.5;
-    d.p2 = -1;
     
     % Aggregate decreasing returns to scale in innovation effort
     d.phi_min = 0.00001;
-    d.phi = @(z) (d.phi_min + z).^(d.p1);
+    d.phi = @(z) (d.phi_min + z).^(d.psi_I);
     
-    % Decreasing efficiency of R&D for higher quality goods 
-    d.scaleFactor = @(z) z.^(d.p2);
+    d.eta_min = 0.00001;
+    d.eta = @(z) (d.eta_min + z).^(d.psi_SE);
     
 end

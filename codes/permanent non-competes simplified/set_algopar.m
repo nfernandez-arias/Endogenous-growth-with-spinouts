@@ -34,16 +34,16 @@ function d = set_algopar(pm)
     
     %% Guess updating
     % _UR suffix means "update rate"
-    d.zE_UR = 0.3;
-    d.zE_UR_exponent = 2;
-    d.W_UR = 0.1;
+    d.zS_UR = 0.3;
+    d.zS_UR_exponent = 2;
+    d.w_UR = 0.1;
     d.L_RD_UR = 0.1;
     
     %% Tolerances
     %d.HJB_V_tol = 10e-8 * d.delta_t_V;
     %d.HJB_W_tol = 10e-8 * d.delta_t_W;
     d.L_RD_tol = 10e-3;
-    d.W_tol = 10e-3;
-    d.zE_tol = 10e-4;
+    d.w_tol = 10e-3;
+    d.zS_tol = 10e-4;
 
 end

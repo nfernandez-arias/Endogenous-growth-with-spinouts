@@ -1,0 +1,214 @@
+\documentclass[english,usenames,dvipsnames]{beamer}
+\usetheme{default}
+\usepackage[utf8]{inputenc}
+\usepackage{caption}
+\usepackage{appendixnumberbeamer}
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{bbm}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\definecolor{myred1}{RGB}{255,50,0}
+\definecolor{myblue1}{RGB}{0,100,255}
+\definecolor{mygreen1}{RGB}{34,139,35}
+
+
+\title{A Model of Productivity Growth through Creative Destruction by Employee Spinout: Updates}
+\author{Nicolas Fernandez-Arias}
+\date[May 1, 2018]{May 1, 2018}
+
+\begin{document}
+	  
+\frame{\titlepage}
+
+\begin{frame}{Updates - Overview}
+\begin{itemize}
+	\item Preliminary proposal for nesting model in general model 
+	\begin{enumerate}
+		\item Exogenous shock making knowledge public (easy, but very ad-hoc)
+		\item Always free entry into R\&D race, but spinouts have higher productivity 
+	\end{enumerate}
+	\item Ideas for calibration / identification of parameters
+	\begin{enumerate}
+		\item Model predictions
+		\item Challenge: model is stylized. What is data counterpart to entrant (which only performs R\&D) in the model?
+	\end{enumerate}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model recap}
+\begin{itemize}
+	\item Time $t$ is continuous 
+	\item Agents:
+	\begin{itemize}
+		\item Households 
+		\item Intermediate goods firms
+		\item Final goods firm 
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model recap}
+\begin{itemize}
+	\item Standard quality ladders model, step size $\lambda > 1$
+	\item Continuum of intermediate goods, indexed by $j\in J = [0,1]$
+	\item Frontier quality of good $j$ by $q_j$
+	\item $x_j$ is amount produced 
+	\item Each good produced with technology
+	\begin{align*}
+	x_j = \bar{q} l_j
+	\end{align*}
+	where $\bar{q} = \int_0^1 q_j dj$ is the average quality level of the economy
+	\item Each good $j$ has monopolist, standard assumptions to guarantee no limit pricing 
+	\item Demand (final goods production) CES across goods $j$ implies constant markup
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Nesting: Version I}
+\begin{table}
+	\small
+	\begin{tabular}{p{0.8\textwidth}}
+		\centering
+		At time $t$ with average quality $\bar{q}_t$, incumbent in the R\&D race for good $j$ of quality $q_j$ begins with monopoly on good $j$ R\&D \\
+		$\downarrow$\\
+		\begin{itemize}
+			\item 	Hires R\&D labor; at rate $\nu (q_j/\bar{q}_t)^{-1}$ per unit of R\&D labor hired, employees learn, adding to mass of potential entrants (\textbf{scaling factor $(q_j/\bar{q}_t)^{-1}$ for BGP})) \\
+			\textcolor{mygreen1}{\item Simultaneously, with arrival rate $\theta$, ``knowledge spillover" shock hits $\rightarrow$ \textbf{free entry} into R\&D race}
+		\end{itemize}
+		
+		$\downarrow$\\
+		At some point, either an incumbent or an entrant firm wins the race, and obtains a monopoly on production and R\&D on good $j$ of quality $\lambda q_j$
+	\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}{Nesting: Version II}
+\begin{itemize}
+	\item Free entry into R\&D
+	\item Spinouts more productive --> as they emerge, spinouts replace ordinary entrants in R\&D race
+	\item Making precise:
+	\begin{itemize}
+		\item Let $\bar{z}$ denote total innovation effort by entrants -- spinouts and non-spinouts alike
+		\item Assume that the R\&D production functions are
+		\begin{align*}
+		R_S (z_S; \bar{z}) &= \chi_S z_S \eta(\bar{z}) \\ 
+		R_E (z_E; \bar{z}) &= \chi_E z_E \eta(\bar{z}) 
+		\end{align*}
+		for spinouts, non-spinouts, respectively.
+	\end{itemize}  
+	\item Both depend on $\eta(\bar{z}) \Rightarrow$ standard model when $\chi_E \ge \chi_S$
+	\item If instead draw from different pools of ideas (with Inada conditions) need to assume $\chi_S = 0$ to get standard model
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Identification}
+\begin{itemize}
+	\item Specialize $\phi(z) = \eta(z) = z^{-\psi}$ 
+	\item Parameters in baseline model: $\{\beta,\rho,\lambda,\chi,\psi,\nu,\xi,\theta\}$
+	\item No closed forms so even when a certain moment ``identifies" a parameter, I will have to do identification with indirect inference. 
+	\item General parameters: $\{\rho,\beta\}$
+	\item R\&D parameters: $\{\psi,\lambda, \chi\}$
+	\item Spinout parameters: $\{ \nu,\xi,\theta \}$
+	\begin{itemize}
+		\item Empirical component of my paper
+		\item Attempt to identify using data on spinouts and creative destruction (details on next slide)
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Identification: $\rho, \beta$}
+\begin{itemize}
+	\item Calibrating $\rho$:
+	\begin{itemize}
+		\item Agents in model are risk-neutral $\Rightarrow$ Interest rate = $\rho$
+		\item To get realistic interest rate, have to assume unrealistic discount factor
+	\end{itemize}
+	\item Calibrating $\beta$:
+	\begin{itemize}
+		\item In model, $\beta$ determines elasticity of substitution across intermediate goods varieties labor share of final goods firm value-added
+		\item In my model, makes more sense to have realistic markups than realistic labor share of final goods production
+		\item Idea: follow AK 2017 in identifying based on profit / sales ratio (of, say, incumbent firms)
+		\item How to interpret final goods labor in this model if I think of intermediate goods as actually goods? Retail workers? Does this pose a problem given that I have required R\&D workers to be indifferent? 
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Identification: R\&D parameters $\psi, \lambda, \chi$}
+\begin{itemize}
+\item Difficult to disentangle using data generated from a single BGP 
+\item Setting $\psi$:
+\begin{itemize}
+	\item Literature has identified using (1) elasticity of R\&D spending to tax changes, (2) elasticity of patents to R\&D spending
+	\item Both suggest $\psi \approx 2$
+\end{itemize}
+\item Calibrating $\lambda$:
+\begin{itemize}
+	\item Literature has typically tried various values (approx 1.2) and checked robustness
+	\item AK 2017: identify based on patent citation distribution
+\end{itemize}
+\item Calibrating $\chi$:
+\begin{itemize}
+	\item Given other R\&D parameters, can identify from measures of R\&D intensity  
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model predictions re: spinouts}
+\begin{itemize}
+	\item Aggregate moments
+	\begin{itemize}
+		\item Fraction of firms which were spinouts vs. non-spinouts originally
+	\end{itemize}
+	\item Individual moments
+	\begin{itemize}
+		\item Depending on ``state'' of some good $j$, what is incumbent / spinout / non-spinout individual and aggregate R\&D intensity
+		\begin{itemize}
+			\item How to measure ``state'' $m$ of good $j$? Note that this is really a good $j$, not an industry.
+			\item How to measure R\&D intensity of non-incumbents?
+		\end{itemize}
+ 		\item If can't measure $m$, can maybe measure ``creative destruction" events; model has predictions for how R\&D typically evolves over time after a ``creative destruction'' event.
+	\end{itemize}
+	\item Causal relationships: more R\&D leads to more spinout entrants. How to measure?!?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Bringing model to data}
+\begin{itemize}
+	\item Previous slide: shows that bringing this model to the data is somewhat contrived
+	\item In the data:
+	\begin{itemize}
+		\item Can't find individual good / service $j$
+		\item Individual goods are not completely overtaken by creative destruction
+	\end{itemize}
+	\item Would be useful if my model had ``market share'' object in it, because that I can bring to the data. 
+	\item Can I do this while maintaining endogenous growth flavor?
+	\item Idea: distribution of consumer types, every version of product is best for some consumers but not for others. Spinouts decide which consumers to go for, get incomplete overtaking. Models like this? Seem reasonable to keep thinking along these lines?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Research plan}
+\begin{itemize}
+	\small
+	\item Empirical work: similar to Balasubramaniam \& Sakakibara 2015, "Human capital of spinouts" 
+	\item \textbf{My contribution: } Link patent data (NBER patent database) and R\&D data (Compustat)
+	\item Question is roughly: does more R\&D output (patents, or spending as another proxy for output) lead to more / more successful spinouts?
+	\item Get out of R\&D paradigm: does faster parent firm productivity growth lead to more spinouts? \textbf{For this, need to argue they are not demand shocks.}
+	\item Rationalize this result taking seriously a model where R\&D (broadly defined) ``sows the seeds of future competing spinouts'' 
+	\begin{itemize}
+		\item Current model: spinouts are all R\&D firms, not small firms that grow large --> hard to discipline with data moments on how growth patterns vary with 
+		\item  
+	\end{itemize}
+	\item 
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+
+
+
+\end{document}

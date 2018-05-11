@@ -20,7 +20,6 @@ function out = solve_model(pa,pm,ig)
 		% Closed form for production wage and static profit - depends on guess L_RD
 		wbar = ones(size(pa.m_grid));
 		prof = ones(size(pa.m_grid));
-    
 		
 		w_count = 1;
 		

@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6300) (preloaded format=pdflatex 2018.1.5)  2 MAY 2018 16:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6300) (preloaded format=pdflatex 2018.1.5)  2 MAY 2018 21:33
 entering extended mode
-**"./equilibrium wage determination.tex"
-("equilibrium wage determination.tex"
+**"./technical details of model - from overleaf.tex"
+("technical details of model - from overleaf.tex"
 LaTeX2e <2017-04-15>
 Babel <3.9r> and hyphenation patterns for 75 language(s) loaded.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\article.cls"
@@ -203,8 +203,8 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
 LaTeX Info: Redefining \[ on input line 2817.
 LaTeX Info: Redefining \] on input line 2818.
 )
-("equilibrium wage determination.aux")
-\openout1 = `"equilibrium wage determination.aux"'.
+("technical details of model - from overleaf.aux")
+\openout1 = `"technical details of model - from overleaf.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
 LaTeX Font Info:    ... okay on input line 17.
@@ -292,36 +292,45 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 25.
  [1
 
-{C:/Users/Nico/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2] [3] [4] 
-[5] [6]
-("equilibrium wage determination.aux") ) 
+{C:/Users/Nico/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 118.
+ [3] [4] [5] [6]
+[7] ("technical details of model - from overleaf.aux") ) 
 Here is how much of TeX's memory you used:
- 2286 strings out of 493328
- 30196 string characters out of 3136542
- 101002 words of memory out of 3000000
- 5792 multiletter control sequences out of 15000+200000
- 44565 words of font info for 41 fonts, out of 3000000 for 9000
+ 2303 strings out of 493328
+ 30484 string characters out of 3136542
+ 101038 words of memory out of 3000000
+ 5803 multiletter control sequences out of 15000+200000
+ 57120 words of font info for 47 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 27i,12n,23p,783b,198s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files (x86)/MiKTeX 2.9/font
-s/enc/dvips/lm/lm-mathsy.enc}{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips
-/lm/lm-rm.enc}{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.e
-nc}{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathex.enc}{C:/Prog
-ram Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Program Files (x86)
-/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9
-/fonts/type1/public/lm/lmex10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type
-1/public/lm/lmmi12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm
-/lmmi6.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmmi8.pfb><
-C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program F
-iles (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb><C:/Program Files (x86)/M
-iKTeX 2.9/fonts/type1/public/lm/lmr6.pfb><C:/Program Files (x86)/MiKTeX 2.9/fon
-ts/type1/public/lm/lmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/publ
-ic/lm/lmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy6
-.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy8.pfb>
-Output written on "equilibrium wage determination.pdf" (6 pages, 178680 bytes).
-
+ 27i,12n,23p,795b,198s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files (x86)
+/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program Files (x86)/MiKTeX 2.9
+/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/
+dvips/lm/lm-rm.enc}{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.
+enc}{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathex.enc}<C:/Pro
+gram Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files 
+(x86)/MiKTeX 2.9/fonts/type1/public/lm/lmex10.pfb><C:/Program Files (x86)/MiKTe
+X 2.9/fonts/type1/public/lm/lmmi10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts
+/type1/public/lm/lmmi12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/publ
+ic/lm/lmmi5.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmmi6.
+pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmmi7.pfb><C:/Prog
+ram Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmmi8.pfb><C:/Program Files (x
+86)/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Program Files (x86)/MiKTeX 2
+.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/typ
+e1/public/lm/lmr17.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm
+/lmr5.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr6.pfb><C:
+/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr7.pfb><C:/Program File
+s (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr8.pfb><C:/Program Files (x86)/MiKTe
+X 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts
+/type1/public/lm/lmsy5.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/publi
+c/lm/lmsy6.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy7.p
+fb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy8.pfb>
+Output written on "technical details of model - from overleaf.pdf" (7 pages, 26
+8532 bytes).
 PDF statistics:
- 76 PDF objects out of 1000 (max. 8388607)
+ 119 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
