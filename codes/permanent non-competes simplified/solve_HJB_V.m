@@ -4,10 +4,10 @@ function out = solve_HJB_V(pa,pm,ig)
     
     prof = d.prof;
     V0 = d.V0;
-    zE = ig.zE0;
+    zS = ig.zS0;
     phi = pm.phi;
     scaleFactor = pm.scaleFactor;
-    %zE = pm.xi * min(pa.m_grid_2d,ig.M0);
+    %zS = pm.xi * min(pa.m_grid_2d,ig.M0);
     %x0 = ig.x0;
     
     %zmax = zeros(size(V0));
@@ -68,11 +68,11 @@ function out = solve_HJB_V(pa,pm,ig)
 			Vq = (pa.d_q)^(-1) * (-1) * (V0_interp(q - pa.d_q,m) - V0(i_q,i_m));
 			Vm = (pa.d_m)^(-1) * (V0_interp(q,m+pa.d_m) - V0(i_q,i_m));
 			
-			rhs1 = @(z) -(-pm.wbar * z + pm.chi_I*z*phi(z + zE(i_q,i_m)) * scaleFactor(q) *(Vplus(i_q,i_m) ...
-                                    - V0(i_q,i_m)) + pm.chi_E*zE(i_q,i_m)*phi(z+zE(i_q,i_m))* scaleFactor(q) * (-V0(i_q,i_m)));
+			rhs1 = @(z) -(-pm.wbar * z + pm.chi_I*z*phi(z + zS(i_q,i_m)) * scaleFactor(q) *(Vplus(i_q,i_m) ...
+                                    - V0(i_q,i_m)) + pm.chi_E*zS(i_q,i_m)*phi(z+zS(i_q,i_m))* scaleFactor(q) * (-V0(i_q,i_m)));
                
-			rhs0 = @(z) -(-ig.w0(i_q,i_m) * z + pm.nu * Vm * z + pm.chi_I * z * phi(z + zE(i_q,i_m)) * scaleFactor(q) * (Vplus(i_q,i_m) - V0(i_q,i_m)) ...
-                                                + pm.chi_E*zE(i_q,i_m)*phi(z + zE(i_q,i_m))* scaleFactor(q) * (-V0(i_q,i_m)));
+			rhs0 = @(z) -(-ig.w0(i_q,i_m) * z + pm.nu * Vm * z + pm.chi_I * z * phi(z + zS(i_q,i_m)) * scaleFactor(q) * (Vplus(i_q,i_m) - V0(i_q,i_m)) ...
+                                                + pm.chi_E*zS(i_q,i_m)*phi(z + zS(i_q,i_m))* scaleFactor(q) * (-V0(i_q,i_m)));
 			
 			[z1,fval1] = fminbnd(rhs1,0,30);
 			[z0,fval0] = fminbnd(rhs0,0,30);
@@ -81,13 +81,13 @@ function out = solve_HJB_V(pa,pm,ig)
 			%[z0, fval0] = fminsearch(rhs0,z0_prev);
 			
 			
-			if fval1 > fval0
+			if fval1 > fval0 
 				ymax(ii) = 1;
 				zmax(ii) = z1;
 				
 				%V1(i_q,i_m) = ( V0(i_q,i_m) ...
 				%                + pa.delta_t_V*(-rhs1(zmax(i_q,i_m)) + prof(i_q,i_m) - ig.g0*q*Vq(i_q,i_m) ...
-				%                + pm.nu*zE(i_q,i_m) * Vm(i_q,i_m) - (pm.rho -ig.g0) * V0(i_q,i_m)));
+				%                + pm.nu*zS(i_q,i_m) * Vm(i_q,i_m) - (pm.rho -ig.g0) * V0(i_q,i_m)));
 			else 
 				
 				ymax(ii) = 0;
@@ -95,7 +95,7 @@ function out = solve_HJB_V(pa,pm,ig)
 				
 				%V1(i_q,i_m) = ( V0(i_q,i_m) ...
 				%                + pa.delta_t_V*(-rhs0(zmax(i_q,i_m)) + prof(i_q,i_m) - ig.g0*q*Vq(i_q,i_m) ...
-				%                + pm.nu*zE(i_q,i_m) * Vm(i_q,i_m) - (pm.rho -ig.g0) * V0(i_q,i_m)));
+				%                + pm.nu*zS(i_q,i_m) * Vm(i_q,i_m) - (pm.rho -ig.g0) * V0(i_q,i_m)));
 			
 			end
 			
@@ -126,11 +126,11 @@ function out = solve_HJB_V(pa,pm,ig)
                 Vq(i_q,i_m) = (pa.d_q)^(-1) * (-1) * (V0_interp(q - pa.d_q,m) - V0(i_q,i_m));
                 Vm(i_q,i_m) = (pa.d_m)^(-1) * (V0_interp(q,m+pa.d_m) - V0(i_q,i_m));
                 
-                rhs1 = @(z) -(-pm.wbar * z + pm.chi_I*z*phi(z + zE(i_q,i_m)) * scaleFactor(q) *(Vplus(i_q,i_m) ...
-                                    - V0(i_q,i_m)) + pm.chi_E*zE(i_q,i_m)*phi(z+zE(i_q,i_m))* scaleFactor(q) * (-V0(i_q,i_m)));
+                rhs1 = @(z) -(-pm.wbar * z + pm.chi_I*z*phi(z + zS(i_q,i_m)) * scaleFactor(q) *(Vplus(i_q,i_m) ...
+                                    - V0(i_q,i_m)) + pm.chi_E*zS(i_q,i_m)*phi(z+zS(i_q,i_m))* scaleFactor(q) * (-V0(i_q,i_m)));
                 
-                rhs0 = @(z) -(-ig.w0(i_q,i_m) * z + pm.nu * Vm(i_q,i_m) * z + pm.chi_I * z * phi(z + zE(i_q,i_m)) * scaleFactor(q) * (Vplus(i_q,i_m) - V0(i_q,i_m)) ...
-                                                + pm.chi_E*zE(i_q,i_m)*phi(z + zE(i_q,i_m))* scaleFactor(q) * (-V0(i_q,i_m)));
+                rhs0 = @(z) -(-ig.w0(i_q,i_m) * z + pm.nu * Vm(i_q,i_m) * z + pm.chi_I * z * phi(z + zS(i_q,i_m)) * scaleFactor(q) * (Vplus(i_q,i_m) - V0(i_q,i_m)) ...
+                                                + pm.chi_E*zS(i_q,i_m)*phi(z + zS(i_q,i_m))* scaleFactor(q) * (-V0(i_q,i_m)));
     
                 [z1,fval1] = fminbnd(rhs1,0,10);
                 [z0,fval0] = fminbnd(rhs0,0,10);
@@ -141,7 +141,7 @@ function out = solve_HJB_V(pa,pm,ig)
                     
                     %V1(i_q,i_m) = ( V0(i_q,i_m) ...
                     %                + pa.delta_t_V*(-rhs1(zmax(i_q,i_m)) + prof(i_q,i_m) - ig.g0*q*Vq(i_q,i_m) ...
-                    %                + pm.nu*zE(i_q,i_m) * Vm(i_q,i_m) - (pm.rho -ig.g0) * V0(i_q,i_m)));
+                    %                + pm.nu*zS(i_q,i_m) * Vm(i_q,i_m) - (pm.rho -ig.g0) * V0(i_q,i_m)));
                 else 
                     
                     ymax(i_q,i_m) = 0;
@@ -149,7 +149,7 @@ function out = solve_HJB_V(pa,pm,ig)
                     
                     %V1(i_q,i_m) = ( V0(i_q,i_m) ...
                     %                + pa.delta_t_V*(-rhs0(zmax(i_q,i_m)) + prof(i_q,i_m) - ig.g0*q*Vq(i_q,i_m) ...
-                    %                + pm.nu*zE(i_q,i_m) * Vm(i_q,i_m) - (pm.rho -ig.g0) * V0(i_q,i_m)));
+                    %                + pm.nu*zS(i_q,i_m) * Vm(i_q,i_m) - (pm.rho -ig.g0) * V0(i_q,i_m)));
                 
                 end
             end
@@ -193,7 +193,7 @@ function out = solve_HJB_V(pa,pm,ig)
         
 			for i_q = Imax_q-(pa.q_m-1):Imax_q
 			
-				flowvec(i_q,i_m) = flowvec(i_q,i_m) + pm.chi_I * zmax(i_q,i_m) * pm.phi(zmax(i_q,i_m) + ig.zE0(i_q,i_m)) * pm.scaleFactor(pa.q_grid(i_q)) * (Vplus(i_q,i_m) - V0(i_q,i_m));
+				flowvec(i_q,i_m) = flowvec(i_q,i_m) + pm.chi_I * zmax(i_q,i_m) * pm.phi(zmax(i_q,i_m) + ig.zS0(i_q,i_m)) * pm.scaleFactor(pa.q_grid(i_q)) * (Vplus(i_q,i_m) - V0(i_q,i_m));
 				
 			end
 		end
@@ -263,7 +263,8 @@ function out = solve_HJB_V(pa,pm,ig)
     out.prof = prof;
     out.Vplus = Vplus;
     out.zI = zmax;
-    out.zE = zE;
+    out.zS = zS;
+    out.zbar = pm.eta_inv(pm.wbar / (pm.chi_E * V0(1)));
     out.count = count;
     out.y = ymax;
     out.d = HJB_d;

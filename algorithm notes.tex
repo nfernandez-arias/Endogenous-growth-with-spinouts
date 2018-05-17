@@ -50,23 +50,84 @@ This consists of finding $V(\cdot),z_I(\cdot),W(\cdot),w(\cdot),\bar{z},M_s$ suc
 	\end{align*}
 	\item $W(\cdot)$ solves potential spinout HJB with policy $z^*(m) = z_S(m) = \xi \min(m,M_s)$ and boundary condition $W(M_s) = 0$ and the same assumptions about aggregate innovation effort $z_S,z_E$ as in 1,
 	\begin{align*}
-	(\rho + \tau(m)) W(m) &= \nu (z_S(m) + z_E(m) + z_I(m) )W'(m) \\
-	&+ \max_{0 \le z_S \le \xi} \Big\{ z_S\Big(\chi_S \eta(z_S(m) + z_E(m))\Big( \lambda V(0) - W(m) \Big) - w(m) \Big)    \Big\}
+	(\rho + \chi_I z_I(m) \phi (z_I(m)) + \tau(m)) W(m) &= \nu (z_S(m) + z_E(m) + z_I(m) )W'(m) \\
+	&+ \max_{0 \le z \le \xi} \Big\{ z \Big(\chi_S \eta(z_S(m) + z_E(m)) \lambda V(0) - w(m) \Big)  \Big\}
 	\end{align*}
-	(Note the fact that returns are individually constant returns to scale)
+	\textbf{(Note that (1) spinout R\&D is individually CRS, (2) spinouts do not take into account their own effect on the rate at which they are displaced $\tau(m)$, so there is no $-W(m)$ term in the Poisson arrival term, and (3) the above implies that $z_S = \xi$ whenever $\chi_S \eta(z_s(m) + z_E(m))\lambda V(0) > w(m)$)}
 	\item Non-spinout free entry: $\chi_E \eta(\bar{z}) V(0) = \bar{w}$
 	\item Spinout free entry: $\chi_S \eta(\xi M_s) V(0) = \bar{w}$
 	\item Worker indifference condition: $w(m) = \bar{w} - \nu W(m)$
 \end{enumerate}
 
-\paragraph{Brute force approach}
+\subsection{Brute force approach}
 \begin{enumerate}
 	\item Guess wage $w(\cdot)$
 	\item Iterate on aggregate spinout effort $z_S(\cdot)$ and $\bar{z}$ to find equilibrium of game which does not impose the indifference condition. Interpretation: partial equilibrium, without considering labor supply decisions. 
 	\item Iterate on $w(\cdot)$ until we find one such that $W(\cdot)$ from previous step that is consistent with indifference condition
 \end{enumerate}
 
-\paragraph{Using equilibrium relationships}
+\subsubsection{Implementation}
+How do we implement the second step above? Given our initial guesses $z_S(\cdot)$ and $\bar{z}$, we can define the boundary conditions for the HJBs simply by setting $V'(\bar{m}) = W(\bar{m}) = 0$ and simply integrating backwards the HJBs. This returns two objects which can be checked against the guesses for convergence / used to update the guess for the next iteration:
+\begin{enumerate}
+	\item An optimal policy for R\&D effort of spinouts, which can be compared to the original guess $z_S(\cdot)$. We pick a new guess that is the average of the two. 
+	\item We can check the free entry condition $\chi_E \eta (\bar{z}) V(0) = \bar{w}$. If LHS > RHS, $\bar{z}$ is too low, and we should increase our guess. 
+\end{enumerate}
+The idea is that eventually this finds $z_S(\cdot)$ and $\bar{z}$ that are consistent with individual optimality, given the partial equilibrium R\&D wage guess $w(\cdot)$. 
+
+\subsubsection{Implementing the Implicit Method}
+\paragraph{Incumbents}
+Have
+\begin{align*}
+	\frac{1}{\Delta_t} \Big(V_i^{n+1} - V_i^n \Big) + \rho V_i^{n+1} &= \pi -\tau_i V_i^{n+1} + \nu(z_i^S + z_i^E) \frac{V_{i+1}^{n+1} - V_i^{n+1}}{\Delta_m} \\
+																	 &+ z_i^{I,n} \Big( \chi_I \phi (z_i^{I,n}) \big( \lambda V_1^{n+1} - V_i^{n+1} \big) - \Big( w_i - \nu \frac{V_{i+1}^{n+1} - V_i^{n+1}}{\Delta_m} \Big) \Big) \\
+								z_i^{I,n} &= \arg \max_{z \ge 0} \Big\{  z \Big( \chi_I \phi (z) \big( \lambda V_1^{n} - V_i^{n} \big) - \Big( w_i - \nu \frac{V_{i+1}^{n} - V_i^{n}}{\Delta_m} \Big) \Big)    \Big\}
+\end{align*} 
+
+In matrix form, have
+\begin{align*}
+	\frac{1}{\Delta_t}(V^{n+1} - V^n) + \rho V^{n+1} = u^n + A^n V^{n+1}
+\end{align*}
+where $u^n$ is an $I_m$-dimensional column vector, such that $u^n_i = \pi - z_i^{I,n} w_i$, and such that $A^n$ is all zeros except for the following. For $i < I_m$,
+\begin{align*}
+	A_{i,1} &= z_i^{I,n} \chi_I \phi (z_i^{I,n}) \lambda \\
+	A_{i,i+1} &= \frac{\nu(z_i^S + z_i^E + z_i^{I,n})}{\Delta_m} - \tau_i \\ 
+	A_{i,i} &= -\frac{\nu(z_i^S + z_i^E + z_i^{I,n})}{\Delta_m} - z_i^{I,n} \chi_I \phi (z_i^{I,n})
+\end{align*}
+
+For $i = I_m$, we simply assume that $V'(m) = 0$ for $m > m_i$. Hence we can omit the terms corresponding to derivatives. Therefore, have
+\begin{align*}
+	A_{i,1} &= z_i^{I,n} \chi_I \phi (z_i^{I,n}) \lambda \\
+	A_{i,i} &= -z_i^{I,n} \chi_I \phi (z_i^{I,n})
+\end{align*}
+
+Given all this, we can write the update equation as 
+\begin{align*}
+	B^n V^{n+1} &= b^n \\
+	B^n &= \Big( \frac{1}{\Delta_t} + \rho \Big) I - A^n \\
+	b^n &= u^n + \frac{1}{\Delta_t} V^n
+\end{align*}
+
+which can then be solved efficiently using MATLAB's sparse matrix solving routines.
+
+
+\paragraph{Spinouts}
+Let $\sigma_i^n = \tau_i + z_i^{I,n}\chi_I \phi(z_i^{I,n})$. Have 
+\begin{align*}
+\frac{1}{\Delta_t} \Big(W_i^{n+1} - W_i^n \Big) + \rho W_i^{n+1} &= -\sigma_i^n W_i^{n+1} + \nu(z_i^S + z_i^E) \frac{W_{i+1}^{n+1} - W_i^{n+1}}{\Delta_m} \\
+&+ \tilde{z}_i^{S,n} \Big( \chi_S \eta (z_i^S + z_i^E) \lambda V_1^{n+1} - w_i \Big) \\
+\tilde{z}_i^{S,n} &= \arg \max_{0 \le z \le \xi} \Big\{  z \Big( \chi_S \eta (z_i^S + z_i^E) \lambda V_1^{n} - w_i \Big)  \Big\}
+\end{align*} 
+
+In matrix form, this is
+\begin{align*}
+	\frac{1}{\Delta_t}(W^{n+1} - W^n) + \rho W^{n+1} = u^n + A^n W^{n+1}
+\end{align*}
+where $u_n$ is an $I_m$-dimensional column vector with 
+\begin{align*}
+	u_n^i = \tilde{z}_i^{S,n} \big( \chi_S \eta(z_i^S + z_i^E) \lambda V_i^{n+1} - w_i \big) 
+\end{align*}
+
+\subsubsection{Using equilibrium relationships}
 The goal would be to impose in the algorithm the fact that in equilibrium 
 \begin{align*}
 z_S(m) &= \xi \min(m,M_s) \\

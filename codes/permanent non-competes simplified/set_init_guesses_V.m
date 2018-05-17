@@ -1,6 +1,6 @@
 function d = set_init_guesses_V(pa,pm,ig)
 
-	d.prof = pm.LF * (1- pm.beta) * pm.wbar;
+	d.prof = pm.prof_func(pm.LF_func(ig.L_RD)) * ones(size(pa.m_grid));
 
 	if isfield(ig,'V')
 		
@@ -8,11 +8,12 @@ function d = set_init_guesses_V(pa,pm,ig)
 		
 	else 
 		
-	   d.V0 = 1.5*d.prof / pm.rho;
+	   d.V0 = d.prof / pm.rho;
 	   
 	end
 
 	%d.V0 = 0.1*ones(size(d.prof));
-	d.maxcount = 20;
+	d.maxcount = 10;
+	d.zmax = 5;
 
 end

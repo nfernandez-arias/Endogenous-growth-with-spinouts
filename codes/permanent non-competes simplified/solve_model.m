@@ -2,12 +2,14 @@ function out = solve_model(pa,pm,ig)
 
     L_RD_d = 1;
     w_d = 1;
-    zE_d = 1;
-    HJB_d = 1;
+    zS_d = 1;
+    zbar_d = 1;
+    HJB_d = 1; 
     
     ng.L_RD = ig.L_RD; 
     ng.w = ig.w;
-    ng.zE = ig.zE;
+    ng.zS = ig.zS;
+    ng.zbar = ig.zbar;
     
     frame_freq = 1;
     F(1) = struct('cdata',[],'colormap',[]);
@@ -25,24 +27,43 @@ function out = solve_model(pa,pm,ig)
 		
 		while ((w_d > pa.w_tol) && (w_count <= ig.w_maxcount))
 		
-			% Now have W guess, which is equivalent to a guess of the wage.
+			% Now have wage guess
 			% Next, we solve the game played between entrants and incumbents, 
 			% taking flow profits and wages as given.
 			
-			zE_count = 1;	
-				
-			while ((zE_d > pa.zE_tol) && (zE_count <= ig.zE_maxcount)) 
+			% We iterate on spinout R&D effort zS and entrant R&D free entry threshold zbar
 			
-				V_out = solve_HJB_V(pa,pm,ng);
-				W_out = solve_HJB_W(pa,pm,ng,V_out);
+			z_count = 1;
 				
-				% Check convergence 
-				zE_d = sqrt(sumsqr(W_out.zE1 - ng.zE));
+			while (((zS_d > pa.zS_tol) && (z_count <= ig.zS_maxcount)) || ((zbar_d > pa.zS_tol) && (z_count <= ig.zS_maxcount)))
+			
+				V_out = solve_HJB_V_1d(pa,pm,ng);
+				W_out = solve_HJB_W_1d(pa,pm,ng,V_out);
 				
-				% Update zE 
-				ng.zE = pa.zE_UR * W_out.zE1 + (1- pa.zE_UR) * ng.zE;
+				%%%%%%%%%%%%%%%%%%%%%%%%
+				%% Convergence check  %%
+				%%%%%%%%%%%%%%%%%%%%%%%%
 				
-				zE_count = zE_count + 1;
+				% Check convergence for zS
+				zS_d = sqrt(sumsqr(W_out.zS1 - ng.zS));
+				% Check convergence for zbar
+				zbar_d = abs(V_out.zbar - ng.zbar);
+				
+				%%%%%%%%%%%%%%%%%%%%%%%%
+				%% Update guesses     %%
+				%%%%%%%%%%%%%%%%%%%%%%%%
+				
+				% Update zS
+				ng.zS = pa.zS_UR * W_out.zS1 + (1- pa.zS_UR) * ng.zS;
+				
+				% Update zbar
+				ng.zbar = pa.zbar_UR * V_out.zbar + (1 - pa.zbar_UR) * ng.zbar;
+				
+				%%%%%%%%%%%%%%%%%%%%%%%%
+				%% Update counters    %%
+				%%%%%%%%%%%%%%%%%%%%%%%%
+				
+				z_count = z_count + 1;
 			
 			end
 			
