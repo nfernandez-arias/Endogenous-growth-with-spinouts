@@ -14,7 +14,7 @@
 \definecolor{mygreen1}{RGB}{34,139,35}
 
 
-\title{A Model of Productivity Growth through Creative Destruction by Employee Spinout: Updates}
+\title{Employee Spinouts and Productivity Growth: Updates}
 \author{Nicolas Fernandez-Arias}
 \date[June 5, 2018]{June 5, 2018}
 
@@ -24,14 +24,16 @@
 
 \begin{frame}{Updates - Overview}
 \begin{itemize}
-	\item \textbf{Model:} Algorithm doesn't converge for some parameter settings, need to keep fiddling with update rules. Still optimistic since there is much I have not yet tried. 
 	\item \textbf{Data:} opportunity to RA for Teresa Fort in exchange for \textbf{access to LBD data} which is to be \textbf{linked with data on patenting activity}
 	\begin{itemize}
 		\item No access to LEHD: \textbf{I need Venture Source to identify spinouts}. 
 	\end{itemize}
-	\item \textbf{Next step:} ask for funding to use the Venture Source data. 
+	\item \textbf{Model:} Algorithm doesn't converge for some parameter settings, need to keep fiddling with update rules. Still optimistic since there is much I have not yet tried. 
+	\item \textbf{Next step:} Write this all up and ask for funding to use the Venture Source data. 
 	\item For this: would help to get (a) model up and running and think more carefully about how I am going to identify the mechanisms I will explore
-	\item Working on this now that data issue is done / end of year (no more writing / grading exams)
+	\begin{itemize}
+		\item Working on this now that data issue is done / end of year (no more writing / grading exams)
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -39,11 +41,20 @@
 \begin{itemize}
 	\item Teresa Fort \& colleagues are working on a project exploring connection between offshoring (and co-location more generally) and innovation
 	\item Benefits to the Census involve understanding "whole process of innovation", not just R\&D but also patenting, patent citations, etc.
-	\item To connect my project to this benefit, argue: spinouts inherit knowledge from parents and innovate on it --> understanding these relationships is vital to understanding the innovation process (which the Census is interested in)
+	\item To connect my project to this benefit, argue: spinouts inherit knowledge from parents and innovate on it $\rightarrow$ understanding these relationships is vital to understanding the innovation process (which the Census is interested in)
+	\item Also presents other interesting question, such as whether co-location affects spinout formation. 
 \end{itemize}
 \end{frame}
 
-
+\begin{frame}{Data - Overview}
+\begin{itemize}
+	\item \textbf{Innovation input:} BRDIS (R\&D Survey), BRDI-M (R\&D survey for small firms), ACES (Annual Capital Expenditures Survey), ABS (Annual Business Survey), COS (Company Organization Survey), CWH (Census of Wholesale Trade), CMF (Census of Manufactures)
+	\item \textbf{Innovation output:} USPTO patent data
+	\item \textbf{Matching:} Name + address match using Statistical Establishment Listing data 
+	\item \textbf{Identifying competing spinouts:} Venture Source data then allows me to identify spinouts, industry codes (and possibly other approaches) identify extent spinout is using inherited technology / competing with parent firm (hence would be prevented in a non-compete)
+	\item \textbf{Venture Source data} also has plentiful information on financing of startups...my project is not about this, but since financial frictions interact with the effect of non-compete agreements, it seems promising for future work, no?
+\end{itemize}
+\end{frame}
 
 \begin{frame}{Model recap}
 \begin{itemize}
@@ -73,25 +84,7 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Nesting: Version I}
-\begin{table}
-	\small
-	\begin{tabular}{p{0.8\textwidth}}
-		\centering
-		At time $t$ with average quality $\bar{q}_t$, incumbent in the R\&D race for good $j$ of quality $q_j$ begins with monopoly on good $j$ R\&D \\
-		$\downarrow$\\
-		\begin{itemize}
-			\item 	Hires R\&D labor; at rate $\nu (q_j/\bar{q}_t)^{-1}$ per unit of R\&D labor hired, employees learn, adding to mass of potential entrants (\textbf{scaling factor $(q_j/\bar{q}_t)^{-1}$ for BGP})) \\
-			\textcolor{mygreen1}{\item Simultaneously, with arrival rate $\theta$, ``knowledge spillover" shock hits $\rightarrow$ \textbf{free entry} into R\&D race}
-		\end{itemize}
-		
-		$\downarrow$\\
-		At some point, either an incumbent or an entrant firm wins the race, and obtains a monopoly on production and R\&D on good $j$ of quality $\lambda q_j$
-	\end{tabular}
-\end{table}
-\end{frame}
-
-\begin{frame}{Nesting: Version II}
+\begin{frame}{Nesting}
 \begin{itemize}
 	\item Free entry into R\&D
 	\item Spinouts more productive --> as they emerge, spinouts replace ordinary entrants in R\&D race

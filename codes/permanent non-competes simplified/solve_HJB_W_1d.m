@@ -3,9 +3,9 @@ function out = solve_HJB_W_1d(pa,pm,ig,V_out)
     % bring into local namespace
     Vplus = V_out.Vplus;
     zI = V_out.zI;
-    x0 = V_out.y; % non-compete policy by incumbents
+    % x0 = V_out.y; % non-compete policy by incumbents
 	phi = pm.phi;
-	scaleFactor = pm.scaleFactor;
+	% scaleFactor = pm.scaleFactor;
 	
 	zE = ig.zE0;
 	

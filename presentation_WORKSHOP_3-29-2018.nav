@@ -10,10 +10,11 @@
 \headcommand {\beamer@framepages {5}{5}}
 \headcommand {\slideentry {0}{0}{6}{6/6}{}{0}}
 \headcommand {\beamer@framepages {6}{6}}
-\headcommand {\sectionentry {1}{Model}{7}{Model}{0}}
 \headcommand {\beamer@sectionpages {1}{6}}
 \headcommand {\beamer@subsectionpages {1}{6}}
-\headcommand {\beamer@subsectionentry {0}{1}{1}{7}{Overview}}\headcommand {\beamer@subsectionpages {7}{6}}
+\headcommand {\sectionentry {1}{Model}{7}{Model}{0}}
+\headcommand {\beamer@subsectionpages {7}{6}}
+\headcommand {\beamer@subsectionentry {0}{1}{1}{7}{Overview}}
 \headcommand {\slideentry {1}{1}{1}{7/7}{Overview}{0}}
 \headcommand {\beamer@framepages {7}{7}}
 \headcommand {\slideentry {1}{1}{2}{8/8}{Overview}{0}}
@@ -40,7 +41,8 @@
 \headcommand {\beamer@framepages {18}{18}}
 \headcommand {\slideentry {1}{1}{13}{19/19}{Overview}{0}}
 \headcommand {\beamer@framepages {19}{19}}
-\headcommand {\beamer@subsectionentry {0}{1}{2}{20}{Equilibrium}}\headcommand {\beamer@subsectionpages {7}{19}}
+\headcommand {\beamer@subsectionpages {7}{19}}
+\headcommand {\beamer@subsectionentry {0}{1}{2}{20}{Equilibrium}}
 \headcommand {\slideentry {1}{2}{1}{20/20}{Equilibrium}{0}}
 \headcommand {\beamer@framepages {20}{20}}
 \headcommand {\slideentry {1}{2}{2}{21/21}{Equilibrium}{0}}
@@ -57,11 +59,12 @@
 \headcommand {\beamer@framepages {26}{26}}
 \headcommand {\slideentry {1}{2}{8}{27/27}{Equilibrium}{0}}
 \headcommand {\beamer@framepages {27}{27}}
-\headcommand {\sectionentry {2}{Extensions}{28}{Extensions}{0}}
 \headcommand {\beamer@sectionpages {7}{27}}
 \headcommand {\beamer@subsectionpages {20}{27}}
+\headcommand {\sectionentry {2}{Extensions}{28}{Extensions}{0}}
 \headcommand {\slideentry {2}{0}{1}{28/28}{}{0}}
 \headcommand {\beamer@framepages {28}{28}}
+\headcommand {\gdef \insertmainframenumber {28}}
 \headcommand {\partentry {Appendix}{1}}
 \headcommand {\beamer@partpages {1}{28}}
 \headcommand {\beamer@sectionpages {28}{28}}
@@ -73,6 +76,6 @@
 \headcommand {\beamer@subsectionpages {29}{29}}
 \headcommand {\beamer@sectionpages {29}{29}}
 \headcommand {\beamer@documentpages {29}}
-\headcommand {\def \inserttotalframenumber {1}}
-\headcommand {\def \inserttotalframenumber {28}}
-\headcommand {\def \appendixtotalframenumber {1}}
+\headcommand {\gdef \inserttotalframenumber {1}}
+\headcommand {\gdef \inserttotalframenumber {28}}
+\headcommand {\gdef \appendixtotalframenumber {1}}

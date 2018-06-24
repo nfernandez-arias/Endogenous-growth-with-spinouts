@@ -2,21 +2,21 @@ function d = set_algopar(pm)
     
 	% Linearly-spaced grid
 	% Set m parameters
-	%{
-	d.m_numpoints = 200;
+	
+	d.m_numpoints = 500;
     d.m_min = 0;
-    d.m_max = 10; 
+    d.m_max = 6; 
     d.m_grid = linspace(0,d.m_max,d.m_numpoints);
-	%}
+	
     
-    
+    %{
 	% Log-spaced grid (may be helpful later)
-    d.m_numpoints = 100;
+    d.m_numpoints = 50;
     d.m_min = log(0.001) / log(10);
-    d.m_max = log(30) / log(10);
+    d.m_max = log(6) / log(10);
     %d.m_grid = logspace(d.m_min,d.m_max,d.m_numpoints);
     d.m_grid = [0 logspace(d.m_min,d.m_max,d.m_numpoints -1)];
-	
+	%}
        
     d.Delta_m = zeros(size(d.m_grid));
    
@@ -25,7 +25,7 @@ function d = set_algopar(pm)
     end
     
     %% Finite difference
-    d.delta_t_V = 1;
+    d.delta_t_V = 20;
     d.delta_t_W = 0.1;
     %d.d_m = 0.0001;
     

@@ -29,6 +29,8 @@ function out = solve_HJB_V_1d(pa,pm,ig)
     frame_freq = 1;
     F(1) = struct('cdata',[],'colormap',[]);
     f = figure('visible','off');
+	H(1) = struct('cdata',[],'colormap',[]);
+    h = figure('visible','off');
     
     %% Solving HJB
     
@@ -72,9 +74,6 @@ function out = solve_HJB_V_1d(pa,pm,ig)
 		bvec = sparse(bvec);
 		V1 = Bmat\bvec;
 		
-		%size_V1 = size(V1)
-		%pause
-		
 		% Compute distance
 		HJB_d = sqrt(sumsqr(V1 - V0));
 		
@@ -88,6 +87,15 @@ function out = solve_HJB_V_1d(pa,pm,ig)
             ylim([-1.5*max(ig_V.V0),1.5*max(ig_V.V0)])
             drawnow
             F(count/frame_freq) = getframe(f);
+        end
+        
+		if mod(count,frame_freq) == 0
+			f = figure('visible','off');
+            plot(pa.m_grid,zI_0)
+            title('z_I(m)')
+            ylim([0,.01])
+            drawnow
+            H(count/frame_freq) = getframe(f);
         end
 		
 		% Update V0
@@ -104,5 +112,6 @@ function out = solve_HJB_V_1d(pa,pm,ig)
     out.zbar = pm.eta_inv(pm.wbar / (pm.chi_E * V0(1)));
     out.count = count;
     out.F = F;
+    out.H = H;
     
 end

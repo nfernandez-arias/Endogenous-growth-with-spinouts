@@ -20,6 +20,9 @@ function out = solve_model(pa,pm,ig)
     while ((L_RD_d > pa.L_RD_tol) && (L_RD_count <= ig.L_RD_maxcount))
     
 		% Closed form for production wage and static profit - depends on guess L_RD
+		%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%% NEED TO ADD THIS %%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%
 		wbar = ones(size(pa.m_grid));
 		prof = ones(size(pa.m_grid));
 		
