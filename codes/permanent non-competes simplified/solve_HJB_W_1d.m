@@ -1,24 +1,9 @@
 function out = solve_HJB_W_1d(pa,pm,ig,V_out)
 
-    % bring into local namespace
-    Vplus = V_out.Vplus;
     zI = V_out.zI;
-    % x0 = V_out.y; % non-compete policy by incumbents
 	phi = pm.phi;
-	% scaleFactor = pm.scaleFactor;
-	
 	zE = ig.zE0;
-	
-	% DEPRECATED
-    % translate M0 into guess about aggregate innovation effort by entrants
-    %zE = pm.xi * min(pa.m_grid_2d,ig.M0);
-
-    tau = zE + zI;
-    %x0 = ig.x0;
-    
-
-    
-    d = set_init_guesses_W(pa,pm,ig,Vplus,zI);
+	d = set_init_guesses_W(pa,pm,ig,Vplus,zI);
     
     W0 = d.W0; 
     

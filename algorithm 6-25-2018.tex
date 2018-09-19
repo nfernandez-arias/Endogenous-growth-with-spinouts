@@ -1,0 +1,87 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+\title{Algorithm 6-25-2018}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Outline}
+
+\begin{enumerate}
+	\item Iterate on $L_{RD}$. Guess $L^0_{RD}$.  
+	\item Compute implied $\bar{w},\pi$.
+	\item Iterate on wage $w^0(m)$. 
+	\begin{enumerate}
+		\item Guess $w^0(m) \equiv w^0$.
+		\item Iterate on $z_E,z_S$ to find Nash equilibrium of R\&D race game.
+		\begin{enumerate}
+			\item Guess $z_E^0(m) \equiv z_E^0 > 0$
+			\item Guess $z_S^0(m) \equiv z_S^0 > 0$ small.
+			\item Calculate $V,z_I(m)$ by solving HJB (Moll's method, implicit)
+			\item Compute
+			\begin{align*}
+			z_E^1(m) &= z_E^0(m) \cdot \frac{\chi_E \eta \big(z_E^0(m) + z_S^0(m)\big)V(0)}{w^0(m)} \\
+			z_S^1(m) &= \min\Bigg\{\xi m,z_S^0(m) \cdot \frac{\chi_S \eta \big(z_E^0(m) + z_S^0(m)\big)V(0)}{w^0(m)}\Bigg\}
+			\end{align*}
+			\item Check convergence. If converged, go to (c).
+			\item If not converged, new guesses
+			\begin{align*}
+			z_E(m) &= \alpha_E z_E^1(m) + (1-\alpha_E) z_E^0(m) \\
+			z_S(m) &= \alpha_S z_S^1(m) + (1-\alpha_S) z_S^0(m) 
+			\end{align*}
+			and go back to (iii). 
+		\end{enumerate} 
+		\item Compute $W$ directly from HJB (Moll's method not required). Use boundary condition $W'(\bar{m}) = 0$ and assume R\&D intensity equal to $\xi$ (given NE from 3(b), individual spinouts either want to be at maximum scale or are indifferent)
+		\item Compute $w^1(m) =  \bar{w} - \nu W(m)$.
+		\item Check convergence. If converged, go to 4. 
+		\item If not converged, update guess 
+		\begin{align*}
+			w(m) = \alpha_w w^1(m) + (1-\alpha_w) w^0 (m) 
+		\end{align*} 
+		and go back to 3(b).
+	\end{enumerate}
+	\item Compute $\mu$ by solving KF equation (in detail below) 
+	\item Use $\mu$ and aggregate policy functions from 3(b) to compute R\&D labor demand $L^1_{RD}$.
+	\item Check convergence. If converged, go to 4. 
+	\item If not converged, new guess
+	\begin{align*}
+	L_{RD} &= \alpha_L L^1_{RD} + (1-\alpha_L) L^0_{RD} 
+	\end{align*}
+	and go back to 2. 
+\end{enumerate}
+
+\section{KF equation}
+
+Solving the KF equation is easy. A given line $j$ starts in the state $m = 0$. Subsequently $m$ grows deterministically until a shock occurs, resetting $m$ to zero. Hence, there is no point mass at 0 individually, and there will be no point mass at 0 in the cross section. 
+
+Let $\tau(m)$ denote the aggregate rate of arrival of innovations. Let $a(m)$ denote the rate of drift. Both of these depend on R\&D by the incumbent, spinouts and other entrants. The KF equation for $m > 0$ is 
+\begin{align*}
+	0 &= -a'(m)\mu(m) - a(m)\mu'(m) - \tau(m)\mu(m) \\
+	\mu'(m) &= -\frac{a'(m) + \tau(m)}{a(m)} \mu(m)
+\end{align*}
+which has solution 
+\begin{align*}
+	\mu(m) = C\exp \Bigg\{ - \Big(\int_0^m \frac{a'(m') + \tau(m')}{a(m')} dm'     \Big) m \Bigg\}
+\end{align*}
+with $C$ chosen so that $\int_0^{\infty} = 1$, which we will approximate by numerically integrating until $\bar{m}$. If chosen large enough, this should be fine, since in equilibrium the density decays exponentially. 
+
+
+
+
+\end{document}

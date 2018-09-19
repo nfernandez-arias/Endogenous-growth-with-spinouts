@@ -1,0 +1,57 @@
+
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+%\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+
+\title{Meeting 8-20-2018}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\begin{itemize}
+	\item Spinouts project
+	\begin{enumerate}
+		\item Made sure model has BGP (proved that there is statioary $\gamma(m) = E[\tilde{q}|m]$ function)
+		\item Algorithm is ready, only issue is solving HJB - having some weird issue, and need some help on that. Will talk to Ben Moll when he is back. Pretty confident it can be fixed.
+		\item No LBD (issues getting access to the data), but have ideas on how to implement some version of the study regardless. Need feedback on these. 
+		\begin{itemize}
+			\item Overall: My model does not have "spinout growth" dynamics since all firms are one product firms that instantly achieve their size. Hence, it is not particularly useful to have data on the growth process of spinouts vs. other entrants to calibrate the model. Hence, I need to discipline my model with cross-sectional data\footnote{This is typically how these endogenous growth models are calibrated, for exactly this reason - the whole point of this class of model is that they take a kind of stylized individual firm model and that allows you to generate reasonable cross-sectional distributions. but the individual firm model is difficult to bring to the data}
+			\item Using US public data / venture source data
+			\begin{itemize}
+				\item Identifying $\nu \xi$ (or something like that) using Bloom et. al's shocks -- btw, could there be some use to getting instruments to be able to assess the effect of spinout formation on market value of firms? Relevant moments will still involve $\chi_I,\chi_E,\chi_S$, but I think this still works
+				\item Any way to separately identify $\xi$? Don't think so. But does it matter? Only if it matters for comparative static. Which it probably doesn't in this interpretation of the model - all behavior by spinouts is CRS so it doesn't matter how we split them up - and a priori, workers only care about the product $\nu \xi$ too. 
+				\item Random: could there be an interesting paper looking at the market value effect of spinout formation (read: some stage in growth process counts as "formed") to get an estimate of the extent of product market competition? This would be useful if I wanted to expand model in direction of having some spinouts not compete directly, which makes it more quantitatively realistic. But there are also other places in the literature where I could get this.
+			\end{itemize}
+			\item Using German employer-employee data
+			\begin{itemize}
+				\item Very difficult to implement anything like Bloom's 
+				\item Identification scheme robust as long as no time-varying firm-specific correlated shocks to parent firm R\&D and spinout formation. Is my logic for why it's robust right? Is this a reasonable assumption?
+			\end{itemize}
+			\item General questions about how to identify the parameters in the model
+		\end{itemize}
+	\end{enumerate}
+	\item 3rd Year paper project
+	\begin{enumerate}
+		\item Have started data work, can I send you a draft when I have it? Do you think it could be submitted somewhere?
+		\item Questions on identification:
+		\begin{itemize}
+			\item 
+		\end{itemize}
+	\end{enumerate}
+\end{itemize}
+
+
+\end{document}

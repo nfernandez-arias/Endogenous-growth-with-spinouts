@@ -1,0 +1,102 @@
+
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+	\title{Documentation for "merge.do"}
+	\author{Nicolas Fernandez-Arias}
+	\maketitle
+
+\section{Introduction}
+There are 4 datasets in question.
+
+\begin{enumerate}
+	\item pat76\_06\_assg.dta
+	\begin{itemize}
+		\item Patent \#
+		\item appyear
+		\item pdpass (unique assignee \#) 
+	\end{itemize}
+	\item inventor.dta
+	\begin{itemize}
+		\item Patent \#
+		\item Inventor
+	\end{itemize}
+	\item assignee.dta
+	\begin{itemize}
+		\item pdpass
+		\item Standard name
+	\end{itemize}
+	\item dynass.dta
+	\begin{itemize}
+		\item pdpass
+		\item pdpcoi, begyri for all spells - we want the one corresponding to our year of interest
+	\end{itemize}
+	\item pdpcohdr.dta
+	\begin{itemize}
+		\item pdpco
+		\item gvkey
+	\end{itemize}
+	\item compustat\_annual\_13.dta
+	\begin{itemize}
+		\item gvkey
+		\item year
+		\end{itemize}
+	\item crunchbase\_objects.dta
+	\begin{itemize}
+		\item firm name
+	\end{itemize}
+\end{enumerate}
+
+The goal is to use these datasets to compute, for each inventor, a sequence of (firm,year) pairs, recording years during which the inventor applied for a patent, and the firm (compustat or crunchbase) he was at when applying for said patent. 
+
+\section{Algorithm}
+
+The final dataset will consist of observations of unique inventor-patent-firm triples.
+
+\begin{enumerate}
+	\item Construct the database with pdpass as the firm identifier
+	\begin{itemize}
+		\item -joinby- of pat76\_06\_assg.dta and inventor.dta, on the variable patent\#.
+	\end{itemize}
+	\item Replace pdpass with gvkey\_year (when applicable), using dynass.dta
+	\begin{itemize}
+		\item For each pdpass - year pair in the dataset resulting from previous
+	\end{itemize}
+\end{enumerate}
+
+
+
+
+
+\begin{enumerate}
+	\item
+\end{enumerate}
+
+
+Next, I will replace pdpass with firm name, when applicable and when it wasn't replaced with pdpco\_year (not in Compustat), using crunchbase\_objects.dta. This will require a non-trivial amount of work since I need to name match. Here I will also add information about the firm.
+
+\begin{enumerate}
+	\item
+\end{enumerate}
+
+Finally, I will match by pdpco using pdpcohdr.dta and add gvkey\_year and firm-year information from Compustat. 
+
+
+\end{document}
+
+

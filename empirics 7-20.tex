@@ -1,0 +1,207 @@
+
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+
+\title{Empirics}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Introduction}
+Model now nests standard model (when we set $\nu = 0$). Can solve most of the model except for a weird issue with the value function - but I really think it's fixable. I just have been dedicating time to data work. 
+
+\section{Stylized facts}
+\begin{enumerate}
+	\item Stylized facts about spinouts vs. regular entrants in Muendler et al.
+	\item Stylized facts about higher-tech firms spawning more spinouts (will be through them spending more on R\&D, let's see if it holds...)
+	\item keep working on this
+\end{enumerate}
+
+\section{Data}
+In this section, I describe the data I have / can get and what analysis it permits me to do on each country. 
+
+
+\subsection{USA}
+\begin{itemize}
+	\item Venture Source
+	\item Compustat
+	\item NBER Patent database
+	\item Bloom et al. database on R\&D tax changes
+\end{itemize}
+
+
+
+All are linked. Compustat gives me R\&D spending and public firm financials. Public firms do most of R\&D. Venture source gives me spinouts of public firms, which I have to match by name. NBER patent database, which is linked with Compustat, tells me the technology area of firms, so I can demean in the appropriate way. It also might allow me to identify patents by spinout firms. It also lets me identify R\&D tax break for each firm using Bloom's methodology, to get instrument for what I need. 
+
+I essentially have all of the information I need except for information on the growth fo spinouts. If I model the selection into Compustat /BvD (e.g. a trivial one would be that as soon as firms have a patent they go into Compustat), I can relate characteristics of the Compustat database to their analogues in my model to calibrte the spinout technology assumptions. For example, the fraction of firms which were originally spinouts. It's not ideal, but I have SOMETHING. 
+
+\subsection{Germany}
+\begin{itemize}
+	\item LIAB (whole database, not just sample...)
+	\item BHP or the other establishment panel, not sure - which one has R\&D? 
+
+\end{itemize}
+
+In this case, I don't have an instrument for R\&D, but I am able to observe spinouts grow. Also, the setting is slightly different since I will be relating spinout formation to establishment R\&D not firm R\&D. 
+
+I identify spinouts and measure R\&D using the LIAB and BHP merged (or whatever it may be). Will have to figure out what sensitive variables I need. 
+
+\section{Identification}
+Parameters are $\{ \lambda , \nu, \chi_I, \chi_E, \chi_S, \psi, \xi, \beta ,\rho \}$.
+
+\subsection{Identification using US Data}
+
+\begin{itemize}
+	\item Identify WSOs of public firms using Venture Source and Compustat. It's some mixture of the two. Cannot get spinouts of private firms this way, but it's a reasonable approximation. Two main issues:
+	\begin{enumerate}
+		\item How to identify spinouts and year of entry into product market?
+		\begin{enumerate}
+			\item Identify spinouts: look at founder's bio and and any previous appearance in NBER patent database
+			\item Dating entry: look at different funding rounds / company descriptions in VentureSource ("generating revenue", "profitable"). VC micro-literature would then allow me to estimate entry into product market based on which funding stage. Do robustness checks..
+			\item NBER patent database
+		\end{enumerate}
+		\item How to identify competition in product market? How to identify building off of technology?
+		\begin{itemize}
+			\item Product market: compare parsed Venture Source product description to NAICS code or product descriptions of Public Firms 
+			\item Technology space: try to link spinouts to NBER patent database by firm name / key employee names, then look at patent citations. If cite parent patent, or if part of same cluster, classify as building off technology.
+			\item Region: could assume that in-region spinouts are the ones that are more related technologically (because they need same kinds of workers)?
+			\item \textbf{Alternatively:} Could try to estimate spillover effect of spinout formation on incumbent firm value, as is done in Bloom et al. Then this allows us to check whether 
+		\end{itemize}
+	\end{enumerate}
+	\item Identify $\xi$: for this, need to observe size of a spinout \textit{before} entry into the product market. In a sense, this is the 
+	\item Identify $\nu$ by running IV regression of spinout formation using individual firm R\&D tax changes as in Bloom et. al. Two issues:
+	\begin{enumerate}
+		\item Again, common issue: what is the analogue of a firm R\&D / firm spinout regression in a model where all firms have one product?
+		\item  
+	\end{enumerate}
+	\item Identify $\chi_I,\chi_E,\chi_S$ by targetting the following:
+	\begin{enumerate}
+		\item R\&D-sales ratio (aggregate data from BRDIS)
+		\item Fraction of existing firm employment inside of former spinout firms.\footnote{My model technically allows me to measure fraction of employment inside products whose last creative destruction event was a spinout event. These two fractions will be equal provided we assume that (1) spinouts and non-spinouts accumulate new products at the same rate, and (2) the products accumulated by spinouts and non-spinouts come from the same distribution (i.e. same fraction are stolen from spinouts and non-spinouts for each group). This is a reasonable baseline but far from an innocuous assumption, given Muendler et al. 2012 that shows that spinouts typically grow faster than non-spinout entrants (although I'd need to check if this is ``product-accumulation'' growth or ``success in the initial R\&D race'' growth). An improvement to my model would allow spinouts to have a persistent growth advantage and calibrate the relevant parameters to match the established growth profiles of different firms. While I don't have these data for the USA, I could potentially implement this in the German data. The shortcoming there, however, is that I do not observe firms. Hence, }
+	\end{enumerate} $\chi_I$ 
+	\item Identify $\chi_S$ by looking at the fraction of public firm employment / sales / whatever found in firms that started out as spinouts. (Link Compustat and Venture Source. Use subsample of Compustat corresponding to Venture Source coverage period).
+	\item Identify $\chi_I$ through either (1) fraction of patents which are internal, as in Akcigit \& Kerr 2017; or (2) average duration of monopoly position in a particular product (how would I measure??), (3) something like Garcia-Mecia and Klenow, based on job transition rates (more frequent large job movements means more creative destruction)
+
+	\item Identify $\psi$ using estimate from literature of around $0.5$. Or can always estimate by using cross-industry variation.
+	\item Identify $\beta$ by targeting profit / sales ratio of firms in the economy
+	\item Identify step size $\lambda$ by matching the growth rate (as in Akcigit \& Kerr 2017) - this assumes that all of growth is coming from this process
+	\item Identify $\rho$ from the interest rate
+	\item How to separately identify $\xi$? Can it be identified separately from $\nu$? But it doesn't matter for the comparative static I'm interested in. So can just load everything onto $\nu$ and set $\xi = 1$. One fewer parameter.
+\end{itemize}
+
+Model will also in general generate a distribution over wages and things of that nature, and a conditional distribution of frequency of spinouts given wage, etc. But mapping this to data is hard since lots of other stuff affects wage distribution. Need to control for demographic characteristics etc. 
+
+\subsubsection{Identification of effect of R\&D spending on spinout formation}
+
+\paragraph{Bloom et al. ``Identifying Technology Spillovers...", ECMA 2013}
+
+This paper by Bloom et al. constructs an instrument for R\&D spending that could in principle be used to assess the strength of technology spillovers from incumbent R\&D to spinout formation. This instrumenet is based on the fact that the incentives for R\&D at a firm depend on its (idiosyncratic) geographical distribution of R\&D, due to state-level R\&D tax credits. Changes in these tax credits are viewed as exogenous (and this assumption is tested by assessing whether economic variables can predict tax changes -- they can't), and this can be used as an instrument for firm R\&D. This can then be used to avoid the reflection problem.
+
+Crucial to implementing this methodology is the fact that there are effectively many observations with which to estimate the first-stage relationship between R\&D tax incentives and firm R\&D. This comes from the fact that each firm receives an idiosyncratic shock to its cost of R\&D every time there is a change to tax incentives, because each firm has an idiosyncratic distribution of activity across states. Because the German employer-employee data do not link establishments into firms, I cannot implement this methodology. This means that even if I do observe exogenous changes to state-level R\&D policies, in the first stage I have only ``one observation'' per policy change.
+
+In fact, this is not the only shortcoming of using the German data. Equally concerning is that fact that there are no R\&D tax credit schemes in Germany. All R\&D incentives take the form of selective grant programs. 
+
+The selectivity is not necessarily an issue, if the funding of the program is not a binding constraint - we can just interpret ``R\&D'' in the model as ``things that are classified as R\&D by the German R\&D grant money institutions". What is more of an issue is the structure of the grant. Because they take complex forms, it is not clear how to compare different changes. Quantifying an individual program that is complex (i.e. not a simple ``tax incentive'') is difficult enough on its own (in particular for this question, since I would need to take seriously the extent to which the program is focused on helping startup firms vs. incumbents).
+
+
+All this being the case, it seems my best shot is to avoid using instruments altogether and simply interpret the data through the lens of my model, doing industry-specific calibrations as robustness checks (i.e. to make sure I am not ``identifying'' parameters like $\nu$ off industry effects). 
+
+However, it is possible that I can improve the identification by augmenting the model in some way. This could yield some identifying assumption that could allow me to separate the causal effect of incumbent R\&D spending on spinout formation from (1) exogenous effects of opportunities in that industry and (2) correlated effects (not sure what these would be, though - selection of firms into industries? hard to imagine honestly)
+
+In order to do this, we need some identifying assumption. In the following I present some ideas:
+\begin{enumerate}
+	\item Exogenous investment opportunities appear at the industry level, but knowledge spillovers from firms to spinouts occur at the industry $\times$ geography level. I can test this assumption on my data by checking that (1) employee spinouts tend to be close to the parent firm, and (2) exogenous technological opportunities tend not to be geographically concentrated.\footnote{Is this consistent with agglomeration effects? Perhaps I can control for these by including industry $\times$ geography fixed effects. How would identification occur? Same as before, but we wouldn't be using the fact that some region is typically above the industry average. We'd be using deviations of a region from ITS average, and seeing whether these deviations were above the industry average deviation or something like that. I think it makes sense.} The effect of incumbent R\&D spending on spinout formation is then identified: if we observe a correlation between above (industry) average levels of R\&D at a given incumbent and above average levels of spinout formation in a given geographical area, the preceding assumption allows us to conclude that the incumbent's R\&D is causing the formation of spinouts (since we are precluding geography-specific shocks to technological opportunity).
+\end{enumerate}
+
+\subsection{Identification with German employer-employee data}
+
+Relative to the USA data there are a few key differences:
+
+\begin{enumerate}
+	\item No R\&D tax credits in Germany, so harder to specify the first-stage regression 
+	\item I do not observe multi-establishment (in particular, multi-region) firms
+	\item I observe characteristics of spinout firms and hence can track their development
+\end{enumerate}
+
+The first two points imply that I cannot implement anything like Bloom et al. 2013's methodology. The third point implies that I can potentially discipline the model
+
+
+\paragraph{Identification WITHOUT instrumental variables}
+
+Index firms by $f = 1,\ldots,F$, all regions by $i=1,\ldots,I$, industries (or technological areas) by $j = 1 , \ldots , J$, and time by $t = 1,\ldots T$. Assuming that firms do not move in geographic or technology space (in German data $f$ refers to establishments, which do not move by definition), the location in this space of a firm $f$ is denoted by $(i(f),j(f))$ (slight abuse of notation). 
+
+Let $S_{ijft}$ denote the number of spinouts from firm $f$ in location $(i,j)$ at time $t$. Let $Y_{ft}$ denote the innovation-related quantity of interest for the firm $f$ (e.g. R\&D spending, patent, R\&D employees, etc.).
+
+Without loss of generality (showing this amounts to showing that we can express each term as a conditional expectation, roughly), we have
+\begin{align}
+	S_{ijft} &= \alpha^S + \eta_{ijt}^S + \beta \times Y_{ft} + \epsilon_{ijft}^{s} \label{s_eq} \\
+	Y_{ft} &= \alpha^Y + \eta^Y_{i(f),j(f),t}  + \epsilon_{ft}^{Y} \label{Y_eq}
+\end{align}
+
+Substituting (\ref{Y_eq}) into (\ref{s_eq}) yields
+\begin{align}
+	s_{ft} &= \alpha^S + \beta \times \Big( \alpha^Y + \eta^Y_{i(f),j(f),t} + \epsilon^Y_{ft} \Big) + \epsilon_{ijft}^{S} \label{s_eq2}
+\end{align}
+
+We are interested in identifying $\beta$, which will then be used to inform the parameter $\nu$ in my model. However, we need to confront the possibility that
+\begin{align*}
+	\mathrm{Corr}(\epsilon_{ft}^Y,\epsilon_{ijft}^S) \ne 0 
+\end{align*}
+
+In general, we either need to directly observe the shocks or find an instrument for $Y_{ft}$. However, if one is prepared to make assumptions about the nature of the shocks, one can proceed in a different manner. 
+
+Without loss of generality there are shocks at the $ijt$-level and then residual shocks at the $ijtf$-level. In this case, in order to assume that the shocks to spinout formation and parent firm outcomes are only correlated due to region-industry-time effects (i.e. region-industry of potential spinout, region-industry of parent firm). This assumes that any firm-specific shocks are uncorrelated. This is a stark assumption.
+
+We can avoid making this assumption by allowing for the possibility that there are firm fixed effects which are potentially correlated, and random noise around those fixed effects that is uncorrelated. Then we get identification because we are demeaning with respect to time. In mathematical language,
+\begin{align*}
+	\epsilon_{ijft}^S &= \sigma^S_{ijf} + \xi^S_{ft} \\
+	\epsilon_{ft}^Y &= \sigma^Y_f  + \xi^Y_{ft}
+\end{align*}
+
+Given the above decomposition, we can identify $\beta$ by first subtracting from both sides the industry $\times$ region $\times$ time mean, and then running the regression. Let $F(f,t)$ denote the set of firms in $i(f),j(f)$ at time $t$. 
+\begin{align}
+	E \Big[ \epsilon^S_{f't} \big| f' \in F(f,t),t\Big] &= \eta^S_{i(f),j(f),t} + E\Big[\sigma_f^S \big| f' \in F(f,t)\Big] +  E\Big[\xi^S_{f't} \big| f'\in F(f,t),t\Big] \\
+	E \Big[ \epsilon^Y_{f't} \Big| f' \in F(f,t),t \Big] &= \eta^Y_{i(f),j(f),t} + E\Big[\xi^Y_{f't} \big|f' \in F(f,t), t \Big]
+\end{align}
+
+Define
+\begin{align*}
+	\hat{S}_{ijft} &= S_{ijft} - \frac{1}{|F(f,t)|}\sum_{f'\in F(f,t)} S_{ijf't} \\
+	\hat{Y}_{ft} &= Y_{ft} - \frac{1}{|F(f,t)|}\sum_{f'\in F(f,t)} Y_{f't}
+\end{align*}
+
+Therefore, demeaning the original equation yields
+\begin{align}
+	\hat{s}_{ft} &= \beta \times \hat{Y}_{ft} + \xi^s_{ft} \label{demeaned_eq} \\
+	\hat{s}_{ft} &= \beta \times \xi^Y_{ft} + \xi^s_{ft}  \label{demeaned_eq_shocks}
+\end{align}
+
+where (\ref{demeaned_eq}) becomes (\ref{demeaned_eq_shocks}) by writing everything in terms of the underlying shocks, and taking into account that we have removed the $ijt$-specific average shock. 
+
+This procedure identifies $\beta$ using only differences between firms in a given industry $\times$ region $\times$ time category. I have to make this sacrifice because other dimensions of the variation result from common shocks to the independent and dependent variables and hence estimates are biased even in infinite samples.
+
+It's just a tradeoff - I'm only able to identify things based on differences in firm R\&D spending. But it's a perfectly reasonable way to try to isolate things...
+
+I can imagine many things that would cause a firm to have many spinouts, and to have a lot of R\&D and /or a lot of output of R\&D. But time-varying shocks that affect R\&D input or performance, and spinouts, but not through the channel...at the firm level? If it's some investment opportunity, it's probably at the industry or something level, not the firm level...at the very least, most investment opportunities seem to be at the industry / region level. So you can really kind of assume that 
+
+
+
+
+
+
+
+\end{document}

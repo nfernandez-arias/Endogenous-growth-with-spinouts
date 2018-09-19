@@ -1,0 +1,248 @@
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\BBV_DATA\BSV_replication.log
+  log type:  text
+ opened on:  30 Aug 2013, 15:20:33
+
+. 
+. *************************************
+. di "Summary statistics"
+Summary statistics
+
+. di "Table 2" 
+Table 2
+
+. *************************************
+. clear all
+
+. u spillovers
+
+. su tobinq rmkvaf grd grd_k1 rxrd gspilltec gspillsic pat_count pat_cite rsales rppent emp if year>=1981&year<=2001,det
+
+       Tobin's Q calculated following Hall, Jaffe and
+                      Trajtenberg, 2000
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     .1677077             .1
+ 5%     .3766155             .1
+10%      .525038             .1       Obs               13211
+25%     .8278121             .1       Sum of Wgt.       13211
+
+50%     1.412716                      Mean           2.361523
+                        Largest       Std. Dev.      2.993771
+75%     2.583826             20
+90%     4.822254             20       Variance       8.962663
+95%     7.449229             20       Skewness       3.609967
+99%     19.67626             20       Kurtosis       18.56777
+
+                           rmkvaf
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     4.722174        .432155
+ 5%     13.70313           .617
+10%     25.67706       .6342725       Obs               13258
+25%     88.68799       .7186513       Sum of Wgt.       13258
+
+50%     412.3249                      Mean           3913.584
+                        Largest       Std. Dev.      16517.12
+75%     2004.498       436988.5
+90%     7369.747       440134.9       Variance       2.73e+08
+95%     15665.66       445429.7       Skewness       13.66571
+99%     65764.95       485566.7       Kurtosis       278.3255
+
+                  Stock of R&D expenditures
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0              0
+ 5%            0              0
+10%            0              0       Obs               13549
+25%            0              0       Sum of Wgt.       13549
+
+50%     28.70551                      Mean           604.9104
+                        Largest       Std. Dev.      2722.185
+75%     168.7778       45901.39
+90%     1000.917       46692.48       Variance        7410292
+95%     2532.641       46737.37       Skewness       9.666462
+99%     10621.49       47343.38       Kurtosis       118.0658
+
+                lagged R&D stock over capital
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0              0
+ 5%            0              0
+10%            0              0       Obs               13269
+25%            0              0       Sum of Wgt.       13269
+
+50%     .1746919                      Mean           .4680932
+                        Largest       Std. Dev.      .9101244
+75%     .5681083             10
+90%     1.192405             10       Variance       .8283265
+95%     1.743752             10       Skewness       5.367786
+99%      4.44774             10       Kurtosis       43.67001
+
+               Expenditure on R&D, 1996 values
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0              0
+ 5%            0              0
+10%            0              0       Obs               13549
+25%            0              0       Sum of Wgt.       13549
+
+50%     4.355188                      Mean            103.805
+                        Largest       Std. Dev.      468.9145
+75%     28.67357       7654.764
+90%     163.3196       8043.361       Variance       219880.8
+95%     415.9205       8550.421       Skewness       9.269867
+99%     2017.575           8900       Kurtosis       109.8645
+
+                          gspilltec
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     326.3354       215.8432
+ 5%     2221.835       220.9247
+10%     5248.194       221.8712       Obs               13548
+25%     10408.07       223.2698       Sum of Wgt.       13548
+
+50%     20090.98                      Mean           25312.06
+                        Largest       Std. Dev.      19942.18
+75%     35372.41       116713.6
+90%      53079.2       119085.1       Variance       3.98e+08
+95%     65024.34         124325       Skewness       1.305971
+99%     91079.48       132820.3       Kurtosis       4.861183
+
+                          gspillsic
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0              0
+ 5%     13.37947              0
+10%     58.30353              0       Obs               13548
+25%      500.099              0       Sum of Wgt.       13548
+
+50%      2006.75                      Mean           6494.532
+                        Largest       Std. Dev.      10114.12
+75%     8018.248       69229.73
+90%     19654.56       69878.77       Variance       1.02e+08
+95%        28790       70175.56       Skewness       2.501198
+99%     47763.73       70470.09       Kurtosis       10.09221
+
+           Patents per firm applied for that year
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0              0
+ 5%            0              0
+10%            0              0       Obs               13946
+25%            0              0       Sum of Wgt.       13946
+
+50%            1                      Mean           16.23656
+                        Largest       Std. Dev.        74.549
+75%            5           1765
+90%           29           1943       Variance       5557.554
+95%           73           2365       Skewness       13.26821
+99%          311           2405       Kurtosis       277.0731
+
+                       Cites per firm
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0              0
+ 5%            0              0
+10%            0              0       Obs               12874
+25%            0              0       Sum of Wgt.       12874
+
+50%            4                      Mean           115.7763
+                        Largest       Std. Dev.      555.0032
+75%           35          10657
+90%          189          12107       Variance       308028.6
+95%          490          13500       Skewness       11.53277
+99%         2385          14283       Kurtosis       182.4746
+
+                    Sales in 1996 values
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     9.453781       1.079914
+ 5%     20.24291        1.48423
+10%     37.06564       1.544402       Obs               13294
+25%      117.173       1.612903       Sum of Wgt.       13294
+
+50%     456.1888                      Mean           2879.427
+                        Largest       Std. Dev.      8790.413
+75%     1975.807       135805.8
+90%     6476.418         136079       Variance       7.73e+07
+95%     12698.65       137513.8       Skewness       8.128656
+99%     39072.77       140609.6       Kurtosis       91.21389
+
+     Net book value of property, plant and equipment in
+                         1996 values
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     1.246677       .9139374
+ 5%      3.46769       .9139374
+10%     7.734275       .9139374       Obs               13514
+25%     26.76716       .9355496       Sum of Wgt.       13514
+
+50%     121.8662                      Mean           1346.103
+                        Largest       Std. Dev.      4720.797
+75%     723.9063       72707.55
+90%     3020.616       72825.98       Variance       2.23e+07
+95%     6104.757       192392.8       Skewness       14.50349
+99%        22902       193292.9       Kurtosis       442.9264
+
+                      employment (firm)
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%         .128             .1
+ 5%         .225             .1
+10%          .39             .1       Obs               13215
+25%        1.092             .1       Sum of Wgt.       13215
+
+50%        3.825                      Mean           18.36035
+                        Largest       Std. Dev.      52.91828
+75%       13.709          779.1
+90%         41.9          810.6       Variance       2800.344
+95%         76.2          813.4       Skewness       7.905103
+99%          290          876.8       Kurtosis        86.6188
+
+. di  _newline(10)
+
+
+
+
+
+
+
+
+
+
+
+
+. 
+. ************************************* 
+. di "Market value equations"
+Market value equations
+
+. di "Table 3" 
+Table 3
+
+. *************************************
+. clear all
+
+. u spillovers
+
+. replace lgspilltec1=. if lgspillsic1==.
+(149 real changes made, 149 to missing)
+
+. cap tsset num year
+
+. 
+. di "Column1"
+Column1
+
+. qui newey2 lq grd_k1 grd_k1_dum lgspilltec1 lgspillsic1 grd_kt* lsales_ind lsales_ind1  yy* if year>1984&year<2001,force lag(1)
+--Break--
+r(1);
+
+end of do-file
+
+--Break--
+r(1);
+
+. exit, clear

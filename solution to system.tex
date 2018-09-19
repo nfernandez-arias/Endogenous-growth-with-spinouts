@@ -1,0 +1,157 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+	\title{Solving for $\gamma(m)$ given equilibrium $\tau(m)$}
+	\author{Nicolas Fernandez-Arias}
+	\maketitle
+
+Assuming WLOG that the deterministic drift $a(m) \equiv 1$, the system of equation is
+\begin{align*}
+	\mu(m) &= C_{\mu} e^{  -\int_{0}^{m} \tau(m') dm'} \\
+	1 &= \int_{0}^{\infty} \mu(m) dm \\
+	\gamma(m) &= C_{\gamma} e^{-gm} \\
+	1 &= \int_{0}^{\infty}\gamma(m) \mu(m) dm \\ 
+	C_{\gamma} &= \lambda \times \frac{\int_{0}^{\infty} \mu(m) \tau(m) \gamma(m) dm}{\int_{0}^{\infty} \mu(m) \tau(m)dm} \\
+	g &= (\lambda -1) \int_{0}^{\infty} \tau(m) \gamma(m) \mu(m) dm
+\end{align*}
+
+Substitute out the functional equations into the integrals to arrive at 4 equations in 3 1-dimensional unknowns: $C_{\mu},C_{\gamma}$, and $g$.
+\begin{align*}
+	C_{\mu}^{-1} &= \int_{0}^{\infty} e^{ -\int_0^m \tau(m') dm'} dm \\
+	C_{\gamma}^{-1} &= \int_{0}^{\infty} e^{-gm}  C_{\mu} e^{ - \int_0^m \tau(m') dm'} dm \\
+	C_{\gamma} &= \lambda \times  \frac{ C_{\gamma} C_{\mu} \int_{0}^{\infty} e^{  -\int_{0}^{m} \tau(m') dm'}  \tau(m) e^{-gm} dm}{C_{\mu} \int_{0}^{\infty} e^ {  -\int_{0}^{m} \tau(m') dm'}  \tau(m) dm} \\
+	g &= (\lambda -1) C_{\gamma} C_{\mu} \int_{0}^{\infty} \tau(m) e^{-gm} e^{  -\int_{0}^{m} \tau(m') dm'}   dm
+\end{align*}
+
+Combining the exponentials and simplifying, get
+\begin{align*}
+	C_{\mu}^{-1} &= \int_{0}^{\infty} e^{ -\int_0^m \tau(m') dm'} dm \\
+C_{\gamma}^{-1}C_{\mu}^{-1} &= \int_{0}^{\infty} e^{-\int_0^m g + \tau(m') dm'} dm \\
+1 &= \lambda \times  \frac{ \int_{0}^{\infty} \tau(m)e^{  -\int_{0}^{m} g + \tau(m') dm'}   dm}{\int_{0}^{\infty} \tau(m) e^{ -\int_{0}^{m} \tau(m') dm'} dm} \\
+g &= (\lambda -1) C_{\gamma} C_{\mu} \int_{0}^{\infty} \tau(m) e^{  -\int_{0}^{m} g +  \tau(m') dm'}   dm
+\end{align*}
+
+To solve the system, first, notice that\footnote{This follows because 
+	\begin{align*}
+	\frac{d}{dm} \big[ -e^{-\int_0^m \tau(m')dm'} \big] &= \tau(m)e^{-\int_0^m \tau(m')dm'}
+	\end{align*}
+	
+	In equilibrium, $\lim_{m \to \infty} e^{-\int_0^m \tau(m')dm'} = 0$ because $\tau(m)$ remains uniformly bounded from below as $m \to \infty$. Since $e^{-\int_0^0 \tau(m')dm'} = 1$, the result follows.}
+\begin{align*}
+	\int_{0}^{\infty} \tau(m) e^{-\int_0^m \tau(m')dm'} dm &= 1 
+\end{align*}
+
+Similarly, can get\footnote{Similar to before, this follows because
+	\begin{align*}
+	\frac{d}{dm} \big[ -e^{-\int_0^m g + \tau(m')dm'} \big] &= (g +\tau(m))e^{-\int_0^m g + \tau(m')dm'}
+	\end{align*}
+	
+	This means that 
+	\begin{align*}
+	1 &= \int_0^{\infty} (g + \tau(m)) e^{-\int_0^m g+ \tau(m')dm'} dm \\
+	1 - g\int_0^{\infty} e^{-\int_0^m g + \tau(m') dm'} dm &= \int_0^{\infty} \tau(m) e^{-\int_0^m g+ \tau(m')dm'} dm \\ 
+	1 - g C_{\gamma}^{-1} C_{\mu}^{-1} &= \int_0^{\infty} \tau(m) e^{-\int_0^m g+ \tau(m')dm'} dm
+	\end{align*}
+	
+	after substituting in the second equation.}
+\begin{align*}
+	\int_0^{\infty} \tau(m)e^{-\int_0^m g + \tau(m')dm'} dm &= 1 - g C_{\gamma}^{-1} C_{\mu}^{-1}
+\end{align*}
+
+Substituting these relationships into the system, it becomes:
+\begin{align*}
+	C_{\mu}^{-1} &= \int_0^{\infty} e^{-\int_0^m \tau(m')dm'}dm \\
+	C_{\gamma}^{-1} C_{\mu}^{-1} &= \int_0^{\infty} e^{-\int_0^m g + \tau(m') dm'} dm \\
+	1 &= \lambda (1 - gC_{\gamma}^{-1} C_{\mu}^{-1}) \\ 
+	g &= (\lambda -1) C_{\gamma}C_{\mu} (1 - gC_{\gamma}^{-1} C_{\mu}^{-1}) 
+\end{align*}
+
+Now define a new variable $C = (C_{\gamma}C_{\mu})^{-1}$. The system is now
+\begin{align*}
+	C &= (C_{\gamma}C_{\mu})^{-1} \\
+	C_{\mu}^{-1} &= \int_0^{\infty} e^{-\int_0^m \tau(m')dm'} dm \\
+	C &= \int_0^{\infty} e^{-\int_0^m g + \tau(m') dm'} dm \\
+	1 &= \lambda (1 - gC) \\
+	g &= (\lambda -1) C^{-1}(1 - gC)
+\end{align*}
+
+It can be easily shown now that the last two equations are redundant. The last equation boils down to 
+\begin{align*}
+	g &= (\lambda -1) (C^{-1} - g) \\
+	g (1 + \lambda - 1) &= (\lambda -1) C^{-1} \\ 
+	g &= \frac{\lambda -1}{\lambda} C^{-1}  
+\end{align*}
+
+The fourth equation also amounts to the same:
+\begin{align*}
+	1 &= \lambda(1 - gC) \\
+	1 &= \lambda - \lambda g C\\
+	g &= \frac{\lambda -1}{\lambda } C^{-1}
+\end{align*}
+
+Hence we drop one of the equations. We now can use the second and third or second and fourth equations to determine $C,g$. I still have to show that there exists a $g$ such that
+\begin{align*}
+	g &= \frac{\lambda -1}{\lambda} \Big( \int_{0}^{\infty} e^{-\int_0^m g + \tau(m') dm'} dm  \Big)
+\end{align*}
+
+Both LHS and RHS are continuous. As $g$ increases from $0$ to $+\infty$, the RHS goes from some positive number to 0. By the intermediate value theorem there exists some $g$ solving the equation. Furthermore, this solution is unique because the RHS is monotonic: 
+\begin{align*}
+	\frac{d}{dm} \Big( \int_{0}^{\infty} e^{-\int_0^m g + \tau(m') dm'} dm  \Big) &= \int_0^{\infty} \underbrace{-m}_{<0}\underbrace{e^{-gm} e^{-\int_0^m \tau(m') dm'}}_{> 0} dm  \\
+	      &< 0
+\end{align*}Then $C$ is computed from $g$ according to $C = \frac{\lambda - 1}{\lambda} g^{-1}$. 
+
+Once we know that there exist $g,C$ solving the system, we know that $C_{\mu}$ is well-defined by 
+\begin{align*}
+	C_{\mu}^{-1} &=\int_0^{\infty} e^{-\int_0^m \tau(m')dm'} dm
+\end{align*}
+
+and $C_{\gamma}$ is well-defined by $C_{\gamma} = C^{-1} C_{\mu}^{-1}$. 
+
+\paragraph{Implementing the change of variables}
+If we change variables so that $m'$ corresponds to the $m$ that it takes $m'$ time units to reach. The speed of movement is $a(m)$. If it were constant, we would want $m' = m/a$. After $dt$ seconds, the particle moves to $dm = a(m)dt$. So $dt = dm/a(m)$, i.e. $\frac{dt}{dm} = a(t)^{-1}$. Hence, 
+\begin{align*}
+	t(m) &= \int_0^m \frac{dt}{dm} dm \\
+	     &= \int_0^m a(m)^{-1} dm
+\end{align*}  
+
+Once we make this change of variables, all we need to do is rewrite $\tau$ as a function of $t$. Of course,
+\begin{align*}
+	m(t) &= \int_0^t a(m(t')) dt'
+\end{align*}
+
+We define
+\begin{align*}
+	\tilde{\tau}(t) = \tau(m(t))
+\end{align*}
+
+We don't have to calculate $a'(m)$ or anything like that. We will have to interpolate in order to calculate $\tau(m(t))$ in general, however. 
+
+\paragraph{Computing $L_{RD}$}
+We have
+\begin{align*}
+	L_{RD} &= \int_0^{\infty} \hat{z_{tot}}(m') \hat{\mu}(m') \hat{\gamma}(m') dm' 
+\end{align*}
+In order to compute this, I need to compute
+\begin{align*}
+	\hat{z_{tot}}(m') = z_{tot}(m(m'))
+\end{align*}
+
+For this will need an interpolator, as I used for computing $\hat{\tau}(m')$, etc. Easy.
+
+\end{document}

@@ -1,0 +1,135 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+\title{Issues with Model - 6-25-2018}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+Remaining things to work out:
+\begin{enumerate}
+	\item What happens if we start with some $\gamma_0$ and run the model forward? Consider case of exogenous growth first. Within that, first have considered the case of constant $\tau(m)$. 
+	\item In Idea 1, what happens if I attempt to endow spinouts with a growth advantage over regular entrants? How would I model this in any case?
+	\item In Idea 1, what am I sacrificing by modeling in this way?
+	\item Compare my model's insight - how it helps me use the data - to the logic expressed in the beginning of Eaton Kortum 1999, which was very clear.
+	\item How can I use patent data to inform this when, according to Cohen's article, patents are not a significant way of protecting inventions in most industries? I could use patents to identify employee movements, sure, but that's not really using patents in a rich way. Maybe I can use the differences across these industries to understand the importance of having something to substitute for the appropriability benefit? 
+	\item 
+\end{enumerate}
+
+\section{Main issue}
+
+\subsection{Description}
+
+\begin{itemize}
+	\item There is a distribution $\mu_t(m,\tilde{q})$ which changes over time
+	\item I've shown that given that we are on a BGP re: wages etc., the stationary marginal distribution $\mu_(m)$ does exist
+	\item However, at each time $t$, this implies a different amount of R\&D labor demand if $E_t[\tilde{q} | m]$ changes over time
+	\item I.e. in order to have a BGP, $L^{RD}$ must be constant over time in addition to everything else. $L^{RD}$ is given by 
+	\begin{align*}
+		L^{RD} &= \int_0^{\infty} \int_0^{\infty} \tilde{q}(z_I(m) + z_S(m) + z_E(m)) \mu_t(m,\tilde{q}) d\tilde{q} dm \\
+		       &= \int_0^{\infty} (z_I(m) + z_S(m) + z_E(m)) E_t[\tilde{q} | m] dm
+	\end{align*}
+	\item Not to worry, however - I believe this is true in my model. For intuition, consider a discrete-time, discrete-state analogue. Suppose the BGP growth rate is $g$. Given this, particles move through the state space in diagonal lines, starting at $(0,q)$, drifting downwards at rate $g$ in the $q$ dimension, and upwards at rate $\nu(z_I(m) + z_S(m) + z_E(m))$ in the $m$ direction, and then stochastically jumping to $m' = 0$ and $q' = \lambda q$. Consider $E_t[\tilde{q}|m_i]$ for some $i > 0$ (i.e. $m_i > 0$). In order for $E_{t+1}[\tilde{q}|m_i]$ to not change, it must be the case that the average particle in state $m_{i-1}$ at time $t$ must be higher in proportion to the rate of change in the $q$ in dimension. Hence, $E_t[\tilde{q} | m] = C\exp\{ -gm \} $. Then $C$ is chosen to ensure that \begin{align}
+		\int_0^{\infty} C\exp(-gm) \mu(m) dm = 1
+	\end{align}
+	My only concern is whether this actually works. Given how I am thinking about the stationary distribution $\mu(m)$ it seems to, but how am I taking care of the fact that particles at all $q$ are jumping to $m = 0$? I.e., $m=0$ is being fed by particles that come from all sorts of $m$? So, the extent to which this is actually sustainable depends on whether it is the high $m$ or low $m$ who are more likely to be the ones populating $m = 0$. I.e., But the only possible solution was to have $E_t[\tilde{q}|m]$ as given above. In each time step, the people who were previously at $m_0$ move to $m_1$, and people with some average $\tilde{q}$ move to $m=0$. It will be $\lambda$ times the average $q$ across people who transition, which is simply $E_t[\tilde{q}|m]$ averaged with weight $\mu(m) (z_I(m) + z_S(m) + z_E(m))$. The weighted average would need to equal $C/\lambda$.  I.e. we need 
+	\begin{align*}
+		\gamma (m_0) &= \Bigg(\overbrace{e^{-g\Delta}}^{\text{Decay of relative quality due to overall drift}} \times \underbrace{\lambda }_{\text{Increase in relative quality due to innovation}} \Bigg) \\
+		&\times
+		\underbrace{\frac{\sum_{i=0}^{\infty} \mu(m_i) \tau(m_i) \gamma(m_i)}{\sum_{i=0}^{\infty}\mu(m_i)\tau(m_i)}}_{\text{Weighted average of $\gamma(m_i)$, with weights $\mu(m_i)\tau(m_i)$}}
+	\end{align*}
+	
+	As $\Delta \to 0$, the first term $e^{-g\Delta} \to 1$. Hence, the weighted average needs to equal $\gamma(m_0) / \lambda = C / \lambda$ as claimed above. 
+	
+	I conjecture that the analogue in the continuous-continuous case is 
+	\begin{align*}
+		\gamma(0) = \lambda \times \frac{\int_0^{\infty} \mu(m)\tau(m)\gamma(m)dm}{\int_0^{\infty}\mu(m) \tau(m) dm}
+	\end{align*}
+	
+	Which is a condition \textbf{in addition }to the fact that we must have $\gamma(m) = C\exp(-gm)$ for some $C$, and that $\mu(m)\gamma(m)$ must integrate to 1. 
+	
+	Using this expression, we can visualize what happens if we start out with $\gamma_0(m)$ satisfying the above conditions. Again, return to the discrete-time case. Have 
+	\begin{align*}
+		\gamma_{\Delta}(m_0) = e^{-g\Delta} \times \lambda \times \frac{\sum_{i=0}^{\infty} \mu(m_i) \tau(m_i) \gamma_0(m_i)}{\sum_{i=0}^{\infty}\mu(m_i)\tau(m_i)}
+	\end{align*}
+	
+	If $\tau(m_i)$ were constant, what happens? Then the rate of upgrade does not depend on $m$. Hence, lines of average quality are upgraded, and we have $\gamma_{\Delta}(0) = \lambda$. This makes sense: the weighted average is equal to 1 in this case, hence this requires $C = \lambda$ in order to work.
+	
+	Suppose for now that we impose exogenous arrivals of technology that do not depend on anything we are discussing. Hence, we can assume that $\tau(m)$ is constant and hence factors out of the third term on the RHS. We therefore have 
+	\begin{align*}
+		\gamma_{t+\Delta} (0) = e^{-g_t\Delta} \times \lambda \times \sum_{i=0}^{\infty} \mu(m_i) \gamma_t(m_i) 
+	\end{align*}
+	
+	Then what happens to $\gamma(m)$? If $\gamma_0(m_i)$ satisfies the consistency condition, the summation on the RHS above is equal to 1. Hence, 
+	\begin{align*}
+		\gamma_{t+\Delta}(0) = e^{-g_t \Delta} \times \lambda
+	\end{align*}
+
+	Hence, $\gamma_{t'} (0)$ is constant along the path, provided $g_t$ is constant. With exogenous arrival rates of innovations, $g_t \equiv g$ hence this is the case.
+	
+\end{itemize}
+
+\subsection{Possible solutions}
+
+How do we solve the above problem? Well, it is a problem that will affect any model like this with another dimension of heterogeneity than $q$. Because any method to make things scale in $q$, so as to make the state $q$ not matter individually, will tend to make certain moments of the joint distribution of $(q,m)$ to matter for aggregate state variables. If these moments cannot be shown to be constant along some equilibrium, then we can't find a BGP. In my case, it is sufficient for the conditional (on $m$) expectation of $\tilde{q} = q / \bar{q}_t$ be constant over time. This guarantees that aggregate labor demand is constant, as argued in the beginning of this document.  
+
+How does this issue arise in my model? In order to make $q$ not matter individually, we made R\&D more efficient for lower $\tilde{q}$. Hence, same amount of R\&D is conducted for a given $m$, regardless of $q$. However, this then means that more resources are required for R\&D for given $m$, depending on $q$. But this means that aggregate demand for resources depends on the joint distribution of $(q,m)$. In my case because more resources are needed in proportion to $q$, all we need is the conditional expectation of $q$, denoted $\gamma(m) = E_{\mu}[q |m]$. But even this does not appear to be sufficient, for the reasons argued above. 
+
+Given all of this, the clear solution is If we had no $m$ state variable, we would again be fine, because aggregate variables would depend only on $\bar{q}$. Hence on solution is to attempt to reconfigure the model so that incumbents do not have a state variable. I wanted to do this anyway, because it is simpler, and I can't measure $m$ in the data anyway...I felt like I was shoehorning the model into the data.
+
+\subsubsection{Idea 1}
+
+In order to get rid of the dependence on $m$ but keep the overarching structure of this model, the firm must die as soon as a spinout forms. So, I need to reconfigure the model in that way. Then "spinouts" in the model will refer to succssful spinouts in the data. To make the model further comparable, I can allow for multi-product firms, and each *product* is vulnerable to spinout competition. This makes the above assumption less stark.
+
+How to model spinouts? One idea: workers do R\&D *while* employed at their employer. Then it is essentially the amount of employment that determines the rate of spinouts. Essentially, I would be abstracting from the interpretation of an R\&D-conducting spinout as an actual firm. It does require the weird assumption that a worker can only work on coming up with a new idea \textbf{while employed} at the incumbent. However, if I allow the worker to leave the firm with his knowledge, I introduce a state variable in the incumbent firm's problem, complicated the analysis for the reasons above. 
+
+Moreover, if I do this, I cannot have spinouts retain an advantage over entrants after they introduce their first product. Because then I would have to 
+
+\subsubsection{Idea 2}
+
+The other possibility is to fix the problem in the other direction, by adding assumptions that help ensure a stationary distribution in $(q,m)$. This would require innovation to slow down for large $q$, essentially. Then I can solve essentially the same model. Unfortunately this would require some ad-hoc assumptions about firm death and re-entry. Perhaps I could accomplish this by having some innovations add products, and low-quality product lines exiting the economy due to some labor fixed cost? This seems reasonable...and a model which departs less from Akcigit \& Kerr. 
+
+But then, if I am going to base my analysis on Akcigit \& Kerr's method of using patent citations to identify the size of innovations, I need to confront two facts: (1) patent protection is only important in a few industries, according to Cohen's handbook chapter, and (2) 
+
+\subsubsection{Idea 3}
+
+A third possibility is to rig the model so that the total R\&D on line $j$ does not depend on $m$, but simply the distribution of R\&D across incumbents vs. entrants vs. spinouts. 
+
+\subsubsection{Idea 4}
+
+Finally, could my logic be mistaken? Am I thinking about stationary distributions in the right way? 
+
+
+
+
+
+
+\section{Other issues}
+
+\begin{itemize}
+	\item $m$ is the key state variable, but it refers to firms that aren't necessarily in the data. Hence, I cannot observe the level of R\&D by entrants. In order to identify everything, I can only go based on outcomes. Do I think of ``entry'' in the data as entering the product market? 
+	\item When these models are brought to data, typically only entrants who have won a race are identified with entrants entering the market. This makes sense, since they don't enter the product market until they have a product. But, I have no way of identifying (1) which firms have successfully entered the product market, (2) how much R\&D firms are doing before they enter the product market (since a lot of this could easily be before the firm is even incorporated / has employees). 
+	\item Can I use something in the SBO to help me work around this? AFAIK it only asks if a firm is in possession of a patent or copyright or trademark, but doesn't ask about R\&D expenditure.
+	\item Alternatively, could bring the focus back to patents, do something similar to AK 2017, but using patent citation data to help identify the productivity advantage of spinouts. The model seems more set up for this.
+	\item Maybe I have two papers here...
+\end{itemize}
+
+
+
+
+\end{document}

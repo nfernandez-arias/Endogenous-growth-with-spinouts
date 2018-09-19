@@ -105,9 +105,270 @@ the private value of getting rid of a non-compete
 \end_inset
 
 .
+ Then match the model to the Michigan data, and use it to account for how
+ much of the changes in outcomes etc you would get.
+ The residual is then the estimated effect of non-competes.
+ If we believe how the model maps migration flows into changes in relative
+ outcomes (will have to think hard about how to do this).
  
 \end_layout
 
+\end_deeper
+\begin_layout Itemize
+Samila-Sorenson 2011:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Increase in supply of venture capital in non-enforcing vs enforcing leads
+ to:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+More entry
+\end_layout
+
+\begin_layout Itemize
+More innovation (as measured by patents)
+\end_layout
+
+\begin_layout Itemize
+More 
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Ideas for tomorrow: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Can a model of migration / selection of migration account for Samila -Sorenson
+ 2011 results, which seem to provide compelling evidence of advantages of
+ non-enforcement?
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+They control for population, but maybe it is particularly important people
+ who move
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Further point: even if non-enforcement makes the state more responsive to
+ exogenous increases in supply of VC, that doesn't mean that it makes the
+ state itself have more of the relevant thing.
+ It might increase the responsiveness, while depressing the level.
+ This is all in addition to the fact that any of these effects could be
+ due to spillovers, as well.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+In a nutshell:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Want to use the fact that non-enforcing states are 
+\begin_inset Quotes eld
+\end_inset
+
+better
+\begin_inset Quotes erd
+\end_inset
+
+ than enforcing states to learn about welfare from enforcement? Need to
+ control for other things making them better.
+ This is hard to do for obvious reasons and maybe ultimately impossible.
+ 
+\end_layout
+
+\begin_layout Itemize
+We can maybe still learn about welfare effects by using the fact that states
+ that 
+\emph on
+switch
+\emph default
+ to enforcing become 
+\emph on
+worse
+\emph default
+.
+ For this, if we want to extrapolate to 
+\begin_inset Quotes eld
+\end_inset
+
+what the effect would be on the country as a whole
+\begin_inset Quotes erd
+\end_inset
+
+, we want to separate the 
+\begin_inset Quotes eld
+\end_inset
+
+direct effect
+\begin_inset Quotes erd
+\end_inset
+
+ from the 
+\begin_inset Quotes eld
+\end_inset
+
+spillover effect
+\begin_inset Quotes erd
+\end_inset
+
+.
+ In order to do this, we need to control for those pathways - e.g., include
+ the mediating variables, such as population characteristics of states or
+ cross-state flows of capital - as control variables in the statistical
+ model.
+ Problems are: 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Identification: how do we know what the effect is?
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Need some exogenous variation - difficult with 
+\begin_inset Quotes eld
+\end_inset
+
+mediating variables
+\begin_inset Quotes erd
+\end_inset
+
+ which are part of many different economic mechanisms.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Could just 
+\begin_inset Quotes eld
+\end_inset
+
+throw in a bunch of controls
+\begin_inset Quotes erd
+\end_inset
+
+ I suppose, but then I wouldn't trust this procedure unless it was close
+ to non-parametric (because there could be interactions), and this would
+ need tons of data.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Functional form: even if we have exogenous variation, 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Can we do non-parametric? Maybe.
+ But, 
+\series bold
+curse of dimensionality 
+\series default
+means this may require a huge amount of data (esp.
+ if there are a lot of other variables that affect the size / sign of the
+ treatment effect).
+ 
+\end_layout
+
+\begin_layout Itemize
+Impose functional form to simplify the problem.
+ Model can help develop the 
+\emph on
+right
+\emph default
+ functional form.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+We cannot measure the controls accurately.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Need proxies –> economic reasoning to develop reasonable proxies
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+A solution to the inability to control in a non-parametric way, a model
+ can tell us that the parameters governing mechanism A are the same as the
+ parameters governing mechanism B; if mechanism B is something we can observe,
+ then we can use that to identify the parameters, and then we know the strength
+ of mechanism B.
+ This is essentially imposing a functional form to achieve identification,
+ but a functional form based on economic reasoning.
+ 
+\end_layout
+
+\begin_layout Itemize
+E.g., we may not observe enough exogenous changes in the population of inventors
+ in a given state to identify a non-parametric regression etc.
+ But, perhaps we can use estimates of some elasticities from the rest of
+ the literature to build a model which can give a first pass to account
+ for the effects on outcomes of this shift.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+The answer: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Find an 
+\begin_inset Quotes eld
+\end_inset
+
+accepted
+\begin_inset Quotes erd
+\end_inset
+
+ model of the effects of population characteristics, funding availability,
+ what have you, on innovation and growth etc.
+\end_layout
+
+\begin_layout Itemize
+Augment it as little as possible so that it can describe a channel through
+ which non-competes can affect output.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+If simply using differences in outcomes across states, the model can be
+ BGP vs.
+ BGP 
+\end_layout
+
+\begin_layout Itemize
+If want to use the Michigan policy change, ideal to be able to model the
+ dynamic effects of a policy change.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Calibrate the rest of the model, then use the data on differential outcomes
+ - the results from the micro studies - to estimate the structural parameters
+ governing the non-compete enforcement tradeoff.
+\end_layout
+
+\end_deeper
 \end_deeper
 \begin_layout Section*
 Big picture:

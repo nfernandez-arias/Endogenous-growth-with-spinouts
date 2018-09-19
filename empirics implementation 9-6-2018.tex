@@ -1,0 +1,68 @@
+
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+
+\title{Implementation of Empirics for "A Model of Endogenous Growth with Employee Spinouts"}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Introduction}
+
+\section{Preliminary Analysis}
+
+Problem with preliminary analysis: RD user cost affects spinouts, too. So no exclusion restriction. 
+
+Why do we need this? I guess because otherwise the noise in $Z_{it}$ is correlated with the noise in $Y_{it}$, and the noise in $Z_{it}$ is present in the estimate of $X_{it}$ put into the second stage. 
+
+In our case, we will predict of course more R\&D when the policy is enacted, but we won't know if the effect is coming from that or from the fact that the policy was enacted.
+
+Only options are:
+\begin{enumerate}
+	\item Ignore, arguing that R\&D tax incentives are likely to affect R\&D more than the decision to form a spinout, which requires an idea in the first place
+	\item Somehow obtain R\&D information at the state-industry level, \textsl{}
+\end{enumerate}
+
+\paragraph{Computing $RD_{it}$}
+
+Don't have  yearly series for this (check again), so will aggregate up using Compustat firms, using a geographic / industry weighting potentially informed by the patent data.
+
+\subsection{Specification 1: OLS}
+
+Have
+\begin{align*}
+	Y_{it} &= \alpha_i + \gamma_t + \beta RD_{it} + \epsilon_{it}
+\end{align*}
+
+where $Y_{it}$ is the outcome of interest in $i,t$, where $i$ indexes either state or industry. 
+
+\subsection{Specification 2: Reduced Form}
+
+Have
+\begin{align*}
+	Y_{it} &= \alpha_i + \gamma_t + \beta (RD user cost)_{it} + \epsilon_{it}
+\end{align*}
+
+
+
+
+
+
+
+
+
+\end{document}

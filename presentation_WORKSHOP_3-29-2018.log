@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6700 64-bit) (preloaded format=pdflatex 2018.6.5)  24 JUN 2018 14:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6700 64-bit) (preloaded format=pdflatex 2018.6.5)  18 JUL 2018 17:48
 entering extended mode
 **./presentation_WORKSHOP_3-29-2018.tex
 (presentation_WORKSHOP_3-29-2018.tex
@@ -1016,10 +1016,10 @@ Package rerunfilecheck Info: File `presentation_WORKSHOP_3-29-2018.out' has not
 (rerunfilecheck)             Checksum: C2A2CFB7C2EC1CFD6796CB4BC2D8E746;249.
  ) 
 Here is how much of TeX's memory you used:
- 18791 strings out of 492974
- 352963 string characters out of 3135951
+ 18792 strings out of 492974
+ 352971 string characters out of 3135951
  445957 words of memory out of 3000000
- 22158 multiletter control sequences out of 15000+200000
+ 22159 multiletter control sequences out of 15000+200000
  20142 words of font info for 77 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,21n,55p,818b,583s stack positions out of 5000i,500n,10000p,200000b,50000s

@@ -1,0 +1,423 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+\title{Is there a BGP - updated 7-18}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Equations and Unknowns}
+
+If the model I am interested in with total labor supply $L = 1$ admits a constant $\gamma_t(m)$, defined below, then so should the model with any other labor supply $L'$. Hence, I take as given $L^F$, compute the implied $\bar{w}$, and attempt to find a BGP. 
+
+The \textbf{exogenous variables }are:
+\begin{enumerate}
+	\item The final goods wage $\bar{w}$
+	\item The rate at which flow profits scale with the quality of the good, $\pi$ (i.e. flow profits are $\pi q $)
+\end{enumerate}
+
+The \textbf{endogenous variables }are \big(for $m \ge 0$ \big):
+\begin{enumerate}
+	\item Incumbent value function $V(m)$
+	\item Incumbent policy $z_I(m)$
+	\item Spinout value function $W(m)$
+	\item Aggregate spinout R\&D effort on a good in state $m$, $z_S(m)$
+	\item Aggregate non-spinout entrant R\&D effort on a good in state $m$, $z_E(m)$
+	\item Arrival rate due to entrants and spinouts $\tau_{SE}(m)$
+	\item Total arrival rate of innovations $\tau(m)$
+	\item Drift rate $a(m)$
+	\item Wage $w(m)$
+	\item Stationary distribution $\mu(m)$ 
+	\item Stationary $\gamma(m) = E[\tilde{q}|m]$
+	\item Growth rate $g$
+\end{enumerate}
+
+The\textbf{ system of equations} satisfied in a recursive equilibrium is:\footnote{Technically, I need to add some transversality conditions to the HJBs. Perhaps I can just add boundary conditions like $\lim_{m\to \infty} V'(m) = \lim_{m \to \infty} W(m) = 0$. Is this a guess of form of eq.? Is this okay? Try it, try w/o it, ask Ezra.}\footnote{Note: boundary condition can just be written $V(M) = \frac{\pi + z_I(m)\chi_I \phi(z_I(m))\lambda V(0)}{\rho + \tau(m)}$ and $W(M) = 0$, where $M$ is the free-entry threshold. In equilibrium, $V(m)$ is continuous (by economic reasoning, i.e. since it solves a maximization problem) on $[0,\infty)$ and differentiable on $[0,M)$. So we can solve numerically in the same way. Finally, the existence of $M$ is guaranteed as long as $w(m)$ is increasing. I haven't proven this, but I conjecture (and it's very reasonable) that this will be true in equilibrium, since if $w(m)$ is exogenously given and constant, everything holds as well, and (\ref{Indifference}) wants to then make $w(m)$ increasing.} 
+\begin{align}
+(\rho + \tau_{SE}(m))V(m) &=  \pi + a(m) V'(m) \label{HJB_V}\\
+						  &+ z_I(m)\chi_I \phi(z_I(m)) (\lambda V(0) - V(m)) \nonumber \\
+						  &- z_I(m)w(m) \nonumber \\ 
+ V(M) &= \frac{\pi + z_I(m)\chi_I \phi(z_I(m))\lambda V(0)}{\rho + \tau(M)} \label{HJB_V_Boundary} \\
+(\rho + \tau(m)) W(m) &= a(m) W'(m) \label{HJB_W}\\
+						&+ z_S(m)\chi_S\eta(z_S(m) + z_E(m))\lambda V(0) \nonumber \\
+						&- z_S(m)w(m)  \nonumber	\\	
+\lim_{m \to \infty} W(m) &= 0 \label{HJB_W_Boundary} \\ 										  
+w(m) - \nu V'(m) &= z_I(m)\chi_I\phi'(z_I(m)) + \chi_I \phi(z_I(m)) (\lambda V(0) - V(m)) \label{HJB_V_FOC}\\
+w(m) &= \chi_E\eta(z_S(m) + z_E(m)) \lambda V(0) \label{E_FreeEntry}\\ 
+\Big(\forall m: z_S(m) = \xi m \Big) w(m) &\le \chi_S \eta(z_S(m) + z_E(m)) \lambda V(0) \label{HJB_W_Optimality1}\\
+\Big(\forall m: z_S(m) < \xi m \Big) w(m) &= \chi_S \eta(z_S(m) + z_E(m)) \lambda V(0) \label{HJB_W_Optimality2}\\
+\bar{w} &= w(m) + \nu W(m) \label{Indifference}\\
+0 &= - a'(m)\mu(m) - a(m)\mu'(m) - \tau(m)\mu(m) \label{KF}\\
+1 &= \int_{0}^{\infty} \mu(m) dm \label{KF_integral}\\
+g &= (\lambda - 1) \int_{0}^{\infty} \tau(m) \mu(m) dm \label{growth_aggregation} \\
+\gamma'(m) &= \frac{-g }{a(m)} \gamma(m) \label{gamma_firstorder}\\
+1 &= \int_{0}^{\infty} \mu(m) \gamma(m) dm \label{gamma_integral}\\ 
+\gamma(0) &= \lambda \times \frac{\int_{0}^{\infty} \mu(m) \tau(m) \gamma(m)  dm}{\int_{0}^{\infty} \mu(m) \tau(m) dm} \label{gamma_consistency}\\
+a(m) &= \big( z_I(m) + z_S(m) + z_E(m) \big) \nu \label{a_def}\\
+\tau_{SE}(m) &= \big(z_S(m) \chi_S + z_E(m) \chi_E \big) \eta \big(z_S(m) + z_E(m)\big) \label{tau_SE_def}\\
+\tau(m) &= z_I(m) \chi_I \phi(z_I(m)) + \tau_{SE}(m)  \label{tau_def}
+\end{align}
+
+\section{Solving the system}
+
+\subsection{Preliminary ramblings}
+
+First, equations (\ref{a_def}),(\ref{tau_SE_def}), and (\ref{tau_def}) are just definitions and hence take care of one equation each. 
+
+The point is this: given $w(m)$, the first few equations pin down the value functions $V(m),W(m)$, policies $z_I(m),z_E(m),z_S(m)$, arrival rates $\tau_{SE}(m),\tau(m)$ and drift $a(m)$. Through the KF equation (first order and integral), this pins down $\mu(m)$. Then the growth aggregation equation pins down $g$. Then, the first-order and integral equations pin down $\gamma(m)$. Finally, (\ref{Indifference}) pins down $w(m)$. We are left with an extra equation, (\ref{gamma_consistency}). 
+
+The only hope is that, given the solutions to the other equations, this equation, which looks to be non-trivial, becomes redundant. Not sure how one would prove this. All that is left is to (1) try to solve it on a computer, or (2) think about the economics of the situation. Why should there not be a constant expected relative quality given $m$? 
+
+If we start with $\gamma_0(m)$ that satisfies (\ref{gamma_firstorder}) and (\ref{gamma_integral}), how does it evolve? First, assume for simplicity that growth is constant and equal to $g$. At all times we will have 
+\begin{align*}
+	\gamma_t(0) = \lambda \times \frac{\int_{0}^{\infty} \gamma_t(m) \tau_t(m) \mu_t(m) dm}{\int_{0}^{\infty} \tau_t(m) \mu_t(m) dm}
+\end{align*}
+
+The evolution is as follows. At each $t \ge 0$, there is a boundary, $b(t) \in \mathbf{R}$, determined by $a(m)$. To the right of $b(t)$, we will have $\gamma_t(m) = \gamma_0(m)$. To the left of $b(t)$, will have $\gamma_t(m) = e^{-g(t-t')} \gamma_{t'} (m')$, where $t' < t$ is the time when 
+
+The boundary is determined by the evolution of the frontier. The movement of the frontier is easy to calculate because at any time the rate of drift in the $m$-direction of a given good $j$ depends only on its current state $m$. Hence, goods cannot ``pass'' each other in $m$-space, and we only need to track the movement through $m$-space of the goods which 
+
+It will be very difficult to show anything theoretically. Everything is endogenous and simultaneous, and I do not have closed forms. The distribution $\mu(m)$ is determined by $a(m)$, which is determined by the wage $w(m)$. The conditional expectation $\gamma(m)$ is determined by $\mu(m)$ and $g/a(m)$. The growth rate $g$ in turn is determined by the integral of $\mu(m)\tau(m)$. Finally $\tau(m)$ is determined by the Nash Equilibrium given 
+
+\paragraph{Derivation of $\gamma(m)$ given $a(m),\tau(m)$}
+The differential equation for $\mu(m)$ has solutions of the form
+\begin{align*}
+	\mu(m) &= C_{\mu}\exp\Bigg\{ - \int_0^m \frac{a'(m') + \tau(m')}{a(m')} dm'\Bigg\}
+\end{align*}
+
+The differential equation for $\gamma(m)$ has solutions of the form
+\begin{align*}
+	\gamma(m) &= C_{\gamma} \exp\Bigg\{ -g \int_0^m a(m')^{-1} dm' \Bigg\}
+\end{align*}
+
+Given these functional forms, let's check whether any of the equations determining $\gamma$ or $\mu$ are redundant. Equation (\ref{gamma_integral}) - the Law of Iterated Expectations - becomes
+\begin{align*}
+	1 &= \int_{0}^{\infty} \mu(m) \gamma(m) dm \\
+	  &= C_{\mu} C_{\gamma} \int_0^{\infty} \exp\Big\{ - \int_0^m \frac{a'(m') + \tau(m')}{a(m')} dm' \Big\} \exp\Big\{ -g \int_{0}^{m} a(m')^{-1}  \Big\} dm \\
+	  &= C_{\mu} C_{\gamma} \int_0^{\infty} \exp\Big\{ - \int_0^m \frac{g + a'(m') + \tau(m')}{a(m')} dm' \Big\} dm
+\end{align*}
+
+Doesn't look like anything can be done. Ok, how about (\ref{gamma_consistency})? Substituting in the above functional form, we see that $C_{\gamma} = \gamma(0)$ hence (\ref{gamma_consistency}) becomes
+\begin{align*}
+	C_{\gamma} &=  \lambda \times \frac{\int_{0}^{\infty} \gamma(m) \tau(m) \mu(m) dm}{\int_{0}^{\infty}\tau(m) \mu(m) dm}
+\end{align*}
+
+\paragraph{Simple case of constant drift / innovation arrival ($a(m) \equiv a, \tau(m) \equiv \tau$)}
+
+What happens if we set $\chi_E \le \chi_S$? Then, in actuality, the equilibrium of the model has constant $a(m) \equiv a$ and $\tau(m) \equiv \tau$, since spinouts are redundant. We also have in this case $w(m) \equiv \bar{w}$ in equilibrium. Moreover, we may even be able to get closed forms for everything. What happens with $\gamma_t(m)$ in this case? Is there a $\gamma_0(m)$ which would remain constant if we ran the model forward? If not, why not?
+
+In this case, the necessary conditions for a constant $\gamma_t(m) = \gamma(m)$ are 
+\begin{align*}
+	\mu(m) &= (\tau / a) e^{-(\tau/a)m} \\
+	\gamma(m) &= \lambda e^{-(g/a)m} \\
+	1 &= \int_0^{\infty} \gamma(m) \mu(m) dm
+\end{align*}
+
+Substituting the first two into the last yields
+\begin{align*}
+	1 &= (\lambda \tau / a)  \int_0^{\infty} e^{-(g/a)m} e^{-(\tau/a)m} dm \\ 
+	  &= (\lambda \tau / a)  \int_0^{\infty} e^{-((g + \tau)/a)m} dm
+\end{align*}
+
+This imposes a relationship between $\lambda$,$\tau$, and $a$.
+
+We also have (\ref{growth_aggregation}), using the fact that $\tau(m)$ is constant, 
+\begin{align*}
+	g &= (\lambda-1) \tau 
+\end{align*}
+
+Substituting this in we get 
+\begin{align*}
+	1 &= (\lambda \tau / a) \int_0^{\infty} e^{\lambda \tau / a} m dm \\
+	  &= 1
+\end{align*}
+
+so that there exists a BGP. So in this case, it works!
+
+\subsection{Solving the general case}
+The basic idea is that we can make a change of variables $m \to m'$ so that the drift in the $m'$ direction is constant. Hence, we can assume without loss of generality that $a(m) = 1$. Although, we do have to slightly modify the equations - essentially now we replace (\ref{a_def}) with $a(m) = 1$, because $1$ is what goes into the KF equation, etc. 
+
+This implies that
+\begin{align*}
+	\mu(m) &= C_{\mu} \exp \Big\{  -\int_{0}^{m} \tau(m') dm'\Big\} \\
+	1 &= \int_{0}^{\infty} \mu(m) dm \\
+	\gamma(m) &= C_{\gamma} e^{-gm} \\
+	1 &= \int_{0}^{\infty}\gamma(m) \mu(m) dm \\ 
+	C_{\gamma} &= \lambda \times \frac{\int_{0}^{\infty} \mu(m) \tau(m) \gamma(m) dm}{\int_{0}^{\infty} \mu(m) \tau(m)dm} \\
+	g &= (\lambda -1) \int_{0}^{\infty} \tau(m) \gamma(m) \mu(m) dm
+\end{align*}
+
+Substitute out the functional equations into the integrals to arrive at 4 equations in 3 1-dimensional unknowns:
+\begin{align*}
+	C_{\mu}^{-1} &= \int_{0}^{\infty} \exp \Big\{ -\int_0^m \tau(m') dm'\Big\} dm \\
+	C_{\gamma}^{-1} &= \int_{0}^{\infty} e^{-gm}  C_{\mu} \exp \Big\{ - \int_0^m \tau(m') dm'\Big\} dm \\
+	C_{\gamma} &= \lambda \times  \frac{ C_{\gamma} C_{\mu} \int_{0}^{\infty} \exp \Big\{  -\int_{0}^{m} \tau(m') dm'\Big\}  \tau(m) e^{-gm} dm}{C_{\mu} \int_{0}^{\infty} \exp \Big\{  -\int_{0}^{m} \tau(m') dm'\Big\}  \tau(m) dm} \\
+	g &= (\lambda -1) C_{\gamma} C_{\mu} \int_{0}^{\infty} \tau(m) e^{-gm} \exp \Big\{  -\int_{0}^{m} \tau(m') dm'\Big\}   dm
+\end{align*}
+
+We can further simplify a bit: 
+\begin{align*}
+C_{\mu}^{-1} &= \int_{0}^{\infty} \exp \Big\{- \int_0^m \tau(m') dm'\Big\} dm \\
+C_{\gamma}^{-1} &= \int_{0}^{\infty} e^{-gm}  C_{\mu} \exp \Big\{-\int_0^m \tau(m') dm'\Big\} dm \\
+1 &= \lambda \times  \frac{ \int_{0}^{\infty} \exp \Big\{  -\int_{0}^{m} \tau(m') dm'\Big\}  \tau(m) e^{-gm} dm}{\int_{0}^{\infty} \exp \Big\{  -\int_{0}^{m} \tau(m') dm'\Big\}  \tau(m) dm} \\
+g &= (\lambda -1) C_{\gamma} C_{\mu} \int_{0}^{\infty} \tau(m) e^{-gm} \exp \Big\{  -\int_{0}^{m} \tau(m') dm'\Big\}   dm
+\end{align*}
+
+Given $\tau(m)$, the first equation yields $C_{\mu}$. The third equation yields $g$. The second equation then yields $C_{\gamma}$. Hence, the fourth equation cannot impose any additional restrictions - it must be redundant in order for this system to have a solution. Note that we know this even though there is nothing linear about this system, since I can prove that given $\tau(m)$ there is one choice of $C_{\mu}, g, C_{\gamma}$ consistent with the first three equations. 
+
+Furthermore, we have 
+\begin{align*}
+	\int_{0}^{\infty} \tau(m) e^{-\int_0^m \tau(m')dm'} dm &= 1 
+\end{align*}
+
+This follows because 
+\begin{align*}
+	\frac{d}{dm} \big[ -e^{-\int_0^m \tau(m')dm'} \big] &= \tau(m)e^{-\int_0^m \tau(m')dm'}
+\end{align*}
+
+Since $\lim_{m \to \infty} e^{-\int_0^m \tau(m')dm'} = 0$ and $e^{-\int_0^0 \tau(m')dm'} = 1$, this implies the first equation. Similarly, can get
+\begin{align*}
+	\int_0^{\infty} \tau(m)e^{-\int_0^m g + \tau(m')dm'} dm &= 1 - g C_{\gamma}^{-1} C_{\mu}^{-1}
+\end{align*}
+
+To see this, note that
+\begin{align*}
+		\frac{d}{dm} \big[ -e^{-\int_0^m g + \tau(m')dm'} \big] &= (g +\tau(m))e^{-\int_0^m g + \tau(m')dm'}
+\end{align*}
+
+This means that 
+\begin{align*}
+	1 &= \int_0^{\infty} (g + \tau(m)) e^{-\int_0^m g+ \tau(m')dm'} dm \\
+	1 - g\int_0^{\infty} e^{-\int_0^m g + \tau(m') dm'} dm &= \int_0^{\infty} \tau(m) e^{-\int_0^m g+ \tau(m')dm'} dm \\ 
+	1 - g C_{\gamma}^{-1} C_{\mu}^{-1} &= \int_0^{\infty} \tau(m) e^{-\int_0^m g+ \tau(m')dm'} dm
+\end{align*}
+after substituting in the second equation.
+
+Substituting these relationships into the system, it becomes:
+\begin{align*}
+	C_{\mu}^{-1} &= \int_0^{\infty} e^{-\int_0^m \tau(m')dm'}dm \\
+	C_{\gamma}^{-1} C_{\mu}^{-1} &= \int_0^{\infty} e^{-\int_0^m g + \tau(m') dm'} dm \\
+	1 &= \lambda (1 - gC_{\gamma}^{-1} C_{\mu}^{-1}) \\ 
+	g &= (\lambda -1) C_{\gamma}C_{\mu} (1 - gC_{\gamma}^{-1} C_{\mu}^{-1}) 
+\end{align*}
+
+Now define a new variable $C = (C_{\gamma}C_{\mu})^{-1}$. The system is now
+\begin{align*}
+	C &= (C_{\gamma}C_{\mu})^{-1} \\
+	C_{\mu}^{-1} &= \int_0^{\infty} e^{-\int_0^m \tau(m')dm'} dm \\
+	C &= \int_0^{\infty} e^{-\int_0^m g + \tau(m') dm'} dm \\
+	1 &= \lambda (1 - gC) \\
+	g &= (\lambda -1) C^{-1}(1 - gC)
+\end{align*}
+
+It can be easily shown now that the last two equations are redundant. The last equation boils down to 
+\begin{align*}
+	g &= (\lambda -1) (C^{-1} - g) \\
+	g (1 + \lambda - 1) &= (\lambda -1) C^{-1} \\ 
+	g &= \frac{\lambda -1}{\lambda} C^{-1}  
+\end{align*}
+
+The fourth equation also amounts to the same:
+\begin{align*}
+	1 &= \lambda(1 - gC) \\
+	1 &= \lambda - \lambda g C\\
+	g &= \frac{\lambda -1}{\lambda } C^{-1}
+\end{align*}
+
+Hence we drop one of the equations. We now can use the second and third or second and fourth equations to determine $C,g$. I still have to show that there exists a $g$ such that
+\begin{align*}
+	g &= \frac{\lambda -1}{\lambda} \Big( \int_{0}^{\infty} e^{-\int_0^m g + \tau(m') dm'} dm  \Big)
+\end{align*}
+
+Both LHS and RHS are continuous. As $g$ increases from $0$ to $+\infty$, the RHS goes from some positive number to 0. By the intermediate value theorem there exists some $g$ solving the equation (there could be several). Then $C$ is computed from $g$ according to $C = \frac{\lambda - 1}{\lambda} g^{-1}$. 
+
+Once we know that there exist $g,C$ solving the system, we know that $C_{\mu}$ is well-defined by 
+\begin{align*}
+	C_{\mu}^{-1} &=\int_0^{\infty} e^{-\int_0^m \tau(m')dm'} dm
+\end{align*}
+
+and $C_{\gamma}$ is well-defined by $C_{\gamma} = C^{-1} C_{\mu}^{-1}$. 
+
+\paragraph{Case 1: Constant $\tau(m) \equiv \tau$}
+
+The system becomes
+\begin{align*}
+	C_{\mu}^{-1} &= \int_{0}^{\infty} e^{-\tau m} dm \\
+	C_{\gamma}^{-1} &= C_{\mu} \int_{0}^{\infty} e^{-(g+\tau)m}  dm \\
+	1 &= \lambda \times  \frac{ \int_{0}^{\infty} e^{-(g+\tau)m} dm}{\int_{0}^{\infty} e^{-\tau m}dm} \\
+	g &= (\lambda -1) \tau C_{\gamma} C_{\mu} \int_{0}^{\infty} e^{-(g+\tau)m} dm
+\end{align*}
+
+The first two equations immediately yield $C_{\mu} = \tau$ and $C_{\gamma} = \frac{g+\tau}{\tau}$. By substitution, the fourth equation yields $g = (\lambda - 1)\tau$. Substituting into the third equation yields $1 = 1$, i.e. we have a solution.
+
+\paragraph{Case 2: Non-constant $\tau(m)$}
+
+First, suppose we have 
+\begin{align*}
+	\tau(m) =  \begin{cases} 
+	0 & m < m^*  \\
+	\tau^* & m \ge m^*
+	\end{cases}
+\end{align*}
+
+The first equation becomes
+\begin{align*}
+	\mu(m) &= C_{\mu} e^{-\max(0,\tau^*(m-m^*))} \\
+	\Leftrightarrow	\mu(m) &=  \begin{cases} 
+	C_{\mu} & m < m^*  \\
+	C_{\mu}e^{-\tau^*(m-m^*)} & m \ge m^*
+	\end{cases}
+\end{align*}
+
+Plugging this into the second equation yields a closed-form expression for $C_{\mu}$: 
+\begin{align*}
+	C_{\mu}^{-1} &= \int_{0}^{m^*} 1 dm + \int_{m^*}^{\infty} e^{-\tau^*(m-m^*)} dm \\ 
+				 &= m^* + \int_{0}^{\infty} e^{-\tau^* m'} dm' \\
+				 &= m^* + \frac{1}{\tau^*}
+\end{align*}
+
+Putting this together, we have a closed form expression for $\mu(m)$:
+\begin{align*}
+	\mu(m) &= \Big(m^* + \frac{1}{\tau^*} \Big)e^{-\max(0,\tau^*(m-m^*))} \\
+	\Leftrightarrow	\mu(m) &=  \begin{cases} 
+	m^* + \frac{1}{\tau^*} & m < m^*  \\
+	\Big(m^* + \frac{1}{\tau^*}\Big)e^{-\tau^*(m-m^*)} & m \ge m^*
+	\end{cases}	
+\end{align*}
+
+Next, plugging $\mu(m)$ and the third equation into the fourth equation yields a closed form expression for $C_{\gamma}$ (involving $g$): 
+\begin{align*}
+	C_{\gamma}^{-1} &= \int_0^{\infty} e^{-gm} \mu(m) dm \\
+				    &= \big(m^* + \frac{1}{\tau^*}\big)\Big(\int_{0}^{m^*} e^{-gm} dm + \int_{m^*}^{\infty} e^{-gm} e^{-\tau^*(m-m^*)}dm \Big) \\
+				    &= \big(m^* + \frac{1}{\tau^*}\big)\Big( \frac{1}{g} (1-e^{-gm^*})  + e^{\tau m^*} (\frac{1}{g+\tau^*} )e^{-(g+\tau^*)m^*} \Big) 
+\end{align*}
+
+This yields a closed form expression for $\gamma(m)$, also involving $g$. Divide both sides of the fourth equation by $C_{\gamma}$ to obtain 
+\begin{align*}
+	1 = \lambda \times \frac{\int_0^{\infty} \mu(m) \tau(m) e^{-gm} dm}{\int_{0}^{\infty} \mu(m) \tau(m) dm}
+\end{align*}
+
+Plugging the expression for $\mu(m)$ into this equation yields an equation which implicitly defines $g$, given $m^*,\tau^*$. Provided there is a $g$ which solves the equation, call it $g_1(m^*,\tau^*)$. Similarly, plugging the expressions for $\mu(m),\gamma(m)$ into the fifth equation, 
+\begin{align*}
+	g = (\lambda -1) \int_{0}^{\infty} \tau(m) \gamma(m) \mu(m) dm
+\end{align*}
+
+yields a separate equation implicitly defining $g$ in terms of $m^*,\tau^*$. Provided there is a solution $g$, call it $g_2(m^*,\tau^*)$. The system has a solution if and only if (1) both equations have solutions, and (2) $g_1(m^*,\tau^*) = g_2(m^*,\tau^*)$. 
+
+\paragraph{KF equation for joint distribution of $(q,m)$}
+
+This approach would have me write out the KF equation for the evolution of the joint distribution of $(q,m)$ and see if it gives me any insight.
+
+KF equations: for $m > 0$ have
+\begin{align*}
+	\partial_t \mu_t(\tilde{q},m) = -\partial_{\tilde{q}} \big[ a^{\tilde{q}} (\tilde{q},m) \mu_t(\tilde{q},m)  \big] -\partial_{m} \big[ a^{m} (\tilde{q},m) \mu_t(\tilde{q},m)  \big] - \tau(m)\mu_t(\tilde{q},m)
+\end{align*}
+
+As before, changing variables allows us to transform the problem into one in which $a^m(\tilde{q},m) \equiv 1$. Further, we have $a^{\tilde{q}} (\tilde{q},m) = - g\tilde{q}$ is independent of $m$. The KF equation becomes
+\begin{align*}
+	\partial_t \mu_t(\tilde{q},m) = -\partial_{\tilde{q}} \big[ -g\tilde{q} \mu_t(\tilde{q},m)  \big] -\partial_{m} \mu_t(\tilde{q},m) - \tau(m)\mu_t(\tilde{q},m)
+\end{align*}
+
+Next, multiply both sides by $\tilde{q}$ and integrate both sides over $(0,\infty)$ to get the following:
+\begin{align*}
+	\int_0^{\infty} \partial_t \mu_t(\tilde{q},m) d\tilde{q} &= g \int_0^{\infty} \tilde{q} \mu_t(\tilde{q},m) d\tilde{q} + g \int_{0}^{\infty} \tilde{q}^{2} \partial_{\tilde{q}}\mu_t(\tilde{q},m) d\tilde{q}  \\
+	& - \int_{0}^{\infty} \partial_m \tilde{q}\mu_t(\tilde{q},m) d\tilde{q} - \tau(m)  \int_0^{\infty} \tilde{q}\mu_t(\tilde{q},m) d\tilde{q}
+\end{align*}
+
+Except for the second term on the RHS, all of the above are equal to some constant in $\tilde{q}$ (not necessarily in $m$) multiplied by $E_t[\tilde{q}|m]$ (after suitably interchanging the order of differentiation and integration). For the second term, we integrate by parts:
+\begin{align*}
+	\int_0^{\infty} \tilde{q}^2 \partial_{\tilde{q}} \mu_t (\tilde{q},m) d\tilde{q} &= \tilde{q}^2 \mu_t(\tilde{q},m) \big |^{\infty}_0 - \int_0^{\infty} 2 \tilde{q} \mu_t (\tilde{q},m) d\tilde{q}\\
+			   &= 0 - \int_0^{\infty} 2 \tilde{q} \mu_t (\tilde{q},m) d\tilde{q}
+\end{align*}
+
+Plugging all of this into the RHS, get
+\begin{align*}
+	\frac{d}{dt} E_{\mu_t}[\tilde{q}|m] &= -g E_{\mu_t} [\tilde{q}|m] - \partial_m E_{\mu_t}[\tilde{q}|m] - \tau(m)E_{\mu_t}[\tilde{q},m]
+\end{align*}
+
+Setting the LHS equal to 0 yields a necessary condition for the conditional mean of $\tilde{q}$ given $m$ to be constant over time. Using notation $\gamma_t (m) = E_{\mu_t} [\tilde{q}|m]$ as before, have
+\begin{align*}
+	\gamma'(m) = -(g + \tau(m)) \gamma(m)
+\end{align*}
+
+This directly contradicts the condition I derived when working directly with the object $\gamma(m)$, 
+\begin{align*}
+	\gamma'(m) = -g \gamma(m) 
+\end{align*}
+
+What explains this discrepancy? One potential explanation for the discrepancy is that in the latter case I am truly  talking about the expected mean. Whereas in the former case I am not controlling for the fact that $\tau$ leads to the total mass shrinking over time. So I am pretty sure that they are actually the same condition if I made this change.
+
+The more troubling issue for this approach is that it doesn't really give me anything new. It gives me a necessary condition analogous to the necessary condition I could already derive. The hard part - equation (\ref{gamma_consistency}) - I am not even discussing directly because that would require me to understand how to think about the KF equation when it comes to the injection site...
+
+And this equation is correct - if start with $\mu_0(\tilde{q},m)$ satisfying the consistency condition, then for every $m > 0$ there is a time step $\Delta(m) > 0$ such that everything continues to hold at time $\Delta(m)$. 
+
+In any case, this approach does not really work. The reason is that $\mu_t(\tilde{q},m)$ is in general not differentiable everywhere (see discussion above). The KF equation only holds at a steady state. 
+
+
+
+
+
+
+
+
+
+
+\pagebreak
+
+
+
+
+
+
+
+
+
+\paragraph{Differential equation for evolution of $\gamma_t(m)$ - deprecated}
+First, we need to think about how $m$ moves. Essentially, there is some function $a(m)$ such that $m$ satisfies the differential equation 
+\begin{align*}
+\dot{m} = a(m)
+\end{align*} 
+
+For a given $m_0 > 0$ and for small enough $\Delta$ (i.e. depending on $m_0$), the differential equation above tells us $m^{\Delta}(m_0)$, i.e. what the state $m'$ would have been $\Delta$ time units ago. Not sure how to write this in closed form, but anyway. Have: 
+\begin{align*}
+\gamma_{t_0+\Delta} (m_0) &= e^{-g \Delta} \gamma_{t_0}(m^\Delta(m_0)) \\
+\gamma_{t_0 + \Delta} (m_0) - \gamma_{t_0} (m_0) &= e^{-g \Delta} \gamma_{t_0}(m^{\Delta}(m_0)) - \gamma_{t_0}(m_0) \\
+\frac{\gamma_{t+\Delta} - \gamma_{t_0}(m_0)}{\Delta} &= \frac{e^{-g\Delta} \gamma_{t_0}(m^{\Delta}(m_0)) - \gamma_{t_0}(m_0)}{\Delta}
+\end{align*}
+
+Letting $F(t,t_0,m_0) = e^{-g(t-t_0)}\gamma_{t_0}(m^{t-t_0}(m_0))$, we can see that the RHS is just 
+\begin{align*}
+\frac{F(t_0+\Delta,t_0,m_0) - F(t_0,t_0,m_0)}{\Delta}
+\end{align*}
+
+Finally, take the limit as $\Delta \to 0$ on both sides of the equation. This yields 
+\begin{align*}
+\partial_t \gamma_t(m) \Big|_{t = t_0,m=m_0} &= -g \gamma_t(m) - \partial_m \gamma_t(m) \frac{dm}{dt} \Big|_{t = t_0,m=m_0}
+\end{align*}
+
+Furthermore, we pin down $\gamma_t(0)$ by (is this right? ask John maybe??)
+\begin{align*}
+\gamma_t(0) = \lambda \times \frac{\int_{0}^{\infty} \gamma_t(m) \tau_t(m) \mu_t(m) dm}{\int_{0}^{\infty} \tau_t(m) \mu_t(m) dm}
+\end{align*}
+
+As a sanity check, notice that setting $\partial_t \gamma_t(m) = 0$ yields the necessary condition for a constant $\gamma$ derived above:
+\begin{align*}
+\gamma'(m) = -\frac{g}{a(m)} \gamma(m) 
+\end{align*}
+
+\end{document}

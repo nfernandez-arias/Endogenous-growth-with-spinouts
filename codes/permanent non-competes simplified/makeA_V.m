@@ -14,7 +14,7 @@ function out = makeA_V(pa,pm,ig,zI_0)
 
 	end
 	
-	Amat(Imax,1) = zI_0(Imax) * pm.chi_I * pm.phi(zI_0(Imax)) * pm.lambda; 
+	Amat(Imax,1) =  zI_0(Imax) * pm.chi_I * pm.phi(zI_0(Imax)) * pm.lambda;
 	Amat(Imax,Imax) = - zI_0(Imax) * pm.chi_I * phi(zI_0(Imax)) - (ig.zE(Imax) * pm.chi_E + ig.zS(Imax) * pm.chi_S) * pm.eta(ig.zE(Imax) + ig.zS(Imax));
 	
 	out = Amat;
