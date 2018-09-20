@@ -1,0 +1,187 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+\title{Numerical Algorithm for computing BGP in ``Endogenous Growth with Creative Destruction and Employee Spinouts''}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Outline}
+
+\begin{enumerate}
+	\item Iterate on $L_{RD}$. Guess $L^0_{RD}$.  
+	\item Compute implied $\bar{w},\pi$.
+	\item Iterate on wage $w^0(m)$. 
+	\begin{enumerate}
+		\item Guess $w^0(m) \equiv w^0$.
+		\item Iterate on $z_E,z_S$ to find Nash equilibrium of R\&D race game.
+		\begin{enumerate}
+			\item Guess $z_E^0(m) \equiv z_E^0 > 0$
+			\item Guess $z_S^0(m) \equiv z_S^0 > 0$ small.
+			\item Calculate $V,z_I(m)$ by solving HJB (Moll's method, implicit)
+			\item Compute
+			\begin{align*}
+			z_E^1(m) &= z_E^0(m) \cdot \frac{\chi_E \eta \big(z_E^0(m) + z_S^0(m)\big)V(0)}{w^0(m)} \\
+			z_S^1(m) &= \min\Bigg\{\xi m,z_S^0(m) \cdot \frac{\chi_S \eta \big(z_E^0(m) + z_S^0(m)\big)V(0)}{w^0(m)}\Bigg\}
+			\end{align*}
+			\item Check convergence. If converged, go to (c).
+			\item If not converged, have new guesses
+			\begin{align*}
+			z_E(m) &= \alpha_E z_E^1(m) + (1-\alpha_E) z_E^0(m) \\
+			z_S(m) &= \alpha_S z_S^1(m) + (1-\alpha_S) z_S^0(m) 
+			\end{align*}
+			and also threshold $m$ such that
+			\begin{align*}
+				\forall m' > m, z_s(m) < \xi m
+			\end{align*}
+			and go back to (iii). 
+		\end{enumerate} 
+		\item Compute $W$ directly from HJB (Moll's method not required). Use boundary condition $W'(\bar{m}) = 0$ and assume R\&D intensity equal to $\xi$ (given NE from 3(b), individual spinouts either want to be at maximum scale or are indifferent)
+		\item Compute $w^1(m) =  \bar{w} - \nu W(m)$.
+		\item Check convergence. If converged, go to 4. 
+		\item If not converged, update guess 
+		\begin{align*}
+			w(m) = \alpha_w w^1(m) + (1-\alpha_w) w^0 (m) 
+		\end{align*} 
+		and go back to 3(b).
+	\end{enumerate}
+	\item Compute $\mu$ by solving KF equation (in detail below) 
+	\item Use $\mu$ and aggregate policy functions from 3(b) to compute R\&D labor demand $L^1_{RD}$.
+	\item Check convergence. If converged, go to 4. 
+	\item If not converged, new guess
+	\begin{align*}
+	L_{RD} &= \alpha_L L^1_{RD} + (1-\alpha_L) L^0_{RD} 
+	\end{align*}
+	and go back to 2. 
+\end{enumerate}
+
+\section{Details}
+
+\subsection{HJB equations}
+
+\subsubsection{Incumbent}
+
+\paragraph{Equation to be solved}The HJB to be solved is: 
+
+\begin{align*}
+	(\rho + \tau^{SE}(m)) V(m) &= \pi + \nu (a^{SE}(m))V'(m) \\
+							   &+ \max_{z_I \ge 0} \Big\{ z_I \chi_I \phi(z_I) \big[ \lambda V(0) - V(m) \big] - z_I w(m) + z_I \nu  V'(m) \Big\}
+\end{align*}
+where
+\begin{align*}
+	\tau^{SE}(m) &\equiv (\chi_S z_S(m) + \chi_E z_E(m)) \hat{\phi}(a_{SE}(m)) \\
+	a^{SE}(m) &\equiv z_S(m) + z_E(m) \\
+	\phi(m) &= m^{-p} \\
+	p &\in (-1,0) \\
+	\nu &> 0
+\end{align*}
+
+where $\hat{\phi}$ is the innovation production function for entrants and spinouts. \footnote{Some assumptions are being imposed here, they could be changed but that might require changing my algorithm.} 
+
+\paragraph{Algorithm} Given flow profits $\pi$, non-R\&D wage $\bar{w}$, R\&D wages $w(m)$, etc., the algorithm proceeds as follows:
+
+\begin{enumerate}
+	\item Guess terminal value $V_0(m) = \pi / \rho$
+	\begin{itemize}
+		\item This is NPV of a perpetual monopoly on a given product line, assuming no investment in R\&D (and hence no innovation)
+		\item Another reasonable guess would be $V_0(m) = \pi / (\rho - g)$ for some growth rate $g$
+	\end{itemize}
+	\item Implement semi-implicit method:\footnote{Roughly, solving time-dependent version of HJB backwards, given terminal condition, and hoping that in the infinite past it converges to the time-independent solution.}
+	\begin{enumerate}
+		\item \textbf{Discretize HJB} Since the direction of a product line's drift in $m$-space does not depend on the policy function of the incumbent, upwind scheme is easy to implement. Discretization results in
+		\begin{align*}
+			\frac{V_i^{n+1} - V_i^{n}}{\Delta_t} + (\rho + \tau^{SE}_i)V_i^{n+1} &= \pi + \nu a_I^{SE} \frac{V_{i+1}^{n+1} - V_i^{n+1}}{\Delta_m} \\
+			          &+ z^{I,n}_i \Big( \chi_I \phi(z^{I,n}_i) \big[ \lambda V^{n+1}_1 - V^{n+1}_i \big] - w_i + \nu \frac{V_{i+1}^{n+1} - V_i^{n+1}}{\Delta_m} \Big)
+		\end{align*}
+		\item \textbf{State constraints} There are no state constraints in this problem - the only constraint is that $z_I \ge 0$, which I can insure by hard-coding the constraint at the moment of optimization.\footnote{I am not using a closed form FOC for optimization, so I don't need to worry about cases in which the FOC doesn't hold, which is the only reason state constraints might not be trivial to handle}
+		\item \textbf{Calculating optimal policy $z_I^{*,n}(m)$:} Given result of previous iteration $V_n(m)$ (or initial guess if $n = 0$), calculate optimal incumbent R\&D policy $z_I^{*,n}(m)$ by maximizing RHS side of HJB in (a), with $n$ instead of $n+1$ superscripts:
+		\begin{align*}
+			z_I^{*,n} (m) &= \arg \max_{z \ge 0}  z \Big( \chi_I \phi(z) \big[ \lambda V^n_1 - V^n_i \big] - w_i + \frac{V_{i+1}^n - V_i^n}{\Delta_m} \Big)
+		\end{align*} 
+		\item \textbf{Constructing matrix $A^n$ for update step} This step is just a matter of carefully translating the above into matrix notation. For $i < I_{\max}$, 
+		\begin{align*}
+			A_{i,1}^n &= z^{I,n}_i \chi_I \phi(z^{I,n}_i) \lambda \\
+			A_{i,i+1}^n &= \nu \frac{a^{SE}_i + z^{I,n}_i}{\Delta_m} \\
+			A_{i,i}^n &= -\nu \frac{a^{SE}_i + z^{I,n}_i}{\Delta_m} - z^{I,n}_i \chi_I \phi(z^{I,n}_i) - \tau^{SE}_i 
+		\end{align*} 
+		At $i = I_{\max}$, I am not sure what to do. So far I have set essentially set the right-derivative of $V$ to be zero at $I_{\max}$.
+		\begin{align*}
+			A_{I_{\max},1} &= z^{I,n}_{I_{\max}} \chi_I \phi(z^{I,n}_{I_{\max}}) \lambda \\
+			A_{I_{\max},I_{\max}} &= - z^{I,n}_{I_{\max}} \chi_I \phi(z^{I,n}_{I_{\max}}) - a^{SE}_{I_{\max}}
+		\end{align*}
+		\item \textbf{Final equation} Following the HACT numerical appendix, the system can be written 
+		\begin{align*}
+			B^n V^{n+1} &= b^n \\
+			B^n &\equiv \Big( \frac{1}{\Delta_t} + \rho \Big) I - A^n \\
+			b^n &\equiv u^n + \frac{1}{\Delta_t} V^{n} \\
+			u^n_i &\equiv \pi - z^{I,n}_i w_i 
+		\end{align*}
+		which I solve in Matlab.
+	\end{enumerate}
+\end{enumerate}
+
+\paragraph{Troubleshooting}
+
+Given a guess that $w(m)$ is constant and some generic weakly increasing guesses for $\tau^{SE}(m), a^{SE}(m)$, which is what I expect in equilibrium, I get the strange result that the algorithm seems to converge but $V$ is not decreasing. Intuitively, the equilibrium $V$ should really be strictly decreasing; and in partial equilibrium, constant $w(m)$ should ensure this too. 
+
+Two questions:
+
+\begin{enumerate}
+	\item Could this be arising from what I do at the boundary? 
+	\item Could this be because the implicit method doesn't work in this case? I've tried changing it essentially by replacing the superscript on $V(0)$ in the HJB update step from $n+1$ to $n$, but this seems to introduce new problems of its own. 
+\end{enumerate}
+
+There also seems to be another issue near the edge of the state space in my current version of the algorithm, 
+
+
+ 
+
+
+\subsubsection{Potential Spinout}
+
+\subsection{KF equation}
+
+Solving the KF equation is easy. A given line $j$ starts in the state $m = 0$. Subsequently $m$ grows deterministically until a shock occurs, resetting $m$ to zero. Hence, there is no point mass at 0 individually, and there will be no point mass at 0 in the cross section. 
+
+Let $\tau(m)$ denote the aggregate rate of arrival of innovations. Let $a(m)$ denote the rate of drift. Both of these depend on R\&D by the incumbent, spinouts and other entrants. The KF equation for $m > 0$ is 
+\begin{align*}
+	0 &= -a'(m)\mu(m) - a(m)\mu'(m) - \tau(m)\mu(m) \\
+	\mu'(m) &= -\frac{a'(m) + \tau(m)}{a(m)} \mu(m)
+\end{align*}
+which has solution 
+\begin{align*}
+	\mu(m) = C\exp \Bigg\{ - \int_0^m \frac{a'(m') + \tau(m')}{a(m')} dm'    \Bigg\}
+\end{align*}
+with $C$ chosen so that $\int_0^{\infty} = 1$, which we will approximate by numerically integrating until $\bar{m}$. If chosen large enough, this should be fine, since in equilibrium the density decays exponentially. 
+
+Furthermore, in equilibrium there is a bijection between $m$, the current mass of spinouts, and $s$, the amount of time that has elapsed since the last innovation on that product line. By construction, particles drift at constant rate 1 in $s$-space. And $\hat{\tau}(s) = \tau(m(s))$. Hence, the density $\hat{\mu(s)}$ is determined by the equations below:
+\begin{align*}
+	\hat{\mu}(s) &= Ce^{-\int_0^s \hat{\tau}(s')ds'} \\
+	\int_0^{\infty} \hat{\mu}(s') ds' &= 1
+\end{align*}
+
+\subsection{Aggregation}
+
+(Section not written yet) I have proved elsewhere that the steps below ``work''. 
+
+
+
+
+
+
+\end{document}

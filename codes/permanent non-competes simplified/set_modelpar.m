@@ -17,12 +17,12 @@ function d = set_modelpar()
     d.Ltot = 1;
     
     % Aggregate decreasing returns to scale in innovation effort
-    d.phi_min = 0.000000001;
+    d.phi_min = 0;
     d.phi = @(z) (d.phi_min + z).^(-d.psi_I);
     
     d.phi_inv = @(x) x.^(-1/d.psi_I);
     
-    d.eta_min = 0.00000000001;
+    d.eta_min = 0;
     d.eta = @(z) (d.eta_min + z).^(-d.psi_SE); 
     
     d.eta_inv = @(x) x.^(-1/d.psi_SE);

@@ -1,9 +1,10 @@
 function out = solve_HJB_V_1d(pa,pm,ig)
 
-	%%%%%%%%%%%%%%%%
-	%% Guesses %%%%%
-	%%%%%%%%%%%%%%%%
-	
+	%%%%%%%%%%%%%%%%%%%%%%%%%
+	%% Data and guesses %%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+	% idx_M records the index of the threshold value m, such that for m' > m, zE = 0 and spinouts are at free entry condition.
 	idx_M = ig.idx_M;
 	
 	ig_V = set_init_guesses_V(pa,pm,ig);
@@ -51,6 +52,8 @@ function out = solve_HJB_V_1d(pa,pm,ig)
 		
 		while ((HJB_d > pa.HJB_V_tol) && (count <= ig_V.V_maxcount))
 		
+			%% DEPRECATED CODE %%
+			
 			%% Compute z_i^{I,n} 
 			
 			% First, for i = Imax, use V'(m_i) = 0.
@@ -70,6 +73,9 @@ function out = solve_HJB_V_1d(pa,pm,ig)
 			%size(V0(idx_M:end))
 			%size((pm.lambda * V0(1) * ones(size(ig.w(idx_M:end))) - V0(idx_M:end)))
 			%pause
+			
+			% For m > M, 
+			
 			zI_0(idx_M:end) = pm.phi_inv(ig.w(idx_M:end) ./ (pm.chi_I * (pm.lambda * V0(1) * ones(size(ig.w(idx_M:end))) - V0(idx_M:end)'))); 
 			
 			% Now calculate for i < Imax

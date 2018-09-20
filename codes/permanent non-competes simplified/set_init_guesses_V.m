@@ -21,7 +21,7 @@ function d = set_init_guesses_V(pa,pm,ig)
 		
 	else
 	
-		d.V_0 = 2*d.prof(1) / pm.rho;
+		d.V_0 = d.prof(1) / pm.rho;
 		
 	end
 	

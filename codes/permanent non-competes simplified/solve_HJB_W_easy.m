@@ -5,7 +5,7 @@ function out = solve_HJB_W_easy(pa,pm,ig,V_out)
 
 	tau = V_out.zI .* pm.chi_I .* pm.phi(V_out.zI) + (ig.zE .* pm.chi_E + ig.zS .* pm.chi_S) .* pm.eta(ig.zE + ig.zS);
 
-	% Boundary condition: Right derivative W'(Imax) = 0
+	% Boundary condition: Right derivative W'(Imax) = 0 -- probably not the right boundary condition. Actually, W will probably in general have a kink...
 	
 	W(Imax) = (pm.xi * (pm.chi_S * pm.eta (ig.zS(Imax) + ig.zE(Imax)) * V_out.V(1) - ig.w(Imax))) ...
 				/ (pm.rho + tau(Imax));

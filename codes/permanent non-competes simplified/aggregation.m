@@ -5,7 +5,9 @@ function out = aggregation(pa,pm,ng,V_out,W_out)
 	%% Implelent change of variables
 	% First, compute drift a(m): 
 	
+	
 	a = (ng.zE + ng.zS + V_out.zI) * pm.nu;
+	a_SE = (ng.zE + ng.zS) * pm.nu;
 	a_interp = griddedInterpolant(pa.m_grid,a);
 
 	% Construct t grid
@@ -29,6 +31,7 @@ function out = aggregation(pa,pm,ng,V_out,W_out)
 	% Now compute tau(t) = tau(m(t))
 	tau = (pm.chi_E * ng.zE + pm.chi_S * ng.zS) .* pm.eta(ng.zE + ng.zS) ...
 			+ pm.chi_I * V_out.zI .* pm.phi(V_out.zI);
+	tau_SE = (pm.chi_E * ng.zE + pm.chi_S * ng.zS) .* pm.eta(ng.zE + ng.zS);
 	tau_interp = griddedInterpolant(pa.m_grid,tau)
 	tauhat = zeros(size(t_grid));
 	tauhat = tau_interp(m);
@@ -123,9 +126,11 @@ function out = aggregation(pa,pm,ng,V_out,W_out)
 	out.C_mu = C_mu;
 	out.C_gamma = C_gamma;
 	out.tau = tau;
+	out.tau_SE = tau_SE;
 	out.tauhat = tauhat;
 	out.m = m;
 	out.a = a;
+	out.a_SE = a_SE;
 	%out.a_interp = a_interp;
 	out.L_RD = L_RD;
 	out.muhat = muhat;

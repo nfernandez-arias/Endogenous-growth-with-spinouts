@@ -61,7 +61,7 @@ end
 close(m);
 
 %% Plots
-
+%{
 muhat = solve_model_out.aggregation_out.muhat;
 gammahat = solve_model_out.aggregation_out.gammahat;
 tauhat = solve_model_out.aggregation_out.tauhat;
@@ -85,80 +85,54 @@ plot(tgrid,tauhat)
 title('\tau(s)')
 legend('\tau(s)')
 
-
+%}
 % Plot 2
 figure
 m = solve_model_out.aggregation_out.m;
-a = solve_model_out.aggregation_out.a;
-tau = solve_model_out.aggregation_out.tau;
+a_SE = solve_model_out.aggregation_out.a_SE;
+tau_SE = solve_model_out.aggregation_out.tau_SE;
 
-subplot(3,1,1)
-plot(tgrid,m)
-title('m(s)')
-legend('m(s)')
+subplot(4,1,1)
+plot(pa.m_grid,V_out.V)
+title('V(m)')
+legend('V(m)')
 
-subplot(3,1,2)
-plot(pa.m_grid,a)
-title('a(m)')
-legend('a(m)')
+subplot(4,1,2)
+plot(pa.m_grid,a_SE)
+title('\nu a^{SE}(m)')
+legend('\nu a^{SE}(m)')
 
-subplot(3,1,3)
-plot(pa.m_grid,tau)
-title('\tau(m)')
-legend('\tau(m)')
+subplot(4,1,3)
+plot(pa.m_grid,tau_SE)
+title('\tau^{SE}(m)')
+legend('\tau^{SE}(m)')
+
+subplot(4,1,4)
+plot(pa.m_grid,pm.chi_I * V_out.zI .* pm.phi(V_out.zI))
+title('\tau^I(m)')
+legend('\tau^I(m)')
 
 figure
 
-subplot(3,1,1)
+subplot(2,1,1)
 plot(pa.m_grid,V_out.V);
 title('V(m)')
 legend('V(m)')
 
-subplot(3,1,2)
+subplot(2,1,2)
 plot(pa.m_grid,V_out.zI);
 title('z_I(m)')
 legend('z_I(m)')
 
-W_out = solve_model_out.W_out;
-subplot(3,1,3)
-plot(pa.m_grid,W_out.W);
-title('W(m)')
-legend('W(m)')
-
-
-
-
-
-%% Plots
-
 figure
-subplot(5,1,1)
-plot(pa.m_grid,ig_V.V0)
-title('V^0(m)')
 
-subplot(5,1,2)
-plot(pa.m_grid,V_out.V)
-ccccylim([0,inf]);
-subplot(5,1,3)
-plot(pa.m_grid,V_out.zI)
-title('z_I(m)')
-ylim([0,inf])
+subplot(2,1,1)
+plot(pa.m_grid,ig.zS)
+title('z_S(m)')
+legend('z_S(m)')
 
-tau = (pm.chi_S * ig.zS  + pm.chi_E * ig.zE ) .* pm.eta(ig.zS + ig.zE);
-
-subplot(5,1,4)
-plot(pa.m_grid, ig.zE, pa.m_grid, ig.zS)
-title('z_E(m),z_S(m)')
-legend('z_E','z_S')
-
-tau_I = pm.chi_I * V_out.zI .* pm.phi( V_out.zI);
-
-subplot(5,1,5)
-plot(pa.m_grid, tau, pa.m_grid, tau_I, pa.m_grid, ig.zS  + ig.zE)
-title('Innovation effort and arrival rate')
-legend('\tau(m)','\tau_I(m)','z_E(m) + z_S(m)')
-ylim([0,inf])
-
-
-
+subplot(2,1,2)
+plot(pa.m_grid,ig.zE)
+title('z_E(m)')
+legend('z_E(m)')
 

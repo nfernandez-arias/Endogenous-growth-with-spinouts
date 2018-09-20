@@ -2,11 +2,11 @@ function d = set_init_guesses_global(pa,pm)
 
     d.L_RD =  0.1;
     d.mu(1) = 1;
-    d.w = 1.2*pm.wbar*ones(size(pa.m_grid));
+    d.w = 0.5*pm.wbar*ones(size(pa.m_grid));
     d.prof = pm.prof_func(pm.LF_func(d.L_RD));
     d.idx_M = pa.m_numpoints;
     
-    d.zS = pm.xi * pa.m_grid;
+    d.zS = min(pm.xi * pa.m_grid, 0.01);
     d.zE = 0.1*ones(size(pa.m_grid));
     
     d.L_RD_maxcount = 1;

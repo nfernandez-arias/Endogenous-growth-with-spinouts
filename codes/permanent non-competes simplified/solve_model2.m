@@ -8,12 +8,10 @@ function out = solve_model2(pa,pm,ig)
     
     ng = ig;
     
-    %{
     ng.L_RD = ig.L_RD; 
     ng.w = ig.w;
     ng.zS = ig.zS;
     ng.zE = ig.zE;
-    %}
     
     frame_freq = 1;
     F(1) = struct('cdata',[],'colormap',[]);
@@ -27,11 +25,9 @@ function out = solve_model2(pa,pm,ig)
     while ((L_RD_d > pa.L_RD_tol) && (L_RD_count <= ig.L_RD_maxcount))
     
 		% Closed form for production wage and static profit - depends on guess L_RD
-		%%%%%%%%%%%%%%%%%%%%%%%%%%
-		%% NEED TO ADD THIS %%%
-		%%%%%%%%%%%%%%%%%%%%%%%%%%
-		wbar = ones(size(pa.m_grid));
-		prof = ones(size(pa.m_grid));
+	
+		wbar = pm.wbar * ones(size(pa.m_grid));
+		prof = pm.prof_func(pm.LF_func(ng.L_RD)) * ones(size(pa.m_grid));
 		
 		w_count = 1;
 		w_d = 1;
@@ -50,11 +46,10 @@ function out = solve_model2(pa,pm,ig)
 				J(w_count/frame_freq) = getframe(j);
 			end
 		
-			% Now have wage guess
 			% Next, we solve the game played between entrants and incumbents, 
-			% taking flow profits and wages as given.
+			% taking flow profits \pi and wages w(m),wbar as given.
 			
-			% We iterate on spinout R&D effort zS and entrant R&D free entry threshold zbar
+			% We iterate on spinout R&D effort zS and entrant R&D effort zE
 			
 			z_count = 1;
 			
@@ -71,7 +66,6 @@ function out = solve_model2(pa,pm,ig)
 			
 				V_out = solve_HJB_V_1d(pa,pm,ng);
 				
-				% Consistency 
 				% Construct zE1, zS1 given V_out.V, R&D wages using free entry
 				
 				zSstar = pm.eta_inv(ng.w / (pm.chi_S * V_out.V(1)));
@@ -89,9 +83,13 @@ function out = solve_model2(pa,pm,ig)
 				else
 					ng.idx_M = temp2;
 				end
+			
+				% Compute differences
 				
 				zE_d = sqrt(sumsqr(zE1 - ng.zE));
 				zS_d = sqrt(sumsqr(zS1 - ng.zS));
+				
+				% Update guesses
 				
 				ng.zE = pa.zE_UR * zE1 + (1- pa.zE_UR) * ng.zE;
 				ng.zS = pa.zS_UR * zS1 + (1- pa.zS_UR) * ng.zS;

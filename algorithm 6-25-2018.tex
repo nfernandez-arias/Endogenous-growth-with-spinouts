@@ -40,10 +40,14 @@
 			z_S^1(m) &= \min\Bigg\{\xi m,z_S^0(m) \cdot \frac{\chi_S \eta \big(z_E^0(m) + z_S^0(m)\big)V(0)}{w^0(m)}\Bigg\}
 			\end{align*}
 			\item Check convergence. If converged, go to (c).
-			\item If not converged, new guesses
+			\item If not converged, have new guesses
 			\begin{align*}
 			z_E(m) &= \alpha_E z_E^1(m) + (1-\alpha_E) z_E^0(m) \\
 			z_S(m) &= \alpha_S z_S^1(m) + (1-\alpha_S) z_S^0(m) 
+			\end{align*}
+			and also threshold $m$ such that
+			\begin{align*}
+				\forall m' > m, z_s(m) < \xi m
 			\end{align*}
 			and go back to (iii). 
 		\end{enumerate} 
@@ -66,7 +70,33 @@
 	and go back to 2. 
 \end{enumerate}
 
-\section{KF equation}
+\section{Details}
+
+\subsection{HJB equations}
+
+\subsubsection{Incumbent}
+
+Current algorithm is inspired by Moll's HACT. Given flow profits $\pi$, non-R\&D wage $\bar{w}$, and R\&D wages $w(m)$, the algorithm proceeds as follows:
+
+\begin{enumerate}
+	\item Guess terminal value $V_0(m) = \pi / \rho$
+	\begin{itemize}
+		\item This is NPV of a perpetual monopoly on a given product line, assuming no investment in R\&D (and hence no innovation)
+		\item Trying to follow spirit of HACT appendix, i.e. "value of staying put."
+	\end{itemize}
+	\item Semi-implicit method:
+	\begin{enumerate}
+		\item Roughly, solving time-dependent version of HJB backwards, given terminal condition, and hoping that in the infinite past it converges to the time-independent solution
+		\item There are no state constraints in this problem - the only constraint is that $z_I \ge 0$, but this should be guaranteed by the fact that the marginal return of innovation effort goes to $+\infty$ as $z_I \to 0$ from above. 
+		\item Discretize HJB. Since sign of drift is known (always positive), upwind scheme is easy: always use same finite difference approximation to derivative terms
+		\item Given: $V_n(m)$ guess, calculate optimal incumbent R\&D policy $z_I^{*,n}(m)$ using $V_n(m)$ (this is why method is only semi-implicit, following HACT notes)
+		\item Perform implicit update step. Essentially, the 
+	\end{enumerate}
+\end{enumerate}
+
+\subsubsection{Potential Spinout}
+
+\subsection{KF equation}
 
 Solving the KF equation is easy. A given line $j$ starts in the state $m = 0$. Subsequently $m$ grows deterministically until a shock occurs, resetting $m$ to zero. Hence, there is no point mass at 0 individually, and there will be no point mass at 0 in the cross section. 
 
@@ -77,9 +107,20 @@ Let $\tau(m)$ denote the aggregate rate of arrival of innovations. Let $a(m)$ de
 \end{align*}
 which has solution 
 \begin{align*}
-	\mu(m) = C\exp \Bigg\{ - \Big(\int_0^m \frac{a'(m') + \tau(m')}{a(m')} dm'     \Big) m \Bigg\}
+	\mu(m) = C\exp \Bigg\{ - \int_0^m \frac{a'(m') + \tau(m')}{a(m')} dm'    \Bigg\}
 \end{align*}
 with $C$ chosen so that $\int_0^{\infty} = 1$, which we will approximate by numerically integrating until $\bar{m}$. If chosen large enough, this should be fine, since in equilibrium the density decays exponentially. 
+
+Furthermore, in equilibrium there is a bijection between $m$, the current mass of spinouts, and $s$, the amount of time that has elapsed since the last innovation on that product line. By construction, particles drift at constant rate 1 in $s$-space. And $\hat{\tau}(s) = \tau(m(s))$. Hence, the density $\hat{\mu(s)}$ is determined by the equations below:
+\begin{align*}
+	\hat{\mu}(s) &= Ce^{-\int_0^s \hat{\tau}(s')ds'} \\
+	\int_0^{\infty} \hat{\mu}(s') ds' &= 1
+\end{align*}
+
+
+
+
+
 
 
 
