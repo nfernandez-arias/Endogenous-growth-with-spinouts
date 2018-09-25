@@ -136,3 +136,5 @@ plot(pa.m_grid,ig.zE)
 title('z_E(m)')
 legend('z_E(m)')
 
+
+

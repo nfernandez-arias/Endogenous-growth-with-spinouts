@@ -1,0 +1,32 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+	\title{Notes from Moll Meeting 9-20-2018}
+	\author{Nicolas Fernandez-Arias}
+	\maketitle
+
+\begin{itemize}
+	\item When constructing A matrix, make sure it is a well-defined transition matrix in the sense that the rows sum to zero
+	\item Sum(A,2) - if it doesn't, then there's something wrong - e.g. if you mess up boundary conditions by randomly taking some terms out
+	\item Try exogenous zI and see if it gives me a reasonable answer
+	If that works then it should be possible to get this to work
+	\item Try just one iteration - see how the first iteration updates the guess - does it immediately develop the issue - then you can trace out where it comes from
+\end{itemize}
+\end{document}
+

@@ -1,0 +1,23 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{2}{c}}
+\toprule
+            &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}\\
+            &\multicolumn{1}{c}{estabs\_entry}&\multicolumn{1}{c}{estabs\_entry}\\
+\midrule
+rho\_h       &      -0.195         &                     \\
+            &     (-0.68)         &                     \\
+\addlinespace
+rho\_h\_lag1  &                     &      -0.197         \\
+            &                     &     (-0.57)         \\
+\addlinespace
+\_cons      &       8.398\sym{***}&       8.518\sym{***}\\
+            &     (23.55)         &     (20.11)         \\
+\midrule
+\(N\)       &        1020         &         765         \\
+adj. \(R^{2}\)&       0.721         &       0.794         \\
+\bottomrule
+\multicolumn{3}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{3}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

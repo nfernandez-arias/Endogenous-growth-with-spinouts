@@ -1,0 +1,38 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{8}{c}}
+\toprule
+            &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}&\multicolumn{1}{c}{(7)}&\multicolumn{1}{c}{(8)}\\
+            &\multicolumn{1}{c}{estabs\_entry}&\multicolumn{1}{c}{estabs\_entry}&\multicolumn{1}{c}{estabs\_entry}&\multicolumn{1}{c}{estabs\_entry}&\multicolumn{1}{c}{estabs\_entry}&\multicolumn{1}{c}{estabs\_entry}&\multicolumn{1}{c}{estabs\_entry}&\multicolumn{1}{c}{estabs\_entry}\\
+\midrule
+RD          &      0.0314         &                     &                     &                     &                     &                     &                     &      0.0370\sym{*}  \\
+            &      (1.96)         &                     &                     &                     &                     &                     &                     &      (2.22)         \\
+\addlinespace
+RD\_lag1     &                     &      0.0242         &                     &                     &                     &                     &                     &   -0.000735         \\
+            &                     &      (1.52)         &                     &                     &                     &                     &                     &     (-0.05)         \\
+\addlinespace
+RD\_lag2     &                     &                     &      0.0195         &                     &                     &                     &                     &    0.000226         \\
+            &                     &                     &      (1.15)         &                     &                     &                     &                     &      (0.01)         \\
+\addlinespace
+RD\_lag3     &                     &                     &                     &      0.0189         &                     &                     &                     &    0.000334         \\
+            &                     &                     &                     &      (1.09)         &                     &                     &                     &      (0.03)         \\
+\addlinespace
+RD\_lag4     &                     &                     &                     &                     &      0.0175         &                     &                     &      0.0131         \\
+            &                     &                     &                     &                     &      (0.97)         &                     &                     &      (0.69)         \\
+\addlinespace
+RD\_lag5     &                     &                     &                     &                     &                     &    -0.00382         &                     &      0.0103         \\
+            &                     &                     &                     &                     &                     &     (-0.21)         &                     &      (0.85)         \\
+\addlinespace
+RD\_lag6     &                     &                     &                     &                     &                     &                     &     -0.0146         &     -0.0216         \\
+            &                     &                     &                     &                     &                     &                     &     (-0.56)         &     (-0.71)         \\
+\addlinespace
+\_cons      &       8.560\sym{***}&       8.597\sym{***}&       8.581\sym{***}&       8.554\sym{***}&       8.531\sym{***}&       8.743\sym{***}&       8.805\sym{***}&       8.443\sym{***}\\
+            &     (79.78)         &     (80.89)         &     (75.03)         &     (72.51)         &     (68.94)         &     (68.66)         &     (49.29)         &     (30.17)         \\
+\midrule
+\(N\)       &         911         &         860         &         809         &         758         &         708         &         657         &         608         &         590         \\
+adj. \(R^{2}\)&       0.783         &       0.785         &       0.791         &       0.803         &       0.813         &       0.826         &       0.834         &       0.829         \\
+\bottomrule
+\multicolumn{9}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{9}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

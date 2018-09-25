@@ -22,7 +22,7 @@ function d = set_modelpar()
     
     d.phi_inv = @(x) x.^(-1/d.psi_I);
     
-    d.eta_min = 0;
+    d.eta_min = 0.01;
     d.eta = @(z) (d.eta_min + z).^(-d.psi_SE); 
     
     d.eta_inv = @(x) x.^(-1/d.psi_SE);

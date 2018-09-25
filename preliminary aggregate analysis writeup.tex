@@ -1,0 +1,160 @@
+\documentclass[7pt,english]{article}
+\usepackage{lmodern}
+%\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{booktabs}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=0.25in,rmargin=0.25in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+
+\title{Aggregate empirical analysis}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+Try switching LHS and RHS
+Need to think very carefully about exactly how to do this
+Everything is endogenous
+State-time specific Non-compete enforcement 
+
+\section{Data sources}
+
+\begin{enumerate}
+	\item Total R\&D by state from NSF data
+	\begin{itemize}
+		\item location: Data/rd-by-state.dta
+		\item Starts around 1991 for most states, from NSF National Patterns of R\&D resources
+		\item Available in aggregated form and with entire history here https://www.nsf.gov/statistics/state-indicators/indicator/rd-performance-to-state-gdp/map (although in \% GDP terms, where I got must have used this + data on statelevel GDP by year, which is easy to find)
+	\end{itemize}
+	\item Private R\&D by state from NSF date (same source as above, see README)
+	\item Census Business Dynamics Statistics on new business formation / employment by state and year
+	\begin{itemize}
+		\item ``Raw data'' location: Data/bds\_f\_agest.dta
+		\item ``modified data'' location: Data/entry\_rates\_by\_state.dta
+		\item Easy to find online I think...
+	\end{itemize}
+	\item Effective R\&D user cost of capital by state and year, from Bloom et al.
+	\begin{itemize}
+		\item ``Raw data'' location: Data/RDusercost\_2017\_13.dta
+	\end{itemize}
+\end{enumerate}
+
+Also have IRIS data by state and industry pair. This could be interesting to look at if I have time. Needs to be cleaned, though, so no time probably. Also, no startup rates at state-industry level. 
+
+\paragraph{Studying this at the MSA level}
+\begin{enumerate}
+	\item d
+\end{enumerate}
+
+\newpage
+\section{Results}
+
+\subsection{Private R\&D}
+
+
+\subsubsection{Establishment Entry}
+
+\paragraph{OLS}
+\begin{table}[h]
+	\input{data/work/Tables/private_estabs_entry_OLS.tex}
+\end{table}
+
+\newpage
+\paragraph{Reduced form}
+\begin{table}[h]
+	\input{data/work/Tables/private_estabs_entry_reduced.tex}
+\end{table}
+
+\paragraph{IV}
+\begin{table}[h]
+	\input{data/work/Tables/private_estabs_entry_IV.tex}
+\end{table}
+
+\paragraph{First stage}
+\begin{table}[h]
+	\input{data/work/Tables/private_firststage.tex}
+\end{table}
+
+\newpage
+\subsubsection{Net job creation by new firms}
+\paragraph{OLS}
+\begin{table}[h]
+	\input{data/work/Tables/private_net_j_cr_OLS.tex}
+\end{table}
+
+\newpage
+\paragraph{Reduced form}
+\begin{table}[h]
+	\input{data/work/Tables/private_net_j_cr_reduced.tex}
+\end{table}
+
+\paragraph{IV}
+\begin{table}[h]
+	\input{data/work/Tables/private_net_j_cr_IV.tex}
+\end{table}
+
+\paragraph{First stage}
+\begin{table}[h]
+	\input{data/work/Tables/private_firststage.tex}
+\end{table}
+
+\newpage
+\subsection{Total R\&D}
+
+\subsubsection{Establishment Entry}
+
+\paragraph{OLS}
+\begin{table}[h]
+	\input{data/work/Tables/total_estabs_entry_OLS.tex}
+\end{table}
+
+\newpage
+\paragraph{Reduced form}
+\begin{table}[h]
+	\input{data/work/Tables/total_estabs_entry_reduced.tex}
+\end{table}
+
+\paragraph{IV}
+\begin{table}[h]
+	\input{data/work/Tables/total_estabs_entry_IV.tex}
+\end{table}
+
+\paragraph{First stage}
+\begin{table}[h]
+	\input{data/work/Tables/total_firststage.tex}
+\end{table}
+
+\newpage
+\subsubsection{Net job creation by new firms}
+\paragraph{OLS}
+\begin{table}[h]
+	\input{data/work/Tables/total_net_j_cr_OLS.tex}
+\end{table}
+
+\newpage
+\paragraph{Reduced form}
+\begin{table}[h]
+	\input{data/work/Tables/total_net_j_cr_reduced.tex}
+\end{table}
+
+\paragraph{IV}
+\begin{table}[h]
+	\input{data/work/Tables/total_net_j_cr_IV.tex}
+\end{table}
+
+\paragraph{First stage}
+\begin{table}[h]
+	\input{data/work/Tables/total_firststage.tex}
+\end{table}
+
+
+
+\end{document}

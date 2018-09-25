@@ -7,7 +7,7 @@ function d = set_init_guesses_global(pa,pm)
     d.idx_M = pa.m_numpoints;
     
     d.zS = min(pm.xi * pa.m_grid, 0.01);
-    d.zE = 0.1*ones(size(pa.m_grid));
+    d.zE = 0.02*ones(size(pa.m_grid));
     
     d.L_RD_maxcount = 1;
     d.w_maxcount = 1;
