@@ -102,7 +102,9 @@ foreach depvar of varlist `depvarlist' {
 	foreach indepvar of varlist `indepvarlist_with_lags' {
 		
 		display "OLS regression of `depvar' on `indepvar' with state- and time-fixed effects"
+		pause
 		eststo: quietly xtreg `depvar' `indepvar' i.year, fe vce(cluster stateNum)
+		pause
 		display "`indepvar'"
 	}
 	
@@ -128,24 +130,18 @@ foreach depvar of varlist `depvarlist' {
 	display "Initialized second residuals"
 	
 	* Add back in effect from RD coeffs
-	
-	gen temp = RD * RD_coef
-	replace total_`depvar'_resid2 = total_`depvar'_resid2 + temp
-	drop temp
-	
-	
 	foreach indepvar of varlist `indepvarlist_with_lags' {
 	
-		*gen temp = `indepvar' * `indepvar'_coef
-		*replace total_`depvar'_resid2 = total_`depvar'_resid2 + temp
-		*display "Made residual `indepvar'"
-		*drop temp
+		gen temp = `indepvar' * `indepvar'_coef
+		replace total_`depvar'_resid2 = total_`depvar'_resid2 + temp
+		display "Made residual `indepvar'"
+		drop temp
 		drop `indepvar'_coef
 	}
 	
 	
 	display "Attempting to make graph"
-	graph twoway scatter total_`depvar'_resid2 RD, title(total `depvar' vs total R&D) msize(vsmall)
+	graph twoway scatter total_`depvar'_resid2 RD, title(total `depvar' vs R&D) msize(vsmall)
 	graph export Graphs\total_`depvar'.pdf, replace
 	
 	display "Made plot!"
@@ -210,30 +206,7 @@ local depvarlist estabs_entry net_j_cr
 local indepvarlist RD
 local indepvarlist_with_lags `indepvarlist'
 
-foreach depvar of varlist `depvarlist'  {
 
-	replace `depvar' = log(`depvar')
-
-}
-
-foreach indepvar of varlist `indepvarlist_with_lags' {
-
-	replace `indepvar' = log(`indepvar')
-	
-}
-
-* Generate lags of instrument 
-gen rho_h_lag1 = l1.rho_h
-*gen rho_h_lag2 = l2.rho_h
-*gen rho_h_lag3 = l3.rho_h
-
-local rhovarlist rho_h rho_h_lag*
-
-foreach rhovar of varlist `rhovarlist' {
-
-	replace `rhovar' = log(`rhovar')
-	
-}
 
 * Generate lags of independent variables
 foreach var of varlist `indepvarlist' {
@@ -256,9 +229,35 @@ foreach var of varlist `indepvarlist' {
 	local indepvarlist_with_lags `indepvarlist_with_lags' `var'_lag6
 }
 
+* Generate lags of instrument 
+gen rho_h_lag1 = l1.rho_h
+*gen rho_h_lag2 = l2.rho_h
+*gen rho_h_lag3 = l3.rho_h
 
+local rhovarlist rho_h rho_h_lag*
 
 keep `depvarlist' `indepvarlist_with_lags' `rhovarlist' stateNum year state
+
+
+foreach depvar of varlist `depvarlist'  {
+
+	gen `depvar'_log = log(`depvar')
+
+}
+
+foreach indepvar of varlist `indepvarlist_with_lags' {
+
+	gen `indepvar'_log = log(`indepvar')
+	
+}
+
+foreach rhovar of varlist `rhovarlist' {
+
+	gen `rhovar'_log = log(`rhovar')
+	
+}
+
+
 
 ** OLS regressions
 display "Using private R&D data"
@@ -272,47 +271,15 @@ foreach depvar of varlist `depvarlist' {
 	
 	display "OLS regression of `depvar' on RD and lags, with state- and time-fixed effects"
 	eststo: quietly xtreg `depvar' `indepvarlist_with_lags' i.year, fe vce(cluster stateNum)
-	esttab using Tables\private_`depvar'_OLS.tex, ar2 drop(*.year) replace booktabs
-	eststo clear
-	
-		foreach indepvar of varlist `indepvarlist_with_lags' {
-	
-		gen `indepvar'_coef = _b[`indepvar']
-		
-	}
-	
 	
 	* Plot residuals
-	predict double private_`depvar'_resid, e 
-	display "Constructed residuals"
-	gen private_`depvar'_resid2 = private_`depvar'_resid
-	display "Initialized second residuals"
-	
-	
-	
-	* Add back in effect from RD coeffs
-	
-	gen temp = RD * RD_coef
-	replace private_`depvar'_resid2 = private_`depvar'_resid2 + temp
-	drop temp
-	
-	
-	foreach indepvar of varlist `indepvarlist_with_lags' {
-	
-		*gen temp = `indepvar' * `indepvar'_coef
-		*replace private_`depvar'_resid2 = private_`depvar'_resid2 + temp
-		*display "Made residual `indepvar'"
-		*drop temp
-		drop `indepvar'_coef
-	}
-	
-	
-	
-	graph twoway scatter private_`depvar'_resid2 RD, title(private `depvar' vs private R&D) msize(vsmall)
+	predict private_`depvar'_resid, e
+	graph twoway scatter private_`depvar'_resid RD, title(private_`depvar' vs R&D) msize(vsmall)
 	graph export Graphs\private_`depvar'.pdf, replace
 	
 	
-
+	esttab using Tables\private_`depvar'_OLS.tex, ar2 drop(*.year) replace booktabs
+	eststo clear
 	
 	foreach rhovar of varlist `rhovarlist' {
 		display "Reduced form regression: OLS regression of `depvar' on `rhovar' with state- and time-fixed effects"

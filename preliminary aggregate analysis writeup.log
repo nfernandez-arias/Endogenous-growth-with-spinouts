@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6700 64-bit) (preloaded format=pdflatex 2018.6.5)  24 SEP 2018 20:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6700 64-bit) (preloaded format=pdflatex 2018.6.5)  25 SEP 2018 11:43
 entering extended mode
 **"./preliminary aggregate analysis writeup.tex"
 ("preliminary aggregate analysis writeup.tex"
@@ -316,7 +316,7 @@ LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10> not available
  [1
 
 {C:/Users/Nico/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-(data/work/Tables/private_estabs_entry_OLS.tex
+(data/work/Tables/total_estabs_entry_OLS.tex
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10> on input line 3.
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -324,21 +324,21 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 3.
 ) [2]
-(data/work/Tables/private_estabs_entry_reduced.tex)
-(data/work/Tables/private_estabs_entry_IV.tex)
-(data/work/Tables/private_firststage.tex) [3]
-(data/work/Tables/private_net_j_cr_OLS.tex) [4]
-(data/work/Tables/private_net_j_cr_reduced.tex)
-(data/work/Tables/private_net_j_cr_IV.tex)
-(data/work/Tables/private_firststage.tex) [5]
-(data/work/Tables/total_estabs_entry_OLS.tex) [6]
 (data/work/Tables/total_estabs_entry_reduced.tex)
 (data/work/Tables/total_estabs_entry_IV.tex)
-(data/work/Tables/total_firststage.tex) [7]
-(data/work/Tables/total_net_j_cr_OLS.tex) [8]
+(data/work/Tables/total_firststage.tex) [3]
+(data/work/Tables/total_net_j_cr_OLS.tex) [4]
 (data/work/Tables/total_net_j_cr_reduced.tex)
 (data/work/Tables/total_net_j_cr_IV.tex) (data/work/Tables/total_firststage.tex
-) [9] ("preliminary aggregate analysis writeup.aux") ) 
+) [5] (data/work/Tables/private_estabs_entry_OLS.tex) [6]
+(data/work/Tables/private_estabs_entry_reduced.tex)
+(data/work/Tables/private_estabs_entry_IV.tex)
+(data/work/Tables/private_firststage.tex) [7]
+(data/work/Tables/private_net_j_cr_OLS.tex) [8]
+(data/work/Tables/private_net_j_cr_reduced.tex)
+(data/work/Tables/private_net_j_cr_IV.tex)
+(data/work/Tables/private_firststage.tex) [9]
+("preliminary aggregate analysis writeup.aux") ) 
 Here is how much of TeX's memory you used:
  2276 strings out of 492974
  34055 string characters out of 3135951
@@ -347,21 +347,20 @@ Here is how much of TeX's memory you used:
  44420 words of font info for 39 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  27i,10n,23p,409b,306s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 
-2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvi
-ps/lm/lm-mathsy.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc}<
-C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx10.pfb><C:/Program Files/
-MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/
-type1/public/lm/lmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/l
-mmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Progr
-am Files/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2.
-9/fonts/type1/public/lm/lmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
-ic/lm/lmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr8.pfb><C:/
-Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmri8.pfb><C:/Program Files/MiKT
-eX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
-1/public/lm/lmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy7.
-pfb>
-Output written on "preliminary aggregate analysis writeup.pdf" (9 pages, 215125
+{C:/Program Files/MiKTeX 2.9/fo
+nts/enc/dvips/lm/lm-mathit.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/
+lm-mathsy.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc}<C:/Pro
+gram Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx10.pfb><C:/Program Files/MiKTeX
+ 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
+public/lm/lmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmmi8.p
+fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Program Fil
+es/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2.9/font
+s/type1/public/lm/lmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/
+lmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr8.pfb><C:/Progra
+m Files/MiKTeX 2.9/fonts/type1/public/lm/lmri8.pfb><C:/Program Files/MiKTeX 2.9
+/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
+ic/lm/lmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy7.pfb>
+Output written on "preliminary aggregate analysis writeup.pdf" (9 pages, 215226
  bytes).
 PDF statistics:
  87 PDF objects out of 1000 (max. 8388607)
