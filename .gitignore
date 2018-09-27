@@ -8,3 +8,5 @@
 *.zip
 *.sqlite3
 *.sqlite
+*.Rproj.user
+*.Rdata

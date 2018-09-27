@@ -1,0 +1,35 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{7}{c}}
+\toprule
+          &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}&\multicolumn{1}{c}{(7)}\\
+          &\multicolumn{1}{c}{net\_j\_cr\_norm}&\multicolumn{1}{c}{net\_j\_cr\_norm}&\multicolumn{1}{c}{net\_j\_cr\_norm}&\multicolumn{1}{c}{net\_j\_cr\_norm}&\multicolumn{1}{c}{net\_j\_cr\_norm}&\multicolumn{1}{c}{net\_j\_cr\_norm}&\multicolumn{1}{c}{net\_j\_cr\_norm}\\
+\midrule
+RD\_by\_GDP &  -0.0290         &                  &                  &                  &                  &                  &  -0.0432         \\
+          &  (-1.38)         &                  &                  &                  &                  &                  &  (-0.84)         \\
+\addlinespace
+RD\_by\_GDP\_lag1&                  &  -0.0288         &                  &                  &                  &                  &  -0.0211         \\
+          &                  &  (-1.03)         &                  &                  &                  &                  &  (-0.59)         \\
+\addlinespace
+RD\_by\_GDP\_lag2&                  &                  &  -0.0307         &                  &                  &                  & -0.00584         \\
+          &                  &                  &  (-1.47)         &                  &                  &                  &  (-0.12)         \\
+\addlinespace
+RD\_by\_GDP\_lag3&                  &                  &                  & -0.00616         &                  &                  & -0.00533         \\
+          &                  &                  &                  &  (-0.26)         &                  &                  &  (-0.14)         \\
+\addlinespace
+RD\_by\_GDP\_lag4&                  &                  &                  &                  &  -0.0187         &                  &  -0.0279         \\
+          &                  &                  &                  &                  &  (-0.80)         &                  &  (-0.86)         \\
+\addlinespace
+RD\_by\_GDP\_lag5&                  &                  &                  &                  &                  &   0.0145         &   0.0574         \\
+          &                  &                  &                  &                  &                  &   (0.54)         &   (1.39)         \\
+\addlinespace
+\_cons    &   -3.511\sym{***}&   -3.411\sym{***}&   -3.558\sym{***}&   -3.420\sym{***}&   -3.504\sym{***}&   -3.430\sym{***}&   -3.674\sym{***}\\
+          &(-220.83)         &(-265.94)         &(-224.96)         &(-253.36)         &(-213.72)         &(-247.01)         & (-66.01)         \\
+\midrule
+\(N\)     &     1007         &      763         &      854         &      713         &      753         &      713         &      404         \\
+adj. \(R^{2}\)&    0.818         &    0.821         &    0.815         &    0.826         &    0.811         &    0.816         &    0.538         \\
+\bottomrule
+\multicolumn{8}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{8}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

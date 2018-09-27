@@ -12,6 +12,7 @@
 \onehalfspacing
 \usepackage{babel}
 \usepackage{amsmath}
+\usepackage{lscape}
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 \begin{document}
@@ -49,109 +50,127 @@ State-time specific Non-compete enforcement
 
 Also have IRIS data by state and industry pair. This could be interesting to look at if I have time. Needs to be cleaned, though, so no time probably. Also, no startup rates at state-industry level. 
 
-\paragraph{Studying this at the MSA level}
+\section{Improvements}
 \begin{enumerate}
-	\item d
+	\item DONE - do it in logs - this made the signs look more like what I was expecting! Now there is a positive effect of R\&D spending on entry and job creation by new establishments / firms, respectively. 
+	\item DONE - Normalize variables (before taking logs) - always good to do this, if it makes sense 
+	\begin{itemize}
+		\item Normalize R\&D spending by state GDP - easy
+		\item Normalize establishment entry rates by state \# of establishments - harder
+		\item Normalize net job creation by state employment
+	\end{itemize}
+	\item Aggregate from the bottom up using Compustat
 \end{enumerate}
 
-\newpage
+
 \section{Results}
-
+Note: All regressions below use state- and time-fixed effects. Their coefficients are omitted. 
 \subsection{Total R\&D}
-
-
 \subsubsection{Establishment Entry}
-
-\paragraph{OLS}
-\begin{table}[h]
-	\input{data/work/Tables/total_estabs_entry_OLS.tex}
+%\begin{landscape}
+\begin{table}[h!]
+	\caption{log-log OLS of Estab. Entry Rate / \# Estabs on R\&D / GDP and lags}
+	\center
+	\input{data/work/Tables/total_e_entry_n_OLS.tex}
 \end{table}
+%\end{landscape}
 
 \newpage
-\paragraph{Reduced form}
-\begin{table}[h]
-	\input{data/work/Tables/total_estabs_entry_reduced.tex}
+\begin{table}[h!]
+	\caption{log-log OLS Estab. Entry Rate / \# Estabs on R\&D effective user cost of R\&D}
+	\center
+	\input{data/work/Tables/total_e_entry_n_reduced.tex}
 \end{table}
 
-\paragraph{IV}
-\begin{table}[h]
-	\input{data/work/Tables/total_estabs_entry_IV.tex}
+\begin{table}[h!]
+	\caption{log-log IV Estab. Entry Rate / \# Estabs on R\&D by GDP, with effective user cost of R\&D as instrument}
+	\center
+	\input{data/work/Tables/total_e_entry_n_IV.tex}
 \end{table}
 
-\paragraph{First stage}
-\begin{table}[h]
+\begin{table}[h!]
+	\caption{OLS log of R\&D / GDP on effective user cost of R\&D}
+	\center
 	\input{data/work/Tables/total_firststage.tex}
 \end{table}
 
-\newpage
+\clearpage
 \subsubsection{Net job creation by new firms}
-\paragraph{OLS}
 \begin{table}[h]
-	\input{data/work/Tables/total_net_j_cr_OLS.tex}
+	\caption{log-log OLS of Job Creation by Entrants / Total Employment on R\&D / GDP and lags}
+	\center
+	\input{data/work/Tables/total_n_j_cr_n_OLS.tex}
 \end{table}
 
-\newpage
-\paragraph{Reduced form}
 \begin{table}[h]
-	\input{data/work/Tables/total_net_j_cr_reduced.tex}
+	\caption{log-log OLS Job Creation by Entrants / Total Employment on R\&D effective user cost of R\&D}
+	\center
+	\input{data/work/Tables/total_n_j_cr_n_reduced.tex}
 \end{table}
 
-\paragraph{IV}
 \begin{table}[h]
-	\input{data/work/Tables/total_net_j_cr_IV.tex}
+	\caption{log-log IV Job Creation by Entrants / Total Employment on R\&D by GDP, with effective user cost of R\&D as instrument}
+	\center
+	\input{data/work/Tables/total_n_j_cr_n_IV.tex}
 \end{table}
 
-\paragraph{First stage}
-\begin{table}[h]
+\begin{table}[h!]
+	\caption{OLS log of R\&D / GDP on effective user cost of R\&D}
+	\center
 	\input{data/work/Tables/total_firststage.tex}
 \end{table}
 
-\newpage
+\clearpage
 \subsection{Private R\&D}
-
 \subsubsection{Establishment Entry}
 
-\paragraph{OLS}
 \begin{table}[h]
-	\input{data/work/Tables/private_estabs_entry_OLS.tex}
+	\caption{log-log OLS of Estab. Entry Rate / \# Estabs on R\&D / GDP and lags}
+	\center
+	\input{data/work/Tables/private_e_entry_n_OLS.tex}
 \end{table}
 
-\newpage
-\paragraph{Reduced form}
-\begin{table}[h]
-	\input{data/work/Tables/private_estabs_entry_reduced.tex}
+\begin{table}[h!]
+	\caption{log-log OLS Estab. Entry Rate / \# Estabs on R\&D effective user cost of R\&D}
+	\center
+	\input{data/work/Tables/private_e_entry_n_reduced.tex}
 \end{table}
 
-\paragraph{IV}
-\begin{table}[h]
-	\input{data/work/Tables/private_estabs_entry_IV.tex}
+\begin{table}[h!]
+	\caption{log-log IV Estab. Entry Rate / \# Estabs on R\&D by GDP, with effective user cost of R\&D as instrument}
+	\center	
+	\input{data/work/Tables/private_e_entry_n_IV.tex}
 \end{table}
 
-\paragraph{First stage}
 \begin{table}[h]
+	\caption{OLS log of R\&D / GDP on effective user cost of R\&D}
+	\center
 	\input{data/work/Tables/private_firststage.tex}
 \end{table}
 
-\newpage
+\clearpage
 \subsubsection{Net job creation by new firms}
-\paragraph{OLS}
-\begin{table}[h]
-	\input{data/work/Tables/private_net_j_cr_OLS.tex}
+\begin{table}[h!]
+	\caption{log-log OLS of Job Creation by Entrants / Total Employment on R\&D / GDP and lags}
+	\center
+	\input{data/work/Tables/private_n_j_cr_n_OLS.tex}
 \end{table}
 
-\newpage
-\paragraph{Reduced form}
 \begin{table}[h]
-	\input{data/work/Tables/private_net_j_cr_reduced.tex}
+	\caption{log-log OLS Job Creation by Entrants / Total Employment on R\&D effective user cost of R\&D}
+	\center
+	\input{data/work/Tables/private_n_j_cr_n_reduced.tex}
 \end{table}
 
-\paragraph{IV}
 \begin{table}[h]
-	\input{data/work/Tables/private_net_j_cr_IV.tex}
+	\caption{log-log IV Job Creation by Entrants / Total Employment on R\&D by GDP, with effective user cost of R\&D as instrument}
+	\center
+	\input{data/work/Tables/private_n_j_cr_n_IV.tex}
 \end{table}
 
-\paragraph{First stage}
 \begin{table}[h]
+	\caption{OLS log of R\&D / GDP on effective user cost of R\&D}
+	\center
 	\input{data/work/Tables/private_firststage.tex}
 \end{table}
 
