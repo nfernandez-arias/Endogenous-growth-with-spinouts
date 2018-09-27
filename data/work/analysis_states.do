@@ -2,348 +2,244 @@ cd "C:\Google_Drive_Princeton\PhD - Big boy\Research\Endogenous growth with work
 
 clear
 
-*****************************************************************************
-*****************************************************************************
-** First analysis using total R&D in state **********************************
-*****************************************************************************
-*****************************************************************************
-
-*** Set up data ********************************************
-************************************************************
-
-* Load data
 u Data\rd-by-state_RDusercost_merged.dta
 
-
-* Merge with entry rates
 merge 1:1 state year using Data\entry_rates_by_state.dta
 drop if _merge != 3
 
 * Declare panel data (need to use number to encode state)
 xtset stateNum year
 
-*** Prepare variables for analysis ************************* 
-************************************************************
-
-label variable net_job_creation `net_j_cr'
-rename net_job_creation net_j_cr
-drop net_job_creation
-
-* Define varlists
 *local depvarlist estabs_entry_rate net_job_creation_rate estabs_entry net_job_creation
-local depvarlist estabs_entry net_j_cr
-local indepvarlist RD
+local depvarlist estabs_entry_rate net_job_creation_rate
+local indepvarlist RD RD_by_GDP
 local indepvarlist_with_lags `indepvarlist'
-* Generate lags of instrument 
-gen rho_h_lag1 = l1.rho_h
-*gen rho_h_lag2 = l2.rho_h
-*gen rho_h_lag3 = l3.rho_h
-local rhovarlist rho_h rho_h_lag*
 
-
-*display "`indepvarlist_with_lags'"
-*display "Hello!"
-
-*Try specification in logs
-
-
-foreach depvar of varlist `depvarlist'  {
-
-	replace `depvar' = log(`depvar')
-
-}
-
-foreach indepvar of varlist `indepvarlist_with_lags' {
-
-	replace `indepvar' = log(`indepvar')
-	
-}
-
-
-foreach rhovar of varlist `rhovarlist' {
-
-	replace `rhovar' = log(`rhovar')
-	
-}
-
-
-* Generate lags of independent variables
 foreach var of varlist `indepvarlist' {
 
 	gen `var'_lag1 = l1.`var'
-	gen `var'_lag2 = l2.`var'
-	gen `var'_lag3 = l3.`var'
-	gen `var'_lag4 = l4.`var'
-	gen `var'_lag5 = l5.`var'
-	gen `var'_lag6 = l6.`var'
+	*gen `var'_lag2 = l2.`var'
+	*gen `var'_lag3 = l3.`var'
 	
-	local indepvarlist_with_lags `indepvarlist_with_lags' `var'_lag1
-	local indepvarlist_with_lags `indepvarlist_with_lags' `var'_lag2
-	local indepvarlist_with_lags `indepvarlist_with_lags' `var'_lag3
-	local indepvarlist_with_lags `indepvarlist_with_lags' `var'_lag4
-	local indepvarlist_with_lags `indepvarlist_with_lags' `var'_lag5
-	local indepvarlist_with_lags `indepvarlist_with_lags' `var'_lag6
+	local indepvarlist_with_lags `indepvarlist_with_lags' `var'_lag*
 	
 }
 
-display "`indepvarlist_with_lags'"
+*display "`indepvarlist_with_lags'"
 
 
-keep `depvarlist' `indepvarlist_with_lags' `rhovarlist' stateNum year state
+* Lags of instrument 
+
+gen rho_h_lag1 = l1.rho_h
+*gen rho_h_lag2 = l2.rho_h
+*gen rho_h_lag3 = l3.rho_h
+
+local rhovarlist rho_h_lag*
 
 ** OLS regressions
 
-display "Using total R&D data"
+timer on 1
 
 foreach depvar of varlist `depvarlist' {
-
-	display "`depvar'"
 	
 	foreach indepvar of varlist `indepvarlist_with_lags' {
 		
 		display "OLS regression of `depvar' on `indepvar' with state- and time-fixed effects"
 		eststo: quietly xtreg `depvar' `indepvar' i.year, fe vce(cluster stateNum)
-		display "`indepvar'"
 	}
 	
-	display "OLS regression of `depvar' on RD and lags, with state- and time-fixed effects"
-	eststo: quietly xtreg `depvar' `indepvarlist_with_lags' i.year, fe vce(cluster stateNum)
-	*eststo clear
-	esttab using Tables\total_`depvar'_OLS.tex, ar2 drop(*.year) replace booktabs 
+	esttab, ar2 drop(*.year)
 	eststo clear
-	*drop _est*
-	
-	
-	foreach indepvar of varlist `indepvarlist_with_lags' {
-	
-		gen `indepvar'_coef = _b[`indepvar']
-		
-	}
-	
-	
-	* Plot residuals
-	predict double total_`depvar'_resid, e 
-	display "Constructed residuals"
-	gen total_`depvar'_resid2 = total_`depvar'_resid
-	display "Initialized second residuals"
-	
-	* Add back in effect from RD coeffs
-	
-	gen temp = RD * RD_coef
-	replace total_`depvar'_resid2 = total_`depvar'_resid2 + temp
-	drop temp
-	
-	
-	foreach indepvar of varlist `indepvarlist_with_lags' {
-	
-		*gen temp = `indepvar' * `indepvar'_coef
-		*replace total_`depvar'_resid2 = total_`depvar'_resid2 + temp
-		*display "Made residual `indepvar'"
-		*drop temp
-		drop `indepvar'_coef
-	}
-	
-	
-	display "Attempting to make graph"
-	graph twoway scatter total_`depvar'_resid2 RD, title(total `depvar' vs total R&D) msize(vsmall)
-	graph export Graphs\total_`depvar'.pdf, replace
-	
-	display "Made plot!"
 	
 	foreach rhovar of varlist `rhovarlist' {
 		display "Reduced form regression: OLS regression of `depvar' on `rhovar' with state- and time-fixed effects"
 		eststo: quietly xtreg `depvar' `rhovar' i.year, fe vce(cluster stateNum)	
 	}
 	
-	esttab using Tables\total_`depvar'_reduced.tex, ar2 drop(*.year) replace booktabs 
+	esttab, ar2 drop(*.year)
 	eststo clear
 	
 	foreach indepvar of varlist `indepvarlist' {
 	
 		display "IV regression of `depvar' on `indepvar' with rho_h as instrument"
-		eststo: quietly xtivreg `depvar' i.year (`indepvar' = rho_h), fe
+		eststo: quietly xtivreg `depvar' i.year (`indepvar' = rho_h), fe cluster year
 	}
 	
-	esttab using Tables\total_`depvar'_IV.tex, ar2 drop(*.year) replace booktabs 
+	esttab, ar2 drop(*.year)
 	eststo clear
 }
 
-** First stage for IV
-foreach indepvar of varlist `indepvarlist' {
+** Reduced form regressions - instrument on depvar **
 
-	display "First stage regression of `depvar' on rho_h" 
-	eststo: quietly xtreg `indepvar' rho_h i.year, fe vce(cluster stateNum)
-
-}
-
-esttab using Tables\total_firststage.tex, ar2 drop(*.year) replace booktabs 
-eststo clear
-
-*****************************************************************************
-*****************************************************************************
-** Second analysis using just private-performed R&D *************************
-*****************************************************************************
-*****************************************************************************
-
-*** Set up data ********************************************
-************************************************************
-
-* Load data
-u Data\private-performed-rd-by-state_RDusercost_merged.dta, clear
-
-* Merge with entry rates
-merge 1:1 state year using Data\entry_rates_by_state.dta
-drop if _merge != 3
-
-* Set panel data dimensions
-xtset stateNum year
-
-*** Prepare variables for analysis ************************* 
-************************************************************
-
-drop net_job_creation_rate
-label variable net_job_creation `net_j_cr'
-rename net_job_creation net_j_cr
-
-* Define varlists
-local depvarlist estabs_entry net_j_cr
-local indepvarlist RD
-local indepvarlist_with_lags `indepvarlist'
-
-foreach depvar of varlist `depvarlist'  {
-
-	replace `depvar' = log(`depvar')
-
-}
-
-foreach indepvar of varlist `indepvarlist_with_lags' {
-
-	replace `indepvar' = log(`indepvar')
-	
-}
-
-* Generate lags of instrument 
-gen rho_h_lag1 = l1.rho_h
-*gen rho_h_lag2 = l2.rho_h
-*gen rho_h_lag3 = l3.rho_h
-
-local rhovarlist rho_h rho_h_lag*
-
-foreach rhovar of varlist `rhovarlist' {
-
-	replace `rhovar' = log(`rhovar')
-	
-}
-
-* Generate lags of independent variables
-foreach var of varlist `indepvarlist' {
-
-	gen `var'_lag1 = l1.`var'
-	gen `var'_lag2 = l2.`var'
-	gen `var'_lag3 = l3.`var'
-	gen `var'_lag4 = l4.`var'
-	gen `var'_lag5 = l5.`var'
-	gen `var'_lag6 = l6.`var'
-	
-	* Have to hardcode - otherwise, we cannot use suffixes bc of macros
-	* ...Stata sucks.
-	
-	local indepvarlist_with_lags `indepvarlist_with_lags' `var'_lag1
-	local indepvarlist_with_lags `indepvarlist_with_lags' `var'_lag2
-	local indepvarlist_with_lags `indepvarlist_with_lags' `var'_lag3
-	local indepvarlist_with_lags `indepvarlist_with_lags' `var'_lag4
-	local indepvarlist_with_lags `indepvarlist_with_lags' `var'_lag5
-	local indepvarlist_with_lags `indepvarlist_with_lags' `var'_lag6
-}
-
-
-
-keep `depvarlist' `indepvarlist_with_lags' `rhovarlist' stateNum year state
-
-** OLS regressions
-display "Using private R&D data"
+/*
 foreach depvar of varlist `depvarlist' {
-	
-	foreach indepvar of varlist `indepvarlist_with_lags' {
-		
-		display "OLS regression of `depvar' on `indepvar' with state- and time-fixed effects"
-		eststo: quietly xtreg `depvar' `indepvar' i.year, fe vce(cluster stateNum) 
-	}
-	
-	display "OLS regression of `depvar' on RD and lags, with state- and time-fixed effects"
-	eststo: quietly xtreg `depvar' `indepvarlist_with_lags' i.year, fe vce(cluster stateNum)
-	esttab using Tables\private_`depvar'_OLS.tex, ar2 drop(*.year) replace booktabs
-	eststo clear
-	
-		foreach indepvar of varlist `indepvarlist_with_lags' {
-	
-		gen `indepvar'_coef = _b[`indepvar']
-		
-	}
-	
-	
-	* Plot residuals
-	predict double private_`depvar'_resid, e 
-	display "Constructed residuals"
-	gen private_`depvar'_resid2 = private_`depvar'_resid
-	display "Initialized second residuals"
-	
-	
-	
-	* Add back in effect from RD coeffs
-	
-	gen temp = RD * RD_coef
-	replace private_`depvar'_resid2 = private_`depvar'_resid2 + temp
-	drop temp
-	
-	
-	foreach indepvar of varlist `indepvarlist_with_lags' {
-	
-		*gen temp = `indepvar' * `indepvar'_coef
-		*replace private_`depvar'_resid2 = private_`depvar'_resid2 + temp
-		*display "Made residual `indepvar'"
-		*drop temp
-		drop `indepvar'_coef
-	}
-	
-	
-	
-	graph twoway scatter private_`depvar'_resid2 RD, title(private `depvar' vs private R&D) msize(vsmall)
-	graph export Graphs\private_`depvar'.pdf, replace
-	
-	
-
-	
 	foreach rhovar of varlist `rhovarlist' {
 		display "Reduced form regression: OLS regression of `depvar' on `rhovar' with state- and time-fixed effects"
-		eststo: quietly xtreg `depvar' `rhovar' i.year, fe vce(cluster stateNum)	
-	}
+		eststo: quietly xtreg `depvar' `rhovar' i.year, fe vce(robust)
+	}	
 	
-	esttab using Tables\private_`depvar'_reduced.tex, ar2 drop(*.year) replace booktabs 
-	eststo clear
 	
-	foreach indepvar of varlist `indepvarlist' {
-	
-		display "IV regression of `depvar' on `indepvar' with rho_h as instrument"
-		eststo: quietly xtivreg `depvar' i.year (`indepvar' = rho_h), fe
-	}
-	
-	esttab using Tables\private_`depvar'_IV.tex, ar2 drop(*.year) replace booktabs 
+	esttab, ar2 drop(*.year)
 	eststo clear
 }
 
-** First stage for IV
-foreach indepvar of varlist `indepvarlist' {
-
-	display "First stage regression of `depvar' on rho_h" 
-	eststo: quietly xtreg `indepvar' rho_h i.year, fe vce(cluster stateNum)
-
-}
-
-esttab using Tables\private_firststage.tex, ar2 drop(*.year) replace booktabs 
-eststo clear
+timer off 1
 
 
+** IV regressions **
+foreach depvar of varlist 
+
+
+/*
+
+*foreach depvar of varlist `depvarlist' {
+
+*	foreach indepvar of varlist `indepvarlist' {	
+	
+*		display "OLS regression of `depvar' on `indepvar'
+
+*	}
+*}
 
 
 
+/*
+foreach var of depvarlist {
+	xtreg `var' RD_by_GDP 
+* Run with establishment entry rate
+xtreg estabs_entry_rate RD_by_GDP i.year, fe vce(bootstrap)
+* Run with job creation rate
+xtreg net_job_creation_rate RD_by_GDP i.year, fe vce(bootstrap)
+* Run with establishment entry
+xtreg estabs_entry RD_by_GDP i.year, fe vce(bootstrap)
+* Run with job creation rate
+xtreg net_job_creation RD_by_GDP i.year, fe vce(bootstrap)
+
+** Independent varible: R&D spending / GDP 
+** 1-yr lag
+* Run with establishment entry rate
+xtreg estabs_entry_rate i.year, fe vce(bootstrap)
+* Run with job creation rate
+xtreg net_job_creation_rate i.year, fe vce(bootstrap)
+* Run with establishment entry
+xtreg estabs_entry RD_by_GDP, fe vce(bootstrap)
+* Run with job creation rate
+xtreg net_job_creation RD_by_GDP, fe vce(bootstrap)
+
+** Independent varible: R&D spending
+** No lagging
+* Run with establishment entry rate
+xtreg estabs_entry_rate RD i.year, fe vce(bootstrap)
+* Run with job creation rate
+xtreg net_job_creation_rate RD i.year, fe vce(bootstrap)
+* Run with establishment entry
+xtreg estabs_entry RD, fe vce(bootstrap)
+* Run with job creation rate
+xtreg net_job_creation RD, fe vce(bootstrap)
+
+
+
+
+
+
+** Using RD spending
+** estab entry rate
+xtreg estabs_entry RD i.year, fe
+xtreg estabs_entry_rate RD i.year, fe
+
+** job creation rate
+xtreg net_job_creation RD_by_GDP i.year, fe
+xtreg net_job_creation RD_by_GDP_ma5 i.year, fe
+
+
+
+
+
+
+tssmooth ma RD_by_GDP_ma5 = RD_by_GDP, window(4 1 0)
+tssmooth ma estabs_entry_rate_ma = estabs_entry_rate, window(0,1,2)
+
+xtreg estabs_entry_rate_ma RD_by_GDP_ma5 i.year, fe vce(bootstrap)
+xtreg estabs_entry RD_by_GDP i.year, fe vce(bootstrap)
+xtreg net_job_creation RD_by_GDP i.year, fe vce(bootstrap)
+xtreg estabs_entry RD i.year, fe vce(bootstrap)
+xtreg net_job_creation RD i.year, fe vce(bootstrap)
+xtreg net_job_creation_rate RD i.year, fe vce(bootstrap)
+xtreg estabs_entry_rate RD i.year, fe vce(bootstrap)
+
+reg estabs_entry RD, vce(bootstrap)
+reg estabs_entry_rate RD, vce(bootstrap)
+reg estabs_entry RD_by_GDP, vce(bootstrap)
+reg estabs_entry_rate RD_by_GDP, vce(bootstrap)
+reg net_job_creation RD, vce(bootstrap)
+reg net_job_creation_rate RD, vce(bootstrap)
+reg net_job_creation RD_by_GDP, vce(bootstrap)
+reg net_job_creation_rate RD_by_GDP, vce(bootstrap)
+
+** Instrumental variables regression
+
+
+*First stage
+xtreg RD_by_GDP t_f_e-rho_h i.year, fe vce(bootstrap)
+
+ 
+xtivreg estabs_entry_rate RD_by_GDP i.year (RD_by_GDP = rho_m), fe first vce(bootstrap)
+xtline estabs_entry_rate RD_by_GDP
+
+xtivreg net_job_creation_rate RD_by_GDP i.year (RD_by_GDP = rho_m), fe vce(bootstrap)
+
+xtivreg estabs_entry_rate RD i.year (RD = rho_m), fe vce(bootstrap)
+xtivreg estabs_entry RD i.year (RD = rho_m), fe vce(bootstrap)
+
+xtivreg net_job_creation_rate RD i.year (RD = rho_m), fe vce(bootstrap)
+xtivreg net_job_creation RD i.year (RD = rho_m), fe vce(bootstrap)
+
+** Make plots
+
+order state statename year RD GDP RD_by_GDP RD_by_GDP_ma5 estabs_entry_rate_ma*
+
+regress estabs_entry_rate_ma RD_by_GDP_ma5 i.stateNum i.year
+predict yhat
+separate estabs_entry_rate_ma, by(stateNum)
+separate yhat, by(stateNum)
+
+
+local thinlist "vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin"
+local tinylist "vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny"
+
+
+
+*twoway connected yhat1-yhat20 RD_by_GDP_ma5, lwidth(`thinlist') msize(`tinylist') || lfit net_job_creation RD_by_GDP, msize(vtiny)
+*twoway connected net_job_creation21-net_job_creation40 RD_by_GDP_ma5, lwidth(`thinlist') msize(`tinylist') legend(off)|| lfit net_job_creation RD_by_GDP, msize(vtiny)
+twoway connected estabs_entry_rate_ma1-estabs_entry_rate_ma20 RD_by_GDP_ma5, lwidth(`thinlist') msize(`tinylist') legend(off)|| lfit estabs_entry_rate_ma RD_by_GDP_ma5, msize(vtiny)
+*twoway scatter estabs_entry_rate RD_by_GDP, legend(off) msize(tiny) || lfit estabs_entry_rate RD_by_GDP, msize(vtiny) lwidth(vthin)
+
+
+
+regress estabs_entry RD i.stateNum i.year
+predict zhat
+separate estabs_entry, by(year)
+separate zhat, by(year)
+
+twoway connected zhat1991 zhat1993 zhat1995 zhat1997 zhat1998 zhat1999 zhat2000 zhat2002-zhat2014 RD, lwidth(vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin vthin) msize(vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny vtiny) || lfit estabs_entry RD, msize(vtiny)
+
+
+
+|| lfit estabs_entry RD, msize(vtiny) lwidth(vthin)
+twoway connect
+ed yhat1-yhat7 
+x1, msymbol(none 
+diamond_hollow t
+riangle_hollow 
+square_hollow + 
+circle_hollow 
+x) msize(medium) 
+mcolor(black 
+black black black black black 
+black) || lfit y x1, 
+clwidth(thick) 
+clcolor(black)
+
+
+
+*/
