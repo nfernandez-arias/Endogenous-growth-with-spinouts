@@ -1,23 +1,26 @@
 {
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{l*{2}{c}}
+\begin{tabular}{l*{3}{c}}
 \toprule
-            &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}\\
-            &\multicolumn{1}{c}{estabs\_entry}&\multicolumn{1}{c}{estabs\_entry}\\
+            &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
+            &\multicolumn{1}{c}{estabs\_entry}&\multicolumn{1}{c}{estabs\_entry}&\multicolumn{1}{c}{estabs\_entry}\\
 \midrule
-rho\_h       &      -0.152         &                     \\
-            &     (-0.45)         &                     \\
+rho\_h       &     -9042.8         &                     &                     \\
+            &     (-0.74)         &                     &                     \\
 \addlinespace
-rho\_h\_lag1  &                     &      -0.173         \\
-            &                     &     (-0.50)         \\
+rho\_h\_lag1  &                     &    -13424.2         &                     \\
+            &                     &     (-1.06)         &                     \\
 \addlinespace
-\_cons      &       8.587\sym{***}&       8.547\sym{***}\\
-            &     (20.91)         &     (20.38)         \\
+rho\_h\_lag1\_log&                     &                     &     -3110.5         \\
+            &                     &                     &     (-1.00)         \\
+\addlinespace
+\_cons      &     12938.5\sym{***}&     14078.8\sym{***}&      6318.1         \\
+            &      (3.62)         &      (3.79)         &      (1.65)         \\
 \midrule
-\(N\)       &         918         &         867         \\
-adj. \(R^{2}\)&       0.781         &       0.786         \\
+\(N\)       &         918         &         867         &         867         \\
+adj. \(R^{2}\)&       0.411         &       0.410         &       0.409         \\
 \bottomrule
-\multicolumn{3}{l}{\footnotesize \textit{t} statistics in parentheses}\\
-\multicolumn{3}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\multicolumn{4}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
 \end{tabular}
 }

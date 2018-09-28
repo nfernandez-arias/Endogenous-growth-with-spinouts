@@ -22,7 +22,6 @@ drop if _merge != 3
 * Declare panel data (need to use number to encode state)
 xtset stateNum year
 
-
 *** Prepare variables for analysis ************************* 
 ************************************************************
 
@@ -30,21 +29,10 @@ label variable net_job_creation `net_j_cr'
 rename net_job_creation net_j_cr
 drop net_job_creation
 
-*** Define varlists
-** Not normalized (deprecated)
-*local depvarlist estabs_entry net_j_cr
-*local indepvarlist RD
-
-** NORMALIZE
-** Normalizing R&D spending by state GDP 
-** Normalizing establishment entry by total number of establishments
-** Normalizing net job creation by total employment
-
-generate e_entry_n = estabs_entry / estabs_total
-generate n_j_cr_n = net_j_cr / emp_total
-local depvarlist e_entry_n n_j_cr_n
-local indepvarlist RD_by_GDP
-
+* Define varlists
+*local depvarlist estabs_entry_rate net_job_creation_rate estabs_entry net_job_creation
+local depvarlist estabs_entry net_j_cr
+local indepvarlist RD
 local indepvarlist_with_lags `indepvarlist'
 * Generate lags of instrument 
 gen rho_h_lag1 = l1.rho_h
@@ -121,7 +109,7 @@ foreach depvar of varlist `depvarlist' {
 	display "OLS regression of `depvar' on RD and lags, with state- and time-fixed effects"
 	eststo: quietly xtreg `depvar' `indepvarlist_with_lags' i.year, fe vce(cluster stateNum)
 	*eststo clear
-	esttab using Tables\total_`depvar'_OLS.tex, ar2 drop(*.year) replace booktabs compress 
+	esttab using Tables\total_`depvar'_OLS.tex, ar2 drop(*.year) replace booktabs 
 	eststo clear
 	*drop _est*
 	
@@ -141,8 +129,9 @@ foreach depvar of varlist `depvarlist' {
 	
 	* Add back in effect from RD coeffs
 	
-	gen temp = RD_by_GDP * RD_by_GDP_coef
+	gen temp = RD * RD_coef
 	replace total_`depvar'_resid2 = total_`depvar'_resid2 + temp
+	drop temp
 	
 	
 	foreach indepvar of varlist `indepvarlist_with_lags' {
@@ -156,9 +145,8 @@ foreach depvar of varlist `depvarlist' {
 	
 	
 	display "Attempting to make graph"
-	graph twoway scatter total_`depvar'_resid2 temp RD_by_GDP, title(total `depvar' (norm) vs total R&D (norm)) msize(vsmall)
+	graph twoway scatter total_`depvar'_resid2 RD, title(total `depvar' vs total R&D) msize(vsmall)
 	graph export Graphs\total_`depvar'.pdf, replace
-	drop temp
 	
 	display "Made plot!"
 	
@@ -217,21 +205,9 @@ drop net_job_creation_rate
 label variable net_job_creation `net_j_cr'
 rename net_job_creation net_j_cr
 
-*** Define varlists
-** Not normalized (deprecated)
-*local depvarlist estabs_entry net_j_cr
-*local indepvarlist RD
-
-** NORMALIZE
-** Normalizing R&D spending by state GDP 
-** Normalizing establishment entry by total number of establishments
-** Normalizing net job creation by total employment
-
-generate e_entry_n = estabs_entry / estabs_total
-generate n_j_cr_n= net_j_cr / emp_total
-local depvarlist e_entry_n n_j_cr_n
-local indepvarlist RD_by_GDP
-
+* Define varlists
+local depvarlist estabs_entry net_j_cr
+local indepvarlist RD
 local indepvarlist_with_lags `indepvarlist'
 
 foreach depvar of varlist `depvarlist'  {
@@ -296,7 +272,7 @@ foreach depvar of varlist `depvarlist' {
 	
 	display "OLS regression of `depvar' on RD and lags, with state- and time-fixed effects"
 	eststo: quietly xtreg `depvar' `indepvarlist_with_lags' i.year, fe vce(cluster stateNum)
-	esttab using Tables\private_`depvar'_OLS.tex, ar2 drop(*.year) replace booktabs compress
+	esttab using Tables\private_`depvar'_OLS.tex, ar2 drop(*.year) replace booktabs
 	eststo clear
 	
 		foreach indepvar of varlist `indepvarlist_with_lags' {
@@ -316,8 +292,9 @@ foreach depvar of varlist `depvarlist' {
 	
 	* Add back in effect from RD coeffs
 	
-	gen temp = RD_by_GDP * RD_by_GDP_coef
+	gen temp = RD * RD_coef
 	replace private_`depvar'_resid2 = private_`depvar'_resid2 + temp
+	drop temp
 	
 	
 	foreach indepvar of varlist `indepvarlist_with_lags' {
@@ -331,9 +308,8 @@ foreach depvar of varlist `depvarlist' {
 	
 	
 	
-	graph twoway scatter private_`depvar'_resid2 temp RD_by_GDP, title(private `depvar' (norm) vs private R&D (norm)) msize(vsmall)
+	graph twoway scatter private_`depvar'_resid2 RD, title(private `depvar' vs private R&D) msize(vsmall)
 	graph export Graphs\private_`depvar'.pdf, replace
-	drop temp
 	
 	
 
