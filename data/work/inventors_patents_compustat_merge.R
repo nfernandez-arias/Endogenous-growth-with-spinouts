@@ -10,7 +10,7 @@
 # merges with dynass_reshaped by pdpass, identification in NBER / Compustat bridge. this brings in gvkey.
 # merges with compustat by year using gvkey
 #
-#
+# Output: Dataset with observations at the inventor level, with information 
 #
 
 #rm(list = setdiff(ls(), lsf.str()))
