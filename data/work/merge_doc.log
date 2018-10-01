@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.9.14)  30 SEP 2018 18:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.9.14)  30 SEP 2018 20:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -272,33 +272,44 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10> on input line 21.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 21.
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 29.
+LaTeX Font Info:    Try loading font information for OT1+lmtt on input line 34.
+
+
+(/usr/share/texmf/tex/latex/lm/ot1lmtt.fd
+File: ot1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 36.
 
 (/usr/share/texmf/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 29.
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 36.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] (./merge_doc.aux) ) 
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Font shape `OT1/lmtt/bx/n' in size <14.4> not available
+(Font)              Font shape `OT1/lmtt/b/n' tried instead on input line 77.
+ [2] (./merge_doc.aux) ) 
 Here is how much of TeX's memory you used:
- 2122 strings out of 494923
- 28455 string characters out of 6180742
- 95823 words of memory out of 5000000
- 5423 multiletter control sequences out of 15000+600000
- 27099 words of font info for 30 fonts, out of 8000000 for 9000
+ 2171 strings out of 494923
+ 29280 string characters out of 6180742
+ 95867 words of memory out of 5000000
+ 5467 multiletter control sequences out of 15000+600000
+ 33611 words of font info for 34 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 27i,6n,23p,314b,250s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/u
-sr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvi
-ps/lm/lm-rm.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/
-texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/l
-mr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb>
-Output written on merge_doc.pdf (2 pages, 82229 bytes).
+ 27i,6n,23p,536b,253s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-rmtt.enc}{/usr/
+share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/
+lm/lm-rm.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/tex
+mf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr1
+7.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/font
+s/type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb
+>
+Output written on merge_doc.pdf (2 pages, 139099 bytes).
 PDF statistics:
- 29 PDF objects out of 1000 (max. 8388607)
- 20 compressed objects within 1 object stream
+ 38 PDF objects out of 1000 (max. 8388607)
+ 27 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
