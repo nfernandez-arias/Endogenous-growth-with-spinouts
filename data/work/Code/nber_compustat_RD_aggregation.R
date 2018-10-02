@@ -13,7 +13,7 @@
 # Output: Dataset with observations at the inventor level, with information 
 #
 
-#rm(list = setdiff(ls(), lsf.str()))
+rm(list = setdiff(ls(), lsf.str()))
 
 
 
@@ -24,24 +24,30 @@ ptm <- proc.time()
 
 ## Load libraries
 library(readstata13)
+library(dplyr)
+library(tidyr)
 source('Code/Functions/stata_merge.R')
-source('Code/Functions/arrange_vars.R')
 
 #### Merge Patents and Inventors Datasets by Patent #
 
 ## Load in and clean Patents dataset
 patents <- read.dta13('Raw/pat76_06_assg.dta')
 patents$year <- patents$appyear
+patents <- patents %>% rename(assigneeState = state, assigneeCountry = country)
+patents <- patents %>% select(patent,pdpass,year,assigneeState,assigneeCountry)
+
 
 ## Load in and clean Inventors datasets
 inventors <- read.csv('Raw/inventor.csv')
-names(inventors)[names(inventors) == 'Patent'] <- 'patent'
-names(inventors)[names(inventors) == 'Country'] <- 'inventorCountry'
-names(inventors)[names(inventors) == 'Zipcode'] <- 'inventorZipCode'
-inventors$patent = as.numeric(as.character(inventors$patent))
-
+inventors <- inventors %>% rename(patent = Patent, inventorCountry = Country, inventorZipCode = Zipcode, inventorState = State, inventorCity = City)
+# Convert patent # to numeric. Non-utility patents have non-numeric characters, so these become NAs
+# and can then be dropped. 
+inventors$patent <- as.numeric(as.character(inventors$patent))
+inventors <- inventors[!is.na(inventors$patent),]
+inventors <- inventors %>% select(patent,inventorState,inventorCity,inventorZipCode,inventorCountry)
 ## Merge datasets
 inventorsAndPatents <- merge(patents,inventors,by = "patent")
+
 
 # Diagnostics
 #inventorsAndPatents <- stata.merge(patents,inventors,"patent")
@@ -54,12 +60,40 @@ proc.time() - ptm
 
 # Remove unnecessary data: inventors, patents, and unnecessary variables in inventorsAndPatents
 rm(list = c("inventors","patents"))
-inventorsAndPatents <- inventorsAndPatents[,c("patent","pdpass","year","cclass","country","City","State","Firstname","Lastname","inventorCountry","inventorZipCode")]
+
+#############
+###########
+## Construction of patent-level geographic distribution
+# 
+## Algorithm:
+#
+# Create new variable, inventorCount, that counts number of inventors 
+# for each patent (i.e. count # of observations per patent)
+# Then invert - this is now the weight 
+# assigned to each patent-city observation.
+#
+###########
+############
+
+ptm2 <- proc.time()
+temp <- count(inventorsAndPatents,patent)
+temp$weight <- 1/temp$n
+temp <- temp %>% select(patent,weight)
+inventorsAndPatentsWeights <- merge(inventorsAndPatents,temp,by = c("patent"))
+rm(list=c("inventorsAndPatents","temp"))
+inventorsAndPatentsWeights$inventorState <- as.character(inventorsAndPatentsWeights$inventorState)
+proc.time() - ptm
+proc.time() - ptm2
+inventorsAndPatentsWeights <- tibble::rowid_to_column(inventorsAndPatentsWeights,"ID")
+temp <- inventorsAndPatentsWeights %>% spread(inventorState,weight)
+
+#temp <- reshape(inventorsAndPatentsWeights,idvar = "patent",v.names = c("weight"),timevar = "State",direction = "wide")
+
 
 #### Merge inventorsAndPatents and dynass, the dynamic match between pdpass and gvkey / pdpco
 
 ## Load dynass_reshaped
-dynass = read.dta13('Data/dynass_reshaped.dta')
+dynass <- read.dta13('Data/dynass_reshaped.dta')
 
 # Clean and diagnose
 dynass$gvkey <- as.integer(dynass$gvkey)

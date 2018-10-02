@@ -4,6 +4,7 @@
 *.pdf
 *.dta
 *.csv
+*.tsv
 *.sql
 *.zip
 *.sqlite3
