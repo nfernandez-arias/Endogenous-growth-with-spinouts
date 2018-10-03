@@ -48,13 +48,6 @@ inventors <- inventors %>% select(patent,inventorState,inventorCity,inventorZipC
 ## Merge datasets
 inventorsAndPatents <- merge(patents,inventors,by = "patent")
 
-
-# Diagnostics
-#inventorsAndPatents <- stata.merge(patents,inventors,"patent")
-#inventorsAndPatents <- arrange.vars(inventorsAndPatents,c("merege" = 1))
-#inventorsAndPatents$merge <- factor(inventorsAndPatents$merge)
-#summary(inventorsAndPatents$merge)
-
 # Check time
 proc.time() - ptm
 
@@ -75,68 +68,77 @@ rm(list = c("inventors","patents"))
 ###########
 ############
 
-ptm2 <- proc.time()
-temp <- count(inventorsAndPatents,patent)
-temp$weight <- 1/temp$n
-temp <- temp %>% select(patent,weight)
-inventorsAndPatentsWeights <- merge(inventorsAndPatents,temp,by = c("patent"))
-rm(list=c("inventorsAndPatents","temp"))
+weights <- count(inventorsAndPatents,patent)
+weights$weight <- 1/weights$n
+weights <- weights %>% select(patent,weight)
+inventorsAndPatentsWeights <- merge(inventorsAndPatents,weights,by = c("patent"))
+
+rm(list=c("inventorsAndPatents","weights"))
 inventorsAndPatentsWeights$inventorState <- as.character(inventorsAndPatentsWeights$inventorState)
 proc.time() - ptm
 proc.time() - ptm2
-inventorsAndPatentsWeights <- tibble::rowid_to_column(inventorsAndPatentsWeights,"ID")
-temp <- inventorsAndPatentsWeights %>% spread(inventorState,weight)
 
-#temp <- reshape(inventorsAndPatentsWeights,idvar = "patent",v.names = c("weight"),timevar = "State",direction = "wide")
+## Have to now load in dynass and merge with compustat. The reason is that 
+## this allows me to modify the variable inventorState = assigneeState for 
+## <gvkey>-<year> pairs that do not have a patent. 
 
-
-#### Merge inventorsAndPatents and dynass, the dynamic match between pdpass and gvkey / pdpco
-
+#### Construct dataset with patent number, year, and gvkey
 ## Load dynass_reshaped
 dynass <- read.dta13('Data/dynass_reshaped.dta')
-
 # Clean and diagnose
 dynass$gvkey <- as.integer(dynass$gvkey)
-head(dynass)
+dynass <- dynass %>% select(pdpass,gvkey,year)
 
-## Merge and Clean
 
+
+
+
+#inventorsAndPatentsWeights <- tibble::rowid_to_column(inventorsAndPatentsWeights,"ID")
+
+# Spread to make column for each state's weight
+inventorsAndPatentsWeightsWide <- inventorsAndPatentsWeights %>% spread(inventorState,weight)
+# Clean up
+rm(inventorsAndPatentsWeights)
+
+
+### Aggregate weights for each state by patent
+# Extract just weights
+patentsWeights <- inventorsAndPatentsWeightsWide %>% select(-pdpass,-year,-assigneeState,-assigneeCountry,-inventorCountry,-inventorCity,-inventorZipCode) 
+# Sum by patent group
+patentsWeights <- patentsWeights %>% group_by(patent) %>% summarize_all(funs(sum))
+## Construct dataset with patent number, year and pdpass for merging with dynass
+patentsAssignees <- inventorsAndPatentsWeightsWide %>% select(patent,pdpass,year) %>% distinct(patent,pdpass,year,.keep_all = TRUE)
+# Clean up
+patentsWeights <- patentsWeights %>% select(-US)
+rm(inventorsAndPatentsWeightsWide)
+
+
+## Merge and clean
 # Merge
-inventorsAndPatentsAndDynass <- merge(inventorsAndPatents,dynass,by = c("pdpass","year"))
-# Clean: remove observations not in the US
-#inventorsAndPatentsAndDynass <- inventorsAndPatentsAndDynass[(inventorsAndPatentsAndDynass$country == "US"),]
-
-# Diagnostics
-#inventorsAndPatentsAndDynass <- stata.merge(inventorsAndPatents,dynass,c("pdpass","year"))
-#inventorsAndPatentsAndDynass <- inventorsAndPatentsAndDynass[(inventorsAndPatentsAndDynass$merge == 3),]
-#inventorsAndPatentsAndDynass$merge <- factor(inventorsAndPatentsAndDynass$merge)
-
+patentsAssignessDynass<- merge(patentsAssignees,dynass,by = c("pdpass","year"))
 # Remove unnecessary data: inventorsAndPatents and dynass
-rm(list = c("inventorsAndPatents","dynass"))
+rm(list = c("patentsAssignees","dynass"))
 
-#### Merge inventorsAndPatents and compustat
-
+#### Merge patentsAssigneesDynass with compustat's XRD data
 ## Load compustat dataset and clean
 compustat <- read.dta13('Raw/compustat_annual.dta')
+compustat <- compustat %>% select(gvkey,fyear,xrd,state)
+
 compustat$year <- compustat$fyear
-# remove unnecessary columns to conserve memory
-compustat <- compustat[,c("gvkey","year","xrd","loc","state","sic","naics","conm")]
-#compustat <- compustat[with(compustat, order(gvkey, year)),]
 compustat$gvkey <- as.integer(compustat$gvkey)
 
 ## Merge and clean
-inventorsAndPatentsAndDynassAndCompustat <- merge(inventorsAndPatentsAndDynass,compustat,by = c("gvkey","year"))
+patentsAssigneesDynassCompustat <- merge(patentsAssignessDynass,compustat,by = c("gvkey","year"),all.y = TRUE)
+rm(list = c("patentsAssignessDynass","compustat"))
 
-# Diagnostics
-#inventorsAndPatentsAndDynassAndCompustat <- stata.merge(inventorsAndPatentsAndDynass,compustat,c("gvkey","year"))
-#inventorsAndPatentsAndDynassAndCompustat <- arrange.vars(inventorsAndPatentsAndDynassAndCompustat,c("merge" = 3))
-#inventorsAndPatentsAndDynassAndCompustat$merge <- factor(inventorsAndPatentsAndDynassAndCompustat$merge)
+#### Merge with weights
+patentsAssigneesDynassCompustatWeights <- merge(patentsAssigneesDynassCompustat,patentsWeights,by = c("patent"),all.x = TRUE)
 
 # Remove unnecessary variables: inventorsAndPatents and compustat
-rm(list = c("inventorsAndPatentsAndDynass","compustat"))
+rm(list = c("patentsAssigneesDynassCompustat","patentsWeights"))
 
 #### Summarize data
-summary(inventorsAndPatentsAndDynassAndCompustat)
+summary(patentsAssigneesDynassCompustatWeights)
 
 write.csv(inventorsAndPatentsAndDynassAndCompustat, file = "Data/inventors_patents_compustat.csv")
 
