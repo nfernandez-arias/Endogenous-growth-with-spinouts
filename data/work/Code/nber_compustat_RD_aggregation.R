@@ -26,15 +26,16 @@ ptm <- proc.time()
 library(readstata13)
 library(dplyr)
 library(tidyr)
+library(data.table)
 source('Code/Functions/stata_merge.R')
 
 #### Merge Patents and Inventors Datasets by Patent #
-
+install.packages("data.table")
 ## Load in and clean Patents dataset
 patents <- read.dta13('Raw/pat76_06_assg.dta')
 patents$year <- patents$appyear
 patents <- patents %>% rename(assigneeState = state, assigneeCountry = country)
-patents <- patents %>% select(patent,pdpass,year,assigneeState,assigneeCountry)
+patents <- patents %>% select(patent,pdpass,year)
 
 
 ## Load in and clean Inventors datasets
@@ -44,9 +45,9 @@ inventors <- inventors %>% rename(patent = Patent, inventorCountry = Country, in
 # and can then be dropped. 
 inventors$patent <- as.numeric(as.character(inventors$patent))
 inventors <- inventors[!is.na(inventors$patent),]
-inventors <- inventors %>% select(patent,inventorState,inventorCity,inventorZipCode,inventorCountry)
+inventors <- inventors %>% select(patent,inventorState)
 ## Merge datasets
-inventorsAndPatents <- merge(patents,inventors,by = "patent")
+inventorsPatents <- merge(patents,inventors,by = "patent")
 
 # Check time
 proc.time() - ptm
@@ -68,15 +69,14 @@ rm(list = c("inventors","patents"))
 ###########
 ############
 
-weights <- count(inventorsAndPatents,patent)
+weights <- count(inventorsPatents,patent)
 weights$weight <- 1/weights$n
 weights <- weights %>% select(patent,weight)
-inventorsAndPatentsWeights <- merge(inventorsAndPatents,weights,by = c("patent"))
+inventorsPatentsWeights <- merge(inventorsPatents,weights,by = "patent")
 
-rm(list=c("inventorsAndPatents","weights"))
-inventorsAndPatentsWeights$inventorState <- as.character(inventorsAndPatentsWeights$inventorState)
+rm(list=c("inventorsPatents","weights"))
+inventorsPatentsWeights$inventorState <- as.character(inventorsPatentsWeights$inventorState)
 proc.time() - ptm
-proc.time() - ptm2
 
 ## Have to now load in dynass and merge with compustat. The reason is that 
 ## this allows me to modify the variable inventorState = assigneeState for 
@@ -89,17 +89,52 @@ dynass <- read.dta13('Data/dynass_reshaped.dta')
 dynass$gvkey <- as.integer(dynass$gvkey)
 dynass <- dynass %>% select(pdpass,gvkey,year)
 
+## Merge and clean
+# Merge
+inventorsPatentsWeightsDynass <- merge(inventorsPatentsWeights,dynass,by = c("pdpass","year"))
+# Remove unnecessary data: inventorsAndPatents and dynass
+rm(list = c("inventorsPatentsWeights","dynass"))
 
+#### Merge patentsAssigneesDynass with compustat's XRD data
+## Load compustat dataset and clean
+compustat <- read.dta13('Raw/compustat_annual.dta')
+compustat <- compustat %>% select(gvkey,fyear,xrd,state)
 
+compustat$year <- compustat$fyear
+compustat$gvkey <- as.integer(compustat$gvkey)
 
+## Merge and clean
+inventorsPatentsWeightsCompustat <- merge(inventorsPatentsWeightsDynass,compustat,by = c("gvkey","year"),all.y = TRUE)
+rm(list = c("inventorsPatentsWeightsDynass","compustat"))
 
-#inventorsAndPatentsWeights <- tibble::rowid_to_column(inventorsAndPatentsWeights,"ID")
-
+inventorsPatentsWeightsCompustat <- tibble::rowid_to_column(inventorsPatentsWeightsCompustat,"ID")
+inventorsPatentsWeightsCompustat <- inventorsPatentsWeightsCompustat %>% mutate(weight = replace(weight, is.na(inventorState), 1))
+inventorsPatentsWeightsCompustat <- inventorsPatentsWeightsCompustat %>% mutate(inventorState = replace(inventorState, is.na(inventorState), state[is.na(inventorState)]))
 # Spread to make column for each state's weight
-inventorsAndPatentsWeightsWide <- inventorsAndPatentsWeights %>% spread(inventorState,weight)
+
+inventorsPatentsWeightsCompustat <- inventorsPatentsWeightsCompustat %>% select(ID,gvkey,patent,xrd,year,inventorState,weight)
+inventorsPatentsWeightsCompustatWide <- inventorsPatentsWeightsCompustat %>% spread(inventorState,weight)
+
+# Extract just weights
+gvkeyXrdYearWeights <- inventorsPatentsWeightsCompustatWide %>% select(-V1)
+# Sum by gvkey-year
+gvkeyXrdYearWeights <- gvkeyXrdYearWeights %>% group_by(gvkey,year) %>% summarize_all(funs(sum))
+
+
+#### Multiply xrd by all weight columns
+
+## First turn NAs into 0s
+
+gvkeyXrdYearWeights <- gvkeyXrdYearWeights %>% mutate_all(funs(replace(.,is.na(.),0)))
+# Do i even need to do this? not sure...
+gvkeyXrdYearWeights <- ungroup(gvkeyXrdYearWeights)
+# Not working
+for (i in 4:68) {
+  gvkeyXrdYearWeights[,i] <- gvkeyXrdYearWeights[,3] * gvkeyXrdYearWeights[,i]
+}
+
 # Clean up
 rm(inventorsAndPatentsWeights)
-
 
 ### Aggregate weights for each state by patent
 # Extract just weights
@@ -112,24 +147,6 @@ patentsAssignees <- inventorsAndPatentsWeightsWide %>% select(patent,pdpass,year
 patentsWeights <- patentsWeights %>% select(-US)
 rm(inventorsAndPatentsWeightsWide)
 
-
-## Merge and clean
-# Merge
-patentsAssignessDynass<- merge(patentsAssignees,dynass,by = c("pdpass","year"))
-# Remove unnecessary data: inventorsAndPatents and dynass
-rm(list = c("patentsAssignees","dynass"))
-
-#### Merge patentsAssigneesDynass with compustat's XRD data
-## Load compustat dataset and clean
-compustat <- read.dta13('Raw/compustat_annual.dta')
-compustat <- compustat %>% select(gvkey,fyear,xrd,state)
-
-compustat$year <- compustat$fyear
-compustat$gvkey <- as.integer(compustat$gvkey)
-
-## Merge and clean
-patentsAssigneesDynassCompustat <- merge(patentsAssignessDynass,compustat,by = c("gvkey","year"),all.y = TRUE)
-rm(list = c("patentsAssignessDynass","compustat"))
 
 #### Merge with weights
 patentsAssigneesDynassCompustatWeights <- merge(patentsAssigneesDynassCompustat,patentsWeights,by = c("patent"),all.x = TRUE)
