@@ -39,30 +39,25 @@ profvis({
   #####################################################
   
   ##### Load in and clean patents dataset
-  patents <- read.dta13('Raw/pat76_06_assg.dta')
-  patents$year <- patents$appyear
-  patents <- patents %>% dplyr::rename(assigneeState = state, assigneeCountry = country)
+  patents <- data.table(fread('Data/patents.csv'))
+  patents <- patents %>% dplyr::rename(year = appyear, assigneeState = state, assigneeCountry = country)
   patents <- patents %>% dplyr::select(patent,pdpass,year)
   
   ##### Load in and clean inventors datasets
   # Use data.table::fread -- it is an order of magntiude faster than read.csv
-  inventors <- fread(file = "Raw/inventor.csv")
+  inventors <- data.table(fread(file = "Raw/inventor.csv"))
   # Rename variables
   inventors <- inventors %>% dplyr::rename(patent = Patent, inventorCountry = Country, inventorZipCode = Zipcode, inventorState = State, inventorCity = City)
   # Convert patent # to numeric. Non-utility patents have non-numeric characters, so these become NAs
   # and can then be dropped. 
   inventors$patent <- as.numeric(as.character(inventors$patent))
   inventors$inventorState <- as.character(inventors$inventorState)
-  inventors <- inventors %>% dplyr::filter(!is.na(patent))
+  inventors <- inventors[!is.na(patent)]
+  #inventors <- inventors %>% dplyr::filter(!is.na(patent))
   # Select only relevant variables: patent number and inventor state 
   inventors <- inventors %>% dplyr::select(patent,inventorState)
   
-  ##### Merge datasets using data.table - order of magnitude faster than baseR merge or plyr::join
-  # To conserve memory, can define data.tables by reference! beautiful!
-  inventors <- data.table(inventors)
-  patents <- data.table(patents)
-  #setDT(inventors, keep.rownames = FALSE)
-  #setDT(patents, keep.rownames = FALSE)
+  ##### Merge datasets using data.table
   setkey(inventors,patent)
   setkey(patents,patent)
   inventorsPatents <- merge(patents,inventors)
@@ -123,7 +118,7 @@ profvis({
   
   #### Merge patentsAssigneesDynass with compustat's XRD data
   ## Load compustat dataset and clean
-  compustat <- read.dta13('Raw/compustat_annual.dta')
+  compustat <- data.table(fread('Data/compustat.csv'))
   compustat <- compustat %>% select(gvkey,fyear,xrd,state)
   
   compustat$year <- compustat$fyear
@@ -131,16 +126,14 @@ profvis({
   
   ## Merge and clean
   # Convert compustat to data.table and set keys
-  compustat <- data.table(compustat)
   setkey(compustat,gvkey,year)
   setkey(inventorsPatentsDynass,gvkey,year)
   inventorsPatentsCompustat <- merge(inventorsPatentsDynass,compustat,by = c("gvkey","year"),all.y = TRUE)
   
   # For diagnostics, save here so I don't have to redo above
   inventorsPatentsCompustat <- inventorsPatentsCompustat %>% select(-pdpass,-fyear)
-  fwrite(inventorsPatentsCompustat, file = "Data/inventorsPatentsCompustat.csv")
-  
-  inventorsPatentsCompustat <- fread("Data/inventorsPatentsCompustat.csv", na.strings = c("",NA))    
+  #fwrite(inventorsPatentsCompustat, file = "Data/inventorsPatentsCompustat.csv")
+  #inventorsPatentsCompustat <- fread("Data/inventorsPatentsCompustat.csv", na.strings = c("",NA))    
   
   # Count number of patents per gvkey-year to modify weight so we can simply sum over gvkey-year entries later
   inventorsPatentsCompustat[, numInventorsInGvkeyYearPatent := .N, by = c("gvkey","year","patent")]
