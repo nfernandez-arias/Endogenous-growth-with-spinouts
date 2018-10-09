@@ -1,4 +1,4 @@
-cd "C:\Google_Drive_Princeton\PhD - Big boy\Research\Endogenous growth with worker flows and noncompetes\data\work"
+cd "Z:\home\nico\nfernand@princeton.edu\PhD - Big boy\Research\Endogenous growth with worker flows and noncompetes\data\work"
 
 clear
 

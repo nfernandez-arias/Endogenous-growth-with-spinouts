@@ -30,6 +30,7 @@ library(dplyr)
 library(plyr)
 library(tidyr)
 library(data.table)
+library(plm)
 source('Code/Functions/stata_merge.R')
 
 profvis({
@@ -39,19 +40,21 @@ profvis({
   #####################################################
   
   ##### Load in and clean patents dataset
-  patents <- data.table(fread('Data/patents.csv'))
+  patents <- fread('Data/patents.csv')
   patents <- patents %>% dplyr::rename(year = appyear, assigneeState = state, assigneeCountry = country)
   patents <- patents %>% dplyr::select(patent,pdpass,year)
   
   ##### Load in and clean inventors datasets
   # Use data.table::fread -- it is an order of magntiude faster than read.csv
-  inventors <- data.table(fread(file = "Raw/inventor.csv"))
+  inventors <- fread(file = "Raw/inventor.csv")
   # Rename variables
   inventors <- inventors %>% dplyr::rename(patent = Patent, inventorCountry = Country, inventorZipCode = Zipcode, inventorState = State, inventorCity = City)
   # Convert patent # to numeric. Non-utility patents have non-numeric characters, so these become NAs
   # and can then be dropped. 
-  inventors$patent <- as.numeric(as.character(inventors$patent))
-  inventors$inventorState <- as.character(inventors$inventorState)
+  inventors[, patent := as.numeric(as.character(patent))]
+  #inventors$patent <- as.numeric(as.character(inventors$patent))
+  inventors[, inventorState := as.character(inventorState)]
+  #inventors$inventorState <- as.character(inventors$inventorState)
   inventors <- inventors[!is.na(patent)]
   #inventors <- inventors %>% dplyr::filter(!is.na(patent))
   # Select only relevant variables: patent number and inventor state 
@@ -118,7 +121,7 @@ profvis({
   
   #### Merge patentsAssigneesDynass with compustat's XRD data
   ## Load compustat dataset and clean
-  compustat <- data.table(fread('Data/compustat.csv'))
+  compustat <- fread('Data/compustat.csv')
   compustat <- compustat %>% select(gvkey,fyear,xrd,state)
   
   compustat$year <- compustat$fyear
@@ -147,14 +150,24 @@ profvis({
   inventorsPatentsCompustatWeights <- inventorsPatentsCompustatWeights %>% dplyr::rename(state = inventorState)
   
   # Compute sum of weights by gvkey-year-inventorState
-  
   gvkeyYearStateWeights <- inventorsPatentsCompustatWeights[, lapply(.SD,sum), by = c("gvkey","year","state"), .SDcols = "weight"]
-  setkey(gvkeyYearStateWeights,gvkey,year)
-  
   gvkeyYearXrd <- unique(inventorsPatentsCompustatWeights, by=c("gvkey","year"))[,c("gvkey","year","xrd")]
   
-  setkey(gvkeyYearXrd,gvkey,year)
+  # Compute moving averages
+  # First sort by gvkey-year
+  setkey(gvkeyYearStateWeights,gvkey,year)
+  # Reshape to wide
+  gvkeyYearStateWeights[, ID := .I]
+  gvkeyYearStateWeights <- gvkeyYearStateWeights %>% spread(state,weight)
+  # Now can compute rolling averages of weights for each state easily
+  gvkeyYearStateWeights[, names(gvkeyYearStateWeights) := lapply(.SD, function(x) {x[is.na(x)] <- 0; x})]
+  #new_weights <- gvkeyYearStateWeights[, lapply(.SD,RcppRoll::roll_mean,n = 3L,fill = NA), .SDcols = 3:68, by = "gvkey"]
+  setDT(gvkeyYearStateWeights)[, c("AB_ma3") := lapply(.SD,zoo::rollmean,k=3,fill = NA,align = "right"),.SDcols = c("AB"), by = gvkey]
+  #gvkeyYearStateWeights[, weight_ma3 := rollmean(weight, k=3, fill = 0, align = "right"), by = .(gvkey)]
   
+  
+  # Merge
+  setkey(gvkeyYearXrd,gvkey,year)
   gvkeyYearStateWeightsXrd <- merge(gvkeyYearStateWeights,gvkeyYearXrd)
   
   # Clean up
