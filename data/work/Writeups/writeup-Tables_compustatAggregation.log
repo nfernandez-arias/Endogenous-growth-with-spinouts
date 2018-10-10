@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.9.14)  9 OCT 2018 22:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.9.14)  9 OCT 2018 23:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**"preliminary aggregate analysis writeup.tex"
-(./preliminary aggregate analysis writeup.tex
+**writeup-Tables_compustatAggregation.tex
+(./writeup-Tables_compustatAggregation.tex
 LaTeX2e <2017-04-15>
 Babel <3.18> and hyphenation patterns for 3 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -239,22 +239,22 @@ File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 LaTeX Warning: Unused global option(s):
     [7pt].
 
-(./preliminary aggregate analysis writeup.aux)
-\openout1 = `"preliminary aggregate analysis writeup.aux"'.
+(./writeup-Tables_compustatAggregation.aux)
+\openout1 = `writeup-Tables_compustatAggregation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 18.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 16.
 
 (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -362,60 +362,117 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 22.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 20.
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 22.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 20.
 
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 22.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 20.
 
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 22.
+(Font)              <12> on input line 20.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 22.
+(Font)              <8> on input line 20.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 22.
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 34.
+(Font)              <6> on input line 20.
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 32.
 
 (/usr/share/texmf/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 34.
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 32.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (../Tables/totalGDP_e_entr
+y_n_OLS_compustatAggregation.tex
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 3.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 3.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 3.
+)
+[2] (../Tables/totalGDP_e_entry_n_reduced_compustatAggregation.tex)
+(../Tables/totalGDP_e_entry_n_IV_compustatAggregation.tex)
+(../Tables/totalGDP_firststage_compustatAggregation.tex) [3]
+(../Tables/totalGDP_n_j_cr_n_OLS_compustatAggregation.tex)
+(../Tables/totalGDP_n_j_cr_n_reduced_compustatAggregation.tex)
 
-! LaTeX Error: File `data/work/Tables/total_e_entry_n_OLS.tex' not found.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
-Type X to quit or <RETURN> to proceed,
-or enter new name. (Default extension: tex)
+(../Tables/totalGDP_n_j_cr_n_IV_compustatAggregation.tex)
 
-Enter file name: 
-! Emergency stop.
-<read *> 
-         
-l.74 ...{data/work/Tables/total_e_entry_n_OLS.tex}
-                                                  ^^M
-*** (cannot \read from terminal in nonstop modes)
+LaTeX Warning: `h' float specifier changed to `ht'.
 
- 
+(../Tables/totalGDP_firststage_compustatAggregation.tex)
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[4
+
+] [5] (../Tables/privateGDP_e_entry_n_OLS_compustatAggregation.tex)
+(../Tables/privateGDP_e_entry_n_reduced_compustatAggregation.tex)
+(../Tables/privateGDP_e_entry_n_IV_compustatAggregation.tex)
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+(../Tables/privateGDP_firststage_compustatAggregation.tex)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[6
+
+] [7] (../Tables/privateGDP_n_j_cr_n_OLS_compustatAggregation.tex)
+(../Tables/privateGDP_n_j_cr_n_reduced_compustatAggregation.tex)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+(../Tables/privateGDP_n_j_cr_n_IV_compustatAggregation.tex)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+(../Tables/privateGDP_firststage_compustatAggregation.tex)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[8
+
+] [9] (./writeup-Tables_compustatAggregation.aux) ) 
 Here is how much of TeX's memory you used:
- 3295 strings out of 494923
- 46103 string characters out of 6180742
- 116524 words of memory out of 5000000
- 6534 multiletter control sequences out of 15000+600000
- 32660 words of font info for 31 fonts, out of 8000000 for 9000
+ 3363 strings out of 494923
+ 48802 string characters out of 6180742
+ 127507 words of memory out of 5000000
+ 6547 multiletter control sequences out of 15000+600000
+ 44420 words of font info for 39 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 41i,6n,25p,333b,213s stack positions out of 5000i,500n,10000p,200000b,80000s
-!  ==> Fatal error occurred, no output PDF file produced!
+ 41i,10n,25p,398b,339s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/
+dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr
+/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}</usr/share/texmf/fonts/type1/public/
+lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/te
+xmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lm
+mi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fon
+ts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb>
+</usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/
+public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri8.pfb></usr/shar
+e/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/l
+m/lmsy6.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb>
+Output written on writeup-Tables_compustatAggregation.pdf (9 pages, 207774 byte
+s).
+PDF statistics:
+ 89 PDF objects out of 1000 (max. 8388607)
+ 64 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

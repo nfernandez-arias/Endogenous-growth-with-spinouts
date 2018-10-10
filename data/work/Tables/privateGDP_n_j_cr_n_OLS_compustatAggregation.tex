@@ -1,0 +1,38 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{8}{c}}
+\toprule
+          &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}&\multicolumn{1}{c}{(7)}&\multicolumn{1}{c}{(8)}\\
+          &\multicolumn{1}{c}{n\_j\_cr\_n}&\multicolumn{1}{c}{n\_j\_cr\_n}&\multicolumn{1}{c}{n\_j\_cr\_n}&\multicolumn{1}{c}{n\_j\_cr\_n}&\multicolumn{1}{c}{n\_j\_cr\_n}&\multicolumn{1}{c}{n\_j\_cr\_n}&\multicolumn{1}{c}{n\_j\_cr\_n}&\multicolumn{1}{c}{n\_j\_cr\_n}\\
+\midrule
+xrd\_percentGDP&  0.00713         &                  &                  &                  &                  &                  &                  &  0.00735         \\
+          &   (1.45)         &                  &                  &                  &                  &                  &                  &   (1.00)         \\
+\addlinespace
+xrd\_percentGDP\_lag1&                  &  0.00914\sym{*}  &                  &                  &                  &                  &                  & -0.00564         \\
+          &                  &   (2.38)         &                  &                  &                  &                  &                  &  (-0.65)         \\
+\addlinespace
+xrd\_percentGDP\_lag2&                  &                  &   0.0118\sym{*}  &                  &                  &                  &                  &   0.0108         \\
+          &                  &                  &   (2.14)         &                  &                  &                  &                  &   (1.08)         \\
+\addlinespace
+xrd\_percentGDP\_lag3&                  &                  &                  &  0.00669         &                  &                  &                  & -0.00831         \\
+          &                  &                  &                  &   (1.22)         &                  &                  &                  &  (-1.31)         \\
+\addlinespace
+xrd\_percentGDP\_lag4&                  &                  &                  &                  &   0.0135\sym{***}&                  &                  &   0.0103         \\
+          &                  &                  &                  &                  &   (3.69)         &                  &                  &   (1.35)         \\
+\addlinespace
+xrd\_percentGDP\_lag5&                  &                  &                  &                  &                  &   0.0115\sym{**} &                  &  0.00517         \\
+          &                  &                  &                  &                  &                  &   (3.20)         &                  &   (0.71)         \\
+\addlinespace
+xrd\_percentGDP\_lag6&                  &                  &                  &                  &                  &                  &  0.00558         & -0.00467         \\
+          &                  &                  &                  &                  &                  &                  &   (1.82)         &  (-1.23)         \\
+\addlinespace
+\_cons    &   -3.200\sym{***}&   -3.316\sym{***}&   -3.186\sym{***}&   -3.192\sym{***}&   -3.312\sym{***}&   -3.247\sym{***}&   -3.278\sym{***}&   -3.316\sym{***}\\
+          & (-89.92)         &(-107.58)         & (-99.64)         & (-94.12)         &(-105.63)         &(-142.62)         &(-159.28)         &(-146.95)         \\
+\midrule
+\(N\)     &     1788         &     1740         &     1693         &     1645         &     1598         &     1551         &     1504         &     1468         \\
+adj. \(R^{2}\)&    0.800         &    0.800         &    0.804         &    0.804         &    0.814         &    0.822         &    0.817         &    0.817         \\
+\bottomrule
+\multicolumn{9}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{9}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

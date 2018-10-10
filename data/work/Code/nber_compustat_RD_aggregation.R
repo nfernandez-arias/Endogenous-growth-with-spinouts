@@ -33,7 +33,7 @@ library(data.table)
 library(plm)
 source('Code/Functions/stata_merge.R')
 
-profvis({
+#profvis({
   
   #####################################################
   #### Merge Patents and Inventors Datasets by Patent #
@@ -124,6 +124,7 @@ profvis({
   compustat <- fread('Data/compustat.csv')
   compustat <- compustat %>% select(gvkey,fyear,xrd,state)
   
+  
   compustat$year <- compustat$fyear
   compustat$gvkey <- as.integer(compustat$gvkey)
   
@@ -136,8 +137,10 @@ profvis({
   # For diagnostics, save here so I don't have to redo above
   inventorsPatentsCompustat <- inventorsPatentsCompustat %>% select(-pdpass,-fyear)
   #fwrite(inventorsPatentsCompustat, file = "Data/inventorsPatentsCompustat.csv")
-  #inventorsPatentsCompustat <- fread("Data/inventorsPatentsCompustat.csv", na.strings = c("",NA))    
+  #inventorsPatentsCompustat <- fread("Data/inventorsPatentsCompustat.csv", na.strings = c("",NA))
   
+  
+  inventorsPatentsCompustat <- copy(inventorsPatentsCompustat)
   # Count number of patents per gvkey-year to modify weight so we can simply sum over gvkey-year entries later
   inventorsPatentsCompustat[, numInventorsInGvkeyYearPatent := .N, by = c("gvkey","year","patent")]
   inventorsPatentsCompustat[, numPatentsInGvkeyYear := uniqueN(patent), by = c("gvkey","year")]
@@ -155,19 +158,20 @@ profvis({
   
   # Compute moving averages
   # First sort by gvkey-year
-  setkey(gvkeyYearStateWeights,gvkey,year)
-  # Reshape to wide
-  gvkeyYearStateWeights[, ID := .I]
-  gvkeyYearStateWeights <- gvkeyYearStateWeights %>% spread(state,weight)
+  
+  # Reshape to wide        
+  #gvkeyYearStateWeights[, ID := .I]
+  #gvkeyYearStateWeights <- gvkeyYearStateWeights %>% spread(state,weight)
   # Now can compute rolling averages of weights for each state easily
-  gvkeyYearStateWeights[, names(gvkeyYearStateWeights) := lapply(.SD, function(x) {x[is.na(x)] <- 0; x})]
+  #gvkeyYearStateWeights[, names(gvkeyYearStateWeights) := lapply(.SD, function(x) {x[is.na(x)] <- 0; x})]
   #new_weights <- gvkeyYearStateWeights[, lapply(.SD,RcppRoll::roll_mean,n = 3L,fill = NA), .SDcols = 3:68, by = "gvkey"]
-  setDT(gvkeyYearStateWeights)[, c("AB_ma3") := lapply(.SD,zoo::rollmean,k=3,fill = NA,align = "right"),.SDcols = c("AB"), by = gvkey]
+  #setDT(gvkeyYearStateWeights)[, c("AB_ma3") := lapply(.SD,zoo::rollmean,k=3,fill = NA,align = "right"),.SDcols = c("AB"), by = gvkey]
   #gvkeyYearStateWeights[, weight_ma3 := rollmean(weight, k=3, fill = 0, align = "right"), by = .(gvkey)]
   
   
   # Merge
   setkey(gvkeyYearXrd,gvkey,year)
+  setkey(gvkeyYearStateWeights,gvkey,year) 
   gvkeyYearStateWeightsXrd <- merge(gvkeyYearStateWeights,gvkeyYearXrd)
   
   # Clean up
@@ -186,6 +190,6 @@ profvis({
   
   fwrite(yearStateXrd,"Data/yearStateXrd.csv")
 
-})
+#})
 
 
