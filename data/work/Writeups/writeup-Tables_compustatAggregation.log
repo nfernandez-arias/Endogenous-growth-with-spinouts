@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.9.14)  9 OCT 2018 23:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.9.14)  9 OCT 2018 23:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -394,8 +394,13 @@ LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 32.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (../Tables/totalGDP_e_entr
-y_n_OLS_compustatAggregation.tex
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Try loading font information for OT1+lmtt on input line 65.
+
+ (/usr/share/texmf/tex/latex/lm/ot1lmtt.fd
+File: ot1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+(../Tables/totalGDP_e_entry_n_OLS_compustatAggregation.tex
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10> on input line 3.
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -403,10 +408,19 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 3.
 )
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 [2] (../Tables/totalGDP_e_entry_n_reduced_compustatAggregation.tex)
 (../Tables/totalGDP_e_entry_n_IV_compustatAggregation.tex)
-(../Tables/totalGDP_firststage_compustatAggregation.tex) [3]
-(../Tables/totalGDP_n_j_cr_n_OLS_compustatAggregation.tex)
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+(../Tables/totalGDP_firststage_compustatAggregation.tex)
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[3] [4] (../Tables/totalGDP_n_j_cr_n_OLS_compustatAggregation.tex)
 (../Tables/totalGDP_n_j_cr_n_reduced_compustatAggregation.tex)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -419,9 +433,9 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[4
+[5
 
-] [5] (../Tables/privateGDP_e_entry_n_OLS_compustatAggregation.tex)
+] [6] (../Tables/privateGDP_e_entry_n_OLS_compustatAggregation.tex)
 (../Tables/privateGDP_e_entry_n_reduced_compustatAggregation.tex)
 (../Tables/privateGDP_e_entry_n_IV_compustatAggregation.tex)
 
@@ -431,9 +445,9 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[6
+[7
 
-] [7] (../Tables/privateGDP_n_j_cr_n_OLS_compustatAggregation.tex)
+] [8] (../Tables/privateGDP_n_j_cr_n_OLS_compustatAggregation.tex)
 (../Tables/privateGDP_n_j_cr_n_reduced_compustatAggregation.tex)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -446,33 +460,35 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[8
+[9
 
-] [9] (./writeup-Tables_compustatAggregation.aux) ) 
+] [10] (./writeup-Tables_compustatAggregation.aux) ) 
 Here is how much of TeX's memory you used:
- 3363 strings out of 494923
- 48802 string characters out of 6180742
+ 3402 strings out of 494923
+ 49422 string characters out of 6180742
  127507 words of memory out of 5000000
- 6547 multiletter control sequences out of 15000+600000
- 44420 words of font info for 39 fonts, out of 8000000 for 9000
+ 6582 multiletter control sequences out of 15000+600000
+ 44731 words of font info for 40 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  41i,10n,25p,398b,339s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/
-dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr
-/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}</usr/share/texmf/fonts/type1/public/
-lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/te
-xmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lm
-mi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fon
-ts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb>
-</usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/
-public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri8.pfb></usr/shar
-e/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/l
-m/lmsy6.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb>
-Output written on writeup-Tables_compustatAggregation.pdf (9 pages, 207774 byte
-s).
+{/usr/share/texmf/fonts/enc
+/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/us
+r/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm
+/lm-rmtt.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/tex
+mf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmm
+i10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fon
+ts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb>
+</usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1
+/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/shar
+e/texmf/fonts/type1/public/lm/lmri8.pfb></usr/share/texmf/fonts/type1/public/lm
+/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy6.pfb></usr/share/texmf
+/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10
+.pfb>
+Output written on writeup-Tables_compustatAggregation.pdf (10 pages, 226471 byt
+es).
 PDF statistics:
- 89 PDF objects out of 1000 (max. 8388607)
- 64 compressed objects within 1 object stream
+ 97 PDF objects out of 1000 (max. 8388607)
+ 70 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

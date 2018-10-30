@@ -1,4 +1,4 @@
-# File name: xrd_rdUserCost_GDP_merge_stateLevel_compustatAggregation.R
+# File name: xrd-rdUserCost-GDP_merge_stateLevel_compustatAggregation.R
 #
 # Description:
 # 
@@ -29,8 +29,8 @@ setwd("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous growt
 ## Load libraries and auxiliary functions
 library(profvis)
 library(readstata13)
-library(dplyr)
 library(plyr)
+library(dplyr)
 library(tidyr)
 library(data.table)
 source('Code/Functions/stata_merge.R')
@@ -45,9 +45,6 @@ yearStateRDUserCost <- yearStateRDUserCost %>% select(state,year,rho_high)
 yearStateGDP <- fread("Data/yearStateGDP.csv")
 yearStateGDP <- yearStateGDP %>% dplyr::rename(stateName = state, state = stateAbbrev)
 
-
-
-
 ## Merge
 #yearStateXrdRDUserCost <- stata.merge(yearStateXrd,yearStateRDUserCost,c("state","year"))
 setkey(yearStateRDUserCost,state,year)
@@ -57,12 +54,7 @@ yearStateXrdRDUserCost <- merge(yearStateXrd,yearStateRDUserCost)
 yearStateXrdRDUserCostGDP <- merge(yearStateXrdRDUserCost,yearStateGDP)
 
 # Compute RD as % of GDP as a sanity check and for later use - looks good!
-yearStateXrdRDUserCostGDP[, xrd_percentGDP := 100 * xrd / GDP]
-
-
-# Diagnostics
-
-
+yearStateXrdRDUserCostGDP[, xrd_GDP := xrd / GDP]
 
 ## Output (in csv and in dta13 format)
 fwrite(yearStateXrdRDUserCostGDP,"Data/yearStateXrd-RDUserCost-GDP_stateLevel_compustatAggregation.csv")

@@ -26,8 +26,8 @@ setwd("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous growt
 ## Load libraries and auxiliary functions
 library(profvis)
 library(readstata13)
-library(dplyr)
 library(plyr)
+library(dplyr)
 library(tidyr)
 library(data.table)
 library(plm)

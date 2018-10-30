@@ -96,6 +96,9 @@ function out = solve_HJB_V_1d(pa,pm,ig)
 			%uvec = prof - zI_0 .* ig.w + zI_0 .* pm.chi_I .* pm.phi(zI_0) .* pm.lambda * V_0;
 			uvec = uvec';
 			A = makeA_V(pa,pm,ig,zI_0);
+            sum(A,1)
+            sum(A,2)
+            pause
 			Bmat = (1/pa.delta_t_V + pm.rho) .* eye(Imax) - A;
 			bvec = uvec + (1/pa.delta_t_V) .* V0;
 			Bmat = sparse(Bmat);

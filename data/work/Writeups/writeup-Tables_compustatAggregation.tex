@@ -48,7 +48,7 @@ State-time specific Non-compete enforcement
 
 Also have IRIS data by state and industry pair. This could be interesting to look at if I have time. Needs to be cleaned, though, so no time probably. Also, no startup rates at state-industry level. 
 
-\section{Improvements}
+\section{Notes}
 \begin{enumerate}
 	\item DONE - do it in logs - this made the signs look more like what I was expecting! Now there is a positive effect of R\&D spending on entry and job creation by new establishments / firms, respectively. 
 	\item DONE - Normalize variables (before taking logs) - always good to do this, if it makes sense 
@@ -57,11 +57,13 @@ Also have IRIS data by state and industry pair. This could be interesting to loo
 		\item Normalize establishment entry rates by state \# of establishments - harder
 		\item Normalize net job creation by state employment
 	\end{itemize}
-	\item ALMOST DONE - Aggregate from the bottom up using Compustat 
+	\item DONE - Aggregate from the bottom up using Compustat 
 	\begin{itemize}
 		\item Below are the results from the first version of this aggregation. The estimates are all in the right direction but not really significant. 
 		\item This could be because my measure of R\&D is very noisy. Could improve by averaging weight from patent stuff with weight from compustat according to some parameter. How to do this without data mining?
 	\end{itemize}
+	\item LOOK AT THE DATA now! Yay, visualization! But with Stata...unless there's some way to send the results of my regressions to R in a convenient format...look this up. Maybe even \texttt{-estout-} has this!  
+	\item Try not doing things in logs...
 \end{enumerate}
 
 

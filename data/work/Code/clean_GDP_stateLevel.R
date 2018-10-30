@@ -32,8 +32,8 @@ setwd("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous growt
 ## Load libraries and auxiliary functions
 library(profvis)
 library(readstata13)
-library(dplyr)
 library(plyr)
+library(dplyr)
 library(tidyr)
 library(data.table)
 source('Code/Functions/stata_merge.R')
@@ -60,7 +60,7 @@ setkey(stateAbbreviations,state)
 setkey(yearStateGDP_NAICS,state)
 setkey(yearStateGDP_SIC,state)
 
-# Finally merge in and keep only observations where merge was successful - this effectively drops observations not at the state level
+# Finally merge in and keep only observations where merge was successful - this effectively dr, and we have reason to believe that there ops observations not at the state level
 yearStateGDP_NAICS <- stata.merge(yearStateGDP_NAICS,stateAbbreviations,"state")[merge == 3]
 yearStateGDP_SIC <- stata.merge(yearStateGDP_SIC,stateAbbreviations,"state")[merge == 3]
 

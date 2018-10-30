@@ -2,7 +2,7 @@ cd "C:\Google_Drive_Princeton\PhD - Big boy\Research\Endogenous growth with work
 
 clear
 
-* First do some cleaning 
+* First do some cleaning
 u Raw\RDusercost_2017_13.dta
 
 replace state = "Massachusetts" if state == "Massachussetts"
@@ -11,7 +11,6 @@ drop _merge
 
 rename state statename
 rename StateAbbrev state
-
 
 save Data\RDusercost_2017_13.dta, replace
 
@@ -30,4 +29,3 @@ keep if _merge == 3
 drop _merge
 
 save Data\rd-by-state_RDusercost_merged.dta, replace
-

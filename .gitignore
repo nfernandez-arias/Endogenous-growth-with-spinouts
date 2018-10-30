@@ -11,3 +11,5 @@
 *.sqlite
 *.Rproj.user
 *.Rdata
+*.aux
+*.log

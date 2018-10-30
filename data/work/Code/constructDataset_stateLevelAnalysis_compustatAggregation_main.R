@@ -18,16 +18,14 @@ setwd("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous growt
 
 #library(profvis)
 
-#source("Code/nber_compustat_RD_aggregation.R")
-#source("Code/clean_GDP_stateLevel.R")
-#source("Code/xrd_rdUserCost_GDP_merge_stateLevel_compustatAggregation.R")
+source("Code/nber_compustat_RD_aggregation.R")
+source("Code/clean_GDP_stateLevel.R")
+source("Code/xrd-rdUserCost-GDP_merge_stateLevel_compustatAggregation.R")
 
-
-
-profvis({
-
-  source("Code/nber_compustat_RD_aggregation.R")
-  source("Code/clean_GDP_stateLevel.R")
-  source("Code/xrd-rdUserCost-GDP_merge_stateLevel_compustatAggregation.R")
-
-})
+#profvis({
+#
+#  source("Code/nber_compustat_RD_aggregation.R")
+# source("Code/clean_GDP_stateLevel.R")
+#  source("Code/xrd-rdUserCost-GDP_merge_stateLevel_compustatAggregation.R")
+#
+#})
