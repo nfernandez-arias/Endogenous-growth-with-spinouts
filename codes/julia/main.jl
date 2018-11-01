@@ -19,8 +19,10 @@
 # for exploration
 
 include("AlgorithmParameters.jl")
+include("setAlgorithmParameters.jl")
 include("ModelParameters.jl")
 include("InitialGuess.jl")
+include("solveModel.jl")
 
 # Functions for solving model
 #include("solveModel.jl")
@@ -32,3 +34,9 @@ include("InitialGuess.jl")
 pa = setAlgorithmParameters()
 pm = setModelParameters()
 ig = setInitialGuess(pa,pm)
+
+#--------------------------------#
+# Solve model with the above parameters
+#--------------------------------#
+
+model = solveModel(pa,pm,ig)
