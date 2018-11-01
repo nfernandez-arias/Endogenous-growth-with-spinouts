@@ -1,0 +1,19 @@
+#---------------------------------
+# Name: ModelSolver.jl
+#
+# Module containing functions for
+# solving the model given:
+#
+# Algorithm parameters
+# Model parameters
+# Initial guesses
+
+(1) Function:
+
+    solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initGuess::InitialGuess)
+
+    Solve model, calling inner loop functions
+
+(2) Function:
+
+    iterate_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess)

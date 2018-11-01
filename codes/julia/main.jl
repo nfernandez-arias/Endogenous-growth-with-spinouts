@@ -7,36 +7,39 @@
 # with spinouts.                 #
 #--------------------------------#
 
-# Set working directory
-
-#pwd()
-
 #--------------------------------#
-#   Loading auxiliary functions  #
+#   Loading packages             #
 #--------------------------------#
 
-# Include libraries for types and default constructor functions used
-# for exploration
+## Using basic modules
 
-include("AlgorithmParameters.jl")
-include("setAlgorithmParameters.jl")
-include("ModelParameters.jl")
-include("InitialGuess.jl")
-include("solveModel.jl")
+@time using AlgorithmParametersModule
+@time using ModelParametersModule
+@time using InitialGuessModule
+@time using ModelSolver
 
-# Functions for solving model
-#include("solveModel.jl")
+## Include functions specific to THIS main script
+
+include("functions/setAlgorithmParameters.jl")
+include("functions/setModelParameters.jl")
+include("functions/setInitialGuess.jl")
 
 #--------------------------------#
-# Set algorithm parameters       #
+# Set algorithm parameters,
+# model parameters, and
+# initial guesses
 #--------------------------------#
 
-pa = setAlgorithmParameters()
-pm = setModelParameters()
-ig = setInitialGuess(pa,pm)
+algoPar = setAlgorithmParameters()
+modelPar = setModelParameters()
+initGuess = setInitialGuess(algoPar,modelPar)
 
 #--------------------------------#
 # Solve model with the above parameters
 #--------------------------------#
 
-model = solveModel(pa,pm,ig)
+model = solveModel(algoPar,modelPar,initGuess)
+
+#--------------------------------#
+# Show results of solved model
+#--------------------------------#

@@ -1,10 +1,16 @@
-#---------------------------------#
-# Name: AlgorithmParameters.jl    #
-#                                 #
+#---------------------------------
+# Name: AlgorithmParametersModule.jl
+#
+# Module relating to algorithm parameters
+#
 # Contains definitions of
 # algorithm types and some
 # auxiliary functions.
 #
+
+__precompile__()
+
+module AlgorithmParametersModule
 
 struct mGridParameters
 
@@ -58,5 +64,9 @@ struct AlgorithmParameters
     w::IterationParameters
     zS::IterationParameters
     zE::IterationParameters
+
+end
+
+export AlgorithmParameters,mGridParameters,mGridBuild,HJBellmanParameters,IterationParameters;
 
 end

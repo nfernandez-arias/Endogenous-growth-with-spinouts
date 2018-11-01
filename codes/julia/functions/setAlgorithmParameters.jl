@@ -1,3 +1,11 @@
+#---------------------------------
+# Name: setAlgorithmParameters.jl
+#
+# Function for setting algorithm parameters
+# to baseline setting, for testing the model solver.
+#
+
+
 function setAlgorithmParameters()
 
     mgrid_numPoints = 100;

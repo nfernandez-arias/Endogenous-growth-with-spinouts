@@ -1,22 +1,9 @@
-struct InitialGuess
-
-    # R&D labor supply
-    L_RD::Float64
-
-    # R&D wage
-    w::Array{Float64}
-
-    # Incumbent flow profit
-    profit::Float64
-
-    # Spinout entry threshold
-    idxM::Int64
-
-    # Spinout and entrant R&D effort
-    zS::Array{Float64}
-    zE::Array{Float64}
-
-end
+#---------------------------------#
+# Name: setInitialGuess.jl
+#
+# Function for setting initial guess
+# to baseline setting, for testing the model solver.
+#
 
 function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters)
 

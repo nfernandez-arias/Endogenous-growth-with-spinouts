@@ -1,3 +1,16 @@
+#---------------------------------
+# Name: ModelParametersModule.jl
+#
+# Module relating to model parameters
+#
+# Contains definitions of
+# modelParameters composite type
+#
+
+__precompile__()
+
+module ModelParametersModule
+
 struct ModelParameters
 
     ## General parameters
@@ -30,25 +43,6 @@ struct ModelParameters
 
 end
 
-function setModelParameters()
-
-    # General
-    ρ = 0.03;
-    β = 0.2;
-    L = 1.0;
-
-    # Innovation
-    χI = 1.5;
-    χS = 1.5;
-    χE = 0.5;
-    ψI = 0.5;
-    ψSE = 0.5;
-    λ = 1.2;
-
-    # Spinouts
-    ν = 0.2;
-    ξ = 0.1;
-
-    return ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ);
+export ModelParameters;
 
 end
