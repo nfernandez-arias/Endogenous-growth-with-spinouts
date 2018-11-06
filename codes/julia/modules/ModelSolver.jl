@@ -19,26 +19,33 @@ __precompile__()
 
 module ModelSolver
 
-using AlgorithmParametersModule, ModelParametersModule, GuessModule
+using AlgorithmParametersModule, ModelParametersModule, GuessModule, HJBModule
 import AuxiliaryModule
 
-export solveModel, solveIncumbentHJB
+export solveModel
 
-function update_L_RD(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::InitialGuess)
+function update_L_RD_w(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::InitialGuess, incumbentHJBSolution::IncumbentSolution)
 
-    # Calculate L_RD based on results from inner fixed points
-    # Essentially, aggregating based on KF equation etc.
+    # Unpack incumbentHJBSolution
+    V = incumbentHJBSolution.V;
+    zI = incumbentHJBSolution.zI;
 
-    # Placeholder...
+    ## Update w
+    # Load parameters and model constants
+    ν = modelPar.ν;
+    wbar = AuxiliaryModule.wbar(modelPar.β);
 
-    return InitialGuess(initGuess.L_RD, initGuess.w, initGuess.zS, initGuess.zE)
+    # First compute W, value of spinout, for computing R&D wage update
+    W = solveSpinoutHJB(algoPar,modelPar,initGuess,V)
+    # Compute new wage
+    temp_w = wbar * ones(size(W)) - ν * W;
+    w = algoPar.w.updateRate * temp_w + (1 - algoPar.w.updateRate) * initGuess.w;
 
-end
+    ## Update L_RD
+    # Need to solve KF equation - easy given tau.
+    # Then need to aggregate back up to L_RD
 
-function update_w(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::InitialGuess)
-
-    # Placeholder...
-    return InitialGuess(initGuess.L_RD, initGuess.w, initGuess.zS, initGuess.zE)
+    return InitialGuess(initGuess.L_RD, w, initGuess.zS, initGuess.zE),W
 
 end
 
@@ -73,63 +80,18 @@ function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, in
     ## Unpack guesses
     old_zS = initGuess.zS;
     old_zE = initGuess.zE;
+    w = initGuess.w;
 
     ## Compute new guesses
 
-    temp_zS = min.(ξ*mGrid, old_zS .* (χS * ϕSE(old_zS + old_zE) * V[1] ./ initGuess.w));
-    temp_zE = old_zE .* (χE * ϕSE(old_zS + old_zE) * V[1] ./ initGuess.w)
+    temp_zS = min.(ξ*mGrid, old_zS .* (χS * ϕSE(old_zS + old_zE) * V[1] ./ w));
+    temp_zE = old_zE .* (χE * ϕSE(old_zS + old_zE) * V[1] ./ w)
 
-    new_zS = temp_zS * algoPar.zSzE.updateRate + old_zS * (1 - algoPar.zSzE.updateRate);
-    new_zE = temp_zE * algoPar.zSzE.updateRate + old_zE * (1 - algoPar.zSzE.updateRate);
+    zS = temp_zS * algoPar.zSzE.updateRate + old_zS * (1 - algoPar.zSzE.updateRate);
+    zE = temp_zE * algoPar.zSzE.updateRate + old_zE * (1 - algoPar.zSzE.updateRate);
 
     # Placeholder...
-    return InitialGuess(initGuess.L_RD, initGuess.w, initGuess.zS, initGuess.zE)
-
-end
-
-
-function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::InitialGuess, verbose = 2, print_skip = 10)
-
-    # do stuff to sovle for V, including potentially calling other functions
-    V0 = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,initGuess)
-
-    # Build grid
-    mGrid = mGridBuild(algoPar.mGrid);
-
-    # General
-    ρ = modelPar.ρ;
-    β = modelPar.β;
-    L = modelPar.L;
-
-    # Innovation
-    χI = modelPar.χI;
-    χS = modelPar.χS;
-    χE = modelPar.χE;
-    ψI = modelPar.ψI;
-    ψSE = modelPar.ψSE;
-    λ = modelPar.λ;
-
-    # Spinouts
-    ν = modelPar.ν;
-    ξ = modelPar.ξ;
-
-    # Guesses
-    Π = AuxiliaryModule.profit(initGuess.L_RD,modelPar);
-    w = initGuess.w;
-    zS = initGuess.zS;
-    zE = initGuess.zE;
-
-    # Some auxiliary functions
-    ϕI(z) = z .^(-ψI)
-    ϕSE(z) = z .^(-ψSE)
-
-    ϕI_inv(z) = z .^(-1/ψI)
-    ϕSE_inv(z) = z .^(-1/ψSE)
-
-
-
-    # Temporary - just for testing high-level structure of my code
-    return zeros(algoPar.mGrid.numPoints,1)
+    return InitialGuess(initGuess.L_RD, initGuess.w, zS, zE)
 
 end
 
@@ -138,13 +100,14 @@ function iterate_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters,in
     #vProfit = ones(pa.mGridParameters.numPoints,1) * AuxiliaryModule.profit(guess.L_RD);
 
     # Solve HJB given guesses
-    V = solveIncumbentHJB(algoPar,modelPar,initGuess)
+    incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,initGuess)
     #W = V;
     # W = solveSpinoutHJB(algoPar,modelPar,initGuess,V)
 
     # Compute new zS, based on V and W
     # Return InitialGuess object
-    return update_zSzE(algoPar,modelPar,initGuess,V)
+    newGuess = update_zSzE(algoPar,modelPar,initGuess,incumbentHJBSolution.V);
+    return newGuess,incumbentHJBSolution
 
 end
 
@@ -163,15 +126,18 @@ function computeFixedPoint_zSzE(algoPar::AlgorithmParameters, modelPar::ModelPar
 
     # While loop to compute fixed point
     iterate = 0;
-    error = tolerance + 1;
+    error = 1;
 
     oldGuess = initGuess;
 
     while iterate < maxIter && error > tolerance
 
-        newGuess = iterate_zSzE(algoPar,modelPar,oldGuess);
+        newGuess,incumbentHJBSolution = iterate_zSzE(algoPar,modelPar,oldGuess);
+        incumbentHJBSolution
+        sleep(5)
         iterate += 1;
-        error = maximum(abs,newGuess.zS - oldGuess.zS);
+        # Check distance
+        error = max(maximum(abs,newGuess.zS - oldGuess.zS),maximum(abs,newGuess.zE - oldGuess.zE));
 
         if verbose == 2
             if iterate % print_skip == 0
@@ -185,122 +151,52 @@ function computeFixedPoint_zSzE(algoPar::AlgorithmParameters, modelPar::ModelPar
 
     if verbose >= 1
         if error > tolerance
-            warn("maxIter attained in computeFixedPoint_L_RD")
+            warn("maxIter attained in computeFixedPoint_zSzE")
         elseif verbose == 2
             println("Converged in $iterate steps")
         end
     end
 
-    return oldGuess
+    newGuess,incumbentHJBSolution = iterate_zSzE(algoPar,modelPar,oldGuess);
+
+    return oldGuess,incumbentHJBSolution
 
 end
 
-
-function iterate_w(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::InitialGuess)
-
-    #vProfit = ones(pa.mGridParameters.numPoints,1) * AuxiliaryModule.profit(guess.L_RD);
-
-    # Solve model conditional on L_RD
-    guessTemp = computeFixedPoint_zSzE(algoPar,modelPar,initGuess,0)
-
-    # Aggregate to compute new w
-    # Return InitialGuess object
-    return update_w(algoPar,modelPar,guessTemp)
-
-end
-
-function computeFixedPoint_w(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::InitialGuess, verbose = 2, print_skip = 10)
-
-    # Error message
-    if !(verbose in (0,1,2))
-        throw(ArgumentError("verbose should be 0, 1 or 2"))
-    end
-
-    # Unpack relevant algorithm parameters
-    tolerance = algoPar.w.tolerance;
-    maxIter = algoPar.w.maxIter;
-    updateRate = algoPar.w.updateRate;
-    updateRateExponent = algoPar.w.updateRateExponent;
-
-    # While loop to compute fixed point
-    iterate = 0;
-    error = tolerance + 1;
-
-    oldGuess = initGuess;
-
-    while iterate < maxIter && error > tolerance
-
-        newGuess = iterate_w(algoPar,modelPar,oldGuess);
-        iterate += 1;
-        error = maximum(abs,newGuess.w - oldGuess.w);
-
-        if verbose == 2
-            if iterate % print_skip == 0
-                println("Compute iterate $iterate with error $error")
-            end
-        end
-
-        oldGuess = newGuess;
-
-    end
-
-    if verbose >= 1
-        if error > tolerance
-            warn("maxIter attained in computeFixedPoint_L_RD")
-        elseif verbose == 2
-            println("Converged in $iterate steps")
-        end
-    end
-
-    return oldGuess
-
-end
-
-
-#--------------------------#
-## Function: iterate_L_RD
-# This function takes
-# as input the parameters and initial guess
-#
-# It then runs one iteration of the outermost loop of
-#
-
-function iterate_L_RD(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::InitialGuess)
+function iterate_L_RD_w(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::InitialGuess)
 
     #vProfit = ones(pa.mGridParameters.numPoints,1) * AuxiliaryModule.profit(guess.L_RD);
 
     # Solve model conditional on L_RD guess
-    guessTemp = computeFixedPoint_w(algoPar,modelPar,initGuess,0)
+    guessTemp,incumbentHJBSolution = computeFixedPoint_zSzE(algoPar,modelPar,initGuess,0)
+
+    newGuess,W = update_L_RD_w(algoPar,modelPar,guessTemp,incumbentHJBSolution);
 
     # Aggregate to compute new L_RD
-    return update_L_RD(algoPar,modelPar,guessTemp)
+    return newGuess,incumbentHJBSolution,W
 
 end
 
-function computeFixedPoint_L_RD(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::InitialGuess, verbose = 2, print_skip = 10)
+function computeFixedPoint_L_RD_w(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::InitialGuess, verbose = 2, print_skip = 10)
 
     # Error message
     if !(verbose in (0,1,2))
         throw(ArgumentError("verbose should be 0, 1 or 2"))
     end
 
-    # Unpack relevant algorithm parameters
-    tolerance = algoPar.L_RD.tolerance;
-    maxIter = algoPar.L_RD.maxIter;
-    updateRate = algoPar.L_RD.updateRate;
-    updateRateExponent = algoPar.L_RD.updateRateExponent;
-
     # While loop to compute fixed point
     iterate = 0;
-    error = tolerance + 1;
+    error_L_RD = 1;
+    error_w = error_L_RD;
 
     oldGuess = initGuess;
 
-    while iterate < maxIter && error > tolerance
+    while (iterate < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate < algoPar.w.maxIter && error_w > algoPar.w.tolerance)
 
-        newGuess = iterate_L_RD(algoPar,modelPar,oldGuess);
+        newGuess,incumbentHJBSolution,W = iterate_L_RD_w(algoPar,modelPar,oldGuess);
         iterate += 1;
-        error = abs(newGuess.L_RD - oldGuess.L_RD);
+        error_L_RD = abs(newGuess.L_RD - oldGuess.L_RD);
+        error_w = maximum(abs,newGuess.w - oldGuess.w);
 
         if verbose == 2
             if iterate % print_skip == 0
@@ -313,21 +209,28 @@ function computeFixedPoint_L_RD(algoPar::AlgorithmParameters, modelPar::ModelPar
     end
 
     if verbose >= 1
-        if error > tolerance
-            warn("maxIter attained in computeFixedPoint_L_RD")
+        if error_L_RD > algoPar.L_RD.tolerance || error_w > algoPar.w.tolerance
+            if error_L_RD > algoPar.L_RD.tolerance
+                warn("maxIter attained in computeFixedPoint_L_RD_w without L_RD converging")
+            end
+            if error_w > algoPar.w.tolerance
+                warn("maxIter attained in computeFixedPoint_L_RD_w without w converging")
+            end
         elseif verbose == 2
-            println("Converged in $iterate steps")
+            println("Converged in $iterate steps")incumbentHJBSolution
         end
     end
 
-    return oldGuess
+    newGuess,incumbentHJBSolution,W = iterate_L_RD_w(algoPar,modelPar,oldGuess);
+
+    return oldGuess,incumbentHJBSolution,W
 
 end
 
 function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initGuess::InitialGuess)
 
     # Compute high-level fixed point
-    return computeFixedPoint_L_RD(algoPar,modelPar,initGuess,0)
+    return computeFixedPoint_L_RD_w(algoPar,modelPar,initGuess,0)
 
 end
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.14)  6 NOV 2018 13:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.14)  6 NOV 2018 14:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -295,12 +295,12 @@ LaTeX Font Info:    External font `lmex10' loaded for size
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 84.
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 86.
  (/usr/share/texmf/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 84.
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 86.
  [2] [3] [4]
 (./algorithm 6-25-2018.aux) ) 
 Here is how much of TeX's memory you used:
@@ -310,7 +310,7 @@ Here is how much of TeX's memory you used:
  5914 multiletter control sequences out of 15000+600000
  47563 words of font info for 42 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 27i,13n,23p,384b,342s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,13n,23p,384b,344s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc
 }{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvi
 ps/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/sh
@@ -323,7 +323,7 @@ sr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/pub
 lic/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/
 texmf/fonts/type1/public/lm/lmsy6.pfb></usr/share/texmf/fonts/type1/public/lm/l
 msy8.pfb>
-Output written on "algorithm 6-25-2018.pdf" (4 pages, 153916 bytes).
+Output written on "algorithm 6-25-2018.pdf" (4 pages, 154492 bytes).
 PDF statistics:
  72 PDF objects out of 1000 (max. 8388607)
  53 compressed objects within 1 object stream

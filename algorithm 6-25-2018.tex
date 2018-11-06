@@ -24,50 +24,52 @@
 \section{Outline}
 
 \begin{enumerate}
-	\item Iterate on $L_{RD}$. Guess $L^0_{RD}$.  
-	\item Compute implied $\bar{w},\pi$.
-	\item Iterate on wage $w^0(m)$. 
+	\item Guess $L^0_{RD}, w^0(m)$.  
 	\begin{enumerate}
-		\item Guess $w^0(m) \equiv w^0$.
+		\item Compute implied $\pi$ (closed form, need to write up these steps...)
 		\item Iterate on $z_E,z_S$ to find Nash equilibrium of R\&D race game.
 		\begin{enumerate}
-			\item Guess $z_E^0(m) \equiv z_E^0 > 0$
-			\item Guess $z_S^0(m) \equiv z_S^0 > 0$ small.
-			\item Calculate $V,z_I(m)$ by solving HJB (Moll's method, implicit)
+			\item Guess $z_S^0(m),z_E^0(m)$
+			\item Compute resulting $\tau(m)$, arrival rate of creative destruction. 
+			\item Given $\tau(m)$, compute $V(m),z_I(m)$ by solving HJB (Moll's method, implicit)
 			\item Compute
 			\begin{align*}
 			z_E^1(m) &= z_E^0(m) \cdot \frac{\chi_E \eta \big(z_E^0(m) + z_S^0(m)\big)V(0)}{w^0(m)} \\
 			z_S^1(m) &= \min\Bigg\{\xi m,z_S^0(m) \cdot \frac{\chi_S \eta \big(z_E^0(m) + z_S^0(m)\big)V(0)}{w^0(m)}\Bigg\}
 			\end{align*}
-			\item Check convergence. If converged, go to (c).
+			\item Check convergence. If converged, go to 1(c).
 			\item If not converged, have new guesses
 			\begin{align*}
 			z_E(m) &= \alpha_E z_E^1(m) + (1-\alpha_E) z_E^0(m) \\
 			z_S(m) &= \alpha_S z_S^1(m) + (1-\alpha_S) z_S^0(m) 
 			\end{align*}
-			and also threshold $m$ such that
+			(deprecated, for now) and also threshold $m$ such that
 			\begin{align*}
 				\forall m' > m, z_s(m) < \xi m
 			\end{align*}
-			and go back to (iii). 
+			and go back to (ii). 
 		\end{enumerate} 
-		\item Compute $W$ directly from HJB (Moll's method not required). Use boundary condition $W'(\bar{m}) = 0$ and assume R\&D intensity equal to $\xi$ (given NE from 3(b), individual spinouts either want to be at maximum scale or are indifferent)
-		\item Compute $w^1(m) =  \bar{w} - \nu W(m)$.
-		\item Check convergence. If converged, go to 4. 
-		\item If not converged, update guess 
-		\begin{align*}
-			w(m) = \alpha_w w^1(m) + (1-\alpha_w) w^0 (m) 
-		\end{align*} 
-		and go back to 3(b).
 	\end{enumerate}
-	\item Compute $\mu$ by solving KF equation (in detail below) 
-	\item Use $\mu$ and aggregate policy functions from 3(b) to compute R\&D labor demand $L^1_{RD}$.
-	\item Check convergence. If converged, go to 4. 
-	\item If not converged, new guess
-	\begin{align*}
-	L_{RD} &= \alpha_L L^1_{RD} + (1-\alpha_L) L^0_{RD} 
-	\end{align*}
-	and go back to 2. 
+	\item Now check convergence of $L^0_{RD},w^0(m)$.
+	\begin{enumerate}
+		\item Compute $w^1(m)$:
+		\begin{enumerate}
+			\item Compute $W$ directly from HJB (Moll's method not required since policy function is known). Use boundary condition $W'(\bar{m}) = 0$ and assume R\&D intensity equal to $\xi$ (given NE from 3(b), individual spinouts either want to be at maximum scale or are indifferent)	
+			\item Then set $w^1(m) = \bar{w} - \nu W(m)$
+		\end{enumerate}
+		\item Compute $L^1_{RD})$:
+		\begin{enumerate}
+			\item Compute $\mu$ by solving KF equation (in detail below) 
+			\item Use $\mu$ and policy functions from before to compute R\&D labor demand $L^1_{RD}$.
+		\end{enumerate}
+	 	\item Check $d(w^1(m),w^0(m))$ and $d(L^1_{RD},L^0_{RD})$ for convergence.
+	 	\item If not converged, compute new guesses
+	 	\begin{align*}
+	 		w(m) &= \alpha_w w^1(m) + (1-\alpha_w) w^0(m) \\
+	 		L_{RD} &= \alpha_{L_{RD}} L^1_{RD} + (1-\alpha_{L_{RD}}) L^0_{RD}
+	 	\end{align*}
+	 	and return to step 1 (a). 
+	\end{enumerate}
 \end{enumerate}
 
 \section{Details}

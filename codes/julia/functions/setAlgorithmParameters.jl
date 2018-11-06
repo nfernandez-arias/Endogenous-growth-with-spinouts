@@ -18,13 +18,13 @@ function setAlgorithmParameters()
 
     incumbentHJB_timeStep = 0.01;
     incumbentHJB_tolerance = 0.01;
-    incumbentHJB_maxIter = 20;
+    incumbentHJB_maxIter = 1;
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter);
 
     spinoutHJB_timeStep = 0.01;
     spinoutHJB_tolerance = 0.01;
-    spinoutHJB_maxIter = 20;
+    spinoutHJB_maxIter = 1;
 
     spinoutHJB = HJBellmanParameters(spinoutHJB_timeStep,spinoutHJB_tolerance,spinoutHJB_maxIter);
 

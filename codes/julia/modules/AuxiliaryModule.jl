@@ -29,6 +29,12 @@ function profit(L_RD::Float64, modelPar::ModelParameters)
 
 end
 
+function wbar(β::Float64)
+
+    return (β^β)*(1-β)^(2-2*β);
+
+end
+
 function initialGuessIncumbentHJB(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::InitialGuess)
 
     # Calculate initial guess for incumbent value function
@@ -36,6 +42,5 @@ function initialGuessIncumbentHJB(algoPar::AlgorithmParameters,modelPar::ModelPa
     return (profit(guess.L_RD, modelPar) / modelPar.ρ) * ones(algoPar.mGrid.numPoints,1);
 
 end
-
 
 end
