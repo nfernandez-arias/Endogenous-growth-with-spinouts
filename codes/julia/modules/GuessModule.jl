@@ -11,26 +11,25 @@ __precompile__()
 
 module GuessModule
 
+export InitialGuess
+
 struct InitialGuess
 
     # R&D labor supply
     L_RD::Float64
 
-    # R&D wage
+    # R&D wage guess:
+    # Function of L_RD guess and parameters
     w::Array{Float64}
 
-    # Incumbent flow profit
-    profit::Float64
-
     # Spinout entry threshold
-    idxM::Int64
+    #idxM::Int64
 
     # Spinout and entrant R&D effort
     zS::Array{Float64}
+
     zE::Array{Float64}
 
 end
-
-export InitialGuess
 
 end

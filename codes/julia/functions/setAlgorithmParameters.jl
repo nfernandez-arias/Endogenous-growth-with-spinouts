@@ -42,20 +42,13 @@ function setAlgorithmParameters()
 
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent);
 
-    zS_tolerance = 0.01;
-    zS_maxIter = 1;
-    zS_updateRate = 0.5;
-    zS_updateRateExponent = 1;
+    zSzE_tolerance = 0.01;
+    zSzE_maxIter = 1;
+    zSzE_updateRate = 0.5;
+    zSzE_updateRateExponent = 1;
 
-    zS = IterationParameters(zS_tolerance,zS_maxIter,zS_updateRate,zS_updateRateExponent);
+    zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent);
 
-    zE_tolerance = 0.01;
-    zE_maxIter = 1;
-    zE_updateRate = 0.5;
-    zE_updateRateExponent = 1;
-
-    zE = IterationParameters(zE_tolerance,zE_maxIter,zE_updateRate,zE_updateRateExponent);
-
-    return AlgorithmParameters(mGrid,incumbentHJB,spinoutHJB,L_RD,w,zS,zE);
+    return AlgorithmParameters(mGrid,incumbentHJB,spinoutHJB,L_RD,w,zSzE);
 
 end

@@ -17,3 +17,5 @@
 (2) Function:
 
     iterate_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess)
+
+    Takes a bunch of guesses, and

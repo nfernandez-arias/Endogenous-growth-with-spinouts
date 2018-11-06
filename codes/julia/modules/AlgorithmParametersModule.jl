@@ -6,11 +6,12 @@
 # Contains definitions of
 # algorithm types and some
 # auxiliary functions.
-#
 
 __precompile__()
 
 module AlgorithmParametersModule
+
+export AlgorithmParameters,mGridParameters,mGridBuild,HJBellmanParameters,IterationParameters;
 
 struct mGridParameters
 
@@ -62,11 +63,8 @@ struct AlgorithmParameters
     spinoutHJB::HJBellmanParameters
     L_RD::IterationParameters
     w::IterationParameters
-    zS::IterationParameters
-    zE::IterationParameters
+    zSzE::IterationParameters
 
 end
-
-export AlgorithmParameters,mGridParameters,mGridBuild,HJBellmanParameters,IterationParameters;
 
 end

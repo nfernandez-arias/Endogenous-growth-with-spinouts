@@ -15,14 +15,14 @@
 
 @time using AlgorithmParametersModule
 @time using ModelParametersModule
-@time using InitialGuessModule
+@time using GuessModule
 @time using ModelSolver
 
 ## Include functions specific to THIS main script
 
-include("functions/setAlgorithmParameters.jl")
-include("functions/setModelParameters.jl")
-include("functions/setInitialGuess.jl")
+@time include("functions/setAlgorithmParameters.jl")
+@time include("functions/setModelParameters.jl")
+@time include("functions/setInitialGuess.jl")
 
 #--------------------------------#
 # Set algorithm parameters,
@@ -38,7 +38,7 @@ initGuess = setInitialGuess(algoPar,modelPar)
 # Solve model with the above parameters
 #--------------------------------#
 
-model = solveModel(algoPar,modelPar,initGuess)
+@time model = solveModel(algoPar,modelPar,initGuess)
 
 #--------------------------------#
 # Show results of solved model
