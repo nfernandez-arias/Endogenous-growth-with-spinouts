@@ -32,20 +32,17 @@ struct IncumbentSolution
 
 end
 
-function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::InitialGuess, V::Array{Float64})
+function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::Guess, V::Array{Float64})
 
     # Placeholder
     return zeros(algoPar.mGrid.numPoints,1)
 
 end
 
-function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::InitialGuess, verbose = 2, print_skip = 10)
+function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, verbose = 2, print_skip = 10)
 
     # do stuff to sovle for V, including potentially calling other functions
-    V0 = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,initGuess)
-
-    # Build grid
-    mGrid = mGridBuild(algoPar.mGrid);
+    V0 = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess)
 
     # General
     ρ = modelPar.ρ;
@@ -69,6 +66,10 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     w = initGuess.w;
     zS = initGuess.zS;
     zE = initGuess.zE;
+
+    ## Load algorithm parameters
+    
+
 
     # Some auxiliary functions
     ϕI(z) = z .^(-ψI)

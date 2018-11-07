@@ -11,9 +11,9 @@ __precompile__()
 
 module GuessModule
 
-export InitialGuess
+export Guess
 
-struct InitialGuess
+mutable struct Guess
 
     # R&D labor supply
     L_RD::Float64

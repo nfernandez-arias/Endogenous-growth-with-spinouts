@@ -35,7 +35,7 @@ function wbar(β::Float64)
 
 end
 
-function initialGuessIncumbentHJB(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::InitialGuess)
+function initialGuessIncumbentHJB(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess)
 
     # Calculate initial guess for incumbent value function
 

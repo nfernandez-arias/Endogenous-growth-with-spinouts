@@ -49,6 +49,22 @@ function setAlgorithmParameters()
 
     zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent);
 
-    return AlgorithmParameters(mGrid,incumbentHJB,spinoutHJB,L_RD,w,zSzE);
+    # Logging parameters
+
+    L_RD_w_Log_verbose = 2;
+    L_RD_w_Log_print_skip = 10;
+    L_RD_w_Log = LogParameters(L_RD_w_Log_verbose,L_RD_w_Log_print_skip);
+
+    zSzE_Log_verbose = 2;
+    zSzE_Log_print_skip = 10;
+    zSzE_Log = LogParameters(zSzE_Log_verbose,zSzE_Log_print_skip);
+
+    incumbentHJB_Log_verbose = 2;
+    incumbentHJB_Log_print_skip = 10;
+    incumbentHJB_Log = LogParameters(incumbentHJB_Log_verbose,incumbentHJB_Log_print_skip);
+
+
+
+    return AlgorithmParameters(mGrid, incumbentHJB, spinoutHJB, L_RD, w, zSzE, L_RD_w_Log, zSzE_Log, incumbentHJB_Log);
 
 end

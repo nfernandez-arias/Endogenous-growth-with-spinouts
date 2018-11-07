@@ -38,7 +38,9 @@ initGuess = setInitialGuess(algoPar,modelPar)
 # Solve model with the above parameters
 #--------------------------------#
 
-@time finalGuess,incumbentHJBSolution,W = solveModel(algoPar,modelPar,initGuess)
+#@time finalGuess,incumbentHJBSolution,W = solveModel(algoPar,modelPar,initGuess)
+@time out = solveModel2(algoPar,modelPar,initGuess)
+
 
 #--------------------------------#
 # Show results of solved model

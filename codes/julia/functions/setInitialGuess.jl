@@ -20,6 +20,6 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters)
     #zE = 0 * ones(pa.mGrid.numPoints,1);
 
     #return InitialGuess(L_RD,w,idxM,zS,zE)
-    return InitialGuess(L_RD,w,zS,zE)
+    return Guess(L_RD,w,zS,zE)
 
 end

@@ -11,7 +11,7 @@ __precompile__()
 
 module AlgorithmParametersModule
 
-export AlgorithmParameters,mGridParameters,mGridBuild,HJBellmanParameters,IterationParameters;
+export AlgorithmParameters,mGridParameters,mGridBuild,HJBellmanParameters,IterationParameters,LogParameters;
 
 struct mGridParameters
 
@@ -56,6 +56,13 @@ struct IterationParameters
 
 end
 
+struct LogParameters
+
+    verbose::Int64
+    print_skip::Int64
+
+end
+
 struct AlgorithmParameters
 
     mGrid::mGridParameters
@@ -64,6 +71,9 @@ struct AlgorithmParameters
     L_RD::IterationParameters
     w::IterationParameters
     zSzE::IterationParameters
+    L_RD_w_Log::LogParameters
+    zSzE_Log::LogParameters
+    incumbentHJB_Log::LogParameters
 
 end
 
