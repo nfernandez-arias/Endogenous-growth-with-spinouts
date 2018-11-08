@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.14)  7 NOV 2018 20:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.14)  8 NOV 2018 15:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -297,44 +297,41 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 94.
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 101.
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 106.
 
  (/usr/share/texmf/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 101.
-
-Overfull \hbox (26.53958pt too wide) detected at line 110
-[]
- []
-
-[3] [4] [5] [6] (./Algorithm_Writeup_MollMeeting.aux) ) 
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 106.
+ [3] [4]
+[5] [6] (./Algorithm_Writeup_MollMeeting.aux) ) 
 Here is how much of TeX's memory you used:
- 2396 strings out of 492982
- 31446 string characters out of 6134895
- 104869 words of memory out of 5000000
- 5921 multiletter control sequences out of 15000+600000
- 60118 words of font info for 48 fonts, out of 8000000 for 9000
+ 2398 strings out of 492982
+ 31469 string characters out of 6134895
+ 105869 words of memory out of 5000000
+ 5922 multiletter control sequences out of 15000+600000
+ 64380 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  27i,13n,23p,459b,342s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/
-enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr
-/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/
-lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}</usr/share/te
-xmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lm
-ex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/f
-onts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pf
-b></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/typ
-e1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/
-share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public
-/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf
-/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy6
-.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb>
-Output written on Algorithm_Writeup_MollMeeting.pdf (6 pages, 225426 bytes).
+{/usr/share/texmf/fonts/enc/dvip
+s/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/t
+exmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathi
+t.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}</usr/share/texmf/font
+s/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb
+></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/typ
+e1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/
+share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/publi
+c/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/te
+xmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7
+.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/t
+ype1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></
+usr/share/texmf/fonts/type1/public/lm/lmsy6.pfb></usr/share/texmf/fonts/type1/p
+ublic/lm/lmsy8.pfb>
+Output written on Algorithm_Writeup_MollMeeting.pdf (6 pages, 239453 bytes).
 PDF statistics:
- 88 PDF objects out of 1000 (max. 8388607)
- 65 compressed objects within 1 object stream
+ 92 PDF objects out of 1000 (max. 8388607)
+ 68 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

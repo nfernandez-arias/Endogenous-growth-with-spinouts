@@ -49,10 +49,10 @@ function update_L_RD_w(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 
 end
 
-function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::Guess, V::Array{Float64})
+function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, V::Array{Float64})
 
     ## Build grid
-    mGrid = mGridBuild(algoPar.mGrid);
+    mGrid,Δm = mGridBuild(algoPar.mGrid);
 
     ## Unpack modelPar
 
@@ -78,20 +78,20 @@ function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, in
     ϕSE(z) = z .^(-ψSE)
 
     ## Unpack guesses
-    old_zS = initGuess.zS;
-    old_zE = initGuess.zE;
-    w = initGuess.w;
+    old_zS = guess.zS;
+    old_zE = guess.zE;
+    w = guess.w;
 
     ## Compute new guesses
-
-    temp_zS = min.(ξ*mGrid, old_zS .* (χS * ϕSE(old_zS + old_zE) * V[1] ./ w));
+    temp_zS = min.(ξ .* mGrid, (χS * old_zS .* ϕSE(old_zS + old_zE) * V[1]) ./ w);
     temp_zE = old_zE .* (χE * ϕSE(old_zS + old_zE) * V[1] ./ w)
 
+    ## Update
     zS = temp_zS * algoPar.zSzE.updateRate + old_zS * (1 - algoPar.zSzE.updateRate);
     zE = temp_zE * algoPar.zSzE.updateRate + old_zE * (1 - algoPar.zSzE.updateRate);
 
     # Placeholder...
-    return Guess(initGuess.L_RD, initGuess.w, zS, zE)
+    return Guess(guess.L_RD, guess.w, zS, zE)
 
 end
 
@@ -291,7 +291,7 @@ function solveModel2(algoPar::AlgorithmParameters,modelPar::ModelParameters,init
 
         if algoPar.zSzE_Log.verbose >= 1
             if error_zSzE > algoPar.zSzE.tolerance
-                @warn("maxIter attained in computeFixedPoint_zSzE")
+                @warn("maxIter attained in zSzE computation")
             elseif algoPar.zSzE_Log.verbose == 2
                 println("Converged in $iterate steps")
             end
@@ -319,7 +319,7 @@ function solveModel2(algoPar::AlgorithmParameters,modelPar::ModelParameters,init
 
         # Solve KF equation
 
-        
+
 
 
 

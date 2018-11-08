@@ -28,24 +28,26 @@ function mGridBuild(par::mGridParameters)
 
     if par.logSpacing == false
 
-        return range(par.minimum, stop = par.maximum, length = par.numPoints);
+        mGridFinal = range(par.minimum, stop = par.maximum, length = par.numPoints);
 
     else
 
         temp = 10 .^range(log(10,par.logSpacingMinimum),stop = log(10,par.maximum), length = par.numPoints - 1);
         mGridFinal = insert!(temp,1,par.minimum);
 
-        Delta_m = zeros(size(mGridFinal))
+    end
 
-        for i = range(1,length(mGridFinal))
+    Δm = zeros(size(mGridFinal))
 
-            Delta_m(i) = mGrid(i+1) - mGrid(i)
+    for i = range(1,length = length(mGridFinal) - 1)
 
-        end
-
-        return mGridFinal,Delta_m
+        Δm[i] = mGridFinal[i+1] - mGridFinal[i]
 
     end
+
+    Δm[end] = Δm[end - 1]
+
+    return mGridFinal,Δm
 
 end
 

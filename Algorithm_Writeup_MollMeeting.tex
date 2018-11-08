@@ -79,7 +79,7 @@
 \paragraph{Equation to be solved}The HJB to be solved is: 
 
 \begin{align*}
-	(\rho + \tau^{SE}(m)) V(m) &= \pi + \nu (a^{SE}(m))V'(m) \\
+	\rho V(m) &= \pi + \nu (a^{SE}(m))V'(m) - \tau^{SE}(m) V(m) \\
 							   &+ \max_{z_I \ge 0} \Big\{ z_I \chi_I \phi(z_I) \big[ \lambda V(0) - V(m) \big] - z_I w(m) + z_I \nu  V'(m) \Big\}
 \end{align*}
 where
@@ -93,6 +93,11 @@ where
 
 where $\hat{\phi}$ is the innovation production function for entrants and spinouts. \footnote{Some assumptions are being imposed here, they could be changed but that might require changing my algorithm.} 
 
+Also, for convenience, define
+\begin{align*}
+	\tau^I(m) &\equiv \chi_I z_I(m) \phi (z_I(m))
+\end{align*}
+
 \paragraph{Algorithm} Given flow profits $\pi$, non-R\&D wage $\bar{w}$, R\&D wages $w(m)$, etc., the algorithm proceeds as follows:
 
 \begin{enumerate}
@@ -105,25 +110,33 @@ where $\hat{\phi}$ is the innovation production function for entrants and spinou
 	\begin{enumerate}
 		\item \textbf{Discretize HJB} Since the direction of a product line's drift in $m$-space does not depend on the policy function of the incumbent, upwind scheme is easy to implement. Discretization results in
 		\begin{align*}
-			\frac{V_i^{n+1} - V_i^{n}}{\Delta_t} + (\rho + \tau^{SE}_i)V_i^{n+1} &= \pi + \nu a_I^{SE} \frac{V_{i+1}^{n+1} - V_i^{n+1}}{\Delta_m} \\
+			\frac{V_i^{n+1} - V_i^{n}}{\Delta_t} + \rho V_i^{n+1} &= \pi + \nu a_i^{SE} \frac{V_{i+1}^{n+1} - V_i^{n+1}}{\Delta_m} - \tau^{SE}_i V_i^{n+1} \\
 			          &+ z^{I,n}_i \Big( \chi_I \phi(z^{I,n}_i) \big[ \lambda V^{n+1}_1 - V^{n+1}_i \big] - w_i + \nu \frac{V_{i+1}^{n+1} - V_i^{n+1}}{\Delta_m} \Big)
+		\end{align*}
+		which can be rewritten as 
+		\begin{align*}
+			\frac{V_i^{n+1} - V_i^{n}}{\Delta_t} + \rho V_i^{n+1} &= \pi + \nu a_i^{SE} \frac{V_{i+1}^{n+1} - V_i^{n+1}}{\Delta_m} - \tau^{SE}_i V_i^{n+1} \\
+					  &+ \tau^{I,n}_i \big[ \lambda V^{n+1}_1 - V^{n+1}_i \big] - w_i + \nu z_i^{I,n} \frac{V_{i+1}^{n+1} - V_i^{n+1}}{\Delta_m} \Big)			
 		\end{align*}
 		\item \textbf{State constraints} There are no state constraints in this problem - the only constraint is that $z_I \ge 0$, which I can insure by hard-coding the constraint at the moment of optimization.\footnote{I am not using a closed form FOC for optimization, so I don't need to worry about cases in which the FOC doesn't hold, which is the only reason state constraints might not be trivial to handle}
 		\item \textbf{Calculating optimal policy $z_I^{*,n}(m)$:} Given result of previous iteration $V_n(m)$ (or initial guess if $n = 0$), calculate optimal incumbent R\&D policy $z_I^{*,n}(m)$ by maximizing RHS side of HJB in (a), with $n$ instead of $n+1$ superscripts:
 		\begin{align*}
-			z_I^{*,n} (m) &= \arg \max_{z \ge 0}  z \Big( \chi_I \phi(z) \big[ \lambda V^n_1 - V^n_i \big] - w_i + \frac{V_{i+1}^n - V_i^n}{\Delta_m} \Big)
+			z_I^{*,n} (m) &= \arg \max_{z \ge 0}  z \Big( \chi_I \phi(z) \big[ \lambda V^n_1 - V^n_i \big] - w_i + \nu \frac{V_{i+1}^n - V_i^n}{\Delta_m} \Big)
 		\end{align*} 
 		\item \textbf{Constructing matrix $A^n$ for update step} This step is just a matter of carefully translating the above into matrix notation. For $i < I_{\max}$, 
 		\begin{align*}
-			A_{i,1}^n &= z^{I,n}_i \chi_I \phi(z^{I,n}_i) \lambda \\
+			A_{i,1}^n &= \tau^{I,n}_i \lambda \\
 			A_{i,i+1}^n &= \nu \frac{a^{SE}_i + z^{I,n}_i}{\Delta_m} \\
-			A_{i,i}^n &= -\nu \frac{a^{SE}_i + z^{I,n}_i}{\Delta_m} - z^{I,n}_i \chi_I \phi(z^{I,n}_i) - \tau^{SE}_i 
+			A_{i,i}^n &= -\nu \frac{a^{SE}_i + z^{I,n}_i}{\Delta_m} - \tau^{I,n}_i - \tau^{SE}_i 
 		\end{align*} 
-		At $i = I_{\max}$, I am not sure what to do. So far I have set essentially set the right-derivative of $V$ to be zero at $I_{\max}$.
+		At $i = i_{\max}$, I am not sure what to do. So far I have set essentially set the right-derivative of $V$ to be zero at $i_{\max}$.
 		\begin{align*}
-			A_{I_{\max},1} &= z^{I,n}_{I_{\max}} \chi_I \phi(z^{I,n}_{I_{\max}}) \lambda \\
-			A_{I_{\max},I_{\max}} &= - z^{I,n}_{I_{\max}} \chi_I \phi(z^{I,n}_{I_{\max}}) - a^{SE}_{I_{\max}}
+			A_{i_{\max},1} &= \tau^{I,n}_{i_{\max}} \lambda \\
+			A_{i_{\max},i_{\max}} &= - \tau^{I,n}_{i_{\max}} - \tau^{SE}_{i_{\max}}
 		\end{align*}
+		
+		\remark With the above definition of the entries in the matrix $A$, the rows do not sum to 0. I can move the $-\tau_i^{SE}$ term in $A_{i,i}^n$ into the discount factor (alongside $\rho$, see below), but this would do nothing to fix the problem of the $\lambda$. If I get rid of that, I have only the drift left - but then at least things would sum to zero. Think about this. 
+		
 		\item \textbf{Final equation} Following the HACT numerical appendix, the system can be written 
 		\begin{align*}
 			B^n V^{n+1} &= b^n \\

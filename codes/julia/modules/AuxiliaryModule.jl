@@ -35,6 +35,31 @@ function wbar(β::Float64)
 
 end
 
+function τSE(modelPar::ModelParameters,zS::Array{Float64},zE::Array{Float64})
+
+    χS = modelPar.χS
+    χE = modelPar.χE
+
+    ψSE = modelPar.ψSE
+
+    ϕSE(z) = z .^(-ψSE)
+
+    return (χS * zS + χE * zE) .* ϕSE(zS + zE)
+
+end
+
+function τI(modelPar::ModelParameters,zI::Array{Float64})
+
+    χI = modelPar.χI
+
+    ψI = modelPar.ψI
+
+    ϕI(z) = z .^(-ψI)
+
+    return χI * zI .* ϕI(zI)
+
+end
+
 function initialGuessIncumbentHJB(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess)
 
     # Calculate initial guess for incumbent value function

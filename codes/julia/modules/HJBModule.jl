@@ -72,13 +72,13 @@ function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter
 
     ## Unpack guess
     ###################################################
-    Π = AuxiliaryModule.profit(initGuess.L_RD,modelPar);
-    w = initGuess.w;
-    zS = initGuess.zS;Construct
-    zE = initGuess.zE;
+    Π = AuxiliaryModule.profit(guess.L_RD,modelPar);
+    w = guess.w;
+    zS = guess.zS;
+    zE = guess.zE;
 
     # Construct mGrid
-    mGrid,Delta_m = mGridBuild(algoPar)
+    mGrid,Δm = mGridBuild(algoPar.mGrid)
     Imax = length(mGrid)
 
     # Initialize A matrix
@@ -87,11 +87,23 @@ function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter
     ## Compute A Matrix
     ##############################################
 
+	τI = AuxiliaryModule.τI(modelPar,zI)
+	τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
+
+	aSE = (zS + zE)
+
     for i = range(1,length = length(mGrid) - 1)
 
-        A[i,1] =  
+		A[i,1] = τI[i] * λ
+		A[i,i+1] = ν * (zI[i] + aSE[i]) / Δm[i]
+		A[i,i] = - ν * (zI[i] + aSE[i]) / Δm[i] - τI[i] - τSE[i]
 
     end
+
+	iMax = length(mGrid)
+
+	A[iMax,1] = τI[iMax]
+	A[iMax,iMax] = - τI[iMax] - τSE[iMax]
 
     return A
 
@@ -129,29 +141,31 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     tolerance = algoPar.incumbentHJB.tolerance
     maxIter = algoPar.incumbentHJB.maxIter
 
+	verbose = algoPar.incumbentHJB_Log.verbose
+	print_skip = algoPar.incumbentHJB_Log.print_skip
+
     ## Unpack guess
     ###################################################
-    Π = AuxiliaryModule.profit(initGuess.L_RD,modelPar);
-    w = initGuess.w;
-    zS = initGuess.zS;
-    zE = initGuess.zE;
+    w = guess.w;
+    zS = guess.zS;
+    zE = guess.zE;
 
     # Compute initial guess for V, "value of staying put"
     # based on L_RD guess and profit function
     V0 = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess)
     zI = zeros(size(V0))
     ## Construct mGrid and Delta_m vectors
-    mGrid,Delta_m = mGridBuild(algoPar)
+    mGrid,Δm = mGridBuild(algoPar.mGrid)
 
     # Finally calculate flow profit
+	Π = AuxiliaryModule.profit(guess.L_RD,modelPar) * ones(size(mGrid));
 
-    profit = AuxiliaryModule.profit(guess.L_RD,modelPar)
-    iter = 0
-    err = 1
+    iterate = 0
+    error = 1
 
-    while iter < maxIter && err > tolerance
+    while iterate < maxIter && error > tolerance
 
-        iter += 1
+        iterate += 1
 
         # Compute optimal policy
         # This can be parallelized eventually if I need to - essentially the only
@@ -159,18 +173,20 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
         for i=range(1,length = length(mGrid))
 
-            rhs(z) = -z[1] * (χI * ϕI(z[1]) * (λ * V0(1) - V0(i)) - (w(i) - ν * (V0(i+1) - V0(i)) / Delta_m(i))
+            rhs(z) = -z[1] * (χI * ϕI(z[1]) * (λ * V0[1] - V0[i]) - (w[i] - ν * (V0[i+1] - V0[i]) / Δm[i]))
             zIguess = [0.1]
 
-            result = optimize(rhs,zIguess,LBFGS())
+            #result = optimize(rhs,zIguess,LBFGS())
 
-            zI(i) = result.minimizer;
+            #zI[i] = result.minimizer;
+
+			zI[i] = 0.1
 
         end
 
         ## Make update:
 
-        u = profit - zI .* w
+        u = Π - zI .* w
         A = constructMatrixA(algoPar,modelPar,guess,zI)
         B = (1/timeStep + ρ) * I - A;
         b = u + (1/timeStep) * V0;
@@ -178,20 +194,37 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
         # Construct sparse matrices...not sure why but whatever
         #Asparse = sparse(A)
         Bsparse = sparse(B)
-        bsparse = sparse(b)rse(b)
+        bsparse = sparse(b)
 
-        V1 = Bsparse \ bsparse;
+        #V1 = Bsparse \ bsparse
+		V1 = B \ b
 
         # Normalize error by timeStep because
         # it will always be smaller if timeStep is smaller
         error = maximum(abs,V1 - V0) / timeStep
 
+		if verbose == 2
+			if iterate % print_skip == 0
+				println("Compute iterate $iterate with error $error")
+			end
+		end
+
         V0 = V1
 
     end
 
+
+
+	if verbose >= 1
+		if error > tolerance
+			@warn("maxIter attained in solveIncumbentHJB")
+		elseif verbose == 2
+			println("Converged in $iterate steps")
+		end
+	end
+
     # Output
-    return V0,zI
+    return IncumbentSolution(V0,zI)
 
 end
 
