@@ -34,7 +34,7 @@ function out = solve_HJB_V_1d(pa,pm,ig)
     frame_freq = 1;
     F(1) = struct('cdata',[],'colormap',[]);
     f = figure('visible','off');
-	H(1) = struct('cdata',[],'colormap',[]);
+		H(1) = struct('cdata',[],'colormap',[]);
     h = figure('visible','off');
 
     %% Solving HJB

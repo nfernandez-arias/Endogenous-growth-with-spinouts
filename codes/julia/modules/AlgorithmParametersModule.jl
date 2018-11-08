@@ -33,7 +33,17 @@ function mGridBuild(par::mGridParameters)
     else
 
         temp = 10 .^range(log(10,par.logSpacingMinimum),stop = log(10,par.maximum), length = par.numPoints - 1);
-        return insert!(temp,1,par.minimum);
+        mGridFinal = insert!(temp,1,par.minimum);
+
+        Delta_m = zeros(size(mGridFinal))
+
+        for i = range(1,length(mGridFinal))
+
+            Delta_m(i) = mGrid(i+1) - mGrid(i)
+
+        end
+
+        return mGridFinal,Delta_m
 
     end
 
