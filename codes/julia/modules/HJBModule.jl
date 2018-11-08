@@ -205,19 +205,21 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 		if verbose == 2
 			if iterate % print_skip == 0
-				println("Compute iterate $iterate with error $error")
+				println("solveIncumbentHJB: Compute iterate $iterate with error $error")
 			end
 		end
 
         V0 = V1
 
+		#println("V is equal to $V0")
+
     end
 
-
+	#println("V is equal to $V0")
 
 	if verbose >= 1
 		if error > tolerance
-			@warn("maxIter attained in solveIncumbentHJB")
+			@warn("solveIncumbentHJB: maxIter attained")
 		elseif verbose == 2
 			println("Converged in $iterate steps")
 		end

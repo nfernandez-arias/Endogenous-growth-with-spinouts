@@ -8,23 +8,23 @@
 
 function setAlgorithmParameters()
 
-    mgrid_numPoints = 100;
+    mgrid_numPoints = 1000;
     mgrid_minimum = 0.0;
     mgrid_maximum = 10.0;
-    mgrid_logSpacing = false;
+    mgrid_logSpacing = true;
     mgrid_logSpacingMinimum = 0.01;
 
     mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum);
 
-    incumbentHJB_timeStep = 0.01;
+    incumbentHJB_timeStep = 1;
     incumbentHJB_tolerance = 0.01;
-    incumbentHJB_maxIter = 1;
+    incumbentHJB_maxIter = 50;
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter);
 
     spinoutHJB_timeStep = 0.01;
     spinoutHJB_tolerance = 0.01;
-    spinoutHJB_maxIter = 1000;
+    spinoutHJB_maxIter = 1;
 
     spinoutHJB = HJBellmanParameters(spinoutHJB_timeStep,spinoutHJB_tolerance,spinoutHJB_maxIter);
 

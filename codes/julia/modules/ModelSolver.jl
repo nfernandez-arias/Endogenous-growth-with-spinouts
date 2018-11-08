@@ -24,6 +24,14 @@ import AuxiliaryModule
 
 export solveModel, solveModel2
 
+struct ModelSolution
+
+    finalGuess::Guess
+    incumbent::IncumbentSolution
+    spinoutValue::Array{Float64}
+
+end
+
 function update_L_RD_w(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::Guess, incumbentHJBSolution::IncumbentSolution)
 
     # Unpack incumbentHJBSolution
@@ -248,6 +256,11 @@ function solveModel2(algoPar::AlgorithmParameters,modelPar::ModelParameters,init
 
     guess = initGuess;
 
+    # Initialize outside of loops for returning
+    V = zeros(algoPar.mGrid.numPoints,1)
+    W = V
+    zI = V
+
     while (iterate_L_RD_w < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate_L_RD_w < algoPar.w.maxIter && error_w > algoPar.w.tolerance)
 
         iterate_L_RD_w += 1;
@@ -305,9 +318,11 @@ function solveModel2(algoPar::AlgorithmParameters,modelPar::ModelParameters,init
 
         # Solve incumbent HJB one more time...
         incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,guess)
+        V = incumbentHJBSolution.V
+        zI = incumbentHJBSolution.zI
 
         # Solve spinout HJB using incumbent HJB
-        W = solveSpinoutHJB(algoPar,modelPar,guess,incumbentHJBSolution.V)
+        W = solveSpinoutHJB(algoPar,modelPar,guess,V)
 
         # Use spinout value to compute implied R&D wage
         ν = modelPar.ν;
@@ -365,6 +380,8 @@ function solveModel2(algoPar::AlgorithmParameters,modelPar::ModelParameters,init
             println("Converged in $iterate steps")
         end
     end
+
+    return ModelSolution(guess,IncumbentSolution(V,zI),W)
 
 
 end

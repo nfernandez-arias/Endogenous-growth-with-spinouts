@@ -39,9 +39,25 @@ initGuess = setInitialGuess(algoPar,modelPar)
 #--------------------------------#
 
 #@time finalGuess,incumbentHJBSolution,W = solveModel(algoPar,modelPar,initGuess)
-@time out = solveModel2(algoPar,modelPar,initGuess)
+@time results = solveModel2(algoPar,modelPar,initGuess)
 
+## Unpack
+
+L_RD = results.finalGuess.L_RD
+w = results.finalGuess.w
+zS = results.finalGuess.zS
+zE = results.finalGuess.zE
+V = results.incumbent.V
+zI = results.incumbent.zI
+W = results.spinoutValue
+
+mGrid,Δm = mGridBuild(algoPar.mGrid)
 
 #--------------------------------#
-# Show results of solved model
+# Plot results of solved model
 #--------------------------------#
+
+# Import package Plots and define
+# Plotly backend with plotly() command
+
+@time using Gadfly
