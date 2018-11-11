@@ -6,8 +6,11 @@ function d = set_init_guesses_global(pa,pm)
     d.prof = pm.prof_func(pm.LF_func(d.L_RD));
     d.idx_M = pa.m_numpoints;
     
-    d.zS = min(pm.xi * pa.m_grid, 0.01);
-    d.zE = 0.02*ones(size(pa.m_grid));
+    %d.zS = min(pm.xi * pa.m_grid, 0.01);
+    %d.zE = 0.02*ones(size(pa.m_grid));
+    
+    d.zS = 0.1 * ones(size(pa.m_grid));
+    d.zE = d.zS;
     
     d.L_RD_maxcount = 1;
     d.w_maxcount = 1;

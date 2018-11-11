@@ -84,13 +84,11 @@ function out = solve_HJB_V_1d(pa,pm,ig)
 
 				rhs = @(z) -z * (pm.chi_I * pm.phi(z) * (pm.lambda * V0(1) - V0(i)) - (ig.w(i) - pm.nu * (V0(i+1) - V0(i))/pa.Delta_m(i)));
 
-				%[z fval] = fminbnd(rhs,0,zmax);
+				[z fval] = fminbnd(rhs,0,zmax);
 
-				%zI_0(i) = z;
-				%fvalI_0(i) = fval;
-        
-                zI_0(i) = 0.1;
-                
+				zI_0(i) = z;
+				fvalI_0(i) = fval;
+
 			end
 
 			%% Now, make vectors and matrices and compute update of V
@@ -98,7 +96,8 @@ function out = solve_HJB_V_1d(pa,pm,ig)
 			%uvec = prof - zI_0 .* ig.w + zI_0 .* pm.chi_I .* pm.phi(zI_0) .* pm.lambda * V_0;
 			uvec = uvec';
 			A = makeA_V(pa,pm,ig,zI_0);
-            
+      sum(A,2)
+      pause
 			Bmat = (1/pa.delta_t_V + pm.rho) .* eye(Imax) - A;
 			bvec = uvec + (1/pa.delta_t_V) .* V0;
 			Bmat = sparse(Bmat);

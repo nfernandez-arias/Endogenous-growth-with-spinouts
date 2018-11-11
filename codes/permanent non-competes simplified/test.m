@@ -12,6 +12,8 @@ ig = set_init_guesses_global(pa,pm);
 %% Solve model
 tic
 solve_model_out = solve_model2(pa,pm,ig);
+
+out2 = solve_model2(pa,pm,ig);
 toc
 %% Make videos
 m = VideoWriter('zE_video.avi');

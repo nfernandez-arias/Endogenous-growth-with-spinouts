@@ -13,7 +13,7 @@
 # in the Readme folder
 #
 # Contains definitions of
-# modelParameters composite type
+# ModelSolution composite type
 
 __precompile__()
 

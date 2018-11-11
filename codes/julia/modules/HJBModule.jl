@@ -72,10 +72,10 @@ function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter
 
     ## Unpack guess
     ###################################################
-    Π = AuxiliaryModule.profit(guess.L_RD,modelPar);
-    w = guess.w;
-    zS = guess.zS;
-    zE = guess.zE;
+    Π = AuxiliaryModule.profit(guess.L_RD,modelPar)
+    w = guess.w
+    zS = guess.zS
+    zE = guess.zE
 
     # Construct mGrid
     mGrid,Δm = mGridBuild(algoPar.mGrid)
@@ -102,7 +102,7 @@ function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter
 
 	iMax = length(mGrid)
 
-	A[iMax,1] = τI[iMax]
+	A[iMax,1] = τI[iMax] * λ
 	A[iMax,iMax] = - τI[iMax] - τSE[iMax]
 
     return A
@@ -171,18 +171,21 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
         # This can be parallelized eventually if I need to - essentially the only
         # part of the code that can be parallelized.
 
-        for i=range(1,length = length(mGrid))
+        for i=range(1,length = length(mGrid) - 1)
 
             rhs(z) = -z[1] * (χI * ϕI(z[1]) * (λ * V0[1] - V0[i]) - (w[i] - ν * (V0[i+1] - V0[i]) / Δm[i]))
             zIguess = [0.1]
 
-            #result = optimize(rhs,zIguess,LBFGS())
+            result = optimize(rhs,zIguess,LBFGS())
 
-            #zI[i] = result.minimizer;
+            zI[i] = result.minimizer[1];
 
-			zI[i] = 0.1
+			#zI[i] = 0.1
 
         end
+
+		# Last point hack
+		zI[length(mGrid)] = zI[length(mGrid)-1]
 
         ## Make update:
 
@@ -221,7 +224,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		if error > tolerance
 			@warn("solveIncumbentHJB: maxIter attained")
 		elseif verbose == 2
-			println("Converged in $iterate steps")
+			println("solveIncumbentHJB: Converged in $iterate steps")
 		end
 	end
 

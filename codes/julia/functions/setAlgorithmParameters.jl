@@ -8,16 +8,16 @@
 
 function setAlgorithmParameters()
 
-    mgrid_numPoints = 1000;
+    mgrid_numPoints = 500;
     mgrid_minimum = 0.0;
-    mgrid_maximum = 10.0;
+    mgrid_maximum = 1;
     mgrid_logSpacing = true;
-    mgrid_logSpacingMinimum = 0.01;
+    mgrid_logSpacingMinimum = 0.00001;
 
     mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum);
 
     incumbentHJB_timeStep = 1;
-    incumbentHJB_tolerance = 0.01;
+    incumbentHJB_tolerance = 0.001;
     incumbentHJB_maxIter = 50;
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter);
@@ -60,7 +60,7 @@ function setAlgorithmParameters()
     zSzE_Log = LogParameters(zSzE_Log_verbose,zSzE_Log_print_skip);
 
     incumbentHJB_Log_verbose = 2;
-    incumbentHJB_Log_print_skip = 10;
+    incumbentHJB_Log_print_skip = 1;
     incumbentHJB_Log = LogParameters(incumbentHJB_Log_verbose,incumbentHJB_Log_print_skip);
 
 
