@@ -1,0 +1,183 @@
+\documentclass[7pt,english]{article}
+\usepackage{lmodern}
+%\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{booktabs}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=0.25in,rmargin=0.25in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{lscape}
+\begin{document}
+
+\title{Aggregate empirical analysis}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+Try switching LHS and RHS
+Need to think very carefully about exactly how to do this
+Everything is endogenous
+State-time specific Non-compete enforcement 
+
+\section{Data sources}
+
+\begin{enumerate}
+	\item Total R\&D by state from NSF data
+	\begin{itemize}
+		\item location: Data/rd-by-state.dta
+		\item Starts around 1991 for most states, from NSF National Patterns of R\&D resources
+		\item Available in aggregated form and with entire history here https://www.nsf.gov/statistics/state-indicators/indicator/rd-performance-to-state-gdp/map (although in \% GDP terms, where I got must have used this + data on statelevel GDP by year, which is easy to find)
+	\end{itemize}
+	\item Private R\&D by state from NSF date (same source as above, see README)
+	\item Census Business Dynamics Statistics on new business formation / employment by state and year
+	\begin{itemize}
+		\item ``Raw data'' location: Data/bds\_f\_agest.dta
+		\item ``modified data'' location: Data/entry\_rates\_by\_state.dta
+		\item Easy to find online I think...
+	\end{itemize}
+	\item Effective R\&D user cost of capital by state and year, from Bloom et al.
+	\begin{itemize}
+		\item ``Raw data'' location: Data/RDusercost\_2017\_13.dta
+	\end{itemize}
+\end{enumerate}
+
+Also have IRIS data by state and industry pair. This could be interesting to look at if I have time. Needs to be cleaned, though, so no time probably. Also, no startup rates at state-industry level. 
+
+\section{Notes}
+\begin{enumerate}
+	\item DONE - do it in logs - this made the signs look more like what I was expecting! Now there is a positive effect of R\&D spending on entry and job creation by new establishments / firms, respectively. 
+	\item DONE - Normalize variables (before taking logs) - always good to do this, if it makes sense 
+	\begin{itemize}
+		\item Normalize R\&D spending by state GDP - easy
+		\item Normalize establishment entry rates by state \# of establishments - harder
+		\item Normalize net job creation by state employment
+	\end{itemize}
+	\item DONE - Aggregate from the bottom up using Compustat 
+	\begin{itemize}
+		\item Below are the results from the first version of this aggregation. The estimates are all in the right direction but not really significant. 
+		\item This could be because my measure of R\&D is very noisy. Could improve by averaging weight from patent stuff with weight from compustat according to some parameter. How to do this without data mining?
+	\end{itemize}
+	\item LOOK AT THE DATA now! Yay, visualization! But with Stata...unless there's some way to send the results of my regressions to R in a convenient format...look this up. Maybe even \texttt{-estout-} has this!  
+	\item Try not doing things in logs...
+\end{enumerate}
+
+
+\section{Results}
+Note: All regressions below use state- and time-fixed effects. Their coefficients are omitted. 
+\subsection{Total R\&D}
+\subsubsection{Establishment Entry}
+%\begin{landscape}
+\begin{table}[h!]
+	\caption{log-log OLS of Estab. Entry Rate / \# Estabs on R\&D / GDP and lags}
+	\center
+	\input{../Tables/totalGDP_e_entry_n_OLS_compustatAggregation.tex}
+\end{table}
+%\end{landscape}
+
+\newpage
+\begin{table}[h!]
+	\caption{log-log OLS Estab. Entry Rate / \# Estabs on R\&D effective user cost of R\&D}
+	\center
+	\input{../Tables/totalGDP_e_entry_n_reduced_compustatAggregation.tex}
+\end{table}
+
+\begin{table}[h!]
+	\caption{log-log IV Estab. Entry Rate / \# Estabs on R\&D by GDP, with effective user cost of R\&D as instrument}
+	\center
+	\input{../Tables/totalGDP_e_entry_n_IV_compustatAggregation.tex}
+\end{table}
+
+\begin{table}[h!]
+	\caption{OLS log of R\&D / GDP on effective user cost of R\&D}
+	\center
+	\input{../Tables/totalGDP_firststage_compustatAggregation.tex}
+\end{table}
+
+\clearpage
+\subsubsection{Net job creation by new firms}
+\begin{table}[h]
+	\caption{log-log OLS of Job Creation by Entrants / Total Employment on R\&D / GDP and lags}
+	\center
+	\input{../Tables/totalGDP_n_j_cr_n_OLS_compustatAggregation.tex}
+\end{table}
+
+\begin{table}[h]
+	\caption{log-log OLS Job Creation by Entrants / Total Employment on R\&D effective user cost of R\&D}
+	\center
+	\input{../Tables/totalGDP_n_j_cr_n_reduced_compustatAggregation.tex}
+\end{table}
+
+\begin{table}[h]
+	\caption{log-log IV Job Creation by Entrants / Total Employment on R\&D by GDP, with effective user cost of R\&D as instrument}
+	\center
+	\input{../Tables/totalGDP_n_j_cr_n_IV_compustatAggregation.tex}
+\end{table}
+
+\begin{table}[h!]
+	\caption{OLS log of R\&D / GDP on effective user cost of R\&D}
+	\center
+	\input{../Tables/totalGDP_firststage_compustatAggregation.tex}
+\end{table}
+
+\clearpage
+\subsection{Private R\&D}
+\subsubsection{Establishment Entry}
+
+\begin{table}[h]
+	\caption{log-log OLS of Estab. Entry Rate / \# Estabs on R\&D / GDP and lags}
+	\center
+	\input{../Tables/privateGDP_e_entry_n_OLS_compustatAggregation.tex}
+\end{table}
+
+\begin{table}[h!]
+	\caption{log-log OLS Estab. Entry Rate / \# Estabs on R\&D effective user cost of R\&D}
+	\center
+	\input{../Tables/privateGDP_e_entry_n_reduced_compustatAggregation.tex}
+\end{table}
+
+\begin{table}[h!]
+	\caption{log-log IV Estab. Entry Rate / \# Estabs on R\&D by GDP, with effective user cost of R\&D as instrument}
+	\center	
+	\input{../Tables/privateGDP_e_entry_n_IV_compustatAggregation.tex}
+\end{table}
+
+\begin{table}[h]
+	\caption{OLS log of R\&D / GDP on effective user cost of R\&D}
+	\center
+	\input{../Tables/privateGDP_firststage_compustatAggregation.tex}
+\end{table}
+
+\clearpage
+\subsubsection{Net job creation by new firms}
+\begin{table}[h!]
+	\caption{log-log OLS of Job Creation by Entrants / Total Employment on R\&D / GDP and lags}
+	\center
+	\input{../Tables/privateGDP_n_j_cr_n_OLS_compustatAggregation.tex}
+\end{table}
+
+\begin{table}[h]
+	\caption{log-log OLS Job Creation by Entrants / Total Employment on R\&D effective user cost of R\&D}
+	\center
+	\input{../Tables/privateGDP_n_j_cr_n_reduced_compustatAggregation.tex}
+\end{table}
+
+\begin{table}[h]
+	\caption{log-log IV Job Creation by Entrants / Total Employment on R\&D by GDP, with effective user cost of R\&D as instrument}
+	\center
+	\input{../Tables/privateGDP_n_j_cr_n_IV_compustatAggregation.tex}
+\end{table}
+
+\begin{table}[h]
+	\caption{OLS log of R\&D / GDP on effective user cost of R\&D}
+	\center
+	\input{../Tables/privateGDP_firststage_compustatAggregation.tex}
+\end{table}
+
+
+
+\end{document}

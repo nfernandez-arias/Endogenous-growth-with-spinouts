@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.9.14)  9 OCT 2018 23:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.14)  13 NOV 2018 13:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **writeup-Tables_compustatAggregation.tex
 (./writeup-Tables_compustatAggregation.tex
 LaTeX2e <2017-04-15>
-Babel <3.18> and hyphenation patterns for 3 language(s) loaded.
+Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
@@ -154,8 +154,6 @@ File: babel.def 2018/02/14 3.18 Babel common definitions
 (/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@dirlevel=\count95
 )
-\l@british = a dialect from \language\l@english 
-\l@UKenglish = a dialect from \language\l@english 
 \l@canadian = a dialect from \language\l@american 
 \l@australian = a dialect from \language\l@british 
 \l@newzealand = a dialect from \language\l@british 
@@ -464,12 +462,12 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 ] [10] (./writeup-Tables_compustatAggregation.aux) ) 
 Here is how much of TeX's memory you used:
- 3402 strings out of 494923
- 49422 string characters out of 6180742
- 127507 words of memory out of 5000000
- 6582 multiletter control sequences out of 15000+600000
+ 3400 strings out of 492982
+ 49402 string characters out of 6134895
+ 131438 words of memory out of 5000000
+ 6830 multiletter control sequences out of 15000+600000
  44731 words of font info for 40 fonts, out of 8000000 for 9000
- 14 hyphenation exceptions out of 8191
+ 1141 hyphenation exceptions out of 8191
  41i,10n,25p,398b,339s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc
 /dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/us
@@ -484,7 +482,7 @@ e/texmf/fonts/type1/public/lm/lmri8.pfb></usr/share/texmf/fonts/type1/public/lm
 /lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy6.pfb></usr/share/texmf
 /fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10
 .pfb>
-Output written on writeup-Tables_compustatAggregation.pdf (10 pages, 226471 byt
+Output written on writeup-Tables_compustatAggregation.pdf (10 pages, 226349 byt
 es).
 PDF statistics:
  97 PDF objects out of 1000 (max. 8388607)

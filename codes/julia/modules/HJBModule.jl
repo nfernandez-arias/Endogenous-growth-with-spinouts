@@ -176,6 +176,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
             rhs(z) = -z[1] * (χI * ϕI(z[1]) * (λ * V0[1] - V0[i]) - (w[i] - ν * (V0[i+1] - V0[i]) / Δm[i]))
             zIguess = [0.1]
 
+			# Need to restrict search to positive numbers, or else getting a complex number error!
             result = optimize(rhs,zIguess,LBFGS())
 
             zI[i] = result.minimizer[1];
