@@ -125,9 +125,9 @@ rm(list = c("inventorsPatents","dynass"))
 compustat <- fread('Data/compustat.csv')
 compustat <- compustat %>% select(gvkey,fyear,xrd,state)
 compustat[state == "", state := NA]
-
 compustat$year <- compustat$fyear
 compustat$gvkey <- as.integer(compustat$gvkey)
+compustat <- compustat[!is.na(year)]
 
 ## Merge and clean
 # Convert compustat to data.table and set keys
@@ -188,6 +188,8 @@ temp[, ma3 := 1/N * Reduce(`+`, shift(weight, 0L:(N - 1L), type = "lag")), by = 
 # Now drop observations with zero weight, since they are not necessary from now on and only take up memory / slow us down
 temp <- temp[!((ma3 == 0) & (weight == 0))]
 
+gvkeyYearStateWeights <- temp
+
 
 #-------------------------------------------------------#
 # Construct final data set
@@ -205,6 +207,9 @@ rm(list = c("gvkeyYearStateWeights","gvkeyYearXrd"))
 
 
 gvkeyYearStateWeightsXrd[is.na(xrd), xrd := 0]
+
+gvkeyYearStateWeightsXrd[, sumWeights := sum(ma3), by = c("gvkey","year")]
+gvkeyYearStateWeightsXrd[, ma3 := ma3 / sumWeights]
 
 gvkeyYearStateWeightsXrd[, xrdStateLevel := xrd * ma3 ]
 
