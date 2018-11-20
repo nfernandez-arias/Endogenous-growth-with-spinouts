@@ -173,15 +173,17 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
         for i=range(1,length = length(mGrid) - 1)
 
-            rhs(z) = -z[1] * (χI * ϕI(z[1]) * (λ * V0[1] - V0[i]) - (w[i] - ν * (V0[i+1] - V0[i]) / Δm[i]))
-            zIguess = [0.1]
+            #rhs(z) = -z[1] * (χI * ϕI(z[1]) * (λ * V0[1] - V0[i]) - (w[i] - ν * (V0[i+1] - V0[i]) / Δm[i]))
+
+			# Guess not necessary for univariate optimization with Optim.jl using Brent algorithm
+			#zIguess = [0.1]
 
 			# Need to restrict search to positive numbers, or else getting a complex number error!
-            result = optimize(rhs,zIguess,LBFGS())
+            #result = optimize(rhs,0,10000)
 
-            zI[i] = result.minimizer[1];
+            #zI[i] = result.minimizer[1];
 
-			#zI[i] = 0.1
+			zI[i] = 0.1
 
         end
 

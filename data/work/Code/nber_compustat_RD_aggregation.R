@@ -175,7 +175,10 @@ rm(list = c("inventorsPatentsCompustatWeights"))
 #-----------------------------------------------------#
 
 # Lag length:
-N <- 3L
+N <- 4L
+M <- 2
+n <- 4
+f <- M/N
 # Sort (by reference)
 setorder(gvkeyYearStateWeights,gvkey,state,year)
 
@@ -183,10 +186,18 @@ setorder(gvkeyYearStateWeights,gvkey,state,year)
 temp <- gvkeyYearStateWeights[CJ(gvkey = gvkey, state = state, year = year, unique = TRUE), on = .(gvkey,state,year)][is.na(weight), weight := 0L]
 
 # Now construct moving average by gvkey-state 
-temp[, ma3 := 1/N * Reduce(`+`, shift(weight, 0L:(N - 1L), type = "lag")), by = c("gvkey","state")]
+temp[, ma1 := 1/N * Reduce(`+`, shift(weight, 0L:(N - 1L), type = "lead")), by = c("gvkey","state")]
+temp[, ma2 := 1/M * Reduce(`+`, shift(weight, 1:M, type = "lag")), by = c("gvkey","state")]
+
+
+
+temp[, ma := (f * ma2 + ma1) / (1 + f)]
+temp[, ma1 := NULL]
+temp[, ma2 := NULL]
+
 
 # Now drop observations with zero weight, since they are not necessary from now on and only take up memory / slow us down
-temp <- temp[!((ma3 == 0) & (weight == 0))]
+temp <- temp[!((ma == 0) & (weight == 0))]
 
 gvkeyYearStateWeights <- temp
 
@@ -208,15 +219,16 @@ rm(list = c("gvkeyYearStateWeights","gvkeyYearXrd"))
 
 gvkeyYearStateWeightsXrd[is.na(xrd), xrd := 0]
 
-gvkeyYearStateWeightsXrd[, sumWeights := sum(ma3), by = c("gvkey","year")]
-gvkeyYearStateWeightsXrd[, ma3 := ma3 / sumWeights]
+gvkeyYearStateWeightsXrd[, sumWeights := sum(ma), by = c("gvkey","year")]
+gvkeyYearStateWeightsXrd[, ma := ma / sumWeights]
 
-gvkeyYearStateWeightsXrd[, xrdStateLevel := xrd * ma3 ]
+gvkeyYearStateWeightsXrd[, xrdStateLevel_raw := xrd * weight ]
+gvkeyYearStateWeightsXrd[, xrdStateLevel := xrd * ma ]
 
 #### Aggregate by state!
 
-yearStateXrd <- gvkeyYearStateWeightsXrd[ , lapply(.SD,sum), by = c("year","state"), .SDcols = "xrdStateLevel"]
-yearStateXrd <- yearStateXrd %>% dplyr::rename(xrd = xrdStateLevel)
+yearStateXrd <- gvkeyYearStateWeightsXrd[ , lapply(.SD,sum), by = c("year","state"), .SDcols = c("xrdStateLevel_raw","xrdStateLevel")]
+yearStateXrd <- yearStateXrd %>% dplyr::rename(xrd = xrdStateLevel, xrdRaw = xrdStateLevel_raw)
 
 ### Save data!
 

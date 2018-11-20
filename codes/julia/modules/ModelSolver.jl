@@ -91,158 +91,32 @@ function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     w = guess.w;
 
     ## Compute new guesses
-    temp_zS = min.(ξ .* mGrid, (χS * old_zS .* ϕSE(old_zS + old_zE) * V[1]) ./ w);
+    temp_zS = min.(ξ .* mGrid, old_zS .* (χS .* ϕSE(old_zS + old_zE) * V[1]) ./ w);
     temp_zE = old_zE .* (χE * ϕSE(old_zS + old_zE) * V[1] ./ w)
+
+    #factor_zE = (χE * ϕSE(old_zS + old_zE) * V[1] ./ w)
+    #println("factor_zE[1] is equal to $(factor_zE[1])")
+    #println("factor_zE[100] is equal to $(factor_zE[100])")
+    #println("factor_zE[200] is equal to $(factor_zE[200])")
+
+    #factor_zS = (χS .* ϕSE(old_zS + old_zE) * V[1]) ./ w
+    #println("factor_zS[1] is equal to $(factor_zS[1])")
+    #println("factor_zS[100] is equal to $(factor_zS[100])")
+    #println("factor_zS[200] is equal to $(factor_zS[200])")
 
     ## Update
     zS = temp_zS * algoPar.zSzE.updateRate + old_zS * (1 - algoPar.zSzE.updateRate);
     zE = temp_zE * algoPar.zSzE.updateRate + old_zE * (1 - algoPar.zSzE.updateRate);
 
-    # Placeholder...
-    return Guess(guess.L_RD, guess.w, zS, zE)
+    ## Return output
 
-end
+    #return Guess(guess.L_RD, guess.w, zS, zE)
 
-function iterate_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters,initGuess::Guess)
-
-    #vProfit = ones(pa.mGridParameters.numPoints,1) * AuxiliaryModule.profit(guess.L_RD);
-
-    # Solve HJB given guesses
-    incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,initGuess)
-    #W = V;
-    # W = solveSpinoutHJB(algoPar,modelPar,initGuess,V)
-
-    # Compute new zS, based on V and W
-    # Return Guess object
-    newGuess = update_zSzE(algoPar,modelPar,initGuess,incumbentHJBSolution.V);
-    return newGuess,incumbentHJBSolution
-
-end
-
-function computeFixedPoint_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::Guess, verbose = 2, print_skip = 10)
-
-    # Error message
-    if !(verbose in (0,1,2))
-        throw(ArgumentError("verbose should be 0, 1 or 2"))
-    end
-
-    # Unpack relevant algorithm parameters
-    tolerance = algoPar.zSzE.tolerance;
-    maxIter = algoPar.zSzE.maxIter;
-    updateRate = algoPar.zSzE.updateRate;
-    updateRateExponent = algoPar.zSzE.updateRateExponent;
-
-    # While loop to compute fixed point
-    iterate = 0;
-    error = 1;
-
-    oldGuess = initGuess;
-
-    while iterate < maxIter && error > tolerance
-
-        newGuess,incumbentHJBSolution = iterate_zSzE(algoPar,modelPar,oldGuess);
-        incumbentHJBSolution
-        sleep(5)
-        iterate += 1;
-        # Check distance
-        error = max(maximum(abs,newGuess.zS - oldGuess.zS),maximum(abs,newGuess.zE - oldGuess.zE));
-
-        if verbose == 2
-            if iterate % print_skip == 0
-                println("Compute iterate $iterate with error $error")
-            end
-        end
-
-        oldGuess = newGuess;
-
-    end
-
-    if verbose >= 1
-        if error > tolerance
-            @warn("maxIter attained in computeFixedPoint_zSzE")
-        elseif verbose == 2
-            println("Converged in $iterate steps")
-        end
-    end
-
-    newGuess,incumbentHJBSolution = iterate_zSzE(algoPar,modelPar,oldGuess);
-
-    return oldGuess,incumbentHJBSolution
-
-end
-
-function iterate_L_RD_w(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::Guess)
-
-    #vProfit = ones(pa.mGridParameters.numPoints,1) * AuxiliaryModule.profit(guess.L_RD);
-
-    # Solve model conditional on L_RD guess
-    guessTemp,incumbentHJBSolution = computeFixedPoint_zSzE(algoPar,modelPar,initGuess,0)
-
-    newGuess,W = update_L_RD_w(algoPar,modelPar,guessTemp,incumbentHJBSolution);
-
-    # Aggregate to compute new L_RD
-    return newGuess,incumbentHJBSolution,W
-
-end
-
-function computeFixedPoint_L_RD_w(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::Guess, verbose = 2, print_skip = 10)
-
-    # Error message
-    if !(verbose in (0,1,2))
-        throw(ArgumentError("verbose should be 0, 1 or 2"))
-    end
-
-    # While loop to compute fixed point
-    iterate = 0;
-    error_L_RD = 1;
-    error_w = error_L_RD;
-
-    oldGuess = initGuess;
-
-    while (iterate < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate < algoPar.w.maxIter && error_w > algoPar.w.tolerance)
-
-        newGuess,incumbentHJBSolution,W = iterate_L_RD_w(algoPar,modelPar,oldGuess);
-        iterate += 1;
-        error_L_RD = abs(newGuess.L_RD - oldGuess.L_RD);
-        error_w = maximum(abs,newGuess.w - oldGuess.w);
-
-        if verbose == 2
-            if iterate % print_skip == 0
-                println("Compute iterate $iterate with error $error")
-            end
-        end
-
-        oldGuess = newGuess;
-
-    end
-
-    if verbose >= 1
-        if error_L_RD > algoPar.L_RD.tolerance || error_w > algoPar.w.tolerance
-            if error_L_RD > algoPar.L_RD.tolerance
-                @warn("maxIter attained in computeFixedPoint_L_RD_w without L_RD converging")
-            end
-            if error_w > algoPar.w.tolerance
-                @warn("maxIter attained in computeFixedPoint_L_RD_w without w converging")
-            end
-        elseif verbose == 2
-            println("Converged in $iterate steps")incumbentHJBSolution
-        end
-    end
-
-    newGuess,incumbentHJBSolution,W = iterate_L_RD_w(algoPar,modelPar,oldGuess);
-
-    return oldGuess,incumbentHJBSolution,W
+    return zS,zE
 
 end
 
 function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initGuess::Guess)
-
-    # Compute high-level fixed point
-    return computeFixedPoint_L_RD_w(algoPar,modelPar,initGuess,0)
-
-end
-
-function solveModel2(algoPar::AlgorithmParameters,modelPar::ModelParameters,initGuess::Guess)
 
     # Error message
     if !(algoPar.L_RD_w_Log.verbose in (0,1,2))
@@ -285,28 +159,33 @@ function solveModel2(algoPar::AlgorithmParameters,modelPar::ModelParameters,init
             # Update zS and zE given solution HJB and optimality / free entry conditions
 
             # Constructing new Guess object each time...maybe this is suboptimal
-            newGuess = update_zSzE(algoPar,modelPar,guess,incumbentHJBSolution.V)
+            #newGuess = update_zSzE(algoPar,modelPar,guess,incumbentHJBSolution.V)
+
+            old_zS = guess.zS
+            old_zE = guess.zE
+
+            guess.zS,guess.zE = update_zSzE(algoPar,modelPar,guess,incumbentHJBSolution.V)
 
             #sleep(5)
             iterate_zSzE += 1;
             # Check convergence
-            error_zSzE = max(maximum(abs,newGuess.zS - guess.zS),maximum(abs,newGuess.zE - guess.zE));
+            error_zSzE = max(maximum(abs,guess.zS - old_zS),maximum(abs,guess.zE - old_zE));
 
             if algoPar.zSzE_Log.verbose == 2
                 if iterate_zSzE % algoPar.zSzE_Log.print_skip == 0
-                    println("Compute iterate $iterate with error $error")
+                    println("Compute iterate $iterate_zSzE with error $error_zSzE")
                 end
             end
 
-            guess = newGuess;
+            #guess = newGuess;
 
         end
 
         if algoPar.zSzE_Log.verbose >= 1
             if error_zSzE > algoPar.zSzE.tolerance
-                @warn("maxIter attained in zSzE computation")
+                @warn("maxIter attained in zSzE computation noooo!")
             elseif algoPar.zSzE_Log.verbose == 2
-                println("Converged in $iterate steps")
+                println("zSzE fixed point: converged in $iterate_zSzE steps")
             end
         end
 
@@ -355,7 +234,7 @@ function solveModel2(algoPar::AlgorithmParameters,modelPar::ModelParameters,init
 
         if algoPar.L_RD_w_Log.verbose == 2
             if iterate_L_RD_w % algoPar.L_RD_w_Log.print_skip == 0
-                println("Compute iterate $iterate with error $error")
+                println("Compute iterate $iterate_L_RD_w with error: (L_RD, $error_L_RD; w, $error_w")
             end
         end
 
@@ -377,7 +256,7 @@ function solveModel2(algoPar::AlgorithmParameters,modelPar::ModelParameters,init
                 @warn("maxIter attained in computeFixedPoint_L_RD_w without w converging")
             end
         elseif algoPar.L_RD_w_Log.verbose == 2
-            println("Converged in $iterate steps")
+            println("Converged in $iterate_L_RD_w steps")
         end
     end
 
