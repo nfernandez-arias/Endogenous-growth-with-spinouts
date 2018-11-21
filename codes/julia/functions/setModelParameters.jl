@@ -15,14 +15,14 @@ function setModelParameters()
     # Innovation
     χI = 1.5;
     χS = 1.5;
-    χE = 0.5;
-    ψI = 0.5;
+    χE = 1;
+    ψI = 0.3;
     ψSE = 0.5;
     λ = 1.2;
 
     # Spinouts
-    ν = 0.2;
-    ξ = 0.1;
+    ν = 0.3;
+    ξ = 0.2;
 
     return ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ);
 

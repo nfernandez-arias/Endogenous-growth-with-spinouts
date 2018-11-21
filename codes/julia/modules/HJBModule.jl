@@ -79,7 +79,6 @@ function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter
 
     # Construct mGrid
     mGrid,Δm = mGridBuild(algoPar.mGrid)
-    Imax = length(mGrid)
 
     # Initialize A matrix
     A = zeros(length(mGrid),length(mGrid))
@@ -97,6 +96,7 @@ function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter
 		A[i,1] = τI[i] * λ
 		A[i,i+1] = ν * (zI[i] + aSE[i]) / Δm[i]
 		A[i,i] = - ν * (zI[i] + aSE[i]) / Δm[i] - τI[i] - τSE[i]
+		#A[i,i] = - ν * (zI[i] + aSE[i]) / Δm[i]
 
     end
 
@@ -104,6 +104,8 @@ function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter
 
 	A[iMax,1] = τI[iMax] * λ
 	A[iMax,iMax] = - τI[iMax] - τSE[iMax]
+	#A[iMax,1] = 0
+	#A[iMax,iMax] = 0
 
     return A
 
@@ -173,34 +175,43 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
         for i=range(1,length = length(mGrid) - 1)
 
-            #rhs(z) = -z[1] * (χI * ϕI(z[1]) * (λ * V0[1] - V0[i]) - (w[i] - ν * (V0[i+1] - V0[i]) / Δm[i]))
+            rhs(z) = -z[1] * (χI * ϕI(z[1]) * (λ * V0[1] - V0[i]) - (w[i] - ν * (V0[i+1] - V0[i]) / Δm[i]))
 
 			# Guess not necessary for univariate optimization with Optim.jl using Brent algorithm
 			#zIguess = [0.1]
 
 			# Need to restrict search to positive numbers, or else getting a complex number error!
-            #result = optimize(rhs,0,100)
+            result = optimize(rhs,0,100)
 
-            #zI[i] = result.minimizer[1];
+            zI[i] = result.minimizer[1];
 
-			zI[i] = 0.1
+			#zI[i] = 0.1
 
         end
 
 		# Last point hack
 		zI[length(mGrid)] = zI[length(mGrid)-1]
 
-        ## Make update:
 
+		## Unpack tau functions
+		########################################
+		τI = AuxiliaryModule.τI(modelPar,zI)[:]
+		τSE = AuxiliaryModule.τSE(modelPar,zS,zE)[:]
+
+        ## Make update:
         u = Π - zI .* w
         A = constructMatrixA(algoPar,modelPar,guess,zI)
-        B = (1/timeStep + ρ) * I - A;
-        b = u + (1/timeStep) * V0;
+		B = (1/timeStep + ρ) * I - A
+
+		#tauMatrix = Diagonal(τI[:] + τSE[:])
+		#B = (1/timeStep + ρ) * I + tauMatrix - A
+
+        b = u + (1/timeStep) * V0
 
         # Construct sparse matrices...not sure why but whatever
         #Asparse = sparse(A)
-        Bsparse = sparse(B)
-        bsparse = sparse(b)
+        #Bsparse = sparse(B)
+        #bsparse = sparse(b)
 
         #V1 = Bsparse \ bsparse
 		V1 = B \ b
