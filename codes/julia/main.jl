@@ -16,6 +16,7 @@
 using Revise
 using AlgorithmParametersModule
 using ModelParametersModule
+using AuxiliaryModule
 using GuessModule
 using ModelSolver
 using HJBModule
@@ -27,6 +28,8 @@ using Gadfly
 include("functions/setAlgorithmParameters.jl")
 include("functions/setModelParameters.jl")
 include("functions/setInitialGuess.jl")
+
+
 
 #--------------------------------#
 # Set algorithm parameters,
@@ -53,7 +56,14 @@ zE = results.finalGuess.zE
 V = results.incumbent.V
 zI = results.incumbent.zI
 W = results.spinoutValue
+
+τI = AuxiliaryModule.τI(modelPar,zI)
+τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
+τ = τI + τSE
+
 mGrid,Δm = mGridBuild(algoPar.mGrid)
+
+
 
 #--------------------------------#
 # Make some plots                #
@@ -63,6 +73,9 @@ mGrid,Δm = mGridBuild(algoPar.mGrid)
 plot(x = mGrid, y = V, Geom.line, Guide.xlabel("m"), Guide.ylabel("V"), Guide.title("Incumbent value V"))
 # zI
 plot(x = mGrid, y = zI, Geom.line, Guide.xlabel("m"), Guide.ylabel("zI"), Guide.title("Incumbent R&D effort zI"))
+
+# W
+plot(x = mGrid[380:500], y = W[380:500], Geom.line, Guide.xlabel("m"), Guide.ylabel("W"), Guide.title("Spinout value density W"))
 
 # zS
 plot(layer(x = mGrid, y = zS, Geom.line),layer(x = mGrid, y = zSfactor, Geom.line),

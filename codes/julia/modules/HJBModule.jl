@@ -32,10 +32,70 @@ struct IncumbentSolution
 
 end
 
-function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::Guess, V::Array{Float64})
+function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, incumbentHJBSolution::IncumbentSolution)
 
-    # Placeholder
-    return zeros(algoPar.mGrid.numPoints,1)
+	## Unpack model parameters
+    ##########################
+
+    # General
+    ρ = modelPar.ρ;
+    β = modelPar.β;
+    L = modelPar.L;
+
+    # Innovation
+    χI = modelPar.χI;
+    χS = modelPar.χS;
+    χE = modelPar.χE;
+    ψI = modelPar.ψI;
+    ψSE = modelPar.ψSE;
+    λ = modelPar.λ;
+
+    # Spinouts
+    ν = modelPar.ν;
+    ξ = modelPar.ξ;
+
+    # Define some auxiliary functions
+    ϕI(z) = z .^(-ψI)
+    ϕSE(z) = z .^(-ψSE)
+
+    ## Unpack guess
+    ###################################################
+    w = guess.w;
+    zS = guess.zS;
+    zE = guess.zE;
+
+	V = incumbentHJBSolution.V
+	zI = incumbentHJBSolution.zI
+
+
+	τI = AuxiliaryModule.τI(modelPar,zI)
+	τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
+	τ = τI + τSE
+
+	aSE = (zS + zE)
+	a = aSE + zI
+
+    ## Construct mGrid and Delta_m vectors
+    mGrid,Δm = mGridBuild(algoPar.mGrid)
+
+	Imax = length(mGrid)
+
+	W = zeros(size(V))
+
+	W[Imax] = (zS[Imax] * ( ϕSE(zS[Imax] + zE[Imax]) * λ * V[1] - w[Imax])) / (ρ + τ[Imax])
+
+	for i = 1:Imax-1
+
+		j = Imax - i
+		W[j] = ( (a[j] * ν / Δm[j]) * W[j+1] + zS[j] * ( ϕSE(zS[j] + zE[j]) * λ * V[1] - w[j] ) )
+				/
+				(ρ + τ[j] + (a[j] * ν / Δm[j]) )
+
+	end
+
+	W = W ./ mGrid
+
+    return W
 
 end
 

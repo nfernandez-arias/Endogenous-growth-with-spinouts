@@ -22,7 +22,7 @@ module ModelSolver
 using AlgorithmParametersModule, ModelParametersModule, GuessModule, HJBModule, DataFrames, Gadfly, Cairo, Fontconfig
 import AuxiliaryModule
 
-export solveModel, solveModel2
+export solveModel
 
 struct ModelSolution
 
@@ -232,13 +232,13 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         zI = incumbentHJBSolution.zI
 
         # Solve spinout HJB using incumbent HJB
-        W = solveSpinoutHJB(algoPar,modelPar,guess,V)
+        W = solveSpinoutHJB(algoPar,modelPar,guess,incumbentHJBSolution)
 
         # Use spinout value to compute implied R&D wage
-        ν = modelPar.ν;
-        wbar = AuxiliaryModule.wbar(modelPar.β);
-        temp_w = wbar * ones(size(W)) - ν * W;zSFactor,zEFactor
-        w = algoPar.w.updateRate * temp_w + (1 - algoPar.w.updateRate) * guess.w;
+        ν = modelPar.ν
+        wbar = AuxiliaryModule.wbar(modelPar.β)
+        temp_w = wbar * ones(size(W)) - ν * W
+        w = algoPar.w.updateRate * temp_w + (1 - algoPar.w.updateRate) * guess.w
 
         ## Updating L_RD
 
@@ -269,10 +269,11 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
             end
         end
 
-        #### Update guess
+        #### Update guess        #### Update guess
+
 
         #guess.L_RD = initGuess.L_RD
-        #guess.w = w
+        guess.w = w
 
     end
 

@@ -8,9 +8,9 @@
 
 function setAlgorithmParameters()
 
-    mgrid_numPoints = 1000;
+    mgrid_numPoints = 500;
     mgrid_minimum = 0.0;
-    mgrid_maximum = 100;
+    mgrid_maximum = 10;
     mgrid_logSpacing = true;
     mgrid_logSpacingMinimum = 1e-4;
 
@@ -18,7 +18,7 @@ function setAlgorithmParameters()
 
     incumbentHJB_timeStep = 10;
     incumbentHJB_tolerance = 1e-4;
-    incumbentHJB_maxIter = 100;
+    incumbentHJB_maxIter = 50;
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter);
 
@@ -43,8 +43,8 @@ function setAlgorithmParameters()
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent);
 
     zSzE_tolerance = 1e-3;
-    zSzE_maxIter = 50;
-    zSzE_updateRate = 0.2;
+    zSzE_maxIter = 15;
+    zSzE_updateRate = 0.5;
     zSzE_updateRateExponent = 1;
 
     zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent);

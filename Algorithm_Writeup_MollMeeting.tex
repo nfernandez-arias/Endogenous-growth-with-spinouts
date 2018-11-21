@@ -167,6 +167,42 @@ There also seems to be another issue near the edge of the state space in my curr
 
 \subsubsection{Potential Spinout}
 
+Naively I would write the HJB as
+\begin{align*}
+	\big(\rho + \tau(m)\big)W(m) &=  \nu a_{SE}(m) W'(m)  \\
+&+ z_S(m) \Big[ \phi_{SE}\big(z_S(m) + z_E(m)\big) \lambda V(0) - w(m) \Big] 
+\end{align*}
+
+But this in fact describes the total value of all spinouts, not of an individual spinout. The above actually applies to $\hat{W}(m) = mW(m)$, so that $W(m)$ is the density of the value. Hence, per-capita value is given by 
+\begin{align*}
+		\big(\rho + \tau(m)\big)mW(m) &= \nu a_{SE}(m) \big(W(m) + mW'(m)\big)  \\
+	&+ z_S(m) \Big[ \phi_{SE}\big(z_S(m) + z_E(m)\big) \lambda V(0) - w(m) \Big] 
+\end{align*}
+
+Can rewrite as
+\begin{align*}
+		\Big(\big(\rho + \tau(m)  \big)m -  \nu a_{SE}(m) \Big)W(m) &= \nu a_{SE}(m) mW'(m)\\
+	&+ z_S(m) \Big[ \phi_{SE}\big(z_S(m) + z_E(m)\big) \lambda V(0) - w(m) \Big] 
+\end{align*}
+
+Discretization:
+\begin{align*}
+	(\rho + \tau_i)m_i W_i &= a_i \nu \big(W_i + m_i \frac{W_{i+1} - W_i}{\Delta_m^i}\big) + z_S^i \big(\phi_{SE}(z_S^i + z_E^i) \lambda V_1 - w_i \big) \\
+	\Rightarrow W_i &= \frac{\frac{a_i \nu m_i}{\Delta_m^i}W_{i+1} + z_S^i \phi_{SE}(z_S^i + z_E^i)\lambda V_1 - w_i}{m_i(\rho+ \tau_i) + a_i \nu (\frac{m_i}{\Delta_m^i} - 1)} 
+\end{align*}
+
+Terminal condition:
+\begin{align*}
+	W_I = \frac{z_S^I \big (\phi_{SE} (z_S^I + z_E^I) \lambda V_1 - w_I \big)}{m_I(\rho + \tau_I) - a_I \nu }
+\end{align*}
+
+Of course, could also solve the equation for $\hat{W}(m)$ and then divide by $m$. It should give the same answer. The discretization is 
+\begin{align*}
+	\hat{W}_i &= \frac{\frac{a_i \nu}{\Delta_m^i} \hat{W}_{i+1} + z_S^i \big( \phi_{SE}^i \lambda V_1 - w_i \big)}{\rho + \tau^i + \frac{a_i \nu}{\Delta_m^i}} \\
+	\hat{W}_I &= \frac{z_S^I \big( \phi_{SE}^I \lambda V_1 - w_I \big)}{\rho + \tau^I}
+\end{align*}
+
+
 \subsection{KF equation}
 
 Solving the KF equation is easy. A given line $j$ starts in the state $m = 0$. Subsequently $m$ grows deterministically until a shock occurs, resetting $m$ to zero. Hence, there is no point mass at 0 individually, and there will be no point mass at 0 in the cross section. 
