@@ -19,7 +19,7 @@ __precompile__()
 
 module ModelSolver
 
-using AlgorithmParametersModule, ModelParametersModule, GuessModule, HJBModule
+using AlgorithmParametersModule, ModelParametersModule, GuessModule, HJBModule, DataFrames, Gadfly, Cairo, Fontconfig
 import AuxiliaryModule
 
 export solveModel, solveModel2
@@ -91,15 +91,15 @@ function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     w = guess.w;
 
     ## Compute new guesses
-    temp_zS = min.(ξ .* mGrid, old_zS .* (χS .* ϕSE(old_zS + old_zE) * V[1]) ./ w);
-    temp_zE = old_zE .* (χE * ϕSE(old_zS + old_zE) * V[1] ./ w)
+    temp_zS = min.(ξ .* mGrid, old_zS .* (χS * ϕSE(old_zS + old_zE) * V[1]) ./ w);
+    temp_zE = old_zE .* (χE * ϕSE(old_zS + old_zE) * V[1]) ./ w
 
-    #factor_zE = (χE * ϕSE(old_zS + old_zE) * V[1] ./ w)
+    factor_zE = χE .* ϕSE(old_zS + old_zE) .* V[1] ./ w
     #println("factor_zE[1] is equal to $(factor_zE[1])")
     #println("factor_zE[100] is equal to $(factor_zE[100])")
     #println("factor_zE[200] is equal to $(factor_zE[200])")
 
-    #factor_zS = (χS .* ϕSE(old_zS + old_zE) * V[1]) ./ w
+    factor_zS = χS .* ϕSE(old_zS + old_zE) * V[1] ./ w
     #println("factor_zS[1] is equal to $(factor_zS[1])")
     #println("factor_zS[100] is equal to $(factor_zS[100])")
     #println("factor_zS[200] is equal to $(factor_zS[200])")
@@ -112,7 +112,7 @@ function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
 
     #return Guess(guess.L_RD, guess.w, zS, zE)
 
-    return zS,zE
+    return zS,zE,factor_zS,factor_zE
 
 end
 
@@ -123,17 +123,33 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         throw(ArgumentError("verbose should be 0, 1 or 2"))
     end
 
-    # While loop to compute fixed point
-    iterate_L_RD_w = 0;
-    error_L_RD = 1;
-    error_w = error_L_RD;
+    # Construct grid - useful for making plots
+    mGrid,Δm = mGridBuild(algoPar.mGrid)
 
-    guess = initGuess;
+    # While loop to compute fixed point
+    iterate_L_RD_w = 0
+    error_L_RD = 1
+    error_w = error_L_RD
+
+    # Unpack initial guesses
+
+    L_RD = initGuess.L_RD
+    w = initGuess.w
+    zS = initGuess.zS
+    zE = initGuess.zE
+
+    # Construct new guess object - this will be the object
+    # that will be updated throughout the algorithm
+
+    guess = Guess(L_RD,w,zS,zE);
 
     # Initialize outside of loops for returning
     V = zeros(algoPar.mGrid.numPoints,1)
-    W = V
-    zI = V
+    W = zeros(algoPar.mGrid.numPoints,1)
+    zI = zeros(algoPar.mGrid.numPoints,1)
+
+    factor_zE = zeros(algoPar.mGrid.numPoints,1)
+    factor_zS = zeros(algoPar.mGrid.numPoints,1)
 
     while (iterate_L_RD_w < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate_L_RD_w < algoPar.w.maxIter && error_w > algoPar.w.tolerance)
 
@@ -150,12 +166,13 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         guess.zS = initGuess.zS;
         guess.zE = initGuess.zE;
 
+
+
         while iterate_zSzE < algoPar.zSzE.maxIter && error_zSzE > algoPar.zSzE.tolerance
 
-            iterate_zSzE += 1;
-
-            # Solve HJB
+            # Solve HJB - output contains incumbnet value V and policy zI
             incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,guess)
+
             # Update zS and zE given solution HJB and optimality / free entry conditions
 
             # Constructing new Guess object each time...maybe this is suboptimal
@@ -164,9 +181,22 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
             old_zS = guess.zS
             old_zE = guess.zE
 
-            guess.zS,guess.zE = update_zSzE(algoPar,modelPar,guess,incumbentHJBSolution.V)
+            # Updating VALUES, but not creating new guess object - more efficient, presumably
+            guess.zS,guess.zE,factor_zS,factor_zE = update_zSzE(algoPar,modelPar,guess,incumbentHJBSolution.V)
 
-            #sleep(5)
+            #--------------------#
+            # For debugging only #
+            #--------------------#
+
+            #df1 = DataFrame(m = mGrid[:], y = factor_zS[:], label = "zS factor")
+            #df2 = DataFrame(m = mGrid[:], y = factor_zE[:], label = "zE factor")
+            #df = vcat(df1,df2)
+            #df = DataFrame(m = mGrid[:], factor_zS = factor_zS[:], factor_zE = factor_zE[:])
+
+            #p = plot(df, x="m", y="y", color="label", Geom.line, Theme(background_color = "white"));
+
+            #draw(PNG("codes/julia/figures/zSzEfactors_$iterate_zSzE.png", 6inch, 3inch), p)
+
             iterate_zSzE += 1;
             # Check convergence
             error_zSzE = max(maximum(abs,guess.zS - old_zS),maximum(abs,guess.zE - old_zE));
@@ -174,7 +204,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
             if algoPar.zSzE_Log.verbose == 2
                 if iterate_zSzE % algoPar.zSzE_Log.print_skip == 0
                     println("Compute iterate $iterate_zSzE with error $error_zSzE")
-                end
+                end            #iterate_zSzE += 1;
+
             end
 
             #guess = newGuess;
@@ -206,7 +237,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         # Use spinout value to compute implied R&D wage
         ν = modelPar.ν;
         wbar = AuxiliaryModule.wbar(modelPar.β);
-        temp_w = wbar * ones(size(W)) - ν * W;
+        temp_w = wbar * ones(size(W)) - ν * W;zSFactor,zEFactor
         w = algoPar.w.updateRate * temp_w + (1 - algoPar.w.updateRate) * guess.w;
 
         ## Updating L_RD
@@ -240,8 +271,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
         #### Update guess
 
-        guess.L_RD = initGuess.L_RD
-        guess.w = w
+        #guess.L_RD = initGuess.L_RD
+        #guess.w = w
 
     end
 
@@ -260,7 +291,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         end
     end
 
-    return ModelSolution(guess,IncumbentSolution(V,zI),W)
+    return ModelSolution(guess,IncumbentSolution(V,zI),W),factor_zS,factor_zE
+
 
 
 end

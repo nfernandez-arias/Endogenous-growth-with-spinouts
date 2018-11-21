@@ -44,13 +44,6 @@ function τSE(modelPar::ModelParameters,zS::Array{Float64},zE::Array{Float64})
 
     ϕSE(z) = z .^(-ψSE)
 
-    #minzS = minimum(zS)
-    #minzE = minimum(zE)
-    minSum = minimum(zS + zE)
-    #println("minimum zS: $minzS")
-    #println("minimum zE: $minzE")
-    println("minimum zS + zE: $minSum")
-
     return (χS * zS + χE * zE) .* ϕSE(zS + zE)
 
 end

@@ -42,8 +42,8 @@ function setAlgorithmParameters()
 
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent);
 
-    zSzE_tolerance = 1e-8;
-    zSzE_maxIter = 300;
+    zSzE_tolerance = 1e-3;
+    zSzE_maxIter = 50;
     zSzE_updateRate = 1;
     zSzE_updateRateExponent = 1;
 

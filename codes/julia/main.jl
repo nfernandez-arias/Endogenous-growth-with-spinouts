@@ -18,8 +18,9 @@ using AlgorithmParametersModule
 using ModelParametersModule
 using GuessModule
 using ModelSolver
+using HJBModule
+using DataFrames
 using Gadfly
-
 
 ## Include functions specific to THIS main script
 
@@ -41,7 +42,7 @@ initGuess = setInitialGuess(algoPar,modelPar)
 # Solve model with the above parameters
 #--------------------------------#
 
-@time results = solveModel(algoPar,modelPar,initGuess)
+@time results,zSfactor,zEfactor = solveModel(algoPar,modelPar,initGuess)
 
 ## Unpack
 
@@ -54,21 +55,8 @@ zI = results.incumbent.zI
 W = results.spinoutValue
 mGrid,Δm = mGridBuild(algoPar.mGrid)
 
-#-------------------------#
-## Test some stuff
-#-------------------------#
-ψSE = modelPar.ψSE
-χE = modelPar.χE
-χS = modelPar.χS
-ϕSE(z) = z .^(-ψSE)
-
-# Should be close to 1
-zEfactor = χE .* ϕSE(zS + zE) .* V[1] ./ w
-
-zSfactor = χS .* ϕSE(zS + zE) .* V[1] ./ w
-
 #--------------------------------#
-# Plot results of solved model
+# Make some plots                #
 #--------------------------------#
 
 # V
