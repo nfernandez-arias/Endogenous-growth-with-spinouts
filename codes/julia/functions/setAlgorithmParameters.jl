@@ -8,9 +8,9 @@
 
 function setAlgorithmParameters()
 
-    mgrid_numPoints = 500;
+    mgrid_numPoints = 1000;
     mgrid_minimum = 0.0;
-    mgrid_maximum = 10;
+    mgrid_maximum = 100;
     mgrid_logSpacing = true;
     mgrid_logSpacingMinimum = 1e-4;
 
@@ -44,7 +44,7 @@ function setAlgorithmParameters()
 
     zSzE_tolerance = 1e-3;
     zSzE_maxIter = 50;
-    zSzE_updateRate = 1;
+    zSzE_updateRate = 0.2;
     zSzE_updateRateExponent = 1;
 
     zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent);
@@ -56,7 +56,7 @@ function setAlgorithmParameters()
     L_RD_w_Log = LogParameters(L_RD_w_Log_verbose,L_RD_w_Log_print_skip);
 
     zSzE_Log_verbose = 2;
-    zSzE_Log_print_skip = 10;
+    zSzE_Log_print_skip = 1;
     zSzE_Log = LogParameters(zSzE_Log_verbose,zSzE_Log_print_skip);
 
     incumbentHJB_Log_verbose = 2;
