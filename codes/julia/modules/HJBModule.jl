@@ -82,12 +82,12 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
 	W = zeros(size(V))
 
-	W[Imax] = (zS[Imax] * ( ϕSE(zS[Imax] + zE[Imax]) * λ * V[1] - w[Imax])) / (ρ + τ[Imax])
+	W[Imax] = (zS[Imax] * ( χS * ϕSE(zS[Imax] + zE[Imax]) * λ * V[1] - w[Imax])) / (ρ + τ[Imax])
 
 	for i = 1:Imax-1
 
 		j = Imax - i
-		W[j] = ( (a[j] * ν / Δm[j]) * W[j+1] + zS[j] * ( ϕSE(zS[j] + zE[j]) * λ * V[1] - w[j] ) )
+		W[j] = ( (a[j] * ν / Δm[j]) * W[j+1] + zS[j] * ( χS * ϕSE(zS[j] + zE[j]) * λ * V[1] - w[j] ) )
 				/
 				(ρ + τ[j] + (a[j] * ν / Δm[j]) )
 

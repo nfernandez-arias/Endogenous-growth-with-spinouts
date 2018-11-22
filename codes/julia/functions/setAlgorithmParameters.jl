@@ -8,9 +8,9 @@
 
 function setAlgorithmParameters()
 
-    mgrid_numPoints = 500;
+    mgrid_numPoints = 300;
     mgrid_minimum = 0.0;
-    mgrid_maximum = 10;
+    mgrid_maximum = 3;
     mgrid_logSpacing = true;
     mgrid_logSpacingMinimum = 1e-4;
 

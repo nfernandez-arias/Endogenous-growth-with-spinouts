@@ -75,7 +75,7 @@ plot(x = mGrid, y = V, Geom.line, Guide.xlabel("m"), Guide.ylabel("V"), Guide.ti
 plot(x = mGrid, y = zI, Geom.line, Guide.xlabel("m"), Guide.ylabel("zI"), Guide.title("Incumbent R&D effort zI"))
 
 # W
-plot(x = mGrid[380:500], y = W[380:500], Geom.line, Guide.xlabel("m"), Guide.ylabel("W"), Guide.title("Spinout value density W"))
+plot(x = mGrid, y = W, Geom.line, Guide.xlabel("m"), Guide.ylabel("W"), Guide.title("Spinout value density W"))
 
 # zS
 plot(layer(x = mGrid, y = zS, Geom.line),layer(x = mGrid, y = zSfactor, Geom.line),
@@ -83,6 +83,21 @@ plot(layer(x = mGrid, y = zS, Geom.line),layer(x = mGrid, y = zSfactor, Geom.lin
 # zE
 plot(layer(x = mGrid, y = zE, Geom.line),layer(x = mGrid, y = zEfactor, Geom.line),
     Guide.xlabel("m"), Guide.ylabel("zE"), Guide.title("Non-spinout Entrant R&D effort zE"))
+
+# τ
+
+df1 = DataFrame(x = mGrid[:], y = τSE[:], label = "Creative Destruction")
+df2 = DataFrame(x = mGrid, y = τI[:], label = "Incumbent innovation")
+df3 = DataFrame(x = mGrid[:], y = τ[:], label = "Aggregate")
+df = vcat(df1,df2,df3)
+
+plot(df,x = "x", y = "y", color = "label", Geom.line, Guide.title("Innovation Arrival Rates"), Guide.xlabel("m"),
+                        Guide.ylabel("Annual Poisson intensity"),
+                        Theme(major_label_color = colorant"white", minor_label_color = colorant"white", ))
+
+# τSE
+plot(x = mGrid, y = τ, Geom.line, Guide.xlabel("m"), Guide.ylabel("τ"), Guide.title("Aggregate rate of creative destruction"))
+
 # zEfactor
 plot(x = mGrid, y = zEfactor, Geom.line, Guide.xlabel("m"), Guide.ylabel("zE factor"), Guide.title("zE Update Factor"))
 
