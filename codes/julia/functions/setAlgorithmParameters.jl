@@ -8,9 +8,9 @@
 
 function setAlgorithmParameters()
 
-    mgrid_numPoints = 300;
+    mgrid_numPoints = 500;
     mgrid_minimum = 0.0;
-    mgrid_maximum = 3;
+    mgrid_maximum = 5;
     mgrid_logSpacing = true;
     mgrid_logSpacingMinimum = 1e-4;
 
@@ -42,9 +42,9 @@ function setAlgorithmParameters()
 
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent);
 
-    zSzE_tolerance = 1e-3;
-    zSzE_maxIter = 15;
-    zSzE_updateRate = 0.5;
+    zSzE_tolerance = 1e-6;
+    zSzE_maxIter = 50;
+    zSzE_updateRate = 0.9;
     zSzE_updateRateExponent = 1;
 
     zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent);

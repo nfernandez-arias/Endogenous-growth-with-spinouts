@@ -57,7 +57,7 @@ function update_L_RD_w(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 
 end
 
-function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, V::Array{Float64})
+function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, V::Array{Float64}, W::Array{Float64})
 
     ## Build grid
     mGrid,Δm = mGridBuild(algoPar.mGrid);
@@ -91,15 +91,15 @@ function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     w = guess.w;
 
     ## Compute new guesses
-    temp_zS = min.(ξ .* mGrid, old_zS .* (χS * ϕSE(old_zS + old_zE) * V[1]) ./ w);
-    temp_zE = old_zE .* (χE * ϕSE(old_zS + old_zE) * V[1]) ./ w
+    temp_zS = min.(ξ .* mGrid, old_zS .* (χS * ϕSE(old_zS + old_zE) * λ .* V[1] ./ w));
+    temp_zE = old_zE .* (χE * ϕSE(old_zS + old_zE) * λ .* V[1]) ./ w
 
-    factor_zE = χE .* ϕSE(old_zS + old_zE) .* V[1] ./ w
+    factor_zE = χE .* ϕSE(old_zS + old_zE) * λ .* V[1] ./ w
     #println("factor_zE[1] is equal to $(factor_zE[1])")
     #println("factor_zE[100] is equal to $(factor_zE[100])")
     #println("factor_zE[200] is equal to $(factor_zE[200])")
 
-    factor_zS = χS .* ϕSE(old_zS + old_zE) * V[1] ./ w
+    factor_zS = χS .* ϕSE(old_zS + old_zE) * λ .* V[1] ./ w
     #println("factor_zS[1] is equal to $(factor_zS[1])")
     #println("factor_zS[100] is equal to $(factor_zS[100])")
     #println("factor_zS[200] is equal to $(factor_zS[200])")
@@ -151,6 +151,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     factor_zE = zeros(algoPar.mGrid.numPoints,1)
     factor_zS = zeros(algoPar.mGrid.numPoints,1)
 
+    spinoutFlow = zeros(algoPar.mGrid.numPoints,1)
+
     while (iterate_L_RD_w < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate_L_RD_w < algoPar.w.maxIter && error_w > algoPar.w.tolerance)
 
         iterate_L_RD_w += 1;
@@ -173,6 +175,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
             # Solve HJB - output contains incumbnet value V and policy zI
             incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,guess)
 
+            #W = solveSpinoutHJB(algoPar,modelPar,guess,incumbentHJBSolution)
+
             # Update zS and zE given solution HJB and optimality / free entry conditions
 
             # Constructing new Guess object each time...maybe this is suboptimal
@@ -182,7 +186,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
             old_zE = guess.zE
 
             # Updating VALUES, but not creating new guess object - more efficient, presumably
-            guess.zS,guess.zE,factor_zS,factor_zE = update_zSzE(algoPar,modelPar,guess,incumbentHJBSolution.V)
+            guess.zS,guess.zE,factor_zS,factor_zE = update_zSzE(algoPar,modelPar,guess,incumbentHJBSolution.V,W)
 
             #--------------------#
             # For debugging only #
@@ -203,7 +207,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
             if algoPar.zSzE_Log.verbose == 2
                 if iterate_zSzE % algoPar.zSzE_Log.print_skip == 0
-                    println("Compute iterate $iterate_zSzE with error $error_zSzE")
+                    println("zSzE fixed point: compute iterate $iterate_zSzE with error $error_zSzE")
                 end            #iterate_zSzE += 1;
 
             end
@@ -214,7 +218,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
         if algoPar.zSzE_Log.verbose >= 1
             if error_zSzE > algoPar.zSzE.tolerance
-                @warn("maxIter attained in zSzE computation noooo!")
+                @warn("maxIter attained in zSzE computation")
             elseif algoPar.zSzE_Log.verbose == 2
                 println("zSzE fixed point: converged in $iterate_zSzE steps")
             end
@@ -232,7 +236,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         zI = incumbentHJBSolution.zI
 
         # Solve spinout HJB using incumbent HJB
-        W = solveSpinoutHJB(algoPar,modelPar,guess,incumbentHJBSolution)
+        W,spinoutFlow = solveSpinoutHJB(algoPar,modelPar,guess,incumbentHJBSolution)
 
         # Use spinout value to compute implied R&D wage
         ν = modelPar.ν
@@ -273,7 +277,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
 
         #guess.L_RD = initGuess.L_RD
-        guess.w = w
+        #guess.w = w
 
     end
 
@@ -292,7 +296,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         end
     end
 
-    return ModelSolution(guess,IncumbentSolution(V,zI),W),factor_zS,factor_zE
+    return ModelSolution(guess,IncumbentSolution(V,zI),W),factor_zS,factor_zE,spinoutFlow
 
 
 

@@ -78,24 +78,43 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
     ## Construct mGrid and Delta_m vectors
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
+	zS_density = zeros(size(zS))
+
+	# Construct individual zS policy for computing W
+	zS_density[2:end] = (zS ./ mGrid)[2:end]
+	zS_density[1] = ξ
+
+
+	spinoutFlow = zeros(size(zS))
+	# Spinout flow construction and moving to zeros
+	spinoutFlow[:] = (χS * ϕSE(zS + zE) * λ * V[1] .- w)[:]
+	spinoutFlow = (χS * ϕSE(zS + zE) * λ * V[1] .- w)
+
+	for i = 1:length(spinoutFlow)
+		if spinoutFlow[i] < 1e-3
+			spinoutFlow[i] = 0
+		end
+	end
+
+
+
 	Imax = length(mGrid)
 
 	W = zeros(size(V))
 
-	W[Imax] = (zS[Imax] * ( χS * ϕSE(zS[Imax] + zE[Imax]) * λ * V[1] - w[Imax])) / (ρ + τ[Imax])
+	W[Imax] = 0
 
 	for i = 1:Imax-1
 
 		j = Imax - i
-		W[j] = ( (a[j] * ν / Δm[j]) * W[j+1] + zS[j] * ( χS * ϕSE(zS[j] + zE[j]) * λ * V[1] - w[j] ) )
-				/
-				(ρ + τ[j] + (a[j] * ν / Δm[j]) )
+
+		W[j] = ((a[j] *  ν / Δm[j]) * W[j+1] + zS_density[j] * ( spinoutFlow[j] )) / (ρ + τ[j] + a[j] * ν / Δm[j])
 
 	end
 
-	W = W ./ mGrid
+	#W = W ./ mGrid
 
-    return W
+    return W,spinoutFlow
 
 end
 

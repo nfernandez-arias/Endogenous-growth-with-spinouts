@@ -34,7 +34,7 @@
 			\item Guess $z_E^0(m) \equiv z_E^0 > 0$
 			\item Guess $z_S^0(m) \equiv z_S^0 > 0$ small.
 			\item Calculate $V,z_I(m)$ by solving HJB (Moll's method, implicit)
-			\item Compute
+			\item Compute\footnote{Not sure if this is right - see section on potential spinout HJB.}
 			\begin{align*}
 			z_E^1(m) &= z_E^0(m) \cdot \frac{\chi_E \eta \big(z_E^0(m) + z_S^0(m)\big)V(0)}{w^0(m)} \\
 			z_S^1(m) &= \min\Bigg\{\xi m,z_S^0(m) \cdot \frac{\chi_S \eta \big(z_E^0(m) + z_S^0(m)\big)V(0)}{w^0(m)}\Bigg\}
@@ -108,7 +108,7 @@ Also, for convenience, define
 	\end{itemize}
 	\item Implement semi-implicit method:\footnote{Roughly, solving time-dependent version of HJB backwards, given terminal condition, and hoping that in the infinite past it converges to the time-independent solution.}
 	\begin{enumerate}
-		\item \textbf{Discretize HJB} Since the direction of a product line's drift in $m$-space does not depend on the policy function of the incumbent, upwind scheme is easy to implement. Discretization results in
+		\item \textbf{Discretize HJB} Since the direction of a product line's drift in $m$-space does not depend on the policy function of the incumbent, upwind scheme is easy to implement. Discretization results inones(size(W)) .- W)
 		\begin{align*}
 			\frac{V_i^{n+1} - V_i^{n}}{\Delta_t} + \rho V_i^{n+1} &= \pi + \nu a_i^{SE} \frac{V_{i+1}^{n+1} - V_i^{n+1}}{\Delta_m} - \tau^{SE}_i V_i^{n+1} \\
 			          &+ z^{I,n}_i \Big( \chi_I \phi(z^{I,n}_i) \big[ \lambda V^{n+1}_1 - V^{n+1}_i \big] - w_i + \nu \frac{V_{i+1}^{n+1} - V_i^{n+1}}{\Delta_m} \Big)
@@ -175,32 +175,44 @@ Naively I would write the HJB as
 
 But this in fact describes the total value of all spinouts, not of an individual spinout. The above actually applies to $\hat{W}(m) = mW(m)$, so that $W(m)$ is the density of the value. Hence, per-capita value is given by 
 \begin{align*}
-		\big(\rho + \tau(m)\big)mW(m) &= \nu a_{SE}(m) \big(W(m) + mW'(m)\big)  \\
-	&+ z_S(m) \Big[ \phi_{SE}\big(z_S(m) + z_E(m)\big) \lambda V(0) - w(m) \Big] 
+		\big(\rho + \tau(m)\big)mW(m) &= \nu a(m) \big(W(m) + mW'(m)\big)  \\
+	&+ z_S(m) \Big[ \chi_S \phi_{SE}\big(z_S(m) + z_E(m)\big) \lambda V(0) - w(m) \Big] 
 \end{align*}
 
 Can rewrite as
 \begin{align*}
-		\Big(\big(\rho + \tau(m)  \big)m -  \nu a_{SE}(m) \Big)W(m) &= \nu a_{SE}(m) mW'(m)\\
-	&+ z_S(m) \Big[ \phi_{SE}\big(z_S(m) + z_E(m)\big) \lambda V(0) - w(m) \Big] 
+		\Big(\big(\rho + \tau(m)  \big)m -  \nu a(m) \Big)W(m) &= \nu a(m) mW'(m)\\
+	&+ z_S(m) \Big[ \chi_S \phi_{SE}\big(z_S(m) + z_E(m)\big) \lambda V(0) - w(m) \Big] 
 \end{align*}
 
 Discretization:
 \begin{align*}
-	(\rho + \tau_i)m_i W_i &= a_i \nu \big(W_i + m_i \frac{W_{i+1} - W_i}{\Delta_m^i}\big) + z_S^i \big(\phi_{SE}(z_S^i + z_E^i) \lambda V_1 - w_i \big) \\
-	\Rightarrow W_i &= \frac{\frac{a_i \nu m_i}{\Delta_m^i}W_{i+1} + z_S^i \phi_{SE}(z_S^i + z_E^i)\lambda V_1 - w_i}{m_i(\rho+ \tau_i) + a_i \nu (\frac{m_i}{\Delta_m^i} - 1)} 
+	(\rho + \tau_i)m_i W_i &= a_i \nu \big(W_i + m_i \frac{W_{i+1} - W_i}{\Delta_m^i}\big) + z_S^i \big( \chi_S \phi_{SE}(z_S^i + z_E^i) \lambda V_1 - w_i \big) \\
+	\Rightarrow W_i &= \frac{\frac{a_i \nu m_i}{\Delta_m^i}W_{i+1} + z_S^i \big( \chi_S \phi_{SE}(z_S^i + z_E^i)\lambda V_1 - w_i \big)}{m_i(\rho+ \tau_i) + a_i \nu (\frac{m_i}{\Delta_m^i} - 1)} 
 \end{align*}
 
 Terminal condition:
 \begin{align*}
-	W_I = \frac{z_S^I \big (\phi_{SE} (z_S^I + z_E^I) \lambda V_1 - w_I \big)}{m_I(\rho + \tau_I) - a_I \nu }
+	W_I = \frac{z_S^I \big (\chi_S \phi_{SE} (z_S^I + z_E^I) \lambda V_1 - w_I \big)}{m_I(\rho + \tau_I) - a_I \nu }
 \end{align*}
 
 Of course, could also solve the equation for $\hat{W}(m)$ and then divide by $m$. It should give the same answer. The discretization is 
 \begin{align*}
-	\hat{W}_i &= \frac{\frac{a_i \nu}{\Delta_m^i} \hat{W}_{i+1} + z_S^i \big( \phi_{SE}^i \lambda V_1 - w_i \big)}{\rho + \tau^i + \frac{a_i \nu}{\Delta_m^i}} \\
-	\hat{W}_I &= \frac{z_S^I \big( \phi_{SE}^I \lambda V_1 - w_I \big)}{\rho + \tau^I}
+	\hat{W}_i &= \frac{\frac{a_i \nu}{\Delta_m^i} \hat{W}_{i+1} + z_S^i \big( \chi_S \phi_{SE}^i \lambda V_1 - w_i \big)}{\rho + \tau^i + \frac{a_i \nu}{\Delta_m^i}} \\
+	\hat{W}_I &= \frac{z_S^I \big(\chi_S \phi_{SE}^{i=I} \lambda V_1 - w_I \big)}{\rho + \tau^I}
 \end{align*}
+
+\begin{remark}
+	It's not obvious what the optimality condition for spinouts is. On the one hand, each spinout is infinitesimal and hence does not take into account the effect of its R\&D on the rate at which it is replaced. This suggests that the optimality condition should be written as I originally wrote it. On the other hand, an individual potential spinout has arrival rate $\tau^S (m) di$ and gives up $W(m) di$ upon arrival in exchange for $\lambda V(0)$. I lean toward the former: even though an individual does give up $W(m)di$, if his rate of losing this does not depend on his individual decision, then this loss will be irrelevant to his individual decision -- it's that simple.
+\end{remark}
+
+\begin{remark}
+	It's also not clear whether I should use the HJB written above (which is derived from the aggregate spinout value function) or the one below (which is derived from the individual spinout problem) - shouldn't they be equivalent? If they don't give the same answer, why? There's something I don't understand here, because they seem to differ only in one term (just divide both sides of original by $m$)...which means they can't have the same solution...what is going on!? Something to think about...
+	\begin{align*}
+		\big(\rho + \tau(m)\big)W(m) &= \nu a(m) W'(m)  \\
+									  &+ (z_S(m) / m) \Big[ \chi_S \phi_{SE}\big(z_S(m) + z_E(m)\big) \lambda V(0) - w(m) \Big] 
+	\end{align*}
+\end{remark}
 
 
 \subsection{KF equation}
