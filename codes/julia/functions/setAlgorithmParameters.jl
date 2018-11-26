@@ -8,15 +8,15 @@
 
 function setAlgorithmParameters()
 
-    mgrid_numPoints = 500;
+    mgrid_numPoints = 1000;
     mgrid_minimum = 0.0;
-    mgrid_maximum = 5;
+    mgrid_maximum = 30;
     mgrid_logSpacing = true;
     mgrid_logSpacingMinimum = 1e-4;
 
     mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum);
 
-    incumbentHJB_timeStep = 10;
+    incumbentHJB_timeStep = 100;
     incumbentHJB_tolerance = 1e-4;
     incumbentHJB_maxIter = 50;
 
@@ -43,7 +43,7 @@ function setAlgorithmParameters()
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent);
 
     zSzE_tolerance = 1e-6;
-    zSzE_maxIter = 50;
+    zSzE_maxIter = 30;
     zSzE_updateRate = 0.9;
     zSzE_updateRateExponent = 1;
 
