@@ -14,17 +14,17 @@ export setAlgorithmParameters, setModelParameters, setInitialGuess
 
 function setAlgorithmParameters()
 
-    mgrid_numPoints = 500;
+    mgrid_numPoints = 1000;
     mgrid_minimum = 0.0;
-    mgrid_maximum = 10;
+    mgrid_maximum = 30;
     mgrid_logSpacing = true;
-    mgrid_logSpacingMinimum = 1e-12;
+    mgrid_logSpacingMinimum = 1e-4;
 
     mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum);
 
     incumbentHJB_timeStep = 100;
     incumbentHJB_tolerance = 1e-10;
-    incumbentHJB_maxIter = 1;
+    incumbentHJB_maxIter = 50;
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter);
 
@@ -49,8 +49,8 @@ function setAlgorithmParameters()
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent);
 
     zSzE_tolerance = 1e-4;
-    zSzE_maxIter = 10;
-    zSzE_updateRate = 0.1;
+    zSzE_maxIter = 60;
+    zSzE_updateRate = 0.3;
     zSzE_updateRateExponent = 1;
 
     zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent);
@@ -69,9 +69,12 @@ function setAlgorithmParameters()
     incumbentHJB_Log_print_skip = 100;
     incumbentHJB_Log = LogParameters(incumbentHJB_Log_verbose,incumbentHJB_Log_print_skip);
 
+
+
     return AlgorithmParameters(mGrid, incumbentHJB, spinoutHJB, L_RD, w, zSzE, L_RD_w_Log, zSzE_Log, incumbentHJB_Log);
 
 end
+
 
 function setModelParameters()
 
@@ -84,7 +87,7 @@ function setModelParameters()
     χI = 1.5;
     χS = 1;
     χE = 0.5;
-    ψI = 0.5;
+    ψI = 0.7;
     ψSE = 0.5;
     λ = 1.2;
 
@@ -102,22 +105,24 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
 
     β = pm.β;
     wbar = (β^β)*(1-β)^(2-2*β);
-    w = 0.1 * wbar * ones(size(mGrid));
+    w = 0.5 * wbar * ones(size(mGrid));
+    #w = 0.5 * wbar * ones(pa.mGrid.numPoints,1)
+
 
     #idxM = pa.mGrid.numPoints;
 
     #zS = pm.ξ .* mGrid
 
-    zS = 0.01 * ones(size(mGrid))
+    zS = 0.1 * ones(pa.mGrid.numPoints,1)
     zE = zS
 
     #zE = zeros(size(zS))
+    #zE = 0 * ones(pa.mGrid.numPoints,1);
 
     #return InitialGuess(L_RD,w,idxM,zS,zE)
     return Guess(L_RD,w,zS,zE)
 
 end
-
 
 
 end

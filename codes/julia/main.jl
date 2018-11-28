@@ -20,16 +20,10 @@ using AuxiliaryModule
 using GuessModule
 using ModelSolver
 using HJBModule
-#using InitializationModule
+using InitializationModule
 using DataFrames
 using Gadfly
 
-include("functions/setAlgorithmParameters.jl")
-include("functions/setModelParameters.jl")
-include("functions/setInitialGuess.jl")
-
-
-## Include functions specific to THIS main script
 #--------------------------------#
 # Set algorithm parameters,
 # model parameters, and
@@ -39,8 +33,7 @@ include("functions/setInitialGuess.jl")
 algoPar = setAlgorithmParameters()
 modelPar = setModelParameters()
 mGrid,Δm = mGridBuild(algoPar.mGrid)
-#initGuess = setInitialGuess(algoPar,modelPar,mGrid)
-initGuess = setInitialGuess(algoPar,modelPar)
+initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 
 #--------------------------------#
 # Solve model with the above parameters
