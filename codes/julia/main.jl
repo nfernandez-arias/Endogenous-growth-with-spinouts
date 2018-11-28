@@ -39,7 +39,8 @@ include("functions/setInitialGuess.jl")
 algoPar = setAlgorithmParameters()
 modelPar = setModelParameters()
 mGrid,Δm = mGridBuild(algoPar.mGrid)
-initGuess = setInitialGuess(algoPar,modelPar,mGrid)
+#initGuess = setInitialGuess(algoPar,modelPar,mGrid)
+initGuess = setInitialGuess(algoPar,modelPar)
 
 #--------------------------------#
 # Solve model with the above parameters
