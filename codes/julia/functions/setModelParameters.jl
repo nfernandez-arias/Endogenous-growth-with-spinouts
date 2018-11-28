@@ -16,7 +16,7 @@ function setModelParameters()
     χI = 1.5;
     χS = 1;
     χE = 0.5;
-    ψI = 0.7;
+    ψI = 0.5;
     ψSE = 0.5;
     λ = 1.2;
 

@@ -235,6 +235,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     # based on L_RD guess and profit function
     V0 = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess)
     zI = zeros(size(V0))
+	zIalt = zeros(size(V0))
     ## Construct mGrid and Delta_m vectors
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
@@ -252,24 +253,47 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
         # This can be parallelized eventually if I need to - essentially the only
         # part of the code that can be parallelized.
 
-        for i=range(1,length = length(mGrid) - 1)
+		if iterate <= 0
 
-            rhs(z) = -z[1] * (χI * ϕI(z[1]) * (λ * V0[1] - V0[i]) - (w[i] - ν * (V0[i+1] - V0[i]) / Δm[i]))
+		    for i= 1:length(mGrid)-1
 
-			# Guess not necessary for univariate optimization with Optim.jl using Brent algorithm
-			#zIguess = [0.1]
+		        #rhs(z) = -z[1] * (χI * ϕI(z[1]) * (λ * V0[1] - V0[i]) - (w[i] - ν * (V0[i+1] - V0[i]) / Δm[i]))
 
-			# Need to restrict search to positive numbers, or else getting a complex number error!
-            result = optimize(rhs,0,100)
+				# Guess not necessary for univariate optimization with Optim.jl using Brent algorithm
+				#zIguess = [0.1]
 
-            zI[i] = result.minimizer[1];
+				# Need to restrict search to positive numbers, or else getting a complex number error!
+		        #result = optimize(rhs,0,100)
 
-			#zI[i] = 0.1
+		        #zI[i] = result.minimizer[1];
 
-        end
+				zI[i] = 0
+
+		    end
+
+		else
+
+			# zI calculated from FOC to test
+			for i= 1:length(mGrid)-1
+
+			    Vprime = (V0[i+1] - V0[i]) / Δm[i]
+
+			    numerator = w[i] - ν * Vprime
+			    denominator = (1- ψI) * χI * ( λ * V0[1] - V0[i])
+			    ratio = numerator / denominator
+
+			    if ratio > 0
+			        zI[i] = ratio^(-1/ψI)
+			    else
+			        zI[i] = 0.1
+			    end
+
+			end
+
+		end
 
 		# Last point hack
-		zI[length(mGrid)] = zI[length(mGrid)-1]
+		zI[end] = zI[end-1]
 
 
 		## Unpack tau functions

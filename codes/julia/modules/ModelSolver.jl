@@ -91,7 +91,7 @@ function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     w = guess.w;
 
     ## Compute new guesses
-    temp_zS = min.(ξ .* mGrid, old_zS .* (χS * ϕSE(old_zS + old_zE) * λ .* V[1] ./ w));
+    temp_zS = min.(ξ .* mGrid, old_zS .* (χS * ϕSE(old_zS + old_zE) * λ .* V[1] ./ w) );
     temp_zE = old_zE .* (χE * ϕSE(old_zS + old_zE) * λ .* V[1]) ./ w
 
     factor_zE = χE .* ϕSE(old_zS + old_zE) * λ .* V[1] ./ w
@@ -107,6 +107,11 @@ function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     ## Update
     zS = temp_zS * algoPar.zSzE.updateRate + old_zS * (1 - algoPar.zSzE.updateRate);
     zE = temp_zE * algoPar.zSzE.updateRate + old_zE * (1 - algoPar.zSzE.updateRate);
+
+    zS = max.(zeros(size(zS)),zS)
+    zE = max.(zeros(size(zE)),zE)
+
+    zS = min.(ξ .* mGrid, zS)
 
     ## Return output
 
