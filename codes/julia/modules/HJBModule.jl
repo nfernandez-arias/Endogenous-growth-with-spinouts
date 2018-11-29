@@ -263,7 +263,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 				#zIguess = [0.1]
 
 				# Need to restrict search to positive numbers, or else getting a complex number error!
-		        result = optimize(rhs,0,100)
+		        result = optimize(rhs,0,2)
 
 		        zI[i] = result.minimizer[1];
 

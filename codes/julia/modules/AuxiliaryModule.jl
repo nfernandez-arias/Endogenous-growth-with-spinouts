@@ -48,6 +48,18 @@ function τSE(modelPar::ModelParameters,zS::Array{Float64},zE::Array{Float64})
 
 end
 
+function τE(modelPar::ModelParameters,zS::Array{Float64},zE::Array{Float64})
+
+    χE = modelPar.χE
+
+    ψSE = modelPar.ψSE
+
+    ϕSE(z) = z .^(-ψSE)
+
+    return χE * zE .* ϕSE(zS + zE)
+
+end
+
 function τI(modelPar::ModelParameters,zI::Array{Float64})
 
     χI = modelPar.χI

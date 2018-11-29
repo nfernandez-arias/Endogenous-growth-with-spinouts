@@ -14,25 +14,48 @@ export setAlgorithmParameters, setModelParameters, setInitialGuess
 
 function setAlgorithmParameters()
 
-    mgrid_numPoints = 750;
+    f = open("/home/nico/Desktop/plots/algoPar.txt", "w")
+
+    mgrid_numPoints = 2000;
     mgrid_minimum = 0.0;
-    mgrid_maximum = 20;
+    mgrid_maximum = 15;
     mgrid_logSpacing = true;
     mgrid_logSpacingMinimum = 1e-8;
 
     mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum);
 
-    incumbentHJB_timeStep = 0.1;
-    incumbentHJB_tolerance = 1e-5;
-    incumbentHJB_maxIter = 500;
+    write(f, "mGrid Parameters \n---------------\n")
+    for n in fieldnames(mGridParameters)
+        temp = getfield(mGrid,n)
+        write(f,"$n: $temp \n")
+    end
+    write(f, "\n\n")
+
+    incumbentHJB_timeStep = 100;
+    incumbentHJB_tolerance = 1e-6;
+    incumbentHJB_maxIter = 1;
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter);
+
+    write(f, "Incumbent HJB Parameters \n---------------\n")
+    for n in fieldnames(HJBellmanParameters)
+        temp = getfield(incumbentHJB,n)
+        write(f,"$n: $temp \n")
+    end
+    write(f, "\n\n")
 
     spinoutHJB_timeStep = 0.01;
     spinoutHJB_tolerance = 1e-3;
     spinoutHJB_maxIter = 1;
 
     spinoutHJB = HJBellmanParameters(spinoutHJB_timeStep,spinoutHJB_tolerance,spinoutHJB_maxIter);
+
+    write(f, "Spinout HJB Parameters \n---------------\n")
+    for n in fieldnames(HJBellmanParameters)
+        temp = getfield(spinoutHJB,n)
+        write(f,"$n: $temp \n")
+    end
+    write(f, "\n\n")
 
     L_RD_tolerance = 1e-2;
     L_RD_maxIter = 1;
@@ -41,6 +64,13 @@ function setAlgorithmParameters()
 
     L_RD = IterationParameters(L_RD_tolerance,L_RD_maxIter,L_RD_updateRate,L_RD_updateRateExponent);
 
+    write(f, "L_RD Iteration Parameters \n---------------\n")
+    for n in fieldnames(IterationParameters)
+        temp = getfield(L_RD,n)
+        write(f,"$n: $temp \n")
+    end
+    write(f, "\n\n")
+
     w_tolerance = 1e-2;
     w_maxIter = 1;
     w_updateRate = 0.5;
@@ -48,12 +78,26 @@ function setAlgorithmParameters()
 
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent);
 
-    zSzE_tolerance = 1e-4;
+    write(f, "w Iteration Parameters \n---------------\n")
+    for n in fieldnames(IterationParameters)
+        temp = getfield(w,n)
+        write(f,"$n: $temp \n")
+    end
+    write(f, "\n\n")
+
+    zSzE_tolerance = 1e-5;
     zSzE_maxIter = 1;
-    zSzE_updateRate = 0.1;
+    zSzE_updateRate = 0.3;
     zSzE_updateRateExponent = 1;
 
     zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent);
+
+    write(f, "zSzE Iteration Parameters \n---------------\n")
+    for n in fieldnames(IterationParameters)
+        temp = getfield(zSzE,n)
+        write(f,"$n: $temp \n")
+    end
+    write(f, "\n\n")
 
     # Logging parameters
 
@@ -61,15 +105,36 @@ function setAlgorithmParameters()
     L_RD_w_Log_print_skip = 10;
     L_RD_w_Log = LogParameters(L_RD_w_Log_verbose,L_RD_w_Log_print_skip);
 
+    write(f, "L_RD,w Logging Parameters \n---------------\n")
+    for n in fieldnames(LogParameters)
+        temp = getfield(L_RD_w_Log,n)
+        write(f,"$n: $temp \n")
+    end
+    write(f, "\n\n")
+
     zSzE_Log_verbose = 2;
     zSzE_Log_print_skip = 1;
     zSzE_Log = LogParameters(zSzE_Log_verbose,zSzE_Log_print_skip);
+
+    write(f, "zSzE Logging Parameters \n---------------\n")
+    for n in fieldnames(LogParameters)
+        temp = getfield(zSzE_Log,n)
+        write(f,"$n: $temp \n")
+    end
+    write(f, "\n\n")
 
     incumbentHJB_Log_verbose = 2;
     incumbentHJB_Log_print_skip = 100;
     incumbentHJB_Log = LogParameters(incumbentHJB_Log_verbose,incumbentHJB_Log_print_skip);
 
+    write(f, "incumbent HJB Logging Parameters \n---------------\n")
+    for n in fieldnames(LogParameters)
+        temp = getfield(incumbentHJB_Log,n)
+        write(f,"$n: $temp \n")
+    end
+    write(f, "\n\n")
 
+    close(f)
 
     return AlgorithmParameters(mGrid, incumbentHJB, spinoutHJB, L_RD, w, zSzE, L_RD_w_Log, zSzE_Log, incumbentHJB_Log);
 
@@ -84,18 +149,31 @@ function setModelParameters()
     L = 1.0;
 
     # Innovation
-    χI = 1.5;
-    χS = 1;
+    χI = 1;
+    χS = 0;
     χE = 0;
     ψI = 0.5;
     ψSE = 0.5;
     λ = 1.2;
 
     # Spinouts
-    ν = 0.3;
-    ξ = 0.2;
+    ν = 0;
+    ξ = .2;
 
-    return ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ);
+    modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ)
+
+    f = open("/home/nico/Desktop/plots/modelPar.txt", "w")
+
+    write(f, "Model Parameters \n---------------\n")
+    for n in fieldnames(ModelParameters)
+        temp = getfield(modelPar,n)
+        write(f,"$n: $temp \n")
+    end
+    write(f, "\n\n")
+
+    close(f)
+
+    return modelPar
 
 end
 
@@ -105,7 +183,7 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
 
     β = pm.β;
     wbar = (β^β)*(1-β)^(2-2*β);
-    w = 0.5 * wbar * ones(size(mGrid));
+    w = 0.1 * wbar * ones(size(mGrid));
     #w = 0.5 * wbar * ones(pa.mGrid.numPoints,1)
 
 
@@ -120,7 +198,9 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
     #zE = 0 * ones(pa.mGrid.numPoints,1);
 
     #return InitialGuess(L_RD,w,idxM,zS,zE)
-    return Guess(L_RD,w,zS,zE)
+    initGuess = Guess(L_RD,w,zS,zE)
+
+    return initGuess
 
 end
 
