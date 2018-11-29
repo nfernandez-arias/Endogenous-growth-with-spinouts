@@ -114,11 +114,12 @@ end
 
 
 
-
+df1 = DataFrame(x = mGrid[:], y = zS[:], label = "zS")
+df2 = DataFrame(x = mGrid[:], y = zSfactor[:], label = "zSfactor")
+df = vcat(df1,df2)
 
 # zS
-plot(layer(x = mGrid, y = zS, Geom.line),layer(x = mGrid, y = zSfactor, Geom.line),
-    Guide.xlabel("m"), Guide.ylabel("zS"), Guide.title("Spinout R&D effort zS"))
+plot(df, x = "x", y = "y", color = "label", Geom.line)
 
 # zS(m) / m - individual effort
 plot(x = mGrid[2:end], y = zS[2:end] ./ mGrid[2:end], Geom.line, Guide.xlabel("x"), Guide.ylabel("zS(m) / m"))
@@ -161,12 +162,15 @@ plot(x = mGrid, y = w, Geom.line, Guide.xlabel("m"), Guide.ylabel("w"), Guide.ti
 # Test HJB on V
 
 err = zeros(size(mGrid))
+V1 = copy(V)
+V1[1] = V[2]
+
 
 for i = 1:length(mGrid)-1
 
-    Vprime = (V[i+1] - V[i]) / Δm[i]
+    Vprime = (V1[i+1] - V1[i]) / Δm[i]
 
-    err[i] = (ρ + τSE[i]) * V[i] - Π - a[i] * ν * Vprime - zI[i] * (χI * ϕI(zI[i]) * (λ * V[1] - V[i]) - w[i])
+    err[i] = (ρ + τSE[i]) * V1[i] - Π - a[i] * ν * Vprime - zI[i] * (χI * ϕI(zI[i]) * (λ * V1[1] - V1[i]) - w[i])
 
 end
 

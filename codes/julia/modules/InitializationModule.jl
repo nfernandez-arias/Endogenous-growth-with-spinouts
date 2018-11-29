@@ -14,17 +14,17 @@ export setAlgorithmParameters, setModelParameters, setInitialGuess
 
 function setAlgorithmParameters()
 
-    mgrid_numPoints = 1000;
+    mgrid_numPoints = 750;
     mgrid_minimum = 0.0;
-    mgrid_maximum = 30;
+    mgrid_maximum = 20;
     mgrid_logSpacing = true;
-    mgrid_logSpacingMinimum = 1e-4;
+    mgrid_logSpacingMinimum = 1e-8;
 
     mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum);
 
-    incumbentHJB_timeStep = 100;
-    incumbentHJB_tolerance = 1e-10;
-    incumbentHJB_maxIter = 50;
+    incumbentHJB_timeStep = 0.1;
+    incumbentHJB_tolerance = 1e-5;
+    incumbentHJB_maxIter = 500;
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter);
 
@@ -49,8 +49,8 @@ function setAlgorithmParameters()
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent);
 
     zSzE_tolerance = 1e-4;
-    zSzE_maxIter = 60;
-    zSzE_updateRate = 0.3;
+    zSzE_maxIter = 1;
+    zSzE_updateRate = 0.1;
     zSzE_updateRateExponent = 1;
 
     zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent);
@@ -86,8 +86,8 @@ function setModelParameters()
     # Innovation
     χI = 1.5;
     χS = 1;
-    χE = 0.5;
-    ψI = 0.7;
+    χE = 0;
+    ψI = 0.5;
     ψSE = 0.5;
     λ = 1.2;
 
@@ -114,7 +114,7 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
     #zS = pm.ξ .* mGrid
 
     zS = 0.1 * ones(pa.mGrid.numPoints,1)
-    zE = zS
+    zE = 0.1 * zS
 
     #zE = zeros(size(zS))
     #zE = 0 * ones(pa.mGrid.numPoints,1);

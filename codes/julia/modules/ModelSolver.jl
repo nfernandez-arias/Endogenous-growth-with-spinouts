@@ -158,6 +158,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     spinoutFlow = zeros(algoPar.mGrid.numPoints,1)
 
+    incumbentHJBSolution = 0
+
     while (iterate_L_RD_w < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate_L_RD_w < algoPar.w.maxIter && error_w > algoPar.w.tolerance)
 
         iterate_L_RD_w += 1;
@@ -236,7 +238,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         ## Updating w
 
         # Solve incumbent HJB one more time...
-        incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,guess)
+        #incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,guess)
         V = incumbentHJBSolution.V
         zI = incumbentHJBSolution.zI
 

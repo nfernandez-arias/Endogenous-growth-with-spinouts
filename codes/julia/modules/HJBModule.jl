@@ -274,7 +274,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		else
 
 			# zI calculated from FOC to test
-			for i= 1:length(mGrid)-1
+			for i= 2:length(mGrid)-1
 
 			    Vprime = (V0[i+1] - V0[i]) / Δm[i]
 
@@ -293,6 +293,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		end
 
 		# Last point hack
+		zI[1] = zI[2]
 		zI[end] = zI[end-1]
 
 
