@@ -16,9 +16,9 @@ function setAlgorithmParameters()
 
     f = open("/home/nico/Desktop/plots/algoPar.txt", "w")
 
-    mgrid_numPoints = 2000;
+    mgrid_numPoints = 1000;
     mgrid_minimum = 0.0;
-    mgrid_maximum = 15;
+    mgrid_maximum = 5;
     mgrid_logSpacing = true;
     mgrid_logSpacingMinimum = 1e-8;
 
@@ -32,8 +32,8 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     incumbentHJB_timeStep = 100;
-    incumbentHJB_tolerance = 1e-6;
-    incumbentHJB_maxIter = 1;
+    incumbentHJB_tolerance = 1e-7;
+    incumbentHJB_maxIter = 200;
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter);
 
@@ -86,7 +86,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     zSzE_tolerance = 1e-5;
-    zSzE_maxIter = 1;
+    zSzE_maxIter = 200;
     zSzE_updateRate = 0.3;
     zSzE_updateRateExponent = 1;
 
@@ -149,16 +149,16 @@ function setModelParameters()
     L = 1.0;
 
     # Innovation
-    χI = 1;
-    χS = 0;
+    χI = 1.5;
+    χS = 1.5;
     χE = 0;
     ψI = 0.5;
     ψSE = 0.5;
     λ = 1.2;
 
     # Spinouts
-    ν = 0;
-    ξ = .2;
+    ν = 0.1;
+    ξ = 1;
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ)
 

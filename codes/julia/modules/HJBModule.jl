@@ -20,7 +20,7 @@ __precompile__()
 
 module HJBModule
 
-using AlgorithmParametersModule, ModelParametersModule, GuessModule, Optim, LinearAlgebra, SparseArrays
+using AlgorithmParametersModule, ModelParametersModule, GuessModule, Optim, LinearAlgebra, SparseArrays, Gadfly
 import AuxiliaryModule
 
 export IncumbentSolution, solveIncumbentHJB, solveSpinoutHJB
@@ -263,7 +263,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 				#zIguess = [0.1]
 
 				# Need to restrict search to positive numbers, or else getting a complex number error!
-		        result = optimize(rhs,0,2)
+		        result = optimize(rhs,0,1)
 
 		        zI[i] = result.minimizer[1];
 
@@ -274,7 +274,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		else
 
 			# zI calculated from FOC to test
-			for i= 2:length(mGrid)-1
+			for i= 1:length(mGrid)-1
 
 			    Vprime = (V0[i+1] - V0[i]) / Δm[i]
 
@@ -282,18 +282,30 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 			    denominator = (1- ψI) * χI * ( λ * V0[1] - V0[i])
 			    ratio = numerator / denominator
 
-			    if ratio > 0
-			        zI[i] = ratio^(-1/ψI)
-			    else
-			        zI[i] = 0.1
-			    end
+			    #if ratio == Inf
+				#	zI[i] = 0.001
+			    #elseif ratio > 0
+			    #    zI[i] = ratio^(-1/ψI)
+				#elseif ratio == 0
+				#	zI[i] = 0.1
+				#else
+				#	zI[i] = 0.001
+				#end
+
+				if ratio > 0
+					zI[i] = ratio^(-1/ψI)
+				else
+					zI[i] = 0.1
+				end
 
 			end
+
+			#zI[1] = zI[2]
 
 		end
 
 		# Last point hack
-		zI[1] = zI[2]
+		#zI[1] = zI[2]
 		zI[end] = zI[end-1]
 
 
