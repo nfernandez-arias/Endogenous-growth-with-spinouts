@@ -247,13 +247,16 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
     while iterate < maxIter && error > tolerance
 
+		#frame = plot(x = mGrid, y = V0, Geom.line, Guide.xlabel("m"),
+		#	Guide.ylabel("V"), Guide.title("Incumbent value V"), Theme(background_color=colorant"white"))
+
         iterate += 1
 
         # Compute optimal policy
         # This can be parallelized eventually if I need to - essentially the only
         # part of the code that can be parallelized.
 
-		if iterate <= 0
+		if iterate <= 10000
 
 		    for i= 1:length(mGrid)-1
 
@@ -357,6 +360,8 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 			println("solveIncumbentHJB: Converged in $iterate steps")
 		end
 	end
+
+	#gif(anim, "anim.gif", fps = 1)
 
     # Output
     return IncumbentSolution(V0,zI)
