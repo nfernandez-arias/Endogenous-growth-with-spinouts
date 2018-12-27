@@ -96,8 +96,6 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 		end
 	end
 
-
-
 	Imax = length(mGrid)
 
 	W = zeros(size(V))
@@ -109,6 +107,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 		j = Imax - i
 
 		W[j] = ((a[j] *  ν / Δm[j]) * W[j+1] + zS_density[j] * ( spinoutFlow[j] )) / (ρ + τ[j] + a[j] * ν / Δm[j])
+		#W[j] = ((a[j] *  ν / Δm[j]) * W[j+1] + zS[j] * ( spinoutFlow[j] )) / (ρ + τ[j] + a[j] * ν / Δm[j])
 
 	end
 
@@ -256,7 +255,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
         # This can be parallelized eventually if I need to - essentially the only
         # part of the code that can be parallelized.
 
-		if iterate <= 10000
+		if iterate <= 0
 
 		    for i= 1:length(mGrid)-1
 

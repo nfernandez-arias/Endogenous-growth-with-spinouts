@@ -9,18 +9,45 @@ p1 = plot(x = mGrid, y = V, Geom.line, Guide.xlabel("m"), Guide.ylabel("V"), Gui
 p2 = plot(x = mGrid, y = zI, Geom.line, Guide.xlabel("m"), Guide.ylabel("zI"), Guide.title("Incumbent R&D effort zI"), Theme(background_color=colorant"white"))
 p_incumbent = vstack(p1,p2)
 
+
+
 # Spinout
+
+#p1 = plot(x = mGrid, y = W, Geom.line, Guide.xlabel("m"), Guide.ylabel("W"), Guide.title("Individual spinout value W (density)"), Theme(background_color=colorant"white"))
 p1 = plot(x = mGrid, y = W, Geom.line, Guide.xlabel("m"), Guide.ylabel("W"), Guide.title("Individual spinout value W (density)"), Theme(background_color=colorant"white"))
+
 
 zS_density = zeros(size(zS))
 zS_density[2:end] = (zS ./ mGrid)[2:end]
 zS_density[1] = ξ
-p2 = plot(x = mGrid, y = zS_density, Geom.line, Guide.xlabel("x"), Guide.ylabel("zS(m) / m"), Guide.title("Individual spinout R&D intensity (density)"), Theme(background_color=colorant"white"))
+
+df1 = DataFrame(x = mGrid, y = zS_density[:], label = "zS(m) / m")
+df2 = DataFrame(x = mGrid, y = zS[:], label = "zS(m)")
+df = vcat(df1,df2)
+
+p2 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.xlabel("x"), Guide.ylabel("zS(m) / m"), Guide.title("Individual spinout R&D intensity (density)"), Theme(background_color=colorant"white"))
 p_spinout = vstack(p1,p2)
 
 # Print plot
 p = hstack(p_incumbent,p_spinout)
 draw(PNG("/home/nico/Desktop/plots/HJB_solutions_plot.png", 16inch, 8inch), p)
+
+#---------------------------#
+# V(m) + W(m) * m
+#---------------------------#
+
+Wagg = zeros(size(mGrid))
+Wagg = W .* mGrid
+
+df1 = DataFrame(x = mGrid[:], y = V[:], label = "V(m)")
+df2 = DataFrame(x = mGrid[:], y = Wagg[:], label = "W(m)m")
+df3 = DataFrame(x = mGrid[:], y = V[:] + Wagg[:], label = "V(m) + W(m)m")
+
+df = vcat(df1,df2,df3)
+
+p = plot(df,x = "x", y = "y", color = "label", Geom.line, Guide.title("Incumbent, Spinout and Total Values"), Guide.ColorKey("Legend"), Theme(background_color = colorant"white"))
+
+draw(PNG("/home/nico/Desktop/plots/Values.png", 16inch, 8inch), p)
 
 #---------------------------#
 # Plot HJB Error
