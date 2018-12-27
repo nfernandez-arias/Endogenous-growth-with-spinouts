@@ -16,9 +16,9 @@ function setAlgorithmParameters()
 
     f = open("/home/nico/Desktop/plots/algoPar.txt", "w")
 
-    mgrid_numPoints = 2000;
+    mgrid_numPoints = 1000;
     mgrid_minimum = 0.0;
-    mgrid_maximum = 60;
+    mgrid_maximum = 200;
     mgrid_logSpacing = true;
     mgrid_logSpacingMinimum = 1e-8;
 
@@ -31,9 +31,9 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 100;
+    incumbentHJB_timeStep = 1;
     incumbentHJB_tolerance = 1e-6;
-    incumbentHJB_maxIter = 200;
+    incumbentHJB_maxIter = 1000;
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter);
 
@@ -86,8 +86,8 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     zSzE_tolerance = 1e-5;
-    zSzE_maxIter = 40;
-    zSzE_updateRate = 0.3;
+    zSzE_maxIter = 20;
+    zSzE_updateRate = .8;
     zSzE_updateRateExponent = 1;
 
     zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent);
@@ -151,7 +151,7 @@ function setModelParameters()
     # Innovation
     χI = 1.5;
     χS = 3;
-    χE = 0.5;
+    χE = 0.4;
     ψI = 0.5;
     ψSE = 0.5;
     λ = 1.2;
@@ -189,12 +189,13 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
 
     #idxM = pa.mGrid.numPoints;
 
-    #zS = pm.ξ .* mGrid
+    zS = pm.ξ .* mGrid
 
-    zS = 0.1 * ones(pa.mGrid.numPoints,1)
-    zE = 0.1 * zS
+    #zS = 0.1 * ones(pa.mGrid.numPoints,1)
 
-    #zE = zeros(size(zS))
+    #zE = 0.1 * zS
+
+    zE = ones(size(zS))
     #zE = 0 * ones(pa.mGrid.numPoints,1);
 
     #return InitialGuess(L_RD,w,idxM,zS,zE)

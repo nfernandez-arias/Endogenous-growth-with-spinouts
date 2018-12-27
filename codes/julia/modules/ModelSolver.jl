@@ -19,7 +19,8 @@ __precompile__()
 
 module ModelSolver
 
-using AlgorithmParametersModule, ModelParametersModule, GuessModule, HJBModule, DataFrames, Gadfly, Cairo, Fontconfig
+using AlgorithmParametersModule, ModelParametersModule, GuessModule, HJBModule
+using Plots, GR
 import AuxiliaryModule
 
 export solveModel
@@ -123,6 +124,9 @@ end
 
 function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initGuess::Guess)
 
+    # For plotting - use GR backend
+    gr()
+
     # Error message
     if !(algoPar.L_RD_w_Log.verbose in (0,1,2))
         throw(ArgumentError("verbose should be 0, 1 or 2"))
@@ -175,9 +179,29 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         guess.zS = initGuess.zS;
         guess.zE = initGuess.zE;
 
-
+        anim = Animation()
 
         while iterate_zSzE < algoPar.zSzE.maxIter && error_zSzE > algoPar.zSzE.tolerance
+
+            #df1 = DataFrame(x = mGrid, y = guess.zS, label = "zS")
+            #df2 = DataFrame(x = mGrid, y = guess.zE, label = "zE")
+            #df3 = DataFrame(x = mGrid, y = factor_zS, label = "zS factor")
+            #df4 = DataFrame(x = mGrid, y = factor_zE, label = "zE factor")
+
+            y = [guess.zS guess.zE factor_zS factor_zE]
+            x = mGrid[:]
+
+            #data = vcat(df1,df2,df3,df4)
+
+            Plots.plot(x,y,label=["zS" "zE" "zS factor" "zE factor"])
+
+            frame(anim)
+
+            #@df data line(:x,:y, group = :label,
+            #             title = "My plot",
+            #             xlabel = "m")
+
+
 
             # Solve HJB - output contains incumbnet value V and policy zI
             incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,guess)
@@ -222,6 +246,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
             #guess = newGuess;
 
         end
+
+        gif(anim, "./codes/julia/figures/animation.gif", fps = 1)
 
         if algoPar.zSzE_Log.verbose >= 1
             if error_zSzE > algoPar.zSzE.tolerance

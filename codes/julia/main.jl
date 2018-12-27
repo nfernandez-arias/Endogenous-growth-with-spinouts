@@ -36,7 +36,7 @@ mGrid,Δm = mGridBuild(algoPar.mGrid)
 initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 
 #--------------------------------#
-# Solve model with the above parametersUnpack
+# Solve model with the above parameters
 #--------------------------------#
 @time results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
 
