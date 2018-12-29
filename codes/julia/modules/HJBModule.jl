@@ -302,7 +302,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 			end
 
-			#zI[1] = zI[2]
+			zI[1] = zI[2]
 
 		end
 

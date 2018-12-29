@@ -247,7 +247,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
         end
 
-        gif(anim, "./codes/julia/figures/animation.gif", fps = 1)
+        gif(anim, "./figures/animation.gif", fps = 1)
 
         if algoPar.zSzE_Log.verbose >= 1
             if error_zSzE > algoPar.zSzE.tolerance

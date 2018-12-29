@@ -18,7 +18,7 @@ function setAlgorithmParameters()
 
     mgrid_numPoints = 1000;
     mgrid_minimum = 0.0;
-    mgrid_maximum = 200;
+    mgrid_maximum = 50;
     mgrid_logSpacing = true;
     mgrid_logSpacingMinimum = 1e-8;
 
@@ -86,7 +86,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     zSzE_tolerance = 1e-5;
-    zSzE_maxIter = 20;
+    zSzE_maxIter = 15;
     zSzE_updateRate = .8;
     zSzE_updateRateExponent = 1;
 
@@ -150,8 +150,8 @@ function setModelParameters()
 
     # Innovation
     χI = 1.5;
-    χS = 3;
-    χE = 0.4;
+    χS = 2;
+    χE = 0.8;
     ψI = 0.5;
     ψSE = 0.5;
     λ = 1.2;

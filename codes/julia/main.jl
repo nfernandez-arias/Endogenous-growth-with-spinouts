@@ -23,6 +23,7 @@ using HJBModule
 using InitializationModule
 using DataFrames
 using Gadfly
+using Cairo, Fontconfig
 
 #--------------------------------#
 # Set algorithm parameters,
