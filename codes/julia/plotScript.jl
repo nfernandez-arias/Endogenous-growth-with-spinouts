@@ -30,7 +30,7 @@ p_spinout = vstack(p1,p2)
 
 # Print plot
 p = hstack(p_incumbent,p_spinout)
-draw(PNG("/home/nico/Desktop/plots/HJB_solutions_plot.png", 16inch, 8inch), p)
+draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/HJB_solutions_plot.png", 16inch, 8inch), p)
 
 #---------------------------#
 # V(m) + W(m) * m
@@ -47,7 +47,7 @@ df = vcat(df1,df2,df3)
 
 p = plot(df,x = "x", y = "y", color = "label", Geom.line, Guide.title("Incumbent, Spinout and Total Values"), Guide.ColorKey("Legend"), Theme(background_color = colorant"white"))
 
-draw(PNG("/home/nico/Desktop/plots/Values.png", 16inch, 8inch), p)
+draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/Values.png", 16inch, 8inch), p)
 
 #---------------------------#
 # Plot HJB Error
@@ -83,7 +83,7 @@ df2 = DataFrame(x = mGrid, y = err2, label = "Modified test")
 df = vcat(df1,df2)
 
 p = plot(df,x = "x", y = "y", color = "label", Geom.line, Guide.title("HJB tests"), Guide.ColorKey("Test"), Theme(background_color = colorant"white"))
-draw(PNG("/home/nico/Desktop/plots/HJB_tests.png", 10inch, 5inch), p)
+draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/HJB_tests.png", 10inch, 5inch), p)
 
 
 
@@ -102,7 +102,7 @@ p = plot(df,x = "x", y = "y", color = "label", Geom.line, Guide.ColorKey("Legend
                         Guide.ylabel("Annual Poisson intensity"),
                         Theme(background_color = colorant"white"))
 
-draw(PNG("/home/nico/Desktop/plots/innovation_rates.png", 10inch, 5inch), p)
+draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/innovation_rates.png", 10inch, 5inch), p)
 
 
 #-----------------------------------------#
@@ -124,4 +124,4 @@ p2 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("zE and 
 
 # Draw plot
 p = vstack(p1,p2)
-draw(PNG("/home/nico/Desktop/plots/zS_zE_diagnostics.png", 10inch, 10inch), p)
+draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/zS_zE_diagnostics.png", 10inch, 10inch), p)

@@ -14,11 +14,11 @@ export setAlgorithmParameters, setModelParameters, setInitialGuess
 
 function setAlgorithmParameters()
 
-    f = open("/home/nico/Desktop/plots/algoPar.txt", "w")
+    f = open("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 1000;
+    mgrid_numPoints = 400;
     mgrid_minimum = 0.0;
-    mgrid_maximum = 50;
+    mgrid_maximum = 20;
     mgrid_logSpacing = true;
     mgrid_logSpacingMinimum = 1e-8;
 
@@ -33,7 +33,7 @@ function setAlgorithmParameters()
 
     incumbentHJB_timeStep = 1;
     incumbentHJB_tolerance = 1e-6;
-    incumbentHJB_maxIter = 1000;
+    incumbentHJB_maxIter = 300;
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter);
 
@@ -86,7 +86,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     zSzE_tolerance = 1e-5;
-    zSzE_maxIter = 15;
+    zSzE_maxIter = 10;
     zSzE_updateRate = .8;
     zSzE_updateRateExponent = 1;
 
@@ -150,19 +150,19 @@ function setModelParameters()
 
     # Innovation
     χI = 1.5;
-    χS = 2;
-    χE = 0.8;
-    ψI = 0.5;
-    ψSE = 0.5;
-    λ = 1.2;
+    χS = 1;
+    χE = 0.5;
+    ψI = 0.6;
+    ψSE = 0.7;
+    λ = 1.5;
 
     # Spinouts
-    ν = 0.3;
-    ξ = 0.2;
+    ν = 0.5 * 0.2;
+    ξ = 1;
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ)
 
-    f = open("/home/nico/Desktop/plots/modelPar.txt", "w")
+    f = open("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/modelPar.txt", "w")
 
     write(f, "Model Parameters \n---------------\n")
     for n in fieldnames(ModelParameters)
