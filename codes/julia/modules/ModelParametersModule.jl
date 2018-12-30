@@ -11,7 +11,7 @@ __precompile__()
 
 module ModelParametersModule
 
-struct ModelParameters
+mutable struct ModelParameters
 
     ## General parameters
     #################

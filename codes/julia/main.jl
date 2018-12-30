@@ -41,6 +41,15 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 #--------------------------------#
 @time results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
 
+initGuess.zS = results.finalGuess.zS
+initGuess.zE = results.finalGuess.zE
+algoPar = setAlgorithmParameters()
+modelPar.ψI = 0.7
+modelPar.ψSE = 0.7
+
+@time results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
+
+
 #--------------------------------#
 # Unpack - using unpackScript.jl
 #--------------------------------#
