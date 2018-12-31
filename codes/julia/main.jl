@@ -42,11 +42,12 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 
 @time results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
 
+algoPar = setAlgorithmParameters()
 initGuess.zS = results.finalGuess.zS
 initGuess.zE = results.finalGuess.zE
-algoPar = setAlgorithmParameters()
-modelPar.ψI = 0.6
-modelPar.ψSE = 0.6
+initGuess.w = results.finalGuess.w
+modelPar.ψI = 0.7
+modelPar.ψSE = 0.7
 
 @time results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
 

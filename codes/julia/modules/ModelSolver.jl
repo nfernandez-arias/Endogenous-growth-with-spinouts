@@ -178,8 +178,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         iterate_zSzE = 0;
         error_zSzE = 1;
 
-        guess.zS = initGuess.zS;
-        guess.zE = initGuess.zE;
+        #guess.zS = initGuess.zS;
+        #guess.zE = initGuess.zE;
 
         anim = Animation()
 

@@ -16,7 +16,7 @@ function setAlgorithmParameters()
 
     f = open("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 300;
+    mgrid_numPoints = 500;
     mgrid_minimum = 0.0;
     mgrid_maximum = 1;
     mgrid_logSpacing = true;
@@ -31,7 +31,7 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 5;
+    incumbentHJB_timeStep = 10;
     incumbentHJB_tolerance = 1e-6;
     incumbentHJB_maxIter = 300;
 
@@ -71,9 +71,9 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    w_tolerance = 1e-2;
-    w_maxIter = 10;
-    w_updateRate = 0.5;
+    w_tolerance = 1e-3;
+    w_maxIter = 4;
+    w_updateRate = 0.2;
     w_updateRateExponent = 1;
 
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent);
@@ -85,9 +85,9 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    zSzE_tolerance = 1e-4;
-    zSzE_maxIter = 100;
-    zSzE_updateRate = .4;
+    zSzE_tolerance = 1e-10;
+    zSzE_maxIter = 300;
+    zSzE_updateRate = 0.5;
     zSzE_updateRateExponent = 1;
 
     zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent);
