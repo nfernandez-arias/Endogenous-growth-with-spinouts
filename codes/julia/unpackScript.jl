@@ -29,5 +29,7 @@ mGrid,Δm = mGridBuild(algoPar.mGrid)
 ξ = modelPar.ξ
 ψI = modelPar.ψI
 χI = modelPar.χI
+β = modelPar.β
+wbar = (β^β)*(1-β)^(2-2*β);
 
 Π = AuxiliaryModule.profit(results.finalGuess.L_RD,modelPar)

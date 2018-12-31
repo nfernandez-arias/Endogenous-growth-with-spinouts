@@ -164,6 +164,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     incumbentHJBSolution = 0
 
+
+
     while (iterate_L_RD_w < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate_L_RD_w < algoPar.w.maxIter && error_w > algoPar.w.tolerance)
 
         iterate_L_RD_w += 1;
@@ -247,7 +249,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
         end
 
-        gif(anim, "./figures/animation.gif", fps = 1)
+        gif(anim, "./figures/animation.gif", fps = 6)
 
         if algoPar.zSzE_Log.verbose >= 1
             if error_zSzE > algoPar.zSzE.tolerance
@@ -281,6 +283,10 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
         # Solve KF equation
 
+        #
+
+
+
 
 
 
@@ -296,7 +302,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         #newGuess = Guess(guess.L_RD, guess.w, guess.zS, guess.zE)
 
         #error_L_RD = abs(newGuess.L_RD - guess.L_RD);
-        #error_w = maximum(abs,newGuess.w - guess.w);
+        error_w = maximum(abs,temp_w - guess.w);
 
         ## Log
 
@@ -310,7 +316,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
 
         #guess.L_RD = initGuess.L_RD
-        #guess.w = w
+        guess.w = w
 
     end
 

@@ -16,9 +16,9 @@ function setAlgorithmParameters()
 
     f = open("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 2000;
+    mgrid_numPoints = 300;
     mgrid_minimum = 0.0;
-    mgrid_maximum = 30;
+    mgrid_maximum = 1;
     mgrid_logSpacing = true;
     mgrid_logSpacingMinimum = 1e-8;
 
@@ -72,7 +72,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     w_tolerance = 1e-2;
-    w_maxIter = 1;
+    w_maxIter = 10;
     w_updateRate = 0.5;
     w_updateRateExponent = 1;
 
@@ -85,9 +85,9 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    zSzE_tolerance = 1e-5;
-    zSzE_maxIter = 20;
-    zSzE_updateRate = .5;
+    zSzE_tolerance = 1e-4;
+    zSzE_maxIter = 100;
+    zSzE_updateRate = .4;
     zSzE_updateRateExponent = 1;
 
     zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent);
@@ -183,7 +183,7 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
 
     β = pm.β;
     wbar = (β^β)*(1-β)^(2-2*β);
-    w = 0.1 * wbar * ones(size(mGrid));
+    w = wbar * ones(size(mGrid));
     #w = 0.5 * wbar * ones(pa.mGrid.numPoints,1)
 
 
