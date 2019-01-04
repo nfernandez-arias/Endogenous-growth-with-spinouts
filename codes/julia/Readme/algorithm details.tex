@@ -1,0 +1,117 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+\title{High-level Algorithm}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Equilibrium intermediate goods prices $p_j$, demand $k_j$}
+(Still need to show derivation, easy) Final goods maximization implies inverse demand
+\begin{align*}
+	p_j &= L_F^{\beta} q_j^{\beta} k_j^{-\beta}
+\end{align*}
+
+Marginal cost of producing intermediate variety $j$ is $\overline{w}/\overline{q}$. 
+
+Profit maximization for monopolist $j$ is 
+\begin{align*}
+	\pi(q_j) = \max_{k_j \ge 0} \Big\{ L_F^{\beta} q_j^{\beta} k_j^{1-\beta} - \frac{\overline{w}}{\overline{q}} \Big\} 
+\end{align*}
+
+This yields
+\begin{align*}
+	k_j &= \Big[ \frac{(1-\beta) \overline{q}}{\overline{w}} L_F q_j  \Big] \\
+	p_j &= \frac{\overline{w}}{(1-\beta) \overline{q}}
+\end{align*}
+
+\section{Calculating production wage $\overline{w}$}
+
+Final goods production:
+\begin{align*}
+	Y &= \frac{L_F^{\beta}}{1-\beta} \int_0^1 q_j^{\beta} k_j^{1-\beta} dj 
+\end{align*}
+
+First order condition with respect to labor demand:
+\begin{align*}
+	\frac{\beta}{1-\beta}L_F^{\beta-1} \int_0^1 q_j^{\beta} k_j^{1-\beta} dj &= \overline{w}
+\end{align*}
+
+Substitute intermediate goods demand:
+\begin{align*}
+	\frac{\beta}{1-\beta}L_F^{\beta-1} \int_0^1 q_j^{\beta} \Big[ \Big( \frac{(1-\beta)\overline{q}}{\overline{w}} \Big)^{\frac{1}{\beta}} L_F q_j \Big]^{1-\beta} dj = \overline{w}
+\end{align*}
+
+Simplify:
+\begin{align*}
+	\frac{\beta}{1-\beta} \Big[ \Big( \frac{(1-\beta) \overline{q}}{\overline{w}}\Big)^{\frac{1}{\beta}} \Big]^{1-\beta} \overline{q} &= \overline{w} \\
+	\underbrace{\frac{\beta}{1-\beta} (1-\beta)^{\frac{1-\beta}{\beta}}}_{C(\beta)} \overline{w}^{\frac{\beta-1}{\beta}} \overline{q}^{\frac{1-\beta}{\beta}} \overline{q} &= \overline{w} \\
+	C(\beta) \overline{q}^{\frac{1}{\beta}} &= \overline{w}^{\frac{1}{\beta}} \\
+	C(\beta)^{\frac{1}{\beta}} \overline{q} &= \overline{w}
+\end{align*}
+
+\section{Equilibrium intermediate goods producer flow profit $\pi_j$}
+
+Compute
+\begin{align*}
+	\pi_j &= (p_j - c_j) k_j \\
+	      &= \Big( \frac{\overline{w}}{(1-\beta)\overline{q}} - \frac{\overline{w}}{\overline{q}} \Big) \Big[ \frac{(1-\beta) \overline{q}}{\overline{w}} L_F q_j  \Big] \\
+	      &= 
+\end{align*}
+
+\section{Stationary distribution $\mu(m)$}
+
+I calculate $\mu(m)$ using 
+\begin{align*}
+	\mu(m) &= C_{\mu} e^{-\int_0^m \frac{a'(m') + \tau(m')}{a(m')}}dm' \\
+	1 &= \int_0^{M} \mu(m)dm
+\end{align*}
+
+\section{Stationary average relative quality given $m$, $\gamma(m)$}
+
+First, I compute $t(m)$ (equilibrium time to reach state $m$) as 
+\begin{align*}
+t(m) &= \int_0^m a(m')^{-1} dm' 
+\end{align*}
+
+Next, I compute $\gamma(m)$ as 
+\begin{align*}
+	\gamma(m) &= C_{\gamma}e^{-gt(m)}
+\end{align*}
+
+Finally, I compute $C_{\gamma}$ using 
+\begin{align*}
+	1 = \int_0^{M} \gamma(m) \mu(m) dm
+\end{align*}
+
+\section{Calculating $L_{RD}$}
+
+I compute
+\begin{align*}
+	L_{RD} &= \int_0^M \gamma(m) \mu(m) \frac{a(m)}{\nu} dm
+\end{align*}
+
+Note that $\gamma(m) \frac{a(m)}{\nu}$ is total R\&D labor demand for a given good in state $m$.
+
+\section{Calculating $g$}
+
+I compute
+\begin{align*}
+	g &= (\lambda - 1)\int_0^M \gamma(m) \mu(m) \tau(m) dm
+\end{align*}
+\end{document}

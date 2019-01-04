@@ -124,10 +124,10 @@ Once we know that there exist $g,C$ solving the system, we know that $C_{\mu}$ i
 and $C_{\gamma}$ is well-defined by $C_{\gamma} = C^{-1} C_{\mu}^{-1}$. 
 
 \paragraph{Implementing the change of variables}
-If we change variables so that $m'$ corresponds to the $m$ that it takes $m'$ time units to reach. The speed of movement is $a(m)$. If it were constant, we would want $m' = m/a$. After $dt$ seconds, the particle moves to $dm = a(m)dt$. So $dt = dm/a(m)$, i.e. $\frac{dt}{dm} = a(t)^{-1}$. Hence, 
+If we change variables so that $m'$ corresponds to the $m$ that it takes $m'$ time units to reach. The speed of movement is $a(m)$. If it were constant, we would want $m' = m/a$. After $dt$ seconds, the particle moves to $dm = a(m)dt$. So $dt = dm/a(m)$, i.e. $\frac{dt}{dm} = a(m)^{-1}$. Hence, 
 \begin{align*}
-	t(m) &= \int_0^m \frac{dt}{dm} dm \\
-	     &= \int_0^m a(m)^{-1} dm
+	t(m) &= \int_0^m \frac{dt}{dm'} dm' \\
+	     &= \int_0^m a(m')^{-1} dm'
 \end{align*}  
 
 Once we make this change of variables, all we need to do is rewrite $\tau$ as a function of $t$. Of course,

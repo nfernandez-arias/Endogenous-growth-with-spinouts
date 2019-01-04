@@ -92,18 +92,16 @@ function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     w = guess.w;
 
     ## Compute new guesses
-    temp_zS = min.(ξ .* mGrid, old_zS .* (χS * ϕSE(old_zS + old_zE) * λ .* V[1] ./ w) );
-    temp_zE = old_zE .* (χE * ϕSE(old_zS + old_zE) * λ .* V[1]) ./ w
-
-    factor_zE = χE .* ϕSE(old_zS + old_zE) * λ .* V[1] ./ w
-    #println("factor_zE[1] is equal to $(factor_zE[1])")
-    #println("factor_zE[100] is equal to $(factor_zE[100])")
-    #println("factor_zE[200] is equal to $(factor_zE[200])")
 
     factor_zS = χS .* ϕSE(old_zS + old_zE) * λ .* V[1] ./ w
-    #println("factor_zS[1] is equal to $(factor_zS[1])")
-    #println("factor_zS[100] is equal to $(factor_zS[100])")
-    #println("factor_zS[200] is equal to $(factor_zS[200])")
+    factor_zE = χE .* ϕSE(old_zS + old_zE) * λ .* V[1] ./ w
+
+    # For speeding up convergence when it's close.
+    factor_zS = ones(size(factor_zS)) + sign.(factor_zS - ones(size(factor_zS))) .* abs.(factor_zS - ones(size(factor_zS))) .^ algoPar.zSzE.updateRateExponent
+    factor_zE = ones(size(factor_zE)) + sign.(factor_zE - ones(size(factor_zE))) .* abs.(factor_zE - ones(size(factor_zE))) .^ algoPar.zSzE.updateRateExponent
+
+    temp_zS = min.(ξ .* mGrid, old_zS .* factor_zS )
+    temp_zE = old_zE .* factor_zE
 
     ## Update
     zS = temp_zS * algoPar.zSzE.updateRate + old_zS * (1 - algoPar.zSzE.updateRate);
@@ -112,6 +110,7 @@ function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     zS = max.(zeros(size(zS)),zS)
     zE = max.(zeros(size(zE)),zE)
 
+    # Make sure zS satisfies constraint..
     zS = min.(ξ .* mGrid, zS)
 
     ## Return output
@@ -121,6 +120,60 @@ function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     return zS,zE,factor_zS,factor_zE
 
 end
+
+function update_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess,zI)
+
+    ## Build grid
+    mGrid,Δm = mGridBuild(algoPar.mGrid);
+
+    zS = guess.zS
+    zE = guess.zE
+
+    τI = AuxiliaryModule.τI(modelPar,zI)
+    τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
+
+    ν = modelPar.ν
+
+    τ = τI + τSE
+
+    a = ν * (zS + zE + zI)
+
+    #----------------------#
+    # Solve KF equation
+    #----------------------#
+
+    # Compute derivative of a for calculating stationary distribution
+    aPrime = zeros(size(a))
+    for i = 1:length(aPrime)-1
+
+        aPrime = (a[i+1] - a[i]) / Δm[i]
+
+    end
+    aPrime[end] = aPrime[end-1]
+
+    # Integrate ODE to compute shape of μ
+    integrand = (aPrime + τ) ./ a
+    summand = integrand .* Δm
+    integral = cumsum(summand[:])
+    μ = exp.(-integral)
+
+    # Rescale to obtain density
+    μ = μ / sum(μ .* Δm)
+
+    #----------------------#
+    # Compute γ(m)
+    #----------------------#
+
+    # First step: compute t(m), equilibrium time it takes to reach state m
+
+    t = cumsum(Δm[:] ./ a[:])
+
+    # Next step: compute shape of γ(m) using
+
+
+
+end
+
 
 function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initGuess::Guess)
 
@@ -281,19 +334,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
         ## Updating L_RD
 
-        # Solve KF equation
-
-        #
-
-
-
-
-
-
-
-
-        # Aggregate up to compute implied L_RD
-
+        guess.L_RD,μ,γ = update_L_RD(algoPar,modelPar,guess,zI)
 
         #### Error
 

@@ -20,6 +20,18 @@ a = zS + zE + zI
 
 mGrid,Δm = mGridBuild(algoPar.mGrid)
 
+#Compute derivative of a for calculating stationary distribution
+
+aPrime = zeros(size(a))
+
+for i = 1:length(aPrime)-1
+
+    aPrime = (a[i+1] - a[i]) / Δm[i]
+
+end
+
+aPrime[end] = aPrime[end-1]
+
 ϕSE(z) = z .^(-modelPar.ψSE)
 ϕI(z) = z .^(-modelPar.ψI)
 χS = modelPar.χS

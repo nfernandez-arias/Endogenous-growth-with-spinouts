@@ -141,3 +141,44 @@ df2 = DataFrame(x = mGrid[:], y = wbar * ones(size(mGrid[:])), label = "Producti
 df = vcat(df1,df2)
 p = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Wages"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("Wage"), Theme(background_color=colorant"white"))
 draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/wages.png", 10inch, 10inch), p)
+
+#-----------------------------------------#
+# Plot a(m)
+#-----------------------------------------#
+
+df = DataFrame(x = mGrid[:], y = ν * a[:], label = "a(m)")
+p = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Equilibrium Rate of Drift in m-space"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("Rate"), Theme(background_color=colorant"white"))
+draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/drift.png", 10inch, 10inch), p)
+
+#-----------------------------------------#
+# Plot shape of μ(m) without change of variables
+#-----------------------------------------#
+
+integrand = (ν * aPrime + τ) ./ (ν * a)
+summand = integrand .* Δm
+integral = cumsum(summand[:])
+μ = exp.(-integral)
+μ = μ / sum(μ .* Δm)
+df = DataFrame(x = mGrid[:], y = μ, label = "μ(m)")
+p1 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Density μ(m)"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("Density"), Theme(background_color=colorant"white"))
+
+df = DataFrame(x = mGrid[:], y = integrand[:], label = "integrand")
+p2 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("(ν * a'(m) + τ(m)) / (ν * a(m))"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("Integrand"), Theme(background_color=colorant"white"))
+
+p1 = vstack(p1,p2)
+
+df = DataFrame(x = mGrid[:], y = summand[:], label = "summand")
+p3 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Δm(m) * (ν * a'(m) + τ(m)) / (ν * a(m))"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("Summand"), Theme(background_color=colorant"white"))
+
+df = DataFrame(x = mGrid[:], y = integral[:], label = "integral")
+p4 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("cumulative sum of Δm(m) * (ν * a'(m) + τ(m)) / (ν * a(m))"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("Integral"), Theme(background_color=colorant"white"))
+
+p2 = vstack(p3,p4)
+
+p = hstack(p1,p2)
+draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/muShape.png", 10inch, 10inch), p)
+
+
+#-----------------------------------------#
+# Plot shape of gamma(m) γ(m)
+#-----------------------------------------#
