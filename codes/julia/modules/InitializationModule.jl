@@ -179,6 +179,8 @@ end
 
 function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
 
+    g = 0.01
+
     L_RD = 0.1;
 
     β = pm.β;
@@ -199,7 +201,7 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
     #zE = 0 * ones(pa.mGrid.numPoints,1);
 
     #return InitialGuess(L_RD,w,idxM,zS,zE)
-    initGuess = Guess(L_RD,w,zS,zE)
+    initGuess = Guess(g,L_RD,w,zS,zE)
 
     return initGuess
 

@@ -15,6 +15,9 @@ export Guess
 
 mutable struct Guess
 
+    # Growth rate g
+    g::Float64
+
     # R&D labor supply
     L_RD::Float64
 

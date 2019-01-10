@@ -126,6 +126,7 @@ function update_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gues
     ## Build grid
     mGrid,Δm = mGridBuild(algoPar.mGrid);
 
+    g = guess.g
     zS = guess.zS
     zE = guess.zE
 
@@ -168,9 +169,29 @@ function update_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gues
 
     t = cumsum(Δm[:] ./ a[:])
 
-    # Next step: compute shape of γ(m) using
+    # Next step: compute shape of γ(m)
 
+    γShape = exp.(- guess.g .* t)
 
+    # Compute C_gamma
+
+    γScale = sum(γShape .* μ .* Δm)^(-1)
+
+    # Finally compute γ
+
+    γ = γScale * γShape
+
+    #----------------------#
+    # Compute implied L_RD
+    #----------------------#
+
+    L_RD = sum(γ .* μ .* a .* Δm) / ν
+
+    #----------------------#
+    # Return output
+    #----------------------#
+
+    return L_RD,μ,γ
 
 end
 
@@ -195,6 +216,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     # Unpack initial guesses
 
+    g = initGuess.g
     L_RD = initGuess.L_RD
     w = initGuess.w
     zS = initGuess.zS

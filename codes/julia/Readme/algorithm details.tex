@@ -17,7 +17,7 @@
 \newtheorem*{remark}{Remark}
 \begin{document}
 	
-\title{High-level Algorithm}
+\title{Solving for the static equilibrium allocation}
 \author{Nicolas Fernandez-Arias}
 \maketitle
 
@@ -62,12 +62,45 @@ Simplify:
 	\frac{\beta}{1-\beta} \Big[ \Big( \frac{(1-\beta) \overline{q}}{\overline{w}}\Big)^{\frac{1}{\beta}} \Big]^{1-\beta} \overline{q} &= \overline{w} \\
 	\underbrace{\frac{\beta}{1-\beta} (1-\beta)^{\frac{1-\beta}{\beta}}}_{C(\beta)} \overline{w}^{\frac{\beta-1}{\beta}} \overline{q}^{\frac{1-\beta}{\beta}} \overline{q} &= \overline{w} \\
 	C(\beta) \overline{q}^{\frac{1}{\beta}} &= \overline{w}^{\frac{1}{\beta}} \\
-	C(\beta)^{\frac{1}{\beta}} \overline{q} &= \overline{w}
+	C(\beta)^{\beta} \overline{q} &= \overline{w}
+\end{align*}
+
+\section{Simplifying constant $C(\beta)$}
+
+Simplify:
+\begin{align*}
+	C(\beta) &= 
+\end{align*}
+
+\section{Equilibrium allocation of labor to final goods production}
+Given $k_j,\overline{w}$ and $L_F + L_I  = 1 - L_{RD}$ we can calculate $L_F$ given $L_{RD}$. 
+
+We start by computing $l_j$ as a function of $L_F, q_j,$ and $\overline{w}$:
+\begin{align*}
+	l_j &= k_j / \overline{q} \\
+		&=  \Big[ \frac{1-\beta}{\overline{w}} \Big]L_F   q_j \\
+		&= \frac{1-\beta}{C(\beta)^{\beta}} L_F \frac{q_j}{\overline{q}}
+\end{align*}
+
+Then we aggregate to obtain $L_I$ as a function of $L_F$:
+\begin{align*}
+	L_I &= \int_0^1 l_j dj \\
+	    &= \int_0^1 \frac{1-\beta}{C(\beta)^{\beta}} L_F \frac{q_j}{\overline{q}} dj \\
+	    &= \frac{1-\beta}{C(\beta)^{\beta}} L_F \int_0^1 \frac{q_j}{\overline{q}} dj \\
+	    &= \frac{1-\beta}{C(\beta)^{\beta}} L_F 
+\end{align*}
+
+Finally, we can compute $L_F$ using $L_I + L_F = 1 - L_{RD}$: 
+\begin{align*}
+	L_F &= 1 - L_{RD} - L_I \\
+	    &= 1 - L_{RD} - \frac{1-\beta}{C(\beta)^{\beta}} L_F \\
+	L_F \Big( 1 +  \frac{1-\beta}{C(\beta)^{\beta}} \Big) &= 1 - L_{RD} \\
+	L_F &= \frac{1 - L_{RD}}{1 +  \frac{1-\beta}{C(\beta)^{\beta}}}
 \end{align*}
 
 \section{Equilibrium intermediate goods producer flow profit $\pi_j$}
 
-Compute
+Given $L_F(L_{RD})$ we can now compute profits as a function of $L_{RD}$. 
 \begin{align*}
 	\pi_j &= (p_j - c_j) k_j \\
 	      &= \Big( \frac{\overline{w}}{(1-\beta)\overline{q}} - \frac{\overline{w}}{\overline{q}} \Big) \Big[ \frac{(1-\beta) \overline{q}}{\overline{w}} L_F q_j  \Big] \\
@@ -89,14 +122,19 @@ First, I compute $t(m)$ (equilibrium time to reach state $m$) as
 t(m) &= \int_0^m a(m')^{-1} dm' 
 \end{align*}
 
-Next, I compute $\gamma(m)$ as 
+Next, I compute $\tilde{\gamma}(m) = \gamma(m) / C_{\gamma}$ as 
 \begin{align*}
-	\gamma(m) &= C_{\gamma}e^{-gt(m)}
+	\tilde{\gamma}(m) &= e^{-gt(m)}
 \end{align*}
 
 Finally, I compute $C_{\gamma}$ using 
 \begin{align*}
-	1 = \int_0^{M} \gamma(m) \mu(m) dm
+	C_{\gamma}^{-1} = \int_0^{M} \tilde{\gamma}(m) \mu(m) dm
+\end{align*}
+
+Finally, 
+\begin{align*}
+	\gamma(m) &= C_{\gamma} \tilde{\gamma}(m) 
 \end{align*}
 
 \section{Calculating $L_{RD}$}

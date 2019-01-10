@@ -24,6 +24,8 @@
 \begin{enumerate}
 	\item Guess $g,L_{RD},w(\cdot)$
 	\begin{enumerate}
+		\item Compute implied $L_I,L_F$ given parameters (static optimization, same as AK 2017)
+		\item Compute monopoly flow profit $\pi$ given $L_F$
 		\item Guess $z_S(\cdot),z_E(\cdot)$
 		\begin{enumerate}
 			\item Solve incumbent HJB for $V(\cdot),z_I(\cdot)$ given $z_S(\cdot),z_E(\cdot)$
@@ -39,9 +41,8 @@
 		\item Compute $a(\cdot),\tau(\cdot)$
 		\item Compute implied $w(\cdot)$ given $W(\cdot)$
 		\item Compute implied $\mu(\cdot)$ given $a(\cdot),\tau(\cdot)$
-		\item Compute implied $\gamma(\cdot)$ given $a(\cdot),g$
+		\item Compute implied $\gamma(\cdot)$ given $\mu(\cdot),a(\cdot),g$
 		\item Compute implied $L_{RD}$ given $\mu(\cdot),\gamma(\cdot)$
-		\item Compute implied $L_I$ given $\mu(\cdot)$
 		\item Compute implied $g$ given $\mu(\cdot),\gamma(\cdot),\tau(\cdot)$
 		\item Compute updated $w(\cdot),L_{RD},g$ given update rule, previous guess and implied values.
 		\item Check convergence.
