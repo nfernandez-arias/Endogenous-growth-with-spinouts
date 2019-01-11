@@ -11,7 +11,7 @@ __precompile__()
 
 module AlgorithmParametersModule
 
-export AlgorithmParameters,mGridParameters,mGridBuild,HJBellmanParameters,IterationParameters,LogParameters;
+export AlgorithmParameters, mGridParameters, mGridBuild, HJBellmanParameters, IterationParameters, LogParameters;
 
 struct mGridParameters
 
@@ -80,10 +80,11 @@ struct AlgorithmParameters
     mGrid::mGridParameters
     incumbentHJB::HJBellmanParameters
     spinoutHJB::HJBellmanParameters
+    g::IterationParameters
     L_RD::IterationParameters
     w::IterationParameters
     zSzE::IterationParameters
-    L_RD_w_Log::LogParameters
+    g_L_RD_w_Log::LogParameters
     zSzE_Log::LogParameters
     incumbentHJB_Log::LogParameters
 

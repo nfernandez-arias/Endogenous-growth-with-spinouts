@@ -121,7 +121,7 @@ function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
 
 end
 
-function update_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess,zI)
+function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess,zI)
 
     ## Build grid
     mGrid,Δm = mGridBuild(algoPar.mGrid);
@@ -134,6 +134,7 @@ function update_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gues
     τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
 
     ν = modelPar.ν
+    λ = modelPar.λ
 
     τ = τI + τSE
 
@@ -147,7 +148,7 @@ function update_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gues
     aPrime = zeros(size(a))
     for i = 1:length(aPrime)-1
 
-        aPrime = (a[i+1] - a[i]) / Δm[i]
+        aPrime[i] = (a[i+1] - a[i]) / Δm[i]
 
     end
     aPrime[end] = aPrime[end-1]
@@ -188,10 +189,16 @@ function update_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gues
     L_RD = sum(γ .* μ .* a .* Δm) / ν
 
     #----------------------#
+    # Compute implied g
+    #----------------------#
+
+    g = (λ - 1) * sum(γ .* μ .* τ .* Δm)
+
+    #----------------------#
     # Return output
     #----------------------#
 
-    return L_RD,μ,γ
+    return g,L_RD,μ,γ
 
 end
 
@@ -202,7 +209,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     gr()
 
     # Error message
-    if !(algoPar.L_RD_w_Log.verbose in (0,1,2))
+    if !(algoPar.g_L_RD_w_Log.verbose in (0,1,2))
         throw(ArgumentError("verbose should be 0, 1 or 2"))
     end
 
@@ -210,9 +217,10 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
     # While loop to compute fixed point
-    iterate_L_RD_w = 0
+    iterate_g_L_RD_w = 0
+    error_g = 1
     error_L_RD = 1
-    error_w = error_L_RD
+    error_w = 1
 
     # Unpack initial guesses
 
@@ -225,7 +233,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     # Construct new guess object - this will be the object
     # that will be updated throughout the algorithm
 
-    guess = Guess(L_RD,w,zS,zE);
+    guess = Guess(g,L_RD,w,zS,zE);
 
     # Initialize outside of loops for returning
     V = zeros(algoPar.mGrid.numPoints,1)
@@ -241,9 +249,9 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
 
 
-    while (iterate_L_RD_w < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate_L_RD_w < algoPar.w.maxIter && error_w > algoPar.w.tolerance)
+    while (iterate_g_L_RD_w < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate_g_L_RD_w < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate_g_L_RD_w < algoPar.w.maxIter && error_w > algoPar.w.tolerance)
 
-        iterate_L_RD_w += 1;
+        iterate_g_L_RD_w += 1;
 
         if !(algoPar.zSzE_Log.verbose in (0,1,2))
             throw(ArgumentError("algoPar.zSzE_Log.verbose should be 0, 1 or 2"))
@@ -352,11 +360,15 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         ν = modelPar.ν
         wbar = AuxiliaryModule.wbar(modelPar.β)
         temp_w = wbar * ones(size(W)) - ν * W
+
+        # Calculate updated w
         w = algoPar.w.updateRate * temp_w + (1 - algoPar.w.updateRate) * guess.w
 
-        ## Updating L_RD
+        ## Updating g,L_RD
+        temp_g,temp_L_RD,μ,γ = update_g_L_RD(algoPar,modelPar,guess,zI)
 
-        guess.L_RD,μ,γ = update_L_RD(algoPar,modelPar,guess,zI)
+        g = algoPar.g.updateRate * temp_g + (1 - algoPar.g.updateRate) * guess.g
+        L_RD = algoPar.L_RD.updateRate * temp_L_RD + (1 - algoPar.L_RD.updateRate) * guess.L_RD
 
         #### Error
 
@@ -364,37 +376,41 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
         #newGuess = Guess(guess.L_RD, guess.w, guess.zS, guess.zE)
 
-        #error_L_RD = abs(newGuess.L_RD - guess.L_RD);
-        error_w = maximum(abs,temp_w - guess.w);
+        error_g = abs(temp_g - guess.g)
+        error_L_RD = abs(temp_L_RD - guess.L_RD)
+        error_w = maximum(abs,temp_w - guess.w)
 
         ## Log
 
-        if algoPar.L_RD_w_Log.verbose == 2
-            if iterate_L_RD_w % algoPar.L_RD_w_Log.print_skip == 0
-                println("Compute iterate $iterate_L_RD_w with error: (L_RD, $error_L_RD; w, $error_w")
+        if algoPar.g_L_RD_w_Log.verbose == 2
+            if iterate_g_L_RD_w % algoPar.g_L_RD_w_Log.print_skip == 0
+                println("Compute iterate $iterate_g_L_RD_w with error: (g, $error_g; L_RD, $error_L_RD; w, $error_w")
             end
         end
 
         #### Update guess        #### Update guess
 
-
-        #guess.L_RD = initGuess.L_RD
+        guess.g = g
+        guess.L_RD = L_RD
         guess.w = w
 
     end
 
     ### Log some stuff when algorithm ends
 
-    if algoPar.L_RD_w_Log.verbose >= 1
-        if error_L_RD > algoPar.L_RD.tolerance || error_w > algoPar.w.tolerance
+    if algoPar.g_L_RD_w_Log.verbose >= 1
+        if error_g > algoPar.g.tolerance || error_L_RD > algoPar.L_RD.tolerance || error_w > algoPar.w.tolerance
+            if error_g > algoPar.g.tolerance
+                @warn("maxIter attained in outer loop (g,L_RD,w) without g converging")
+            end
             if error_L_RD > algoPar.L_RD.tolerance
-                @warn("maxIter attained in computeFixedPoint_L_RD_w without L_RD converging")
+                @warn("maxIter attained in outer loop (g,L_RD,w) without L_RD converging")
             end
             if error_w > algoPar.w.tolerance
-                @warn("maxIter attained in computeFixedPoint_L_RD_w without w converging")
+                @warn("maxIter attained in outer loop (g,L_RD,w) without w converging")
             end
-        elseif algoPar.L_RD_w_Log.verbose == 2
-            println("Converged in $iterate_L_RD_w steps")
+        elseif algoPar.g_L_RD_w_Log.verbose == 2
+            println("Outer loop converged in $iterate_g_L_RD_w steps")
         end
     end
 

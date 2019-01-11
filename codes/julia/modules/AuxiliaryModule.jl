@@ -15,23 +15,35 @@ using AlgorithmParametersModule, ModelParametersModule, GuessModule
 
 export LF,profit,initialGuessIncumbentHJB
 
+function Cβ(β::Float64)
+
+    return (β/(1-β) * (1-β)^((1-β)/β))^β
+
+end
+
 function LF(L_RD::Float64, modelPar::ModelParameters)
 
     β,L = modelPar.β, modelPar.L;
-    return β * (L - L_RD) / (β + (1-β)^2);
+    Cβ = AuxiliaryModule.Cβ(β)
+    #return β * (L - L_RD) / (β + (1-β)^2);
+
+    return (L-L_RD) / (1 + (1-β)/Cβ)
 
 end
 
 function profit(L_RD::Float64, modelPar::ModelParameters)
 
     β = modelPar.β;
-    return β * (1-β)^((2-β)/β) * β^(-1) * LF(L_RD,modelPar);
+    #return β * (1-β)^((2-β)/β) * β^(-1) * LF(L_RD,modelPar);
+
+    return β * LF(L_RD, modelPar)
 
 end
 
 function wbar(β::Float64)
 
-    return (β^β)*(1-β)^(2-2*β);
+    #return (β^β)*(1-β)^(2-2*β);
+    return Cβ(β)
 
 end
 

@@ -133,7 +133,8 @@ draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-gr
 
 
 # Non R&D wage
-wbar = (β^β)*(1-β)^(2-2*β);
+#wbar = (β^β)*(1-β)^(2-2*β);
+wbar = AuxiliaryModule.Cβ(β)
 
 df1 = DataFrame(x = mGrid[:], y = w[:], label = "RD wage")
 df2 = DataFrame(x = mGrid[:], y = wbar * ones(size(mGrid[:])), label = "Production wage")

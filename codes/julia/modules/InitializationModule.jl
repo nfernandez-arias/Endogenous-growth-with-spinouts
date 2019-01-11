@@ -9,16 +9,16 @@ __precompile__()
 
 module InitializationModule
 
-using AlgorithmParametersModule, ModelParametersModule, GuessModule
+using AlgorithmParametersModule, ModelParametersModule, GuessModule, AuxiliaryModule
 export setAlgorithmParameters, setModelParameters, setInitialGuess
 
 function setAlgorithmParameters()
 
     f = open("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 300;
+    mgrid_numPoints = 500;
     mgrid_minimum = 0.0;
-    mgrid_maximum = 0.6;
+    mgrid_maximum = 2;
     mgrid_logSpacing = true;
     mgrid_logSpacingMinimum = 1e-8;
 
@@ -57,9 +57,23 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
+    g_tolerance = 1e-4;
+    g_maxIter = 1;
+    g_updateRate = 0.8;
+    g_updateRateExponent = 1;
+
+    g = IterationParameters(g_tolerance,g_maxIter,g_updateRate,g_updateRateExponent);
+
+    write(f, "g Iteration Parameters \n---------------\n")
+    for n in fieldnames(IterationParameters)
+        temp = getfield(g,n)
+        write(f,"$n: $temp \n")
+    end
+    write(f, "\n\n")
+
     L_RD_tolerance = 1e-2;
     L_RD_maxIter = 1;
-    L_RD_updateRate = 0.5;
+    L_RD_updateRate = 0.8;
     L_RD_updateRateExponent = 1;
 
     L_RD = IterationParameters(L_RD_tolerance,L_RD_maxIter,L_RD_updateRate,L_RD_updateRateExponent);
@@ -72,8 +86,8 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     w_tolerance = 1e-3;
-    w_maxIter = 10;
-    w_updateRate = 0.2;
+    w_maxIter = 20;
+    w_updateRate = 0.3;
     w_updateRateExponent = 1;
 
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent);
@@ -101,13 +115,13 @@ function setAlgorithmParameters()
 
     # Logging parameters
 
-    L_RD_w_Log_verbose = 2;
-    L_RD_w_Log_print_skip = 10;
-    L_RD_w_Log = LogParameters(L_RD_w_Log_verbose,L_RD_w_Log_print_skip);
+    g_L_RD_w_Log_verbose = 2;
+    g_L_RD_w_Log_print_skip = 10;
+    g_L_RD_w_Log = LogParameters(g_L_RD_w_Log_verbose,g_L_RD_w_Log_print_skip);
 
-    write(f, "L_RD,w Logging Parameters \n---------------\n")
+    write(f, "g,L_RD,w Logging Parameters \n---------------\n")
     for n in fieldnames(LogParameters)
-        temp = getfield(L_RD_w_Log,n)
+        temp = getfield(g_L_RD_w_Log,n)
         write(f,"$n: $temp \n")
     end
     write(f, "\n\n")
@@ -136,7 +150,7 @@ function setAlgorithmParameters()
 
     close(f)
 
-    return AlgorithmParameters(mGrid, incumbentHJB, spinoutHJB, L_RD, w, zSzE, L_RD_w_Log, zSzE_Log, incumbentHJB_Log);
+    return AlgorithmParameters(mGrid, incumbentHJB, spinoutHJB, g, L_RD, w, zSzE, g_L_RD_w_Log, zSzE_Log, incumbentHJB_Log);
 
 end
 
@@ -146,12 +160,12 @@ function setModelParameters()
     # General
     ρ = 0.03;
     β = 0.2;
-    L = 1.0;
+    L = 1;
 
     # Innovation
-    χI = 1.8;
-    χS = 1.2;
-    χE = 0.3;
+    χI = 0.3;
+    χS = 0.3;
+    χE = 0.15;
     ψI = 0.5;
     ψSE = 0.5;
     λ = 1.2;
@@ -184,7 +198,9 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
     L_RD = 0.1;
 
     β = pm.β;
-    wbar = (β^β)*(1-β)^(2-2*β);
+    #wbar = (β^β)*(1-β)^(2-2*β);
+    wbar = AuxiliaryModule.Cβ(β)
+
     w = wbar * ones(size(mGrid));
     #w = 0.5 * wbar * ones(pa.mGrid.numPoints,1)
 

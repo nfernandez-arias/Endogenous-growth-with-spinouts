@@ -47,7 +47,7 @@ initGuess.zS = results.finalGuess.zS
 initGuess.zE = results.finalGuess.zE
 initGuess.w = results.finalGuess.w
 modelPar.ψI = 0.5
-modelPar.ψSE = 0.5
+modelPar.ψSE = 0.2
 
 @time results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
 

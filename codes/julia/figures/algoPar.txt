@@ -1,8 +1,8 @@
 mGrid Parameters 
 ---------------
-numPoints: 300 
+numPoints: 500 
 minimum: 0.0 
-maximum: 0.6 
+maximum: 2.0 
 logSpacing: true 
 logSpacingMinimum: 1.0e-8 
 
@@ -21,19 +21,27 @@ tolerance: 0.001
 maxIter: 1 
 
 
+g Iteration Parameters 
+---------------
+tolerance: 0.0001 
+maxIter: 1.0 
+updateRate: 0.8 
+updateRateExponent: 1.0 
+
+
 L_RD Iteration Parameters 
 ---------------
 tolerance: 0.01 
 maxIter: 1.0 
-updateRate: 0.5 
+updateRate: 0.8 
 updateRateExponent: 1.0 
 
 
 w Iteration Parameters 
 ---------------
 tolerance: 0.001 
-maxIter: 10.0 
-updateRate: 0.2 
+maxIter: 20.0 
+updateRate: 0.3 
 updateRateExponent: 1.0 
 
 
@@ -45,7 +53,7 @@ updateRate: 0.2
 updateRateExponent: 0.8 
 
 
-L_RD,w Logging Parameters 
+g,L_RD,w Logging Parameters 
 ---------------
 verbose: 2 
 print_skip: 10 
