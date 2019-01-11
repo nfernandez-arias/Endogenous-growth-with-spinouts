@@ -33,6 +33,44 @@ p = hstack(p_incumbent,p_spinout)
 draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/HJB_solutions_plot.png", 16inch, 8inch), p)
 
 #---------------------------#
+# Plot HJB Error
+#---------------------------#
+
+err = zeros(size(mGrid))
+V1 = copy(V)
+Vprime = zeros(size(V))
+#V1[1] = V1[2]
+
+for i = 1:length(mGrid)-1
+
+    Vprime[i] = (V1[i+1] - V1[i]) / Δm[i]
+
+    err[i] = (ρ + τSE[i]) * V1[i] - Π - a[i] * ν * Vprime[i] - zI[i] * (χI * ϕI(zI[i]) * (λ * V1[1] - V1[i]) - w[i])
+
+end
+
+err2 = zeros(size(mGrid))
+
+for i = 1:length(mGrid)-1
+
+    Vprime[i] = (V1[i+1] - V1[i]) / Δm[i]
+
+    err2[i] = (ρ + τSE[i]) * V1[i] - Π - a[i] * ν * Vprime[i] - zI[i] * (χI * ϕI(zI[i]) * (λ * V1[1] - V1[i]) - w[i])
+
+end
+
+Vprime[end] = Vprime[end-1]
+Vprime[1] = Vprime[2]
+
+
+df1 = DataFrame(x = mGrid, y = err, label = "Raw test")
+df2 = DataFrame(x = mGrid, y = err2, label = "Modified test")
+df = vcat(df1,df2)
+
+p = plot(df,x = "x", y = "y", color = "label", Geom.line, Guide.title("HJB tests"), Guide.ColorKey(title = "Test"), Theme(background_color = colorant"white"))
+draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/HJB_tests.png", 10inch, 5inch), p)
+
+#---------------------------#
 # V(m) + W(m) * m
 #---------------------------#
 
@@ -45,45 +83,31 @@ df3 = DataFrame(x = mGrid[:], y = V[:] + Wagg[:], label = "V(m) + W(m)m")
 
 df = vcat(df1,df2,df3)
 
-p = plot(df,x = "x", y = "y", color = "label", Geom.line, Guide.title("Incumbent, Spinout and Total Values"), Guide.ColorKey(title = "Legend"), Theme(background_color = colorant"white"))
+p1 = plot(df,x = "x", y = "y", color = "label", Geom.line, Guide.title("Incumbent, Spinout and Total Values: Levels"), Guide.ColorKey(title = "Legend"), Theme(background_color = colorant"white"))
+
+Wprime = zeros(size(W))
+
+for i = 1:length(mGrid)-1
+
+    Wprime[i] = (W[i+1] - W[i]) / Δm[i]
+
+end
+
+Wprime[end] = Wprime[end-1]
+
+df1 = DataFrame(x = mGrid[:], y = Vprime[:], label = "V'(m)")
+df2 = DataFrame(x = mGrid[:], y = W[:] + mGrid[:] .* Wprime[:], label = "W(m) + mW'(m)")
+df3 = DataFrame(x = mGrid[:], y = Vprime[:] + W[:] + mGrid[:] .* Wprime[:], label = "V'(m) + W(m) + mW'(m)")
+
+df = vcat(df1,df2,df3)
+
+p2 = plot(df,x = "x", y = "y", color = "label", Geom.line, Guide.title("Incumbent, Spinout and Total Values: Rate of change"), Guide.ColorKey(title = "Legend"), Theme(background_color = colorant"white"))
+
+p = vstack(p1,p2)
 
 draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/Values.png", 16inch, 8inch), p)
 
-#---------------------------#
-# Plot HJB Error
-#---------------------------#
 
-err = zeros(size(mGrid))
-V1 = copy(V)
-#V1[1] = V1[2]
-
-for i = 1:length(mGrid)-1
-
-    Vprime = (V1[i+1] - V1[i]) / Δm[i]
-
-    err[i] = (ρ + τSE[i]) * V1[i] - Π - a[i] * ν * Vprime - zI[i] * (χI * ϕI(zI[i]) * (λ * V1[1] - V1[i]) - w[i])
-
-end
-
-err2 = zeros(size(mGrid))
-V1 = copy(V)
-V1[1] = V[2]
-
-for i = 1:length(mGrid)-1
-
-    Vprime = (V1[i+1] - V1[i]) / Δm[i]
-
-    err2[i] = (ρ + τSE[i]) * V1[i] - Π - a[i] * ν * Vprime - zI[i] * (χI * ϕI(zI[i]) * (λ * V1[1] - V1[i]) - w[i])
-
-end
-
-
-df1 = DataFrame(x = mGrid, y = err, label = "Raw test")
-df2 = DataFrame(x = mGrid, y = err2, label = "Modified test")
-df = vcat(df1,df2)
-
-p = plot(df,x = "x", y = "y", color = "label", Geom.line, Guide.title("HJB tests"), Guide.ColorKey(title = "Test"), Theme(background_color = colorant"white"))
-draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/HJB_tests.png", 10inch, 5inch), p)
 
 
 
@@ -183,3 +207,35 @@ draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-gr
 #-----------------------------------------#
 # Plot shape of gamma(m) γ(m)
 #-----------------------------------------#
+
+
+df = DataFrame(x = mGrid[:], y = μ[:], label = "μ(m)")
+p1 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("μ(m) = density of products in state m"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("μ(m)"), Theme(background_color=colorant"white"))
+
+df = DataFrame(x = mGrid[:], y = γ[:], label = "γ(m)")
+p2 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("γ(m) = E[q/qbar | m]"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("γ(m)"), Theme(background_color=colorant"white"))
+
+df = DataFrame(x = mGrid[:], y = t[:], label = "t(m)")
+p3 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("t(m) = equilibrium years to state m"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("t(m)"), Theme(background_color=colorant"white"))
+
+p = vstack(p1,p2,p3)
+draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/gamma_t_μ_plots.png", 10inch, 10inch), p)
+
+
+
+#-----------------------------------------#
+# Plot "effective R&D wage" :
+# i.e. plot w(m), V'(m) and w(m) - V'(m)
+#-----------------------------------------#
+
+df = DataFrame(x = mGrid[:], y = Vprime[:], label = "V'(m)")
+p1 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("V'(m)"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("V'(m)"), Theme(background_color=colorant"white"))
+
+df = DataFrame(x = mGrid[:], y = w[:], label = "w(m)")
+p2 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("w(m) = RD wage"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("w(m)"), Theme(background_color=colorant"white"))
+
+df = DataFrame(x = mGrid[:], y = w[:] - ν * Vprime[:], label = "w(m) - νV'(m)")
+p3 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("w(m) - νV'(m) = effective RD wage"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("w(m) - νV'(m)"), Theme(background_color=colorant"white"))
+
+p = vstack(p1,p2,p3)
+draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/effectiveRDWage.png", 10inch, 10inch), p)

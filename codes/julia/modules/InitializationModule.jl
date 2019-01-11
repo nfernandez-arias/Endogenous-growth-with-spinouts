@@ -85,8 +85,8 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    w_tolerance = 1e-3;
-    w_maxIter = 15;
+    w_tolerance = 1e-4;
+    w_maxIter = 6;
     w_updateRate = 0.5;
     w_updateRateExponent = 1;
 
@@ -100,9 +100,9 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     zSzE_tolerance = 1e-6;
-    zSzE_maxIter = 100;
-    zSzE_updateRate = 0.1;
-    zSzE_updateRateExponent = 0.7;
+    zSzE_maxIter = 50;
+    zSzE_updateRate = 0.4;
+    zSzE_updateRateExponent = 0.8;
 
     zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent);
 

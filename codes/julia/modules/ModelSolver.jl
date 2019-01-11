@@ -198,7 +198,7 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
     # Return output
     #----------------------#
 
-    return g,L_RD,μ,γ
+    return g,L_RD,μ,γ,t
 
 end
 
@@ -239,6 +239,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     V = zeros(algoPar.mGrid.numPoints,1)
     W = zeros(algoPar.mGrid.numPoints,1)
     zI = zeros(algoPar.mGrid.numPoints,1)
+    γ = zeros(algoPar.mGrid.numPoints,1)
+    t = zeros(algoPar.mGrid.numPoints,1)
 
     factor_zE = zeros(algoPar.mGrid.numPoints,1)
     factor_zS = zeros(algoPar.mGrid.numPoints,1)
@@ -332,7 +334,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
         end
 
-        gif(anim, "./figures/animation.gif", fps = 6)
+        gif(anim, "./figures/animation.gif", fps = 15)
 
         if algoPar.zSzE_Log.verbose >= 1
             if error_zSzE > algoPar.zSzE.tolerance
@@ -365,7 +367,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         w = algoPar.w.updateRate * temp_w + (1 - algoPar.w.updateRate) * guess.w
 
         ## Updating g,L_RD
-        temp_g,temp_L_RD,μ,γ = update_g_L_RD(algoPar,modelPar,guess,zI)
+        temp_g,temp_L_RD,μ,γ,t = update_g_L_RD(algoPar,modelPar,guess,zI)
 
         g = algoPar.g.updateRate * temp_g + (1 - algoPar.g.updateRate) * guess.g
         L_RD = algoPar.L_RD.updateRate * temp_L_RD + (1 - algoPar.L_RD.updateRate) * guess.L_RD
@@ -402,12 +404,15 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         if error_g > algoPar.g.tolerance || error_L_RD > algoPar.L_RD.tolerance || error_w > algoPar.w.tolerance
             if error_g > algoPar.g.tolerance
                 @warn("maxIter attained in outer loop (g,L_RD,w) without g converging")
+                println("Error: (g, $error_g; L_RD, $error_L_RD; w, $error_w)")
             end
             if error_L_RD > algoPar.L_RD.tolerance
                 @warn("maxIter attained in outer loop (g,L_RD,w) without L_RD converging")
+                println("Error: (g, $error_g; L_RD, $error_L_RD; w, $error_w)")
             end
             if error_w > algoPar.w.tolerance
                 @warn("maxIter attained in outer loop (g,L_RD,w) without w converging")
+                println("Error: (g, $error_g; L_RD, $error_L_RD; w, $error_w)")
             end
         elseif algoPar.g_L_RD_w_Log.verbose == 2
             println("g, L_RD, w fixed point: converged in $iterate_g_L_RD_w steps")
@@ -415,7 +420,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         end
     end
 
-    return ModelSolution(guess,IncumbentSolution(V,zI),W),factor_zS,factor_zE,spinoutFlow
+    return ModelSolution(guess,IncumbentSolution(V,zI),W),factor_zS,factor_zE,spinoutFlow,γ,t
 
 
 

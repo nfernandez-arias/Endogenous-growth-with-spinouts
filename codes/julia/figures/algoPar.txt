@@ -39,8 +39,8 @@ updateRateExponent: 1.0
 
 w Iteration Parameters 
 ---------------
-tolerance: 0.001 
-maxIter: 15.0 
+tolerance: 0.0001 
+maxIter: 6.0 
 updateRate: 0.5 
 updateRateExponent: 1.0 
 
@@ -48,9 +48,9 @@ updateRateExponent: 1.0
 zSzE Iteration Parameters 
 ---------------
 tolerance: 1.0e-6 
-maxIter: 100.0 
-updateRate: 0.1 
-updateRateExponent: 0.7 
+maxIter: 50.0 
+updateRate: 0.4 
+updateRateExponent: 0.8 
 
 
 g,L_RD,w Logging Parameters 
