@@ -410,7 +410,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 @warn("maxIter attained in outer loop (g,L_RD,w) without w converging")
             end
         elseif algoPar.g_L_RD_w_Log.verbose == 2
-            println("Outer loop converged in $iterate_g_L_RD_w steps")
+            println("g, L_RD, w fixed point: converged in $iterate_g_L_RD_w steps")
+            println("Error: (g, $error_g; L_RD, $error_L_RD; w, $error_w)")
         end
     end
 

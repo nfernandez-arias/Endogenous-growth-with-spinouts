@@ -42,6 +42,13 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 
 @time results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
 
+g = results.finalGuess.g
+L_RD = results.finalGuess.L_RD
+# Display solution
+println("Solutions:")
+println("g: $g; L_RD: $L_RD")
+
+
 algoPar = setAlgorithmParameters()
 initGuess.zS = results.finalGuess.zS
 initGuess.zE = results.finalGuess.zE
