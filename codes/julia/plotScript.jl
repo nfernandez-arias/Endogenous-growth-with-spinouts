@@ -103,26 +103,43 @@ p = vstack(p1,p2)
 
 draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/Values.png", 16inch, 8inch), p)
 
-
-
-
-
 #----------------------------------------#
 # Plot innovation arrival rates
 #----------------------------------------#
 
-# τ
-df1 = DataFrame(x = mGrid[:], y = τE[:], label = "Entrants")
+# As function of m
+
+df1 = DataFrame(x = mGrid[:], y = τI[:], label = "Incumbent")
 df2 = DataFrame(x = mGrid[:], y = τS[:], label = "Spinouts")
-df3 = DataFrame(x = mGrid[:], y = τI[:], label = "Incumbent")
+df3 = DataFrame(x = mGrid[:], y = τE[:], label = "Entrants")
 df4 = DataFrame(x = mGrid[:], y = τ[:], label = "Aggregate")
+
+
 df = vcat(df1,df2,df3,df4)
 
-p = plot(df,x = "x", y = "y", color = "label", Geom.line, Guide.ColorKey(title = "Legend"),Guide.title("Innovation Arrival Rates"), Guide.xlabel("m"),
+p1 = plot(df,x = "x", y = "y", color = "label", Geom.line, Guide.ColorKey(title = "Legend"),Guide.title("Innovation Arrival Rates"), Guide.xlabel("m"),
                         Guide.ylabel("Annual Poisson intensity"),
                         Theme(background_color = colorant"white"))
 
+# As function of time
+
+df1 = DataFrame(x = t[:], y = τI[:], label = "Incumbent")
+df2 = DataFrame(x = t[:], y = τS[:], label = "Spinouts")
+df3 = DataFrame(x = t[:], y = τE[:], label = "Entrants")
+df4 = DataFrame(x = t[:], y = τ[:], label = "Aggregate")
+
+df = vcat(df1,df2,df3,df4)
+
+p2 = plot(df,x = "x", y = "y", color = "label", Geom.line, Guide.ColorKey(title = "Legend"),Guide.title("Innovation Arrival Rates vs Time since last innovation"), Guide.xlabel("time t (years) since last innovation"),
+                        Guide.ylabel("Annual Poisson intensity"),
+                        Theme(background_color = colorant"white"))
+
+p = vstack(p1,p2)
+
+
 draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/innovation_rates.png", 10inch, 5inch), p)
+
+
 
 
 #-----------------------------------------#
@@ -201,7 +218,7 @@ draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-gr
 
 
 #-----------------------------------------#
-# Plot shape of gamma(m) γ(m)
+# Plot μ(m),γ(m),t(m)
 #-----------------------------------------#
 
 
@@ -215,7 +232,24 @@ df = DataFrame(x = mGrid[:], y = t[:], label = "t(m)")
 p3 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("t(m) = equilibrium years to state m"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("t(m)"), Theme(background_color=colorant"white"))
 
 p = vstack(p1,p2,p3)
-draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/gamma_t_μ_plots.png", 10inch, 10inch), p)
+draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/gamma_t_μ_vs_m_plots.png", 10inch, 10inch), p)
+
+#-----------------------------------------#
+# Plot μ(t),γ(t),m(t)
+#-----------------------------------------#
+
+df = DataFrame(x = t[:], y = μ[:] .* ν .* a[:], label = "μ(t)")
+p1 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Distribution of products by years since last innovation"), Guide.ColorKey(title = "Legend"), Guide.xlabel("t: years since last innovation"), Guide.ylabel("Density"), Theme(background_color=colorant"white"))
+
+df = DataFrame(x = t[:], y = γ[:], label = "γ(t)")
+p2 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("γ(t) = E[q/Q | t]"), Guide.ColorKey(title = "Legend"), Guide.xlabel("t: years since last innovation"), Guide.ylabel("E[q/Q]"), Theme(background_color=colorant"white"))
+
+df = DataFrame(x = t[:], y = mGrid[:], label = "m(t)")
+p3 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Mass of workers capable of forming spinouts"), Guide.ColorKey(title = "Legend"), Guide.xlabel("t: years since last innovation"), Guide.ylabel("Mass of workers"), Theme(background_color=colorant"white"))
+
+p = vstack(p1,p2,p3)
+draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/gamma_m_μ_vs_t_plots.png", 10inch, 10inch), p)
+
 
 
 
@@ -224,13 +258,13 @@ draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-gr
 # i.e. plot w(m), V'(m) and w(m) - V'(m)
 #-----------------------------------------#
 
-df = DataFrame(x = mGrid[:], y = Vprime[:], label = "V'(m)")
+df = DataFrame(x = mGrid[:], y = V1prime[:], label = "V'(m)")
 p1 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("V'(m)"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("V'(m)"), Theme(background_color=colorant"white"))
 
 df = DataFrame(x = mGrid[:], y = w[:], label = "w(m)")
 p2 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("w(m) = RD wage"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("w(m)"), Theme(background_color=colorant"white"))
 
-df = DataFrame(x = mGrid[:], y = w[:] - ν * Vprime[:], label = "w(m) - νV'(m)")
+df = DataFrame(x = mGrid[:], y = w[:] - ν * V1prime[:], label = "w(m) - νV'(m)")
 p3 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("w(m) - νV'(m) = effective RD wage"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("w(m) - νV'(m)"), Theme(background_color=colorant"white"))
 
 p = vstack(p1,p2,p3)

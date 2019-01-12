@@ -138,6 +138,29 @@ Finally,
 	\gamma(m) &= C_{\gamma} \tilde{\gamma}(m) 
 \end{align*}
 
+\section{Stationary distribution $\mu(t)$}
+
+We have the relationship
+\begin{align*}
+\mu(t)dt &= \mu(m)dm \\
+\mu(t)dt &= \mu(m) \frac{dm}{dt}
+\end{align*}
+
+Substituting in
+\begin{align*}
+\frac{dm}{dt} = \nu a(m(t))
+\end{align*}
+
+Get 
+\begin{align*}
+\mu(t) &= \mu(m) \nu a(m(t))
+\end{align*}
+
+To implement, have $m_i = m(t_i)$, so
+\begin{align*}
+\mu^t_i &= \mu^m_i \nu a^m_i 
+\end{align*}
+
 \section{Calculating $L_{RD}$}
 
 I compute

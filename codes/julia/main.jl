@@ -23,6 +23,7 @@ using HJBModule
 using InitializationModule
 using DataFrames
 using Gadfly
+using Interpolations
 using Cairo, Fontconfig
 
 #--------------------------------#
@@ -42,21 +43,15 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 
 @time results,zSfactor,zEfactor,spinoutFlow,γ,t = solveModel(algoPar,modelPar,initGuess)
 
+#--------------------------------#
+# Display solution
+#--------------------------------#
+
 g = results.finalGuess.g
 L_RD = results.finalGuess.L_RD
-# Display solution
+
 println("Solutions:")
 println("g: $g; L_RD: $L_RD")
-
-algoPar = setAlgorithmParameters()
-initGuess.zS = results.finalGuess.zS
-initGuess.zE = results.finalGuess.zE
-initGuess.w = results.finalGuess.w
-modelPar.ψI = 0.5
-modelPar.ψSE = 0.2
-
-@time results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
-
 
 #--------------------------------#
 # Unpack - using unpackScript.jl

@@ -138,7 +138,7 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
 
     τ = τI .+ τSE
 
-    a = ν * (zS .+ zE .+ zI)
+    a = ν .* (zS .+ zE .+ zI)
 
     #----------------------#
     # Solve KF equation
@@ -186,7 +186,7 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
     # Compute implied L_RD
     #----------------------#
 
-    L_RD = sum(γ .* μ .* a .* Δm) ./ ν
+    L_RD = sum(γ .* μ .* a .* Δm) / ν
 
     #----------------------#
     # Compute implied g
@@ -251,9 +251,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
 
 
-    while (iterate_g_L_RD_w < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate_g_L_RD_w < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate_g_L_RD_w < algoPar.w.maxIter && error_w > algoPar.w.tolerance)
-
-        iterate_g_L_RD_w += 1;
+    while (iterate_g_L_RD_w < algoPar.g.maxIter && error_g > algoPar.g.tolerance) || (iterate_g_L_RD_w < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate_g_L_RD_w < algoPar.w.maxIter && error_w > algoPar.w.tolerance)
 
         if !(algoPar.zSzE_Log.verbose in (0,1,2))
             throw(ArgumentError("algoPar.zSzE_Log.verbose should be 0, 1 or 2"))
@@ -270,67 +268,36 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
         while iterate_zSzE < algoPar.zSzE.maxIter && error_zSzE > algoPar.zSzE.tolerance
 
-            #df1 = DataFrame(x = mGrid, y = guess.zS, label = "zS")
-            #df2 = DataFrame(x = mGrid, y = guess.zE, label = "zE")
-            #df3 = DataFrame(x = mGrid, y = factor_zS, label = "zS factor")
-            #df4 = DataFrame(x = mGrid, y = factor_zE, label = "zE factor")
-
-            y = [guess.zS guess.zE factor_zS factor_zE]
-            x = mGrid[:]
-
-            #data = vcat(df1,df2,df3,df4)
-
+            #y = [guess.zS guess.zE factor_zS factor_zE]
+            #x = mGrid[:]
             #Plots.plot(x,y,label=["zS" "zE" "zS factor" "zE factor"])
-
             #frame(anim)
 
-            #@df data line(:x,:y, group = :label,
-            #             title = "My plot",
-            #             xlabel = "m")
 
-
-
-            # Solve HJB - output contains incumbnet value V and policy zI
+            # Solve HJB - output contains incumbent value V and policy zI
             incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,guess)
 
-            #W = solveSpinoutHJB(algoPar,modelPar,guess,incumbentHJBSolution)
 
             # Update zS and zE given solution HJB and optimality / free entry conditions
 
-            # Constructing new Guess object each time...maybe this is suboptimal
-            #newGuess = update_zSzE(algoPar,modelPar,guess,incumbentHJBSolution.V)
-
+            # Record initial values
             old_zS = guess.zS
             old_zE = guess.zE
 
-            # Updating VALUES, but not creating new guess object - more efficient, presumably
+            # Update guess object (faster than allocating new one)
             guess.zS,guess.zE,factor_zS,factor_zE = update_zSzE(algoPar,modelPar,guess,incumbentHJBSolution.V,W)
 
-            #--------------------#
-            # For debugging only #
-            #--------------------#
-
-            #df1 = DataFrame(m = mGrid[:], y = factor_zS[:], label = "zS factor")
-            #df2 = DataFrame(m = mGrid[:], y = factor_zE[:], label = "zE factor")
-            #df = vcat(df1,df2)
-            #df = DataFrame(m = mGrid[:], factor_zS = factor_zS[:], factor_zE = factor_zE[:])
-
-            #p = plot(df, x="m", y="y", color="label", Geom.line, Theme(background_color = "white"));
-
-            #draw(PNG("codes/julia/figures/zSzEfactors_$iterate_zSzE.png", 6inch, 3inch), p)
-
+            # Increase iterator
             iterate_zSzE += 1;
             # Check convergence
             error_zSzE = max(maximum(abs,guess.zS - old_zS),maximum(abs,guess.zE - old_zE));
 
             if algoPar.zSzE_Log.verbose == 2
                 if iterate_zSzE % algoPar.zSzE_Log.print_skip == 0
-                    println("zSzE fixed point: compute iterate $iterate_zSzE with error $error_zSzE")
-                end            #iterate_zSzE += 1;
+                    println("zSzE fixed point: Computed iterate $iterate_zSzE with error $error_zSzE")
+                end
 
             end
-
-            #guess = newGuess;
 
         end
 
@@ -340,7 +307,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
             if error_zSzE > algoPar.zSzE.tolerance
                 @warn("maxIter attained in zSzE computation")
             elseif algoPar.zSzE_Log.verbose == 2
-                println("zSzE fixed point: converged in $iterate_zSzE steps")
+                println("zSzE fixed point: Converged in $iterate_zSzE steps with error $error_zSzE")
             end
         end
 
@@ -384,9 +351,11 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
         ## Log
 
+        iterate_g_L_RD_w += 1
+
         if algoPar.g_L_RD_w_Log.verbose == 2
             if iterate_g_L_RD_w % algoPar.g_L_RD_w_Log.print_skip == 0
-                println("Compute iterate $iterate_g_L_RD_w with error: (g, $error_g; L_RD, $error_L_RD; w, $error_w")
+                println("g,L_RD,w fixed point: Computed iterate $iterate_g_L_RD_w with error: (g, $error_g; L_RD, $error_L_RD; w, $error_w)")
             end
         end
 
@@ -401,28 +370,28 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     ### Log some stuff when algorithm ends
 
     if algoPar.g_L_RD_w_Log.verbose >= 1
-        if error_g > algoPar.g.tolerance || error_L_RD > algoPar.L_RD.tolerance || error_w > algoPar.w.tolerance
+        if (error_g > algoPar.g.tolerance) || (error_L_RD > algoPar.L_RD.tolerance) || (error_w > algoPar.w.tolerance)
             if error_g > algoPar.g.tolerance
-                @warn("maxIter attained in outer loop (g,L_RD,w) without g converging")
-                println("Error: (g, $error_g; L_RD, $error_L_RD; w, $error_w)")
+                @warn("maxIter attained in (g,L_RD,w) fixed point without g converging")
+                println("Final Error: (g, $error_g; L_RD, $error_L_RD; w, $error_w)")
+                println("g error minus tolerance is $(error_g - algoPar.g.tolerance)")
+                println("g max iter equals $(algoPar.g.maxIter)")
             end
             if error_L_RD > algoPar.L_RD.tolerance
-                @warn("maxIter attained in outer loop (g,L_RD,w) without L_RD converging")
-                println("Error: (g, $error_g; L_RD, $error_L_RD; w, $error_w)")
+                @warn("maxIter attained in (g,L_RD,w) fixed point without L_RD converging")
+                println("Final Error: (g, $error_g; L_RD, $error_L_RD; w, $error_w)")
             end
             if error_w > algoPar.w.tolerance
-                @warn("maxIter attained in outer loop (g,L_RD,w) without w converging")
-                println("Error: (g, $error_g; L_RD, $error_L_RD; w, $error_w)")
+                @warn("maxIter attained in (g,L_RD,w) fixed point without w converging")
+                println("Final Error: (g, $error_g; L_RD, $error_L_RD; w, $error_w)")
             end
         elseif algoPar.g_L_RD_w_Log.verbose == 2
-            println("g, L_RD, w fixed point: converged in $iterate_g_L_RD_w steps")
-            println("Error: (g, $error_g; L_RD, $error_L_RD; w, $error_w)")
+            println("g,L_RD,w fixed point: Converged in $iterate_g_L_RD_w steps")
+            println("Final Error: (g, $error_g; L_RD, $error_L_RD; w, $error_w)")
         end
     end
 
     return ModelSolution(guess,IncumbentSolution(V,zI),W),factor_zS,factor_zE,spinoutFlow,γ,t
-
-
 
 end
 

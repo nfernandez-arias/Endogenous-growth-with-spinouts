@@ -16,9 +16,9 @@ function setAlgorithmParameters()
 
     f = open("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 300;
+    mgrid_numPoints = 100;
     mgrid_minimum = 0.0;
-    mgrid_maximum = 0.5;
+    mgrid_maximum = .05
     mgrid_logSpacing = true;
     mgrid_logSpacingMinimum = 1e-8;
 
@@ -58,8 +58,8 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     g_tolerance = 1e-4;
-    g_maxIter = 40;
-    g_updateRate = 0.3;
+    g_maxIter = 50;
+    g_updateRate = 0.2;
     g_updateRateExponent = 1;
 
     g = IterationParameters(g_tolerance,g_maxIter,g_updateRate,g_updateRateExponent);
@@ -72,8 +72,8 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     L_RD_tolerance = 1e-2;
-    L_RD_maxIter = 40;
-    L_RD_updateRate = 0.3;
+    L_RD_maxIter = 50;
+    L_RD_updateRate = 0.1;
     L_RD_updateRateExponent = 1;
 
     L_RD = IterationParameters(L_RD_tolerance,L_RD_maxIter,L_RD_updateRate,L_RD_updateRateExponent);
@@ -86,8 +86,8 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     w_tolerance = 1e-4;
-    w_maxIter = 40;
-    w_updateRate = 0.5;
+    w_maxIter = 75;
+    w_updateRate = 0.2;
     w_updateRateExponent = 1;
 
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent);
@@ -100,7 +100,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     zSzE_tolerance = 1e-6;
-    zSzE_maxIter = 100;
+    zSzE_maxIter = 50;
     zSzE_updateRate = 0.3;
     zSzE_updateRateExponent = 0.9;
 
@@ -116,7 +116,7 @@ function setAlgorithmParameters()
     # Logging parameters
 
     g_L_RD_w_Log_verbose = 2;
-    g_L_RD_w_Log_print_skip = 10;
+    g_L_RD_w_Log_print_skip = 1;
     g_L_RD_w_Log = LogParameters(g_L_RD_w_Log_verbose,g_L_RD_w_Log_print_skip);
 
     write(f, "g,L_RD,w Logging Parameters \n---------------\n")
@@ -163,16 +163,16 @@ function setModelParameters()
     L = 1;
 
     # Innovation
-    χI = 0.5;
-    χS = 0.3;
-    χE = 0.2;
+    χI = 1
+    χS = 0.5
+    χE = 0.2
     ψI = 0.5;
     ψSE = 0.5;
     λ = 1.2;
 
     # Spinouts
-    ν = 0.4;
-    ξ = 1;
+    ν = 0.01;
+    ξ = 15;
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ)
 
