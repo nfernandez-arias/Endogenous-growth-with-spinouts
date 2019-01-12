@@ -184,15 +184,21 @@ draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-gr
 # Plot a(m)
 #-----------------------------------------#
 
-df = DataFrame(x = mGrid[:], y = ν * a[:], label = "a(m)")
-p = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Equilibrium Rate of Drift in m-space"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("Rate"), Theme(background_color=colorant"white"))
+df = DataFrame(x = mGrid[:], y = ν * a[:], label = "νa(m)")
+p1 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Equilibrium Rate of Drift in m-space"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("Rate"), Theme(background_color=colorant"white"))
+
+df = DataFrame(x = t[:], y = ν * a[:], label = "νa(t)")
+p2 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Equilibrium Rate of Drift in t-space"), Guide.ColorKey(title = "Legend"), Guide.xlabel("t: years since last innovation"), Guide.ylabel("Rate"), Theme(background_color=colorant"white"))
+
+p = vstack(p1,p2)
+
 draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/drift.png", 10inch, 10inch), p)
 
 #-----------------------------------------#
-# Plot shape of μ(m) without change of variables
+# Plot the construction of μ(m)
 #-----------------------------------------#
 
-integrand = (ν * aPrime + τ) ./ (ν * a)
+integrand =  (ν .* aPrime .+ τ) ./ (ν .* a)
 summand = integrand .* Δm
 integral = cumsum(summand[:])
 μ = exp.(-integral)
@@ -254,7 +260,7 @@ draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-gr
 
 
 #-----------------------------------------#
-# Plot "effective R&D wage" :
+# Plot "effective R&D wage" vs m :
 # i.e. plot w(m), V'(m) and w(m) - V'(m)
 #-----------------------------------------#
 
@@ -268,4 +274,21 @@ df = DataFrame(x = mGrid[:], y = w[:] - ν * V1prime[:], label = "w(m) - νV'(m)
 p3 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("w(m) - νV'(m) = effective RD wage"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("w(m) - νV'(m)"), Theme(background_color=colorant"white"))
 
 p = vstack(p1,p2,p3)
-draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/effectiveRDWage.png", 10inch, 10inch), p)
+draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/effectiveRDWage_vs_m.png", 10inch, 10inch), p)
+
+#-----------------------------------------#
+# Plot "effective R&D wage"  vs t :
+# i.e. plot w(m), V'(m) and w(m) - V'(m)
+#-----------------------------------------#
+
+df = DataFrame(x = t[:], y = V1prime[:], label = "V'(m(t))")
+p1 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("V'(m(t))"), Guide.ColorKey(title = "Legend"), Guide.xlabel("t"), Guide.ylabel("V'(m(t))"), Theme(background_color=colorant"white"))
+
+df = DataFrame(x = t[:], y = w[:], label = "w(m(t))")
+p2 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("w(m(t)) = RD wage"), Guide.ColorKey(title = "Legend"), Guide.xlabel("t"), Guide.ylabel("w(m(t))"), Theme(background_color=colorant"white"))
+
+df = DataFrame(x = t[:], y = w[:] - ν * V1prime[:], label = "w(m(t)) - νV'(m(t))")
+p3 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("w(m(t)) - νV'(m(t)) = effective RD wage"), Guide.ColorKey(title = "Legend"), Guide.xlabel("t"), Guide.ylabel("w(m(t)) - νV'(m(t))"), Theme(background_color=colorant"white"))
+
+p = vstack(p1,p2,p3)
+draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/effectiveRDWage_vs_t.png", 10inch, 10inch), p)

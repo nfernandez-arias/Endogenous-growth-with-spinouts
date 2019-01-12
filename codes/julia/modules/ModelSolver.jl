@@ -154,7 +154,7 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
     aPrime[end] = aPrime[end-1]
 
     # Integrate ODE to compute shape of μ
-    integrand = (aPrime .+ τ) ./ a
+    integrand =  (aPrime .+ τ) ./ a
     summand = integrand .* Δm
     integral = cumsum(summand[:])
     μ = exp.(-integral)
