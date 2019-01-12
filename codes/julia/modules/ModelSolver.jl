@@ -97,15 +97,15 @@ function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     factor_zE = χE .* ϕSE(old_zS + old_zE) * λ .* V[1] ./ w
 
     # For speeding up convergence when it's close.
-    factor_zS = ones(size(factor_zS)) + sign.(factor_zS - ones(size(factor_zS))) .* abs.(factor_zS - ones(size(factor_zS))) .^ algoPar.zSzE.updateRateExponent
-    factor_zE = ones(size(factor_zE)) + sign.(factor_zE - ones(size(factor_zE))) .* abs.(factor_zE - ones(size(factor_zE))) .^ algoPar.zSzE.updateRateExponent
+    factor_zS = ones(size(factor_zS)) .+ sign.(factor_zS .- ones(size(factor_zS))) .* abs.(factor_zS .- ones(size(factor_zS))) .^ algoPar.zSzE.updateRateExponent
+    factor_zE = ones(size(factor_zE)) .+ sign.(factor_zE .- ones(size(factor_zE))) .* abs.(factor_zE .- ones(size(factor_zE))) .^ algoPar.zSzE.updateRateExponent
 
-    temp_zS = min.(ξ .* mGrid, old_zS .* factor_zS )
+    temp_zS = min.(ξ .* mGrid, old_zS .* factor_zS)
     temp_zE = old_zE .* factor_zE
 
     ## Update
-    zS = temp_zS * algoPar.zSzE.updateRate + old_zS * (1 - algoPar.zSzE.updateRate);
-    zE = temp_zE * algoPar.zSzE.updateRate + old_zE * (1 - algoPar.zSzE.updateRate);
+    zS = temp_zS .* algoPar.zSzE.updateRate .+ old_zS .* (1 - algoPar.zSzE.updateRate);
+    zE = temp_zE .* algoPar.zSzE.updateRate .+ old_zE .* (1 - algoPar.zSzE.updateRate);
 
     zS = max.(zeros(size(zS)),zS)
     zE = max.(zeros(size(zE)),zE)
@@ -136,9 +136,9 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
     ν = modelPar.ν
     λ = modelPar.λ
 
-    τ = τI + τSE
+    τ = τI .+ τSE
 
-    a = ν * (zS + zE + zI)
+    a = ν * (zS .+ zE .+ zI)
 
     #----------------------#
     # Solve KF equation
@@ -154,7 +154,7 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
     aPrime[end] = aPrime[end-1]
 
     # Integrate ODE to compute shape of μ
-    integrand = (aPrime + τ) ./ a
+    integrand = (aPrime .+ τ) ./ a
     summand = integrand .* Δm
     integral = cumsum(summand[:])
     μ = exp.(-integral)
@@ -186,13 +186,13 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
     # Compute implied L_RD
     #----------------------#
 
-    L_RD = sum(γ .* μ .* a .* Δm) / ν
+    L_RD = sum(γ .* μ .* a .* Δm) ./ ν
 
     #----------------------#
     # Compute implied g
     #----------------------#
 
-    g = (λ - 1) * sum(γ .* μ .* τ .* Δm)
+    g = (λ - 1) .* sum(γ .* μ .* τ .* Δm)
 
     #----------------------#
     # Return output
@@ -266,7 +266,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         #guess.zS = initGuess.zS;
         #guess.zE = initGuess.zE;
 
-        anim = Animation()
+        #anim = Animation()
 
         while iterate_zSzE < algoPar.zSzE.maxIter && error_zSzE > algoPar.zSzE.tolerance
 
@@ -280,9 +280,9 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
             #data = vcat(df1,df2,df3,df4)
 
-            Plots.plot(x,y,label=["zS" "zE" "zS factor" "zE factor"])
+            #Plots.plot(x,y,label=["zS" "zE" "zS factor" "zE factor"])
 
-            frame(anim)
+            #frame(anim)
 
             #@df data line(:x,:y, group = :label,
             #             title = "My plot",
@@ -334,7 +334,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
         end
 
-        gif(anim, "./figures/animation.gif", fps = 15)
+        #gif(anim, "./figures/animation.gif", fps = 15)
 
         if algoPar.zSzE_Log.verbose >= 1
             if error_zSzE > algoPar.zSzE.tolerance

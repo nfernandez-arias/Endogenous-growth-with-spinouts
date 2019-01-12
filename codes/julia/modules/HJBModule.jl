@@ -87,8 +87,8 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
 	spinoutFlow = zeros(size(zS))
 	# Spinout flow construction and moving to zeros
-	spinoutFlow[:] = (χS * ϕSE(zS + zE) * λ * V[1] .- w)[:]
-	spinoutFlow = (χS * ϕSE(zS + zE) * λ * V[1] .- w)
+	#spinoutFlow[:] = (χS .* ϕSE(zS + zE) .* λ .* V[1] .- w)[:]
+	spinoutFlow = (χS .* ϕSE(zS + zE) .* λ .* V[1] .- w)
 
 	for i = 1:length(spinoutFlow)
 		if spinoutFlow[i] < 1e-3
@@ -167,7 +167,7 @@ function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter
 	τI = AuxiliaryModule.τI(modelPar,zI)
 	τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
 
-	aSE = (zS + zE)
+	aSE = (zS .+ zE)
 
     for i = range(1,length = length(mGrid) - 1)
 
@@ -239,7 +239,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
     # Finally calculate flow profit
-	Π = AuxiliaryModule.profit(guess.L_RD,modelPar) * ones(size(mGrid));
+	Π = AuxiliaryModule.profit(guess.L_RD,modelPar) .* ones(size(mGrid));
 
     iterate = 0
     error = 1
@@ -317,14 +317,14 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		τSE = AuxiliaryModule.τSE(modelPar,zS,zE)[:]
 
         ## Make update:
-        u = Π - zI .* w
+        u = Π .- zI .* w
         A = constructMatrixA(algoPar,modelPar,guess,zI)
-		B = (1/timeStep + ρ) * I - A
+		B = (1/timeStep + ρ) * I - sparse(A)
 
 		#tauMatrix = Diagonal(τI[:] + τSE[:])
 		#B = (1/timeStep + ρ) * I + tauMatrix - A
 
-        b = u + (1/timeStep) * V0
+        b = u .+ (1/timeStep) .* V0
 
         # Construct sparse matrices...not sure why but whatever
         #Asparse = sparse(A)
@@ -332,11 +332,12 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
         #bsparse = sparse(b)
 
         #V1 = Bsparse \ bsparse
+		#V1 = sparse(B) \ b
 		V1 = B \ b
 
         # Normalize error by timeStep because
         # it will always be smaller if timeStep is smaller
-        error = maximum(abs,V1 - V0) / timeStep
+        error = maximum(abs.(V1-V0)) ./ timeStep
 
 		if verbose == 2
 			if iterate % print_skip == 0

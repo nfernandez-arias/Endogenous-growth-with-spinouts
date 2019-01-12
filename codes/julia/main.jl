@@ -48,7 +48,6 @@ L_RD = results.finalGuess.L_RD
 println("Solutions:")
 println("g: $g; L_RD: $L_RD")
 
-
 algoPar = setAlgorithmParameters()
 initGuess.zS = results.finalGuess.zS
 initGuess.zE = results.finalGuess.zE

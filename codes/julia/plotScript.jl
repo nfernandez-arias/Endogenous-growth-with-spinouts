@@ -39,35 +39,31 @@ draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-gr
 err = zeros(size(mGrid))
 V1 = copy(V)
 Vprime = zeros(size(V))
+V1prime = copy(Vprime)
 #V1[1] = V1[2]
 
 for i = 1:length(mGrid)-1
 
-    Vprime[i] = (V1[i+1] - V1[i]) / Δm[i]
-
-    err[i] = (ρ + τSE[i]) * V1[i] - Π - a[i] * ν * Vprime[i] - zI[i] * (χI * ϕI(zI[i]) * (λ * V1[1] - V1[i]) - w[i])
-
-end
-
-err2 = zeros(size(mGrid))
-
-for i = 1:length(mGrid)-1
-
-    Vprime[i] = (V1[i+1] - V1[i]) / Δm[i]
-
-    err2[i] = (ρ + τSE[i]) * V1[i] - Π - a[i] * ν * Vprime[i] - zI[i] * (χI * ϕI(zI[i]) * (λ * V1[1] - V1[i]) - w[i])
+    Vprime[i] = (V[i+1] - V[i]) / Δm[i]
+    V1prime[i] = (V1[i+1] - V1[i]) / Δm[i]
 
 end
 
 Vprime[end] = Vprime[end-1]
-Vprime[1] = Vprime[2]
+V1prime[end] = V1prime[end-1]
+V1prime[1] = V1prime[2]
 
+err = (ρ .+ τSE) .* V .- Π .- a .* ν .* Vprime .- zI .* (χI .* ϕI(zI) .* (λ .* V[1] .- V) .- w)
+err2 = (ρ .+ τSE) .* V1 .- Π .- a .* ν .* V1prime .- zI .* (χI .* ϕI(zI) .* (λ .* V1[1] .- V1) .- w)
 
-df1 = DataFrame(x = mGrid, y = err, label = "Raw test")
-df2 = DataFrame(x = mGrid, y = err2, label = "Modified test")
-df = vcat(df1,df2)
+df = DataFrame(x = mGrid[:], y = err[:], label = "Raw test")
+p1 = plot(df,x = "x", y = "y", color = "label", Geom.line, Guide.title("HJB tests"), Guide.ColorKey(title = "Raw Test"), Theme(background_color = colorant"white"))
 
-p = plot(df,x = "x", y = "y", color = "label", Geom.line, Guide.title("HJB tests"), Guide.ColorKey(title = "Test"), Theme(background_color = colorant"white"))
+df = DataFrame(x = mGrid[:], y = err2[:], label = "Modified test")
+p2 = plot(df,x = "x", y = "y", color = "label", Geom.line, Guide.title("HJB tests"), Guide.ColorKey(title = "ModifiedTest"), Theme(background_color = colorant"white"))
+
+p = vstack(p1,p2)
+
 draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/HJB_tests.png", 10inch, 5inch), p)
 
 #---------------------------#

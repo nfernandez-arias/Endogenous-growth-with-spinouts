@@ -58,8 +58,8 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     g_tolerance = 1e-4;
-    g_maxIter = 1;
-    g_updateRate = 0.8;
+    g_maxIter = 40;
+    g_updateRate = 0.3;
     g_updateRateExponent = 1;
 
     g = IterationParameters(g_tolerance,g_maxIter,g_updateRate,g_updateRateExponent);
@@ -72,8 +72,8 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     L_RD_tolerance = 1e-2;
-    L_RD_maxIter = 1;
-    L_RD_updateRate = 0.8;
+    L_RD_maxIter = 40;
+    L_RD_updateRate = 0.3;
     L_RD_updateRateExponent = 1;
 
     L_RD = IterationParameters(L_RD_tolerance,L_RD_maxIter,L_RD_updateRate,L_RD_updateRateExponent);
@@ -86,7 +86,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     w_tolerance = 1e-4;
-    w_maxIter = 6;
+    w_maxIter = 40;
     w_updateRate = 0.5;
     w_updateRateExponent = 1;
 
@@ -100,9 +100,9 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     zSzE_tolerance = 1e-6;
-    zSzE_maxIter = 50;
-    zSzE_updateRate = 0.4;
-    zSzE_updateRateExponent = 0.8;
+    zSzE_maxIter = 100;
+    zSzE_updateRate = 0.3;
+    zSzE_updateRateExponent = 0.9;
 
     zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent);
 
@@ -163,15 +163,15 @@ function setModelParameters()
     L = 1;
 
     # Innovation
-    χI = 0.3;
-    χS = 0.2;
-    χE = 0.1;
+    χI = 0.5;
+    χS = 0.3;
+    χE = 0.2;
     ψI = 0.5;
     ψSE = 0.5;
     λ = 1.2;
 
     # Spinouts
-    ν = 0.5 * 0.2;
+    ν = 0.4;
     ξ = 1;
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ)
