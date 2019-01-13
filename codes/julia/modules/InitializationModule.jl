@@ -16,9 +16,9 @@ function setAlgorithmParameters()
 
     f = open("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 150;
+    mgrid_numPoints = 200;
     mgrid_minimum = 0.0;
-    mgrid_maximum = .03
+    mgrid_maximum = .3
     mgrid_logSpacing = true;
     mgrid_logSpacingMinimum = 1e-8;
 
@@ -32,7 +32,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     incumbentHJB_timeStep = 10;
-    incumbentHJB_tolerance = 1e-8;
+    incumbentHJB_tolerance = 1e-6;
     incumbentHJB_maxIter = 300;
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter);
@@ -58,8 +58,8 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     g_tolerance = 1e-4;
-    g_maxIter = 50;
-    g_updateRate = 0.2;
+    g_maxIter = 3;
+    g_updateRate = 0.3;
     g_updateRateExponent = 1;
 
     g = IterationParameters(g_tolerance,g_maxIter,g_updateRate,g_updateRateExponent);
@@ -72,7 +72,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     L_RD_tolerance = 1e-4;
-    L_RD_maxIter = 100;
+    L_RD_maxIter = 3;
     L_RD_updateRate = 0.1;
     L_RD_updateRateExponent = 1;
 
@@ -86,8 +86,8 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     w_tolerance = 1e-4;
-    w_maxIter = 75;
-    w_updateRate = 0.2;
+    w_maxIter = 100;
+    w_updateRate = 0.1;
     w_updateRateExponent = 1;
 
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent);
@@ -158,21 +158,21 @@ end
 function setModelParameters()
 
     # General
-    ρ = 0.05;
-    β = 0.2;
+    ρ = 0.03;
+    β = 0.1;
     L = 1;
 
     # Innovation
-    χI = 0.5
-    χS = 0.3
-    χE = 0.1
+    χI = 4
+    χS = 1
+    χE = 0.2
     ψI = 0.5;
-    ψSE = 0.85;
-    λ = 1.2;
+    ψSE = 0.5;
+    λ = 1.05;
 
     # Spinouts
-    ν = 0.01;
-    ξ = 10;
+    ν = 0.02;
+    ξ = 5;
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ)
 

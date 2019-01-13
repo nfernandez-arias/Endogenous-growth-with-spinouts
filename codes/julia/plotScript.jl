@@ -263,17 +263,20 @@ draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-gr
 # Plot "effective R&D wage" vs m :
 # i.e. plot w(m), V'(m) and w(m) - V'(m)
 #-----------------------------------------#
+df1 = DataFrame(x = mGrid[:], y = ν * V1prime[:], label = "Incumbent: νV'(m)")
+df2 = DataFrame(x = mGrid[:], y = ν * W[:], label = "Spinout: νW(m)")
+df3 = DataFrame(x = mGrid[:], y = ν * (V1prime[:] .+ W[:]), label = "Bilateral: νW(m + νV'(m")
+df = vcat(df1,df2,df3)
+p1 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Flow value of knowledge transfer"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Value"), Guide.xlabel("m"), Theme(background_color=colorant"white"))
 
-df = DataFrame(x = mGrid[:], y = V1prime[:], label = "V'(m)")
-p1 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("V'(m)"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("V'(m)"), Theme(background_color=colorant"white"))
+df1 = DataFrame(x = mGrid[:], y = wbar .* ones(size(w[:]))[:], label = "wbar = final goods wage")
+df2 = DataFrame(x = mGrid[:], y = w[:], label = "w(m = wbar - νW(m = RD wage")
+df3 = DataFrame(x = mGrid[:], y = w[:] - ν * V1prime[:], label = "w(m - νV'(m = effective RD wage")
 
-df = DataFrame(x = mGrid[:], y = w[:], label = "w(m)")
-p2 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("w(m) = RD wage"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("w(m)"), Theme(background_color=colorant"white"))
+df = vcat(df1,df2,df3)
+p2 = plot(df, x = "x", y = "y", color = "label", Coord.Cartesian(ymin = 0), Geom.line, Guide.title("Wages"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Wage"), Guide.xlabel("m"), Theme(background_color=colorant"white"))
 
-df = DataFrame(x = mGrid[:], y = w[:] - ν * V1prime[:], label = "w(m) - νV'(m)")
-p3 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("w(m) - νV'(m) = effective RD wage"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("w(m) - νV'(m)"), Theme(background_color=colorant"white"))
-
-p = vstack(p1,p2,p3)
+p = vstack(p1,p2)
 draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/effectiveRDWage_vs_m.png", 10inch, 10inch), p)
 
 #-----------------------------------------#
@@ -281,14 +284,18 @@ draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-gr
 # i.e. plot w(m), V'(m) and w(m) - V'(m)
 #-----------------------------------------#
 
-df = DataFrame(x = t[:], y = V1prime[:], label = "V'(m(t))")
-p1 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("V'(m(t))"), Guide.ColorKey(title = "Legend"), Guide.xlabel("t"), Guide.ylabel("V'(m(t))"), Theme(background_color=colorant"white"))
+df1 = DataFrame(x = t[:], y = ν * V1prime[:], label = "Incumbent: νV'(m(t))")
+df2 = DataFrame(x = t[:], y = ν * W[:], label = "Spinout: νW(m(t))")
+df3 = DataFrame(x = t[:], y = ν * (V1prime[:] .+ W[:]), label = "Bilateral: νW(m(t)) + νV'(m(t))")
+df = vcat(df1,df2,df3)
+p1 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Flow value of knowledge transfer"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Value"), Guide.xlabel("t: years since last innovation"), Theme(background_color=colorant"white"))
 
-df = DataFrame(x = t[:], y = w[:], label = "w(m(t))")
-p2 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("w(m(t)) = RD wage"), Guide.ColorKey(title = "Legend"), Guide.xlabel("t"), Guide.ylabel("w(m(t))"), Theme(background_color=colorant"white"))
+df1 = DataFrame(x = t[:], y = wbar .* ones(size(w[:]))[:], label = "wbar = final goods wage")
+df2 = DataFrame(x = t[:], y = w[:], label = "w(m(t)) = wbar - νW(m(t)) = RD wage")
+df3 = DataFrame(x = t[:], y = w[:] - ν * V1prime[:], label = "w(m(t)) - νV'(m(t)) = effective RD wage")
 
-df = DataFrame(x = t[:], y = w[:] - ν * V1prime[:], label = "w(m(t)) - νV'(m(t))")
-p3 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("w(m(t)) - νV'(m(t)) = effective RD wage"), Guide.ColorKey(title = "Legend"), Guide.xlabel("t"), Guide.ylabel("w(m(t)) - νV'(m(t))"), Theme(background_color=colorant"white"))
+df = vcat(df1,df2,df3)
+p2 = plot(df, x = "x", y = "y", color = "label", Coord.Cartesian(ymin = 0), Geom.line, Guide.title("Wages"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Wage"), Guide.xlabel("t: years since last innovation"), Theme(background_color=colorant"white"))
 
-p = vstack(p1,p2,p3)
+p = vstack(p1,p2)
 draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/effectiveRDWage_vs_t.png", 10inch, 10inch), p)
