@@ -16,11 +16,11 @@ function setAlgorithmParameters()
 
     f = open("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 200;
-    mgrid_minimum = 0.0;
-    mgrid_maximum = .3
-    mgrid_logSpacing = true;
-    mgrid_logSpacingMinimum = 1e-8;
+    mgrid_numPoints = 100
+    mgrid_minimum = 0.0
+    mgrid_maximum = .4
+    mgrid_logSpacing = true
+    mgrid_logSpacingMinimum = 1e-8
 
     mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum);
 
@@ -58,7 +58,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     g_tolerance = 1e-4;
-    g_maxIter = 3;
+    g_maxIter = 1;
     g_updateRate = 0.3;
     g_updateRateExponent = 1;
 
@@ -72,7 +72,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     L_RD_tolerance = 1e-4;
-    L_RD_maxIter = 3;
+    L_RD_maxIter = 1;
     L_RD_updateRate = 0.1;
     L_RD_updateRateExponent = 1;
 
@@ -86,7 +86,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     w_tolerance = 1e-4;
-    w_maxIter = 100;
+    w_maxIter = 70;
     w_updateRate = 0.1;
     w_updateRateExponent = 1;
 
@@ -153,26 +153,26 @@ function setAlgorithmParameters()
     return AlgorithmParameters(mGrid, incumbentHJB, spinoutHJB, g, L_RD, w, zSzE, g_L_RD_w_Log, zSzE_Log, incumbentHJB_Log);
 
 end
-
+[Empornium]cuckold cum eating cumswapping cumkissing &amp; creampie Compilation
 
 function setModelParameters()
 
     # General
     ρ = 0.03;
-    β = 0.1;
+    β = 0.106;
     L = 1;
 
     # Innovation
     χI = 4
     χS = 1
-    χE = 0.2
+    χE = 0.5
     ψI = 0.5;
     ψSE = 0.5;
     λ = 1.05;
 
     # Spinouts
     ν = 0.02;
-    ξ = 5;
+    ξ = 10;
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ)
 

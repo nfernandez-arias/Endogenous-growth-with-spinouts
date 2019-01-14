@@ -251,93 +251,86 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
         iterate += 1
 
+		#---------------------------#
+		# Calculate zI using FOC
+		#---------------------------#
+
+		for i= 1:length(mGrid)-1
+
+		    Vprime = (V0[i+1] - V0[i]) / Δm[i]
+
+		    numerator = w[i] - ν * Vprime
+		    denominator = (1- ψI) * χI * ( λ * V0[1] - V0[i])
+		    ratio = numerator / denominator
+
+			if ratio > 0
+				zI[i] = ratio^(-1/ψI)
+			else
+				zI[i] = 0.1
+			end
+
+		end
+
+		# Hack - "guess and verify", true in eq by continuity
+
+		zI[1] = zI[2]
+		zI[end] = zI[end-1]
+
+		#---------------------------#
+		# DEPRECATED CODE
+		#---------------------------#
+
         # Compute optimal policy
         # This can be parallelized eventually if I need to - essentially the only
         # part of the code that can be parallelized.
 
-		if iterate <= 0
+		#if iterate <= 0
 
-		    for i= 1:length(mGrid)-1
+		  #  for i= 1:length(mGrid)-1
 
-		        rhs(z) = -z[1] * (χI * ϕI(z[1]) * (λ * V0[1] - V0[i]) - (w[i] - ν * (V0[i+1] - V0[i]) / Δm[i]))
+		  #      rhs(z) = -z[1] * (χI * ϕI(z[1]) * (λ * V0[1] - V0[i]) - (w[i] - ν * (V0[i+1] - V0[i]) / Δm[i]))
 
 				# Guess not necessary for univariate optimization with Optim.jl using Brent algorithm
 				#zIguess = [0.1]
 
 				# Need to restrict search to positive numbers, or else getting a complex number error!
-		        result = optimize(rhs,0,1)
+		  #      result = optimize(rhs,0,1)
 
-		        zI[i] = result.minimizer[1];
+		  #      zI[i] = result.minimizer[1];
 
 				#zI[i] = 0
 
-		    end
+		#    end
 
-		else
-
-			# zI calculated from FOC to test
-			for i= 1:length(mGrid)-1
-
-			    Vprime = (V0[i+1] - V0[i]) / Δm[i]
-
-			    numerator = w[i] - ν * Vprime
-			    denominator = (1- ψI) * χI * ( λ * V0[1] - V0[i])
-			    ratio = numerator / denominator
-
-			    #if ratio == Inf
-				#	zI[i] = 0.001
-			    #elseif ratio > 0
-			    #    zI[i] = ratio^(-1/ψI)
-				#elseif ratio == 0
-				#	zI[i] = 0.1
-				#else
-				#	zI[i] = 0.001
-				#end
-
-				if ratio > 0
-					zI[i] = ratio^(-1/ψI)
-				else
-					zI[i] = 0.1
-				end
-
-			end
-
-			zI[1] = zI[2]
-
-		end
-
-		# Last point hack
-		#zI[1] = zI[2]
-		zI[end] = zI[end-1]
-
+	#	else
 
 		## Unpack tau functions
 		########################################
 		τI = AuxiliaryModule.τI(modelPar,zI)[:]
 		τSE = AuxiliaryModule.τSE(modelPar,zS,zE)[:]
 
-        ## Make update:
-        u = Π .- zI .* w
-        A = constructMatrixA(algoPar,modelPar,guess,zI)
+	    ## Make update:
+	    u = Π .- zI .* w
+	    A = constructMatrixA(algoPar,modelPar,guess,zI)
 		B = (1/timeStep + ρ) * I - sparse(A)
 
 		#tauMatrix = Diagonal(τI[:] + τSE[:])
 		#B = (1/timeStep + ρ) * I + tauMatrix - A
 
-        b = u .+ (1/timeStep) .* V0
+	    b = u .+ (1/timeStep) .* V0
 
-        # Construct sparse matrices...not sure why but whatever
-        #Asparse = sparse(A)
-        #Bsparse = sparse(B)
-        #bsparse = sparse(b)
+	    # Construct sparse matrices...not sure why but whatever
+	    #Asparse = sparse(A)
+	    #Bsparse = sparse(B)
+	    #bsparse = sparse(b)
 
-        #V1 = Bsparse \ bsparse
+	    #V1 = Bsparse \ bsparse
 		#V1 = sparse(B) \ b
-		V1 = B \ b
+		V1 = sparse(B) \ b
 
-        # Normalize error by timeStep because
-        # it will always be smaller if timeStep is smaller
-        error = maximum(abs.(V1-V0)) ./ timeStep
+	    # Normalize error by timeStep because
+	    # it will always be smaller if timeStep is smaller
+	    error = maximum(abs.(V1-V0)) ./ timeStep
 
 		if verbose == 2
 			if iterate % print_skip == 0
@@ -345,11 +338,9 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 			end
 		end
 
-        V0 = V1
+	    V0 = V1
 
-		#println("V is equal to $V0")
-
-    end
+	end
 
 	#println("V is equal to $V0")
 

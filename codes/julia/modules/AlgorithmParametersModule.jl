@@ -13,7 +13,7 @@ module AlgorithmParametersModule
 
 export AlgorithmParameters, mGridParameters, mGridBuild, HJBellmanParameters, IterationParameters, LogParameters;
 
-struct mGridParameters
+mutable struct mGridParameters
 
     numPoints::Int
     minimum::Float64
@@ -51,7 +51,7 @@ function mGridBuild(par::mGridParameters)
 
 end
 
-struct HJBellmanParameters
+mutable struct HJBellmanParameters
 
     timeStep::Float64
     tolerance::Float64
@@ -59,7 +59,7 @@ struct HJBellmanParameters
 
 end
 
-struct IterationParameters
+mutable struct IterationParameters
 
     tolerance::Float64
     maxIter::Float64
@@ -68,14 +68,14 @@ struct IterationParameters
 
 end
 
-struct LogParameters
+mutable struct LogParameters
 
     verbose::Int64
     print_skip::Int64
 
 end
 
-struct AlgorithmParameters
+mutable struct AlgorithmParameters
 
     mGrid::mGridParameters
     incumbentHJB::HJBellmanParameters
