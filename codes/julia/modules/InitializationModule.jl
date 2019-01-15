@@ -16,9 +16,9 @@ function setAlgorithmParameters()
 
     f = open("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 100
+    mgrid_numPoints = 400
     mgrid_minimum = 0.0
-    mgrid_maximum = .4
+    mgrid_maximum = .1
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-8
 
@@ -33,7 +33,7 @@ function setAlgorithmParameters()
 
     incumbentHJB_timeStep = 10;
     incumbentHJB_tolerance = 1e-6;
-    incumbentHJB_maxIter = 300;
+    incumbentHJB_maxIter = 100;
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter);
 
@@ -57,8 +57,8 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    g_tolerance = 1e-4;
-    g_maxIter = 1;
+    g_tolerance = 1e-5;
+    g_maxIter = 50;
     g_updateRate = 0.3;
     g_updateRateExponent = 1;
 
@@ -71,8 +71,8 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    L_RD_tolerance = 1e-4;
-    L_RD_maxIter = 1;
+    L_RD_tolerance = 1e-5;
+    L_RD_maxIter = 150;
     L_RD_updateRate = 0.1;
     L_RD_updateRateExponent = 1;
 
@@ -85,8 +85,8 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    w_tolerance = 1e-4;
-    w_maxIter = 70;
+    w_tolerance = 1e-5;
+    w_maxIter = 150;
     w_updateRate = 0.1;
     w_updateRateExponent = 1;
 
@@ -100,9 +100,9 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     zSzE_tolerance = 1e-6;
-    zSzE_maxIter = 50;
+    zSzE_maxIter = 75;
     zSzE_updateRate = 0.3;
-    zSzE_updateRateExponent = 0.9;
+    zSzE_updateRateExponent = 1;
 
     zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent);
 
@@ -157,21 +157,21 @@ end
 function setModelParameters()
 
     # General
-    ρ = 0.03;
-    β = 0.106;
-    L = 1;
+    ρ = 0.03
+    β = 0.106
+    L = 1
 
     # Innovation
     χI = 4
-    χS = 1
-    χE = 0.5
-    ψI = 0.5;
-    ψSE = 0.5;
-    λ = 1.05;
+    χS = 1.1
+    χE = 1
+    ψI = 0.5
+    ψSE = 0.5
+    λ = 1.05
 
     # Spinouts
-    ν = 0.02;
-    ξ = 10;
+    ν = 0.02
+    ξ = 5
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ)
 
@@ -212,7 +212,7 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
 
     #zE = 0.1 * zS
 
-    zE = 0.1*ones(size(zS))
+    zE = 0.05*ones(size(zS))
     #zE = 0 * ones(pa.mGrid.numPoints,1);
 
     #return InitialGuess(L_RD,w,idxM,zS,zE)

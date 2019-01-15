@@ -1,0 +1,592 @@
+[1mdiff --git a/codes/julia/figures/algoPar.txt b/codes/julia/figures/algoPar.txt[m
+[1mindex f3164d7..24974ec 100644[m
+[1m--- a/codes/julia/figures/algoPar.txt[m
+[1m+++ b/codes/julia/figures/algoPar.txt[m
+[36m@@ -1,15 +1,15 @@[m
+ mGrid Parameters [m
+ ---------------[m
+[31m-numPoints: 200 [m
+[32m+[m[32mnumPoints: 100[m[41m [m
+ minimum: 0.0 [m
+[31m-maximum: 0.1 [m
+[32m+[m[32mmaximum: 0.4[m[41m [m
+ logSpacing: true [m
+ logSpacingMinimum: 1.0e-8 [m
+ [m
+ [m
+ Incumbent HJB Parameters [m
+ ---------------[m
+[31m-timeStep: 1.0 [m
+[32m+[m[32mtimeStep: 10.0[m[41m [m
+ tolerance: 1.0e-6 [m
+ maxIter: 300 [m
+ [m
+[36m@@ -24,8 +24,8 @@[m [mmaxIter: 1[m
+ g Iteration Parameters [m
+ ---------------[m
+ tolerance: 0.0001 [m
+[31m-maxIter: 3.0 [m
+[31m-updateRate: 0.4 [m
+[32m+[m[32mmaxIter: 1.0[m[41m [m
+[32m+[m[32mupdateRate: 0.3[m[41m [m
+ updateRateExponent: 1.0 [m
+ [m
+ [m
+[36m@@ -33,24 +33,24 @@[m [mL_RD Iteration Parameters[m
+ ---------------[m
+ tolerance: 0.0001 [m
+ maxIter: 1.0 [m
+[31m-updateRate: 0.4 [m
+[32m+[m[32mupdateRate: 0.1[m[41m [m
+ updateRateExponent: 1.0 [m
+ [m
+ [m
+ w Iteration Parameters [m
+ ---------------[m
+ tolerance: 0.0001 [m
+[31m-maxIter: 1.0 [m
+[32m+[m[32mmaxIter: 70.0[m[41m [m
+ updateRate: 0.1 [m
+ updateRateExponent: 1.0 [m
+ [m
+ [m
+ zSzE Iteration Parameters [m
+ ---------------[m
+[31m-tolerance: 1.0e-8 [m
+[31m-maxIter: 1000.0 [m
+[31m-updateRate: 0.8 [m
+[31m-updateRateExponent: 1.0 [m
+[32m+[m[32mtolerance: 1.0e-6[m[41m [m
+[32m+[m[32mmaxIter: 50.0[m[41m [m
+[32m+[m[32mupdateRate: 0.3[m[41m [m
+[32m+[m[32mupdateRateExponent: 0.9[m[41m [m
+ [m
+ [m
+ g,L_RD,w Logging Parameters [m
+[1mdiff --git a/codes/julia/figures/animation.gif b/codes/julia/figures/animation.gif[m
+[1mnew file mode 100644[m
+[1mindex 0000000..dc6f09b[m
+Binary files /dev/null and b/codes/julia/figures/animation.gif differ
+[1mdiff --git a/codes/julia/modules/HJBModule.jl b/codes/julia/modules/HJBModule.jl[m
+[1mindex 0a1330e..2aeb838 100644[m
+[1m--- a/codes/julia/modules/HJBModule.jl[m
+[1m+++ b/codes/julia/modules/HJBModule.jl[m
+[36m@@ -158,7 +158,7 @@[m [mfunction constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter[m
+     # Construct mGrid[m
+     mGrid,Δm = mGridBuild(algoPar.mGrid)[m
+ [m
+[31m-    # Initialize sparse A matrix[m
+[32m+[m[32m    # Initialize A matrix[m
+     A = zeros(length(mGrid),length(mGrid))[m
+ [m
+     ## Compute A Matrix[m
+[36m@@ -169,7 +169,7 @@[m [mfunction constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter[m
+ [m
+ 	aSE = (zS .+ zE)[m
+ [m
+[31m-    for i = 1:length(mGrid)-1[m
+[32m+[m[32m    for i = range(1,length = length(mGrid) - 1)[m
+ [m
+ 		A[i,1] = τI[i] * λ[m
+ 		A[i,i+1] = ν * (zI[i] + aSE[i]) / Δm[i][m
+[36m@@ -178,8 +178,10 @@[m [mfunction constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter[m
+ [m
+     end[m
+ [m
+[31m-	A[end,1] = τI[end] * λ[m
+[31m-	A[end,end] = - τI[end] - τSE[end][m
+[32m+[m	[32miMax = length(mGrid)[m
+[32m+[m
+[32m+[m	[32mA[iMax,1] = τI[iMax] * λ[m
+[32m+[m	[32mA[iMax,iMax] = - τI[iMax] - τSE[iMax][m
+ 	#A[iMax,1] = 0[m
+ 	#A[iMax,iMax] = 0[m
+ [m
+[36m@@ -253,7 +255,7 @@[m [mfunction solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete[m
+ 		# Calculate zI using FOC[m
+ 		#---------------------------#[m
+ [m
+[31m-		for i= 2:length(mGrid)-1[m
+[32m+[m		[32mfor i= 1:length(mGrid)-1[m
+ [m
+ 		    Vprime = (V0[i+1] - V0[i]) / Δm[i][m
+ [m
+[36m@@ -261,29 +263,17 @@[m [mfunction solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete[m
+ 		    denominator = (1- ψI) * χI * ( λ * V0[1] - V0[i])[m
+ 		    ratio = numerator / denominator[m
+ [m
+[31m-			#if ratio > 0[m
+[31m-			#	zI[i] = ratio^(-1/ψI)[m
+[31m-			#else[m
+[31m-		#		zI[i] = 0.1[m
+[31m-		#	end[m
+[32m+[m			[32mif ratio > 0[m
+[32m+[m				[32mzI[i] = ratio^(-1/ψI)[m
+[32m+[m			[32melse[m
+[32m+[m				[32mzI[i] = 0.1[m
+[32m+[m			[32mend[m
+ [m
+ 		end[m
+ [m
+ 		# Hack - "guess and verify", true in eq by continuity[m
+ [m
+[31m-		Vprime = (V0[3] - V0[2]) / Δm[2][m
+[31m-[m
+[31m-		numerator = w[1] - ν * Vprime[m
+[31m-		denominator = (1- ψI) * χI * ( λ * V0[1] - V0[1])[m
+[31m-		ratio = numerator / denominator[m
+[31m-[m
+[31m-		if ratio > 0[m
+[31m-			zI[1] = ratio^(-1/ψI)[m
+[31m-		else[m
+[31m-			zI[1] = 0.1[m
+[31m-		end[m
+[31m-[m
+[31m-		#zI[1] = zI[2][m
+[32m+[m		[32mzI[1] = zI[2][m
+ 		zI[end] = zI[end-1][m
+ [m
+ 		#---------------------------#[m
+[36m@@ -322,7 +312,7 @@[m [mfunction solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete[m
+ 	    ## Make update:[m
+ 	    u = Π .- zI .* w[m
+ 	    A = constructMatrixA(algoPar,modelPar,guess,zI)[m
+[31m-		B = (1/timeStep + ρ) * I - A[m
+[32m+[m		[32mB = (1/timeStep + ρ) * I - sparse(A)[m
+ [m
+ 		#tauMatrix = Diagonal(τI[:] + τSE[:])[m
+ 		#B = (1/timeStep + ρ) * I + tauMatrix - A[m
+[36m@@ -336,7 +326,7 @@[m [mfunction solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete[m
+ [m
+ 	    #V1 = Bsparse \ bsparse[m
+ 		#V1 = sparse(B) \ b[m
+[31m-		V1 = B \ b[m
+[32m+[m		[32mV1 = sparse(B) \ b[m
+ [m
+ 	    # Normalize error by timeStep because[m
+ 	    # it will always be smaller if timeStep is smaller[m
+[1mdiff --git a/codes/julia/modules/InitializationModule.jl b/codes/julia/modules/InitializationModule.jl[m
+[1mindex f92292d..f06cb34 100644[m
+[1m--- a/codes/julia/modules/InitializationModule.jl[m
+[1m+++ b/codes/julia/modules/InitializationModule.jl[m
+[36m@@ -16,13 +16,13 @@[m [mfunction setAlgorithmParameters()[m
+ [m
+     f = open("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/algoPar.txt", "w")[m
+ [m
+[31m-    mgrid_numPoints = 200[m
+[32m+[m[32m    mgrid_numPoints = 100[m
+     mgrid_minimum = 0.0[m
+[31m-    mgrid_maximum = .1[m
+[32m+[m[32m    mgrid_maximum = .4[m
+     mgrid_logSpacing = true[m
+     mgrid_logSpacingMinimum = 1e-8[m
+ [m
+[31m-    mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum)[m
+[32m+[m[32m    mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum);[m
+ [m
+     write(f, "mGrid Parameters \n---------------\n")[m
+     for n in fieldnames(mGridParameters)[m
+[36m@@ -31,11 +31,11 @@[m [mfunction setAlgorithmParameters()[m
+     end[m
+     write(f, "\n\n")[m
+ [m
+[31m-    incumbentHJB_timeStep = 1[m
+[31m-    incumbentHJB_tolerance = 1e-6[m
+[31m-    incumbentHJB_maxIter = 300[m
+[32m+[m[32m    incumbentHJB_timeStep = 10;[m
+[32m+[m[32m    incumbentHJB_tolerance = 1e-6;[m
+[32m+[m[32m    incumbentHJB_maxIter = 300;[m
+ [m
+[31m-    incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter)[m
+[32m+[m[32m    incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter);[m
+ [m
+     write(f, "Incumbent HJB Parameters \n---------------\n")[m
+     for n in fieldnames(HJBellmanParameters)[m
+[36m@@ -44,11 +44,11 @@[m [mfunction setAlgorithmParameters()[m
+     end[m
+     write(f, "\n\n")[m
+ [m
+[31m-    spinoutHJB_timeStep = 0.01[m
+[31m-    spinoutHJB_tolerance = 1e-3[m
+[31m-    spinoutHJB_maxIter = 1[m
+[32m+[m[32m    spinoutHJB_timeStep = 0.01;[m
+[32m+[m[32m    spinoutHJB_tolerance = 1e-3;[m
+[32m+[m[32m    spinoutHJB_maxIter = 1;[m
+ [m
+[31m-    spinoutHJB = HJBellmanParameters(spinoutHJB_timeStep,spinoutHJB_tolerance,spinoutHJB_maxIter)[m
+[32m+[m[32m    spinoutHJB = HJBellmanParameters(spinoutHJB_timeStep,spinoutHJB_tolerance,spinoutHJB_maxIter);[m
+ [m
+     write(f, "Spinout HJB Parameters \n---------------\n")[m
+     for n in fieldnames(HJBellmanParameters)[m
+[36m@@ -57,12 +57,12 @@[m [mfunction setAlgorithmParameters()[m
+     end[m
+     write(f, "\n\n")[m
+ [m
+[31m-    g_tolerance = 1e-4[m
+[31m-    g_maxIter = 3[m
+[31m-    g_updateRate = 0.4[m
+[31m-    g_updateRateExponent = 1[m
+[32m+[m[32m    g_tolerance = 1e-4;[m
+[32m+[m[32m    g_maxIter = 1;[m
+[32m+[m[32m    g_updateRate = 0.3;[m
+[32m+[m[32m    g_updateRateExponent = 1;[m
+ [m
+[31m-    g = IterationParameters(g_tolerance,g_maxIter,g_updateRate,g_updateRateExponent)[m
+[32m+[m[32m    g = IterationParameters(g_tolerance,g_maxIter,g_updateRate,g_updateRateExponent);[m
+ [m
+     write(f, "g Iteration Parameters \n---------------\n")[m
+     for n in fieldnames(IterationParameters)[m
+[36m@@ -71,12 +71,12 @@[m [mfunction setAlgorithmParameters()[m
+     end[m
+     write(f, "\n\n")[m
+ [m
+[31m-    L_RD_tolerance = 1e-4[m
+[31m-    L_RD_maxIter = 1[m
+[31m-    L_RD_updateRate = 0.4[m
+[31m-    L_RD_updateRateExponent = 1[m
+[32m+[m[32m    L_RD_tolerance = 1e-4;[m
+[32m+[m[32m    L_RD_maxIter = 1;[m
+[32m+[m[32m    L_RD_updateRate = 0.1;[m
+[32m+[m[32m    L_RD_updateRateExponent = 1;[m
+ [m
+[31m-    L_RD = IterationParameters(L_RD_tolerance,L_RD_maxIter,L_RD_updateRate,L_RD_updateRateExponent)[m
+[32m+[m[32m    L_RD = IterationParameters(L_RD_tolerance,L_RD_maxIter,L_RD_updateRate,L_RD_updateRateExponent);[m
+ [m
+     write(f, "L_RD Iteration Parameters \n---------------\n")[m
+     for n in fieldnames(IterationParameters)[m
+[36m@@ -85,12 +85,12 @@[m [mfunction setAlgorithmParameters()[m
+     end[m
+     write(f, "\n\n")[m
+ [m
+[31m-    w_tolerance = 1e-4[m
+[31m-    w_maxIter = 1[m
+[31m-    w_updateRate = 0.1[m
+[31m-    w_updateRateExponent = 1[m
+[32m+[m[32m    w_tolerance = 1e-4;[m
+[32m+[m[32m    w_maxIter = 70;[m
+[32m+[m[32m    w_updateRate = 0.1;[m
+[32m+[m[32m    w_updateRateExponent = 1;[m
+ [m
+[31m-    w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent)[m
+[32m+[m[32m    w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent);[m
+ [m
+     write(f, "w Iteration Parameters \n---------------\n")[m
+     for n in fieldnames(IterationParameters)[m
+[36m@@ -99,12 +99,12 @@[m [mfunction setAlgorithmParameters()[m
+     end[m
+     write(f, "\n\n")[m
+ [m
+[31m-    zSzE_tolerance = 1e-8[m
+[31m-    zSzE_maxIter = 1000[m
+[31m-    zSzE_updateRate = 0.8[m
+[31m-    zSzE_updateRateExponent = 1[m
+[32m+[m[32m    zSzE_tolerance = 1e-6;[m
+[32m+[m[32m    zSzE_maxIter = 50;[m
+[32m+[m[32m    zSzE_updateRate = 0.3;[m
+[32m+[m[32m    zSzE_updateRateExponent = 0.9;[m
+ [m
+[31m-    zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent)[m
+[32m+[m[32m    zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent);[m
+ [m
+     write(f, "zSzE Iteration Parameters \n---------------\n")[m
+     for n in fieldnames(IterationParameters)[m
+[36m@@ -115,9 +115,9 @@[m [mfunction setAlgorithmParameters()[m
+ [m
+     # Logging parameters[m
+ [m
+[31m-    g_L_RD_w_Log_verbose = 2[m
+[31m-    g_L_RD_w_Log_print_skip = 1[m
+[31m-    g_L_RD_w_Log = LogParameters(g_L_RD_w_Log_verbose,g_L_RD_w_Log_print_skip)[m
+[32m+[m[32m    g_L_RD_w_Log_verbose = 2;[m
+[32m+[m[32m    g_L_RD_w_Log_print_skip = 1;[m
+[32m+[m[32m    g_L_RD_w_Log = LogParameters(g_L_RD_w_Log_verbose,g_L_RD_w_Log_print_skip);[m
+ [m
+     write(f, "g,L_RD,w Logging Parameters \n---------------\n")[m
+     for n in fieldnames(LogParameters)[m
+[36m@@ -126,9 +126,9 @@[m [mfunction setAlgorithmParameters()[m
+     end[m
+     write(f, "\n\n")[m
+ [m
+[31m-    zSzE_Log_verbose = 2[m
+[31m-    zSzE_Log_print_skip = 1[m
+[31m-    zSzE_Log = LogParameters(zSzE_Log_verbose,zSzE_Log_print_skip)[m
+[32m+[m[32m    zSzE_Log_verbose = 2;[m
+[32m+[m[32m    zSzE_Log_print_skip = 1;[m
+[32m+[m[32m    zSzE_Log = LogParameters(zSzE_Log_verbose,zSzE_Log_print_skip);[m
+ [m
+     write(f, "zSzE Logging Parameters \n---------------\n")[m
+     for n in fieldnames(LogParameters)[m
+[36m@@ -137,9 +137,9 @@[m [mfunction setAlgorithmParameters()[m
+     end[m
+     write(f, "\n\n")[m
+ [m
+[31m-    incumbentHJB_Log_verbose = 2[m
+[31m-    incumbentHJB_Log_print_skip = 100[m
+[31m-    incumbentHJB_Log = LogParameters(incumbentHJB_Log_verbose,incumbentHJB_Log_print_skip)[m
+[32m+[m[32m    incumbentHJB_Log_verbose = 2;[m
+[32m+[m[32m    incumbentHJB_Log_print_skip = 100;[m
+[32m+[m[32m    incumbentHJB_Log = LogParameters(incumbentHJB_Log_verbose,incumbentHJB_Log_print_skip);[m
+ [m
+     write(f, "incumbent HJB Logging Parameters \n---------------\n")[m
+     for n in fieldnames(LogParameters)[m
+[36m@@ -150,28 +150,28 @@[m [mfunction setAlgorithmParameters()[m
+ [m
+     close(f)[m
+ [m
+[31m-    return AlgorithmParameters(mGrid, incumbentHJB, spinoutHJB, g, L_RD, w, zSzE, g_L_RD_w_Log, zSzE_Log, incumbentHJB_Log)[m
+[32m+[m[32m    return AlgorithmParameters(mGrid, incumbentHJB, spinoutHJB, g, L_RD, w, zSzE, g_L_RD_w_Log, zSzE_Log, incumbentHJB_Log);[m
+ [m
+ end[m
+ [m
+ function setModelParameters()[m
+ [m
+     # General[m
+[31m-    ρ = 0.03[m
+[31m-    β = 0.106[m
+[31m-    L = 1[m
+[32m+[m[32m    ρ = 0.03;[m
+[32m+[m[32m    β = 0.106;[m
+[32m+[m[32m    L = 1;[m
+ [m
+     # Innovation[m
+     χI = 4[m
+     χS = 1[m
+     χE = 0.5[m
+[31m-    ψI = 0.5[m
+[31m-    ψSE = 0.5[m
+[31m-    λ = 1.05[m
+[32m+[m[32m    ψI = 0.5;[m
+[32m+[m[32m    ψSE = 0.5;[m
+[32m+[m[32m    λ = 1.05;[m
+ [m
+     # Spinouts[m
+[31m-    ν = 0.02[m
+[31m-    ξ = 10[m
+[32m+[m[32m    ν = 0.02;[m
+[32m+[m[32m    ξ = 10;[m
+ [m
+     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ)[m
+ [m
+[1mdiff --git a/codes/julia/modules/ModelSolver.jl b/codes/julia/modules/ModelSolver.jl[m
+[1mindex de7b761..898694f 100644[m
+[1m--- a/codes/julia/modules/ModelSolver.jl[m
+[1m+++ b/codes/julia/modules/ModelSolver.jl[m
+[36m@@ -96,9 +96,6 @@[m [mfunction update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu[m
+     factor_zS = χS .* ϕSE(old_zS + old_zE) * λ .* V[1] ./ w[m
+     factor_zE = χE .* ϕSE(old_zS + old_zE) * λ .* V[1] ./ w[m
+ [m
+[31m-    #factor_zS = min.(factor_zS,2*ones(size(factor_zS)))[m
+[31m-    #factor_zE = min.(factor_zE,2*ones(size(factor_zS)))[m
+[31m-[m
+     # For speeding up convergence when it's close.[m
+     factor_zS = ones(size(factor_zS)) .+ sign.(factor_zS .- ones(size(factor_zS))) .* abs.(factor_zS .- ones(size(factor_zS))) .^ algoPar.zSzE.updateRateExponent[m
+     factor_zE = ones(size(factor_zE)) .+ sign.(factor_zE .- ones(size(factor_zE))) .* abs.(factor_zE .- ones(size(factor_zE))) .^ algoPar.zSzE.updateRateExponent[m
+[1mdiff --git a/codes/julia/nuCompStat.jl b/codes/julia/nuCompStat.jl[m
+[1mindex 6590665..5f3cff1 100644[m
+[1m--- a/codes/julia/nuCompStat.jl[m
+[1m+++ b/codes/julia/nuCompStat.jl[m
+[36m@@ -5,49 +5,35 @@[m [mmodelPar = setModelParameters()[m
+ mGrid,Δm = mGridBuild(algoPar.mGrid)[m
+ guess = setInitialGuess(algoPar,modelPar,mGrid)[m
+ [m
+[31m-νMin = 0.01[m
+[31m-νMax = 0.1[m
+[31m-νStep = 0.01[m
+[32m+[m[32mnuMin = 0.01[m
+[32m+[m[32mnuMax = 0.2[m
+[32m+[m[32mnuStep = 0.01[m
+ [m
+[31m-ξMin = 6[m
+[31m-ξMax = 10[m
+[31m-ξStep = 1[m
+[32m+[m[32mnuGrid = nuMin:nuStep:nuMax[m
+ [m
+[31m-νGrid = νMin:νStep:νMax[m
+[32m+[m[32mresultsMatrix = zeros(length(nuGrid),2)[m
+ [m
+[31m-ξGrid = ξMin:ξStep:ξMax[m
+[31m-[m
+[31m-#resultsMatrix = zeros(length(νGrid),length(ξGrid),5)[m
+[31m-#resultsMatrix = fill(Guess(guess.g,guess.L_RD,guess.w,guess.zS,guess.zE),(length(νGrid),length(ξGrid)))[m
+[31m-resultsMatrix = Array{Guess,2}(undef,length(ξGrid),length(νGrid))[m
+[32m+[m[32m#resultsMatrix = AbstractVector{Guess}[m
+ [m
+ #guess = Guess(initGuess.g,initGuess.L_RD,initGuess.w,initGuess.zS,initGuess.zE)[m
+ [m
+[31m-i_idx = 1[m
+[31m-j_idx = 1[m
+[31m-[m
+[31m-for i = 1:length(ξGrid)[m
+[31m-[m
+[31m-    i_idx = i[m
+[31m-[m
+[31m-    for j = 1:length(νGrid)[m
+[31m-[m
+[31m-        j_idx = j[m
+[31m-[m
+[31m-        modelPar.ξ = ξGrid[i][m
+[31m-        modelPar.ν = νGrid[j][m
+[32m+[m[32mfor i = 1:length(nuGrid)[m
+ [m
+[31m-        results,zSfactor,zEfactor,spinoutFlow,γ,t = solveModel(algoPar,modelPar,guess)[m
+[32m+[m[32m    modelPar.ν = nuGrid[i][m
+[32m+[m[32m    results,zSfactor,zEfactor,spinoutFlow,γ,t = solveModel(algoPar,modelPar,guess)[m
+[32m+[m[32m    g = results.finalGuess.g[m
+[32m+[m[32m    L_RD = results.finalGuess.L_RD[m
+ [m
+[31m-        guess.g = results.finalGuess.g[m
+[31m-        guess.L_RD = results.finalGuess.L_RD[m
+[31m-        guess.w = results.finalGuess.w[m
+[31m-        guess.zS = results.finalGuess.zS[m
+[31m-        guess.zE = results.finalGuess.zE[m
+[32m+[m[32m    #resultsMatrix[i] := results.finalGuess[m
+ [m
+[31m-        resultsMatrix[i,j] = Guess(results.finalGuess.g,results.finalGuess.L_RD,results.finalGuess.w,results.finalGuess.zS,results.finalGuess.zE)[m
+[32m+[m[32m    resultsMatrix[i,1] = g[m
+[32m+[m[32m    resultsMatrix[i,2] = L_RD[m
+ [m
+[31m-    end[m
+[32m+[m[32m    guess.g = results.finalGuess.g[m
+[32m+[m[32m    guess.L_RD = results.finalGuess.L_RD[m
+[32m+[m[32m    guess.w = results.finalGuess.w[m
+[32m+[m[32m    guess.zS = results.finalGuess.zS[m
+[32m+[m[32m    guess.zE = results.finalGuess.zE[m
+ [m
+ end[m
+ [m
+[36m@@ -55,36 +41,12 @@[m [mend[m
+ # Plot results             #[m
+ #--------------------------#[m
+ [m
+[31m-gArray = zeros(size(resultsMatrix))[m
+[31m-L_RDArray = zeros(size(resultsMatrix))[m
+[31m-[m
+[31m-for i = 1:length(ξGrid)[m
+[31m-    for j = 1:length(νGrid)[m
+[31m-[m
+[31m-        gArray[i,j] = resultsMatrix[i,j].g[m
+[31m-        L_RDArray[i,j] = resultsMatrix[i,j].L_RD[m
+[31m-[m
+[31m-    end[m
+[31m-end[m
+[31m-[m
+[31m-[m
+[31m-#df = DataFrame(x = νGrid, y = resultsMatrix[:,1], label = "g")[m
+[31m-df1 = DataFrame(x = νGrid, y = gArray[1,:], label = "ξ = $(ξGrid[1])")[m
+[31m-df2 = DataFrame(x = νGrid, y = gArray[2,:], label = "ξ = $(ξGrid[2])")[m
+[31m-df3 = DataFrame(x = νGrid, y = gArray[3,:], label = "ξ = $(ξGrid[3])")[m
+[31m-df4 = DataFrame(x = νGrid, y = gArray[4,:], label = "ξ = $(ξGrid[4])")[m
+[31m-df5 = DataFrame(x = νGrid, y = gArray[5,:], label = "ξ = $(ξGrid[5])")[m
+[31m-df = vcat(df1,df2,df3,df4,df5)[m
+[32m+[m[32mdf = DataFrame(x = nuGrid, y = resultsMatrix[:,1], label = "g")[m
+ p1 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Growth rate vs ν"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Rate"), Guide.xlabel("ν"), Theme(background_color=colorant"white"))[m
+ [m
+ [m
+[31m-df1 = DataFrame(x = νGrid, y = L_RDArray[1,:], label = "ξ = $(ξGrid[1])")[m
+[31m-df2 = DataFrame(x = νGrid, y = L_RDArray[2,:], label = "ξ = $(ξGrid[2])")[m
+[31m-df3 = DataFrame(x = νGrid, y = L_RDArray[3,:], label = "ξ = $(ξGrid[3])")[m
+[31m-df4 = DataFrame(x = νGrid, y = L_RDArray[4,:], label = "ξ = $(ξGrid[4])")[m
+[31m-df5 = DataFrame(x = νGrid, y = L_RDArray[5,:], label = "ξ = $(ξGrid[5])")[m
+[31m-df = vcat(df1,df2,df3,df4,df5)[m
+[32m+[m[32mdf = DataFrame(x = nuGrid, y = resultsMatrix[:,2], label = "L_RD")[m
+ p2 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("L_RD vs ν"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Amount of labor"), Guide.xlabel("ν"), Theme(background_color=colorant"white"))[m
+ [m
+ p = vstack(p1,p2)[m
+[31m-draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/nu_xi_plot.png", 10inch, 10inch), p)[m
+[32m+[m[32mdraw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/nuPlot.png", 10inch, 10inch), p)[m
+[1mdiff --git a/codes/julia/plotScript.jl b/codes/julia/plotScript.jl[m
+[1mindex d9509ae..14d51d6 100644[m
+[1m--- a/codes/julia/plotScript.jl[m
+[1m+++ b/codes/julia/plotScript.jl[m
+[36m@@ -147,10 +147,10 @@[m [mdraw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-gr[m
+ #-----------------------------------------#[m
+ [m
+ # zS[m
+[31m-df1 = DataFrame(x = mGrid[:], y = zS[:], label = "zS")[m
+[32m+[m[32mdf1 = DataFrame(x = mGrid[:], y = zS_density[:], label = "zS")[m
+ df2 = DataFrame(x = mGrid[:], y = zSfactor[:], label = "zSfactor")[m
+[31m-#df3 = DataFrame(x = mGrid[:], y = modelPar.ξ * ones(size(mGrid))[:], label = "ξ")[m
+[31m-df = vcat(df1,df2)[m
+[32m+[m[32mdf3 = DataFrame(x = mGrid[:], y = modelPar.ξ * ones(size(mGrid))[:], label = "ξ")[m
+[32m+[m[32mdf = vcat(df1,df2,df3)[m
+ p1 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("zS/m and zSfactor"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("zS,zSfactor"), Theme(background_color=colorant"white"))[m
+ [m
+ # zE[m
+[1mdiff --git a/notes/notes - esteban meeting 1-14-2019.tex b/notes/notes - esteban meeting 1-14-2019.tex[m
+[1mdeleted file mode 100644[m
+[1mindex 9ea2f33..0000000[m
+[1m--- a/notes/notes - esteban meeting 1-14-2019.tex[m	
+[1m+++ /dev/null[m
+[36m@@ -1,71 +0,0 @@[m
+[31m-\documentclass[12pt,english]{article}[m
+[31m-\usepackage{lmodern}[m
+[31m-\usepackage[T1]{fontenc}[m
+[31m-\usepackage[latin9]{inputenc}[m
+[31m-\usepackage{geometry}[m
+[31m-\usepackage{amsthm}[m
+[31m-\usepackage{courier}[m
+[31m-\usepackage{verbatim}[m
+[31m-\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}[m
+[31m-\usepackage{setspace}[m
+[31m-%\usepackage{esint}[m
+[31m-\onehalfspacing[m
+[31m-\usepackage{babel}[m
+[31m-\usepackage{amsmath}[m
+[31m-[m
+[31m-\theoremstyle{remark}[m
+[31m-\newtheorem*{remark}{Remark}[m
+[31m-\begin{document}[m
+[31m-	[m
+[31m-\title{State of the project}[m
+[31m-\author{Nicolas Fernandez-Arias}[m
+[31m-\maketitle[m
+[31m-[m
+[31m-[m
+[31m-\begin{enumerate}[m
+[31m-	\item Solved model![m
+[31m-	\begin{enumerate}[m
+[31m-		\item Analysis of equilibrium[m
+[31m-		\begin{enumerate}[m
+[31m-			\item Effective wage[m
+[31m-			\item Distribution of products across $m$- or $t$-space[m
+[31m-		\end{enumerate} [m
+[31m-		\item Comparative statics[m
+[31m-		\begin{enumerate}[m
+[31m-			\item Varying $\nu,\xi$ - non-monotonic effect on growth! [m
+[31m-		\end{enumerate}[m
+[31m-	\end{enumerate} [m
+[31m-	\item Empirics [m
+[31m-	\begin{enumerate}[m
+[31m-		\item Venture Source [m
+[31m-		\begin{enumerate}[m
+[31m-			\item Have pricing - would be around \$10k for the year.[m
+[31m-			\item Gompers et al. paper - demonstrates methodology using Venture Source can work to identify spinouts[m
+[31m-		\end{enumerate}[m
+[31m-		\item LinkedIn[m
+[31m-		\begin{enumerate}[m
+[31m-			\item Applied for access, hear back late February[m
+[31m-			\item Potential for scraping - in touch with HiQ Labs guy, Darren Kaplan[m
+[31m-		\end{enumerate}[m
+[31m-		\item CompuStat[m
+[31m-		\begin{enumerate}[m
+[31m-			\item R\&D spending by large firms[m
+[31m-			\item Measure spinouts as in Gompers et al.[m
+[31m-			\item Instrument for R\&D spending: Bloom et al, 2013[m
+[31m-		\end{enumerate}[m
+[31m-	\end{enumerate}[m
+[31m-\end{enumerate}[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-\end{document}[m
+\ No newline at end of file[m
