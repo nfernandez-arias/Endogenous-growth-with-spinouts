@@ -5,35 +5,49 @@ modelPar = setModelParameters()
 mGrid,Δm = mGridBuild(algoPar.mGrid)
 guess = setInitialGuess(algoPar,modelPar,mGrid)
 
-nuMin = 0.01
-nuMax = 0.2
-nuStep = 0.01
+νMin = 0.01
+νMax = 0.1
+νStep = 0.01
 
-nuGrid = nuMin:nuStep:nuMax
+ξMin = 6
+ξMax = 10
+ξStep = 1
 
-resultsMatrix = zeros(length(nuGrid),2)
+νGrid = νMin:νStep:νMax
 
-#resultsMatrix = AbstractVector{Guess}
+ξGrid = ξMin:ξStep:ξMax
+
+#resultsMatrix = zeros(length(νGrid),length(ξGrid),5)
+#resultsMatrix = fill(Guess(guess.g,guess.L_RD,guess.w,guess.zS,guess.zE),(length(νGrid),length(ξGrid)))
+resultsMatrix = Array{Guess,2}(undef,length(ξGrid),length(νGrid))
 
 #guess = Guess(initGuess.g,initGuess.L_RD,initGuess.w,initGuess.zS,initGuess.zE)
 
-for i = 1:length(nuGrid)
+i_idx = 1
+j_idx = 1
 
-    modelPar.ν = nuGrid[i]
-    results,zSfactor,zEfactor,spinoutFlow,γ,t = solveModel(algoPar,modelPar,guess)
-    g = results.finalGuess.g
-    L_RD = results.finalGuess.L_RD
+for i = 1:length(ξGrid)
 
-    #resultsMatrix[i] := results.finalGuess
+    i_idx = i
 
-    resultsMatrix[i,1] = g
-    resultsMatrix[i,2] = L_RD
+    for j = 1:length(νGrid)
 
-    guess.g = results.finalGuess.g
-    guess.L_RD = results.finalGuess.L_RD
-    guess.w = results.finalGuess.w
-    guess.zS = results.finalGuess.zS
-    guess.zE = results.finalGuess.zE
+        j_idx = j
+
+        modelPar.ξ = ξGrid[i]
+        modelPar.ν = νGrid[j]
+
+        results,zSfactor,zEfactor,spinoutFlow,γ,t = solveModel(algoPar,modelPar,guess)
+
+        guess.g = results.finalGuess.g
+        guess.L_RD = results.finalGuess.L_RD
+        guess.w = results.finalGuess.w
+        guess.zS = results.finalGuess.zS
+        guess.zE = results.finalGuess.zE
+
+        resultsMatrix[i,j] = Guess(results.finalGuess.g,results.finalGuess.L_RD,results.finalGuess.w,results.finalGuess.zS,results.finalGuess.zE)
+
+    end
 
 end
 
@@ -41,12 +55,36 @@ end
 # Plot results             #
 #--------------------------#
 
-df = DataFrame(x = nuGrid, y = resultsMatrix[:,1], label = "g")
+gArray = zeros(size(resultsMatrix))
+L_RDArray = zeros(size(resultsMatrix))
+
+for i = 1:length(ξGrid)
+    for j = 1:length(νGrid)
+
+        gArray[i,j] = resultsMatrix[i,j].g
+        L_RDArray[i,j] = resultsMatrix[i,j].L_RD
+
+    end
+end
+
+
+#df = DataFrame(x = νGrid, y = resultsMatrix[:,1], label = "g")
+df1 = DataFrame(x = νGrid, y = gArray[1,:], label = "ξ = $(ξGrid[1])")
+df2 = DataFrame(x = νGrid, y = gArray[2,:], label = "ξ = $(ξGrid[2])")
+df3 = DataFrame(x = νGrid, y = gArray[3,:], label = "ξ = $(ξGrid[3])")
+df4 = DataFrame(x = νGrid, y = gArray[4,:], label = "ξ = $(ξGrid[4])")
+df5 = DataFrame(x = νGrid, y = gArray[5,:], label = "ξ = $(ξGrid[5])")
+df = vcat(df1,df2,df3,df4,df5)
 p1 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Growth rate vs ν"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Rate"), Guide.xlabel("ν"), Theme(background_color=colorant"white"))
 
 
-df = DataFrame(x = nuGrid, y = resultsMatrix[:,2], label = "L_RD")
+df1 = DataFrame(x = νGrid, y = L_RDArray[1,:], label = "ξ = $(ξGrid[1])")
+df2 = DataFrame(x = νGrid, y = L_RDArray[2,:], label = "ξ = $(ξGrid[2])")
+df3 = DataFrame(x = νGrid, y = L_RDArray[3,:], label = "ξ = $(ξGrid[3])")
+df4 = DataFrame(x = νGrid, y = L_RDArray[4,:], label = "ξ = $(ξGrid[4])")
+df5 = DataFrame(x = νGrid, y = L_RDArray[5,:], label = "ξ = $(ξGrid[5])")
+df = vcat(df1,df2,df3,df4,df5)
 p2 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("L_RD vs ν"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Amount of labor"), Guide.xlabel("ν"), Theme(background_color=colorant"white"))
 
 p = vstack(p1,p2)
-draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/nuPlot.png", 10inch, 10inch), p)
+draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/nu_xi_plot.png", 10inch, 10inch), p)
