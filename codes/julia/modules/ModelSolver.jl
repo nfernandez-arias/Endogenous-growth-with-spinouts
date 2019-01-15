@@ -96,6 +96,9 @@ function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     factor_zS = χS .* ϕSE(old_zS + old_zE) * λ .* V[1] ./ w
     factor_zE = χE .* ϕSE(old_zS + old_zE) * λ .* V[1] ./ w
 
+    #factor_zS = min.(factor_zS,2*ones(size(factor_zS)))
+    #factor_zE = min.(factor_zE,2*ones(size(factor_zS)))
+
     # For speeding up convergence when it's close.
     factor_zS = ones(size(factor_zS)) .+ sign.(factor_zS .- ones(size(factor_zS))) .* abs.(factor_zS .- ones(size(factor_zS))) .^ algoPar.zSzE.updateRateExponent
     factor_zE = ones(size(factor_zE)) .+ sign.(factor_zE .- ones(size(factor_zE))) .* abs.(factor_zE .- ones(size(factor_zE))) .^ algoPar.zSzE.updateRateExponent

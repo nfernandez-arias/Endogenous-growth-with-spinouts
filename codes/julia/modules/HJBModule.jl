@@ -159,7 +159,7 @@ function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
     # Initialize sparse A matrix
-    A = spzeros(length(mGrid),length(mGrid)))
+    A = zeros(length(mGrid),length(mGrid))
 
     ## Compute A Matrix
     ##############################################
@@ -261,6 +261,12 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		    denominator = (1- ψI) * χI * ( λ * V0[1] - V0[i])
 		    ratio = numerator / denominator
 
+			#if ratio > 0
+			#	zI[i] = ratio^(-1/ψI)
+			#else
+		#		zI[i] = 0.1
+		#	end
+
 		end
 
 		# Hack - "guess and verify", true in eq by continuity
@@ -277,7 +283,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 			zI[1] = 0.1
 		end
 
-		zI[1] = zI[2]
+		#zI[1] = zI[2]
 		zI[end] = zI[end-1]
 
 		#---------------------------#

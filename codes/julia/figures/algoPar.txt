@@ -1,15 +1,15 @@
 mGrid Parameters 
 ---------------
-numPoints: 1200 
+numPoints: 200 
 minimum: 0.0 
-maximum: 0.075 
+maximum: 0.1 
 logSpacing: true 
 logSpacingMinimum: 1.0e-8 
 
 
 Incumbent HJB Parameters 
 ---------------
-timeStep: 200.0 
+timeStep: 1.0 
 tolerance: 1.0e-6 
 maxIter: 300 
 
@@ -24,7 +24,7 @@ maxIter: 1
 g Iteration Parameters 
 ---------------
 tolerance: 0.0001 
-maxIter: 30.0 
+maxIter: 3.0 
 updateRate: 0.4 
 updateRateExponent: 1.0 
 
@@ -41,7 +41,7 @@ w Iteration Parameters
 ---------------
 tolerance: 0.0001 
 maxIter: 1.0 
-updateRate: 0.2 
+updateRate: 0.1 
 updateRateExponent: 1.0 
 
 

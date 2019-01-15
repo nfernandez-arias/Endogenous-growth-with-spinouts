@@ -16,9 +16,9 @@ function setAlgorithmParameters()
 
     f = open("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 1200
+    mgrid_numPoints = 200
     mgrid_minimum = 0.0
-    mgrid_maximum = .075
+    mgrid_maximum = .1
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-8
 
@@ -31,7 +31,7 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 200
+    incumbentHJB_timeStep = 1
     incumbentHJB_tolerance = 1e-6
     incumbentHJB_maxIter = 300
 
@@ -58,7 +58,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     g_tolerance = 1e-4
-    g_maxIter = 30
+    g_maxIter = 3
     g_updateRate = 0.4
     g_updateRateExponent = 1
 
@@ -87,7 +87,7 @@ function setAlgorithmParameters()
 
     w_tolerance = 1e-4
     w_maxIter = 1
-    w_updateRate = 0.2
+    w_updateRate = 0.1
     w_updateRateExponent = 1
 
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent)
@@ -157,21 +157,21 @@ end
 function setModelParameters()
 
     # General
-    ρ = 0.03;
-    β = 0.106;
-    L = 1;
+    ρ = 0.03
+    β = 0.106
+    L = 1
 
     # Innovation
     χI = 4
     χS = 1
-    χE = 0.3
-    ψI = 0.5;
-    ψSE = 0.5;
-    λ = 1.05;
+    χE = 0.5
+    ψI = 0.5
+    ψSE = 0.5
+    λ = 1.05
 
     # Spinouts
-    ν = 0.02;
-    ξ = 10;
+    ν = 0.02
+    ξ = 10
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ)
 
@@ -212,7 +212,7 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
 
     #zE = 0.1 * zS
 
-    zE = 0.01*ones(size(zS))
+    zE = 0.1*ones(size(zS))
     #zE = 0 * ones(pa.mGrid.numPoints,1);
 
     #return InitialGuess(L_RD,w,idxM,zS,zE)
