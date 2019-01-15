@@ -159,7 +159,7 @@ function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
     # Initialize sparse A matrix
-    A = spzeros(length(mGrid),length(mGrid)))
+    A = spzeros(length(mGrid),length(mGrid))
 
     ## Compute A Matrix
     ##############################################
