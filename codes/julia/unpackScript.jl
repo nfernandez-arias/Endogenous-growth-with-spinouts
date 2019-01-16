@@ -18,7 +18,10 @@ W = results.spinoutValue
 
 τ = τI + τSE
 
-a = zS + zE + zI
+z = zS + zE + zI
+a = z
+
+finalGoodsLabor = AuxiliaryModule.LF(L_RD,modelPar)
 
 mGrid,Δm = mGridBuild(algoPar.mGrid)
 

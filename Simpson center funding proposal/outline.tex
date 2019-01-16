@@ -1,0 +1,103 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+\title{Funding proposal for VentureSource data for ``Endogenous growth with creative destruction by employee spinouts'' project}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Description of project}
+
+This project consists of developing an model of endogenous growth which incorporates a new channel: the potential that a firm's current employees can, through learning-by-doing, become the future competition of the firm. 
+
+\subsection{Model}
+
+The model I am using is, technically, most closely related to the model in Akcigit \& Kerr, "Growth through Heterogeneous Innovations" (forthcoming in the JPE). The differences are:
+\begin{enumerate}
+	\item Workers are risk-neutral in my model
+	\item In my model, the R\&D input is labor rather than the final good (and made some scaling assumptions on this to preserve a BGP)
+	\item I have dropped ``external innovation'' by incumbents (and hence any explicit role for ``firm size'' - my analysis is at the product level)
+	\item I have changed the innovation technology of entrants
+	\item I have added a new class of potential entrant - an employee spinout - which can only form upon learning by working as an R\&D employee in that product line
+\end{enumerate}
+
+The resulting problem for either an incumbent or a spinout in a given product line $j$ then depends on a one-dimensional state variable, $m(j)$, which can be thought of as a measure of how widely disseminated the knowledge of ``how to compete in an race to develop the next step on the quality ladder for product line $j$". As is standard in this type of model, once there is a victory, the state of product $j$ resets -- in this case, $m$ is reset to $m = 0$. 
+
+The resulting model exhibits a BGP with a constant growth rate $g$ in output, wages, etc; and constant distributions of products over states $\mu(m)$, constant $\gamma(m) = E[q / Q | m]$,\footnote{The joint distribution over $(q/Q,m)$ is not constant, but this is fine as only $\gamma(m)$ is necessary for computing aggregates and because individual behavior is independent of $q / Q$ (as ensured by careful scaling assumptions).} and constant normalized R\&D wages by state of product $w(m) / Q$.\footnote{In other words, the R\&D wage for a product in state $m$ is $w(m) * Q$ for some constant function $w(m)$.} 
+
+\subsection{Calibration and analysis}
+
+
+\subsubsection{Calibration}
+
+To analyze the implications of the model, I will attempt to calibrate its parameters using previous estimates from the literature, aggregate data moments, and causally estimated mechanisms in the micro data (more on this below).
+
+\subsubsection{Analysis} 
+
+Once I have a calibrated model, I can analyze it in a variety of ways. 
+\begin{enumerate}
+	\item 
+\end{enumerate}
+
+
+\section{Role for Venture Source data}
+
+A key mechanism in my model is that R\&D leads to future competition. The strength of this mechanism is governed by two parameters, $\nu$ and $\xi$. The parameter $\nu$ is the rate at which an employee learns how to compete with the parent firm. The parameter $\xi$ is the size of an individual employee's spinout. 
+
+The parameters $\nu$ and $\xi$ enter into the aggregates of the model as the product $\nu \xi$. Since I am interested in aggregate implications, this means I could in principle calibrate my model using only aggregate data and be fine.  
+
+However, I am interested in using the micro data for several reasons:
+\begin{enumerate}
+	\item I can directly test the key mechanism in my model and get a truly causal interpretation.\footnote{I would no longer be looking at the data ``through the lens of a model'' which precludes the possibility that spinouts are not created by R\&D.}
+	\item I can explore the extent to which my model is able to ``aggregate up'' well measurements from the micro data
+	\item More generally, the micro data provides me with more moments against which to check my model's performance.
+\end{enumerate}
+
+\subsection{Description of data set}
+
+\subsubsection{Features and coverage}
+
+VentureSource contains ....
+
+\subsubsection{Cost}
+
+The cost for a one-year academic license is \$10,000. 
+
+\subsection{Proposed methodology}
+
+With an estimate of $\xi$ based roughly on the expected size of a spinout, I can estimate $\nu$ from the micro data provided that: 
+
+\begin{enumerate}
+	\item I can measure R\&D spending by a given company
+	\item I have an instrument for R\&D spending by each potential parent company
+	\item I can measure the ``spawning rate'' of spinouts from a given company
+\end{enumerate}
+
+I can obtain (1), at least for public firms, using Compustat data (I could do something more indirect using the model + measures of patenting by non-public firms). I can obtain (2) using the instrument in Bloom et al. "Identifying Technology Spillovers...". Finally, I can do (3) using VentureSource data. I will describe (3) below. 
+
+My proposed methodology has two non-trivial components, both of which have already been done.
+
+\subsubsection{Constructing an instrument for R\&D spending}
+
+This has been done by Bloom et al. in 2013. 
+
+\subsubsection{Identifying spinouts}
+
+This has been done by Gompers, Lerner \& Scharfstein in 2005
+
+\end{document}

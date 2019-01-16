@@ -1,0 +1,69 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+\title{Computing calibration targets}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Innovation rates}
+
+In my model, in a small unit of time $\Delta_t$, a fraction $\bar{\tau}_{SE} \Delta_t$ of products are innovated upon by entrants or spinouts, leading to creative destruction, where 
+\begin{align*}
+	\bar{\tau}_{SE} &= \int_0^{\infty} \big (\tau_S(m) + \tau_E(m) \big) \mu(m) dm
+\end{align*}
+
+\section{Entry rates}
+
+In my model, any innovation that isn't by an incumbent on their own product line or by a competing spinout is performed by a new entrant. Hence, the ``entry rate'' is misleading, as in reality this picks up external innovation by incumbent firms (just, not spinouts). One way to reconcile this in a quick and dirty way is to simply assume that only entry by spinouts is entry, and that entry by non-spinout entrants is simply entry by other incumbent firms. Hence, the 5\% entry rate in the data of AK 2017 should be compared to the entry rate by spinouts in my model. 
+
+\section{R\&D intensity}
+
+By ``R\&D Intensity'' I refer to Total R\&D spending by intermediate goods firms (including spinouts and entrants) divided by Total sales by intermediate goods firms. 
+
+For a product line in state $m$ and with quality $q$, flow sales revenue is 
+\begin{align*}
+	s(q,m) = L_F q_j 
+\end{align*}
+
+Aggregate sales revenue is therefore simply $Q L_F$. 
+
+For the same product, effective labor allocated to R\&D is
+\begin{align*}
+	z(q,m) &= z_I(q,m) + z_E(q,m) + z_S(q,m)
+\end{align*}
+
+By assumption (recall the scaling assumptions required to get a BGP), $z(q,m)$ effective units of R\&D labor requires spending $q w(m)$ on R\&D labor and in equilibrium $z(q,m) \equiv z(m)$. Hence, aggregate R\&D spending is given by 
+\begin{align*}
+	RD_{\textrm{agg}} &= Q \int_0^{\infty} w(m) \gamma(m) z(m) \mu(m) dm
+\end{align*} 
+
+So the economy-wide R\&D / Sales ratio is given by 
+\begin{align*}
+	\frac{\textrm{R\&D}}{\textrm{Sales}} &= \frac{\int_0^{\infty} w(m) \gamma(m) z(m) \mu(m) dm}{L_F}
+\end{align*}
+
+\section{Wage distribution}
+
+
+
+
+
+
+
+\end{document}

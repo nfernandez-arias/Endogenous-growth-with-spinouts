@@ -11,8 +11,8 @@ guess = setInitialGuess(algoPar,modelPar,mGrid)
 νStep = 0.01
 
 χSMin = 1.1
-χSMax = 5.1
-χSStep = 1
+χSMax = 3.1
+χSStep = 0.5
 
 νGrid = νMin:νStep:νMax#--------------------------------#
 

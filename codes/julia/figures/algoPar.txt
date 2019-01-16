@@ -1,6 +1,6 @@
 mGrid Parameters 
 ---------------
-numPoints: 400 
+numPoints: 800 
 minimum: 0.0 
 maximum: 0.05 
 logSpacing: true 
