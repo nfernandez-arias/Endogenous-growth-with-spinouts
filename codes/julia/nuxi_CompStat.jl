@@ -5,9 +5,9 @@ modelPar = setModelParameters()
 mGrid,Δm = mGridBuild(algoPar.mGrid)
 guess = setInitialGuess(algoPar,modelPar,mGrid)
 
-nuMin = 0.01
-nuMax = 0.2
-nuStep = 0.01
+nuMin = 0.005
+nuMax = 0.3
+nuStep = 0.005
 
 nuGrid = nuMin:nuStep:nuMax
 
@@ -41,12 +41,12 @@ end
 # Plot results             #
 #--------------------------#
 
-df = DataFrame(x = nuGrid, y = resultsMatrix[:,1], label = "g")
-p1 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Growth rate vs ν"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Rate"), Guide.xlabel("ν"), Theme(background_color=colorant"white"))
+df = DataFrame(x = nuGrid * modelPar.ξ, y = resultsMatrix[:,1], label = "g")
+p1 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Growth rate vs νξ"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Rate"), Guide.xlabel("νξ"), Theme(background_color=colorant"white"))
 
 
-df = DataFrame(x = nuGrid, y = resultsMatrix[:,2], label = "L_RD")
-p2 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("L_RD vs ν"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Amount of labor"), Guide.xlabel("ν"), Theme(background_color=colorant"white"))
+df = DataFrame(x = nuGrid * modelPar.ξ, y = resultsMatrix[:,2], label = "L_RD")
+p2 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("L_RD vs νξ"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Amount of labor"), Guide.xlabel("νξ"), Theme(background_color=colorant"white"))
 
 p = vstack(p1,p2)
-draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/nuPlot.png", 10inch, 10inch), p)
+draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/nuxi_plot.png", 10inch, 10inch), p)
