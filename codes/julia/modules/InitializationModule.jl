@@ -18,7 +18,7 @@ function setAlgorithmParameters()
 
     mgrid_numPoints = 400
     mgrid_minimum = 0.0
-    mgrid_maximum = .1
+    mgrid_maximum = .05
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-8
 
@@ -99,7 +99,7 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    zSzE_tolerance = 1e-6;
+    zSzE_tolerance = 1e-7;
     zSzE_maxIter = 75;
     zSzE_updateRate = 0.3;
     zSzE_updateRateExponent = 1;
@@ -157,20 +157,20 @@ end
 function setModelParameters()
 
     # General
-    ρ = 0.03
+    ρ = 0.07
     β = 0.106
     L = 1
 
     # Innovation
     χI = 4
-    χS = 1.1
+    χS = 2
     χE = 1
     ψI = 0.5
     ψSE = 0.5
     λ = 1.05
 
     # Spinouts
-    ν = 0.02
+    ν = 0.05
     ξ = 5
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ)
