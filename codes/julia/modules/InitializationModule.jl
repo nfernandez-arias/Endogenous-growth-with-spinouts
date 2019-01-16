@@ -16,13 +16,13 @@ function setAlgorithmParameters()
 
     f = open("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 1200
+    mgrid_numPoints = 100
     mgrid_minimum = 0.0
-    mgrid_maximum = .075
+    mgrid_maximum = .4
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-8
 
-    mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum)
+    mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum);
 
     write(f, "mGrid Parameters \n---------------\n")
     for n in fieldnames(mGridParameters)
@@ -31,11 +31,11 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 200
-    incumbentHJB_tolerance = 1e-6
-    incumbentHJB_maxIter = 300
+    incumbentHJB_timeStep = 10;
+    incumbentHJB_tolerance = 1e-6;
+    incumbentHJB_maxIter = 300;
 
-    incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter)
+    incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter);
 
     write(f, "Incumbent HJB Parameters \n---------------\n")
     for n in fieldnames(HJBellmanParameters)
@@ -44,11 +44,11 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    spinoutHJB_timeStep = 0.01
-    spinoutHJB_tolerance = 1e-3
-    spinoutHJB_maxIter = 1
+    spinoutHJB_timeStep = 0.01;
+    spinoutHJB_tolerance = 1e-3;
+    spinoutHJB_maxIter = 1;
 
-    spinoutHJB = HJBellmanParameters(spinoutHJB_timeStep,spinoutHJB_tolerance,spinoutHJB_maxIter)
+    spinoutHJB = HJBellmanParameters(spinoutHJB_timeStep,spinoutHJB_tolerance,spinoutHJB_maxIter);
 
     write(f, "Spinout HJB Parameters \n---------------\n")
     for n in fieldnames(HJBellmanParameters)
@@ -57,12 +57,12 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    g_tolerance = 1e-4
-    g_maxIter = 30
-    g_updateRate = 0.4
-    g_updateRateExponent = 1
+    g_tolerance = 1e-4;
+    g_maxIter = 1;
+    g_updateRate = 0.3;
+    g_updateRateExponent = 1;
 
-    g = IterationParameters(g_tolerance,g_maxIter,g_updateRate,g_updateRateExponent)
+    g = IterationParameters(g_tolerance,g_maxIter,g_updateRate,g_updateRateExponent);
 
     write(f, "g Iteration Parameters \n---------------\n")
     for n in fieldnames(IterationParameters)
@@ -71,12 +71,12 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    L_RD_tolerance = 1e-4
-    L_RD_maxIter = 1
-    L_RD_updateRate = 0.4
-    L_RD_updateRateExponent = 1
+    L_RD_tolerance = 1e-4;
+    L_RD_maxIter = 1;
+    L_RD_updateRate = 0.1;
+    L_RD_updateRateExponent = 1;
 
-    L_RD = IterationParameters(L_RD_tolerance,L_RD_maxIter,L_RD_updateRate,L_RD_updateRateExponent)
+    L_RD = IterationParameters(L_RD_tolerance,L_RD_maxIter,L_RD_updateRate,L_RD_updateRateExponent);
 
     write(f, "L_RD Iteration Parameters \n---------------\n")
     for n in fieldnames(IterationParameters)
@@ -85,12 +85,12 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    w_tolerance = 1e-4
-    w_maxIter = 1
-    w_updateRate = 0.2
-    w_updateRateExponent = 1
+    w_tolerance = 1e-4;
+    w_maxIter = 70;
+    w_updateRate = 0.1;
+    w_updateRateExponent = 1;
 
-    w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent)
+    w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent);
 
     write(f, "w Iteration Parameters \n---------------\n")
     for n in fieldnames(IterationParameters)
@@ -99,12 +99,12 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    zSzE_tolerance = 1e-8
-    zSzE_maxIter = 1000
-    zSzE_updateRate = 0.8
-    zSzE_updateRateExponent = 1
+    zSzE_tolerance = 1e-6;
+    zSzE_maxIter = 50;
+    zSzE_updateRate = 0.3;
+    zSzE_updateRateExponent = 0.9;
 
-    zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent)
+    zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent);
 
     write(f, "zSzE Iteration Parameters \n---------------\n")
     for n in fieldnames(IterationParameters)
@@ -115,9 +115,9 @@ function setAlgorithmParameters()
 
     # Logging parameters
 
-    g_L_RD_w_Log_verbose = 2
-    g_L_RD_w_Log_print_skip = 1
-    g_L_RD_w_Log = LogParameters(g_L_RD_w_Log_verbose,g_L_RD_w_Log_print_skip)
+    g_L_RD_w_Log_verbose = 2;
+    g_L_RD_w_Log_print_skip = 1;
+    g_L_RD_w_Log = LogParameters(g_L_RD_w_Log_verbose,g_L_RD_w_Log_print_skip);
 
     write(f, "g,L_RD,w Logging Parameters \n---------------\n")
     for n in fieldnames(LogParameters)
@@ -126,9 +126,9 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    zSzE_Log_verbose = 2
-    zSzE_Log_print_skip = 1
-    zSzE_Log = LogParameters(zSzE_Log_verbose,zSzE_Log_print_skip)
+    zSzE_Log_verbose = 2;
+    zSzE_Log_print_skip = 1;
+    zSzE_Log = LogParameters(zSzE_Log_verbose,zSzE_Log_print_skip);
 
     write(f, "zSzE Logging Parameters \n---------------\n")
     for n in fieldnames(LogParameters)
@@ -137,9 +137,9 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_Log_verbose = 2
-    incumbentHJB_Log_print_skip = 100
-    incumbentHJB_Log = LogParameters(incumbentHJB_Log_verbose,incumbentHJB_Log_print_skip)
+    incumbentHJB_Log_verbose = 2;
+    incumbentHJB_Log_print_skip = 100;
+    incumbentHJB_Log = LogParameters(incumbentHJB_Log_verbose,incumbentHJB_Log_print_skip);
 
     write(f, "incumbent HJB Logging Parameters \n---------------\n")
     for n in fieldnames(LogParameters)
@@ -150,9 +150,10 @@ function setAlgorithmParameters()
 
     close(f)
 
-    return AlgorithmParameters(mGrid, incumbentHJB, spinoutHJB, g, L_RD, w, zSzE, g_L_RD_w_Log, zSzE_Log, incumbentHJB_Log)
+    return AlgorithmParameters(mGrid, incumbentHJB, spinoutHJB, g, L_RD, w, zSzE, g_L_RD_w_Log, zSzE_Log, incumbentHJB_Log);
 
 end
+[Empornium]cuckold cum eating cumswapping cumkissing &amp; creampie Compilation
 
 function setModelParameters()
 
@@ -164,7 +165,7 @@ function setModelParameters()
     # Innovation
     χI = 4
     χS = 1
-    χE = 0.3
+    χE = 0.5
     ψI = 0.5;
     ψSE = 0.5;
     λ = 1.05;
@@ -212,7 +213,7 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
 
     #zE = 0.1 * zS
 
-    zE = 0.01*ones(size(zS))
+    zE = 0.1*ones(size(zS))
     #zE = 0 * ones(pa.mGrid.numPoints,1);
 
     #return InitialGuess(L_RD,w,idxM,zS,zE)

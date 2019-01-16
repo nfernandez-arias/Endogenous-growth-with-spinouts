@@ -158,8 +158,8 @@ function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter
     # Construct mGrid
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
-    # Initialize sparse A matrix
-    A = spzeros(length(mGrid),length(mGrid)))
+    # Initialize A matrix
+    A = zeros(length(mGrid),length(mGrid))
 
     ## Compute A Matrix
     ##############################################
@@ -169,7 +169,7 @@ function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter
 
 	aSE = (zS .+ zE)
 
-    for i = 1:length(mGrid)-1
+    for i = range(1,length = length(mGrid) - 1)
 
 		A[i,1] = τI[i] * λ
 		A[i,i+1] = ν * (zI[i] + aSE[i]) / Δm[i]
@@ -178,8 +178,10 @@ function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter
 
     end
 
-	A[end,1] = τI[end] * λ
-	A[end,end] = - τI[end] - τSE[end]
+	iMax = length(mGrid)
+
+	A[iMax,1] = τI[iMax] * λ
+	A[iMax,iMax] = - τI[iMax] - τSE[iMax]
 	#A[iMax,1] = 0
 	#A[iMax,iMax] = 0
 
@@ -253,7 +255,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		# Calculate zI using FOC
 		#---------------------------#
 
-		for i= 2:length(mGrid)-1
+		for i= 1:length(mGrid)-1
 
 		    Vprime = (V0[i+1] - V0[i]) / Δm[i]
 
@@ -261,21 +263,15 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		    denominator = (1- ψI) * χI * ( λ * V0[1] - V0[i])
 		    ratio = numerator / denominator
 
+			if ratio > 0
+				zI[i] = ratio^(-1/ψI)
+			else
+				zI[i] = 0.1
+			end
+
 		end
 
 		# Hack - "guess and verify", true in eq by continuity
-
-		Vprime = (V0[3] - V0[2]) / Δm[2]
-
-		numerator = w[1] - ν * Vprime
-		denominator = (1- ψI) * χI * ( λ * V0[1] - V0[1])
-		ratio = numerator / denominator
-
-		if ratio > 0
-			zI[1] = ratio^(-1/ψI)
-		else
-			zI[1] = 0.1
-		end
 
 		zI[1] = zI[2]
 		zI[end] = zI[end-1]
@@ -316,7 +312,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 	    ## Make update:
 	    u = Π .- zI .* w
 	    A = constructMatrixA(algoPar,modelPar,guess,zI)
-		B = (1/timeStep + ρ) * I - A
+		B = (1/timeStep + ρ) * I - sparse(A)
 
 		#tauMatrix = Diagonal(τI[:] + τSE[:])
 		#B = (1/timeStep + ρ) * I + tauMatrix - A
@@ -330,7 +326,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 	    #V1 = Bsparse \ bsparse
 		#V1 = sparse(B) \ b
-		V1 = B \ b
+		V1 = sparse(B) \ b
 
 	    # Normalize error by timeStep because
 	    # it will always be smaller if timeStep is smaller
