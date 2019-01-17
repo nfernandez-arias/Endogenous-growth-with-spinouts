@@ -51,3 +51,9 @@ aPrime[end] = aPrime[end-1]
 
 wbar = AuxiliaryModule.Cβ(β)
 Π = AuxiliaryModule.profit(results.finalGuess.L_RD,modelPar)
+
+integrand =  (ν .* aPrime .+ τ) ./ (ν .* a)
+summand = integrand .* Δm
+integral = cumsum(summand[:])
+μ = exp.(-integral)
+μ = μ / sum(μ .* Δm)

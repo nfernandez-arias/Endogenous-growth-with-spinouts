@@ -23,7 +23,9 @@
 
 \section{Description of project}
 
-This project consists of developing an model of endogenous growth which incorporates a new channel: the potential that a firm's current employees can, through learning-by-doing, become the future competition of the firm. 
+This project consists of developing an model of endogenous growth with a new channel, calibrating it, and using it to analyze comparative statics and policy. 
+
+The key mechanism is that a firm's current employees can, through learning-by-doing, become the future competition of the firm. 
 
 \subsection{Model}
 
@@ -38,10 +40,9 @@ The model I am using is, technically, most closely related to the model in Akcig
 
 The resulting problem for either an incumbent or a spinout in a given product line $j$ then depends on a one-dimensional state variable, $m(j)$, which can be thought of as a measure of how widely disseminated the knowledge of ``how to compete in an race to develop the next step on the quality ladder for product line $j$". As is standard in this type of model, once there is a victory, the state of product $j$ resets -- in this case, $m$ is reset to $m = 0$. 
 
-The resulting model exhibits a BGP with a constant growth rate $g$ in output, wages, etc; and constant distributions of products over states $\mu(m)$, constant $\gamma(m) = E[q / Q | m]$,\footnote{The joint distribution over $(q/Q,m)$ is not constant, but this is fine as only $\gamma(m)$ is necessary for computing aggregates and because individual behavior is independent of $q / Q$ (as ensured by careful scaling assumptions).} and constant normalized R\&D wages by state of product $w(m) / Q$.\footnote{In other words, the R\&D wage for a product in state $m$ is $w(m) * Q$ for some constant function $w(m)$.} 
+The resulting model exhibits a BGP with a constant growth rate $g$ in output, wages, etc; and constant distributions of products over states $\mu(m)$, constant $\gamma(m) = E[q / Q | m]$,\footnote{The joint distribution over $(q/Q_t,m)$ is not constant over time, but $E[q/Q_t | m] = \gamma(m)$ is. Only $\gamma(m)$ is necessary for computing aggregates.} and constant normalized R\&D wages by state of product $w(m) / Q$.\footnote{In other words, the R\&D wage for a product in state $m$ is $w(m) * Q$ for some constant function $w(m)$.} 
 
 \subsection{Calibration and analysis}
-
 
 \subsubsection{Calibration}
 
@@ -70,13 +71,36 @@ However, I am interested in using the micro data for several reasons:
 
 \subsection{Description of data set}
 
+The VentureSource contains information on VC-funded companies going back to 1986. 
+
 \subsubsection{Features and coverage}
 
-VentureSource contains ....
+Venture Source contains:
+\begin{itemize}
+	\item Firm information: description, industry, products, revenue, ...
+	\item Employee bios (for founders and some C-level): previous employment, education?
+	\item Funding information: dates, valuations, VC firms
+\end{itemize}
+
+The coverage continues to be solid into the present day, for both founders and CTOs. I'm attaching a spreadsheet that describes the structure of the dataset, as well as one describing the coverage.
 
 \subsubsection{Cost}
 
-The cost for a one-year academic license is \$10,000. 
+The cost structure is
+\begin{enumerate}
+	\item \$10,000: One-year academic license containing only basic firm information (name, location, industry) and founder bios.
+	\item \$15,000: Above plus valuations at funding dates (useful for extending my analysis)
+	\item \$17,000: Above plus product and revenue data (not much coverage)
+	\item \$20,000: Full US archive
+	\item \$30,000: Full global archive (coverage outside US is not as good)
+	\item For multiple-year contracts, 5\% is deducted from the first year cost.
+\end{enumerate}
+
+For the project described in this document, I need (1) which  
+
+
+
+
 
 \subsection{Proposed methodology}
 
@@ -98,6 +122,8 @@ This has been done by Bloom et al. in 2013.
 
 \subsubsection{Identifying spinouts}
 
-This has been done by Gompers, Lerner \& Scharfstein in 2005
+This has been done by Gompers, Lerner \& Scharfstein in 2005.
+
+There is an issue of lack of information on the employment start date for the cofounders, which is addressed by the same paper by Gompers et al., and I will attempt to handle this in the same way. 
 
 \end{document}

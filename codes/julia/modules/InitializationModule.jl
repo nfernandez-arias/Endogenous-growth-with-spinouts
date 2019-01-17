@@ -31,7 +31,7 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 10;
+    incumbentHJB_timeStep = 50;
     incumbentHJB_tolerance = 1e-6;
     incumbentHJB_maxIter = 100;
 
@@ -157,17 +157,17 @@ end
 function setModelParameters()
 
     # General
-    ρ = 0.07
+    ρ = 0.04
     β = 0.106
     L = 1
 
     # Innovation
-    χI = 4
-    χS = 2
-    χE = 1.8
+    χI = 1
+    χS = 0.6
+    χE = 0.4
     ψI = 0.5
     ψSE = 0.5
-    λ = 1.05
+    λ = 1.15
 
     # Spinouts
     ν = 0.05
@@ -202,7 +202,6 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
 
     w = wbar * ones(size(mGrid));
     #w = 0.5 * wbar * ones(pa.mGrid.numPoints,1)
-
 
     #idxM = pa.mGrid.numPoints;
 

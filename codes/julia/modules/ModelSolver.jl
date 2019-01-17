@@ -93,8 +93,8 @@ function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
 
     ## Compute new guesses
 
-    factor_zS = χS .* ϕSE(old_zS + old_zE) * λ .* V[1] ./ w
-    factor_zE = χE .* ϕSE(old_zS + old_zE) * λ .* V[1] ./ w
+    factor_zS = χS .* ϕSE(old_zS + old_zE) .* λ .* V[1] ./ w
+    factor_zE = χE .* ϕSE(old_zS + old_zE) .* λ .* V[1] ./ w
 
     # For speeding up convergence when it's close.
     factor_zS = ones(size(factor_zS)) .+ sign.(factor_zS .- ones(size(factor_zS))) .* abs.(factor_zS .- ones(size(factor_zS))) .^ algoPar.zSzE.updateRateExponent
@@ -206,7 +206,7 @@ end
 function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initGuess::Guess)
 
     # For plotting - use GR backend
-    gr()
+    #gr()
 
     # Error message
     if !(algoPar.g_L_RD_w_Log.verbose in (0,1,2))
@@ -276,7 +276,6 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
             # Solve HJB - output contains incumbent value V and policy zI
             incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,guess)
-
 
             # Update zS and zE given solution HJB and optimality / free entry conditions
 
