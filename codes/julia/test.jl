@@ -1,5 +1,5 @@
 using Revise
-using Traceur
+#using Traceur
 
 algoPar = setAlgorithmParameters()
 modelPar = setModelParameters()
@@ -10,7 +10,7 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 # Solve model with the above parameters
 #--------------------------------#
 
-@time results,zSfactor,zEfactor,spinoutFlow,γ,t = solveModel(algoPar,modelPar,initGuess)
+@time results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
 
 #--------------------------------#
 # Unpack - using unpackScript.jl
@@ -24,6 +24,8 @@ include("unpackScript.jl")
 
 g = results.finalGuess.g
 L_RD = results.finalGuess.L_RD
+γ = results.auxiliary.γ
+t = results.auxiliary.t
 println("\n--------------------------------------------------------------")
 println("Growth and RD Labor Allocation--------------------------------")
 println("--------------------------------------------------------------\n")

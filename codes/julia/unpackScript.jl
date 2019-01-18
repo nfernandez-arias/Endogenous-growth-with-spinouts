@@ -31,7 +31,7 @@ aPrime = zeros(size(a))
 
 for i = 1:length(aPrime)-1
 
-    aPrime = (a[i+1] - a[i]) / Δm[i]
+    aPrime[i] = (a[i+1] - a[i]) / Δm[i]
 
 end
 

@@ -23,13 +23,21 @@ using AlgorithmParametersModule, ModelParametersModule, GuessModule, HJBModule
 using Plots, GR
 import AuxiliaryModule
 
-export solveModel
+export solveModel,ModelSolution,AuxiliaryEquilibriumVariables
+
+struct AuxiliaryEquilibriumVariables
+
+    γ::Array{Float64}
+    t::Array{Float64}
+
+end
 
 struct ModelSolution
 
     finalGuess::Guess
     incumbent::IncumbentSolution
     spinoutValue::Array{Float64}
+    auxiliary::AuxiliaryEquilibriumVariables
 
 end
 
@@ -390,7 +398,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         end
     end
 
-    return ModelSolution(guess,IncumbentSolution(V,zI),W),factor_zS,factor_zE,spinoutFlow,γ,t
+    return ModelSolution(guess,IncumbentSolution(V,zI),W,AuxiliaryEquilibriumVariables(γ,t)),factor_zS,factor_zE,spinoutFlow
 
 end
 

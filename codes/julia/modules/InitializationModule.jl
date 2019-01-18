@@ -16,9 +16,9 @@ function setAlgorithmParameters()
 
     f = open("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 800
+    mgrid_numPoints = 200
     mgrid_minimum = 0.0
-    mgrid_maximum = .05
+    mgrid_maximum = .15
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-8
 
@@ -31,7 +31,7 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 50;
+    incumbentHJB_timeStep = 20;
     incumbentHJB_tolerance = 1e-6;
     incumbentHJB_maxIter = 100;
 
@@ -57,8 +57,8 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    g_tolerance = 1e-5;
-    g_maxIter = 50;
+    g_tolerance = 1e-6;
+    g_maxIter = 150;
     g_updateRate = 0.3;
     g_updateRateExponent = 1;
 
@@ -71,8 +71,8 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    L_RD_tolerance = 1e-5;
-    L_RD_maxIter = 150;
+    L_RD_tolerance = 1e-6;
+    L_RD_maxIter = 1;
     L_RD_updateRate = 0.1;
     L_RD_updateRateExponent = 1;
 
@@ -85,8 +85,8 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    w_tolerance = 1e-5;
-    w_maxIter = 150;
+    w_tolerance = 1e-6;
+    w_maxIter = 1;
     w_updateRate = 0.1;
     w_updateRateExponent = 1;
 
@@ -157,21 +157,21 @@ end
 function setModelParameters()
 
     # General
-    ρ = 0.04
+    ρ = 0.03
     β = 0.106
     L = 1
 
     # Innovation
-    χI = 1
-    χS = 0.6
-    χE = 0.4
+    χI = 4
+    χS = 2
+    χE = 1
     ψI = 0.5
     ψSE = 0.5
-    λ = 1.15
+    λ = 1.05
 
     # Spinouts
-    ν = 0.05
-    ξ = 5
+    ν = 0.01
+    ξ = 2
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ)
 
