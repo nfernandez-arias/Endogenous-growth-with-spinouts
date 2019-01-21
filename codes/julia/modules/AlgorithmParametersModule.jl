@@ -11,6 +11,8 @@ __precompile__()
 
 module AlgorithmParametersModule
 
+import Base.deepcopy
+
 export AlgorithmParameters, mGridParameters, mGridBuild, HJBellmanParameters, IterationParameters, LogParameters;
 
 mutable struct mGridParameters
@@ -23,6 +25,9 @@ mutable struct mGridParameters
     logSpacingMinimum::Float64
 
 end
+
+Base.deepcopy(m::mGridParameters) = mGridParameters([ deepcopy(getfield(m, k)) for k = 1:length(fieldnames(typeof(m))) ]...)
+
 
 function mGridBuild(par::mGridParameters)
 
@@ -59,6 +64,8 @@ mutable struct HJBellmanParameters
 
 end
 
+Base.deepcopy(m::HJBellmanParameters) = HJBellmanParameters([ deepcopy(getfield(m, k)) for k = 1:length(fieldnames(typeof(m))) ]...)
+
 mutable struct IterationParameters
 
     tolerance::Float64
@@ -68,12 +75,16 @@ mutable struct IterationParameters
 
 end
 
+Base.deepcopy(m::IterationParameters) = IterationParameters([ deepcopy(getfield(m, k)) for k = 1:length(fieldnames(typeof(m))) ]...)
+
 mutable struct LogParameters
 
     verbose::Int64
     print_skip::Int64
 
 end
+
+Base.deepcopy(m::LogParameters) = LogParameters(m.verbose,m.print_skip)
 
 mutable struct AlgorithmParameters
 
@@ -89,5 +100,8 @@ mutable struct AlgorithmParameters
     incumbentHJB_Log::LogParameters
 
 end
+
+Base.deepcopy(m::AlgorithmParameters) = AlgorithmParameters([ deepcopy(getfield(m, k)) for k = 1:length(fieldnames(typeof(m))) ]...)
+
 
 end

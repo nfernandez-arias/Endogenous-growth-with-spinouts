@@ -33,7 +33,7 @@ function setAlgorithmParameters()
 
     incumbentHJB_timeStep = 50;
     incumbentHJB_tolerance = 1e-7;
-    incumbentHJB_maxIter = 100;
+    incumbentHJB_maxIter = 100
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter);
 
@@ -100,7 +100,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     zSzE_tolerance = 1e-7;
-    zSzE_maxIter = 75;
+    zSzE_maxIter = 300;
     zSzE_updateRate = 0.3;
     zSzE_updateRateExponent = 1;
 
@@ -167,7 +167,7 @@ function setModelParameters()
     χE = 1.875
     ψI = 0.5
     ψSE = 0.5
-    λ = 1.1017
+    λ = 1.05
 
     # Spinouts
     ν = 0.0758

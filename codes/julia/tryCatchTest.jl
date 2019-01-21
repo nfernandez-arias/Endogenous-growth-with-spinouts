@@ -14,14 +14,20 @@
 
     catch err
 
-        if isa(err,LoadError)
+        if isa(err,BoundsError)
 
             start = 1
+
+            #print(start)
 
             for i = start:start+N-1
                 bvec[i] = iGrid[i]
             end
 
         end
+
+    finally
+
+        print(bvec)
 
     end

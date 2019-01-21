@@ -21,7 +21,7 @@ module ModelSolver
 
 using AlgorithmParametersModule, ModelParametersModule, GuessModule, HJBModule, InitializationModule
 using Plots, GR
-import AuxiliaryModule
+import AuxiliaryModule,Base.deepcopy
 
 export solveModel,ModelSolution,AuxiliaryEquilibriumVariables
 
@@ -258,6 +258,12 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     incumbentHJBSolution = 0
 
 
+    # In case shit hits the fan
+
+    tempAlgoPar = Base.deepcopy(algoPar)
+
+    tempAlgoPar.incumbentHJB.timeStep = 2
+
 
     while (iterate_g_L_RD_w < algoPar.g.maxIter && error_g > algoPar.g.tolerance) || (iterate_g_L_RD_w < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate_g_L_RD_w < algoPar.w.maxIter && error_w > algoPar.w.tolerance)
 
@@ -272,13 +278,13 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
         #anim = Animation()
 
-        cleanGuess = copy(guess)
+        cleanGuess = Guess(guess.g,guess.L_RD,guess.w,guess.zS,guess.zE)
+
+        # Initialize while loop variables
+        iterate_zSzE = 0;
+        error_zSzE = 1;
 
         try
-
-            # While loop to compute fixed point
-            iterate_zSzE = 0;
-            error_zSzE = 1;
 
             while iterate_zSzE < algoPar.zSzE.maxIter && error_zSzE > algoPar.zSzE.tolerance
 
@@ -312,20 +318,25 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                     if iterate_zSzE % algoPar.zSzE_Log.print_skip == 0
                         println("zSzE fixed point: Computed iterate $iterate_zSzE with error $error_zSzE")
                     end
+                end
 
             end
 
         catch err
 
-            if isa(err,LoadError)
+            #if isa(err,LoadError)
 
-                algoPar.incumbentHJB.timeStep = 1
+                println("-----------------Caught an Error!--------------")
+                #sleep(1)
 
                 guess = cleanGuess
 
                 # While loop to compute fixed point
                 iterate_zSzE = 0;
                 error_zSzE = 1;
+
+                #print("$iterate_zSzE")
+                #print("$error_zSzE")
 
                 while iterate_zSzE < algoPar.zSzE.maxIter && error_zSzE > algoPar.zSzE.tolerance
 
@@ -337,7 +348,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
                     # Solve HJB - output contains incumbent value V and policy zI
 
-                    incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,guess)
+                    incumbentHJBSolution = solveIncumbentHJB(tempAlgoPar,modelPar,guess)
 
 
 
@@ -359,16 +370,17 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                         if iterate_zSzE % algoPar.zSzE_Log.print_skip == 0
                             println("zSzE fixed point: Computed iterate $iterate_zSzE with error $error_zSzE")
                         end
+                    end
 
                 end
 
-                algoPar = setAlgorithmParameters()
+                #algoPar = setAlgorithmParameters()
 
-            end
+            #end
 
         finally
 
-            #gif(anim, "./figures/animation.gif", fps = 15)
+        #gif(anim, "./figures/animation.gif", fps = 15)
 
             if algoPar.zSzE_Log.verbose >= 1
                 if error_zSzE > algoPar.zSzE.tolerance
@@ -435,6 +447,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         end
 
     end
+
+    #algoPar = setAlgorithmParameters()
 
     ### Log some stuff when algorithm ends
 
