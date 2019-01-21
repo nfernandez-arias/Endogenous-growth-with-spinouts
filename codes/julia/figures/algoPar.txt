@@ -9,7 +9,7 @@ logSpacingMinimum: 1.0e-8
 
 Incumbent HJB Parameters 
 ---------------
-timeStep: 1.0 
+timeStep: 50.0 
 tolerance: 1.0e-7 
 maxIter: 100 
 

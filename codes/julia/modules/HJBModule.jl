@@ -265,6 +265,56 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 
 end
 
+function updateV(algoPar::AlgorithmParameters, modelPar::ModelParameters, A::SparseMatrixCSC{Float64,Int64}, u::Array{Float64}, V0::Array{Float64})
+
+	# Unpack
+
+	timeStep = algoPar.incumbentHJB.timeStep
+	ρ = modelPar.ρ
+	V1 = zeros(size(u))
+
+	# Try-catch formulation
+
+	#try
+
+		B = (1/timeStep + ρ) * I - A
+
+		b = u .+ (1/timeStep) .* V0
+
+		V1 = B \ b
+
+		#error = maximum(abs.(V1-V0)) ./ timeStep
+
+		#return V1,error
+
+	# catch err
+
+	#	if isa(err,LoadError)
+
+	#		timeStep = 1
+
+	#		B = (1/timeStep + ρ) * I - A
+
+	#		b = u .+ (1/timeStep) .* V0
+
+	#		V1 = B \ b
+
+			#error = maximum(abs.(V1-V0)) ./ timeStep
+
+			#return V1,error
+
+	#	end
+
+	#finally
+
+		error = maximum(abs.(V1-V0)) ./ timeStep
+
+		return V1, error
+
+	#end
+
+end
+
 function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, verbose = 2, print_skip = 10)
 
     ## Unpack model parameters
@@ -392,25 +442,11 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		#A = constructMatrixA(algoPar,modelPar,guess,zI)
 		updateMatrixA(algoPar,modelPar,guess,zI,A)
 
-		B = (1/timeStep + ρ) * I - A
-
-		#tauMatrix = Diagonal(τI[:] + τSE[:])
-		#B = (1/timeStep + ρ) * I + tauMatrix - A
-
-	    b = u .+ (1/timeStep) .* V0
-
-	    # Construct sparse matrices...not sure why but whatever
-	    #Asparse = sparse(A)
-	    #Bsparse = sparse(B)
-	    #bsparse = sparse(b)
-
-	    #V1 = Bsparse \ bsparse
-		#V1 = sparse(B) \ b
-		V1 = B \ b
+		V1,error = updateV(algoPar,modelPar,A,u,V0)
 
 	    # Normalize error by timeStep because
 	    # it will always be smaller if timeStep is smaller
-	    error = maximum(abs.(V1-V0)) ./ timeStep
+	    #error = maximum(abs.(V1-V0)) ./ timeStep
 
 		if verbose == 2
 			if iterate % print_skip == 0

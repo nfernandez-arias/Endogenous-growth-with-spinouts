@@ -31,7 +31,7 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 1;
+    incumbentHJB_timeStep = 50;
     incumbentHJB_tolerance = 1e-7;
     incumbentHJB_maxIter = 100;
 
