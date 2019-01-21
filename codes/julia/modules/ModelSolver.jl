@@ -55,8 +55,8 @@ function update_L_RD_w(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
     # First compute W, value of spinout, for computing R&D wage update
     W = solveSpinoutHJB(algoPar,modelPar,initGuess,V)
     # Compute new wage
-    temp_w = wbar * ones(size(W)) - ν * W;
-    w = algoPar.w.updateRate * temp_w + (1 - algoPar.w.updateRate) * initGuess.w;
+    temp_w = wbar .* ones(size(W)) .- ν .* W;
+    w = algoPar.w.updateRate .* temp_w .+ (1 .- algoPar.w.updateRate) .* initGuess.w;
 
     ## Update L_RD
     # Need to solve KF equation - easy given tau.
@@ -112,8 +112,8 @@ function update_zSzE(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     temp_zE = old_zE .* factor_zE
 
     ## Update
-    zS = temp_zS .* algoPar.zSzE.updateRate .+ old_zS .* (1 - algoPar.zSzE.updateRate);
-    zE = temp_zE .* algoPar.zSzE.updateRate .+ old_zE .* (1 - algoPar.zSzE.updateRate);
+    zS = temp_zS .* algoPar.zSzE.updateRate .+ old_zS .* (1 .- algoPar.zSzE.updateRate);
+    zE = temp_zE .* algoPar.zSzE.updateRate .+ old_zE .* (1 .- algoPar.zSzE.updateRate);
 
     zS = max.(zeros(size(zS)),zS)
     zE = max.(zeros(size(zE)),zE)
@@ -337,16 +337,16 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         # Use spinout value to compute implied R&D wage
         ν = modelPar.ν
         wbar = AuxiliaryModule.wbar(modelPar.β)
-        temp_w = wbar * ones(size(W)) - ν * W
+        temp_w = wbar .* ones(size(W)) .- ν .* W
 
         # Calculate updated w
-        w = algoPar.w.updateRate * temp_w + (1 - algoPar.w.updateRate) * guess.w
+        w = algoPar.w.updateRate .* temp_w .+ (1 .- algoPar.w.updateRate) .* guess.w
 
         ## Updating g,L_RD
         temp_g,temp_L_RD,μ,γ,t = update_g_L_RD(algoPar,modelPar,guess,zI)
 
-        g = algoPar.g.updateRate * temp_g + (1 - algoPar.g.updateRate) * guess.g
-        L_RD = algoPar.L_RD.updateRate * temp_L_RD + (1 - algoPar.L_RD.updateRate) * guess.L_RD
+        g = algoPar.g.updateRate .* temp_g .+ (1 .- algoPar.g.updateRate) .* guess.g
+        L_RD = algoPar.L_RD.updateRate .* temp_L_RD .+ (1 .- algoPar.L_RD.updateRate) .* guess.L_RD
 
         #### Error
 
@@ -356,7 +356,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
         error_g = abs(temp_g - guess.g)
         error_L_RD = abs(temp_L_RD - guess.L_RD)
-        error_w = maximum(abs,temp_w - guess.w)
+        error_w = maximum(abs,temp_w .- guess.w)
 
         ## Log
 

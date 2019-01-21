@@ -220,11 +220,11 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
         modelPar.λ = x[5]
         modelPar.ν = x[6]
 
-        #f = open("figures/log.txt","a")
+        f = open("figures/log.txt","a")
 
-        #write(f,"Iteration: ρ = $(x[1]); χI = $(x[2]); χS = $(x[3]); χE = $(x[3] * x[4]); λ = $(x[5]); ν = $(x[6])\n")
+        write(f,"Iteration: ρ = $(x[1]); χI = $(x[2]); χS = $(x[3]); χE = $(x[3] * x[4]); λ = $(x[5]); ν = $(x[6])\n")
 
-        #close(f)
+        close(f)
 
         output = computeScore(algoPar,modelPar,guess,targets,weights)
 
@@ -248,16 +248,30 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
                   modelPar.χE / modelPar.χS;
                   modelPar.λ;
                   modelPar.ν ]
-
-    lower = [0.01, 1, 1, 0.4, 1.01, 0.01]
+    lower = [0.01, 1, 1, 0.2, 1.01, 0.01]
     upper = [0.1, 6, 6, 0.99, 1.2, 0.1]
 
     #inner_optimizer = GradientDescent()
     inner_optimizer = LBFGS()
-    results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(iterations = 5, store_trace = true, show_trace = true))
+
+    results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(iterations = 50, store_trace = true, show_trace = true))
     #results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer))
     #results = optimize(f,initial_x,inner_optimizer,Optim.Options(iterations = 1, store_trace = true, show_trace = true))
     #results = optimize(f,initial_x,method = inner_optimizer,iterations = 1,store_trace = true, show_trace = false)
+
+    x = results.minimizer
+
+    modelPar.ρ = x[1]
+    modelPar.χI = x[2]
+    modelPar.χS = x[3]
+    modelPar.χE = x[4] * x[3]
+    modelPar.λ = x[5]
+    modelPar.ν = x[6]
+
+    finalMoments = computeModelMoments(algoPar,modelPar,guess)
+    finalScore = computeScore(algoPar,modelPar,guess,targets,weights)
+    return results,finalMoments,finalScore
+
 
 end
 

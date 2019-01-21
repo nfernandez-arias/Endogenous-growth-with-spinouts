@@ -11,7 +11,6 @@ using Gadfly
 using Interpolations
 using Cairo, Fontconfig
 
-
 algoPar = setAlgorithmParameters()
 modelPar = setModelParameters()
 mGrid,Δm = mGridBuild(algoPar.mGrid)
@@ -21,7 +20,14 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 # Solve model with the above parameters
 #--------------------------------#
 
-@time results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
+@timev results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
+
+#using Profile
+#Profile.clear()
+
+#using ProfileView
+#ProfileView.view()
+
 
 #--------------------------------#
 # Unpack - using unpackScript.jl

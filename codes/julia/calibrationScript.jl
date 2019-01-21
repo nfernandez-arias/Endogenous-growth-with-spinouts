@@ -29,7 +29,7 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 
 RDintensity = CalibrationTarget(0.2,1)
 InternalPatentShare = CalibrationTarget(0.2,1)
-EntryRate = CalibrationTarget(0.05,1)
+EntryRate = CalibrationTarget(0.05,0)
 SpinoutShare = CalibrationTarget(0.5,1)
 g = CalibrationTarget(0.015,1)
 RDLaborAllocation = CalibrationTarget(0.05,1)
@@ -40,15 +40,22 @@ calibPar = CalibrationParameters(RDintensity,InternalPatentShare,EntryRate,Spino
 # Run calibration
 #-------------------------------#
 
-@time out = calibrateModel(algoPar,modelPar,initGuess,calibPar)
+@time results,moments,score = calibrateModel(algoPar,modelPar,initGuess,calibPar)
+
+println(results)
+println("Minimizer: $(results.minimizer)")
+println("Moments: $moments")
+println("Score: $score")
 
 #-------------------------------#
 # Display diagnostics
 #-------------------------------#
 
-f = open("./figures/calibration_ouptut.txt","w")
+f = open("./figures/calibration_output.txt","w")
 
-write(f,"$out")
-write(f,"$(out.minimizer)")
+write(f,"$results\n\n")
+write(f,"Minimizer: $(results.minimizer)")
+write(f,"Moments: $moments")
+write(f,"Score: $score")
 
 close(f)

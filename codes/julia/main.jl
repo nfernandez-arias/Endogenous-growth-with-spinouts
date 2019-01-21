@@ -43,6 +43,7 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 
 @time results,zSfactor,zEfactor,spinoutFlow,γ,t = solveModel(algoPar,modelPar,initGuess)
 
+
 #--------------------------------#
 # Display solution
 #--------------------------------#

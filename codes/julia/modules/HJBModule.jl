@@ -70,10 +70,10 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
 	τI = AuxiliaryModule.τI(modelPar,zI)
 	τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
-	τ = τI + τSE
+	τ = τI .+ τSE
 
-	aSE = (zS + zE)
-	a = aSE + zI
+	aSE = (zS .+ zE)
+	a = aSE .+ zI
 
     ## Construct mGrid and Delta_m vectors
     mGrid,Δm = mGridBuild(algoPar.mGrid)
@@ -88,7 +88,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	spinoutFlow = zeros(size(zS))
 	# Spinout flow construction and moving to zeros
 	#spinoutFlow[:] = (χS .* ϕSE(zS + zE) .* λ .* V[1] .- w)[:]
-	spinoutFlow = (χS .* ϕSE(zS + zE) .* λ .* V[1] .- w)
+	spinoutFlow = (χS .* ϕSE(zS .+ zE) .* λ .* V[1] .- w)
 
 	for i = 1:length(spinoutFlow)
 		if spinoutFlow[i] < 1e-3
@@ -116,6 +116,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
     return W,spinoutFlow
 
 end
+
 
 function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, zI::Array{Float64})
 
@@ -159,7 +160,7 @@ function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
     # Initialize A matrix
-    A = zeros(length(mGrid),length(mGrid))
+    A = spzeros(length(mGrid),length(mGrid))
 
     ## Compute A Matrix
     ##############################################
@@ -186,6 +187,81 @@ function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter
 	#A[iMax,iMax] = 0
 
     return A
+
+end
+
+function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, zI::Array{Float64}, A::SparseMatrixCSC{Float64,Int64})
+
+    ## Unpack model parameters
+    ##########################
+
+    # General
+    #ρ = modelPar.ρ;
+    #β = modelPar.β;
+    #L = modelPar.L;
+
+    # Innovation
+    #χI = modelPar.χI;
+    #χS = modelPar.χS;
+    #χE = modelPar.χE;
+    #ψI = modelPar.ψI;
+    #ψSE = modelPar.ψSE;
+    λ = modelPar.λ;
+
+    # Spinouts
+    ν = modelPar.ν;
+    #ξ = modelPar.ξ;
+
+    # Define some auxiliary functions
+    #ϕI(z) = z .^(-ψI)
+
+    ## Unpack algorithm parameters
+    ######################################
+    #timeStep = algoPar.incumbentHJB.timeStep
+    #tolerance = algoPar.incumbentHJB.tolerance
+    #maxIter = algoPar.incumbentHJB.maxIter
+
+    ## Unpack guess
+    ###################################################
+    #Π = AuxiliaryModule.profit(guess.L_RD,modelPar)
+    #w = guess.w
+    zS = guess.zS
+    zE = guess.zE
+
+    # Construct mGrid
+    mGrid,Δm = mGridBuild(algoPar.mGrid)
+
+    # Initialize A matrix - NO NEED, SINCE UPDATING
+    #A = spzeros(length(mGrid),length(mGrid))
+
+    ## Compute A Matrix
+    ##############################################
+
+	τI = AuxiliaryModule.τI(modelPar,zI)
+	τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
+
+	#aSE = (zS .+ zE)
+
+    for i = 1:length(mGrid)-1
+
+		A[i,1] = τI[i] * λ
+		A[i,i+1] = ν * (zI[i] + zS[i] + zE[i]) / Δm[i]
+		A[i,i] = - ν * (zI[i] + zS[i] + zE[i]) / Δm[i] - τI[i] - τSE[i]
+		#A[i,i] = - ν * (zI[i] + aSE[i]) / Δm[i]
+
+    end
+
+	#iMax = length(mGrid)
+	#A[iMax,1] = τI[iMax] * λ
+	#A[iMax,iMax] = - τI[iMax] - τSE[iMax]
+
+	A[end,1] = τI[end] * λ
+	A[end,end] = - τI[end] - τSE[end]
+
+	#A[iMax,1] = 0
+	#A[iMax,iMax] = 0
+
+    #return A
 
 end
 
@@ -240,6 +316,8 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
     # Finally calculate flow profit
 	Π = AuxiliaryModule.profit(guess.L_RD,modelPar) .* ones(size(mGrid));
+
+	A = spzeros(length(mGrid),length(mGrid))
 
     iterate = 0
     error = 1
@@ -311,8 +389,10 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 	    ## Make update:
 	    u = Π .- zI .* w
-	    A = constructMatrixA(algoPar,modelPar,guess,zI)
-		B = (1/timeStep + ρ) * I - sparse(A)
+		#A = constructMatrixA(algoPar,modelPar,guess,zI)
+		updateMatrixA(algoPar,modelPar,guess,zI,A)
+
+		B = (1/timeStep + ρ) * I - A
 
 		#tauMatrix = Diagonal(τI[:] + τSE[:])
 		#B = (1/timeStep + ρ) * I + tauMatrix - A
@@ -326,7 +406,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 	    #V1 = Bsparse \ bsparse
 		#V1 = sparse(B) \ b
-		V1 = sparse(B) \ b
+		V1 = B \ b
 
 	    # Normalize error by timeStep because
 	    # it will always be smaller if timeStep is smaller
