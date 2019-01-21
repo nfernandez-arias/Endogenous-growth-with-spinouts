@@ -9,7 +9,7 @@ logSpacingMinimum: 1.0e-8
 
 Incumbent HJB Parameters 
 ---------------
-timeStep: 10.0 
+timeStep: 100.0 
 tolerance: 1.0e-7 
 maxIter: 100 
 
@@ -33,7 +33,7 @@ L_RD Iteration Parameters
 ---------------
 tolerance: 1.0e-6 
 maxIter: 500.0 
-updateRate: 0.3 
+updateRate: 0.1 
 updateRateExponent: 1.0 
 
 
@@ -41,7 +41,7 @@ w Iteration Parameters
 ---------------
 tolerance: 1.0e-6 
 maxIter: 500.0 
-updateRate: 0.3 
+updateRate: 0.1 
 updateRateExponent: 1.0 
 
 

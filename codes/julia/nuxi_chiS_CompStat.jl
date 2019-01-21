@@ -7,11 +7,11 @@ mGrid,Δm = mGridBuild(algoPar.mGrid)
 guess = setInitialGuess(algoPar,modelPar,mGrid)
 
 νMin = 0.01
-νMax = 0.2
-νStep = 0.01
+νMax = 0.3
+νStep = 0.03
 
-χSMin = 1.1
-χSMax = 3.1
+χSMin = 0.6
+χSMax = 2.6
 χSStep = 0.5
 
 νGrid = νMin:νStep:νMax#--------------------------------#
@@ -44,7 +44,7 @@ for i = 1:length(χSGrid)
         modelPar.χS = χSGrid[i]
         modelPar.ν = νGrid[j]
 
-        results,zSfactor,zEfactor,spinoutFlow,γ,t = solveModel(algoPar,modelPar,guess)
+        results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,guess)
 
         guess.g = results.finalGuess.g
         guess.L_RD = results.finalGuess.L_RD

@@ -261,6 +261,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     while (iterate_g_L_RD_w < algoPar.g.maxIter && error_g > algoPar.g.tolerance) || (iterate_g_L_RD_w < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate_g_L_RD_w < algoPar.w.maxIter && error_w > algoPar.w.tolerance)
 
+        iterate_g_L_RD_w += 1
+
         if !(algoPar.zSzE_Log.verbose in (0,1,2))
             throw(ArgumentError("algoPar.zSzE_Log.verbose should be 0, 1 or 2"))
         end

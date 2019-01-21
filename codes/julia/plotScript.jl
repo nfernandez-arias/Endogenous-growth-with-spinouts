@@ -30,7 +30,7 @@ p_spinout = vstack(p1,p2)
 
 # Print plot
 p = hstack(p_incumbent,p_spinout)
-draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/HJB_solutions_plot.png", 16inch, 8inch), p)
+draw(PNG("./figures/HJB_solutions_plot.png", 16inch, 8inch), p)
 
 #---------------------------#
 # Plot HJB Error
@@ -64,7 +64,7 @@ p2 = plot(df,x = "x", y = "y", color = "label", Geom.line, Guide.title("HJB test
 
 p = vstack(p1,p2)
 
-draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/HJB_tests.png", 10inch, 5inch), p)
+draw(PNG("./figures/HJB_tests.png", 10inch, 5inch), p)
 
 #---------------------------#
 # V(m) + W(m) * m
@@ -101,7 +101,7 @@ p2 = plot(df,x = "x", y = "y", color = "label", Geom.line, Guide.title("Incumben
 
 p = vstack(p1,p2)
 
-draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/Values.png", 16inch, 8inch), p)
+draw(PNG("./figures/Values.png", 16inch, 8inch), p)
 
 #----------------------------------------#
 # Plot innovation arrival rates
@@ -137,7 +137,7 @@ p2 = plot(df,x = "x", y = "y", color = "label", Geom.line, Guide.ColorKey(title 
 p = vstack(p1,p2)
 
 
-draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/innovation_rates.png", 10inch, 5inch), p)
+draw(PNG("./figures/innovation_rates.png", 10inch, 5inch), p)
 
 
 
@@ -161,7 +161,7 @@ p2 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("zE and 
 
 # Draw plot
 p = vstack(p1,p2)
-draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/zS_zE_diagnostics.png", 10inch, 10inch), p)
+draw(PNG("./figures/zS_zE_diagnostics.png", 10inch, 10inch), p)
 
 
 #-----------------------------------------#
@@ -178,7 +178,7 @@ df2 = DataFrame(x = mGrid[:], y = wbar * ones(size(mGrid[:])), label = "Producti
 
 df = vcat(df1,df2)
 p = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Wages"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("Wage"), Theme(background_color=colorant"white"))
-draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/wages.png", 10inch, 10inch), p)
+draw(PNG("./figures/wages.png", 10inch, 10inch), p)
 
 #-----------------------------------------#
 # Plot a(m)
@@ -192,7 +192,7 @@ p2 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Equilib
 
 p = vstack(p1,p2)
 
-draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/drift.png", 10inch, 10inch), p)
+draw(PNG("./figures/drift.png", 10inch, 10inch), p)
 
 #-----------------------------------------#
 # Plot the construction of μ(m)
@@ -220,7 +220,7 @@ p4 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("cumulat
 p2 = vstack(p3,p4)
 
 p = hstack(p1,p2)
-draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/muShape.png", 10inch, 10inch), p)
+draw(PNG("./figures/muShape.png", 10inch, 10inch), p)
 
 
 #-----------------------------------------#
@@ -238,7 +238,7 @@ df = DataFrame(x = mGrid[:], y = t[:], label = "t(m)")
 p3 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("t(m) = equilibrium years to state m"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("t(m)"), Theme(background_color=colorant"white"))
 
 p = vstack(p1,p2,p3)
-draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/gamma_t_μ_vs_m_plots.png", 10inch, 10inch), p)
+draw(PNG("./figures/gamma_t_μ_vs_m_plots.png", 10inch, 10inch), p)
 
 #-----------------------------------------#
 # Plot μ(t),γ(t),m(t)
@@ -254,7 +254,7 @@ df = DataFrame(x = t[:], y = mGrid[:], label = "m(t)")
 p3 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Mass of workers capable of forming spinouts"), Guide.ColorKey(title = "Legend"), Guide.xlabel("t: years since last innovation"), Guide.ylabel("Mass of workers"), Theme(background_color=colorant"white"))
 
 p = vstack(p1,p2,p3)
-draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/gamma_m_μ_vs_t_plots.png", 10inch, 10inch), p)
+draw(PNG("./figures/gamma_m_μ_vs_t_plots.png", 10inch, 10inch), p)
 
 
 
@@ -277,7 +277,7 @@ df = vcat(df1,df2,df3)
 p2 = plot(df, x = "x", y = "y", color = "label", Coord.Cartesian(ymin = 0), Geom.line, Guide.title("Wages"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Wage"), Guide.xlabel("m"), Theme(background_color=colorant"white"))
 
 p = vstack(p1,p2)
-draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/effectiveRDWage_vs_m.png", 10inch, 10inch), p)
+draw(PNG("./figures/effectiveRDWage_vs_m.png", 10inch, 10inch), p)
 
 #-----------------------------------------#
 # Plot "effective R&D wage"  vs t :
@@ -298,4 +298,4 @@ df = vcat(df1,df2,df3)
 p2 = plot(df, x = "x", y = "y", color = "label", Coord.Cartesian(ymin = 0), Geom.line, Guide.title("Wages"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Wage"), Guide.xlabel("t: years since last innovation"), Theme(background_color=colorant"white"))
 
 p = vstack(p1,p2)
-draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/effectiveRDWage_vs_t.png", 10inch, 10inch), p)
+draw(PNG("./figures/effectiveRDWage_vs_t.png", 10inch, 10inch), p)

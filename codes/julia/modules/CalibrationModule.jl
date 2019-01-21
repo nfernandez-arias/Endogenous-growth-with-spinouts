@@ -9,7 +9,7 @@ __precompile__()
 module CalibrationModule
 
 using AlgorithmParametersModule, ModelParametersModule, GuessModule, ModelSolver, AuxiliaryModule
-using LinearAlgebra, Statistics, Compat, Optim, ReverseDiff
+using LinearAlgebra, Statistics, Compat, Optim, ForwardDiff, ReverseDiff
 
 export CalibrationTarget,CalibrationParameters,calibrateModel,computeModelMoments,computeScore
 
@@ -74,6 +74,17 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     w = results.finalGuess.w
     zS = results.finalGuess.zS
     zE = results.finalGuess.zE
+
+    #-----------------------------------#
+    # Modify guess in place...will this work? we'll see..
+    #-----------------------------------#
+
+    guess.g = g
+    guess.L_RD = L_RD
+    guess.w = w
+    guess.zS = zS
+    guess.zE = zE
+
     γ = results.auxiliary.γ
     t = results.auxiliary.t
 
@@ -169,6 +180,8 @@ function computeScore(algoPar::AlgorithmParameters,modelPar::ModelParameters,gue
 
     score = (modelMoments - targets)' * Diagonal(weights) * (modelMoments - targets)
 
+    return score
+
 end
 
 function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess,calibPar::CalibrationParameters)
@@ -207,6 +220,12 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
         modelPar.λ = x[5]
         modelPar.ν = x[6]
 
+        #f = open("figures/log.txt","a")
+
+        #write(f,"Iteration: ρ = $(x[1]); χI = $(x[2]); χS = $(x[3]); χE = $(x[3] * x[4]); λ = $(x[5]); ν = $(x[6])\n")
+
+        #close(f)
+
         output = computeScore(algoPar,modelPar,guess,targets,weights)
 
     end
@@ -216,7 +235,8 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
     #function g!(G,x)
 
         #G = ReverseDiff.gradient(f,x)
-    #    ReverseDiff.gradient!(G,f,x)
+        #ReverseDiff.gradient!(G,f,x)
+    #    ForwardDiff.gradient!(G,f,x)
 
     #end
 
@@ -229,13 +249,15 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
                   modelPar.λ;
                   modelPar.ν ]
 
-    lower = [0.01, 0.1, 0.1, 0.01, 1.001, 0.01]
-    upper = [0.1, 6, 6, 0.99, 1.5, 0.5]
+    lower = [0.01, 1, 1, 0.4, 1.01, 0.01]
+    upper = [0.1, 6, 6, 0.99, 1.2, 0.1]
 
-    inner_optimizer = GradientDescent()
-    results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer))
-    #results = optimize(f,g!,lower,upper,initial_x,Fminbox(inner_optimizer))
-
+    #inner_optimizer = GradientDescent()
+    inner_optimizer = LBFGS()
+    results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(iterations = 5, store_trace = true, show_trace = true))
+    #results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer))
+    #results = optimize(f,initial_x,inner_optimizer,Optim.Options(iterations = 1, store_trace = true, show_trace = true))
+    #results = optimize(f,initial_x,method = inner_optimizer,iterations = 1,store_trace = true, show_trace = false)
 
 end
 

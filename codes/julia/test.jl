@@ -1,5 +1,16 @@
 using Revise
-#using Traceur
+using AlgorithmParametersModule
+using ModelParametersModule
+using AuxiliaryModule
+using GuessModule
+using ModelSolver
+using HJBModule
+using InitializationModule
+using DataFrames
+using Gadfly
+using Interpolations
+using Cairo, Fontconfig
+
 
 algoPar = setAlgorithmParameters()
 modelPar = setModelParameters()
@@ -29,7 +40,7 @@ t = results.auxiliary.t
 println("\n--------------------------------------------------------------")
 println("Growth and RD Labor Allocation--------------------------------")
 println("--------------------------------------------------------------\n")
-println("g: $g (growth rate) \nL_RD: $L_RD (labor allocation to final goods)")
+println("g: $g (growth rate) \nL_RD: $L_RD (labor allocation to R&D)")
 
 innovationRateIncumbent = sum(τI .* μ .* Δm)
 entryRateOrdinary = sum(τE .* μ .* Δm)

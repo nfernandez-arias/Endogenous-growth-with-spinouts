@@ -40,8 +40,15 @@ calibPar = CalibrationParameters(RDintensity,InternalPatentShare,EntryRate,Spino
 # Run calibration
 #-------------------------------#
 
-out = calibrateModel(algoPar,modelPar,initGuess,calibPar)
+@time out = calibrateModel(algoPar,modelPar,initGuess,calibPar)
 
 #-------------------------------#
 # Display diagnostics
 #-------------------------------#
+
+f = open("./figures/calibration_ouptut.txt","w")
+
+write(f,"$out")
+write(f,"$(out.minimizer)")
+
+close(f)
