@@ -1,4 +1,6 @@
-
+using InitializationModule
+using AlgorithmParametersModule
+using ModelSolver
 using GuessModule
 
 algoPar = setAlgorithmParameters()
@@ -6,12 +8,12 @@ modelPar = setModelParameters()
 mGrid,Δm = mGridBuild(algoPar.mGrid)
 guess = setInitialGuess(algoPar,modelPar,mGrid)
 
-νMin = 0.01
-νMax = 0.3
-νStep = 0.03
+νMin = 0.02
+νMax = 0.2
+νStep = 0.02
 
-χSMin = 0.6
-χSMax = 2.6
+χSMin = 1.5
+χSMax = 3.5
 χSStep = 0.5
 
 νGrid = νMin:νStep:νMax#--------------------------------#

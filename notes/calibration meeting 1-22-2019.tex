@@ -1,0 +1,59 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+\title{Preliminary Calibration for ``Endogenous Growth with Creative Destruction by Employee Spinouts''}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Description}
+
+There are 7 moments and 10 parameters. Of the 10 parameters, 3 are fixed without refrence to the moments. So the exercise below is effectively 1 moment per parameter. Not meant as a test of the model, but rather as a way to explore its workings at reasonable parameter values.
+
+\subsection{Moments used}
+
+Where applicable, I list as (target,model).
+
+\begin{enumerate}
+	\item Interest rate: 0.05 (fixes discount factor $\rho$ - model is risk-neutral so $\rho$ is excessive for now)
+	\item Profit / sales ratio (fixes $\beta$)
+	\item R\&D spending / sales: $(0.15,0.09)$
+	\item Internal patent share: $(0.2,0.202113)$
+	\item Spinout entry rate (loosely based on entry rate of 5\% in economy - target should probably be lower): $(0.05,0.08)$
+	\item Share of creative destruction by spinouts (not based on anything, really): $(0.30,0.28)$
+	\item Growth rate: $(0.015, 0.02)$
+\end{enumerate}
+
+\subsection{Parameters}
+\begin{enumerate}
+	\item $\rho = 0.05$
+	\item $\beta = 0.106$
+	\item $L = 1$ (normalization)
+	\item $\chi_I = 3.2523$
+	\item $\chi_S = 1.42543$
+	\item $\chi_E = 1.2029$
+	\item $\psi_I = \psi_E = 0.5$ (not calibrated)
+	\item $\lambda = 1.0532733$
+	\item $\nu = 0.020499$
+	\item $\xi = 5.0$
+\end{enumerate}
+
+
+
+
+\end{document}

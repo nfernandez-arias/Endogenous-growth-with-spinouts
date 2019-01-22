@@ -28,14 +28,14 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 # Enter calibration targets
 #-------------------------------#
 
-RDintensity = CalibrationTarget(0.2,1)
+RDintensity = CalibrationTarget(0.15,1)
 InternalPatentShare = CalibrationTarget(0.2,1)
-EntryRate = CalibrationTarget(0.05,0)
-SpinoutShare = CalibrationTarget(0.5,1)
+SpinoutEntryRate = CalibrationTarget(0.05,1)
+SpinoutShare = CalibrationTarget(0.3,0)
 g = CalibrationTarget(0.015,1)
 RDLaborAllocation = CalibrationTarget(0.05,0)
 
-calibPar = CalibrationParameters(RDintensity,InternalPatentShare,EntryRate,SpinoutShare,g,RDLaborAllocation)
+calibPar = CalibrationParameters(RDintensity,InternalPatentShare,SpinoutEntryRate,SpinoutShare,g,RDLaborAllocation)
 
 #-------------------------------#
 # Run calibration

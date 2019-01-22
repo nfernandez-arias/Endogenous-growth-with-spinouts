@@ -155,7 +155,7 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
     modelMoments[1] = RDintensity
     modelMoments[2] = internalPatentShare
-    modelMoments[3] = entryRate
+    modelMoments[3] = entryRateSpinouts
     modelMoments[4] = spinoutShare
     modelMoments[5] = g
     modelMoments[6] = L_RD
@@ -213,16 +213,16 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
 
         # Unpack x vector into modelPar struct for inputting into model solver
 
-        modelPar.ρ = x[1]
-        modelPar.χI = x[2]
-        modelPar.χS = x[3]
-        modelPar.χE = x[4] * x[3]
-        modelPar.λ = x[5]
-        modelPar.ν = x[6]
+        #modelPar.ρ = x[1]
+        modelPar.χI = x[1]
+        modelPar.χS = x[2]
+        modelPar.χE = x[3] * x[2]
+        modelPar.λ = x[4]
+        modelPar.ν = x[5]
 
         f = open("./figures/log.txt","a")
 
-        write(f,"Iteration: ρ = $(x[1]); χI = $(x[2]); χS = $(x[3]); χE = $(x[3] * x[4]); λ = $(x[5]); ν = $(x[6])\n")
+        write(f,"Iteration: χI = $(x[1]); χS = $(x[2]); χE = $(x[2] * x[3]); λ = $(x[4]); ν = $(x[5])\n")
 
         close(f)
 
@@ -242,14 +242,13 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
 
     # Finally, use Optim.jl to optimize the objective function
 
-    initial_x = [ modelPar.ρ;
-                  modelPar.χI;
+    initial_x = [ modelPar.χI;
                   modelPar.χS;
                   modelPar.χE / modelPar.χS;
                   modelPar.λ;
                   modelPar.ν ]
-    lower = [0.015, 1, 1, 0.2, 1.01, 0.02]
-    upper = [0.08, 6, 6, 0.9, 1.08, 0.09]
+    lower = [1, 1, 0.2, 1.01, 0.02]
+    upper = [6, 6, 0.9, 1.08, 0.09]
 
     #inner_optimizer = GradientDescent()
     inner_optimizer = LBFGS()
@@ -261,12 +260,12 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
 
     x = results.minimizer
 
-    modelPar.ρ = x[1]
-    modelPar.χI = x[2]
-    modelPar.χS = x[3]
-    modelPar.χE = x[4] * x[3]
-    modelPar.λ = x[5]
-    modelPar.ν = x[6]
+    #modelPar.ρ = x[1]
+    modelPar.χI = x[1]
+    modelPar.χS = x[2]
+    modelPar.χE = x[3] * x[2]
+    modelPar.λ = x[4]
+    modelPar.ν = x[5]
 
     finalMoments = computeModelMoments(algoPar,modelPar,guess)
     finalScore = computeScore(algoPar,modelPar,guess,targets,weights)
