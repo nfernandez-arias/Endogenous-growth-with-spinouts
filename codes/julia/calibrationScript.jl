@@ -12,6 +12,7 @@
 
 using Revise
 using InitializationModule,AlgorithmParametersModule
+using ModelSolver
 using CalibrationModule
 
 #-------------------------------#
@@ -32,7 +33,7 @@ InternalPatentShare = CalibrationTarget(0.2,1)
 EntryRate = CalibrationTarget(0.05,0)
 SpinoutShare = CalibrationTarget(0.5,1)
 g = CalibrationTarget(0.015,1)
-RDLaborAllocation = CalibrationTarget(0.05,1)
+RDLaborAllocation = CalibrationTarget(0.05,0)
 
 calibPar = CalibrationParameters(RDintensity,InternalPatentShare,EntryRate,SpinoutShare,g,RDLaborAllocation)
 
@@ -43,7 +44,7 @@ calibPar = CalibrationParameters(RDintensity,InternalPatentShare,EntryRate,Spino
 @time results,moments,score = calibrateModel(algoPar,modelPar,initGuess,calibPar)
 
 println(results)
-println("Minimizer: $(results.minimizer)")
+println("\nMinimizer: $(results.minimizer)")
 println("Moments: $moments")
 println("Score: $score")
 
@@ -54,8 +55,8 @@ println("Score: $score")
 f = open("./figures/calibration_output.txt","w")
 
 write(f,"$results\n\n")
-write(f,"Minimizer: $(results.minimizer)")
-write(f,"Moments: $moments")
-write(f,"Score: $score")
+write(f,"Minimizer: $(results.minimizer)\n")
+write(f,"Moments: $moments\n")
+write(f,"Score: $score\n")
 
 close(f)

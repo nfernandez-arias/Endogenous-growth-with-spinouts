@@ -88,4 +88,4 @@ println("$aggregateRDSalesRatio (Total R&D spending / Total revenue from sales o
 # Make some plots                #
 #--------------------------------#
 
-#include("plotScript.jl")
+include("plotScript.jl")

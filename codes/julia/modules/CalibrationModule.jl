@@ -220,7 +220,7 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
         modelPar.λ = x[5]
         modelPar.ν = x[6]
 
-        f = open("figures/log.txt","a")
+        f = open("./figures/log.txt","a")
 
         write(f,"Iteration: ρ = $(x[1]); χI = $(x[2]); χS = $(x[3]); χE = $(x[3] * x[4]); λ = $(x[5]); ν = $(x[6])\n")
 
@@ -248,8 +248,8 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
                   modelPar.χE / modelPar.χS;
                   modelPar.λ;
                   modelPar.ν ]
-    lower = [0.01, 1, 1, 0.2, 1.01, 0.01]
-    upper = [0.1, 6, 6, 0.99, 1.2, 0.1]
+    lower = [0.015, 1, 1, 0.2, 1.01, 0.02]
+    upper = [0.08, 6, 6, 0.9, 1.08, 0.09]
 
     #inner_optimizer = GradientDescent()
     inner_optimizer = LBFGS()

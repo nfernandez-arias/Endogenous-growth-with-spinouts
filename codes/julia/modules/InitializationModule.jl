@@ -9,16 +9,18 @@ __precompile__()
 
 module InitializationModule
 
-using AlgorithmParametersModule, ModelParametersModule, GuessModule, AuxiliaryModule
+using AlgorithmParametersModule, ModelParametersModule, GuessModule
+using AuxiliaryModule
+
 export setAlgorithmParameters, setModelParameters, setInitialGuess
 
 function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 300
+    mgrid_numPoints = 1600
     mgrid_minimum = 0.0
-    mgrid_maximum = .05
+    mgrid_maximum = .1
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-8
 
@@ -31,7 +33,7 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 50;
+    incumbentHJB_timeStep = 10;
     incumbentHJB_tolerance = 1e-7;
     incumbentHJB_maxIter = 100
 
@@ -100,7 +102,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     zSzE_tolerance = 1e-7;
-    zSzE_maxIter = 300;
+    zSzE_maxIter = 150;
     zSzE_updateRate = 0.3;
     zSzE_updateRateExponent = 1;
 
@@ -157,20 +159,20 @@ end
 function setModelParameters()
 
     # General
-    ρ = 0.01
+    ρ = 0.03
     β = 0.106
     L = 1
 
     # Innovation
-    χI = 4.01
-    χS = 1.94
-    χE = 1.875
+    χI = 2
+    χS = 4
+    χE = 3
     ψI = 0.5
     ψSE = 0.5
-    λ = 1.05
+    λ = 1.03
 
     # Spinouts
-    ν = 0.0758
+    ν = 0.07
     ξ = 5
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ)

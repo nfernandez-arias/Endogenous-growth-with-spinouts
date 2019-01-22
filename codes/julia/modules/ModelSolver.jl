@@ -324,10 +324,12 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
         catch err
 
-            #if isa(err,LoadError)
+            #if isa(err,LinearAlgebra.SingularException)
 
-                println("-----------------Caught an Error!--------------")
-                #sleep(1)
+                println("-----------------Caught an Error!-------------------------")
+                println("Error: $err")
+                #println(typeof(err))
+                #sleep(2)
 
                 guess = cleanGuess
 

@@ -1,35 +1,21 @@
 Results of Optimization Algorithm
  * Algorithm: Fminbox with L-BFGS
- * Starting Point: [0.04,4.0,2.0,0.5,1.05,0.05]
- * Minimizer: [0.04,4.0,2.0,0.5,1.05,0.05]
- * Minimum: 1.034439e-02
+ * Starting Point: [0.03,4.0,2.0,0.5,1.05,0.03]
+ * Minimizer: [0.03,4.0,2.0,0.5,1.05,0.03]
+ * Minimum: 1.160738e-02
  * Iterations: 1
  * Convergence: true
    * |x - x'| ≤ 0.0e+00: true 
      |x - x'| = 0.00e+00 
    * |f(x) - f(x')| ≤ 0.0e+00 |f(x)|: false
-     |f(x) - f(x')| = 1.14e-07 |f(x)|
+     |f(x) - f(x')| = 6.12e-09 |f(x)|
    * |g(x)| ≤ 1.0e-08: false 
-     |g(x)| = 9.79e-02 
+     |g(x)| = 2.95e-01 
    * Stopped by an increasing objective: false
    * Reached Maximum Number of Iterations: true
  * Objective Calls: 1
  * Gradient Calls: 1
 
-Minimizer: Results of Optimization Algorithm
- * Algorithm: Fminbox with L-BFGS
- * Starting Point: [0.04,4.0,2.0,0.5,1.05,0.05]
- * Minimizer: [0.04,4.0,2.0,0.5,1.05,0.05]
- * Minimum: 1.034439e-02
- * Iterations: 1
- * Convergence: true
-   * |x - x'| ≤ 0.0e+00: true 
-     |x - x'| = 0.00e+00 
-   * |f(x) - f(x')| ≤ 0.0e+00 |f(x)|: false
-     |f(x) - f(x')| = 1.14e-07 |f(x)|
-   * |g(x)| ≤ 1.0e-08: false 
-     |g(x)| = 9.79e-02 
-   * Stopped by an increasing objective: false
-   * Reached Maximum Number of Iterations: true
- * Objective Calls: 1
- * Gradient Calls: 1.minimizer)Moments: [0.0771405, 0.382539, 0.328041, 0.55559, 0.0263052, 0.0594309]Score: 0.010344373562810798
+Minimizer: [0.03, 4.0, 2.0, 0.5, 1.05, 0.03]
+Moments: [0.0842213, 0.39046, 0.302258, 0.409711, 0.0245696, 0.0606514]
+Score: 0.011607374566866906
