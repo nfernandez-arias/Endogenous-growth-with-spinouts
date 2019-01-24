@@ -99,4 +99,4 @@ df = vcat(df1,df2,df3,df4,df5)
 p2 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("L_RD vs νξ"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Amount of labor"), Guide.xlabel("νξ"), Theme(background_color=colorant"white"))
 
 p = vstack(p1,p2)
-draw(PNG("/home/nico/nfernand@princeton.edu/PhD - Big boy/Research/Endogenous-growth-with-spinouts/codes/julia/figures/nuxi_chiS_plot.png", 10inch, 10inch), p)
+draw(PNG("./figures/nuxi_chiS_plot.png", 10inch, 10inch), p)

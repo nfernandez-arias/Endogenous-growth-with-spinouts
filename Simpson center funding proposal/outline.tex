@@ -17,17 +17,31 @@
 \newtheorem*{remark}{Remark}
 \begin{document}
 	
-\title{Funding proposal for VentureSource data for ``Endogenous growth with creative destruction by employee spinouts'' project}
+\title{Funding proposal for VentureSource Data}
 \author{Nicolas Fernandez-Arias}
 \maketitle
 
-\section{Description of project}
+\section{Description of projects}
 
-This project consists of developing an model of endogenous growth with a new channel, calibrating it, and using it to analyze comparative statics and policy. 
+\subsection{Endogenous growth with creative destruction by employee spinouts}
 
-The key mechanism is that a firm's current employees can, through learning-by-doing, become the future competition of the firm. 
+\subsubsection{Overview}
 
-\subsection{Model}
+This project consists of developing an model of endogenous growth with a new channel, 
+calibrating it, and using it to analyze the effect on growth and welfare of various comparative statics and policies. 
+
+In my framework, which builds on the endogenous growth with quality ladders framework in Grossman \& Helpman 1991, long-term growth is driven by profit-motivated investment in R\&D by firms in the economy. The key mechanism that distinguishes my framework from the existing literature is that a firm's current R\&D effort, which consists of hiring R\&D employees, leads to the formation of with-industry spinouts (WSOs) by the same R\&D employees. These spinouts can then compete against their original employers for a chance to obtain a (temporary) monopoly on the next step of the quality ladder. 
+
+In addition to calibrating based on various aggregate moments, the key distinguishing feature of my analysis will be to investigate directly the central hypothesis in my model: that more R\&D spending by firms leads to more competing spinouts. In order to do this, I would like to use the following datasets:
+
+\begin{enumerate}
+	\item Compustat
+	\item Bloom et al. 2013, "Identifying technology spillovers..." company-specific instruments for R\&D spending
+	\item NBER-USPTO patent database on patents, their applicants, and citations
+	\item VentureSource database of VC-funded firms
+\end{enumerate}
+
+\subsubsection{Model}
 
 The model I am using is, technically, most closely related to the model in Akcigit \& Kerr, "Growth through Heterogeneous Innovations" (forthcoming in the JPE). The differences are:
 \begin{enumerate}
@@ -40,34 +54,31 @@ The model I am using is, technically, most closely related to the model in Akcig
 
 The resulting problem for either an incumbent or a spinout in a given product line $j$ then depends on a one-dimensional state variable, $m(j)$, which can be thought of as a measure of how widely disseminated the knowledge of ``how to compete in an race to develop the next step on the quality ladder for product line $j$". As is standard in this type of model, once there is a victory, the state of product $j$ resets -- in this case, $m$ is reset to $m = 0$. 
 
-The resulting model exhibits a BGP with a constant growth rate $g$ in output, wages, etc; and constant distributions of products over states $\mu(m)$, constant $\gamma(m) = E[q / Q | m]$,\footnote{The joint distribution over $(q/Q_t,m)$ is not constant over time, but $E[q/Q_t | m] = \gamma(m)$ is. Only $\gamma(m)$ is necessary for computing aggregates.} and constant normalized R\&D wages by state of product $w(m) / Q$.\footnote{In other words, the R\&D wage for a product in state $m$ is $w(m) * Q$ for some constant function $w(m)$.} 
+The resulting model exhibits a BGP with a constant growth rate $g$ in output, wages, etc; and constant distributions of products over states $\mu(m)$, constant $\gamma(m) = E[q_t / Q_t | m]$,\footnote{The joint distribution over $(q/Q_t,m)$ is not constant over time, but $E[q/Q_t | m] = \gamma(m)$ is. Only $\gamma(m)$ is necessary for computing aggregates.} and constant normalized R\&D wages by state of product $w(m) / Q_t$.\footnote{In other words, the R\&D wage for a product in state $m$ is $w(m) * Q_t$ for some constant function $w(m)$.} 
 
-\subsection{Calibration and analysis}
 
-\subsubsection{Calibration}
+\subsection{How is the spawning of spinouts affected by changes in non-compete enforceability?}
 
-To analyze the implications of the model, I will attempt to calibrate its parameters using previous estimates from the literature, aggregate data moments, and causally estimated mechanisms in the micro data (more on this below).
+A related project that will at least become an empirical paper, and ideally be useful in a more detailed model-based analysis as well, is to study how this process is mediated by the enforceability of non-competition agreements. 
 
-\subsubsection{Analysis} 
+Papers such as Jeffers, "The Impact of Restricting Labor Mobility on Corporate Investment and Entrepreneurship" and others (e.g. Garmaise, Marx, etc.) have identified plausibly exogenous state-level changes in non-compete enforceability and explored, using triple-diff identification strategies, their impact on average departure and/or entrepreneurship rates by employees of various types, as well as on net capital investment by firms. 
 
-Once I have a calibrated model, I can analyze it in a variety of ways. 
-\begin{enumerate}
-	\item 
-\end{enumerate}
+However, no study I am aware of has looked inside the box, so to speak, and studied how specific activities by the firm - in my case, R\&D - themselves create the conditions leading to employee departures. Or obtained an evidence of how this relationship is conditioned by the enforceability of noncompetes. 
+
+In addition, studying this question with VentureSource data, as opposd to LinkedIn data as was in the case of Jeffers, offers a complementary picture. As pointed out in her paper, LinkedIn helps her focus on "growth entrepreneurship" as opposedto "new establishments or new subsistence entrepreneurship that census-type data capture." Since VentureSource focuses exclusively on venture-capital funded enterprises, it serves to focus the analysis even further. 
 
 
 \section{Role for Venture Source data}
 
-A key mechanism in my model is that R\&D leads to future competition. The strength of this mechanism is governed by two parameters, $\nu$ and $\xi$. The parameter $\nu$ is the rate at which an employee learns how to compete with the parent firm. The parameter $\xi$ is the size of an individual employee's spinout. 
+In both projects, the role of Venture Source data is that it allows me to implement the following empirical strategy: 
 
-The parameters $\nu$ and $\xi$ enter into the aggregates of the model as the product $\nu \xi$. Since I am interested in aggregate implications, this means I could in principle calibrate my model using only aggregate data and be fine.  
-
-However, I am interested in using the micro data for several reasons:
 \begin{enumerate}
-	\item I can directly test the key mechanism in my model and get a truly causal interpretation.\footnote{I would no longer be looking at the data ``through the lens of a model'' which precludes the possibility that spinouts are not created by R\&D.}
-	\item I can explore the extent to which my model is able to ``aggregate up'' well measurements from the micro data
-	\item More generally, the micro data provides me with more moments against which to check my model's performance.
+	\item Identify the within-industry spinouts that a particular firm produces
+	\item Relate this number to firm-level R\&D spending
+	\item Leverage firm-level instruments for R\&D for causal identification
 \end{enumerate}
+
+This causal identification is crucial. If I only use aggregate moments to calibrate the framework I described above, I will essentially be assuming that any relationship R\&D spending and spinout formation is causal. Equivalently, if I wrote the model to nest both possibilities -- e.g., adding an intercept term\footnote{And also allowed for firm-level shocks to R\&D and spinout formation to be correlated}  -- I would not be able to separately identify the slope and intercept. However this distinction is key for all comparative statics and policy analyses I am considering. 
 
 \subsection{Description of data set}
 
@@ -79,10 +90,10 @@ Venture Source contains:
 \begin{itemize}
 	\item Firm information: description, industry, products, revenue, ...
 	\item Employee bios (for founders and some C-level): previous employment, education?
-	\item Funding information: dates, valuations, VC firms
+	\item Funding information: dates, valuations, VC firms, funding details
 \end{itemize}
 
-The coverage continues to be solid into the present day, for both founders and CTOs. I'm attaching a spreadsheet that describes the structure of the dataset, as well as one describing the coverage.
+The coverage continues to be solid into the present day, for both founders and CTOs. 
 
 \subsubsection{Cost}
 
@@ -96,34 +107,26 @@ The cost structure is
 	\item For multiple-year contracts, 5\% is deducted from the first year cost.
 \end{enumerate}
 
-For the project described in this document, I need (1) which  
-
-
-
-
+The bare minimums for the projects described in this document is (1), but it would be useful to have (2) so that I can have a measure of the success of these firms. 
 
 \subsection{Proposed methodology}
 
-With an estimate of $\xi$ based roughly on the expected size of a spinout, I can estimate $\nu$ from the micro data provided that: 
+\subsubsection{Endogenous growth with spinouts}
 
+My goal is to identify the causal effect of firm R\&D on spinout formation. My approach consists of combining two empirical strategies:
 \begin{enumerate}
-	\item I can measure R\&D spending by a given company
-	\item I have an instrument for R\&D spending by each potential parent company
-	\item I can measure the ``spawning rate'' of spinouts from a given company
+	\item Instrumenting R\&D to get exogenous variation in firm-level R\&D spending
+	\item Identifying within-industry spinouts by employment histories of their founders
 \end{enumerate}
 
-I can obtain (1), at least for public firms, using Compustat data (I could do something more indirect using the model + measures of patenting by non-public firms). I can obtain (2) using the instrument in Bloom et al. "Identifying Technology Spillovers...". Finally, I can do (3) using VentureSource data. I will describe (3) below. 
+The first I will accomplish by following the paper by Bloom et al., "Identifying Technology Spillovers and Product-Market Rivalry", which develops firm-specific instruments for R\&D spending based on state-level changes in tax incentives for R\&D. This also involves using Compustat data - for firm-year-level R\&D expenditures - and NBER-USPTO patent database data - for inferring in which states a multi-state firm's R\&D occurs in, to develop their specific index of effective total R\&D subsidies. 
 
-My proposed methodology has two non-trivial components, both of which have already been done.
+The second I will accomplish by following Gompers, Lerner and Scharfstein, "Entrepreneurial Spawning: Public Corporations and the Genesis of New Ventures, 1986 to 1999," which also uses the VentureSource dataset. 
 
-\subsubsection{Constructing an instrument for R\&D spending}
+\subsubsection{How is the spawning of spinouts affected by changes in non-compete enforceability?}
 
-This has been done by Bloom et al. in 2013. 
+This second project broadly speaking consists of analyzing the extent to which the results of the above analysis depends on the enforceability of non-competes.
 
-\subsubsection{Identifying spinouts}
-
-This has been done by Gompers, Lerner \& Scharfstein in 2005.
-
-There is an issue of lack of information on the employment start date for the cofounders, which is addressed by the same paper by Gompers et al., and I will attempt to handle this in the same way. 
+At least one additional complexity emerges. A simple test of how changes in non-compete enforceability affect the difference in the relationship between R\&D spending and WSO formation (i.e. a Diff-in-Diff) is not robust to different state-level trends in this coefficient. Hence I may incorporate a diff-in-diff-in-diff, by using an industry not affected, or less affected, by changes in non-compete enforceability as a control. Usually, the legal industry is used as this control, since it is often not subject to the same restrictions on non-compete agreements. However, it is unclear how prominent in my data this industry will be as my datasets focus on public and VC-funded firms. Hence, to inform this component, I plan to refer to survey evidence on prevalence of non-compete agreements in Starr et al., "Noncompetes in the U.S. Labor Force". 
 
 \end{document}
