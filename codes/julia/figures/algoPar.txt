@@ -1,17 +1,17 @@
 mGrid Parameters 
 ---------------
-numPoints: 1000 
+numPoints: 500 
 minimum: 0.0 
-maximum: 0.15 
+maximum: 0.05 
 logSpacing: true 
 logSpacingMinimum: 1.0e-8 
 
 
 Incumbent HJB Parameters 
 ---------------
-timeStep: 10.0 
+timeStep: 100.0 
 tolerance: 1.0e-7 
-maxIter: 200 
+maxIter: 20 
 
 
 Spinout HJB Parameters 
