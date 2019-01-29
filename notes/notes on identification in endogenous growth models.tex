@@ -1,0 +1,55 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+\title{Identification and importance of step size $\lambda$}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Introduction}
+
+We want to calibrate the model in part using moments like ``the fraction of innovations performed by incumbents on their own products", which is ~20\% in the patent data. This therefore requires:
+
+\begin{enumerate}
+	\item Low $\lambda$, so that only entrants perceive large benefit to innovation
+	\item Not much productivity advantage in R\&D of incumbents vs entrants (they still need some advantage in order to do any innovation in equilibrium)
+\end{enumerate}
+
+Given step size $\lambda$, growth rate is determined by frequency of arrivals. Hence, with small $\lambda$, arrivals have to be frequent. 
+
+Hence, if we also have data on typical length of time between innovations, we could determine which case we are in.
+
+In models where profit margins are determined by step size, then that is a direct way to identify. But this is not true in my model / basic creative destruction model. Why? Seems weird to have a model where this is not the case..
+
+What are the implications of these different calibrations? 
+
+More broadly: how important is it for my model to be reasonable to allow spinouts to have a different step size / how important is it to give them a different pool of ideas they draw from? Could I use the distribution of VC valuations to infer the distribution of idea sizes and see how they differ between entrants and spinouts? idk...
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+\end{document}

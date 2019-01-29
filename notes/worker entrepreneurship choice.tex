@@ -21,17 +21,120 @@
 \author{Nicolas Fernandez-Arias}
 \maketitle
 
-\section{Math}
+\section{Introduction}
 
-Assume that workers can choose whether to work as entrepreneurs or not. 
+Assume that workers can choose whether to work as entrepreneurs or not. Once an innovation occurs, or whenever they choose to not be active, their enterprise is sold on an IPO, effectively.
 
 First, I have to decide whether they can move frictionlessly into and out of entrepreneurship, or whether they choose to commit to working as an entrepreneur until some point - either until they decide once to ``quit'', or when there is a product innovation in that category.
 
-I have done some thinking about the latter two cases, but the first case actually seems like the most reasonable starting point, so let's think about that first. 
+I have done some thinking about the latter two cases, but the first case actually seems like the most reasonable starting point. On the other hand, I conjecture (strongly) that, in equilibrium, they will be the same.
 
-First of all, in any case, a worker will only ever work at their lowest $m$, so a worker's state is one-dimensional. 
+\paragraph{Only most recent $m$ matters}First of all, from the monotonicity in $m$ of all the relevant equilibrium variables, I have the following equilibrium conjecture:
 
-In the case that movement into and out of entrepreneurship is frictionless, a worker simply works as an entrepreneur when the flow payoff is higher than the highest flow payoff he can achieve is. Let $w^*$ denote this maximum flow payoff. Let $W(m)$ denote the value of a worker with best knowledge in state $m$. 
+\begin{enumerate}
+	\item A worker will only ever work as an entrepreneur at their lowest $m$ (i.e. the ``newest'' knowledge)
+	\item If a worker decides to stop working as an entrepreneur in some $m$, the he will never take up that work again
+\end{enumerate} 
+
+\paragraph{Entrepreneur exit threshold}Secondly, note that I will have to significantly rework the model. This is because my model's tractability relies on decisions not depending on $q/Q$ as well as their aggregate effects only depending linearly on $q/Q$ so that I do not have to keep track of the entire joint distribution of $(m,q/Q)$. I ensure this in my model by assuming that the learning rate is lower for higher $q/Q$ firms. This ensures that the wage for an effective unit of R\&D labor is linear in $q$, which ensures that firms make the same demands of effective R\&D labor regardless of $q$, ensuring that the evolution of a product line is independent of $q$ in equilibrium.
+
+Introducing entrepreneurship choice complicates this scenario significantly for the following reason. While the expected knowledge gain from a unit of actual labor is independent of $q$ -- since the rate of knowledge gain is $\nu (q / Q)^{-1}$ -- the expected value of this knowledge \textit{once it is gained} does in fact depend on $q$. Contrarily, the value of returning to the labor force \textit{does not} depend on $q$. Hence, there will be a different exit threshold depending on $q$: for higher $q$, entrepreneurs will want to remain in the patent race until a larger amount of congestion occurs.
+
+How can this be resolved? There are three paths I see forward:
+
+\begin{enumerate}
+	\item \textbf{(HARD)} Modify the model so that it does in fact have a stationary joint distribution of $(q,m)$.
+	\item \textbf{(FEASIBLE?)} Modify the model so that the value of knowledge does not depend on $q$.
+	\item \textbf{(FEASIBLE?)} Modify the model so that, regardless of the value of knowledge, the exit threshold does not depend on $q$. 
+\end{enumerate}
+
+The first path abandonds all hope of tractability. The second may not be feasible - it is not clear how to accomplish it. The same is true of the third.
+
+\section{Trying some possibilities}
+
+The worker chooses to shut down his spinout when 
+\begin{align*}
+	W^*(t) &\ge \max_{0 \le z \le \xi} z \Big(\chi_S  \phi \big( z_S(m) + z_E(m)\big) V(\lambda q,0,t) - w(m,q,t) \Big) \\
+	       &= \eta(m) q \\
+	W^*(t) / Q_t &= \eta(m) (q / Q_t)
+\end{align*}
+for some endogenous function $\eta(m)$.\footnote{There is no dependence on $t$ in equilibrium since $w(m,q,t) = (q/Q_t) w(m) Q_t = qw(m)$.} In equilibrium, $W^*(t) / Q_t \equiv W^*$ is constant and $\eta(m)$ is decreasing, implying a threshold entry / exit rule $\bar{m}(q/Q)$ which is increasing in $q/Q$. 
+
+In particular, the threshold rule is given by 
+\begin{align*}
+	\bar{m}(q/Q) &= \eta^{-1} \big( (q/Q)^{-1} W^* \big) 
+\end{align*}
+
+\subsection{Adding a fixed cost}
+
+Adding a fixed cost that scales with $q$ -- say, a fixed cost of $fq$ -- does not help. The threshold is now determined by 
+\begin{align*}
+	W^*(t) &\ge \max_{0 \le z \le \xi} z \Big(\chi_S  \phi \big( z_S(m) + z_E(m)\big) V(\lambda q,0,t) - w(m,q,t) \Big) - qf(t) \\
+		   &= \eta(m) q	- f q 
+\end{align*} 
+
+The threshold is the same as before but with the function $\eta$ replaced by $\tilde{\eta}(m) = \eta(m) - f$.
+
+\subsection{Changing innovation technology of spinouts}
+
+Another idea is to make spinouts less efficient at R\&D in proportion to their $q$. Then the idea is that the value of operating in the market no longer depends on $q$. Essentially, this is pushing everything back one layer, so no need to have initial learning slower for higher $q$.
+
+If the above is successful, then 
+\begin{align*}
+	S(m,q,t) &= S(m) Q_t
+\end{align*}
+
+We no longer need to make any assumptions about the rate of learning - it is now $\nu$ regardless of $q/Q$. Therefore the wage per unit of labor - not per unit of effective labor - is
+\begin{align*}
+	w(m,q,t) &= w(m) Q_t
+\end{align*}
+
+Then we assume that R\&D requires $(q / )$
+
+HJB for incumbent is
+\begin{align*}
+	(\rho + \tau_{SE}(m,q,t)) V(m,q,t) &= \pi q + a_{SE}(m) V_m(m,q,t) \\
+	     &+ \max_z \Big\{ z \Big( \chi_I \phi(z) \big( V(0,\lambda q, t) - V(m,q,t) \big) \\
+	     &- w(m,q,t) + \nu V_m (m,q,t)   \Big)     \Big\} \\
+	     &= \pi q + a_{SE}(m) V_m(m,q,t) \\
+	     &+ \max_z \Big\{ z \Big( \chi_I \phi(z) \big( V(0,\lambda q, t) - V(m,q,t) \big) \\
+	     &- w(m)Q_t + \nu V_m (m,q,t) \Big) \Big\}
+\end{align*}
+
+To make $V$ scale with $q$, which seems necessary for incentives for R\&D, need to do something about the wage term that scales with $Q_t$. Before, I was doing something which would fix this, and this would also undo the effect of the scaling on learning as well. Now I do not have scaling on learning, so there is always a term proportional to $q$ from this. Hence I cannot fix this...there is no way to have $V$ scale with $q$. At least, it seems for now. 
+
+\subsection{Changing scale of spinouts}
+
+Another idea is to go from constant $\xi$ to $\xi(\tilde{q}) = \xi / \tilde{q}$. This cleanly delivers $S(m,q,t) = S(m) Q_t$.
+
+But, to have $V(m,q,t)$ scale linearly with $q$, I need to the effective R\&D labor cost to scale with $q$, which means I need to make labor less efficient by a factor $\tilde{q}$. But unless I scale down the learning rate by the same amount, I break the incumbent HJB and $V(m,q,t)$ no longer scales in $q$. Hence, the only way is to have a learning rate that scales down with $\tilde{q}$. But then since $S(q,m,t) = S(m) Q_t$ instead of $S(m) Q_t \tilde{q} = S(m) q$, learning is more valuable at lower $\tilde{q}$ products, hence the equilibrium wage will no longer be constant in $q$.
+
+\subsection{What else?}
+
+The only possibility that I can see is to abandon hope that policies do not depend on $q$. This adds a huge amount of complexity to the model. 
+
+Another possibility is to assume that lower quality goods require less effort on the part of the entrepreneur. Not sure how this would work.
+
+What happens if there is a different entry threshold for each $(q/Q,m)$? This messes it up because now value doesn't even scale with $q$ due to the compounding effects of the different exit thresholds. 
+
+Also, this is all not considering the incentive of a regular incumbent producer to stop producing, if they have a fixed cost that say scales in $Q_t$. The opportunity cost of not working as an employee is an example of this. 
+
+Maybe the way out is to make the model embrace this aspect, and all firms are run by an explicit worker-enrepreneur. Then have a natural lower bound exit threshold - the opportunity cost of going back on the open market to work or become an entrepreneur.
+
+Essentially the problem is straightforward: now, owning an intermediate goods firm relies on a scarce input, the value of which scales with the economy. 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
 
 
 
