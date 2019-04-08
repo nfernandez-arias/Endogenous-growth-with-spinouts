@@ -1,20 +1,28 @@
+using Revise
 using InitializationModule
 using AlgorithmParametersModule
 using ModelSolver
+using HJBModule
 using GuessModule
+using AuxiliaryModule
+using DataFrames
+using Gadfly
+using Interpolations
+using Cairo, Fontconfig
+using JLD2
 
 algoPar = setAlgorithmParameters()
 modelPar = setModelParameters()
 mGrid,Δm = mGridBuild(algoPar.mGrid)
 guess = setInitialGuess(algoPar,modelPar,mGrid)
 
-νMin = 0.02
-νMax = 0.2
-νStep = 0.02
+νMin = 0.005
+νMax = 0.1
+νStep = 0.005
 
-χSMin = 1.5
-χSMax = 3.5
-χSStep = 0.5
+χSMin = 1.42 - 0.125
+χSMax = χSMin + 0.5
+χSStep = 0.125
 
 νGrid = νMin:νStep:νMax#--------------------------------#
 
@@ -28,7 +36,7 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 
 #resultsMatrix = zeros(length(νGrid),length(ξGrid),5)
 #resultsMatrix = fill(Guess(guess.g,guess.L_RD,guess.w,guess.zS,guess.zE),(length(νGrid),length(ξGrid)))
-resultsMatrix = Array{Guess,2}(undef,length(χSGrid),length(νGrid))
+resultsMatrix = Array{ModelSolution,2}(undef,length(χSGrid),length(νGrid))
 
 #guess = Guess(initGuess.g,initGuess.L_RD,initGuess.w,initGuess.zS,initGuess.zE)
 
@@ -48,55 +56,32 @@ for i = 1:length(χSGrid)
 
         results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,guess)
 
+        # Update guess in place for faster looping
+
         guess.g = results.finalGuess.g
         guess.L_RD = results.finalGuess.L_RD
         guess.w = results.finalGuess.w
         guess.zS = results.finalGuess.zS
         guess.zE = results.finalGuess.zE
 
-        resultsMatrix[i,j] = Guess(results.finalGuess.g,results.finalGuess.L_RD,results.finalGuess.w,results.finalGuess.zS,results.finalGuess.zE)
+        #resultsMatrix[i,j] = Guess(results.finalGuess.g,results.finalGuess.L_RD,results.finalGuess.w,results.finalGuess.zS,results.finalGuess.zE)
+        resultsMatrix[i,j] = ModelSolution(results.finalGuess,results.incumbent,results.spinoutValue,results.auxiliary)
 
     end
 
 end
 
-#--------------------------#
-# Plot results             #
-#--------------------------#
-
-gArray = zeros(size(resultsMatrix))
-L_RDArray = zeros(size(resultsMatrix))
-
-for i = 1:length(χSGrid)
-    for j = 1:length(νGrid)
-
-        gArray[i,j] = resultsMatrix[i,j].g
-        L_RDArray[i,j] = resultsMatrix[i,j].L_RD
-
-    end
-end
-
-
-#df = DataFrame(x = νGrid, y = resultsMatrix[:,1], label = "g")
-
-df = DataFrame(x = Float64[],y = Float64[],label = String[])
-
-df1 = DataFrame(x = νGrid * modelPar.ξ, y = gArray[1,:], label = "χS = $(χSGrid[1])")
-df2 = DataFrame(x = νGrid * modelPar.ξ, y = gArray[2,:], label = "χS = $(χSGrid[2])")
-df3 = DataFrame(x = νGrid * modelPar.ξ, y = gArray[3,:], label = "χS = $(χSGrid[3])")
-df4 = DataFrame(x = νGrid * modelPar.ξ, y = gArray[4,:], label = "χS = $(χSGrid[4])")
-df5 = DataFrame(x = νGrid * modelPar.ξ, y = gArray[5,:], label = "χS = $(χSGrid[5])")
-df = vcat(df1,df2,df3,df4,df5)
-p1 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Growth rate vs νξ"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Rate"), Guide.xlabel("νξ"), Theme(background_color=colorant"white"))
-
-
-df1 = DataFrame(x = νGrid * modelPar.ξ, y = L_RDArray[1,:], label = "χS = $(χSGrid[1])")
-df2 = DataFrame(x = νGrid * modelPar.ξ, y = L_RDArray[2,:], label = "χS = $(χSGrid[2])")
-df3 = DataFrame(x = νGrid * modelPar.ξ, y = L_RDArray[3,:], label = "χS = $(χSGrid[3])")
-df4 = DataFrame(x = νGrid * modelPar.ξ, y = L_RDArray[4,:], label = "χS = $(χSGrid[4])")
-df5 = DataFrame(x = νGrid * modelPar.ξ, y = L_RDArray[5,:], label = "χS = $(χSGrid[5])")
-df = vcat(df1,df2,df3,df4,df5)
-p2 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("L_RD vs νξ"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Amount of labor"), Guide.xlabel("νξ"), Theme(background_color=colorant"white"))
-
-p = vstack(p1,p2)
-draw(PNG("./figures/nuxi_chiS_plot.png", 10inch, 10inch), p)
+## Save resultsMatrix as JLD file
+#save("./output/nuxi_resultsMatrix.jld","resultsMatrix",resultsMatrix)using Revise
+#using InitializationModule
+#using AlgorithmParametersModule
+#using ModelSolver
+#using HJBModule
+#using GuessModule
+#using AuxiliaryModule
+#using DataFrames
+#using Gadfly
+#using Interpolations
+#using Cairo, Fontconfig
+#using JLD2
+@save "./output/nuxi_resultsMatrix.jld2" resultsMatrix

@@ -20,7 +20,7 @@ __precompile__()
 
 module HJBModule
 
-using AlgorithmParametersModule, ModelParametersModule, GuessModule, Optim, LinearAlgebra, SparseArrays, Gadfly
+using AlgorithmParametersModule, ModelParametersModule, GuessModule, Optim, LinearAlgebra, SparseArrays
 import AuxiliaryModule
 
 export IncumbentSolution, solveIncumbentHJB, solveSpinoutHJB

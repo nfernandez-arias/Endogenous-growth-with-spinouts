@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: notes on modelling winner take all investment environments.aux
+The style file: plainnat.bst
+Database file #1: risky_innovation_winner_take_all.bib.bib
+You've used 5 entries,
+            2773 wiz_defined-function locations,
+            637 strings with 6269 characters,
+and the built_in function-call counts, 2618 in all, are:
+= -- 257
+> -- 150
+< -- 3
++ -- 50
+- -- 45
+* -- 236
+:= -- 421
+add.period$ -- 26
+call.type$ -- 5
+change.case$ -- 31
+chr.to.int$ -- 5
+cite$ -- 10
+duplicate$ -- 97
+empty$ -- 187
+format.name$ -- 56
+if$ -- 533
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 4
+newline$ -- 44
+num.names$ -- 20
+pop$ -- 38
+preamble$ -- 1
+purify$ -- 25
+quote$ -- 0
+skip$ -- 77
+stack$ -- 0
+substring$ -- 116
+swap$ -- 7
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 55
+warning$ -- 0
+while$ -- 23
+width$ -- 0
+write$ -- 94

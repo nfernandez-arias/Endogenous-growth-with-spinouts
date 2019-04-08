@@ -1,0 +1,60 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{255,100,200}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{Estimating competition between spinouts and parent firms}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Introduction}
+
+One of the main contributions of my project is to discipline the analysis using a measure of the extent to which spinout firms actually compete with their parent firms. This is a key determinant of whether the expected joint value of learning is positive when employees cannot be prevented from forming spinouts.\footnote{The other key determinant is what are the fixed costs of forming an entering firm. My model assumes a functional form for this and simply estimates it based on spinout entry. Adding flexibility here would require thinking hard about how variable costs of attempting entry vs. fixed costs of entering can be separately identified.}
+
+The problem is that spinout formation should in theory affect all firms in the industry. However, there may be industry-state-time shocks that affect both VC funding of spinouts and parent firm stock prices. 
+
+\section{OLS specification}
+
+Let $Y_{it}$ denote the outcome variable for incumbent firm $i$ at time $t$. This outcome could consist of levels or growth rates of the stock price, sales, profits, employment, or other outcome variables. 
+
+Let $\Gamma_{it}$ denote the explanatory variable, aggregated over some industry. 
+
+
+
+
+
+
+
+
+\end{document}

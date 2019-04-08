@@ -1,0 +1,76 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{128,0,0}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{Notes on Baslandze 2019, "Spinout entry, innovation, and growth"}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Notes}
+
+\begin{enumerate}
+	\item \textbf{Risk aversion trick:} Avoids issue of risk aversion messing things up by using frictional labor market with undirected search. In other words, there is no need for R\&D managers to be indifferent between working at high-knowledge firms vs. low knowledge firms. And, since there is still surplus sharing, this is the case even though in equilibrium high-knowledge firms do pay lower wages. But, overall, it is still better to be matched with a high-knowledge firm.
+	\item \textbf{Spawning of highly innovative spinouts: } Assumes directly that high knowledge gap \textit{causes} a firm to spawn more high-innovation spinouts. It seems more likely that highly innovative firms are both more likely to have large gaps and more likely to spawn highly innovative spinouts. This introduces a vast number of parameters into her calibration (20 parameters!), one for each size of the knowledge gap! This is then disciplined by looking at how the probability of spawning a high-growth spinout depends on the share of patents in that class over the last 5 years assigned to the parent firm. A lot of her parent firms are in Compustat. Her model predicts clearly that this measure should be related to higher profits, which she could check.
+	\item \textbf{Spinout entry and harm to parent, match-specific productivity: } As already documented, spinouts enter into other product lines, but knowledge gap shrinks to zero. Author interprets this as loss of match-specific productivity, but technically in the model it is the other firms catching up to the incumbent. In any case, my model is not about the loss of match-specific productivity but rather the flow of non-rivalrous knowledge (that nonetheless weakens the monopoly position). Both mechanisms are surely relevant, so the two analyses complement each other in this way.
+	\item \textbf{Non-competes} Non-competes are just a fixed cost of spinout formation. This is strange because in the model there is no actual competition between spinouts and parent firms in the model.
+	\item \textbf{Mechanism:} High gap firms are assumed to produce high growth spinouts in other industries. Cost of spinout formation does not scale with this probability, so workers devote more effort to spinout formation and hence more spinouts form. Firms are compensated by workers for this, but not by other entrants (or rather, consumers) for the lower prices they imply. 
+	\item \textbf{Computational algorithm: } It doesn't make sense to me. She never explains how she computes $\omega(n,\tau)$, except to say that she picks it so that $S(n,\tau),V(n,\tau)$ satisfies something. But doesn't that mean she has to solve a fixed point inside of her fixed point? Doesn't make sense.
+	\item \textbf{Error} "Solution of the model shows the share of firms with technology gaps close to 20 is neglibigle, hence having higher $N$ does not alter the results" \textbf{this is not true!} $N$ is the resolution, not the length, of the interval - there is no objective scale to this variable in the data. The jump size will simply be calibrated to be lower. 
+	\item \textbf{Bargaining:} What is the role of risk aversion in bargaining? The utility function does not appear, it seems strange. How does this work..?
+	\item\textbf{Calibration / validation}
+	\begin{enumerate}
+		\item Claims the model predicts how non-compete enforcement is related to spinout entry, but this is sort of automatic...
+		\item Also, I don't understand quantitative fit. She says "Different values of $F$ are chosen to correspond to the different values 0-9 of the non-compete index." As long as the relationship between $F$ and spinout formation is monotonic, the values can be chosen so that it quantitatively fits...This is not a very strong validation of the model. 
+		\item Claims model predicts quantitatively decreased competition, but then uses an arbitrary measure in the model and simply claims that it changes by the same percentage terms as the measure used in the data. This is only valid if the two measures are linearly related, which she has not explicitly assumed, nor should she. 
+	\end{enumerate} 
+	\item \textbf{Analysis}
+	\begin{enumerate}
+		\item In her application to non-competes, she takes seriously the effect of spinout entry on the distribution of firms in $n$ space. But this is completely ad-hoc in her model, since spinouts don't actually enter into the same product line. This is assumed in addition to the fact that they on average increase competition in the product line they enter as well. 
+		\item Overall it's ok
+		\item Doesn't really give non-competes a chance, since it is assumed that all spinouts are restricted equally. In my model, only spinouts that compete with the parent firm will be restricted. The other spinouts won't be, and will compensate the firm in equilibrium, increasing the incentive for innovation. Still, there may be a benefit due to the usual benefits of more creative destruction. It all depends on my measurement of the competition. 
+	\end{enumerate}
+\end{enumerate}
+
+\section{Overall impression}
+
+The model has some very nice features. The data work is reasonable, but not very thoroughly explained. The calibration is reasonable except for the determination of $F$, which is based on data from the US economy. The validation is problematic for the reasons stated above. The welfare and optimal enforcement policy analysis is in my opinion also problematic. Overall, the paper does not really change my priors - it essentially just assumes spinout formation is always good and that non-competes would always lower it. There is a disincentive effect, but it is sort of arbitrary in the model and further not quantified by the data. For example, her measure of $n$ in the data is not a function of recent spinout formation. 
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,88 @@
+\documentclass[11pt,english]{article}
+\usepackage{palatino}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+\title{Extending to stochastic knowledge expiry}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Background}
+
+One of the key mechanisms in the model is the ``escape competition'' effect: incumbents have an incentive to do more R\&D as $m$ grows because a successful innovation puts more technological distance between them and their potential competitors. The strength of this effect in the model is restricted by the structural assumption that all spinouts' knowledge ``expires'' once an innovation occurs. Below, I describe an extension to the model where the strength of this mechanism is controlled by a parameter. 
+
+\begin{remark}
+	The model will still be restricted in one sense. A lower $\theta$ also means knowledge that is spilled over is more valuable. Hence, settings of the model with a higher escape competition effect should reduce the optimal $\nu \xi$, since it makes $\nu \xi$ "effectively" higher. But not sure. 
+\end{remark}
+
+\section{Stochastic knowledge expiry}
+
+Suppose that a fraction $\theta$ of knowledge expires (the baseline model has $\theta =1$). Then the spinout HJB is
+\begin{align*}
+	(\rho + \theta \tau(q,m,t)) W(q,m,t) &= \xi \Big(\phi_{SE}(z_E(q,m,t) + z_S(q,m,t)) V(\lambda q, (1-\theta)m) - w(q,m,t) \Big) \\
+	                                      &+  (1-\theta) \tau(q,m,t) W(\lambda q, (1-\theta)m,t) + a(q,m,t) W_m(q,m,t)
+\end{align*}
+
+If we assume that $V(q,m,t) = qV(m)$ and that \newline $z_E,z_S,\tau,a(q,m,t),w(q,m,t) \equiv z_E(m),z_S(m),\tau(m),a(m),w(m)$, then this becomes
+\begin{align*}
+	(\rho + \theta \tau(m)) W(q,m,t) &= \xi \Big( \phi_{SE}(z_E(m) + z_S(m)) \lambda q V((1-\theta)m) - w(m) \Big) \\
+										  &+  (1-\theta) \tau(m) W(\lambda q, (1-\theta)m,t)	
+\end{align*}
+
+which confirms a guess $W(q,m,t) = qW(m)$, 
+\begin{align*}
+	(\rho + \theta \tau(m)) W(m)  &= \xi \Big( \phi_{SE}(z_E(m) + z_S(m)) \lambda V((1-\theta)m) - w(m) \Big) \\
+										  &+  (1-\theta) \tau(m) \lambda W((1-\theta)m)	
+\end{align*}
+
+
+What about the necessary conditions on $\gamma$? Well, since
+\begin{align*}
+	\gamma(s) &= C_{\gamma} e^{-gs} \\
+	\int_0^{\infty} \gamma(m) \mu(m) dm &= 1
+\end{align*} still hold in equilibrium, hence $\gamma$ is fully determined by $g$ and $\mu$. So we have to show that a function equation is redundant: 
+\begin{align*}
+	\gamma(s) &= \lambda \gamma(s((1-\theta)^{-1}m))
+\end{align*}
+
+To prove this, will necessarily have to take into account the effect of $\theta$ on the BGP stationary distribution $\mu(m)$, because this is what has to affect $g$ in such a way that the additional equations are redundant. There will now be another term in the KF equation corresponding to the injection of new particles at $m$ coming from $(1-\theta)^{-1}m$. This is similar to the structure above and that's probably (hopefully) what makes these equations redundant.
+
+To be precise, the KF equation becomes
+\begin{align*}
+	0 = -a'(m)\mu(m) - a(m)\mu'(m) + \tau(m)\big( \mu((1-\theta)m) - \mu(m) \big)  
+\end{align*}
+
+How to solve?
+
+\begin{enumerate}
+	\item Try reparametrizing $m$ to $s$ so we can get rid of the $a'(m)$ term. Then have that for each $m$, $0 = -\mu'(s(m)) + \tau(s(m)) \big( \mu(s((1-\theta)m)) - \mu(s(m)) \big)$. Then use $s(m) = \int_0^m a(m')^{-1} dm'$
+	\item Try reparametrizing to $\log m$ somehow so that ratio becomes a difference. 
+	\item Give up on proving redundancy and try to simply show by simulation that these equations hold in equilibrium. 
+\end{enumerate}
+
+
+We then get $\mu$ with 
+\begin{align*}
+	\mu(m) &= C_{\mu} e^{-\int_0^m \frac{a'(m') + \tau(m')}{a(m')} dm'} \\
+	1 &= \int_0^M \mu(m) dm
+\end{align*}
+
+
+
+
+
+\end{document}

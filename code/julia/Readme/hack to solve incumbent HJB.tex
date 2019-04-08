@@ -1,0 +1,37 @@
+\documentclass[11pt,english]{article}
+\usepackage{palatino}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+\title{Hack to solve incumbent HJB}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+If I implement the finite difference scheme on its own, it returns a solution which satisfies the HJB to very high precision \textit{except for at $0$}. 
+
+This problem compounds, because even though it has a minor effect on $V(0)$, it completely throws off $V'(0)$, which changes the optimal policy $z_I^*(0)$ dramatically. 
+
+My solution is that when I solve the HJB, I just set $z_1 = z_2$, which is approximately true in equilibrium by continuity. 
+
+This then returns a solution $V$ that is still approximately wrong at $z_1$. While imperceptible to the naked eye, again it completely throws off $V'(0)$ meaning $z_1$ is no longer optimal. At every point $m > 0$, the finite difference version of the HJB is approximately satisfied. At $m = 0$, it is also approximately satisfied \textit{provided that} I use $V'(0) \approx \frac{V_3-V_2}{m_3 - m_2}$, which in equilibrium is approximately equal to $V'(0)$. 
+
+The above definitely does not constitute as rigorous an argument as I would like to make, but I personally am convinced that the object I am arriving at is a very close approximation of a value function that satisfies the HJB of the incumbent. 
+
+
+
+
+\end{document}

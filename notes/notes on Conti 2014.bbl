@@ -1,0 +1,18 @@
+\begin{thebibliography}{1}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Conti(2014)]{conti_non-competition_2014}
+Raffaele Conti.
+\newblock Do non-competition agreements lead firms to pursue risky {R}\&{D}
+  projects?
+\newblock \emph{Strategic Management Journal}, 35\penalty0 (8):\penalty0
+  1230--1248, 2014.
+\newblock ISSN 1097-0266.
+\newblock \doi{10.1002/smj.2155}.
+\newblock URL \url{https://onlinelibrary.wiley.com/doi/abs/10.1002/smj.2155}.
+
+\end{thebibliography}

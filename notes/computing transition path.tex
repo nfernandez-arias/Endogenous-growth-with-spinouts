@@ -1,0 +1,98 @@
+\documentclass[10pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+\definecolor{red1}{RGB}{255,100,200}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+	
+\title{Transition dynamics in "Endogenous Growth with Creative Destruction by Employee Spinouts"}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Background}
+
+Computing transition dynamics is challenging because in general $L_F(t)$ will vary along the transition, so $\pi(t)$ will vary, so $V(q,m,t),W(q,m,t)$ and hence $z_I(q,m,t),z_E(q,m,t),z_S(q,m,t)$ will vary as well. 
+
+However, the scaling assumptions do continue to hold along the transition path: i.e. $V(q,m,t) = qV(m,t)$ and $W(q,m,t) = qW(m,t)$. This also implies that $\tau_{SE}(q,m,t) = \tau_{SE}(m,t)$ and $w(q,m,t) = w(m,t)$. This is true for the same reason as along the BGP: the scaling of the problem ensures that if this form is guessed, the $q$ drops out of even the time-dependent HJBs. 
+
+\section{Algorithm}
+
+To solve for the transition path, use the following algorithm:
+
+\begin{enumerate}
+	\item Compute old BGP values $V^0(m),W^0(m)$, policies $z_I^0(m),z_E^0(m),z_S^0(m)$, and aggregate distributions $\mu^0(m),\gamma^0(m)$
+	\item Compute new BGP values $V^1(m),W^1(m)$, policies $z_I^1(m),z_E^1(m),z_S^1(m)$ and aggregate distributions $\mu^1(m),\gamma^1(m)$
+	\item Guess (smallish) transition length $T > 0$.
+	\begin{enumerate}
+		\item Guess labor allocations $\Big\{L_{RD}(t)\Big\}_{0 \le t \le T}$, creative destruction rates $\Big\{\tau_{SE}(m,t)\Big\}_{0 \le t \le T}$ and R\&D wages $\Big\{w(m,t)\Big\}_{0 \le t \le T}$, which coincide with initial / terminal BGP values at $t = 0,T$ respectively. 
+		\begin{enumerate}
+			\item For $0 \le t \le T$, compute $L_F(t)$ using static equilibrium conditions and $\pi(t) = \beta L_F(t)$. 
+			\item Solve incumbent HJB:
+			\begin{enumerate}
+				\item Taking as given $\pi(t),\tau_{SE}(m,t),w(m,t)$, integrate time-dependent incumbent HJB backwards from $T$ to zero
+				\item Terminal condition: $V(m,T) = V^1(m)$.
+			\end{enumerate}
+			\item This yields $\Big\{\hat{V}(m,t),\hat{z}_I(m,t) \Big\}_{0 \le t \le T}$. 
+			\item Solve potential spinout HJB:
+			\begin{enumerate}
+				\item Compute $\hat{z}_S(m,t)$ and $\hat{z}_E(m,t)$ using usual "free entry" rules given computed $\hat{V}(m,t)$ and guess $\tau_{SE}(m,t)$. 
+				\item Taking as given $\tau_{SE}(m,t),w(m,t)$ and policy $\hat{z}_S(m)$, integrate time-dependent potential spinout HJB backwards from $T$ to zero
+				\item Terminal condition: $W(m,T) = W^1(m)$.
+			\end{enumerate}
+			\item Compute $\hat{\tau}(m,t) = \hat{\tau}_I(m,t) + \hat{\tau}_S(m,t) + \hat{\tau}_E(m,t)$
+			\item Aggregation: Compute resulting path $\hat{\mu}(m,t),\hat{\gamma}(m,t),L_F(t)$
+			\begin{enumerate}
+				\item Integrate \textit{forward} from $\hat{\mu}(m,0) = \mu^0(m),\hat{\gamma}(m,0) = \gamma^0(m)$ using time-dependent KF equation and evolution equation for $\gamma(m,t)$
+				\item This involves calculating $\hat{g}_t$ using $\hat{z}_I(m,t),\hat{z}_E(m,t),\hat{z}_S(m,t)$ to compute $\hat{\tau}(m,t)$.
+				\item Simultaneously also calculate $\hat{L}_{RD}(t) = \int_0^{\infty} \Big( \hat{z}_I(m,t) + \hat{z}_E(m,t) + \hat{z}_S(m,t)\Big) \hat{\gamma}(m,t) \hat{\mu}(m,t) dm$
+			\end{enumerate}
+			\item Check convergence:
+			\begin{enumerate}
+				\item Check that $\hat{\tau}_{SE}(m,t)$ is equal to the guess $\tau_{SE}(m,t)$. If not, update guess for $\tau_{SE}(m,t)$. 
+				\item Check worker indifference: $\hat{w}(m,t) = - \nu \hat{W}(m,t) + \bar{w}$. If not, update guess for R\&D wage.
+				\item Check that $\hat{L}_{RD}(t) = L_{RD}(t)$. If not, update guess for R\&D labor allocation.
+				\item Check that $\hat{\mu}(m,T) = \mu^1(m)$ and $\hat{\gamma}(m,T) = \gamma^1(m)$. If not, increase $T$ guess. 
+			\end{enumerate}
+		\end{enumerate}	
+	\end{enumerate}
+\end{enumerate}
+
+\begin{remark}
+	The current algorithm has only one fixed point loop, over $\Big\{T,L_{RD}(t),\tau_{SE}(m,t),w(m,t) \Big\}$. It may be better to nest it, as in the BGP algorithm: bring the fixed point to compute $V(m,t),W(m,t),z_I(m,t),z_E(m,t),z_S(m,t)$ down one layer, so it converges given $L_{RD}(t)$ and $w(m,t)$. This may take longer, but is also less likely to get lost in the ether. To be honest, though, not sure how to think about this tradeoff.
+\end{remark}
+
+\begin{remark}
+	A major improvement could potentially be made by making a correct-in-equilibrium assumption about the equilibrium form of $z_S(m),z_E(m)$. I know what this form will be, of course: there is some $M(t)$, and $z_S(m,t) = \xi m$ for $m < M(t)$ and $z_S(m,t) = \xi M(t)$ for $m \ge M(t)$; $ \chi_E \phi_{SE} (z_E(m,t) + z_S(m,t)) \lambda V(m,t) = w(m,t)$ and $M(t)$ is determined by $M(t) = \arg \inf_{m > 0} \Big\{ \chi_S \phi_{SE}(m) \lambda V(m,t) = \overline{w} \Big\}$. This may require not nesting the algorithm, but not sure -- at the end of the day, I'm just restricting strategies to a particular simple set of strategies - now only have to guess \textbf{one} variable per time period, instead of two continuums. So it probably is the way to go. 
+\end{remark}
+	
+	
+	
+	
+\end{document}

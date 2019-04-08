@@ -18,9 +18,9 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 500
+    mgrid_numPoints = 1000
     mgrid_minimum = 0.0
-    mgrid_maximum = .05
+    mgrid_maximum = .015
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-8
 
@@ -33,9 +33,9 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 100;
+    incumbentHJB_timeStep = 50;
     incumbentHJB_tolerance = 1e-7;
-    incumbentHJB_maxIter = 20
+    incumbentHJB_maxIter = 30
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter);
 
@@ -59,7 +59,7 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    g_tolerance = 1e-6;
+    g_tolerance = 1e-7;
     g_maxIter = 500;
     g_updateRate = 0.3;
     g_updateRateExponent = 1;
@@ -73,7 +73,7 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    L_RD_tolerance = 1e-6;
+    L_RD_tolerance = 1e-7;
     L_RD_maxIter = 500;
     L_RD_updateRate = 0.3;
     L_RD_updateRateExponent = 1;
@@ -87,7 +87,7 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    w_tolerance = 1e-6;
+    w_tolerance = 1e-7;
     w_maxIter = 500;
     w_updateRate = 0.3;
     w_updateRateExponent = 1;
@@ -101,7 +101,7 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    zSzE_tolerance = 1e-7;
+    zSzE_tolerance = 1e-9;
     zSzE_maxIter = 150;
     zSzE_updateRate = 0.3;
     zSzE_updateRateExponent = 1;
@@ -164,16 +164,16 @@ function setModelParameters()
     L = 1
 
     # Innovation
-    χI = 6.22189
-    χS = 1.89753
-    χE = 0.95 * χS
+    χI = 3.2523
+    χS = 1.42543
+    χE = 1.2029
     ψI = 0.5
     ψSE = 0.5
-    λ = 1.03902
+    λ = 1.0532733
 
     # Spinouts
-    ν = 0.02
-    ξ = 5
+    ν = 0.0102495
+    ξ = 10
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ)
 

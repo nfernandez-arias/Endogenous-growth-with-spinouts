@@ -1,0 +1,143 @@
+\documentclass[12pt,english]{article}
+\usepackage{palatino}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+\title{Aggregate constant returns to scale entrant and spinout innovation technology}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Background}
+
+In AK 2017, entrants -- in the aggregate, not just individually -- are assumed to have constant returns to scale in their innovation production function. This adds tractability, since it imposes a simple condition relating the wage to the value of incumbency, conditional on there being any amount of entry.\footnote{For spinouts, which do not have free entry, the analogous condition is an inequality.} Some questions:
+
+\begin{enumerate}
+	\item Does this actually simplify the model?
+	\item Would it improve the realism / fit of my model?
+	\item Can this be used in my paper?
+\end{enumerate}
+
+\section{Analysis}
+
+I believe the answer to (3) above is \textbf{no}. Therefore, (1) and (2) are not really applicable (though still interesting to think about).
+
+The free entry condition for entrants in this case would be something like
+\begin{align*}
+	\chi_E \lambda V(0) &= w(m)
+\end{align*}
+
+for $m \le \hat{M}$, where $\hat{M}$ is the point at which ordinary entrants stop entering. This implies that, in equilibrium, 
+\begin{align*}
+	w(m) &\equiv \hat{w}
+\end{align*}
+
+for $m \le \hat{M}$. Unless
+\begin{align*}
+	W(m) &\equiv \hat{W}
+\end{align*}
+
+this implies that R\&D labor supply will be zero for $m \in [0,\hat{M}]$ such that 
+\begin{align*}
+	W(m) < \max_{m' \in [0,\hat{M}]} W(m') 
+\end{align*}
+
+But by the Inada conditions on incumbent R\&D productivity, at a finite wage $w(m)$, incumbents will demand some R\&D labor. Hence there is no equilibrium (at least not a BGP) with entry by ordinary entrants. 
+
+Next, I will argue that $W(m)$ cannot be constant for $m < \hat{M}$ in equilibrium. 
+
+\begin{remark}
+	The argument below must be flawed in some way, because there is no way that $W(m)$ can be constant. As $m$ approaches $\hat{M}$, there is a smaller buffer until the time when things start to get ``worse'' for spinouts. Hence, the value should be gradually decreasing, even if the flow payoff is constant.
+\end{remark}
+
+\paragraph{Flawed argument}
+Suppose that it is constant. Then $w(m)$ is also constant. The HJB is therefore
+\begin{align*}
+	(\rho + \tau(m)) W(m) &= \overbrace{\nu a(m) W'(m)}^{= 0}+ \overbrace{\frac{z_S(m)}{m}}^{= \xi} \Big( \chi_S  \lambda V(0) - \overbrace{w(m)}^{=\hat{w}} \Big) \\
+	                      &= \xi \Big( \chi_S \lambda V(0) - \hat{w} \Big)
+\end{align*}
+
+Hence, unless $\tau(m)$ is constant, we arrive at a contradiction. Well, $\tau(m)$ is given by 
+\begin{align*}
+	\tau(m) &= z_E(m)\chi_E + z_S(m) \chi_S + z_I(m) \phi(z_I(m)) \chi_I  \\
+	        &= z_E(m) \chi_E + \xi m \chi_S + z_I(m) \phi(z_I(m)) \chi_I 
+\end{align*}
+
+The constant returns to scale assumption does not pin down $z_E(m)$, hence it is free to vary to make $\tau(m)$ constant. But $z_I(m)$ will not likely be constant, since $V'(m)$ is likely not constant. 
+
+
+So we are left with:
+\begin{align*}
+	\hat{\tau} &= z_S(M) \chi_S 
+\end{align*}
+
+So I was wrong - it \textbf{is} possible!\footnote{Need to go back and think about incumbent behavior. But I think it still works, since entrants are indifferent the whole time and hence take up the slack / reduce their demand to preserve equilibrium as incumbents and spinouts increase their aggregate R\&D efforts}
+
+What happens for $\hat{M} < m < \bar{M}$? Well, there, we have 
+\begin{align*}
+	\tau(m) &= z_S(m) \chi_S 
+\end{align*}
+
+So we have a closed form for $\tau(m)$:
+\begin{enumerate}
+	\item For $m \in [0,\hat{M}]$: $\tau(m) = \hat{\tau} = \hat{M}  \xi \chi_S$ 
+	\item For $m \in [\hat{M},\bar{M}]$: $\tau(m) = \xi m \chi_S$
+	\item For $m > \bar{M}$: $\tau(m) = \xi \bar{M} \chi_S$
+\end{enumerate}
+
+The R\&D wage $w(m)$ satisfies $w(m) = \bar{w} - \nu W(m)$, which implies
+\begin{enumerate}
+	\item For $m \in [0,\hat{M}]$: $w(m) = \hat{w} = \chi_E \lambda V(0) $ 
+	\item For $m \in [\hat{M},\bar{M}]$: $w(m) = \bar{w} - \nu W(m)$
+	\item For $m > \bar{M}$: $w(m) = \bar{w} \equiv \textrm{Production wage}$
+\end{enumerate}
+
+The spinout value $W(m)$ satisfies
+\begin{enumerate}
+	\item For $m \in [0,\hat{M}]$: $W(m) = \hat{W} = \chi_E \lambda V(0) $ 
+	\item For $m \in [\hat{M},\bar{M}]$: $W(m)$ satisfies HJB (described below)
+	\item For $m > \bar{M}$: $W(m) = 0$ 	
+\end{enumerate}
+
+The only thing that can move to have the spinouts reach a free entry mass is the wage. But at this point, the R\&D wage is equal to the production wage, since there is no learning in equilibrium. Hence,
+\begin{align*}
+	\chi_S \lambda V(0) = \bar{w}
+\end{align*}
+
+Since $\bar{w}$ is pinned down by the static equilibrium, this gives us immediately an expression for equilibrium $V(0)$.
+
+Using the entrant free-entry condition, this in turn gives us $\hat{w}$,
+\begin{align*}
+	\chi_E \lambda V(0) &= \hat{w} 
+\end{align*}
+
+In turn, this gives us $\hat{W}$, 
+\begin{align*}
+	\hat{W} &= \frac{\bar{w} - \hat{w}}{\nu}
+\end{align*}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,148 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{255,100,200}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{Specification for state-subsidy IV}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{In-state spinouts}
+
+\subsection{Ideal specification}
+
+Let $RD_{ist}$ denote R\&D spending by firm $i$ in state $s$ at time $t$. Let $S_{ist}$ denote the number of spinouts of firm $i$ in state $s$ at time $t$. 
+\begin{align}
+	S_{ist} &= \exp\Big(\alpha_{is} + \gamma^S RDsubsidy_{st} + \epsilon_{ist}\Big) + \beta RD_{ist} + \varepsilon_{ist} \label{spinouts_ist}
+\end{align}
+This imposes the assumption that R\&D only causes spinouts in the same state.
+
+Suppose 
+\begin{align}
+	RD_{ist} &= \exp \Big( \chi_{is} + \gamma^I RDsubsidy_{st} + \eta_{ist} \Big)
+\end{align}
+
+This specification for R\&D spending by the incumbent encodes the assumption that a given R\&D subsidy increases total firm R\&D spending by an amount proportional to average R\&D spending by that firm in that state. They encode this in a reduced form way by using an "average" RD user cost instrument for total R\&D, weighted by how much R\&D spending occurs in each state. 
+
+I do not have data on R\&D spending by state. In this specification, total firm $i$ R\&D spending at time $t$ is
+\begin{align}
+	RD_{it} &= \sum_s \exp \Big( \chi_{is} + \gamma^I RDsubsidy_{st} + \eta_{ist} \Big)
+\end{align}
+
+Then total spinouts by firm $i$ at time $t$ are 
+\begin{align}
+	S_{it} &= \sum_s \exp\Big(\alpha_{is} + \gamma^S RDsubsidy_{st} + \epsilon_{ist}\Big) \nonumber \\
+	       &+ \beta \sum_s \exp \Big( \chi_{is} + \gamma^I RDsubsidy_{st} + \eta_{ist} \Big) + \sum_s \varepsilon_{ist} 
+\end{align}
+
+\subsection{Boom et al. specification}
+
+Suppose
+\begin{align}
+	RD_{it} &= \exp \Big( \chi_i + \gamma^I \sum_s \alpha_{it} RDsubsidy_{st} + \eta_{it} \Big)
+\end{align}
+
+Then
+\begin{align}
+	S_{it} &= \sum_s \exp\Big(\alpha_{is} + \gamma^S RDsubsidy_{st} + \epsilon_{ist}\Big) \nonumber \\
+			&+ \beta \exp \Big( \chi_i + \gamma^I \sum_s \alpha_{it} RDsubsidy_{st} + \eta_{it} \Big)  +  \sum_s \varepsilon_{ist} 	
+\end{align}
+
+Then the firm-specific instrument is
+\begin{align}
+	Z_{it} &= \sum_s \alpha_{it} RDsubsidy_{st} 
+\end{align}
+
+Will the exclusion restriction be satisfied? Well no. But, can we not just exploit the non-linearity? We have lots of observations, and conditional on $RDsubsidy_{st}$ shouldn't it work? We can estimate $chi_i$ and $\gamma^I$ by looking at just data on firm $i$. So we just have to estimate $\beta, \alpha_{is}$ and $\gamma^S$. We can imagine a further simpler specification, inspired by Bloom et al., 
+\begin{align}
+	S_{it} &= \exp(\alpha_i^S + \gamma^S \sum_s \alpha_{it} RDsubsidy_{st} + \epsilon_{ist}) \nonumber \\
+			&+ \beta \exp \Big( \chi_i + \gamma^I \sum_s \alpha_{it} RDsubsidy_{st} + \eta_{it} \Big)  +  \sum_s \varepsilon_{ist} 	
+\end{align}
+
+In easier notation,
+\begin{align}
+	S_{it} &= \exp(\alpha_i^S + \gamma^S Z_{it} + \epsilon_{ist}) \nonumber \\ 
+			&+ \beta \exp \Big( \chi_i + \gamma^I Z_{it} + \eta_{it} \Big)  +  \sum_s \varepsilon_{ist} \label{Spinout entry}
+\end{align}
+
+We have to estimate $\beta, \alpha_i, \gamma^S$. The problem is that this is not non-linear least squares - the error is mixed with the value of the covariate $Z_{it}$. 
+
+\subsection{Identification by assuming $\gamma^S = \gamma^E$}
+
+Suppose entry is also affected by the R\&D subsidy in the same way that spinout formation is directly affected. That is,
+\begin{align}
+	E_{it} &= \exp(\alpha_i^E + \gamma^E Z_{it} + \epsilon^E_{ist}) \label{Non-spinout entry}
+\end{align}
+with $\gamma^E = \gamma^S$. Then my methodology would be to estimate (\ref{Non-spinout entry}) by OLS, and obtain $\hat{\gamma}^{S,E}$. Then take this estimate as given in non-linear estimation of (\ref{Spinout entry}), to obtain estimates of $\alpha_i^S$ and $\beta$.
+
+\begin{remark}
+	This may not be possible - I have included too many noise terms. 
+\end{remark}
+
+\subsection{Identification with fewer noise terms}
+
+\begin{align}
+S_{ist} &= \exp\Big(\alpha_{is} + \gamma^S RDsubsidy_{st}\Big) + \beta RD_{ist} + \varepsilon_{ist} \label{spinouts_ist_noNoise}
+\end{align}
+
+Then (\ref{spinouts_ist_noNoise}) is a version of (\ref{spinouts_ist}) with only one additive noise term. This implies
+\begin{align}
+	S_{it} &= \sum_s \exp\Big(\alpha_{is} + \gamma^S RDsubsidy_{st} \Big) \nonumber \\
+			&+ \beta \sum_s \exp \Big( \chi_{is} + \gamma^I RDsubsidy_{st} + \eta_{ist} \Big) + \sum_s \varepsilon_{ist} 
+\end{align}
+
+
+\subsection{Identification by looking at out-of-state spinouts}
+
+Since I don't have high-frequency data on state-level R\&D spending, in order to use this method to avoid the violation of the exclusion restriction I have to consider only spinouts of $i$ in states $s' \notin \mathcal{S}_i$, where $\mathcal{S}_i \equiv \Big\{ s : \textrm{Firm i performs R\&D in state $s$} \Big\}$. This restricts things quite severeley.
+
+\subsection{Identification by fixed effects}
+
+Perhaps an IV is not necessary. If I assume that omitted variables affecting both parent firm R\&D and spinout formation occur only at the state-industry-year level (e.g., a particular industry has a geographically and temporally local investment opportunity), then a specification with state-industry-year fixed-effects should be able to estimate things based off of within-state, within-industry variation between firm spending on R\&D. If enough firm controls are included this could be reasonable. The specification is something like 
+\begin{align}
+	S_{i,j(i),s,t} &= \alpha_{j(i),s,t}^S + \beta RD_{ist} + \varepsilon_{i,j(i),s,t} \\
+	RD_{ist} &= \alpha_{j(i),st}^{RD} + \eta_{ist}
+\end{align}
+where $\mathrm{Corr} \Big( \alpha_{j(i),s,t}^S, \alpha_{j(i),s,t}^{RD} \Big) > 0 $. Hence there is an endogeneity problem. This can be solved by purging the dependent and independent variables of their $j(i),s,t$ mean to get
+\begin{align}
+	\hat{S}_{i,j(i),s,t} &= \beta \hat{RD}_{ist} + \varepsilon_{i,j(i),s,t} \label{spinouts_FE_demeaned} \\
+	\hat{RD}_{ist} &= \eta_{ist} 
+\end{align}
+
+Since $\mathrm{Corr} \Big( \varepsilon_{i,j(i),s,t}, \eta_{ist} \Big) = 0$, there is no more issue from endogeneity. We can estimate $\beta$ by running simple OLS on (\ref{spinouts_FE_demeaned}). 
+
+Note that this does not assume that there are no firm-specific shocks to spinout formation. Only that these firm-specific shocks are not correlated with any firm-specific shocks to parent firm R\&D. 
+
+
+\end{document}

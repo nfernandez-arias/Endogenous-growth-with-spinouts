@@ -1,6 +1,49 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: draft.aux
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: draft.aux
 The style file: plain.bst
 Database file #1: sources.bib
 Warning--can't use both author and editor fields in cohen2010
 Warning--can't use both author and editor fields in marx_fleming_2012
+You've used 32 entries,
+            2118 wiz_defined-function locations,
+            639 strings with 8424 characters,
+and the built_in function-call counts, 8005 in all, are:
+= -- 759
+> -- 401
+< -- 4
++ -- 162
+- -- 126
+* -- 419
+:= -- 1472
+add.period$ -- 96
+call.type$ -- 32
+change.case$ -- 157
+chr.to.int$ -- 0
+cite$ -- 34
+duplicate$ -- 344
+empty$ -- 588
+format.name$ -- 126
+if$ -- 1618
+int.to.chr$ -- 0
+int.to.str$ -- 32
+missing$ -- 34
+newline$ -- 163
+num.names$ -- 64
+pop$ -- 167
+preamble$ -- 1
+purify$ -- 127
+quote$ -- 0
+skip$ -- 259
+stack$ -- 0
+substring$ -- 212
+swap$ -- 52
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 124
+warning$ -- 2
+while$ -- 68
+width$ -- 34
+write$ -- 324
 (There were 2 warnings)

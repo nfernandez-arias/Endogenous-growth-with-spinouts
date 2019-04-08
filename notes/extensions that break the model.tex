@@ -1,0 +1,76 @@
+
+\documentclass[11pt,english]{article}
+\usepackage{palatino}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+\title{Model improvements that reduce tractability}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Introduction}
+
+There are several natural extensions to my model that unfortunately entail a significant loss of tractability. This stems from the fact that they all mean that the model cannot be made to work with diverging conditional distribution of $q/Q$. 
+
+\section{Employment-entrepreneurship choice}
+
+\subsection*{Problem}
+
+The flow value of supply labor as an employee is something linear in $Q$, say $W Q$. The value of operating a given monopoly in state $(q,m)$ is $S(m)q$ for a decreasing function $S(\cdot)$. Would-be entrepreneurs stop entering when $S(m)q < WQ$. This implies a threshold rule $\bar{m}(q/Q)$. With $W = 0$, which is mathematically equivalent to the case when employees do not have any choice, this is a constant $\bar{m}$. But with $W > 0$, this threshold depends on $q$. Hence, the joint distribution of $(q/Q,m)$ needs to be constant for a BGP to exist.\footnote{Technically this is not true, but it would be very difficult to find one if it does.}
+
+\subsection*{Solution}
+
+Any solution to this problem would entail making the flow value of entrepreneurship scale with $Q$ instead of with $q$. This can be achieved, for example, by assuming that the scale of a spinout in state $(q/Q,m)$ is $\xi (q/Q)^{-1}$.\footnote{This is analogous to my current assumption that the learning rate is $\nu (q/Q)^{-1}$.} Since workers have a choice of where to supply their labor, in order to preserve an R\&D wage that depends only on $m$ and $Q$, the effective learning rate must no longer depend on $q/Q$ -- a departure from this assumption was initially only necessary to offset the fact that the subject of learning was more valuable for higher $q/Q$. 
+
+For tractability, we also need incumbent value $V$ to be written as $V(m)q$. Since the R\&D wage is $w(m)Q$, we need effective labor required for a given rate of innovation to scale with $q/Q$. But since learning is not slower for higher $q/Q$, this means higher $q/Q$ leak knowledge more quickly. This kills any hope of $V(m,q,Q)$ not depending on $Q$, which kills tractability. So there does not appear to be a solution that does not involve reworking the model to have a stationary $(q/Q,m)$ distribution.
+
+\subsection{Caveat / silver lining}
+
+It would be somewhat incoherent for spinouts to have entrepreneurial choice but not incumbents or ordinary entrants. Hence, to introduce this feature into the model -- and convert it into a model of endogenous growth through entrepreneurship -- I would need to take seriously this choice. 
+
+But, there is absolutely no way to do this without a stationary $(q/Q,m)$ distribution. Hence, this feels like a completely separate project. But a conceivable one: at all times, all households are indifferent between supplying labor to the labor market or running a firm. Depending on the knowledge this worker holds, this firm can either be an incumbent (i.e. a firm that is actually selling intermediate goods) or an entrant / spinout (i.e. a firm that is attempting). 
+
+Look into this. 
+
+
+\section{Employee risk aversion}
+
+\subsection*{Problem}
+My assumption that the learning rate is slower for more advanced goods works because of worker risk-neutrality. Otherwise, workers would value more the larger chance of a smaller gain than the smaller chance of a larger gain. That is, they would prefer learning at low quality goods and the wage $w(m,q,Q)$ would no longer be $w(m)Q$ but rather $w(m,q/Q) Q$. 
+
+\subsection*{Solution}
+
+There are two potential ways to proceed. Neither seems worth doing, at least for this project.
+
+\begin{enumerate}
+	\item Assume complete markets --> representative household. Unrealistic for my purposes, but seems a common assumption - e.g. in Akcigit-Kerr 2017 "Growth with heterogeneous innovations", there is a rep. household that gets profits from all firms, but firms compete with each other as though this is not the case. This solves the problem because now the household acts as though it is risk-neutral when making employment decisions. So what is gained? 
+	\item Incomplete markets. Easiest case: hand-to-mouth. But then the riskiness re-emerges, and it's impossible to have $w(m,q,Q) = w(m)Q$ - it will be $w(m,q/Q)Q$ instead. Need to re-work model to ensure stationary $(q/Q,m)$ distribution. 
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

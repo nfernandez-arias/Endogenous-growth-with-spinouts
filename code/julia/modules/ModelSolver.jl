@@ -20,7 +20,7 @@ __precompile__()
 module ModelSolver
 
 using AlgorithmParametersModule, ModelParametersModule, GuessModule, HJBModule, InitializationModule
-using Plots, GR
+#using Plots, GR
 import AuxiliaryModule,Base.deepcopy
 
 export solveModel,ModelSolution,AuxiliaryEquilibriumVariables

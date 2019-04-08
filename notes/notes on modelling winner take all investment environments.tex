@@ -1,0 +1,93 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{128,0,0}
+\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+%\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+%\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{Endogenous growth with risky innovation}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Introduction}
+
+Entering firms are known to invest more in high-risk, high-return innovation than established, incumbent firms, as observed in \cite{akcigit_growth_2018}. Policies which affect the age distribution of firms interact with this fact, hence it is important to consider when modeling endogenous growth. Existing analyses have typically proceeded under the exogenous assumption that younger firms are endowed with a comparative advantage in incremental innovation. This is the assumption, for example, in the framework of \cite{akcigit_growth_2018}. Another example is \cite{acemoglu_innovation_2013}, in which firm innovativeness is assumed to follow a Markov chain with an absorbing "non-innovative" state, producing "less innovative" incumbents. This is then used as a framework for analyzing policy trading off the incentive effects of increased monopoly power with the decreased innovative capacity of older firms on average. Or, consider \cite{acemoglu_innovation_2015}, in which incumbent firms are endowed with a technology for incremental innovation that is not available to entrants. 
+
+I claim that the above frameworks are unsatisfactory as they do not satisfy a Lucas critique. As in in \cite{aghion_competition_2005}, policies to support entry and innovation all affect the equilibrium distribution of firm productivities in a product market. To the extent that differences in risky investment are being driven by difference in the competitive environment of the industry, this is extremely important.I propose an alternative framework which provides a foundation for the different investment behavior of incumbent and young firms. 
+
+A key prediction of my framework is that it is market leaders, not old firms, who tend to engage in more incremental innovation. I turn to the patent data to explore this. I also have sales data from Compustat (line of business data) to determine market share for each producer in their main line of business. 
+
+There are three distinct economic forces which can be thought to determine the riskiness of investment. 
+
+First, in any winner-take-all environment, players with a "handicap" -- in my case, market laggards, as they require a large innovation than leaders in order to be "on top" next period -- invest in riskier assets. The flip side of this is that market leaders seek to protect their leadership position, and so shun risky investments in favor of risk-free or "defensive" investments.
+
+Second, when multiple innovations occur each period and only the best innovation profits, the payoff function $p(q)$ where $q$ is the quality of the resulting invention, is made more convex, endogenously creating risk-loving behavior.
+
+Third, to the extent that the likelihood of being a future market leader is increasing with current proximity the market leader, the winner-take-all dynamic is weakened and risky investment decreases. 
+
+\section{Related literature}
+
+My paper is reminiscent of \cite{cohen_firm_1996}. That paper explains the low productivity of large firm innovation (in terms of patents produced per dollar of R\&D) by arguing that large firms are not less productive, but rather are motivated by process R\&D since they have a larger output base with which to approprite its returns. Process R\&D is less likely to result in patentable inventions (check that this is the right interpretation).
+
+\section{Empirical methodology}
+
+For now, I want to study this question empirically to see whether the basic implications of the theory are satisfied.
+
+\subsection{Definition of key variables}
+
+Market leadership: fraction of sales in given line of business?
+
+See how this correlates to patenting dominance?
+
+"proximity to market leader" is proximity in patent space
+
+Is this associated with future proximity in sales space? 
+
+\section{Framework}
+
+Depending on the results of the empirical anlaysis, I will devise a framework.
+
+It is challenging computationally to track the stochastic distribution of firm productivities over time. A typical assumption has been to assume only two states, market leaders and market laggards. 
+
+
+
+The efficiency is interesting. One might think that the winner-take-all environment leads to an excessive investment in efficiency. However, given that the social planner can expand the production of the best idea, in fact the social planner also only cares about the order statistic. Hence the winner-take-all aspect does not create excessive innovation. Only the competitive aspect, whereby agents are competing against each other in creative destruction.
+
+T
+
+
+
+
+\bibliography{risky_innovation_winner_take_all.bib}
+
+
+\end{document}

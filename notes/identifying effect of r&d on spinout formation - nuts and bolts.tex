@@ -1,0 +1,160 @@
+\documentclass[11pt,english]{article}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\usepackage{palatino}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+\title{Identifying the effect of incumbent R\&D on spinout formation}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Background}
+
+Define $S_{ijlt}$ denote total number of new spinouts of firm $i$ in state $j$ in industry $l$ during year $t$. Similarly, let $E_{jlt}$ denote the total number of non-spinout entrants in state $j$ in industry $l$ during year $t$. Let $\rho_{jt}$ measure the effective subsidy to R\&D in state $j$ at time $t$, taken as exogenous. Let $RD_{ijt}$ denote the relevant RD stock at firm $i$ in state $j$ and time $t$.\footnote{E.g., weighted average of current and lagged state-level R\&D spending and/or employment.}. Let $RD_{i,-j,t}$ denote the same stock but outside of state $j$. Finally let $l(i)$ denote the industry / product-market of firm $i$. 
+
+\paragraph{Note} Need to modify the below to take into account the fact that R\&D depends log-linearly on R\&D user cost.
+
+\subsection{OLS}
+
+Basic OLS would estimate
+\begin{align*}
+	S_{ijlt} &= \alpha_{ijl}^S + \beta RD_{ijt} + \gamma RD_{i,-j,t} + \epsilon^S_{ijlt}
+\end{align*}
+
+The problem is that 
+\begin{align*}
+	\epsilon^S_{ijlt} &= \varepsilon^S_{ijt} + \sigma^S_{lt} + \eta^S_{ijlt} \\
+	RD_{ijt} &= \alpha_{ij}^{RD} + \varepsilon^{RD}_{jt} + \sigma^{RD}_{l(i)t} + \eta^{RD}_{ijlt}
+\end{align*}
+
+with $\varepsilon^S_{jt},\varepsilon^{RD}_{jt}$ and $\sigma^S_{lt},\sigma^{RD}_{lt}$ correlated. In words, there are state-time and industry-time shocks to innovation investment opportunities, and these shocks affect both incumbent R\&D and spinout formation in the same direction. This biases $\hat{\beta}_{OLS},\hat{\gamma}_{OLS}$ upwards.
+
+\subsection{IV with federal level R\&D subsidies interacted with firm-specific variables}
+The clearest solution is to instrument R\&D by the Federal tax incentive component of the firm-time-varying R\&D user cost $\rho_{it}^F$. As explained in Bloom et al. 2013, $\rho_{it}^F$ has a firm-time-specific component $\xi_{it}^F$ because what qualifies as R\&D for tax purposes depends on a firm-time-specific "base".
+
+If $\xi_{it}^F$ is orthogonal to the time-varying user cost of R\&D for startups, the IV estimate is consistent. And it should be, since we have
+\begin{align*}
+	\rho_{it}^F &= \rho_{t}^F + \xi_{it}^F
+\end{align*}
+
+with $\mathbf{E}\Big[\xi_{it}^F \cdot \rho_t^F \Big] = 0$. Since the time-varying user cost of R\&D for startups is likely to be correlated if anything with $\rho_t^F$, the estimate should be consistent.
+
+\paragraph{Minor caveat} While $\xi_{it}^F$ is likely uncorrelated with $\rho_t^F$, it may be predictable and manipulable by the firm. Could this be a problem? 
+
+\subsection{IV with state-level R\&D subsidies}
+
+It may be possible to perform a similar analysis using the state-level component of the firm-time R\&D user cost, $\rho_{ijt}$. This would be good as it would provide two alternative forms of identification which could be compared. 
+
+Suppose we can decompose
+\begin{align*}
+	\varepsilon_{ijt}^{RD} &= \zeta_i^{RD} \rho_{jt} + \tilde{\varepsilon}^{RD}_{jt}
+\end{align*}
+
+Then a first-stage equation for R\&D is   
+\begin{align*}
+	RD_{ijt} &= \alpha_{ij}^{RD} + \zeta^{RD} \rho_{jt} + \tilde{\varepsilon}^{RD}_{jt} + \sigma^{RD}_{lt} + \eta^{RD}_{ijlt}
+\end{align*}
+
+But the exclusion restriction does not hold, because
+\begin{align*}
+	\varepsilon_{jt}^S &= \zeta_i^S \rho_{jt} + \tilde{\varepsilon}^S_{jt}
+\end{align*}
+
+i.e., $\rho_{jt}$ also affects spinout formation \textit{directly}. Since $\zeta^S$ is likely of the same sign as $\zeta^{RD}$, this biases $\hat{\beta}_{IV}$ upwards.
+
+What about $\hat{\gamma}_{IV}$? If spinout formation in state $j$ does not depend directly on R\&D subsidies in states $-j$, then the exclusion restriction is satisfied. Moreover, even if spinout formation in $j$ is directly affected by beneficial policies in $-j$, it is likely through reallocation of spinouts from $j$ to $-j$. Hence, the exclusion restriction is not satisfied, but biases estimates downwards. Estimates give a lower bound. This leads to the first idea for robust identification, below.
+
+\section{Identifying based on out-of-state spinouts}
+
+This is simply a mathematical formalization of the logic in the previous paragraph.
+
+\subsection{Idea}
+The most obvious way is to consider spinout-related outcomes that are not directly affected by R\&D subsidies in state $j$. I.e. if the outcome is spinouts in states other than the one that received the shock. To the extent that this continues to violate the exclusion restriction, it biases estimates downwards -- since one would expect, all else equal, a reduction in the price of R\&D in state $j$ relative to states $-j$ would lead a higher proportion of spinouts ocurring in state $-j$. So it would give a lower bound on this. 
+
+\subsection{Problem}
+The problem is that there may not be much statistical power. 
+
+Also, if I am interested in studying the effects of state-level non-compete enforcement, I should be measuring within-state outcomes. The other side of this coin, of course, is that I could measure how non-compete enforcement affects the fraction of spinouts founded in the state vs. out of the state.
+
+\section{Diff-in-diff: identification based on within-state non-spinout entry rates}
+
+The previous approach works in theory but suffers from two related drawbacks. 
+
+First, it only gives us part of the picture. It can provide evidence that R\&D leads to spinouts, but does not provide a reliable estimate of the full magnitude of this effect without additional assumptions (e.g. that the sensitivity of out-of-state spinouts to R\&D is related to the sensitivity of total spinouts to R\&D by the same factor of proportinality as the relative fraction of out-of-state to total spinouts).
+
+Second, if I am interested in exploring the consequences of non-compete enforcement policy, it becomes particularly important to have a reliable direct estimate of the within-state effect of R\&D spending on spinout formation, because this is presumably what will be most affected by the change in policy. Put another way, the ratio of the in-state and out-state coefficients will change with differing non-compete enforcement, so I need a direct measure of within-state sensitivity.
+
+To instead obtain a direct estimate of the effect of R\&D on within-state spinouts, we need to normalize the outcome variable by something which is affected in the same way by the instrument $\rho_{jt}$. 
+
+\subsection{Basic idea} 
+The simplest version of this idea begins with the assumption that we may write 
+\begin{align*}
+	E_{jlt} &= \alpha_{jl}^E + \epsilon^E_{jlt} \\
+	\epsilon^E_{jlt} &= \varepsilon^E_{jt} + \sigma^E_{lt} + \eta_{jlt}^E \\
+	\varepsilon^E_{jt} &= \zeta^E \rho_{jt} + \tilde{\varepsilon}_{jt} \\
+	\zeta^E &= \zeta^S
+\end{align*}
+
+If the above holds, then we can simply use $S_{ijlt} - E_{jlt}$ as an outcome variable. 
+
+However, the above does not hold. Presumably, $\zeta^E >> \zeta^S$, since $\zeta^S$ is measuring the effect on spinouts from one particular firm, and there are many firms in the economy. 
+
+\subsection{Potential solution: estimating $\zeta^E / \zeta^S$}
+
+One solution to the above problem is to have an estimate of $\zeta^E$ and $\zeta^S$. 
+
+For example, suppose that $\log E, \log S$ would have the same $\zeta$ coefficient in the analogous regression. That means that $\zeta^E = (\bar{E}/\bar{S}) \zeta^S$, where $\bar{E},\bar{S}$ are relevant averages. If we have an estimate of $\zeta^E / \zeta^S = \chi$, we can use $S_{ijlt} - \chi^{-1} E_{jlt}$ as an outcome variable. Direct dependence on $\rho_{jt}$ is purged. 
+
+
+
+\subsection{Remaining issues}
+Not robust to the possibility that, around the dates of the shocks, there are systematically differing trends in non-spinout and spinout entry rates. Made more likely by the fact that most of the shocks are in the same direction, so a constant differing trend could introduce this bias.
+
+
+\section{Diff-in-diff-in-diff: diffing by out-of-state spinout/non-spinout entry gap diff}
+
+\subsection{Basic idea}
+Look at the gap between the outcome in the previous idea, and the analogous outcome in a bordering state. This adds robustness to the criticism above. A good robustness check. 
+
+
+\section{Identification based on whether spinout is related to R\&D}
+
+\subsection{Basic idea}
+Using patent data, we can measure the extent to which a spinout builds on the technology of its parent firm. Then we can simply assume that these spinouts are **caused** by having R\&D employees (who then know the knowledge of the parent firm). We could even build a measure of how much more spinouts cite incumbent firm patents than similar entrants (how to define ``similar''?), which would help confirm that this is something that appears to result from spinouts. 
+
+\subsection{Problem}
+This is much more indirect.
+
+\section{Identifying product market rivalry between spinout and parent firm}
+
+This is a different question - when do we classify these things as competing, and do we distinguish between technology class and product class? Presumably, I am interested in spinouts that are members of both. 
+
+Will likely do it using industry codes - need to construct a matching between industry codes and NAICS. Another possibility would be to get the product data, although this is incomplete it would probably be useful to do robustness with this method...
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

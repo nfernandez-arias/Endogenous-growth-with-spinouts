@@ -1,0 +1,96 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{128,0,0}
+\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+%\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+%\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{Note on Conti 2014}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Introduction}
+
+The empirical results notwithstanding, the model used to motivate the hypotheses tested in \cite{conti_non-competition_2014}, does not make sense. In this note I describe why, formulate the model they should have written, and show that it does not generate the results they find.
+
+\section{Conti framework}
+
+In his framework, the firm has two projects, $A$ and $B$. Project $A$ yields a riskless payoff of $a > 0$. Project $B$ yields $b > a$ with probability $p \in (0,1)$ and $L < 0$ with probability $1-p$. The employee is able to form a spinout, stealing a fraction $\alpha \in (0,1)$ of the payoff, with probability $\lambda \in (0,1)$ if non-competes are not enforceable. Without non-competes, the expected payoffs are therefore:
+\begin{align*}
+	A:&\textrm{ \space \space} (1-\alpha\lambda) a \\
+	B:&\textrm{ \space \space} (1-\alpha\lambda) p b + (1-p) L 
+\end{align*}
+
+Since $L < 0$, the expected payoff from $B$ decreases by more than the expected payoff from $A$. 
+
+\section{My framework}
+
+Consider the following framework. Now both risky and risk-free investments require an \textit{ex ante} payment $I > 0$. The risk-free asset pays off $a > I$ for sure, while the risky asset pays off $b > a$ with probability $p$ and $c < I < a$ with probability $1-p$. 
+
+With non-competes, the expected payoffs are
+\begin{align*}
+	A:&\textrm{ \space \space} a - I \\
+	B:&\textrm{ \space \space} pb + (1-p)c - I
+\end{align*}
+
+Without non-competes, employees can form spinouts with probability $\lambda$. When this occurs, they take a fraction $\alpha$ of the payoff of the asset. Hence the expected payoffs
+\begin{align*}
+A:&\textrm{ \space \space} (1-\alpha\lambda)a - I \\
+B:&\textrm{ \space \space} (1-\alpha\lambda) \Big(pb + (1-p)c\Big) - I
+\end{align*}
+
+In my case, the reduction in value is the same for the risky and risk-free asset.
+
+\section{Discussion}
+
+The difference arises because I assume that the investment takes the form of a cost born by the firm, and a payoff, either large or small, that will be stolen by the employee. 
+
+The reconciliation between their model and mine is simple: their model is about net returns, whereas mine is about gross returns. \cite{conti_non-competition_2014} assumes that the employee steals a fraction of the net return only if it is positive. There is no obvious justification for this assumption. 
+
+Conti's variables in my framework are given by $L^{Conti} = c - I$, $b^{Conti} = b - I$ and $a^{Conti} = a - I$. His assumptions therefore amount to assuming that spinout makes off with a fraction of $a - I$ or $b - I$, but not $c - I$. This is equivalent to assuming that the spinout takes some of the gross returns, and pays the parent firm for the fraction of the gross returns it is taking. This further implies that the spinout will only occur when the net return is positive. 
+
+In and of itself the latter could be justified as a reduced form of some mechanism. But Conti's assumptions truly do require assuming that the spinout pays the parent firm the fraction of its investment cost. Without this assumption, the results go the other way: the spinout occurs in fewer states, so fewer payoffs are stolen in expectation. 
+
+One possible interpretation of the framework in \cite{conti_non-competition_2014} is that assumes gross returns can be negative and that spinouts only occur when the gross returns are positive. But this is a strange assumption. 
+
+
+
+
+\bibliography{note_conti_bib.bib}
+
+
+
+
+
+
+
+\end{document}

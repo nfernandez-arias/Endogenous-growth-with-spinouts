@@ -1,0 +1,88 @@
+\documentclass[11pt,english]{article}
+\usepackage{palatino}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+\title{Aggregate constant returns to scale entrant and spinout innovation technology}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Background}
+
+In AK 2017, entrants -- in the aggregate, not just individually -- are assumed to have constant returns to scale in their innovation production function. This adds tractability, since it imposes a simple condition relating the wage to the value of incumbency, conditional on there being any amount of entry.\footnote{For spinouts, which do not have free entry, the analogous condition is an inequality.} Some questions:
+
+\begin{enumerate}
+	\item Does this actually simplify the model?
+	\item Would it improve the realism / fit of my model?
+	\item Can this be used in my paper?
+\end{enumerate}
+
+\section{Analysis}
+
+I believe the answer to (3) above is \textbf{no}. Therefore, (1) and (2) are not really applicable (though still interesting to think about).
+
+The free entry condition for entrants in this case would be something like
+\begin{align*}
+	\chi_E \lambda V(0) &= w(m)
+\end{align*}
+
+for $m \le M$, where $M$ is the point at which ordinary entrants stop entering. This implies that, in equilibrium, 
+\begin{align*}
+	w(m) &\equiv \hat{w}
+\end{align*}
+
+for $m \le M$. Unless
+\begin{align*}
+	W(m) &\equiv \hat{W}
+\end{align*}
+
+this implies that R\&D labor supply will be zero for $m \in [0,M]$ such that 
+\begin{align*}
+	W(m) < \max_{m' \in [0,M]} W(m')
+\end{align*}
+
+But by the Inada conditions on incumbent R\&D productivity, at a finite wage $w(m)$, incumbents will demand some R\&D labor. Hence there is no equilibrium (at least not a BGP) with entry by ordinary entrants. 
+
+Next, I will argue that $W(m)$ cannot be constant for $m < M$ in equilibrium. Suppose that it is constant. Then $w(m)$ is also constant. The HJB is therefore
+\begin{align*}
+	(\rho + \tau(m)) W(m) &= \overbrace{\nu a(m) W'(m)}^{= 0}+ \overbrace{\frac{z_S(m)}{m}}^{= \xi} \Big( \chi_S  \lambda V(0) - \overbrace{w(m)}^{=\hat{w}} \Big) \\
+	                      &= \xi \Big( \chi_S \lambda V(0) - \hat{w} \Big)
+\end{align*}
+
+Hence, unless $\tau(m)$ is constant, we arrive at a contradiction. Well, $\tau(m)$ is given by 
+\begin{align*}
+	\tau(m) &= z_E(m)\chi_E + z_S(m) \chi_S  \\
+	        &= z_E(m) \chi_E + \xi m \chi_S
+\end{align*}
+
+The constant returns to scale assumption does not pin down $z_E(m)$, hence it is free to vary to make $\tau$ constant. So we are left with:
+
+\begin{align*}
+	\hat{\tau} &= z_S(M) \chi_S 
+\end{align*}
+
+So I was wrong - it \textbf{is} possible!
+
+\section{Equilibrium with constant returns to scale}
+
+
+
+
+
+
+
+\end{document}

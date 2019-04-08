@@ -58,7 +58,7 @@ println("--------------------------------------------------------------\n")
 println("$innovationRateIncumbent (Incumbents)")
 println("$entryRateOrdinary (Entrants)")
 println("$entryRateSpinouts (Spinouts)")
-println("$entryRateTotal (Total)")
+println("$entryRateTotal (Entrants + Spinouts)")
 
 internalInnovationShare = innovationRateIncumbent / (innovationRateIncumbent + entryRateTotal)
 println("\n--------------------------------------------------------------")
@@ -84,8 +84,41 @@ println("$aggregateRDSalesRatio (Total R&D spending / Total revenue from sales o
 
 
 
+println("\n--------------------------------------------------------------")
+println("NON-TARGETED MOMENTS--------------------------------------------")
+println("--------------------------------------------------------------\n")
+
+
+
+growthContribution_incumbent = (modelPar.λ - 1) * sum(τI .* γ .* μ .* Δm)
+growthContribution_entrants = (modelPar.λ - 1) * sum(τE .* γ .* μ .* Δm)
+growthContribution_spinouts = (modelPar.λ - 1) * sum(τS .* γ .* μ .* Δm)
+
+# Sanity check
+totalGrowth = growthContribution_incumbent + growthContribution_entrants + growthContribution_spinouts
+
+growthShare_incumbent = growthContribution_incumbent / totalGrowth
+growthShare_entrants = growthContribution_entrants / totalGrowth
+growthShare_spinouts = growthContribution_spinouts / totalGrowth
+
+println("\n--------------------------------------------------------------")
+println("Growth contributions--------------------------------------------")
+println("--------------------------------------------------------------\n")
+println("$growthContribution_incumbent (Growth due to incumbents)\n")
+println("$growthContribution_entrants (Growth due to ordinary entrants)\n")
+println("$growthContribution_spinouts (Growth due to spinouts)\n")
+
+println("\n--------------------------------------------------------------")
+println("Growth shares---------------------------------------------------")
+println("--------------------------------------------------------------\n")
+println("$growthShare_incumbent (Growth share: incumbents)\n")
+println("$growthShare_entrants (Growth share: ordinary entrants)\n")
+println("$growthShare_spinouts (Growth share: spinouts)\n")
+
 #--------------------------------#
 # Make some plots                #
 #--------------------------------#
 
 include("plotScript.jl")
+
+#include("presentationPlots.jl")

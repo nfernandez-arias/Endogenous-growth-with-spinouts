@@ -1,0 +1,67 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{255,100,200}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{Empirical To-do list}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\begin{enumerate}
+	\item Construct firm-specific R\&D user cost based on federal R\&D subsidies
+	\item Construct state-level non-compete enforceability changes dataset using data in Jeffers
+	\item Construct state-industry-level R\&D performance indicator based on patenting by Compustat firms
+	\begin{enumerate}
+		\item In each year, what are the total number of patents received by firms in that state in a given industry
+		\item How does this relate to R\&D performed? I.e., one might think there is a lag. Check literature for this. Bloom et al paper just assumes 
+		\item But still, just the raw patenting figure is meaningful
+	\end{enumerate}
+	\item Instrument based on state-level subsidies? A few approaches:
+	\begin{itemize}
+		\item Looks like I can't make this work, see notes. 
+	\end{itemize}
+	\item Just do OLS!
+	\begin{itemize}
+		\item Generally, cluster at firm
+		\item Plain-vanilla
+		\item Then add state-industry-year fixed effects
+	\end{itemize}
+\end{enumerate}
+
+
+
+
+
+
+\end{document}

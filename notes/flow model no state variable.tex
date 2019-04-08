@@ -1,0 +1,191 @@
+\documentclass[12pt,english]{article}
+\usepackage{palatino}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+\title{Spinout flow model}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+
+\section{Baseline model}
+
+\subsection{Decentralized equilibrium}
+
+Equations are
+\begin{align*}
+	V &= \frac{\bar{w}}{\lambda(\chi_E + \nu)} \\
+	z_I &= \Big(  \frac{\bar{w}-(\lambda-1)\nu V}{(1-\psi)\chi_I(\lambda-1)V} \Big)^{-1/\psi} \\
+	V &= \frac{\pi(L_{RD}) - (\overline{w} - (\lambda-1)\nu V) z_I}{\rho + \tau_E + \tau_S - \tau_I (\lambda -1)} \\
+	\tau_S &= \nu z_I \\
+	\tau_I &= \chi_I z_I^{1-\psi} \\
+	L_{RD} &= z_I + \frac{\tau_E}{\chi_E} \\
+	g &= (\lambda - 1)(\tau_I + \tau_E+ \tau_S)  \\
+	\overline{w} &= C(\beta)
+\end{align*}
+
+Eight equations, eight unknowns, $\{ V,z_I,\tau_E,\tau_I,\tau_S,L_{RD},g,\overline{w} \}$. 
+
+Welfare is 
+\begin{align*}
+	\frac{Y(L_{RD},Q = 1)}{\rho - g}
+\end{align*}
+
+
+\subsection{Social planner problem}
+
+The planner maximizes the present discounted value of consumption, subject to the labor resource constraint. This amounts to the following maximization problem:
+\begin{align*}
+	\max_{\{l_j\}_{j\in[0,1]},L_F,z_I,z_E} \frac{\frac{L_F^{1-\beta}}{1-\beta} \int_0^1 q_j^{\beta} (Q l_j)^{1-\beta} dj}{\rho - (\lambda-1)(\chi_I z_I^{1-\psi} + \chi_E z_E + \nu z_I)} 
+\end{align*}
+
+subject to the aggregate labor resource constraint
+\begin{align*}
+	L_F + \int_0^1 l_j dj + z_E + z_I \le 1
+\end{align*}
+
+
+\section{Model with fixed cost of spinout formation}
+
+Suppose that there is a cost $Cq$ for a spinout to replace an incumbent of quality $q$. 
+
+\subsection{Decentralized equilibrium}
+
+
+The only modification to the above is a change in the equilibrium R\&D wage to reflect the reduced bilateral surplus of spinning out. That is,
+\begin{align*}
+	w_{RD} &= \overline{w} - \nu (\lambda V - C)
+\end{align*}
+
+That is we essentially add this cost to the effective R\&D wage. The equilibrium equations become
+\begin{align*}
+V &= \frac{\bar{w}}{\lambda(\chi_E + \nu)} \\
+z_I &= \Big(  \frac{\bar{w}-(\lambda-1)\nu V + C}{(1-\psi)\chi_I(\lambda-1)V} \Big)^{-1/\psi} \\
+V &= \frac{\pi(L_{RD}) - (\overline{w} - (\lambda-1)\nu V + C) z_I}{\rho + \tau_E + \tau_S - \tau_I (\lambda -1)} \\
+\tau_S &= \nu z_I \\
+\tau_I &= \chi_I z_I^{1-\psi} \\
+L_{RD} &= z_I + \frac{\tau_E}{\chi_E} \\
+g &= (\lambda - 1)(\tau_I + \tau_E+ \tau_S)  \\
+\overline{w} &= C(\beta)
+\end{align*}
+
+\subsection{Social planner problem}
+
+Same as before, but the objective function is slightly modified to account for the cost of spinout formation:
+\begin{align*}
+\max_{\{l_j\}_{j\in[0,1]},L_F,z_I,z_E} \frac{\frac{L_F^{1-\beta}}{1-\beta} \int_0^1 q_j^{\beta} (Q l_j)^{1-\beta} dj - \nu z_I C}{\rho - (\lambda-1)(\chi_I z_I^{1-\psi} + \chi_E z_E + \nu z_I)} 
+\end{align*}
+
+subject to the aggregate labor resource constraint
+\begin{align*}
+L_F + \int_0^1 l_j dj + z_E + z_I \le 1
+\end{align*}
+
+\section{Model with effort to spin out}
+
+Suppose now that in order to achieve an intensity $\chi_S z^{1-\psi_S}$, $\psi_S \in (0,1)$, of successfully spinning out (per hour supplied), an R\&D employee must pay some cost in terms of the final good (per hour supplied), $qz$. 
+
+\subsection{Decentralized equilibrium}
+
+\textbf{Need to fix equilibrium R\&D wage - not taking into account optimization of arrival rate / costs of this optimization}
+
+Now the R\&D worker spinout formation problem is 
+\begin{align*}
+	\max_{z} (z^{1-\psi_S} \chi_S (\lambda V - C) - z)
+\end{align*} 
+
+which has solution
+\begin{align*}
+	z_S &= \Big( (1-\psi) \chi_S (\lambda V - C)  \Big)^{\frac{1}{\psi_S}} \\
+	\Rightarrow z_S &= \Big( \frac{1}{(1-\psi) \chi_S (\lambda V - C)}  \Big)^{-\frac{1}{\psi_S}}
+\end{align*}
+
+So the competitive equilibrium is defined as above except with one modification:
+\begin{align*}
+V &= \frac{\bar{w}}{\lambda(\chi_E + \nu)} \\
+z_I &= \Big(  \frac{\bar{w}-(\lambda-1)\nu V + C}{(1-\psi)\chi_I(\lambda-1)V} \Big)^{-1/\psi} \\
+\tau_I &= \chi_I z_I^{1-\psi_I} \\
+V &= \frac{\pi(L_{RD}) - (\overline{w} - (\lambda-1)\nu V + C) z_I}{\rho + \tau_E + \tau_S - \tau_I (\lambda -1)} \\
+z_S &= \Big( \frac{1}{(1-\psi) \chi_S (\lambda V - C)}  \Big)^{-\frac{1}{\psi_S}} \\
+\tau_S &= \chi_S z_S^{1-\psi_S}\\
+L_{RD} &= z_I + \frac{\tau_E}{\chi_E} \\
+g &= (\lambda - 1)(\tau_I + \tau_E+ \tau_S)  \\
+\overline{w} &= C(\beta)
+\end{align*}
+
+Still feasible to solve in closed form. 
+
+\subsection{Social planner problem}
+
+\textbf{Need to also add taking into account optimal arrival rate stuff}
+
+Same as before, but with an added choice variable and some lost more lost final good. However, it becomes easier to write it now with $z_S$ as a choice variable and one more constraint: 
+\begin{align*}
+\max_{\{l_j\}_{j\in[0,1]},L_F,z_I,z_E,z_S} \frac{\frac{L_F^{1-\beta}}{1-\beta} \int_0^1 q_j^{\beta} (Q l_j)^{1-\beta} dj - \tau_S C - z_S}{\rho - (\lambda-1)(\chi_I z_I^{1-\psi} + \chi_E z_E + \nu z_I)} 
+\end{align*}
+
+subject to the aggregate labor resource constraint
+\begin{align*}
+L_F + \int_0^1 l_j dj + z_E + z_I \le 1
+\end{align*}
+
+and the technology for converting $z_S$ into $\tau_S$,
+\begin{align*}
+	\tau_S &= \chi_S z_S^{1-\psi_S}
+\end{align*}
+
+Still seems completely feasible to solve in closed form. 
+
+
+\section{Model with fraction of spinouts entering other lines}
+
+\textbf{Need to also add taking into account optimal arrival rate stuff}
+
+
+Now suppose that by spending $z_S$, an R\&D worker will create a spinout in the home product line with intensity ($H$ for "home")
+\begin{align*}
+	\chi_S^H z^{1-\psi_S}
+\end{align*}
+
+and in a random other product line with intensity ($F$ for "foreign")
+\begin{align*}
+	(\frac{q}{Q}) \chi_S^F z^{1-\psi_S}
+\end{align*}
+
+Then the objective of an R\&D worker is 
+\begin{align*}
+	\max_z z^{1-\psi_S} \Big(\chi_S^H(\lambda Vq  - Cq) + (\frac{q}{Q}) \chi_S^F(\lambda V Q - CQ) \Big) - zq
+\end{align*}
+
+Dividing both terms by $q$ and simplifying, obtain
+\begin{align*}
+	\max_z z^{1-\psi_S} \Big(\chi_S^H(\lambda V  - C) + \chi_S^F(\lambda V - C) \Big) - z
+\end{align*} 
+
+which further simplifies to
+\begin{align*}
+	\max_z z^{1-\psi_S} (\chi_S^H + \chi_S^F)(\lambda V  - C) - z	
+\end{align*}
+
+which results in the straightforward condition 
+
+
+
+
+
+\end{document}

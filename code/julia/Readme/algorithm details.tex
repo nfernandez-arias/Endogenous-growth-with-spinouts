@@ -1,5 +1,5 @@
-\documentclass[12pt,english]{article}
-\usepackage{lmodern}
+\documentclass[11pt,english]{article}
+\usepackage{palatino}
 \usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
 \usepackage{geometry}
@@ -68,6 +68,32 @@ Simplify:
 Finally, define $C(\beta) = \tilde{C}(\beta)^{\beta}$ and we have
 \begin{align*}
 	\overline{w} &= C(\beta) \overline{q}
+\end{align*}
+
+\section{Equilibrium output}
+Have
+\begin{align*}
+	Y &= \frac{L_F^{\beta}}{1-\beta} \int_0^1 q_j^{\beta} k_j^{1-\beta} dj
+\end{align*}
+
+Substitute in expression derived above for equilibrium $k_j$ and $\bar{q}/\bar{w} = C(\beta)^{-1}$. Get
+\begin{align*}
+	Y &= \frac{L_F^{\beta}}{1-\beta} \int_0^1 q_j^{\beta} \Big( \frac{(1-\beta)\bar{q}}{\bar{w}}L_F q_j \Big)^{1-\beta} dj \\
+	  &= \frac{L_F^{\beta}}{1-\beta} \int_0^1 q_j^{\beta} \Big( (1-\beta)C(\beta)^{-1} L_F q_j \Big)^{1-\beta} dj \\
+	  &= \Big((1-\beta)C(\beta)^{-1} \Big)^{1-\beta} \frac{L_F^{\beta}}{1-\beta} L_F^{1-\beta} \int_0^1 q_j^{\beta} q_j^{1-\beta} dj \\
+	Y(L_F,\bar{q}) &= \frac{\Big((1-\beta)C(\beta)^{-1} \Big)^{1-\beta} }{1-\beta}L_F \bar{q}
+\end{align*}
+
+\section{Equilibrium welfare}
+Define
+\begin{align*}
+	\textrm{Welfare} &= \int_0^{\infty} e^{-\rho t}Y(t) dt \\
+	                 &= \frac{Y_0}{\rho - g}
+\end{align*}
+where 
+\begin{align*}
+	Y_0 &= Y(L_F,1) \\
+	    &= \frac{\Big((1-\beta)C(\beta)^{-1} \Big)^{1-\beta} }{1-\beta}L_F
 \end{align*}
 
 \section{Equilibrium allocation of labor to final goods production}

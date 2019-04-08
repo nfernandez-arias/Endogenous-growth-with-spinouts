@@ -31,6 +31,18 @@ function LF(L_RD::Float64, modelPar::ModelParameters)
 
 end
 
+function LF(L_RD::Array{Float64}, modelPar::ModelParameters)
+
+    β,L = modelPar.β, modelPar.L;
+    Cβ = AuxiliaryModule.Cβ(β)
+    #return β * (L - L_RD) / (β + (1-β)^2);
+
+    return (ones(size(L_RD)) * L -L_RD) / (1 + (1-β)/Cβ)
+
+end
+
+
+
 function profit(L_RD::Float64, modelPar::ModelParameters)
 
     β = modelPar.β;

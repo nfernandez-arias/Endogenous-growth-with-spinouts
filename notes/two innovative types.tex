@@ -1,0 +1,125 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+\usepackage{microtype}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+%\usepackage{palatino}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+\title{Firms of different innovativeness}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Overview}
+
+The basic idea is that there are two types of firms which differ in their innovativeness. Innovative firms are more likely to give rise to innovative spinouts, whether they are in their own or in another industry. More innovative firms do more R\&D, both because their return is higher and because their costs are lower, since the knowledge workers learn is more valuable. Could easily add worker effort, which would then lead to more spinout formation given R\&D in high innovation firms. But again, there are so many aspects of the data you can look at to falsify any of these assumptions.
+
+
+
+\begin{remark}
+	A stark prediction of this model is that spinout formation depends only on R\&D input, not on how innovative a firm is, or how advanced its product is. There really is no point in thinking about this more until I can look at the data. 
+\end{remark}
+
+\section{Details}
+
+Suppose firms can be of two types, high ($H$) or low ($L$) innovativeness. Let $\eta_H > \eta_L > 0$. WLOG we can normalize $\eta_L = 1$. An $H$-type incumbents of relative quality $q$ can convert $\Big(\frac{q}{Q}\Big) z$ units of R\&D labor per unit time into a hazard rate 
+\begin{align}
+	R_I^H(z) &= \eta_H \chi_I \phi_I(z)
+\end{align}
+
+of an innovation. Similarly, high-type spinouts and entrants ($S$ and $E$, respectively), convert $\Big(\frac{q}{Q}\Big) z$ units of R\&D labor per unit time into a hazard rate
+\begin{align*}
+	R_S^H(z) &= \eta_H \chi_J \phi_{SE}(z_E + z_S)
+\end{align*}
+for $J \in \{S,E\}$.
+
+For $K \in \{H,L\}$, let $\mu_K,\tau_K$ denote the endogenous "steady state" (BGP) distributions / endogenous arrival rates of innovations, respectively. Then for each $K \in \{H,L\}$, $\mu_K$ satisfies the Kolmogorov Forward equation,
+\begin{align*}
+	0 &= -a_K'(m)\mu_K(m) - a_K(m)\mu_K'(m) - \tau_K(m)\mu_K(m)
+\end{align*}
+
+To close the system we need to specify the the process of  . Suppose that with probability $\Theta$ spinouts are type $H$ and that all ordinary entrants are of type $L$.\footnote{In the basline model, since returns to scale are assumed constant at the individual level for entrants, all R\&D-active potential entrants will be $H$-type. Hence it is without loss of generality to assume they are all one type, and load the average spinout-entrant innovation productivity gap into $\chi_S \eta_H / \chi_E$. Of course, a more complicated model could be written in which there is a limited stock of potential entrants of each type, in which case both can be active. But this is beyond the scope of the current analysis. Also notice that this specification allows the gap in innovation productivity between a high-type spinout and a non-spinout to be different once they have successfully innovated.} High-type incumbents are born when a high-type spinout wins the innovation race. 
+
+For $K \in \{H,L\}$, the flow rate of dying $K$-type firms is
+\begin{align*}
+	D_K &= \int_0^{\infty} \mu_K(m) \tau_K(m)
+\end{align*}
+
+The BGP measure of type $K$ firms is denoted by $\alpha_K$, given by 
+\begin{align*}
+\alpha_K &= \int_0^{\infty} \mu_K(m) dm 
+\end{align*}
+
+
+Every new firm is high or low type with the same probability. This plus the death rates of firms of both types determine the steady state $\alpha_H,\alpha_L$. Death rate per firm is $D_H \alpha_H, D_L \alpha_L$, 
+\begin{align*}
+	D_H \alpha_H &= \int_0^{\infty} \mu_H(m) \tau_H(m) \\
+	D_L \alpha_L &= \int_0^{\infty} \mu_L(m) \tau_L(m) 
+\end{align*}
+
+In-flow of high-type is $(D_H \alpha_H + D_L\alpha_L)p_H$, inflow of low-type is $(D_H \alpha_H + D_L \alpha_L)p_L$, outflow of high-type is $D_H\alpha_H$ and outflow of low-type is $D_L\alpha_L$. Steady state:
+\begin{align*}
+	D_H \alpha_H &= (D_H \alpha_H + D_L\alpha_L)p_H \\
+	D_L \alpha_L &= (D_H \alpha_H + D_L \alpha_L)p_L
+\end{align*}
+
+What about $\gamma_H(m) = E[\tilde{q}|m,H,t]$ and $\gamma_L(m) = E[\tilde{q}|m,L,t]$? Will these be constant? Well, now have $s_H(m),s_L(m)$, which is the amount of time to get to $m$ for a high- or low-innovation firm. Then clearly have
+
+\begin{align*}
+	\gamma_H(s) &= C_{\gamma,H}e^{-gs} \\
+	\gamma_L(s) &= C_{\gamma,L}e^{-gs}
+\end{align*}
+
+
+and
+\begin{align*}
+	\gamma_H(m) &= \gamma_H(s_H(m)) \\
+	\gamma_L(m) &= \gamma_L(s_L(m))
+\end{align*}
+
+and
+\begin{align*}
+	\int_0^{\infty} \gamma_H(m) \mu_H(m) + \int_0^{\infty} \gamma_L(m) \mu_l(m) dm &= 1
+\end{align*}
+
+Also, it follows that neither the high-type or low-type can be higher quality on average. For, the newest high-type and newest low-type come from the same sample of firms, hence $C_{\gamma,H} = C_{\gamma_L}$. Not sure if this poses a problem but it seems pretty unavoidable. Hence we actually get 
+\begin{align*}
+	\int_0^{\infty} \gamma_H(m) \mu_H(m) &= 1 \\
+	\int_0^{\infty} \gamma_L(m) \mu_L(m) &= 1
+\end{align*}
+
+
+
+Then we can just aggregate to compute growth, 
+\begin{align*}
+	g &= g_H + g_L \\
+	g_H &= (\lambda -1)\int_0^{\infty} \gamma_H(m) \tau_H(m) \mu_H(m) dm \\
+	g_L &= (\lambda -1)\int_0^{\infty} \gamma_L(m) \tau_L(m) \mu_L(m) dm
+\end{align*}
+
+
+
+
+
+
+
+\end{document}
+
+
+
