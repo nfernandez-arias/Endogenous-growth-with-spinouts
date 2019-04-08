@@ -18,7 +18,7 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 1000
+    mgrid_numPoints = 500
     mgrid_minimum = 0.0
     mgrid_maximum = .015
     mgrid_logSpacing = true
@@ -101,7 +101,7 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    zSzE_tolerance = 1e-9;
+    zSzE_tolerance = 1e-7;
     zSzE_maxIter = 150;
     zSzE_updateRate = 0.3;
     zSzE_updateRateExponent = 1;

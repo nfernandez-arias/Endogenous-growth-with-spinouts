@@ -172,7 +172,8 @@ function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter
 
     for i = range(1,length = length(mGrid) - 1)
 
-		A[i,1] = τI[i] * λ
+		#A[i,1] = τI[i] * λ
+		A[i,1] = τI[i]  # no λ term -- Moll's idea
 		A[i,i+1] = ν * (zI[i] + aSE[i]) / Δm[i]
 		A[i,i] = - ν * (zI[i] + aSE[i]) / Δm[i] - τI[i] - τSE[i]
 		#A[i,i] = - ν * (zI[i] + aSE[i]) / Δm[i]
@@ -181,7 +182,8 @@ function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter
 
 	iMax = length(mGrid)
 
-	A[iMax,1] = τI[iMax] * λ
+	#A[iMax,1] = τI[iMax] * λ
+	A[iMax,1] = τI[iMax] # no λ term -- Moll's idea
 	A[iMax,iMax] = - τI[iMax] - τSE[iMax]
 	#A[iMax,1] = 0
 	#A[iMax,iMax] = 0
@@ -245,6 +247,7 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
     for i = 1:length(mGrid)-1
 
 		A[i,1] = τI[i] * λ
+		#A[i,1] = τI[i]  # no λ term -- Moll's idea
 		A[i,i+1] = ν * (zI[i] + zS[i] + zE[i]) / Δm[i]
 		A[i,i] = - ν * (zI[i] + zS[i] + zE[i]) / Δm[i] - τI[i] - τSE[i]
 		#A[i,i] = - ν * (zI[i] + aSE[i]) / Δm[i]
@@ -256,6 +259,7 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 	#A[iMax,iMax] = - τI[iMax] - τSE[iMax]
 
 	A[end,1] = τI[end] * λ
+	#A[end,1] = τI[end]  # no λ term -- Moll's idea
 	A[end,end] = - τI[end] - τSE[end]
 
 	#A[iMax,1] = 0
@@ -401,7 +405,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 		# Hack - "guess and verify", true in eq by continuity
 
-		zI[1] = zI[2]
+		zI[1] = zI[2] #- no need for hack with Moll's method
 		zI[end] = zI[end-1]
 
 		#---------------------------#
@@ -439,6 +443,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 	    ## Make update:
 	    u = Π .- zI .* w
+		#u = Π .+ ((λ-1) * τI .* V0[1])  .- (zI .* w)  # Moll's idea -- here add (λ-1) * τI * V0[1] term
 		#A = constructMatrixA(algoPar,modelPar,guess,zI)
 		updateMatrixA(algoPar,modelPar,guess,zI,A)
 
