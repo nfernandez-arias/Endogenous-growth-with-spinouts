@@ -357,8 +357,9 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     ## Unpack guess
     ###################################################
     w = guess.w;
-    zS = guess.zS;
-    zE = guess.zE;
+    #zS = guess.zS;
+    #zE = guess.zE;
+	idxM = guess.idxM
 
     # Compute initial guess for V, "value of staying put"
     # based on L_RD guess and profit function
@@ -439,7 +440,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		## Unpack tau functions
 		########################################
 		τI = AuxiliaryModule.τI(modelPar,zI)[:]
-		τSE = AuxiliaryModule.τSE(modelPar,zS,zE)[:]
+		τSE = AuxiliaryModule.τSE(algoPar,modelPar,idxM)[:]
 
 	    ## Make update:
 	    u = Π .- zI .* w

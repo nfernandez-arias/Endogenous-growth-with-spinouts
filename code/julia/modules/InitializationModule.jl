@@ -101,16 +101,16 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    zSzE_tolerance = 1e-7;
-    zSzE_maxIter = 150;
-    zSzE_updateRate = 0.3;
-    zSzE_updateRateExponent = 1;
+    idxM_tolerance = 1e-7;
+    idxM_maxIter = 150;
+    idxM_updateRate = 0.3;
+    idxM_updateRateExponent = 1;
 
-    zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent);
+    idxM = IterationParameters(idxM_tolerance,idxM_maxIter,idxM_updateRate,idxM_updateRateExponent);
 
     write(f, "zSzE Iteration Parameters \n---------------\n")
     for n in fieldnames(IterationParameters)
-        temp = getfield(zSzE,n)
+        temp = getfield(idxM,n)
         write(f,"$n: $temp \n")
     end
     write(f, "\n\n")
@@ -128,9 +128,9 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    zSzE_Log_verbose = 2;
-    zSzE_Log_print_skip = 1;
-    zSzE_Log = LogParameters(zSzE_Log_verbose,zSzE_Log_print_skip);
+    idxM_Log_verbose = 2;
+    idxM_Log_print_skip = 1;
+    idxM_Log = LogParameters(idxM_Log_verbose,idxM_Log_print_skip);
 
     write(f, "zSzE Logging Parameters \n---------------\n")
     for n in fieldnames(LogParameters)
@@ -205,19 +205,19 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
     w = wbar * ones(size(mGrid));
     #w = 0.5 * wbar * ones(pa.mGrid.numPoints,1)
 
-    #idxM = pa.mGrid.numPoints;
+    idxM = pa.mGrid.numPoints;
 
-    zS = pm.ξ .* mGrid
+    #zS = pm.ξ .* mGrid
 
     #zS = 0.1 * ones(pa.mGrid.numPoints,1)
 
     #zE = 0.1 * zS
 
-    zE = 0.1*ones(size(zS))
+    #zE = 0.1*ones(size(zS))
     #zE = 0 * ones(pa.mGrid.numPoints,1);
 
     #return InitialGuess(L_RD,w,idxM,zS,zE)
-    initGuess = Guess(g,L_RD,w,zS,zE)
+    initGuess = Guess(g,L_RD,w,idxM)
 
     return initGuess
 

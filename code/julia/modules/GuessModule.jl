@@ -26,12 +26,12 @@ mutable struct Guess
     w::Array{Float64}
 
     # Spinout entry threshold
-    #idxM::Int64
+    idxM::Int64
 
     # Spinout and entrant R&D effort
-    zS::Array{Float64}
+    #zS::Array{Float64}
 
-    zE::Array{Float64}
+    #zE::Array{Float64}
 
 end
 

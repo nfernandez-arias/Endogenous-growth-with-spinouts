@@ -235,13 +235,12 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     g = initGuess.g
     L_RD = initGuess.L_RD
     w = initGuess.w
-    zS = initGuess.zS
-    zE = initGuess.zE
+    idxM = initGuess.idxM
 
     # Construct new guess object - this will be the object
     # that will be updated throughout the algorithm
 
-    guess = Guess(g,L_RD,w,zS,zE);
+    guess = Guess(g,L_RD,w,idxM);
 
     # Initialize outside of loops for returning
     V = zeros(algoPar.mGrid.numPoints,1)
@@ -278,11 +277,11 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
         #anim = Animation()
 
-        cleanGuess = Guess(guess.g,guess.L_RD,guess.w,guess.zS,guess.zE)
+        cleanGuess = Guess(guess.g,guess.L_RD,guess.w,guess.idxM)
 
         # Initialize while loop variables
-        iterate_zSzE = 0;
-        error_zSzE = 1;
+        iterate_idxM = 0;
+        error_idxM = 1;
 
         try
 
@@ -303,10 +302,11 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 # Update zS and zE given solution HJB and optimality / free entry conditions
 
                 # Record initial values
-                old_zS = guess.zS
-                old_zE = guess.zE
+                old_idxM = guess.idxM
 
                 # Update guess object (faster than allocating new one)
+
+
                 guess.zS,guess.zE,factor_zS,factor_zE = update_zSzE(algoPar,modelPar,guess,incumbentHJBSolution.V,W)
 
                 # Increase iterator

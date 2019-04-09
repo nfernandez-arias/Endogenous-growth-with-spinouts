@@ -59,7 +59,7 @@ function wbar(β::Float64)
 
 end
 
-function τSE(modelPar::ModelParameters,zS::Array{Float64},zE::Array{Float64})
+function τSE(algoPar::AlgorithmParameters,modelPar::ModelParameters,idxM::Int64)
 
     χS = modelPar.χS
     χE = modelPar.χE
@@ -67,6 +67,8 @@ function τSE(modelPar::ModelParameters,zS::Array{Float64},zE::Array{Float64})
     ψSE = modelPar.ψSE
 
     ϕSE(z) = z .^(-ψSE)
+
+    zS = 1:algoPar.mGrid.numPoints
 
     return (χS * zS + χE * zE) .* ϕSE(zS + zE)
 
