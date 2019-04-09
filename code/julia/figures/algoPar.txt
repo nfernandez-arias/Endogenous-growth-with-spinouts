@@ -48,7 +48,7 @@ updateRateExponent: 1.0
 zSzE Iteration Parameters 
 ---------------
 tolerance: 1.0e-7 
-maxIter: 150.0 
+maxIter: 1.0 
 updateRate: 0.3 
 updateRateExponent: 1.0 
 

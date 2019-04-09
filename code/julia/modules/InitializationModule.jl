@@ -102,7 +102,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     idxM_tolerance = 1e-7;
-    idxM_maxIter = 150;
+    idxM_maxIter = 1
     idxM_updateRate = 0.3;
     idxM_updateRateExponent = 1;
 
@@ -134,7 +134,7 @@ function setAlgorithmParameters()
 
     write(f, "zSzE Logging Parameters \n---------------\n")
     for n in fieldnames(LogParameters)
-        temp = getfield(zSzE_Log,n)
+        temp = getfield(idxM_Log,n)
         write(f,"$n: $temp \n")
     end
     write(f, "\n\n")
@@ -152,7 +152,7 @@ function setAlgorithmParameters()
 
     close(f)
 
-    return AlgorithmParameters(mGrid, incumbentHJB, spinoutHJB, g, L_RD, w, zSzE, g_L_RD_w_Log, zSzE_Log, incumbentHJB_Log);
+    return AlgorithmParameters(mGrid, incumbentHJB, spinoutHJB, g, L_RD, w, idxM, g_L_RD_w_Log, idxM_Log, incumbentHJB_Log);
 
 end
 

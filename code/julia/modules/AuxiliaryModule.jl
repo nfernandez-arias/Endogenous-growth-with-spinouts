@@ -59,7 +59,33 @@ function wbar(β::Float64)
 
 end
 
-function τSE(algoPar::AlgorithmParameters,modelPar::ModelParameters,idxM::Int64)
+function zS(algoPar::AlgorithmParameters,modelPar::ModelParameters,idxM::Int64)
+
+    mGrid,Δm = mGridBuild(algoPar.mGrid)
+
+    zS = ones(size(mGrid))
+    zS[1:idxM] = modelPar.ξ * mGrid[1:idxM]
+
+    if idxM == length(mGrid)
+        return zS
+    else
+        zS[(idxM+1):end] = zS[idxM]
+        return zS
+    end
+
+end
+
+function zE(modelPar::ModelParameters,V0::Float64,w::Array{Float64},zS::Array{Float64})
+
+    zE = max.((w ./ modelPar.λ .* V0).^(-1/modelPar.ψSE) .- zS,0)
+
+    return zE
+
+end
+
+
+
+function τSE(modelPar::ModelParameters,zS::Array{Float64},zE::Array{Float64})
 
     χS = modelPar.χS
     χE = modelPar.χE
@@ -67,8 +93,6 @@ function τSE(algoPar::AlgorithmParameters,modelPar::ModelParameters,idxM::Int64
     ψSE = modelPar.ψSE
 
     ϕSE(z) = z .^(-ψSE)
-
-    zS = 1:algoPar.mGrid.numPoints
 
     return (χS * zS + χE * zE) .* ϕSE(zS + zE)
 

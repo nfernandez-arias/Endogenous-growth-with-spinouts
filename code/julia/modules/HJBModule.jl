@@ -38,21 +38,21 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
     ##########################
 
     # General
-    ρ = modelPar.ρ;
-    β = modelPar.β;
-    L = modelPar.L;
+    ρ = modelPar.ρ
+    β = modelPar.β
+    L = modelPar.L
 
     # Innovation
-    χI = modelPar.χI;
-    χS = modelPar.χS;
-    χE = modelPar.χE;
-    ψI = modelPar.ψI;
-    ψSE = modelPar.ψSE;
-    λ = modelPar.λ;
+    χI = modelPar.χI
+    χS = modelPar.χS
+    χE = modelPar.χE
+    ψI = modelPar.ψI
+    ψSE = modelPar.ψSE
+    λ = modelPar.λ
 
     # Spinouts
-    ν = modelPar.ν;
-    ξ = modelPar.ξ;
+    ν = modelPar.ν
+    ξ = modelPar.ξ
 
     # Define some auxiliary functions
     ϕI(z) = z .^(-ψI)
@@ -60,9 +60,11 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
     ## Unpack guess
     ###################################################
-    w = guess.w;
-    zS = guess.zS;
-    zE = guess.zE;
+    w = guess.w
+	idxM = guess.idxM
+
+	zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
+	zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution.V[1],w,zS)
 
 	V = incumbentHJBSolution.V
 	zI = incumbentHJBSolution.zI
@@ -192,7 +194,7 @@ function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter
 
 end
 
-function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, zI::Array{Float64}, A::SparseMatrixCSC{Float64,Int64})
+function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, zI::Array{Float64}, A::SparseMatrixCSC{Float64,Int64},zS::Array{Float64},zE::Array{Float64})
 
     ## Unpack model parameters
     ##########################
@@ -227,8 +229,9 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
     ###################################################
     #Π = AuxiliaryModule.profit(guess.L_RD,modelPar)
     #w = guess.w
-    zS = guess.zS
-    zE = guess.zE
+	idxM = guess.idxM
+
+
 
     # Construct mGrid
     mGrid,Δm = mGridBuild(algoPar.mGrid)
@@ -440,13 +443,17 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		## Unpack tau functions
 		########################################
 		τI = AuxiliaryModule.τI(modelPar,zI)[:]
-		τSE = AuxiliaryModule.τSE(algoPar,modelPar,idxM)[:]
+
+		zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)[:]
+		zE = AuxiliaryModule.zE(modelPar,V0[1],w,zS)[:]
+
+		τSE = AuxiliaryModule.τSE(modelPar,zS,zE)[:]
 
 	    ## Make update:
 	    u = Π .- zI .* w
 		#u = Π .+ ((λ-1) * τI .* V0[1])  .- (zI .* w)  # Moll's idea -- here add (λ-1) * τI * V0[1] term
 		#A = constructMatrixA(algoPar,modelPar,guess,zI)
-		updateMatrixA(algoPar,modelPar,guess,zI,A)
+		updateMatrixA(algoPar,modelPar,guess,zI,A,zS,zE)
 
 		V1,error = updateV(algoPar,modelPar,A,u,V0)
 
