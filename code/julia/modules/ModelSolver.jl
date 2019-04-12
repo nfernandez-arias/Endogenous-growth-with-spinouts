@@ -98,11 +98,11 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     ## Unpack guesses
 
     old_idxM = guess.idxM
-    println("old_idxM = $old_idxM")
+    #println("old_idxM = $old_idxM")
     w = guess.w
-    println("wage = $w")
+    #println("wage = $w")
 
-    println("V[1] = $(V[1])")
+    #println("V[1] = $(V[1])")
 
     # Compute implied zS, zE
     old_zS = AuxiliaryModule.zS(algoPar,modelPar,old_idxM)
@@ -111,10 +111,8 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     #########
     ## Compute new guesses
 
-    temp = ϕSE(ξ*mGrid) * modelPar.λ * V[1] - w
+    temp = modelPar.χS * ϕSE(ξ*mGrid) * modelPar.λ * V[1] - w
     idxM = findlast( (temp .>= 0)[:] )
-
-    println("new idxM = $idxM")
 
     #pause(2)
 
@@ -122,6 +120,8 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     factor_zE = χE .* ϕSE(old_zS + old_zE) .* λ .* V[1] ./ w
 
     idxM = floor(Int64,algoPar.idxM.updateRate * idxM + (1 - algoPar.idxM.updateRate) * old_idxM)
+
+    #println("new idxM = $idxM")
 
     return idxM,factor_zS,factor_zE
 
@@ -301,7 +301,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
                 incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,guess)
 
-                println("V = $(incumbentHJBSolution.V)")
+                #println("V = $(incumbentHJBSolution.V)")
 
 
 
@@ -310,7 +310,14 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 # Record initial values
                 old_idxM = guess.idxM
 
-                # Update guess object (faster than allocating new one)
+                zS = AuxiliaryModule.zS(algoPar,modelPar,old_idxM)
+                zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution.V,w,zS)
+
+                #println("zS = $zS")
+                #println("zE = $zE")
+
+
+                # Update guess object (faster than allocating new one)500
 
 
                 guess.idxM,factor_zS,factor_zE = update_idxM(algoPar,modelPar,guess,incumbentHJBSolution.V,W)
@@ -333,7 +340,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
             #if isa(err,LinearAlgebra.SingularException)
 
                 println("-----------------Caught an Error!-------------------------")
-                println("Error: $err")
+                #println("Error: $err")
                 #println(typeof(err))
                 #sleep(2)
 
@@ -405,7 +412,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
             # Solve incumbent HJB one more time...
             #incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,guess)
-            typeof(incumbentHJBSolution)
+            #typeof(incumbentHJBSolution)
             V = incumbentHJBSolution.V
             zI = incumbentHJBSolution.zI
 

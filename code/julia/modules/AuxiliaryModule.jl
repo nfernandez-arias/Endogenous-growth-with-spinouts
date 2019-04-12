@@ -66,10 +66,14 @@ function zS(algoPar::AlgorithmParameters,modelPar::ModelParameters,idxM::Int64)
     zS = ones(size(mGrid))
     zS[1:idxM] = modelPar.ξ * mGrid[1:idxM]
 
+    #println("$(typeof(idxM))")
+
+    #println("idxM = $idxM")
+
     if idxM == length(mGrid)
         return zS
     else
-        zS[(idxM+1):end] = zS[idxM]
+        zS[idxM+1:end] = ones(size(zS[idxM+1:end])) * zS[idxM]
         return zS
     end
 
@@ -77,7 +81,7 @@ end
 
 function zE(modelPar::ModelParameters,V0::Float64,w::Array{Float64},zS::Array{Float64})
 
-    zE = max.((w ./ modelPar.λ .* V0).^(-1/modelPar.ψSE) .- zS,0)
+    zE = max.((w ./ (modelPar.χE * modelPar.λ .* V0)).^(-1/modelPar.ψSE) .- zS,0)
 
     return zE
 

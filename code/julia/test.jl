@@ -1,3 +1,5 @@
+include("loadPath.jl")
+
 using Revise
 using AlgorithmParametersModule
 using ModelParametersModule
@@ -22,13 +24,13 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 
 @timev results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
 
-#using Profile
-#Profile.clear()
+V = results.incumbent.V
+idxM = results.finalGuess.idxM
+w = results.finalGuess.w
+zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
+zE = AuxiliaryModule.zE(modelPar,V[1],w,zS)
 
-#using ProfileView
-#ProfileView.view()
-
-
+#plot(mGrid,zE)
 #--------------------------------#
 # Unpack - using unpackScript.jl
 #--------------------------------#

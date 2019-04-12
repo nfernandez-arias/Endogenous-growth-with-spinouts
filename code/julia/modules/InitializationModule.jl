@@ -20,7 +20,7 @@ function setAlgorithmParameters()
 
     mgrid_numPoints = 500
     mgrid_minimum = 0.0
-    mgrid_maximum = .015
+    mgrid_maximum = .03
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-8
 
@@ -60,7 +60,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     g_tolerance = 1e-7;
-    g_maxIter = 500;
+    g_maxIter = 200;
     g_updateRate = 0.3;
     g_updateRateExponent = 1;
 
@@ -74,7 +74,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     L_RD_tolerance = 1e-7;
-    L_RD_maxIter = 500;
+    L_RD_maxIter = 200;
     L_RD_updateRate = 0.3;
     L_RD_updateRateExponent = 1;
 
@@ -87,9 +87,9 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    w_tolerance = 1e-7;
-    w_maxIter = 500;
-    w_updateRate = 0.3;
+    w_tolerance = 1e-9;
+    w_maxIter = 200;
+    w_updateRate = 0.6;
     w_updateRateExponent = 1;
 
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent);
@@ -102,7 +102,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     idxM_tolerance = 1e-7;
-    idxM_maxIter = 1
+    idxM_maxIter = 100
     idxM_updateRate = 0.3;
     idxM_updateRateExponent = 1;
 
