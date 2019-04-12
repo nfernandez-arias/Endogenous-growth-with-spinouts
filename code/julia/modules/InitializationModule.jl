@@ -18,7 +18,7 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 200
+    mgrid_numPoints = 2000
     mgrid_minimum = 0.0
     mgrid_maximum = .02
     mgrid_logSpacing = false
@@ -33,7 +33,7 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 50;
+    incumbentHJB_timeStep = 20;
     incumbentHJB_tolerance = 1e-7;
     incumbentHJB_maxIter = 30
 
@@ -61,7 +61,7 @@ function setAlgorithmParameters()
 
     g_tolerance = 1e-7;
     g_maxIter = 200;
-    g_updateRate = 0.3;
+    g_updateRate = 0.7;
     g_updateRateExponent = 1;
 
     g = IterationParameters(g_tolerance,g_maxIter,g_updateRate,g_updateRateExponent);
@@ -75,7 +75,7 @@ function setAlgorithmParameters()
 
     L_RD_tolerance = 1e-9;
     L_RD_maxIter = 200;
-    L_RD_updateRate = 0.3;
+    L_RD_updateRate = 0.7;
     L_RD_updateRateExponent = 1;
 
     L_RD = IterationParameters(L_RD_tolerance,L_RD_maxIter,L_RD_updateRate,L_RD_updateRateExponent);
@@ -89,7 +89,7 @@ function setAlgorithmParameters()
 
     w_tolerance = 1e-9;
     w_maxIter = 200;
-    w_updateRate = 0.6;
+    w_updateRate = 0.8;
     w_updateRateExponent = 1;
 
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent);
@@ -173,7 +173,7 @@ function setModelParameters()
 
     # Spinouts
     ν = 0.0102495
-    ξ = 10
+    ξ = 30
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ)
 
