@@ -147,11 +147,11 @@ draw(PNG("./figures/innovation_rates.png", 10inch, 5inch), p)
 #-----------------------------------------#
 
 # zS
-df1 = DataFrame(x = mGrid[:], y = zS_density[:], label = "zS")
+df1 = DataFrame(x = mGrid[:], y = zS[:], label = "zS")
 df2 = DataFrame(x = mGrid[:], y = zSfactor[:], label = "zSfactor")
 df3 = DataFrame(x = mGrid[:], y = modelPar.ξ * ones(size(mGrid))[:], label = "ξ")
-df = vcat(df1,df2,df3)
-p1 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("zS/m and zSfactor"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("zS,zSfactor"), Theme(background_color=colorant"white"))
+df = vcat(df1,df3)
+p1 = plot(df1, x = "x", y = "y", color = "label", Geom.line, Guide.title("zS"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("zS"), Theme(background_color=colorant"white"))
 
 # zE
 df1 = DataFrame(x = mGrid[:], y = zE[:], label = "zE")

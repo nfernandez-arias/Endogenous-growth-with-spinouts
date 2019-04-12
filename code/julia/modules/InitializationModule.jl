@@ -20,7 +20,7 @@ function setAlgorithmParameters()
 
     mgrid_numPoints = 500
     mgrid_minimum = 0.0
-    mgrid_maximum = .015
+    mgrid_maximum = .02
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-8
 
@@ -60,7 +60,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     g_tolerance = 1e-7;
-    g_maxIter = 500;
+    g_maxIter = 200;
     g_updateRate = 0.3;
     g_updateRateExponent = 1;
 
@@ -73,8 +73,8 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    L_RD_tolerance = 1e-7;
-    L_RD_maxIter = 500;
+    L_RD_tolerance = 1e-9;
+    L_RD_maxIter = 200;
     L_RD_updateRate = 0.3;
     L_RD_updateRateExponent = 1;
 
@@ -87,9 +87,9 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    w_tolerance = 1e-7;
-    w_maxIter = 500;
-    w_updateRate = 0.3;
+    w_tolerance = 1e-9;
+    w_maxIter = 200;
+    w_updateRate = 0.6;
     w_updateRateExponent = 1;
 
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent);
@@ -101,16 +101,16 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    zSzE_tolerance = 1e-7;
-    zSzE_maxIter = 150;
-    zSzE_updateRate = 0.3;
-    zSzE_updateRateExponent = 1;
+    idxM_tolerance = 1e-7;
+    idxM_maxIter = 100
+    idxM_updateRate = 0.6;
+    idxM_updateRateExponent = 1;
 
-    zSzE = IterationParameters(zSzE_tolerance,zSzE_maxIter,zSzE_updateRate,zSzE_updateRateExponent);
+    idxM = IterationParameters(idxM_tolerance,idxM_maxIter,idxM_updateRate,idxM_updateRateExponent);
 
     write(f, "zSzE Iteration Parameters \n---------------\n")
     for n in fieldnames(IterationParameters)
-        temp = getfield(zSzE,n)
+        temp = getfield(idxM,n)
         write(f,"$n: $temp \n")
     end
     write(f, "\n\n")
@@ -128,13 +128,13 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    zSzE_Log_verbose = 2;
-    zSzE_Log_print_skip = 1;
-    zSzE_Log = LogParameters(zSzE_Log_verbose,zSzE_Log_print_skip);
+    idxM_Log_verbose = 2;
+    idxM_Log_print_skip = 1;
+    idxM_Log = LogParameters(idxM_Log_verbose,idxM_Log_print_skip);
 
     write(f, "zSzE Logging Parameters \n---------------\n")
     for n in fieldnames(LogParameters)
-        temp = getfield(zSzE_Log,n)
+        temp = getfield(idxM_Log,n)
         write(f,"$n: $temp \n")
     end
     write(f, "\n\n")
@@ -152,7 +152,7 @@ function setAlgorithmParameters()
 
     close(f)
 
-    return AlgorithmParameters(mGrid, incumbentHJB, spinoutHJB, g, L_RD, w, zSzE, g_L_RD_w_Log, zSzE_Log, incumbentHJB_Log);
+    return AlgorithmParameters(mGrid, incumbentHJB, spinoutHJB, g, L_RD, w, idxM, g_L_RD_w_Log, idxM_Log, incumbentHJB_Log);
 
 end
 
@@ -205,19 +205,19 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
     w = wbar * ones(size(mGrid));
     #w = 0.5 * wbar * ones(pa.mGrid.numPoints,1)
 
-    #idxM = pa.mGrid.numPoints;
+    idxM = pa.mGrid.numPoints;
 
-    zS = pm.ξ .* mGrid
+    #zS = pm.ξ .* mGrid
 
     #zS = 0.1 * ones(pa.mGrid.numPoints,1)
 
     #zE = 0.1 * zS
 
-    zE = 0.1*ones(size(zS))
+    #zE = 0.1*ones(size(zS))
     #zE = 0 * ones(pa.mGrid.numPoints,1);
 
     #return InitialGuess(L_RD,w,idxM,zS,zE)
-    initGuess = Guess(g,L_RD,w,zS,zE)
+    initGuess = Guess(g,L_RD,w,idxM)
 
     return initGuess
 

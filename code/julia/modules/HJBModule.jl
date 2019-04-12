@@ -38,21 +38,21 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
     ##########################
 
     # General
-    ρ = modelPar.ρ;
-    β = modelPar.β;
-    L = modelPar.L;
+    ρ = modelPar.ρ
+    β = modelPar.β
+    L = modelPar.L
 
     # Innovation
-    χI = modelPar.χI;
-    χS = modelPar.χS;
-    χE = modelPar.χE;
-    ψI = modelPar.ψI;
-    ψSE = modelPar.ψSE;
-    λ = modelPar.λ;
+    χI = modelPar.χI
+    χS = modelPar.χS
+    χE = modelPar.χE
+    ψI = modelPar.ψI
+    ψSE = modelPar.ψSE
+    λ = modelPar.λ
 
     # Spinouts
-    ν = modelPar.ν;
-    ξ = modelPar.ξ;
+    ν = modelPar.ν
+    ξ = modelPar.ξ
 
     # Define some auxiliary functions
     ϕI(z) = z .^(-ψI)
@@ -60,9 +60,11 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
     ## Unpack guess
     ###################################################
-    w = guess.w;
-    zS = guess.zS;
-    zE = guess.zE;
+    w = guess.w
+	idxM = guess.idxM
+
+	zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
+	zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution.V[1],w,zS)
 
 	V = incumbentHJBSolution.V
 	zI = incumbentHJBSolution.zI
@@ -90,11 +92,13 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	#spinoutFlow[:] = (χS .* ϕSE(zS + zE) .* λ .* V[1] .- w)[:]
 	spinoutFlow = (χS .* ϕSE(zS .+ zE) .* λ .* V[1] .- w)
 
-	for i = 1:length(spinoutFlow)
-		if spinoutFlow[i] < 1e-3
-			spinoutFlow[i] = 0
-		end
-	end
+	#println("spinoutFlow = $spinoutFlow")
+
+	#for i = 1:length(spinoutFlow)
+	#	if spinoutFlow[i] < 1e-3
+	#		spinoutFlow[i] = 0
+	#	end
+	#end
 
 	Imax = length(mGrid)
 
@@ -192,7 +196,7 @@ function constructMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameter
 
 end
 
-function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, zI::Array{Float64}, A::SparseMatrixCSC{Float64,Int64})
+function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, zI::Array{Float64}, A::SparseMatrixCSC{Float64,Int64},zS::Array{Float64},zE::Array{Float64})
 
     ## Unpack model parameters
     ##########################
@@ -227,8 +231,9 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
     ###################################################
     #Π = AuxiliaryModule.profit(guess.L_RD,modelPar)
     #w = guess.w
-    zS = guess.zS
-    zE = guess.zE
+	idxM = guess.idxM
+
+
 
     # Construct mGrid
     mGrid,Δm = mGridBuild(algoPar.mGrid)
@@ -357,8 +362,9 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     ## Unpack guess
     ###################################################
     w = guess.w;
-    zS = guess.zS;
-    zE = guess.zE;
+    #zS = guess.zS;
+    #zE = guess.zE;
+	idxM = guess.idxM
 
     # Compute initial guess for V, "value of staying put"
     # based on L_RD guess and profit function
@@ -439,13 +445,17 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		## Unpack tau functions
 		########################################
 		τI = AuxiliaryModule.τI(modelPar,zI)[:]
+
+		zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)[:]
+		zE = AuxiliaryModule.zE(modelPar,V0[1],w,zS)[:]
+
 		τSE = AuxiliaryModule.τSE(modelPar,zS,zE)[:]
 
 	    ## Make update:
 	    u = Π .- zI .* w
 		#u = Π .+ ((λ-1) * τI .* V0[1])  .- (zI .* w)  # Moll's idea -- here add (λ-1) * τI * V0[1] term
 		#A = constructMatrixA(algoPar,modelPar,guess,zI)
-		updateMatrixA(algoPar,modelPar,guess,zI,A)
+		updateMatrixA(algoPar,modelPar,guess,zI,A,zS,zE)
 
 		V1,error = updateV(algoPar,modelPar,A,u,V0)
 

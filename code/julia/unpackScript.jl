@@ -3,12 +3,14 @@
 L_RD = results.finalGuess.L_RD
 #γ = results.finalGuess.γ
 w = results.finalGuess.w
-zS = results.finalGuess.zS
-zE = results.finalGuess.zE
+idxM = results.finalGuess.idxM
 V = results.incumbent.V
 zI = results.incumbent.zI
 zIfromFOC = zeros(size(zI))
 W = results.spinoutValue
+
+zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
+zE = AuxiliaryModule.zE(modelPar,V[1],w,zS)
 
 τI = AuxiliaryModule.τI(modelPar,zI)
 τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
