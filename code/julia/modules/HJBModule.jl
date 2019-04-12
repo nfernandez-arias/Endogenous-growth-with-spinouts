@@ -92,13 +92,13 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	#spinoutFlow[:] = (χS .* ϕSE(zS + zE) .* λ .* V[1] .- w)[:]
 	spinoutFlow = (χS .* ϕSE(zS .+ zE) .* λ .* V[1] .- w)
 
-	println("spinoutFlow = $spinoutFlow")
+	#println("spinoutFlow = $spinoutFlow")
 
-	for i = 1:length(spinoutFlow)
-		if spinoutFlow[i] < 1e-3
-			spinoutFlow[i] = 0
-		end
-	end
+	#for i = 1:length(spinoutFlow)
+	#	if spinoutFlow[i] < 1e-3
+	#		spinoutFlow[i] = 0
+	#	end
+	#end
 
 	Imax = length(mGrid)
 

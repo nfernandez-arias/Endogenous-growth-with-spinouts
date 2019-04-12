@@ -103,7 +103,7 @@ growthShare_incumbent = growthContribution_incumbent / totalGrowth
 growthShare_entrants = growthContribution_entrants / totalGrowth
 growthShare_spinouts = growthContribution_spinouts / totalGrowth
 
-println("\n--------------------------------------------------------------")
+#println("\n--------------------------------------------------------------")
 println("Growth contributions--------------------------------------------")
 println("--------------------------------------------------------------\n")
 println("$growthContribution_incumbent (Growth due to incumbents)\n")

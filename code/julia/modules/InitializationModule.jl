@@ -22,7 +22,7 @@ function setAlgorithmParameters()
     mgrid_minimum = 0.0
     mgrid_maximum = .02
     mgrid_logSpacing = true
-    mgrid_logSpacingMinimum = 1e-6
+    mgrid_logSpacingMinimum = 1e-8
 
     mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum);
 
@@ -73,7 +73,7 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    L_RD_tolerance = 1e-7;
+    L_RD_tolerance = 1e-9;
     L_RD_maxIter = 200;
     L_RD_updateRate = 0.3;
     L_RD_updateRateExponent = 1;
@@ -103,7 +103,7 @@ function setAlgorithmParameters()
 
     idxM_tolerance = 1e-7;
     idxM_maxIter = 100
-    idxM_updateRate = 0.3;
+    idxM_updateRate = 0.6;
     idxM_updateRateExponent = 1;
 
     idxM = IterationParameters(idxM_tolerance,idxM_maxIter,idxM_updateRate,idxM_updateRateExponent);

@@ -4,7 +4,7 @@ numPoints: 500
 minimum: 0.0 
 maximum: 0.02 
 logSpacing: true 
-logSpacingMinimum: 1.0e-6 
+logSpacingMinimum: 1.0e-8 
 
 
 Incumbent HJB Parameters 
@@ -31,7 +31,7 @@ updateRateExponent: 1.0
 
 L_RD Iteration Parameters 
 ---------------
-tolerance: 1.0e-7 
+tolerance: 1.0e-9 
 maxIter: 200.0 
 updateRate: 0.3 
 updateRateExponent: 1.0 
@@ -49,7 +49,7 @@ zSzE Iteration Parameters
 ---------------
 tolerance: 1.0e-7 
 maxIter: 100.0 
-updateRate: 0.3 
+updateRate: 0.6 
 updateRateExponent: 1.0 
 
 
