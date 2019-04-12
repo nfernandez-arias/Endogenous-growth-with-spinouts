@@ -53,12 +53,13 @@ function update_L_RD_w(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
     wbar = AuxiliaryModule.wbar(modelPar.β);
 
     # First compute W, value of spinout, for computing R&D wage update
-    W = solveSpinoutHJB(algoPar,modelPar,initGuess,V)
+    W,spinoutFlow = solveSpinoutHJB(algoPar,modelPar,initGuess,V)
     # Compute new wage
     temp_w = wbar .* ones(size(W)) .- ν .* W;
     w = algoPar.w.updateRate .* temp_w .+ (1 .- algoPar.w.updateRate) .* initGuess.w;
 
     ## Update L_RD
+
     # Need to solve KF equation - easy given tau.
     # Then need to aggregate back up to L_RD
 
@@ -119,7 +120,7 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     factor_zS = χS .* ϕSE(old_zS + old_zE) .* λ .* V[1] ./ w
     factor_zE = χE .* ϕSE(old_zS + old_zE) .* λ .* V[1] ./ w
 
-    idxM = floor(Int64,algoPar.idxM.updateRate * idxM + (1 - algoPar.idxM.updateRate) * old_idxM)
+    idxM = ceil(Int64,algoPar.idxM.updateRate * idxM + (1 - algoPar.idxM.updateRate) * old_idxM)
 
     #println("new idxM = $idxM")
 
