@@ -1,9 +1,9 @@
 mGrid Parameters 
 ---------------
-numPoints: 500 
+numPoints: 200 
 minimum: 0.0 
 maximum: 0.02 
-logSpacing: true 
+logSpacing: false 
 logSpacingMinimum: 1.0e-8 
 
 
@@ -49,7 +49,7 @@ zSzE Iteration Parameters
 ---------------
 tolerance: 1.0e-7 
 maxIter: 100.0 
-updateRate: 0.6 
+updateRate: 0.8 
 updateRateExponent: 1.0 
 
 
