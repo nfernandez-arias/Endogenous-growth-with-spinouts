@@ -1,0 +1,74 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{Modeling non-competes}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+
+\section{Basic framework}
+
+The firm knows that by using a non-compete it has to pay a higher wage. However, it also does not suffer the expected reduction in value from the increased rate of employee spinouts. It trades these forces off when deciding whether to require its employee to sign a non-compete.
+
+Suppose that firms and workers renegotiate terms of employment instant by instant. As a condition of hiring, the firm stipulates that the worker cannot form a spinout unless he waits $T_{CNC}$ years after leaving. 
+
+If at a given $m_t$ it is optimal for an employee not to use knowledge gained on the job. Until another innovation occurs, we have $m_{t'} > m_t$. Since everything is monotonic in $m$, this means that the employer-employee pair finds it optimal to commit that the employee never uses his knowledge. Essentially, the worker-firm pair wants to ensure that the worker only forms a potential spinout when $m$ is less than $M = \sup \{ m : W(m) > -V'(m) \}$. The incumbent value function satisfies the modified HJB, 
+\begin{align}
+	(\rho + \tau_{SE}(m)) V(m) &= \pi + a_{SE}(m) \nu V'(m) + \max \Big\{ X(m) , Y(m)   \Big\} \\
+	X(m) &= \max_{z \ge 0} z\phi(z) \big[ \lambda V(0) - V(m) \big] - w(m)z + \nu V'(m) z \\
+	Y(m) &= \max_{z \ge 0} z\phi(z) \big[ \lambda V(0) - V(m) \big] - \overline{w} z
+\end{align}
+
+$X(m)$ is the flow payoff of conducting R\&D without a CNC and $Y(m)$ is the flow payoff of conducting R\&D with a permanent non-compete. It is apparent that the incumbent will choose $X(m)$ when $w(m) - \nu V'(m) < \overline{w}$. Hence the HJB satisfies
+\begin{align}
+	(\rho + \tau_{SE}(m)) V(m) &= \pi + a_{SE}(m) \nu V'(m) + \mathbb{1}_{w(m) - \nu V'(m) \le \overline{w}} X(m) \nonumber \\
+	&+ \mathbb{1}_{w(m) - \nu V'(m) > \overline{w}} Y(m)   
+\end{align} 
+
+We can extract the incumbent non-compete policy and we know that non-competes are used when $w(m) - \nu V'(m) > \overline{w}$.
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

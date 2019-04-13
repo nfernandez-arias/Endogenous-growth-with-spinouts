@@ -173,7 +173,7 @@ function setModelParameters()
 
     # Spinouts
     ν = 0.0102495
-    ξ = 30
+    ξ = 10
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ)
 
@@ -206,6 +206,7 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
     #w = 0.5 * wbar * ones(pa.mGrid.numPoints,1)
 
     idxM = pa.mGrid.numPoints;
+    #idxM = 1
 
     #zS = pm.ξ .* mGrid
 
