@@ -29,6 +29,7 @@ struct IncumbentSolution
 
     V::Array{Float64}
     zI::Array{Float64}
+	noncompete::Array{Int64}
 
 end
 
@@ -121,7 +122,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
 end
 
-function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, zI::Array{Float64}, A::SparseMatrixCSC{Float64,Int64},zS::Array{Float64},zE::Array{Float64})
+function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, zI::Array{Float64}, noncompete::Array{Int64},A::SparseMatrixCSC{Float64,Int64},zS::Array{Float64},zE::Array{Float64})
 
     ## Unpack model parameters
     ##########################
@@ -178,8 +179,8 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 
 		A[i,1] = τI[i] * λ
 		#A[i,1] = τI[i]  # no λ term -- Moll's idea
-		A[i,i+1] = ν * (zI[i] + zS[i] + zE[i]) / Δm[i]
-		A[i,i] = - ν * (zI[i] + zS[i] + zE[i]) / Δm[i] - τI[i] - τSE[i]
+		A[i,i+1] = ν * ((1-noncompete[i]) * zI[i] + zS[i] + zE[i]) / Δm[i]
+		A[i,i] = - ν * ((1-noncompete[i]) * zI[i] + zS[i] + zE[i]) / Δm[i] - τI[i] - τSE[i]
 		#A[i,i] = - ν * (zI[i] + aSE[i]) / Δm[i]
 
     end
@@ -255,21 +256,24 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     ##########################
 
     # General
-    ρ = modelPar.ρ;
-    β = modelPar.β;
-    L = modelPar.L;
+    ρ = modelPar.ρ
+    β = modelPar.β
+    L = modelPar.L
 
     # Innovation
-    χI = modelPar.χI;
-    χS = modelPar.χS;
-    χE = modelPar.χE;
-    ψI = modelPar.ψI;
-    ψSE = modelPar.ψSE;
-    λ = modelPar.λ;
+    χI = modelPar.χI
+    χS = modelPar.χS
+    χE = modelPar.χE
+    ψI = modelPar.ψI
+    ψSE = modelPar.ψSE
+    λ = modelPar.λ
 
     # Spinouts
-    ν = modelPar.ν;
-    ξ = modelPar.ξ;
+    ν = modelPar.ν
+    ξ = modelPar.ξ
+
+	# CNCs
+	CNC = modelPar.CNC
 
     # Define some auxiliary functions
     ϕI(z) = z .^(-ψI)
@@ -294,7 +298,9 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     # Compute initial guess for V, "value of staying put"
     # based on L_RD guess and profit function
     V0 = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess)
+	noncompete = zeros(size(V0))
     zI = zeros(size(V0))
+	zI_CNC = zeros(size(V0))
 	zIalt = zeros(size(V0))
     ## Construct mGrid and Delta_m vectors
     mGrid,Δm = mGridBuild(algoPar.mGrid)
@@ -315,7 +321,8 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
         iterate += 1
 
 		#---------------------------#
-		# Calculate zI using FOC
+		# Calculate optimal non-compete and optimal zI given non-compete
+		# and given no non-compete.
 		#---------------------------#
 
 		for i= 1:length(mGrid)-1
@@ -326,8 +333,19 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		    denominator = (1- ψI) * χI * ( λ * V0[1] - V0[i])
 		    ratio = numerator / denominator
 
+			if numerator < denominator
+				noncompete[i] = true
+			else
+				noncompete[i] = false
+			end
+
+
+			numerator_CNC = AuxiliaryModule.wbar(modelPar.β)
+			ratio_CNC = numerator_CNC / denominator
+
 			if ratio > 0
 				zI[i] = ratio^(-1/ψI)
+				zI_CNC[i] = ratio_CNC^(-1/ψI)
 			else
 				zI[i] = 0.1
 			end
@@ -337,7 +355,13 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		# Hack - "guess and verify", true in eq by continuity
 
 		zI[1] = zI[2] #- no need for hack with Moll's method
+		noncompete[1] = noncompete[2]
 		zI[end] = zI[end-1]
+		noncompete[end] = noncompete[end-1]
+
+		if CNC = false
+			noncompete[:] .= false
+		end
 
 		#---------------------------#
 		# DEPRECATED CODE
@@ -377,7 +401,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		τSE = AuxiliaryModule.τSE(modelPar,zS,zE)[:]
 
 	    ## Make update:
-	    u = Π .- zI .* w
+	    u = Π .- zI .* ((1 .- noncompete) .* w + noncompete .* AuxiliaryModule.wbar(modelPar.β))
 		#u = Π .+ ((λ-1) * τI .* V0[1])  .- (zI .* w)  # Moll's idea -- here add (λ-1) * τI * V0[1] term
 		#A = constructMatrixA(algoPar,modelPar,guess,zI)
 		updateMatrixA(algoPar,modelPar,guess,zI,A,zS,zE)
@@ -411,7 +435,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 	#gif(anim, "anim.gif", fps = 1)
 
     # Output
-    return IncumbentSolution(V0,zI)
+    return IncumbentSolution(V0,zI,noncompete)
 
 end
 

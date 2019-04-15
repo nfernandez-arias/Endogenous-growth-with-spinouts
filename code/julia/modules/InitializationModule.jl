@@ -175,6 +175,9 @@ function setModelParameters()
     ν = 0.0102495
     ξ = 10
 
+    # CNCs
+    CNC = true
+
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ)
 
     f = open("./figures/modelPar.txt", "w")

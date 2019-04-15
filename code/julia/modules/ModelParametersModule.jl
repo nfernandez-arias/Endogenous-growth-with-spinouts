@@ -41,6 +41,8 @@ mutable struct ModelParameters
     # Size of spinout
     ξ::Float64
 
+    CNC::Bool
+
 end
 
 export ModelParameters;

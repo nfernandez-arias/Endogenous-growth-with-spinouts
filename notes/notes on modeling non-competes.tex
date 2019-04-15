@@ -54,11 +54,12 @@ If at a given $m_t$ it is optimal for an employee not to use knowledge gained on
 
 $X(m)$ is the flow payoff of conducting R\&D without a CNC and $Y(m)$ is the flow payoff of conducting R\&D with a permanent non-compete. It is apparent that the incumbent will choose $X(m)$ when $w(m) - \nu V'(m) < \overline{w}$. Hence the HJB satisfies
 \begin{align}
-	(\rho + \tau_{SE}(m)) V(m) &= \pi + a_{SE}(m) \nu V'(m) + \mathbb{1}_{w(m) - \nu V'(m) \le \overline{w}} X(m) \nonumber \\
-	&+ \mathbb{1}_{w(m) - \nu V'(m) > \overline{w}} Y(m)   
+	(\rho + \tau_{SE}(m)) V(m) &= \pi + a_{SE}(m) \nu V'(m) + \mathbb{1}_{m \le M} X(m) + \mathbb{1}_{m > M} Y(m)   
 \end{align} 
 
 We can extract the incumbent non-compete policy and we know that non-competes are used when $w(m) - \nu V'(m) > \overline{w}$.
+
+The only other modification required is that $a(m) = a_{SE}(m)$ for $m > M$. 
 
 
 
