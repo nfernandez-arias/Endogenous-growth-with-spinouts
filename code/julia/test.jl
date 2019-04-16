@@ -42,6 +42,7 @@ include("unpackScript.jl")
 #--------------------------------#
 
 g = results.finalGuess.g
+
 L_RD = results.finalGuess.L_RD
 γ = results.auxiliary.γ
 t = results.auxiliary.t
