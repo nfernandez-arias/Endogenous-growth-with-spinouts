@@ -139,6 +139,7 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
 
     zI = incumbentHJBSolution.zI
     V = incumbentHJBSolution.V
+    noncompete = incumbentHJBSolution.noncompete
 
     zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
     zE = AuxiliaryModule.zE(modelPar,V[1],w,zS)
@@ -151,7 +152,7 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
 
     τ = τI .+ τSE
 
-    a = ν .* (zS .+ zE .+ zI)
+    a = ν .* (zS .+ zE .+ zI .* (1 .- noncompete))
 
     #----------------------#
     # Solve KF equation
@@ -251,6 +252,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     V = zeros(algoPar.mGrid.numPoints,1)
     W = zeros(algoPar.mGrid.numPoints,1)
     zI = zeros(algoPar.mGrid.numPoints,1)
+    noncompete = zeros(size(zI))
     γ = zeros(algoPar.mGrid.numPoints,1)
     t = zeros(algoPar.mGrid.numPoints,1)
 
@@ -413,9 +415,11 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
             # Solve incumbent HJB one more time...
             #incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,guess)
-            #typeof(incumbentHJBSolution)
+            println(typeof(incumbentHJBSolution))
+
             V = incumbentHJBSolution.V
             zI = incumbentHJBSolution.zI
+            noncompete = incumbentHJBSolution.noncompete
 
             # Solve spinout HJB using incumbent HJB
             W,spinoutFlow = solveSpinoutHJB(algoPar,modelPar,guess,incumbentHJBSolution)
@@ -490,7 +494,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         end
     end
 
-    return ModelSolution(guess,IncumbentSolution(V,zI),W,AuxiliaryEquilibriumVariables(γ,t)),factor_zS,factor_zE,spinoutFlow
+    return ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(γ,t)),factor_zS,factor_zE,spinoutFlow
 
 end
 

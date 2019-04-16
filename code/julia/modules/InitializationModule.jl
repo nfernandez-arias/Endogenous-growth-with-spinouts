@@ -35,7 +35,7 @@ function setAlgorithmParameters()
 
     incumbentHJB_timeStep = 20;
     incumbentHJB_tolerance = 1e-7;
-    incumbentHJB_maxIter = 30
+    incumbentHJB_maxIter = 1
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter);
 
@@ -102,13 +102,13 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     idxM_tolerance = 1e-7;
-    idxM_maxIter = 100
+    idxM_maxIter = 1
     idxM_updateRate = 0.8;
     idxM_updateRateExponent = 1;
 
     idxM = IterationParameters(idxM_tolerance,idxM_maxIter,idxM_updateRate,idxM_updateRateExponent);
 
-    write(f, "zSzE Iteration Parameters \n---------------\n")
+    write(f, "idxM Iteration Parameters \n---------------\n")
     for n in fieldnames(IterationParameters)
         temp = getfield(idxM,n)
         write(f,"$n: $temp \n")
@@ -176,9 +176,9 @@ function setModelParameters()
     ξ = 10
 
     # CNCs
-    CNC = true
+    CNC = false
 
-    modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ)
+    modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,CNC)
 
     f = open("./figures/modelPar.txt", "w")
 

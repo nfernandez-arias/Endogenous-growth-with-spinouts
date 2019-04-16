@@ -69,6 +69,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
 	V = incumbentHJBSolution.V
 	zI = incumbentHJBSolution.zI
+	noncompete = incumbentHJBSolution.noncompete
 
 
 	τI = AuxiliaryModule.τI(modelPar,zI)
@@ -76,7 +77,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	τ = τI .+ τSE
 
 	aSE = (zS .+ zE)
-	a = aSE .+ zI
+	a = aSE .+ zI .* (1 .- noncompete)  # Take into account effect of non-competes on drift
 
     ## Construct mGrid and Delta_m vectors
     mGrid,Δm = mGridBuild(algoPar.mGrid)
@@ -143,6 +144,7 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
     # Spinouts
     ν = modelPar.ν;
     #ξ = modelPar.ξ;
+
 
     # Define some auxiliary functions
     #ϕI(z) = z .^(-ψI)
@@ -275,6 +277,9 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 	# CNCs
 	CNC = modelPar.CNC
 
+	# Wage
+	wbar = AuxiliaryModule.wbar(modelPar.β)
+
     # Define some auxiliary functions
     ϕI(z) = z .^(-ψI)
     ϕSE(z) = z .^(-ψSE)
@@ -300,14 +305,14 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     V0 = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess)
 	noncompete = zeros(size(V0))
     zI = zeros(size(V0))
-	zI_CNC = zeros(size(V0))
-	zIalt = zeros(size(V0))
+
     ## Construct mGrid and Delta_m vectors
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
     # Finally calculate flow profit
 	Π = AuxiliaryModule.profit(guess.L_RD,modelPar) .* ones(size(mGrid));
 
+	# Initialize transition matrix
 	A = spzeros(length(mGrid),length(mGrid))
 
     iterate = 0
@@ -333,21 +338,27 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		    denominator = (1- ψI) * χI * ( λ * V0[1] - V0[i])
 		    ratio = numerator / denominator
 
-			if numerator < denominator
-				noncompete[i] = true
-			else
-				noncompete[i] = false
-			end
-
-
-			numerator_CNC = AuxiliaryModule.wbar(modelPar.β)
-			ratio_CNC = numerator_CNC / denominator
+			#print("$(numerator - wbar)")
 
 			if ratio > 0
-				zI[i] = ratio^(-1/ψI)
-				zI_CNC[i] = ratio_CNC^(-1/ψI)
+
+				if numerator <= wbar
+					noncompete[i] = 0
+					zI[i] = ratio^(-1/ψI)
+				else
+					noncompete[i] = 1
+					numerator_CNC = AuxiliaryModule.wbar(modelPar.β)
+					ratio_CNC = numerator_CNC / denominator
+
+					zI[i] = ratio_CNC^(-1/ψI)
+					#zI[i] = ratio^(-1/ψI)
+				end
+
 			else
+
+				noncompete[i] = 0
 				zI[i] = 0.1
+
 			end
 
 		end
@@ -359,37 +370,9 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		zI[end] = zI[end-1]
 		noncompete[end] = noncompete[end-1]
 
-		if CNC = false
-			noncompete[:] .= false
+		if CNC == false
+			noncompete[:] .= 0
 		end
-
-		#---------------------------#
-		# DEPRECATED CODE
-		#---------------------------#
-
-        # Compute optimal policy
-        # This can be parallelized eventually if I need to - essentially the only
-        # part of the code that can be parallelized.
-
-		#if iterate <= 0
-
-		  #  for i= 1:length(mGrid)-1
-
-		  #      rhs(z) = -z[1] * (χI * ϕI(z[1]) * (λ * V0[1] - V0[i]) - (w[i] - ν * (V0[i+1] - V0[i]) / Δm[i]))
-
-				# Guess not necessary for univariate optimization with Optim.jl using Brent algorithm
-				#zIguess = [0.1]
-
-				# Need to restrict search to positive numbers, or else getting a complex number error!
-		  #      result = optimize(rhs,0,1)
-
-		  #      zI[i] = result.minimizer[1];
-
-				#zI[i] = 0
-
-		#    end
-
-	#	else
 
 		## Unpack tau functions
 		########################################
@@ -422,8 +405,6 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 	end
 
-	#println("V is equal to $V0")
-
 	if verbose >= 1
 		if error > tolerance
 			@warn("solveIncumbentHJB: maxIter attained")
@@ -431,8 +412,6 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 			println("solveIncumbentHJB: Converged in $iterate steps")
 		end
 	end
-
-	#gif(anim, "anim.gif", fps = 1)
 
     # Output
     return IncumbentSolution(V0,zI,noncompete)
