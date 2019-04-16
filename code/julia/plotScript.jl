@@ -299,3 +299,10 @@ p2 = plot(df, x = "x", y = "y", color = "label", Coord.Cartesian(ymin = 0), Geom
 
 p = vstack(p1,p2)
 draw(PNG("./figures/effectiveRDWage_vs_t.png", 10inch, 10inch), p)
+
+
+#- Plot noncompetes
+df = DataFrame(x = t[:], y = noncompete[:], label = "Noncompete usage")
+
+p = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("1 = Non-compete usage"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Usage"), Guide.xlabel("t: years since last innovation"), Theme(background_color=colorant"white"))
+draw(PNG("./figures/noncompete_usage.png", 10inch, 10inch), p)

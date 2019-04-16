@@ -123,7 +123,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
 end
 
-function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, zI::Array{Float64}, noncompete::Array{Int64},A::SparseMatrixCSC{Float64,Int64},zS::Array{Float64},zE::Array{Float64})
+function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, zI::Array{Float64}, noncompete,A::SparseMatrixCSC{Float64,Int64},zS::Array{Float64},zE::Array{Float64})
 
     ## Unpack model parameters
     ##########################
@@ -387,7 +387,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 	    u = Π .- zI .* ((1 .- noncompete) .* w + noncompete .* AuxiliaryModule.wbar(modelPar.β))
 		#u = Π .+ ((λ-1) * τI .* V0[1])  .- (zI .* w)  # Moll's idea -- here add (λ-1) * τI * V0[1] term
 		#A = constructMatrixA(algoPar,modelPar,guess,zI)
-		updateMatrixA(algoPar,modelPar,guess,zI,A,zS,zE)
+		updateMatrixA(algoPar,modelPar,guess,zI,noncompete,A,zS,zE)
 
 		V1,error = updateV(algoPar,modelPar,A,u,V0)
 

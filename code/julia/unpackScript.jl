@@ -7,6 +7,7 @@ idxM = results.finalGuess.idxM
 V = results.incumbent.V
 zI = results.incumbent.zI
 zIfromFOC = zeros(size(zI))
+noncompete = results.incumbent.noncompete
 W = results.spinoutValue
 
 zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
@@ -20,7 +21,7 @@ zE = AuxiliaryModule.zE(modelPar,V[1],w,zS)
 
 τ = τI + τSE
 
-z = zS + zE + zI
+z = zS + zE + zI .* (1 .- noncompete)
 a = z
 
 finalGoodsLabor = AuxiliaryModule.LF(L_RD,modelPar)
