@@ -77,8 +77,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
 	τ = τI .+ τSE
 
-	aSE = (zS .+ zE)
-	a = aSE .+ zI .* (1 .- noncompete)  # Take into account effect of non-competes on drift
+	a = zS .+ zI .* (1 .- noncompete)  # Take into account effect of non-competes on drift
 
     ## Construct mGrid and Delta_m vectors
     mGrid,Δm = mGridBuild(algoPar.mGrid)
