@@ -40,6 +40,8 @@ mutable struct ModelParameters
     ν::Float64
     # Size of spinout
     ξ::Float64
+    # Creative destruction deadweight loss
+    ζ::Float64
 
     CNC::Bool
 

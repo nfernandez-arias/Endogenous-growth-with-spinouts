@@ -20,7 +20,7 @@ function setAlgorithmParameters()
 
     mgrid_numPoints = 2000
     mgrid_minimum = 0.0
-    mgrid_maximum = .01
+    mgrid_maximum = .02
     mgrid_logSpacing = false
     mgrid_logSpacingMinimum = 1e-8
 
@@ -174,11 +174,12 @@ function setModelParameters()
     # Spinouts
     ν = 0.0102495
     ξ = 10
+    ζ = 0.04
 
     # CNCs
     CNC = true
 
-    modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,CNC)
+    modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,ζ,CNC)
 
     f = open("./figures/modelPar.txt", "w")
 
