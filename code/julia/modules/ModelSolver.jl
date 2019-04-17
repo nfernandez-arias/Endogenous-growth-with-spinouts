@@ -424,7 +424,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
             # Solve spinout HJB using incumbent HJB
             W,spinoutFlow = solveSpinoutHJB(algoPar,modelPar,guess,incumbentHJBSolution)
 
-            # Use spinout value to compute implied R&D wage
+            # Use spinout value to compute implied no-CNC R&D wage
             ν = modelPar.ν
             wbar = AuxiliaryModule.wbar(modelPar.β)
             temp_w = wbar .* ones(size(W)) .- ν .* W

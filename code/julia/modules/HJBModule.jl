@@ -344,7 +344,12 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 				if numerator <= wbar
 					noncompete[i] = 0
+					#noncompete[i] = 1
 					zI[i] = ratio^(-1/ψI)
+					#numerator_CNC = AuxiliaryModule.wbar(modelPar.β)
+					#ratio_CNC = numerator_CNC / denominator
+					#zI[i] = ratio_CNC^(-1/ψI)
+
 				else
 					noncompete[i] = 1
 					numerator_CNC = AuxiliaryModule.wbar(modelPar.β)
@@ -357,6 +362,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 			else
 
 				noncompete[i] = 0
+				#noncompete[i] = 1
 				zI[i] = 0.1
 
 			end
