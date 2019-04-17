@@ -174,7 +174,7 @@ function setModelParameters()
     # Spinouts
     ν = 0.0102495
     ξ = 10
-    ζ = 0.04
+    ζ = 0.03
 
     # CNCs
     CNC = true

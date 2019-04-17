@@ -153,6 +153,7 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
     τ = τI .+ τSE
 
     a = ν .* (zS .+ zE .+ zI .* (1 .- noncompete))
+    RDlabor = zS .+ zE .+ zI
 
     #----------------------#
     # Solve KF equation
@@ -200,7 +201,7 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
     # Compute implied L_RD
     #----------------------#
 
-    L_RD = sum(γ .* μ .* a .* Δm) / ν
+    L_RD = sum(γ .* μ .* RDlabor .* Δm)
 
     #----------------------#
     # Compute implied g
