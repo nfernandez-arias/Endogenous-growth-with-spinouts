@@ -54,6 +54,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
     # Spinouts
     ν = modelPar.ν
     ξ = modelPar.ξ
+	ζ = modelPar.ζ
 
     # Define some auxiliary functions
     ϕI(z) = z .^(-ψI)
@@ -88,36 +89,21 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	zS_density[2:end] = (zS ./ mGrid)[2:end]
 	zS_density[1] = ξ
 
-
+	# Spinout flow construction
 	spinoutFlow = zeros(size(zS))
-	# Spinout flow construction and moving to zeros
-	#spinoutFlow[:] = (χS .* ϕSE(zS + zE) .* λ .* V[1] .- w)[:]
-	spinoutFlow = (χS .* ϕSE(zS .+ zE) .* λ .* V[1] .- w)
-
-	#println("spinoutFlow = $spinoutFlow")
-
-	#for i = 1:length(spinoutFlow)
-	#	if spinoutFlow[i] < 1e-3
-	#		spinoutFlow[i] = 0
-	#	end
-	#end
+	spinoutFlow = (χS .* ϕSE(zS .+ zE) .* (λ * V[1] - ζ) .- w)
 
 	Imax = length(mGrid)
 
 	W = zeros(size(V))
-
-	W[Imax] = 0
 
 	for i = 1:Imax-1
 
 		j = Imax - i
 
 		W[j] = ((a[j] *  ν / Δm[j]) * W[j+1] + zS_density[j] * ( spinoutFlow[j] )) / (ρ + τ[j] + a[j] * ν / Δm[j])
-		#W[j] = ((a[j] *  ν / Δm[j]) * W[j+1] + zS[j] * ( spinoutFlow[j] )) / (ρ + τ[j] + a[j] * ν / Δm[j])
 
 	end
-
-	#W = W ./ mGrid
 
     return W,spinoutFlow
 
@@ -174,8 +160,6 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 
 	τI = AuxiliaryModule.τI(modelPar,zI)
 	τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
-
-	#aSE = (zS .+ zE)
 
     for i = 1:length(mGrid)-1
 
