@@ -2,7 +2,7 @@ mGrid Parameters
 ---------------
 numPoints: 2000 
 minimum: 0.0 
-maximum: 0.02 
+maximum: 0.03 
 logSpacing: false 
 logSpacingMinimum: 1.0e-8 
 

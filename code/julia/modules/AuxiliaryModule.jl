@@ -81,7 +81,7 @@ end
 
 function zE(modelPar::ModelParameters,V0::Float64,w::Array{Float64},zS::Array{Float64})
 
-    zE = max.((w ./ (modelPar.χE * (modelPar.λ .* V0 - modelPar.ζ))).^(-1/modelPar.ψSE) .- zS,0)
+    zE = max.((wbar(modelPar.β) ./ (modelPar.χE * (modelPar.λ .* V0 - modelPar.ζ))).^(-1/modelPar.ψSE) .- zS,0)
 
     return zE
 

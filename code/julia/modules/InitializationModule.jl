@@ -20,7 +20,7 @@ function setAlgorithmParameters()
 
     mgrid_numPoints = 2000
     mgrid_minimum = 0.0
-    mgrid_maximum = .02
+    mgrid_maximum = .03
     mgrid_logSpacing = false
     mgrid_logSpacingMinimum = 1e-8
 
@@ -174,7 +174,7 @@ function setModelParameters()
     # Spinouts
     ν = 0.0102495
     ξ = 10
-    ζ = 0.03
+    ζ = 0
 
     # CNCs
     CNC = true

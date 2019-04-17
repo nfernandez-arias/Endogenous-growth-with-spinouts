@@ -112,7 +112,7 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     #########
     ## Compute new guesses
 
-    temp = modelPar.χS * ϕSE(ξ*mGrid) * modelPar.λ * V[1] - w
+    temp = modelPar.χS * ϕSE(ξ*mGrid) * (modelPar.λ * V[1] - modelPar.ζ) - w
     idxM = findlast( (temp .>= 0)[:] )
 
     #pause(2)
@@ -152,12 +152,12 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
 
     τ = τI .+ τSE
 
-    a = ν .* (zS .+ zE .+ zI .* (1 .- noncompete))
+    a = ν .* (zS .+ zI .* (1 .- noncompete))   # No spinouts from zE or from incumbents using non-competes.
     RDlabor = zS .+ zE .+ zI
 
     #----------------------#
     # Solve KF equation
-    #----------------------#
+    #----------------------#false
 
     # Compute derivative of a for calculating stationary distribution
     aPrime = zeros(size(a))
