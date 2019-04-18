@@ -157,7 +157,7 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
 
     #----------------------#
     # Solve KF equation
-    #----------------------#false
+    #----------------------#
 
     # Compute derivative of a for calculating stationary distribution
     aPrime = zeros(size(a))

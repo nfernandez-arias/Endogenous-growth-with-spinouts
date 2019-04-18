@@ -18,7 +18,7 @@ modelPar = setModelParameters()
 mGrid,Δm = mGridBuild(algoPar.mGrid)
 initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 
-#--------------------------------#
+#------------------------------
 # Solve model with the above parameters
 #--------------------------------#
 
@@ -122,6 +122,6 @@ println("$growthShare_spinouts (Growth share: spinouts)\n")
 # Make some plots                #
 #--------------------------------#
 
-include("plotScript.jl")
+#include("plotScript.jl")
 
 #include("presentationPlots.jl")
