@@ -1,5 +1,8 @@
 
 
+
+
+
 L_RD = results.finalGuess.L_RD
 #γ = results.finalGuess.γ
 w = results.finalGuess.w

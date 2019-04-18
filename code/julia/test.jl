@@ -108,7 +108,7 @@ growthShare_spinouts = growthContribution_spinouts / totalGrowth
 println("Growth contributions--------------------------------------------")
 println("--------------------------------------------------------------\n")
 println("$growthContribution_incumbent (Growth due to incumbents)\n")
-println("$growthContribution_entrants (Growth due to ordinary entrants)\n")
+println("$growthContribution_entrants (Grononcompete = results.incumbent.noncompetewth due to ordinary entrants)\n")
 println("$growthContribution_spinouts (Growth due to spinouts)\n")
 
 println("\n--------------------------------------------------------------")
@@ -122,6 +122,6 @@ println("$growthShare_spinouts (Growth share: spinouts)\n")
 # Make some plots                #
 #--------------------------------#
 
-#include("plotScript.jl")
+include("plotScript.jl")
 
 #include("presentationPlots.jl")

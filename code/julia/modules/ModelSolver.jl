@@ -155,65 +155,75 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
     a = ν .* (zS .+ zI .* (1 .- noncompete))   # No spinouts from zE or from incumbents using non-competes.
     RDlabor = zS .+ zE .+ zI
 
-    #----------------------#
-    # Solve KF equation
-    #----------------------#
+    if noncompete[1] == 1
+        L_RD = zI[1] + zE[1]
+        g = (λ - 1) * τ[1]
+        γ = zeros(1,1)
+        t = zeros(1,1)
 
-    # Compute derivative of a for calculating stationary distribution
-    aPrime = zeros(size(a))
-    for i = 1:length(aPrime)-1
+    else
 
-        aPrime[i] = (a[i+1] - a[i]) / Δm[i]
+        #----------------------#
+        # Solve KF equation
+        #----------------------#
+
+        # Compute derivative of a for calculating stationary distribution
+        aPrime = zeros(size(a))
+        for i = 1:length(aPrime)-1
+
+            aPrime[i] = (a[i+1] - a[i]) / Δm[i]
+
+        end
+        aPrime[end] = aPrime[end-1]
+
+        # Integrate ODE to compute shape of μ
+        integrand =  (aPrime .+ τ) ./ a
+        summand = integrand .* Δm
+        integral = cumsum(summand[:])
+        μ = exp.(-integral)
+
+        # Rescale to obtain density
+        μ = μ / sum(μ .* Δm)
+
+        #----------------------#
+        # Compute γ(m)
+        #----------------------#
+
+        # First step: compute t(m), equilibrium time it takes to reach state m
+
+        t = cumsum(Δm[:] ./ a[:])
+
+        # Next step: compute shape of γ(m)
+
+        γShape = exp.(- guess.g .* t)
+
+        # Compute C_gamma
+
+        γScale = sum(γShape .* μ .* Δm)^(-1)
+
+        # Finally compute γ
+
+        γ = γScale * γShape
+
+        #----------------------#
+        # Compute implied L_RD
+        #----------------------#
+
+        L_RD = sum(γ .* μ .* RDlabor .* Δm)
+
+        #----------------------#
+        # Compute implied g
+        #----------------------#
+
+        g = (λ - 1) .* sum(γ .* μ .* τ .* Δm)
+
+        #----------------------#
+        # Return output
+        #----------------------#
 
     end
-    aPrime[end] = aPrime[end-1]
 
-    # Integrate ODE to compute shape of μ
-    integrand =  (aPrime .+ τ) ./ a
-    summand = integrand .* Δm
-    integral = cumsum(summand[:])
-    μ = exp.(-integral)
-
-    # Rescale to obtain density
-    μ = μ / sum(μ .* Δm)
-
-    #----------------------#
-    # Compute γ(m)
-    #----------------------#
-
-    # First step: compute t(m), equilibrium time it takes to reach state m
-
-    t = cumsum(Δm[:] ./ a[:])
-
-    # Next step: compute shape of γ(m)
-
-    γShape = exp.(- guess.g .* t)
-
-    # Compute C_gamma
-
-    γScale = sum(γShape .* μ .* Δm)^(-1)
-
-    # Finally compute γ
-
-    γ = γScale * γShape
-
-    #----------------------#
-    # Compute implied L_RD
-    #----------------------#
-
-    L_RD = sum(γ .* μ .* RDlabor .* Δm)
-
-    #----------------------#
-    # Compute implied g
-    #----------------------#
-
-    g = (λ - 1) .* sum(γ .* μ .* τ .* Δm)
-
-    #----------------------#
-    # Return output
-    #----------------------#
-
-    return g,L_RD,μ,γ,t
+    return g,L_RD,γ,t
 
 end
 
@@ -434,7 +444,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
             w = algoPar.w.updateRate .* temp_w .+ (1 .- algoPar.w.updateRate) .* guess.w
 
             ## Updating g,L_RD
-            temp_g,temp_L_RD,μ,γ,t = update_g_L_RD(algoPar,modelPar,guess,incumbentHJBSolution)
+            temp_g,temp_L_RD,γ,t = update_g_L_RD(algoPar,modelPar,guess,incumbentHJBSolution)
 
             g = algoPar.g.updateRate .* temp_g .+ (1 .- algoPar.g.updateRate) .* guess.g
             L_RD = algoPar.L_RD.updateRate .* temp_L_RD .+ (1 .- algoPar.L_RD.updateRate) .* guess.L_RD
