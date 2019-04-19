@@ -51,10 +51,18 @@ println("Growth and RD Labor Allocation--------------------------------")
 println("--------------------------------------------------------------\n")
 println("g: $g (growth rate) \nL_RD: $L_RD (labor allocation to R&D)")
 
-innovationRateIncumbent = sum(τI .* μ .* Δm)
-entryRateOrdinary = sum(τE .* μ .* Δm)
-entryRateSpinouts = sum(τS .* μ .* Δm)
+if noncompete[1] == 1
+    innovationRateIncumbent = τI[1]
+    entryRateOrdinary = τE
+    entryRateSpinouts = 0
+else
+    innovationRateIncumbent = sum(τI .* μ .* Δm)
+    entryRateOrdinary = sum(τE .* μ .* Δm)
+    entryRateSpinouts = sum(τS .* μ .* Δm)
+end
+
 entryRateTotal = entryRateOrdinary + entryRateSpinouts
+
 println("\n--------------------------------------------------------------")
 println("Innovation rates----------------------------------------------")
 println("--------------------------------------------------------------\n")
@@ -78,7 +86,13 @@ println("$spinoutFraction (Steady state fraction firms that started as spinouts)
 
 
 aggregateSales = finalGoodsLabor
-aggregateRDSpending = sum(w .* z .* γ .* μ .* Δm)
+
+if noncompete[1] == 1
+    aggregateRDSpending = wbar * z[1]
+else
+    aggregateRDSpending = sum(w .* z .* γ .* μ .* Δm)
+end
+
 aggregateRDSalesRatio = aggregateRDSpending / aggregateSales
 println("\n--------------------------------------------------------------")
 println("R&D Intensity-------------------------------------------------")
@@ -92,10 +106,15 @@ println("NON-TARGETED MOMENTS--------------------------------------------")
 println("--------------------------------------------------------------\n")
 
 
-
-growthContribution_incumbent = (modelPar.λ - 1) * sum(τI .* γ .* μ .* Δm)
-growthContribution_entrants = (modelPar.λ - 1) * sum(τE .* γ .* μ .* Δm)
-growthContribution_spinouts = (modelPar.λ - 1) * sum(τS .* γ .* μ .* Δm)
+if noncompete[1] == 1
+    growthContribution_incumbent = (λ - 1) * τI[1]
+    growthContribution_entrants = (λ - 1) * τE[1]
+    growthContribution_spinouts = 0
+else
+    growthContribution_incumbent = (λ - 1) * sum(τI .* γ .* μ .* Δm)
+    growthContribution_entrants = (λ - 1) * sum(τE .* γ .* μ .* Δm)
+    growthContribution_spinouts = (λ - 1) * sum(τS .* γ .* μ .* Δm)
+end
 
 # Sanity check
 totalGrowth = growthContribution_incumbent + growthContribution_entrants + growthContribution_spinouts

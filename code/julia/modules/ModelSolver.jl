@@ -44,19 +44,19 @@ end
 function update_L_RD_w(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::Guess, incumbentHJBSolution::IncumbentSolution)
 
     # Unpack incumbentHJBSolution
-    V = incumbentHJBSolution.V;
-    zI = incumbentHJBSolution.zI;
+    V = incumbentHJBSolution.V
+    zI = incumbentHJBSolution.zI
 
     ## Update w
     # Load parameters and model constants
-    ν = modelPar.ν;
-    wbar = AuxiliaryModule.wbar(modelPar.β);
+    ν = modelPar.ν
+    wbar = AuxiliaryModule.wbar(modelPar.β)
 
     # First compute W, value of spinout, for computing R&D wage update
     W,spinoutFlow = solveSpinoutHJB(algoPar,modelPar,initGuess,V)
     # Compute new wage
-    temp_w = wbar .* ones(size(W)) .- ν .* W;
-    w = algoPar.w.updateRate .* temp_w .+ (1 .- algoPar.w.updateRate) .* initGuess.w;
+    temp_w = wbar .* ones(size(W)) .- ν .* W
+    w = algoPar.w.updateRate .* temp_w .+ (1 .- algoPar.w.updateRate) .* initGuess.w
 
     ## Update L_RD
 
@@ -298,8 +298,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         cleanGuess = Guess(guess.g,guess.L_RD,guess.w,guess.idxM)
 
         # Initialize while loop variables
-        iterate_idxM = 0;
-        error_idxM = 1;
+        iterate_idxM = 0
+        error_idxM = 1
 
         try
 
@@ -361,8 +361,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 guess = cleanGuess
 
                 # While loop to compute fixed point
-                iterate_idxM = 0;
-                error_idxM = 1;
+                iterate_idxM = 0
+                error_idxM = 1
 
                 #print("$iterate_zSzE")
                 #print("$error_zSzE")
