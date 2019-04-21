@@ -22,12 +22,14 @@ zE = AuxiliaryModule.zE(modelPar,V[1],w,zS)
 τS = zeros(size(τE))
 τS[:] = τSE[:] - τE[:]
 
+sFromS = modelPar.spinoutsFromSpinouts
+
 L_F = AuxiliaryModule.LF(L_RD,modelPar)
 
 τ = τI + τSE
 
 z = zS + zE + zI
-a = zS .+ zI .* (1 .- noncompete)
+a = sFromS * zS .+ zI .* (1 .- noncompete)
 
 finalGoodsLabor = AuxiliaryModule.LF(L_RD,modelPar)
 
