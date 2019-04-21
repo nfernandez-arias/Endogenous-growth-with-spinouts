@@ -18,9 +18,9 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 1000
+    mgrid_numPoints = 500
     mgrid_minimum = 0.0
-    mgrid_maximum = .03
+    mgrid_maximum = .05
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-12
 
@@ -102,7 +102,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     idxM_tolerance = 1e-7
-    idxM_maxIter = 50
+    idxM_maxIter = 4
     idxM_updateRate = 0.8
     idxM_updateRateExponent = 1
 
@@ -179,7 +179,10 @@ function setModelParameters()
     # CNCs
     CNC = false
 
-    modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,ζ,CNC)
+    # Spinouts from spinouts
+    spinoutsFromSpinouts = true
+
+    modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,ζ,CNC,spinoutsFromSpinouts)
 
     f = open("./figures/modelPar.txt", "w")
 

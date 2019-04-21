@@ -45,6 +45,8 @@ mutable struct ModelParameters
 
     CNC::Bool
 
+    spinoutsFromSpinouts::Bool
+
 end
 
 export ModelParameters;
