@@ -127,7 +127,7 @@ growthShare_spinouts = growthContribution_spinouts / totalGrowth
 println("Growth contributions--------------------------------------------")
 println("--------------------------------------------------------------\n")
 println("$growthContribution_incumbent (Growth due to incumbents)\n")
-println("$growthContribution_entrants (Grononcompete = results.incumbent.noncompetewth due to ordinary entrants)\n")
+println("$growthContribution_entrants (Growth due to ordinary entrants)\n")
 println("$growthContribution_spinouts (Growth due to spinouts)\n")
 
 println("\n--------------------------------------------------------------")

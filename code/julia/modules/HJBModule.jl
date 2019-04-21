@@ -374,7 +374,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 	    ## Make update:
 	    u = Π .- zI .* ((1 .- noncompete) .* w + noncompete .* AuxiliaryModule.wbar(modelPar.β))
-		#u = Π .+ ((λ-1) * τI .* V0[1])  .- (zI .* w)  # Moll's idea -- here add (λ-1) * τI * V0[1] term
+		#u = Π .+ ((λ-1) * τI .* V0[1])  .- zI .* ((1 .- noncompete) .* w + noncompete .* AuxiliaryModule.wbar(modelPar.β))  # Moll's idea -- here add (λ-1) * τI * V0[1] term
 		#A = constructMatrixA(algoPar,modelPar,guess,zI)
 		updateMatrixA(algoPar,modelPar,guess,zI,noncompete,A,zS,zE)
 

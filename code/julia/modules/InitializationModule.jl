@@ -18,11 +18,11 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 2000
+    mgrid_numPoints = 1000
     mgrid_minimum = 0.0
-    mgrid_maximum = .05
+    mgrid_maximum = .07
     mgrid_logSpacing = true
-    mgrid_logSpacingMinimum = 1e-8
+    mgrid_logSpacingMinimum = 1e-10
 
     mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum)
 
@@ -33,9 +33,9 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 20
-    incumbentHJB_tolerance = 1e-7
-    incumbentHJB_maxIter = 30
+    incumbentHJB_timeStep = 10
+    incumbentHJB_tolerance = 1e-12
+    incumbentHJB_maxIter = 50
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter)
 
@@ -61,7 +61,7 @@ function setAlgorithmParameters()
 
     g_tolerance = 1e-7
     g_maxIter = 100
-    g_updateRate = 0.7
+    g_updateRate = 0.3
     g_updateRateExponent = 1
 
     g = IterationParameters(g_tolerance,g_maxIter,g_updateRate,g_updateRateExponent)
@@ -73,9 +73,9 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    L_RD_tolerance = 1e-9
+    L_RD_tolerance = 1e-7
     L_RD_maxIter = 100
-    L_RD_updateRate = 0.7
+    L_RD_updateRate = 0.3
     L_RD_updateRateExponent = 1
 
     L_RD = IterationParameters(L_RD_tolerance,L_RD_maxIter,L_RD_updateRate,L_RD_updateRateExponent)
@@ -87,9 +87,9 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    w_tolerance = 1e-9
+    w_tolerance = 1e-7
     w_maxIter = 100
-    w_updateRate = 0.8
+    w_updateRate = 0.3
     w_updateRateExponent = 1
 
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent)
@@ -164,17 +164,17 @@ function setModelParameters()
     L = 1
 
     # Innovation
-    χI = 2
-    χS = 3
+    χI = 3.25
+    χS = 1.5
     χE = 0.5
     ψI = 0.5
-    ψSE = 0.5
+    ψSE = 0.65
     λ = 1.0532733
 
     # Spinouts
     ν = 0.0102495
     ξ = 10
-    ζ = 0
+    ζ = 0.05
 
     # CNCs
     CNC = false
