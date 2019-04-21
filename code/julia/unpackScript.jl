@@ -1,5 +1,8 @@
 
 
+
+
+
 L_RD = results.finalGuess.L_RD
 #γ = results.finalGuess.γ
 w = results.finalGuess.w
@@ -21,8 +24,8 @@ zE = AuxiliaryModule.zE(modelPar,V[1],w,zS)
 
 τ = τI + τSE
 
-z = zS + zE + zI .* (1 .- noncompete)
-a = z
+z = zS + zE + zI
+a = zS .+ zI .* (1 .- noncompete)
 
 finalGoodsLabor = AuxiliaryModule.LF(L_RD,modelPar)
 
@@ -52,11 +55,16 @@ aPrime[end] = aPrime[end-1]
 β = modelPar.β
 #wbar = (β^β)*(1-β)^(2-2*β);
 
-wbar = AuxiliaryModule.Cβ(β)
+wbar = AuxiliaryModule.wbar(β)
 Π = AuxiliaryModule.profit(results.finalGuess.L_RD,modelPar)
 
-integrand =  (ν .* aPrime .+ τ) ./ (ν .* a)
-summand = integrand .* Δm
-integral = cumsum(summand[:])
-μ = exp.(-integral)
-μ = μ / sum(μ .* Δm)
+if noncompete[1] == 1
+    μ = zeros(size(mGrid))
+    μ[1] = 1
+else
+    integrand =  (ν .* aPrime .+ τ) ./ (ν .* a)
+    summand = integrand .* Δm
+    integral = cumsum(summand[:])
+    μ = exp.(-integral)
+    μ = μ / sum(μ .* Δm)
+end

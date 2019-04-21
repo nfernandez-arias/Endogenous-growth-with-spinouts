@@ -18,13 +18,13 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 2000
+    mgrid_numPoints = 1000
     mgrid_minimum = 0.0
     mgrid_maximum = .03
-    mgrid_logSpacing = false
-    mgrid_logSpacingMinimum = 1e-8
+    mgrid_logSpacing = true
+    mgrid_logSpacingMinimum = 1e-10
 
-    mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum);
+    mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum)
 
     write(f, "mGrid Parameters \n---------------\n")
     for n in fieldnames(mGridParameters)
@@ -33,11 +33,11 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 20;
-    incumbentHJB_tolerance = 1e-7;
-    incumbentHJB_maxIter = 30
+    incumbentHJB_timeStep = 10
+    incumbentHJB_tolerance = 1e-12
+    incumbentHJB_maxIter = 50
 
-    incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter);
+    incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter)
 
     write(f, "Incumbent HJB Parameters \n---------------\n")
     for n in fieldnames(HJBellmanParameters)
@@ -46,11 +46,11 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    spinoutHJB_timeStep = 0.01;
-    spinoutHJB_tolerance = 1e-3;
-    spinoutHJB_maxIter = 1;
+    spinoutHJB_timeStep = 0.01
+    spinoutHJB_tolerance = 1e-3
+    spinoutHJB_maxIter = 1
 
-    spinoutHJB = HJBellmanParameters(spinoutHJB_timeStep,spinoutHJB_tolerance,spinoutHJB_maxIter);
+    spinoutHJB = HJBellmanParameters(spinoutHJB_timeStep,spinoutHJB_tolerance,spinoutHJB_maxIter)
 
     write(f, "Spinout HJB Parameters \n---------------\n")
     for n in fieldnames(HJBellmanParameters)
@@ -59,12 +59,12 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    g_tolerance = 1e-7;
-    g_maxIter = 1;
-    g_updateRate = 0.7;
-    g_updateRateExponent = 1;
+    g_tolerance = 1e-7
+    g_maxIter = 100
+    g_updateRate = 0.3
+    g_updateRateExponent = 1
 
-    g = IterationParameters(g_tolerance,g_maxIter,g_updateRate,g_updateRateExponent);
+    g = IterationParameters(g_tolerance,g_maxIter,g_updateRate,g_updateRateExponent)
 
     write(f, "g Iteration Parameters \n---------------\n")
     for n in fieldnames(IterationParameters)
@@ -73,12 +73,12 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    L_RD_tolerance = 1e-9;
-    L_RD_maxIter = 1;
-    L_RD_updateRate = 0.7;
-    L_RD_updateRateExponent = 1;
+    L_RD_tolerance = 1e-7
+    L_RD_maxIter = 100
+    L_RD_updateRate = 0.3
+    L_RD_updateRateExponent = 1
 
-    L_RD = IterationParameters(L_RD_tolerance,L_RD_maxIter,L_RD_updateRate,L_RD_updateRateExponent);
+    L_RD = IterationParameters(L_RD_tolerance,L_RD_maxIter,L_RD_updateRate,L_RD_updateRateExponent)
 
     write(f, "L_RD Iteration Parameters \n---------------\n")
     for n in fieldnames(IterationParameters)
@@ -87,12 +87,12 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    w_tolerance = 1e-9;
-    w_maxIter = 1;
-    w_updateRate = 0.8;
-    w_updateRateExponent = 1;
+    w_tolerance = 1e-7
+    w_maxIter = 100
+    w_updateRate = 0.3
+    w_updateRateExponent = 1
 
-    w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent);
+    w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent)
 
     write(f, "w Iteration Parameters \n---------------\n")
     for n in fieldnames(IterationParameters)
@@ -101,10 +101,10 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    idxM_tolerance = 1e-7;
+    idxM_tolerance = 1e-7
     idxM_maxIter = 50
-    idxM_updateRate = 0.8;
-    idxM_updateRateExponent = 1;
+    idxM_updateRate = 0.8
+    idxM_updateRateExponent = 1
 
     idxM = IterationParameters(idxM_tolerance,idxM_maxIter,idxM_updateRate,idxM_updateRateExponent);
 
@@ -117,9 +117,9 @@ function setAlgorithmParameters()
 
     # Logging parameters
 
-    g_L_RD_w_Log_verbose = 2;
-    g_L_RD_w_Log_print_skip = 1;
-    g_L_RD_w_Log = LogParameters(g_L_RD_w_Log_verbose,g_L_RD_w_Log_print_skip);
+    g_L_RD_w_Log_verbose = 2
+    g_L_RD_w_Log_print_skip = 1
+    g_L_RD_w_Log = LogParameters(g_L_RD_w_Log_verbose,g_L_RD_w_Log_print_skip)
 
     write(f, "g,L_RD,w Logging Parameters \n---------------\n")
     for n in fieldnames(LogParameters)
@@ -128,9 +128,9 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    idxM_Log_verbose = 2;
-    idxM_Log_print_skip = 1;
-    idxM_Log = LogParameters(idxM_Log_verbose,idxM_Log_print_skip);
+    idxM_Log_verbose = 2
+    idxM_Log_print_skip = 1
+    idxM_Log = LogParameters(idxM_Log_verbose,idxM_Log_print_skip)
 
     write(f, "zSzE Logging Parameters \n---------------\n")
     for n in fieldnames(LogParameters)
@@ -139,9 +139,9 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_Log_verbose = 2;
-    incumbentHJB_Log_print_skip = 100;
-    incumbentHJB_Log = LogParameters(incumbentHJB_Log_verbose,incumbentHJB_Log_print_skip);
+    incumbentHJB_Log_verbose = 2
+    incumbentHJB_Log_print_skip = 100
+    incumbentHJB_Log = LogParameters(incumbentHJB_Log_verbose,incumbentHJB_Log_print_skip)
 
     write(f, "incumbent HJB Logging Parameters \n---------------\n")
     for n in fieldnames(LogParameters)
@@ -152,7 +152,7 @@ function setAlgorithmParameters()
 
     close(f)
 
-    return AlgorithmParameters(mGrid, incumbentHJB, spinoutHJB, g, L_RD, w, idxM, g_L_RD_w_Log, idxM_Log, incumbentHJB_Log);
+    return AlgorithmParameters(mGrid, incumbentHJB, spinoutHJB, g, L_RD, w, idxM, g_L_RD_w_Log, idxM_Log, incumbentHJB_Log)
 
 end
 
@@ -164,9 +164,9 @@ function setModelParameters()
     L = 1
 
     # Innovation
-    χI = 3.2523
-    χS = 1.45
-    χE = 1.2029
+    χI = 3.25
+    χS = 1.5
+    χE = 1.2
     ψI = 0.5
     ψSE = 0.5
     λ = 1.0532733
@@ -174,7 +174,7 @@ function setModelParameters()
     # Spinouts
     ν = 0.0102495
     ξ = 10
-    ζ = 0
+    ζ = 0.1
 
     # CNCs
     CNC = true
@@ -200,16 +200,16 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
 
     g = 0.01
 
-    L_RD = 0.1;
+    L_RD = 0.1
 
-    β = pm.β;
+    β = pm.β
     #wbar = (β^β)*(1-β)^(2-2*β);
     wbar = AuxiliaryModule.Cβ(β)
 
-    w = wbar * ones(size(mGrid));
+    w = wbar * ones(size(mGrid))
     #w = 0.5 * wbar * ones(pa.mGrid.numPoints,1)
 
-    idxM = pa.mGrid.numPoints;
+    idxM = pa.mGrid.numPoints
     #idxM = 1
 
     #zS = pm.ξ .* mGrid
