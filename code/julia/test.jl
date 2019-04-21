@@ -53,7 +53,7 @@ println("g: $g (growth rate) \nL_RD: $L_RD (labor allocation to R&D)")
 
 if noncompete[1] == 1
     innovationRateIncumbent = τI[1]
-    entryRateOrdinary = τE
+    entryRateOrdinary = τE[1]
     entryRateSpinouts = 0
 else
     innovationRateIncumbent = sum(τI .* μ .* Δm)
@@ -141,6 +141,6 @@ println("$growthShare_spinouts (Growth share: spinouts)\n")
 # Make some plots                #
 #--------------------------------#
 
-include("plotScript.jl")
+#include("plotScript.jl")
 
 #include("presentationPlots.jl")
