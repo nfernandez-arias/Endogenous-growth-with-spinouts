@@ -137,12 +137,30 @@ println("$growthShare_incumbent (Growth share: incumbents)\n")
 println("$growthShare_entrants (Growth share: ordinary entrants)\n")
 println("$growthShare_spinouts (Growth share: spinouts)\n")
 
+
+#### Equilibrium evaluation
+
+# Welfare
+flowOutput = (((1-β) * wbar^(-1) )^(1-β))/(1-β) * L_F
+
+if noncompete[1] == 1
+    spinoutEntryCost = 0
+else
+    spinoutEntryCost = ζ * sum(τS .* γ .* μ .* Δm)
+end
+
+welfare = (flowOutput - spinoutEntryCost) / (ρ - g)
+
+println("\n--------------------------------------------------------------")
+println("Welfare---------------------------------------------------------")
+println("--------------------------------------------------------------\n")
+println("$welfare (Welfare)")
+
 #--------------------------------#
 # Make some plots                #
 #--------------------------------#
 
-if noncompete[1] == 0
-    include("plotScript.jl")
-end
+include("plotScript.jl")
+
 
 #include("presentationPlots.jl")

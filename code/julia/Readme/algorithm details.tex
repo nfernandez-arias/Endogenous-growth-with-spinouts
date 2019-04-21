@@ -1,20 +1,37 @@
-\documentclass[11pt,english]{article}
-\usepackage{palatino}
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
 \usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{geometry}
 \usepackage{amsthm}
+\usepackage{amsfonts}
+
 \usepackage{courier}
 \usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
 \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
 \usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
 %\usepackage{esint}
 \onehalfspacing
 \usepackage{babel}
 \usepackage{amsmath}
+\usepackage{graphicx}
 
 \theoremstyle{remark}
-\newtheorem*{remark}{Remark}
+\newtheorem{remark}{Remark}
 \begin{document}
 	
 \title{Solving for the static equilibrium allocation}

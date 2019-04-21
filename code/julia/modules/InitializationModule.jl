@@ -22,7 +22,7 @@ function setAlgorithmParameters()
     mgrid_minimum = 0.0
     mgrid_maximum = .03
     mgrid_logSpacing = true
-    mgrid_logSpacingMinimum = 1e-10
+    mgrid_logSpacingMinimum = 1e-12
 
     mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum)
 
@@ -60,7 +60,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     g_tolerance = 1e-7
-    g_maxIter = 100
+    g_maxIter = 150
     g_updateRate = 0.3
     g_updateRateExponent = 1
 
@@ -74,7 +74,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     L_RD_tolerance = 1e-7
-    L_RD_maxIter = 100
+    L_RD_maxIter = 150
     L_RD_updateRate = 0.3
     L_RD_updateRateExponent = 1
 
@@ -88,7 +88,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     w_tolerance = 1e-7
-    w_maxIter = 100
+    w_maxIter = 150
     w_updateRate = 0.3
     w_updateRateExponent = 1
 
@@ -173,8 +173,8 @@ function setModelParameters()
 
     # Spinouts
     ν = 0.0102495
-    ξ = 10
-    ζ = 0.1
+    ξ = 15
+    ζ = 0.12
 
     # CNCs
     CNC = false

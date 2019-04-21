@@ -22,6 +22,8 @@ zE = AuxiliaryModule.zE(modelPar,V[1],w,zS)
 τS = zeros(size(τE))
 τS[:] = τSE[:] - τE[:]
 
+L_F = AuxiliaryModule.LF(L_RD,modelPar)
+
 τ = τI + τSE
 
 z = zS + zE + zI
@@ -50,6 +52,7 @@ aPrime[end] = aPrime[end-1]
 ρ = modelPar.ρ
 ν = modelPar.ν
 ξ = modelPar.ξ
+ζ = modelPar.ζ
 ψI = modelPar.ψI
 χI = modelPar.χI
 β = modelPar.β

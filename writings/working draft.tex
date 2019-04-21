@@ -480,7 +480,13 @@ and
 		&+ \max_{0 \le z \le \xi} \Big\{  \chi_S z \phi_{SE}(z_E(m) + z_S(m)) \lambda V(0) - z w(m) \Big\} \label{BGP_HJB_S} 
 \end{align}
 
-It follows that optimal policies depend only on $m$. 
+It follows that optimal policies depend only on $m$. In particular,
+\begin{align}
+	z_I^*(m) &= \Bigg( \frac{w(m) - \nu V'(m)}{\chi_I (1-\psi) \Big(\lambda V(0) - V(m) \Big)} \Bigg)^{-1/\psi_I} \\
+	z_S^*(m) &= \xi \min(m,M^*) \\
+	M^* &= \xi^{-1}\Big(\frac{\overline{w}}{\chi_S \lambda V(0)} \Big)^{-1 / \psi_{SE}}\\
+	z_E^*(m) &= \max \Bigg\{0, \Big(\frac{\overline{w}}{\chi_E \lambda V(0)} \Big)^{-1 / \psi_{SE}} - z_S^*(m)\Bigg\}
+\end{align}
 
 \subsubsection{Aggregation}\label{full_model_aggregation}
 
