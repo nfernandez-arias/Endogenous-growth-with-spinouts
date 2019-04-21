@@ -55,6 +55,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
     ν = modelPar.ν
     ξ = modelPar.ξ
 	ζ = modelPar.ζ
+	sFromS = modelPar.spinoutsFromSpinouts
 
     # Define some auxiliary functions
     ϕI(z) = z .^(-ψI)
@@ -64,6 +65,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
     ###################################################
     w = guess.w
 	idxM = guess.idxM
+	wbar = AuxiliaryModule.wbar(modelPar.β)
 
 	zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
 	zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution.V[1],w,zS)
@@ -77,7 +79,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
 	τ = τI .+ τSE
 
-	a = zS .+ zI .* (1 .- noncompete)  # Take into account effect of non-competes on drift
+	a = sFromS * zS .+ zI .* (1 .- noncompete)  # Take into account effect of non-competes on drift
 
     ## Construct mGrid and Delta_m vectors
     mGrid,Δm = mGridBuild(algoPar.mGrid)
@@ -90,7 +92,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
 	# Spinout flow construction
 	spinoutFlow = zeros(size(zS))
-	spinoutFlow = (χS .* ϕSE(zS .+ zE) .* (λ * V[1] - ζ) .- w)
+	spinoutFlow = χS .* ϕSE(zS .+ zE) .* (λ * V[1] - ζ) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
 
 	Imax = length(mGrid)
 
@@ -129,6 +131,7 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
     # Spinouts
     ν = modelPar.ν;
     #ξ = modelPar.ξ;
+	sFromS = modelPar.spinoutsFromSpinouts
 
 
     # Define some auxiliary functions
@@ -164,8 +167,8 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 
 		A[i,1] = τI[i] * λ
 		#A[i,1] = τI[i]  # no λ term -- Moll's idea
-		A[i,i+1] = ν * ((1-noncompete[i]) * zI[i] + zS[i] + zE[i]) / Δm[i]
-		A[i,i] = - ν * ((1-noncompete[i]) * zI[i] + zS[i] + zE[i]) / Δm[i] - τI[i] - τSE[i]
+		A[i,i+1] = ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i] + zE[i]) / Δm[i]
+		A[i,i] = - ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i] + zE[i]) / Δm[i] - τI[i] - τSE[i]
 		#A[i,i] = - ν * (zI[i] + aSE[i]) / Δm[i]
 
     end

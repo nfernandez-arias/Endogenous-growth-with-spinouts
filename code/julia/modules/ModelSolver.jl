@@ -90,6 +90,7 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     # Spinouts
     ν = modelPar.ν
     ξ = modelPar.ξ
+    sFromS = modelPar.spinoutsFromSpinouts
 
     # Some auxiliary functions
     ϕI(z) = z .^(-ψI)
@@ -101,6 +102,7 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     old_idxM = guess.idxM
     #println("old_idxM = $old_idxM")
     w = guess.w
+    wbar = AuxiliaryModule.wbar(modelPar.β)
     #println("wage = $w")
 
     #println("V[1] = $(V[1])")
@@ -112,8 +114,16 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     #########
     ## Compute new guesses
 
-    temp = modelPar.χS * ϕSE(ξ*mGrid) * (modelPar.λ * V[1] - modelPar.ζ) - w
+    temp = modelPar.χS * ϕSE(ξ*mGrid) * (modelPar.λ * V[1] - modelPar.ζ) - (sFromS * w .+ (1-sFromS) * wbar)
+    #println("$(V[1])")
+    #println("$wbar")
+    #println("$w")
+    #println("$sFromS")
+    #println("$temp")
     idxM = findlast( (temp .>= 0)[:] )
+
+    #print("$idxM")
+    #repr(idxM)
 
     #pause(2)
 
@@ -149,10 +159,11 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
 
     ν = modelPar.ν
     λ = modelPar.λ
+    sFromS = modelPar.spinoutsFromSpinouts
 
     τ = τI .+ τSE
 
-    a = ν .* (zS .+ zI .* (1 .- noncompete))   # No spinouts from zE or from incumbents using non-competes.
+    a = ν .* (sFromS .* zS .+ zI .* (1 .- noncompete))   # No spinouts from zE or from incumbents using non-competes.
     RDlabor = zS .+ zE .+ zI
 
     if noncompete[1] == 1
