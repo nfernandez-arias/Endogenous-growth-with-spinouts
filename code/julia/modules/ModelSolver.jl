@@ -194,10 +194,11 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
         integral = cumsum(summand[:])
         μ = exp.(-integral)
 
-        println("type of variable idxCNC: $(typeof(idxCNC))")
+        #println("type of variable idxCNC: $(typeof(idxCNC))")
 
-        if typeof(idxCNC) != Nothing
+        println("Noncompetes used? (Yes = 1) $(maximum(noncompete))")
 
+        if maximum(noncompete) == 1
 
             # Compute mass at mass point
             μM = μ[idxCNC] / τ[idxCNC]
@@ -230,7 +231,7 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
         γShape = exp.(- guess.g .* t)
 
         # Take into account mass point:
-        if typeof(idxCNC) != Nothing
+        if maximum(noncompete) == 1
             γShape[idxCNC] = γShape[idxCNC] * τ[idxCNC] / (g + τ[idxCNC])
         end
 
