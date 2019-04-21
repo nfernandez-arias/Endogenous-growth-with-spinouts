@@ -141,6 +141,8 @@ println("$growthShare_spinouts (Growth share: spinouts)\n")
 # Make some plots                #
 #--------------------------------#
 
-#include("plotScript.jl")
+if noncompete[1] == 0
+    include("plotScript.jl")
+end
 
 #include("presentationPlots.jl")
