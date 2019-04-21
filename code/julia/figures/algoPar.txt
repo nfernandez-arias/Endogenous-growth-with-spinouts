@@ -10,8 +10,8 @@ logSpacingMinimum: 1.0e-10
 Incumbent HJB Parameters 
 ---------------
 timeStep: 10.0 
-tolerance: 1.0e-16 
-maxIter: 50 
+tolerance: 1.0e-9 
+maxIter: 1000 
 
 
 Spinout HJB Parameters 
@@ -24,7 +24,7 @@ maxIter: 1
 g Iteration Parameters 
 ---------------
 tolerance: 1.0e-7 
-maxIter: 150.0 
+maxIter: 1.0 
 updateRate: 0.3 
 updateRateExponent: 1.0 
 
@@ -32,7 +32,7 @@ updateRateExponent: 1.0
 L_RD Iteration Parameters 
 ---------------
 tolerance: 1.0e-7 
-maxIter: 150.0 
+maxIter: 1.0 
 updateRate: 0.3 
 updateRateExponent: 1.0 
 
@@ -40,7 +40,7 @@ updateRateExponent: 1.0
 w Iteration Parameters 
 ---------------
 tolerance: 1.0e-7 
-maxIter: 150.0 
+maxIter: 1.0 
 updateRate: 0.3 
 updateRateExponent: 1.0 
 
@@ -48,7 +48,7 @@ updateRateExponent: 1.0
 idxM Iteration Parameters 
 ---------------
 tolerance: 1.0e-7 
-maxIter: 50.0 
+maxIter: 1.0 
 updateRate: 0.8 
 updateRateExponent: 1.0 
 

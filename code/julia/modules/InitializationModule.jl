@@ -34,8 +34,8 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     incumbentHJB_timeStep = 10
-    incumbentHJB_tolerance = 1e-16
-    incumbentHJB_maxIter = 50
+    incumbentHJB_tolerance = 1e-9
+    incumbentHJB_maxIter = 1000
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter)
 
@@ -60,7 +60,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     g_tolerance = 1e-7
-    g_maxIter = 150
+    g_maxIter = 1
     g_updateRate = 0.3
     g_updateRateExponent = 1
 
@@ -74,7 +74,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     L_RD_tolerance = 1e-7
-    L_RD_maxIter = 150
+    L_RD_maxIter = 1
     L_RD_updateRate = 0.3
     L_RD_updateRateExponent = 1
 
@@ -88,7 +88,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     w_tolerance = 1e-7
-    w_maxIter = 150
+    w_maxIter = 1
     w_updateRate = 0.3
     w_updateRateExponent = 1
 
@@ -102,7 +102,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     idxM_tolerance = 1e-7
-    idxM_maxIter = 50
+    idxM_maxIter = 1
     idxM_updateRate = 0.8
     idxM_updateRateExponent = 1
 
@@ -177,7 +177,7 @@ function setModelParameters()
     ζ = 0
 
     # CNCs
-    CNC = true
+    CNC = false
 
     # Spinouts from spinouts
     spinoutsFromSpinouts = false

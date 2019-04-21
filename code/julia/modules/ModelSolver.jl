@@ -150,6 +150,7 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
     zI = incumbentHJBSolution.zI
     V = incumbentHJBSolution.V
     noncompete = incumbentHJBSolution.noncompete
+    idxCNC = findfirst( (noncompete .> 0)[:] )
 
     zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
     zE = AuxiliaryModule.zE(modelPar,V[1],w,zS)
@@ -193,8 +194,28 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
         integral = cumsum(summand[:])
         μ = exp.(-integral)
 
-        # Rescale to obtain density
-        μ = μ / sum(μ .* Δm)
+        println("type of variable idxCNC: $(typeof(idxCNC))")
+
+        if typeof(idxCNC) != Nothing
+
+
+            # Compute mass at mass point
+            μM = μ[idxCNC] / τ[idxCNC]
+            μ[idxCNC:end] .= 0
+            a[idxCNC:end] .= 0
+
+            # Rescale to obtain density
+            μ = μ / (sum(μ .* Δm) + μM)
+
+            μ[idxCNC] = μM / Δm    # Encoding mass point in grid - possile because using discrete approximation. But height of density depends on grid now!
+
+        else
+
+            μ = μ / sum(μ .* Δm)
+
+        end
+
+
 
         #----------------------#
         # Compute γ(m)
@@ -207,6 +228,11 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
         # Next step: compute shape of γ(m)
 
         γShape = exp.(- guess.g .* t)
+
+        # Take into account mass point:
+        if typeof(idxCNC) != Nothing
+            γShape[idxCNC] = γShape[idxCNC] * τ[idxCNC] / (g + τ[idxCNC])
+        end
 
         # Compute C_gamma
 
