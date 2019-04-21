@@ -165,7 +165,7 @@ function setModelParameters()
 
     # Innovation
     χI = 3.25
-    χS = 1.5
+    χS = 2.5
     χE = 1.2
     ψI = 0.5
     ψSE = 0.5
@@ -177,7 +177,7 @@ function setModelParameters()
     ζ = 0.1
 
     # CNCs
-    CNC = true
+    CNC = false
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,ζ,CNC)
 

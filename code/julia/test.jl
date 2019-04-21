@@ -18,7 +18,7 @@ modelPar = setModelParameters()
 mGrid,Δm = mGridBuild(algoPar.mGrid)
 initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 
-#------------------------------
+#--------------------------------#
 # Solve model with the above parameters
 #--------------------------------#
 
