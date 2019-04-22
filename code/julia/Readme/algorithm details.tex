@@ -11,6 +11,7 @@
 \usepackage{geometry}
 \usepackage{amsthm}
 \usepackage{amsfonts}
+\usepackage{amssymb}
 
 \usepackage{courier}
 \usepackage{verbatim}
@@ -153,13 +154,52 @@ Given $L_F(L_{RD})$ we can now compute profits:
 
 \section{Stationary distribution $\mu(m)$}
 
+\subsection{Without CNCs}
+
 I calculate $\mu(m)$ using 
 \begin{align*}
 	\mu(m) &= C_{\mu} e^{-\int_0^m \frac{a'(m') + \tau(m')}{a(m')}}dm' \\
 	1 &= \int_0^{M} \mu(m)dm
 \end{align*}
 
+\subsection{With CNCs}
+
+With CNCs, there will be a state $M > 0$ such that particles will be stuck there when they arrive until an innovation arrival occurs. Hence, there is a mass of particles at $M > 0$. 
+
+We can compute the stationary mass at $M > 0$ by reducing the problem to a case without a mass point. Consider a modified problem with no mass points. For $m \le M$, everything is the same. For $m > M$, now suppose that $a(m) \equiv 1$ instead of $a(m) \equiv 0$; and assume that $\tau(m) = \tau(M)$. This modified Markov process has a stationary distribution $\tilde{\mu}$ with no mass points, with the property that 
+\begin{align*}
+\int_M^{\infty} \tilde{\mu}(m) dm = \mu(M)
+\end{align*}
+
+where $\mu(M)$ is the mass at $M$ in our original problem. 
+
+The stationary distribution $\tilde{\mu}$ must satisfy the Kolmogorov Forward equation. Hence, 
+\begin{align*}
+\tilde{\mu}(m) &= \begin{cases}
+C_{\mu} e^{-\int_0^m \frac{a'(m') + \tau(m')}{a(m')}dm'} &\textrm{for $m \le M$} \\
+\tilde{\mu}(M) e^{-\tau(M)(m-M)} &\textrm{for $m > M$}
+\end{cases}
+\end{align*}
+
+To compute, begin by computing 
+\begin{align*}
+\hat{\mu}(m) &= e^{-\int_0^m \frac{a'(m') + \tau(m')}{a(m')}dm'}
+\end{align*}
+
+Then normalize:
+\begin{align*}
+C_{\mu}^{-1} &= \int_0^M \hat{\mu}(m) dm + \frac{\hat{\mu}(M)}{\tau(M)} 
+\end{align*}
+
+Then the stationary distribution $\mu$ has a mass point at $m = M$ of $C_{\mu} \frac{\hat{\mu}(M)}{\tau(M)}$ and for $m \le M$ we have 
+\begin{align}
+\mu(m) &= C_{\mu} e^{-\int_0^m \frac{a'(m') + \tau(m')}{a(m')}dm'}
+\end{align}
+
+
 \section{Stationary average relative quality given $m$, $\gamma(m)$}
+
+\subsection{Without CNCs}
 
 First, I compute $t(m)$ (equilibrium time to reach state $m$) as 
 \begin{align*}
@@ -180,6 +220,29 @@ Finally,
 \begin{align*}
 	\gamma(m) &= C_{\gamma} \tilde{\gamma}(m) 
 \end{align*}
+
+\subsection{With CNCs}
+
+With CNCs, now have a mass point at $M^{CNC}$. For $m < M$, $\gamma(m)$ is the same. For $m > M$, now $\gamma$ is undefined. Finally,
+\begin{align}
+	\gamma(M) &\equiv E[q/Q | m = M] \nonumber \\
+	          &= \int_0^{\infty} \lim_{\varepsilon \to 0} \gamma(M-\varepsilon) e^{-gs} \Gamma(s) ds
+\end{align} 
+
+where $\Gamma(s)$ is the probability that a particle spends exactly $s$ years in state $M$.  
+Once a particle is in state $M$, it remains there until a Poisson process with constant arrival rate $\tau(M)$ arrives. Hence, $\Gamma(s)$ is the pdf of an exponential distribution with intensity $\tau(M)$, 
+\begin{align*}
+	\Gamma(s) &= \tau(M) e^{-\tau(M)s}
+\end{align*}
+
+Therefore, 
+\begin{align}
+	\gamma(M) &= \int_0^{\infty} \lim_{\varepsilon \to 0} \gamma(M-\varepsilon) e^{-gs} \Gamma(s) ds \nonumber \\
+		      &= \int_0^{\infty} \gamma_{-}(M) e^{-gs} \tau(M) e^{-(g + \tau(M))s} ds \nonumber \\
+	          &= \gamma_{-}(M) \tau(M) \int_0^{\infty} e^{-(g+ \tau(M))s} ds \nonumber \\
+   \therefore \gamma(M)  &= \frac{\gamma_{-}(M) \tau(M)}{g+\tau(M)}
+\end{align}
+
 
 \section{Stationary distribution $\mu(t)$}
 
@@ -203,6 +266,8 @@ To implement, have $m_i = m(t_i)$, so
 \begin{align*}
 \mu^t_i &= \mu^m_i \nu a^m_i 
 \end{align*}
+
+
 
 \section{Calculating $L_{RD}$}
 

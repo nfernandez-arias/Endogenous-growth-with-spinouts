@@ -18,11 +18,15 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 1000
+    mgrid_numPoints = 500
     mgrid_minimum = 0.0
+<<<<<<< HEAD
     mgrid_maximum = .03
+=======
+    mgrid_maximum = .02
+>>>>>>> incorporating-muM-masspoint-CNC
     mgrid_logSpacing = true
-    mgrid_logSpacingMinimum = 1e-10
+    mgrid_logSpacingMinimum = 1e-12
 
     mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum)
 
@@ -48,7 +52,7 @@ function setAlgorithmParameters()
 
     spinoutHJB_timeStep = 0.01
     spinoutHJB_tolerance = 1e-3
-    spinoutHJB_maxIter = 1
+    spinoutHJB_maxIter = 150
 
     spinoutHJB = HJBellmanParameters(spinoutHJB_timeStep,spinoutHJB_tolerance,spinoutHJB_maxIter)
 
@@ -102,7 +106,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     idxM_tolerance = 1e-7
-    idxM_maxIter = 50
+    idxM_maxIter = 4
     idxM_updateRate = 0.8
     idxM_updateRateExponent = 1
 
@@ -178,6 +182,10 @@ function setModelParameters()
 
     # CNCs
     CNC = false
+<<<<<<< HEAD
+=======
+
+>>>>>>> incorporating-muM-masspoint-CNC
     # Spinouts from spinouts
 
     spinoutsFromSpinouts = true

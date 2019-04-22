@@ -13,6 +13,10 @@ L: 1.0
 ξ: 15.0 
 ζ: 0.12 
 CNC: false 
+<<<<<<< HEAD
 spinoutsFromSpinouts: true 
+=======
+spinoutsFromSpinouts: false 
+>>>>>>> incorporating-muM-masspoint-CNC
 
 

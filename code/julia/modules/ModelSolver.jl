@@ -150,6 +150,7 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
     zI = incumbentHJBSolution.zI
     V = incumbentHJBSolution.V
     noncompete = incumbentHJBSolution.noncompete
+    idxCNC = findfirst( (noncompete .> 0)[:] )
 
     zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
     zE = AuxiliaryModule.zE(modelPar,V[1],w,zS)
@@ -193,8 +194,31 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
         integral = cumsum(summand[:])
         μ = exp.(-integral)
 
-        # Rescale to obtain density
-        μ = μ / sum(μ .* Δm)
+        #println("type of variable idxCNC: $(typeof(idxCNC))")
+
+        println("Noncompetes used? (Yes = 1) $(maximum(noncompete))")
+
+        if maximum(noncompete) == 1
+
+            # Compute mass at mass point
+            μM = μ[idxCNC] / τ[idxCNC]
+            μ[idxCNC:end] .= 0
+            a[idxCNC:end] .= 0
+
+            # Rescale to obtain density
+            μ = μ / (sum(μ .* Δm) + μM)
+
+            μ[idxCNC] = μM / Δm[idxCNC]    # Encoding mass point in grid - possile because using discrete approximation. But height of density depends on grid now!
+
+            μ[idxCNC+1:end] .= 0
+
+        else
+
+            μ = μ / sum(μ .* Δm)
+
+        end
+
+
 
         #----------------------#
         # Compute γ(m)
@@ -202,11 +226,17 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
 
         # First step: compute t(m), equilibrium time it takes to reach state m
 
-        t = cumsum(Δm[:] ./ a[:])
+        t = zeros(size(mGrid))
+        t[2:end] = cumsum(Δm[1:end-1] ./ a[1:end-1])
 
         # Next step: compute shape of γ(m)
 
         γShape = exp.(- guess.g .* t)
+
+        # Take into account mass point:
+        if maximum(noncompete) == 1
+            γShape[idxCNC] = γShape[idxCNC] * τ[idxCNC] / (g + τ[idxCNC])
+        end
 
         # Compute C_gamma
 

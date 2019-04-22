@@ -1,10 +1,14 @@
 mGrid Parameters 
 ---------------
-numPoints: 1000 
+numPoints: 500 
 minimum: 0.0 
+<<<<<<< HEAD
 maximum: 0.03 
+=======
+maximum: 0.02 
+>>>>>>> incorporating-muM-masspoint-CNC
 logSpacing: true 
-logSpacingMinimum: 1.0e-10 
+logSpacingMinimum: 1.0e-12 
 
 
 Incumbent HJB Parameters 
@@ -18,7 +22,7 @@ Spinout HJB Parameters
 ---------------
 timeStep: 0.01 
 tolerance: 0.001 
-maxIter: 1 
+maxIter: 150 
 
 
 g Iteration Parameters 
@@ -48,7 +52,7 @@ updateRateExponent: 1.0
 idxM Iteration Parameters 
 ---------------
 tolerance: 1.0e-7 
-maxIter: 50.0 
+maxIter: 4.0 
 updateRate: 0.8 
 updateRateExponent: 1.0 
 
