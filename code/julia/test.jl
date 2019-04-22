@@ -150,11 +150,13 @@ else
 end
 
 welfare = (flowOutput - spinoutEntryCost) / (ρ - g)
+welfare2 = flowOutput / (ρ - g)
 
 println("\n--------------------------------------------------------------")
 println("Welfare---------------------------------------------------------")
 println("--------------------------------------------------------------\n")
 println("$welfare (Welfare)")
+println("$welfare2 (Welfare with no deadweight loss of spinout entry)")
 
 #--------------------------------#
 # Make some plots                #

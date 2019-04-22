@@ -302,8 +302,8 @@ draw(PNG("./figures/effectiveRDWage_vs_t.png", 10inch, 10inch), p)
 
 
 #- Plot noncompetes
-df1 = DataFrame(x = mGrid[:], y = noncompete[:], label = "Noncompete usage")
-df2 = DataFrame(x = t[:], y = noncompete[:], label = "Noncompete usage")
+df2 = DataFrame(x = mGrid[:], y = noncompete[:], label = "Noncompete usage")
+df1 = DataFrame(x = t[:], y = noncompete[:], label = "Noncompete usage")
 
 p1 = plot(df1, x = "x", y = "y", color = "label", Geom.line, Guide.title("1 = Non-compete usage"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Usage"), Guide.xlabel("t: years since last innovation"), Theme(background_color=colorant"white"))
 p2 = plot(df2, x = "x", y = "y", color = "label", Geom.line, Guide.title("1 = Non-compete usage"), Guide.ColorKey(title = "Legend"), Guide.ylabel("Usage"), Guide.xlabel("m: mass of potential spinouts"), Theme(background_color=colorant"white"))

@@ -290,7 +290,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     tempAlgoPar = Base.deepcopy(algoPar)
 
-    tempAlgoPar.incumbentHJB.timeStep = 2
+    tempAlgoPar.incumbentHJB.timeStep = 0.1
+    tempAlgoPar.incumbentHJB.maxIter = 500
 
 
     while (iterate_g_L_RD_w < algoPar.g.maxIter && error_g > algoPar.g.tolerance) || (iterate_g_L_RD_w < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate_g_L_RD_w < algoPar.w.maxIter && error_w > algoPar.w.tolerance)
@@ -362,60 +363,58 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
         catch err
 
-            #if isa(err,LinearAlgebra.SingularException)
+            println("-----------------Caught an Error!-------------------------")
+            #println("Error: $err")
+            #println(typeof(err))
+            #sleep(2)
 
-                println("-----------------Caught an Error!-------------------------")
-                #println("Error: $err")
-                #println(typeof(err))
-                #sleep(2)
+            guess = cleanGuess
 
-                guess = cleanGuess
+            # While loop to compute fixed point
+            iterate_idxM = 0
+            error_idxM = 1
 
-                # While loop to compute fixed point
-                iterate_idxM = 0
-                error_idxM = 1
+            #print("$iterate_zSzE")
+            #print("$error_zSzE")
 
-                #print("$iterate_zSzE")
-                #print("$error_zSzE")
+            while iterate_idxM < algoPar.idxM.maxIter && error_idxM > algoPar.idxM.tolerance
 
-                while iterate_idxM < algoPar.idxM.maxIter && error_idxM > algoPar.idxM.tolerance
-
-                    #y = [guess.zS guess.zE factor_zS factor_zE]
-                    #x = mGrid[:]
-                    #Plots.plot(x,y,label=["zS" "zE" "zS factor" "zE factor"])
-                    #frame(anim)
+                #y = [guess.zS guess.zE factor_zS factor_zE]
+                #x = mGrid[:]
+                #Plots.plot(x,y,label=["zS" "zE" "zS factor" "zE factor"])
+                #frame(anim)
 
 
-                    # Solve HJB - output contains incumbent value V and policy zI
+                # Solve HJB - output contains incumbent value V and policy zI
 
-                    incumbentHJBSolution = solveIncumbentHJB(tempAlgoPar,modelPar,guess)
+                incumbentHJBSolution = solveIncumbentHJB(tempAlgoPar,modelPar,guess)
 
 
 
-                    # Update zS and zE given solution HJB and optimality / free entry conditions
+                # Update zS and zE given solution HJB and optimality / free entry conditions
 
-                    # Record initial values
-                    old_idxM = guess.idxM
+                # Record initial values
+                old_idxM = guess.idxM
 
-                    # Update guess object (faster than allocating new one)
-                    guess.idxM,factor_zS,factor_zE = update_idxM(algoPar,modelPar,guess,incumbentHJBSolution.V,W)
 
-                    # Increase iterator
-                    iterate_idxM += 1;
-                    # Check convergence
-                    error_idxM = maximum(abs,guess.idxM - old_idxM)
+                println("V = $(incumbentHJBSolution.V)")
+                println("w = $(guess.w)")
 
-                    if algoPar.idxM_Log.verbose == 2
-                        if iterate_idxM % algoPar.idxM_Log.print_skip == 0
-                            println("idxM fixed point: Computed iterate $iterate_idxM with error $error_idxM")
-                        end
+                # Update guess object (faster than allocating new one)
+                guess.idxM,factor_zS,factor_zE = update_idxM(algoPar,modelPar,guess,incumbentHJBSolution.V,W)
+
+                # Increase iterator
+                iterate_idxM += 1;
+                # Check convergence
+                error_idxM = maximum(abs,guess.idxM - old_idxM)
+
+                if algoPar.idxM_Log.verbose == 2
+                    if iterate_idxM % algoPar.idxM_Log.print_skip == 0
+                        println("idxM fixed point: Computed iterate $iterate_idxM with error $error_idxM")
                     end
-
                 end
 
-                #algoPar = setAlgorithmParameters()
-
-            #end
+            end
 
         finally
 
@@ -423,7 +422,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
             if algoPar.idxM_Log.verbose >= 1
                 if error_idxM > algoPar.idxM.tolerance
-                    @warn("maxIter attained in zSzE computation")
+                    @warn("TWO ERRORS -- OR, maxIter attained in zSzE computation")
                 elseif algoPar.idxM_Log.verbose == 2
                     println("idxM fixed point: Converged in $iterate_idxM steps with error $error_idxM")
                 end
@@ -472,13 +471,18 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
             ## Log
 
-            iterate_g_L_RD_w += 1
-
             if algoPar.g_L_RD_w_Log.verbose == 2
                 if iterate_g_L_RD_w % algoPar.g_L_RD_w_Log.print_skip == 0
                     println("g,L_RD,w fixed point: Computed iterate $iterate_g_L_RD_w with error: (g, $error_g; L_RD, $error_L_RD; w, $error_w)")
                 end
             end
+
+            iterate_g_L_RD_w += 1
+
+
+            println("Code running through this line...")
+
+            #println("wage: $w")
 
             #### Update guess        #### Update guess
 
