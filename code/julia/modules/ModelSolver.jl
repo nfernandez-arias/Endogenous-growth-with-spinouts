@@ -290,8 +290,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     tempAlgoPar = Base.deepcopy(algoPar)
 
-    tempAlgoPar.incumbentHJB.timeStep = 0.1
-    tempAlgoPar.incumbentHJB.maxIter = 500
+    tempAlgoPar.incumbentHJB.timeStep = 2
+    #tempAlgoPar.incumbentHJB.maxIter = 500
 
 
     while (iterate_g_L_RD_w < algoPar.g.maxIter && error_g > algoPar.g.tolerance) || (iterate_g_L_RD_w < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate_g_L_RD_w < algoPar.w.maxIter && error_w > algoPar.w.tolerance)
@@ -397,8 +397,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 old_idxM = guess.idxM
 
 
-                println("V = $(incumbentHJBSolution.V)")
-                println("w = $(guess.w)")
+                #println("V = $(incumbentHJBSolution.V)")
+                #println("w = $(guess.w)")
 
                 # Update guess object (faster than allocating new one)
                 guess.idxM,factor_zS,factor_zE = update_idxM(algoPar,modelPar,guess,incumbentHJBSolution.V,W)
@@ -480,7 +480,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
             iterate_g_L_RD_w += 1
 
 
-            println("Code running through this line...")
+            #println("Code running through this line...")
 
             #println("wage: $w")
 
