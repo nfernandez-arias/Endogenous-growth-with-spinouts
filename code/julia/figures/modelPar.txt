@@ -12,7 +12,7 @@ L: 1.0
 ν: 0.0102495 
 ξ: 15.0 
 ζ: 0.12 
-CNC: true 
-spinoutsFromSpinouts: true 
+CNC: false 
+spinoutsFromSpinouts: false 
 
 

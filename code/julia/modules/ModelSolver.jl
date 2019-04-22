@@ -208,7 +208,9 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
             # Rescale to obtain density
             μ = μ / (sum(μ .* Δm) + μM)
 
-            μ[idxCNC] = μM / Δm    # Encoding mass point in grid - possile because using discrete approximation. But height of density depends on grid now!
+            μ[idxCNC] = μM / Δm[idxCNC]    # Encoding mass point in grid - possile because using discrete approximation. But height of density depends on grid now!
+
+            μ[idxCNC+1:end] .= 0
 
         else
 
@@ -224,7 +226,8 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
 
         # First step: compute t(m), equilibrium time it takes to reach state m
 
-        t = cumsum(Δm[:] ./ a[:])
+        t = zeros(size(mGrid))
+        t[2:end] = cumsum(Δm[1:end-1] ./ a[1:end-1])
 
         # Next step: compute shape of γ(m)
 
