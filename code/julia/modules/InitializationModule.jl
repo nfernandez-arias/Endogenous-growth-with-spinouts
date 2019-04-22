@@ -18,7 +18,7 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 2000
+    mgrid_numPoints = 1000
     mgrid_minimum = 0.0
     mgrid_maximum = .005
     mgrid_logSpacing = true
@@ -34,7 +34,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     incumbentHJB_timeStep = 10
-    incumbentHJB_tolerance = 1e-10
+    incumbentHJB_tolerance = 1e-9
     incumbentHJB_maxIter = 50
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter)
@@ -60,7 +60,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     g_tolerance = 1e-7
-    g_maxIter = 1
+    g_maxIter = 150
     g_updateRate = 0.3
     g_updateRateExponent = 1
 
@@ -74,7 +74,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     L_RD_tolerance = 1e-7
-    L_RD_maxIter = 1
+    L_RD_maxIter = 150
     L_RD_updateRate = 0.3
     L_RD_updateRateExponent = 1
 
@@ -87,8 +87,8 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    w_tolerance = 1e-9
-    w_maxIter = 1
+    w_tolerance = 1e-7
+    w_maxIter = 150
     w_updateRate = 0.3
     w_updateRateExponent = 1
 
@@ -173,8 +173,8 @@ function setModelParameters()
 
     # Spinouts
     ν = 0.0102495
-    ξ = 15
-    ζ = 0.05
+    ξ = 10
+    ζ = 0
 
     # CNCs
     CNC = false
