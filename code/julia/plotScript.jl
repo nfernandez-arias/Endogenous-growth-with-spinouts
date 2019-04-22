@@ -201,8 +201,7 @@ draw(PNG("./figures/drift.png", 10inch, 10inch), p)
 integrand =  (ν .* aPrime .+ τ) ./ (ν .* a)
 summand = integrand .* Δm
 integral = cumsum(summand[:])
-μ = exp.(-integral)
-μ = μ / sum(μ .* Δm)
+
 df = DataFrame(x = mGrid[:], y = μ, label = "μ(m)")
 p1 = plot(df, x = "x", y = "y", color = "label", Geom.line, Guide.title("Density μ(m)"), Guide.ColorKey(title = "Legend"), Guide.xlabel("m"), Guide.ylabel("Density"), Theme(background_color=colorant"white"))
 

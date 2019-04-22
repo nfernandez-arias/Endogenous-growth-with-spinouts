@@ -27,6 +27,7 @@ export solveModel,ModelSolution,AuxiliaryEquilibriumVariables
 
 struct AuxiliaryEquilibriumVariables
 
+    μ::Array{Float64}
     γ::Array{Float64}
     t::Array{Float64}
 
@@ -154,7 +155,6 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
 
     zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
     zE = AuxiliaryModule.zE(modelPar,V[1],w,zS)
-
     τI = AuxiliaryModule.τI(modelPar,zI)
     τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
 
@@ -162,16 +162,22 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
     λ = modelPar.λ
     sFromS = modelPar.spinoutsFromSpinouts
 
+    μ = zeros(size(mGrid))
+
     τ = τI .+ τSE
 
     a = ν .* (sFromS .* zS .+ zI .* (1 .- noncompete))   # No spinouts from zE or from incumbents using non-competes.
     RDlabor = zS .+ zE .+ zI
 
     if noncompete[1] == 1
+
         L_RD = zI[1] + zE[1]
         g = (λ - 1) * τ[1]
         γ = zeros(1,1)
         t = zeros(1,1)
+
+        μ[1] = 1/Δm[1]
+        μ[2:end] .= 0
 
     else
 
@@ -196,14 +202,14 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
 
         #println("type of variable idxCNC: $(typeof(idxCNC))")
 
-        println("Noncompetes used? (Yes = 1) $(maximum(noncompete))")
+        println("Noncompetes used? $(maximum(noncompete))")
 
-        if maximum(noncompete) == 1
+        if maximum(noncompete) > 0
 
             # Compute mass at mass point
             μM = μ[idxCNC] / τ[idxCNC]
             μ[idxCNC:end] .= 0
-            a[idxCNC:end] .= 0
+            #a[idxCNC:end] .= 0
 
             # Rescale to obtain density
             μ = μ / (sum(μ .* Δm) + μM)
@@ -264,7 +270,7 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
 
     end
 
-    return g,L_RD,γ,t
+    return g,L_RD,μ,γ,t
 
 end
 
@@ -305,8 +311,10 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     W = zeros(algoPar.mGrid.numPoints,1)
     zI = zeros(algoPar.mGrid.numPoints,1)
     noncompete = zeros(size(zI))
+    μ = zeros(algoPar.mGrid.numPoints,1)
     γ = zeros(algoPar.mGrid.numPoints,1)
     t = zeros(algoPar.mGrid.numPoints,1)
+
 
     factor_zE = zeros(algoPar.mGrid.numPoints,1)
     factor_zS = zeros(algoPar.mGrid.numPoints,1)
@@ -484,7 +492,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
             w = algoPar.w.updateRate .* temp_w .+ (1 .- algoPar.w.updateRate) .* guess.w
 
             ## Updating g,L_RD
-            temp_g,temp_L_RD,γ,t = update_g_L_RD(algoPar,modelPar,guess,incumbentHJBSolution)
+            temp_g,temp_L_RD,μ,γ,t = update_g_L_RD(algoPar,modelPar,guess,incumbentHJBSolution)
 
             g = algoPar.g.updateRate .* temp_g .+ (1 .- algoPar.g.updateRate) .* guess.g
             L_RD = algoPar.L_RD.updateRate .* temp_L_RD .+ (1 .- algoPar.L_RD.updateRate) .* guess.L_RD
@@ -550,7 +558,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         end
     end
 
-    return ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(γ,t)),factor_zS,factor_zE,spinoutFlow
+    return ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
 
 end
 

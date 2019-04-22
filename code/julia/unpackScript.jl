@@ -62,14 +62,3 @@ aPrime[end] = aPrime[end-1]
 
 wbar = AuxiliaryModule.wbar(β)
 Π = AuxiliaryModule.profit(results.finalGuess.L_RD,modelPar)
-
-if noncompete[1] == 1
-    μ = zeros(size(mGrid))
-    μ[1] = 1
-else
-    integrand =  (ν .* aPrime .+ τ) ./ (ν .* a)
-    summand = integrand .* Δm
-    integral = cumsum(summand[:])
-    μ = exp.(-integral)
-    μ = μ / sum(μ .* Δm)
-end

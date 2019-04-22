@@ -1,0 +1,16 @@
+\babel@toc {english}{}
+\contentsline {section}{\numberline {1}Equilibrium intermediate goods prices $p_j$, demand $k_j$}{2}{section.1}
+\contentsline {section}{\numberline {2}Calculating production wage $\overline {w}$}{2}{section.2}
+\contentsline {section}{\numberline {3}Equilibrium output}{3}{section.3}
+\contentsline {section}{\numberline {4}Equilibrium welfare}{4}{section.4}
+\contentsline {section}{\numberline {5}Equilibrium allocation of labor to final goods production}{4}{section.5}
+\contentsline {section}{\numberline {6}Equilibrium intermediate goods producer flow profit $\pi _j$}{5}{section.6}
+\contentsline {section}{\numberline {7}Stationary distribution $\mu (m)$}{5}{section.7}
+\contentsline {subsection}{\numberline {7.1}Without CNCs}{5}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}With CNCs}{5}{subsection.7.2}
+\contentsline {section}{\numberline {8}Stationary average relative quality given $m$, $\gamma (m)$}{6}{section.8}
+\contentsline {subsection}{\numberline {8.1}Without CNCs}{6}{subsection.8.1}
+\contentsline {subsection}{\numberline {8.2}With CNCs}{7}{subsection.8.2}
+\contentsline {section}{\numberline {9}Stationary distribution $\mu (t)$}{8}{section.9}
+\contentsline {section}{\numberline {10}Calculating $L_{RD}$}{8}{section.10}
+\contentsline {section}{\numberline {11}Calculating $g$}{8}{section.11}

@@ -2,11 +2,7 @@ mGrid Parameters
 ---------------
 numPoints: 500 
 minimum: 0.0 
-<<<<<<< HEAD
-maximum: 0.03 
-=======
 maximum: 0.02 
->>>>>>> incorporating-muM-masspoint-CNC
 logSpacing: true 
 logSpacingMinimum: 1.0e-12 
 

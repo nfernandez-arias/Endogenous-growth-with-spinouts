@@ -44,8 +44,12 @@ include("unpackScript.jl")
 g = results.finalGuess.g
 
 L_RD = results.finalGuess.L_RD
+μ = results.auxiliary.μ
 γ = results.auxiliary.γ
 t = results.auxiliary.t
+
+idxCNC = findfirst( (noncompete .> 0)[:] )
+
 println("\n--------------------------------------------------------------")
 println("Growth and RD Labor Allocation--------------------------------")
 println("--------------------------------------------------------------\n")

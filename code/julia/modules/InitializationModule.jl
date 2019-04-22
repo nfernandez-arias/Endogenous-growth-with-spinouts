@@ -20,11 +20,7 @@ function setAlgorithmParameters()
 
     mgrid_numPoints = 500
     mgrid_minimum = 0.0
-<<<<<<< HEAD
-    mgrid_maximum = .03
-=======
     mgrid_maximum = .02
->>>>>>> incorporating-muM-masspoint-CNC
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-12
 
@@ -178,17 +174,14 @@ function setModelParameters()
     # Spinouts
     ν = 0.0102495
     ξ = 15
-    ζ = 0.12
+    ζ = 0.15
 
     # CNCs
     CNC = false
-<<<<<<< HEAD
-=======
 
->>>>>>> incorporating-muM-masspoint-CNC
     # Spinouts from spinouts
 
-    spinoutsFromSpinouts = true
+    spinoutsFromSpinouts = false
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,ζ,CNC,spinoutsFromSpinouts)
 
