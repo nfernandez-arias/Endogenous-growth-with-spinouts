@@ -358,7 +358,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     tempAlgoPar = Base.deepcopy(algoPar)
 
-    tempAlgoPar.incumbentHJB.timeStep = 2
+    tempAlgoPar.incumbentHJB.timeStep = 50
     #tempAlgoPar.incumbentHJB.maxIter = 500
 
 
@@ -502,10 +502,6 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
             ## Updating w
 
-            # Solve incumbent HJB one more time...
-            #incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,guess)
-            println(typeof(incumbentHJBSolution))
-
             V = incumbentHJBSolution.V
             zI = incumbentHJBSolution.zI
             noncompete = incumbentHJBSolution.noncompete
@@ -547,11 +543,6 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
             iterate_g_L_RD_w += 1
 
-
-            #println("Code running through this line...")
-
-            #println("wage: $w")
-
             #### Update guess        #### Update guess
 
             guess.g = g
@@ -561,8 +552,6 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         end
 
     end
-
-    #algoPar = setAlgorithmParameters()
 
     ### Log some stuff when algorithm ends
 

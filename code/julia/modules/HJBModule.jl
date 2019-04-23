@@ -165,8 +165,8 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 
     for i = 1:length(mGrid)-1
 
-		A[i,1] = τI[i] * λ
-		#A[i,1] = τI[i]  # no λ term -- Moll's idea
+		#A[i,1] = τI[i] * λ
+		A[i,1] = τI[i]  # no λ term -- Moll's idea
 		A[i,i+1] = ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i] + zE[i]) / Δm[i]
 		A[i,i] = - ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i] + zE[i]) / Δm[i] - τI[i] - τSE[i]
 		#A[i,i] = - ν * (zI[i] + aSE[i]) / Δm[i]
@@ -177,8 +177,8 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 	#A[iMax,1] = τI[iMax] * λ
 	#A[iMax,iMax] = - τI[iMax] - τSE[iMax]
 
-	A[end,1] = τI[end] * λ
-	#A[end,1] = τI[end]  # no λ term -- Moll's idea
+	#A[end,1] = τI[end] * λ
+	A[end,1] = τI[end]  # no λ term -- Moll's idea
 	A[end,end] = - τI[end] - τSE[end]
 
 	#A[iMax,1] = 0
@@ -362,6 +362,8 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		zI[end] = zI[end-1]
 		noncompete[end] = noncompete[end-1]
 
+		zI[idxM+1:end] .= zI[idxM]
+
 		if CNC == false
 			noncompete[:] .= 0
 		end
@@ -376,8 +378,8 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		τSE = AuxiliaryModule.τSE(modelPar,zS,zE)[:]
 
 	    ## Make update:
-	    u = Π .- zI .* ((1 .- noncompete) .* w + noncompete .* AuxiliaryModule.wbar(modelPar.β))
-		#u = Π .+ ((λ-1) * τI .* V0[1])  .- zI .* ((1 .- noncompete) .* w + noncompete .* AuxiliaryModule.wbar(modelPar.β))  # Moll's idea -- here add (λ-1) * τI * V0[1] term
+	    #u = Π .- zI .* ((1 .- noncompete) .* w + noncompete .* AuxiliaryModule.wbar(modelPar.β))
+		u = Π .+ τI .* (λ-1) .* V0[1]  .- zI .* ((1 .- noncompete) .* w + noncompete .* AuxiliaryModule.wbar(modelPar.β))  # Moll's idea -- here add (λ-1) * τI * V0[1] term
 		#A = constructMatrixA(algoPar,modelPar,guess,zI)
 		updateMatrixA(algoPar,modelPar,guess,zI,noncompete,A,zS,zE)
 

@@ -18,11 +18,11 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 100
+    mgrid_numPoints = 400
     mgrid_minimum = 0.0
-    mgrid_maximum = .02
+    mgrid_maximum = .01
     mgrid_logSpacing = true
-    mgrid_logSpacingMinimum = 1e-10
+    mgrid_logSpacingMinimum = 1e-8
 
     mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum)
 
@@ -33,7 +33,7 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 10
+    incumbentHJB_timeStep = 1
     incumbentHJB_tolerance = 1e-12
     incumbentHJB_maxIter = 50
 
@@ -61,7 +61,7 @@ function setAlgorithmParameters()
 
     g_tolerance = 1e-7
     g_maxIter = 150
-    g_updateRate = 0.3
+    g_updateRate = 0.1
     g_updateRateExponent = 1
 
     g = IterationParameters(g_tolerance,g_maxIter,g_updateRate,g_updateRateExponent)
@@ -75,7 +75,7 @@ function setAlgorithmParameters()
 
     L_RD_tolerance = 1e-7
     L_RD_maxIter = 150
-    L_RD_updateRate = 0.3
+    L_RD_updateRate = 0.1
     L_RD_updateRateExponent = 1
 
     L_RD = IterationParameters(L_RD_tolerance,L_RD_maxIter,L_RD_updateRate,L_RD_updateRateExponent)
@@ -89,7 +89,7 @@ function setAlgorithmParameters()
 
     w_tolerance = 1e-7
     w_maxIter = 150
-    w_updateRate = 0.3
+    w_updateRate = 0.1
     w_updateRateExponent = 1
 
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent)
@@ -174,7 +174,7 @@ function setModelParameters()
     # Spinouts
     ν = 0.0102495
     ξ = 15
-    ζ = 0.05
+    ζ = 0
 
     # CNCs
     CNC = false
