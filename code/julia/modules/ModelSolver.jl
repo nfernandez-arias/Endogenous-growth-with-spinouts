@@ -204,53 +204,83 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
 
         println("Noncompetes used? $(maximum(noncompete))")
 
-        if maximum(noncompete) > 0
+        if sFromS == false
 
-            # Compute mass at mass point
-            μM = μ[idxCNC] / τ[idxCNC]
-            μ[idxCNC:end] .= 0
-            #a[idxCNC:end] .= 0
+            #----------------------#
+            # Compute μ(m)
+            #----------------------#
 
-            # Rescale to obtain density
-            μ = μ / (sum(μ .* Δm) + μM)
+            if maximum(noncompete) > 0
 
-            μ[idxCNC] = μM / Δm[idxCNC]    # Encoding mass point in grid - possile because using discrete approximation. But height of density depends on grid now!
+                # Compute mass at mass point (divided by Δm there)
+                # This allow a "density" to encode a mass point.
+                μ[idxCNC] = (μ[idxCNC] / τ[idxCNC])/ Δm[idxCNC]
+                μ[idxCNC+1:end] .= 0
 
-            μ[idxCNC+1:end] .= 0
+                #a[idxCNC:end] .= 0
+
+                # Rescale to obtain density
+                μ = μ / (sum(μ .* Δm)
+
+            else
+
+                μ = μ / sum(μ .* Δm)
+
+            end
+
+            #----------------------#
+            # Compute γ(m)
+            #----------------------#
+
+            # First step: compute t(m), equilibrium time it takes to reach state m
+
+            t = zeros(size(mGrid))
+            t[2:end] = cumsum(Δm[1:end-1] ./ a[1:end-1])
+
+            # Next step: compute shape of γ(m)
+
+            γShape = exp.(- guess.g .* t)
+
+            # Take into account mass point:
+
+            if maximum(noncompete) == 1
+                γShape[idxCNC] = γShape[idxCNC] * τ[idxCNC] / (g + τ[idxCNC])
+            end
+
+            # Compute C_gamma
+
+            γScale = sum(γShape .* μ .* Δm)^(-1)
+
+            # Finally compute γ
+
+            γ = γScale * γShape
 
         else
 
             μ = μ / sum(μ .* Δm)
 
+            #----------------------#
+            # Compute γ(m)
+            #----------------------#
+
+            # First step: compute t(m), equilibrium time it takes to reach state m
+
+            t = zeros(size(mGrid))
+            t[2:end] = cumsum(Δm[1:end-1] ./ a[1:end-1])
+
+            # Next step: compute shape of γ(m)
+
+            γShape = exp.(- guess.g .* t)
+
+            # Compute C_gamma
+
+            γScale = sum(γShape .* μ .* Δm)^(-1)
+
+            # Finally compute γ
+
+            γ = γScale * γShape
+
         end
-
-
-
-        #----------------------#
-        # Compute γ(m)
-        #----------------------#
-
-        # First step: compute t(m), equilibrium time it takes to reach state m
-
-        t = zeros(size(mGrid))
-        t[2:end] = cumsum(Δm[1:end-1] ./ a[1:end-1])
-
-        # Next step: compute shape of γ(m)
-
-        γShape = exp.(- guess.g .* t)
-
-        # Take into account mass point:
-        if maximum(noncompete) == 1
-            γShape[idxCNC] = γShape[idxCNC] * τ[idxCNC] / (g + τ[idxCNC])
-        end
-
-        # Compute C_gamma
-
-        γScale = sum(γShape .* μ .* Δm)^(-1)
-
-        # Finally compute γ
-
-        γ = γScale * γShape
 
         #----------------------#
         # Compute implied L_RD
