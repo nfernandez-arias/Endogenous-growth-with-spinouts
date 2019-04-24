@@ -18,11 +18,11 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 400
+    mgrid_numPoints = 500
     mgrid_minimum = 0.0
     mgrid_maximum = .01
     mgrid_logSpacing = true
-    mgrid_logSpacingMinimum = 1e-8
+    mgrid_logSpacingMinimum = 1e-12
 
     mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum)
 
@@ -60,8 +60,8 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     g_tolerance = 1e-7
-    g_maxIter = 150
-    g_updateRate = 0.1
+    g_maxIter = 100
+    g_updateRate = 0.3
     g_updateRateExponent = 1
 
     g = IterationParameters(g_tolerance,g_maxIter,g_updateRate,g_updateRateExponent)
@@ -74,8 +74,8 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     L_RD_tolerance = 1e-7
-    L_RD_maxIter = 150
-    L_RD_updateRate = 0.1
+    L_RD_maxIter = 100
+    L_RD_updateRate = 0.3
     L_RD_updateRateExponent = 1
 
     L_RD = IterationParameters(L_RD_tolerance,L_RD_maxIter,L_RD_updateRate,L_RD_updateRateExponent)
@@ -88,8 +88,8 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     w_tolerance = 1e-7
-    w_maxIter = 150
-    w_updateRate = 0.1
+    w_maxIter = 100
+    w_updateRate = 0.3
     w_updateRateExponent = 1
 
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent)
@@ -165,7 +165,7 @@ function setModelParameters()
 
     # Innovation
     χI = 3.25
-    χS = 1.5
+    χS = 1.8
     χE = 1.2
     ψI = 0.5
     ψSE = 0.5

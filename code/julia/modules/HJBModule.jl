@@ -362,7 +362,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		zI[end] = zI[end-1]
 		noncompete[end] = noncompete[end-1]
 
-		zI[idxM+1:end] .= zI[idxM]
+		#zI[idxM+1:end] .= zI[idxM]
 
 		if CNC == false
 			noncompete[:] .= 0
@@ -384,6 +384,10 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		updateMatrixA(algoPar,modelPar,guess,zI,noncompete,A,zS,zE)
 
 		V1,error = updateV(algoPar,modelPar,A,u,V0)
+
+		# Hack to avoid instabiities - ALWAYS true in equilibrium
+
+		#V1[idxM+1:end] .= V1[idxM]
 
 	    # Normalize error by timeStep because
 	    # it will always be smaller if timeStep is smaller

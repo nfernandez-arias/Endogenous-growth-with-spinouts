@@ -123,6 +123,11 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     #println("$temp")
     idxM = findlast( (temp .>= 0)[:] )
 
+    if typeof(idxM) == Nothing
+        idxM = 1
+    end
+
+
     #print("$idxM")
     #repr(idxM)
 
@@ -220,7 +225,7 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
                 #a[idxCNC:end] .= 0
 
                 # Rescale to obtain density
-                μ = μ / (sum(μ .* Δm)
+                μ = μ / sum(μ .* Δm)
 
             else
 
