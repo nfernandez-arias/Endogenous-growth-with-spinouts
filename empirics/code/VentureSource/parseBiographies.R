@@ -26,7 +26,7 @@ library(data.table)
 library(stringr)
 
 BDVI <- fread("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics/raw/VentureSource/PrincetonBDVI.csv")
-BDVI[ , c("Job1","Job2","Job3","Job4","Job5","Job6","Job7","Job8","Job9","Job10","Job11","Job12","Job13","Job14","Job15") := tstrsplit(Bio,";")]
+BDVI[ , c("Job1","Job2","Job3","Job4","Job5","AK2017.zipJob6","Job7","Job8","Job9","Job10","Job11","Job12","Job13","Job14","Job15") := tstrsplit(Bio,";")]
 #BDVI[ , c("Job1","Job2","Job3","Job4","Job5") := tstrsplit(Bio,";")]
 BDVI[ , Bio := NULL]
 

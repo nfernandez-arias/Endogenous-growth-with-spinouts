@@ -30,6 +30,7 @@ rm(EntitiesPrevEmployers)
 PrevEmployers[ , PreviousEmployerCLEAN := gsub("( )?(_x000D_)?(\n)?( )?(_x000D_)?(\n)?( )?_x000D_\n$","",PreviousEmployer), by = PreviousEmployer]
 PrevEmployers[ , PreviousEmployerCLEAN := gsub("[.]$","",PreviousEmployerCLEAN), by = PreviousEmployerCLEAN]
 PrevEmployers[ , PreviousEmployerCLEAN := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",PreviousEmployerCLEAN), by = PreviousEmployerCLEAN]
+PrevEmployers[ , PreviousEmployerCLEAN := gsub("[ ]?[(].*[)]$","",PreviousEmployerCLEAN), by = PreviousEmployerCLEAN]
 
 PrevEmployers <- unique(PrevEmployers, by = "PreviousEmployerCLEAN")
   
@@ -45,7 +46,7 @@ length(na.omit(output$PreviousEmployer))
 
 #outputFuzzy <- rbind(outputFuzzy,na.omit(PrevEmployers[5000*(i-1)+1:5000*i]) %>% stringdist_inner_join(compustatFirms, by = c(PreviousEmployer = "conml"), method = c("lv"), max_dist = 0, distance_col = "distance"))
 
-#}
+#} 
 
 #i <- 17
 

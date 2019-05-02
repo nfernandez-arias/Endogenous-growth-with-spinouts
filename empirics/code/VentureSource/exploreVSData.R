@@ -113,6 +113,64 @@ ggsave("code/VentureSource/plots/firmsAddedByYearState.png", width = 16, height 
 fwrite(output,"data/VentureSource/firmFoundingCountsbyStateYear.csv")
 
 
+rm(list = ls())
+data <- fread("raw/VentureSource/PrincetonDealDollarQuarter.csv")
+data <- data[CompanyBackedBy == "VC"]
+#data <- data[State != "CA"]
+temp <- data[ , sum(na.omit(RaisedUSD)), by = c("State","Year") ]
+
+ggplot(data = temp, aes(x = Year, y = V1, group = State)) + 
+  geom_line(aes(color = State)) +
+  theme(legend.position = "none") +
+  ggtitle("Amount raised in VC-led deals (color = state)") +
+  #ggtitle("Unadjusted") + 
+  xlim(1975,2019) +
+  ylab("# Firms") +
+  xlab("Year")
+
+temp <- data[State == "NY"][ , .(q20 = quantile(RaisedUSD, probs = 0.2, na.rm = TRUE), 
+                     q40 = quantile(RaisedUSD, probs = 0.4, na.rm = TRUE),
+                     q60 = quantile(RaisedUSD, probs = 0.6, na.rm = TRUE),
+                     q80 = quantile(RaisedUSD, probs = 0.8, na.rm = TRUE),
+                     q90 = quantile(RaisedUSD, probs = 0.9, na.rm = TRUE)), by = c("Year")]
+
+temp <- melt(temp, id.vars = c("Year"), 
+             measure.vars = c("q20","q40","q60","q80","q90"))
+
+setnames(temp, old = "variable", new = "quantile")
+
+ggplot(data = temp, aes(x = Year, y = value, group = quantile)) + 
+  geom_line(aes(color = quantile)) +
+  #theme(legend.position = "none") +
+  ggtitle("Quantiles of amount raised by deals by year") +
+  #ggtitle("Unadjusted") + 
+  xlim(1975,2019) +
+  ylab("USD ('000s)") +
+  xlab("Year")
+
+
+
+
+temp <- data[State == "NY"][ , .(q90 = quantile(RaisedUSD, probs = 0.9, na.rm = TRUE), 
+                  q95 = quantile(RaisedUSD, probs = 0.95, na.rm = TRUE),
+                  q98 = quantile(RaisedUSD, probs = 0.98, na.rm = TRUE),
+                  q99 = quantile(RaisedUSD, probs = 0.99, na.rm = TRUE),
+                  q995 = quantile(RaisedUSD, probs = 0.995, na.rm = TRUE),
+                  q998 = quantile(RaisedUSD, probs = 0.998, na.rm = TRUE)), by = c("Year")]
+
+temp <- melt(temp, id.vars = c("Year"), 
+             measure.vars = c("q90","q95","q98","q99","q995","q998"))
+
+setnames(temp, old = "variable", new = "quantile")
+
+ggplot(data = temp, aes(x = Year, y = value, group = quantile)) + 
+  geom_line(aes(color = quantile)) +
+  #theme(legend.position = "none") +
+  ggtitle("Quantiles of amount raised by deals by year") +
+  #ggtitle("Unadjusted") + 
+  xlim(1975,2019) +
+  ylab("USD ('000s)") +
+  xlab("Year")
 
 
 
