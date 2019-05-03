@@ -16,7 +16,7 @@ rm(list = ls())
 
 data <- fread("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics/data/VentureSource/EntitiesBios.csv")
 
-data <- melt(data, id.vars = c("EntityID","EntityName","Founder","Title","TitleCode","FirstName","LastName"), 
+data <- melt(data, id.vars = c("EntityID","EntityName","JoinDate","StartDate","Founder","Title","TitleCode","FirstName","LastName"), 
              measure.vars = c("Company1","Company2","Company3","Company4","Company5"))
 
 data <- data[order(EntityID,FirstName,LastName)]

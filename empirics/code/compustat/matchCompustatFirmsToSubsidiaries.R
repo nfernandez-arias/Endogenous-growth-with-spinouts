@@ -11,7 +11,6 @@
 #------------------------------------------------#
 
 rm(list = ls())
-setwd("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics")
 
 library(data.table)
 

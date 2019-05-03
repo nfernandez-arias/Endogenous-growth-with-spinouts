@@ -17,16 +17,20 @@
 # 
 #------------------------------------------------#
 
-
-# setwd("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics/code/VentureSource")
-
 rm(list = ls())
 
 library(data.table)
 library(stringr)
 
 BDVI <- fread("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics/raw/VentureSource/PrincetonBDVI.csv")
-BDVI[ , c("Job1","Job2","Job3","Job4","Job5","AK2017.zipJob6","Job7","Job8","Job9","Job10","Job11","Job12","Job13","Job14","Job15") := tstrsplit(Bio,";")]
+
+# First, filter out entities that are venture capital firms.
+
+
+# For now I haven't done this because I'm not sure I need to - VC firms have spinouts too no?
+
+# Next, parse biographies of resulting dataset
+BDVI[ , c("Job1","Job2","Job3","Job4","Job5","Job6","Job7","Job8","Job9","Job10","Job11","Job12","Job13","Job14","Job15") := tstrsplit(Bio,";")]
 #BDVI[ , c("Job1","Job2","Job3","Job4","Job5") := tstrsplit(Bio,";")]
 BDVI[ , Bio := NULL]
 

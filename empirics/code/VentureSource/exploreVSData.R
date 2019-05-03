@@ -50,7 +50,7 @@ output <- output[ FoundingYear != Inf]
 
 library(ggplot2)
 
-p1 <- ggplot(data = output, aes(x = FoundingYear, y = N, group = State)) + 
+ggplot(data = output[State == "NY"], aes(x = FoundingYear, y = N, group = State)) + 
   geom_line(aes(color = State)) +
   theme(legend.position = "none") +
   #ggtitle("Number of firms added by year (color = state)") +
@@ -147,8 +147,6 @@ ggplot(data = temp, aes(x = Year, y = value, group = quantile)) +
   xlim(1975,2019) +
   ylab("USD ('000s)") +
   xlab("Year")
-
-
 
 
 temp <- data[State == "NY"][ , .(q90 = quantile(RaisedUSD, probs = 0.9, na.rm = TRUE), 

@@ -10,8 +10,6 @@
 # to find parent firms. 
 #------------------------------------------------#
 
-setwd("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics")
-
 rm(list = ls())
 library(data.table)
 

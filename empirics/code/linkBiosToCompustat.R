@@ -10,35 +10,74 @@
 # to find parent firms. 
 #------------------------------------------------#
 
-
-setwd("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics")
-
 rm(list = ls())
 library(data.table)
-#library(dplyr)
-#library(fuzzyjoin) 
+library(dplyr)
+library(fuzzyjoin) 
 
 compustatFirmsSegments <- fread("data/compustat/firmsSegments.csv")
+# select segments
+segments <- compustatFirmsSegments[snms != ""]
+
 EntitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")
+
+## Select only founders
+####
+# Count CEO-Chairman and CTOs as founders when no founder listed 
+#EntitiesPrevEmployers[, Founder2 := 1 - max(Founder), by = EntityID]
+#EntitiesPrevEmployers[Founder2 == 1 & (TitleCode == "CTO" | TitleCode == "CCEO"), Founder := 1]
+
+# Select founders
+
+EntitiesPrevEmployers <- EntitiesPrevEmployers[Founder == 1]
+
+# Set weights to take into account multiple founders at same firm - to not overcount spinouts
+# i.e. this way if we aggregate spinout measure across firms, we get the total number of spinouts
+EntitiesPrevEmployers[, Weight := 1 / .N, by = EntityID]
+
+
+## Prepare data
 
 compustatFirmsSegments <- compustatFirmsSegments[ , .(gvkey,conml,snms)]
 compustatFirmsSegments <- compustatFirmsSegments[ , conml := gsub("[.]$","",conml), by = gvkey]
 compustatFirmsSegments <- compustatFirmsSegments[ , conml := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",conml), by = gvkey]
-PrevEmployers <- unique(EntitiesPrevEmployers[, .(EntityID,EntityName,Founder,Title,TitleCode,PreviousEmployer)], by = "PreviousEmployer")
-rm(EntitiesPrevEmployers)
+#PrevEmployers <- unique(EntitiesPrevEmployers[, .(Weight,EntityID,EntityName,JoinDate,StartDate,Title,TitleCode,PreviousEmployer)], by = "PreviousEmployer")
 
-PrevEmployers[ , PreviousEmployerCLEAN := gsub("( )?(_x000D_)?(\n)?( )?(_x000D_)?(\n)?( )?_x000D_\n$","",PreviousEmployer), by = PreviousEmployer]
-PrevEmployers[ , PreviousEmployerCLEAN := gsub("[.]$","",PreviousEmployerCLEAN), by = PreviousEmployerCLEAN]
-PrevEmployers[ , PreviousEmployerCLEAN := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",PreviousEmployerCLEAN), by = PreviousEmployerCLEAN]
-PrevEmployers[ , PreviousEmployerCLEAN := gsub("[ ]?[(].*[)]$","",PreviousEmployerCLEAN), by = PreviousEmployerCLEAN]
+#rm(EntitiesPrevEmployers)
 
-PrevEmployers <- unique(PrevEmployers, by = "PreviousEmployerCLEAN")
-  
-setkey(compustatFirms,conml)
-setkey(PrevEmployers,PreviousEmployerCLEAN)
-output <- compustatFirms[PrevEmployers]
-#output <- PrevEmployers[compustatFirms]
-length(na.omit(output$PreviousEmployer))
+EntitiesPrevEmployers <- EntitiesPrevEmployers[, .(Weight,EntityID,EntityName,JoinDate,StartDate,Title,TitleCode,PreviousEmployer)]
+EntitiesPrevEmployers[ , PreviousEmployerCLEAN := gsub("( )?(_x000D_)?(\n)?( )?(_x000D_)?(\n)?( )?_x000D_\n$","",PreviousEmployer), by = PreviousEmployer]
+EntitiesPrevEmployers[ , PreviousEmployerCLEAN := gsub("[.]$","",PreviousEmployerCLEAN), by = PreviousEmployerCLEAN]
+EntitiesPrevEmployers[ , PreviousEmployerCLEAN := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",PreviousEmployerCLEAN), by = PreviousEmployerCLEAN]
+EntitiesPrevEmployers[ , PreviousEmployerCLEAN := gsub("[ ]?[(].*[)]$","",PreviousEmployerCLEAN), by = PreviousEmployerCLEAN]
+EntitiesPrevEmployers[ , PreviousEmployerCLEAN := gsub("^Google.*$","Google",PreviousEmployerCLEAN), by = PreviousEmployerCLEAN]
+
+#PrevEmployers <- unique(PrevEmployers, by = "PreviousEmployerCLEAN")
+
+# Match first to parent firms via business divisions, using segments data from Compustat
+
+setkey(segments,snms)
+setkey(EntitiesPrevEmployers,PreviousEmployerCLEAN)
+output <- segments[EntitiesPrevEmployers]
+
+#outputFuzzy <- PrevEmployers[1:5000] %>% stringdist_inner_join(segments, by = c(PreviousEmployer = "snms"), method = c("lv"), max_dist = 1, distance_col = "distance")
+
+output <- output[ , .(gvkey,conml,snms,PreviousEmployer,EntityID,EntityName,Weight,JoinDate,StartDate)]
+
+# Analyze output
+#output[, PrevEmployerSpinoutCount := sum(Weight), by = .(snms)]
+
+# Next, match to parent firms directly
+firms <- unique(compustatFirmsSegments, by = "gvkey")
+firms[, snms := NA]
+setkey(firms,conml)
+output2 <- firms[EntitiesPrevEmployers]
+output2 <- output2[ , .(gvkey,conml,snms,PreviousEmployer,EntityID,EntityName,Weight,JoinDate,StartDate)]
+
+#output2[, PrevEmployerSpinoutCount := sum(Weight), by = .(conml)]
+output <- rbind(output[!is.na(gvkey)],output2[!is.na(gvkey)])
+
+fwrite(output,"data/parentsSpinouts.csv")
   
 #outputFuzzy <- PrevEmployers[1:5000] %>% stringdist_inner_join(compustatFirms, by = c(PreviousEmployer = "conml"), method = c("lv"), max_dist = 0, distance_col = "distance")
 
@@ -52,10 +91,6 @@ length(na.omit(output$PreviousEmployer))
 
 #outputFuzzy <- rbind(outputFuzzy,na.omit(tail(PrevEmployers,5000-1)) %>% stringdist_inner_join(compustatFirms, by = c(PreviousEmployer = "conml"), method = c("lv"), max_dist = 0, distance_col = "distance"))
 
-setkey(compustatFirmsSegments,snms)
-setkey(PrevEmployers,PreviousEmployerCLEAN)
-
-output <- compustatFirmsSegments[PrevEmployers]
 
 
 
