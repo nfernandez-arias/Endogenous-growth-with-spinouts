@@ -33,17 +33,17 @@ stateCounts <- output[ , sum(spinoutCount), by = .(State,year)]
 
 library(ggplot2)
 
-ggplot(data = stateCounts[State == "CA" | State == "NY" | State == "WA" | State == "MA" | State == ""], aes(x = year, y = V1, group = State)) + 
+ggplot(data = stateCounts[State == "CA" | State == "NY" | State == "WA" | State == "MA"], aes(x = year, y = V1, group = State)) + 
   geom_line(aes(color = State)) +
   #theme(legend.position = "none") +
   ggtitle("Number of eventually VC-funded spinouts spawned per year (color = state)") +
   #ggtitle("Unadjusted") + 
   #xlim(1975,2018) +
-  #ylim(0,36) + 
+  #ylim(0,1500) + 
   ylab("# of Spinouts") +
   xlab("Year")
 
-ggsave("code/plots/VCspawning_noFuzzy.png", width = 16, height = 9, dpi = 100)
+ggsave("code/plots/VCspawning_noFuzzy_CCEOandCTO.png", width = 16, height = 9, dpi = 100)
 
 compustat <- fread("raw/compustat/compustat_annual.csv")
 
@@ -62,9 +62,9 @@ stateCounts <- output[ , sum(spinoutCount), by = .(state,fyear)]
 
 library(ggplot2)
 
-ggplot(data = stateCounts, aes(x = fyear, y = V1, group = state)) + 
+ggplot(data = stateCounts[state == "CA" | state == "NY" | state == "WA" | state == "MA"], aes(x = fyear, y = V1, group = state)) + 
   geom_line(aes(color = state)) +
-  theme(legend.position = "none") +
+  #theme(legend.position = "none") +
   ggtitle("Number of eventually VC-funded spinouts spawned per year (color = state)") +
   #ggtitle("Unadjusted") + 
   xlim(1975,2019) +
@@ -73,15 +73,15 @@ ggplot(data = stateCounts, aes(x = fyear, y = V1, group = state)) +
   xlab("Year")
 
 #ggsave("code/plots/VCspawning_noFuzzy.png", width = 16, height = 9, dpi = 100)
-ggsave("code/plots/VCspawning_noFuzzy_parentFirmState.png", width = 16, height = 9, dpi = 100)
+ggsave("code/plots/VCspawning_noFuzzy_CCEOandCTO_parentFirmState.png", width = 16, height = 9, dpi = 100)
 
 
 
 
-setkey(output,EntityID)
-setkey(spinoutData,EntityID)
+#setkey(output,EntityID)
+#setkey(spinoutData,EntityID)
 
-output <- output[spinoutData]
+#output <- output[spinoutData]
 
 
 
