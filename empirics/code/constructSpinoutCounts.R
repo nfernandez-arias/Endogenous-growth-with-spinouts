@@ -20,6 +20,12 @@ data[ , year := pmin(na.omit(year(ymd(JoinDate))),na.omit(year(ymd(StartDate))))
 
 temp <- data[ , sum(Weight), by = .(gvkey,year)]
 
+setnames(temp,"V1","spinoutCount")
+
+temp[is.na(spinoutCount) == TRUE, spinoutCount := 0]
+
+temp[ , spinoutCountUnweighted := data[ , .N, by = .(gvkey,year)]$N ]
+
 fwrite(temp,"data/parentsSpinoutCounts.csv")
 
 

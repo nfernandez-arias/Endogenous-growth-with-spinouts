@@ -17,19 +17,19 @@ setwd("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spi
 # First, create database of parent-spinout relationships
 source("code/findSpinouts.R")
 
-# Next, do some basic analyses
+# Next, do some basic analyses  
 source("code/basicSpinoutAnalysis.R")
 
 # Construct NAICS - VentureSource industry cross-walk?
 
 # Construct parentFirm-year spinout counts and spinout indicator 
 # (for now, not considering industry)
-source("code/construtSpinoutCounts.R") 
+source("code/constructSpinoutCounts.R") 
 
 # Combine with data on R&D from compustat_annual
 source("code/mergeRDwithSpinoutCounts.R")
 
-# Next, do OLS analysis
+# Next, do regressions
 source("code/RD_spinouts_OLS.R")
 
 
