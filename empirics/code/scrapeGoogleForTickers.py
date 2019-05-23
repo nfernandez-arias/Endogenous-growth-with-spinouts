@@ -34,7 +34,7 @@ print(type(list(firmsCounts.keys())))
 
 print(list(firmsCounts.keys())[3])
 
-firmsTickers = {firm:extractTickerFromGoogle(firm) for firm in list(firmsCounts.keys())[1:15]}
+firmsTickers = {firm:extractTickerFromGoogle(firm) for firm in list(firmsCounts.keys())[1:100]}
 
 with open('firmsTickers.csv', 'w') as csv_file:
     writer = csv.writer(csv_file)

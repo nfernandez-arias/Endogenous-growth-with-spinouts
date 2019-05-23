@@ -86,9 +86,11 @@ output2 <- output2[ , .(gvkey,conml,snms,tic,PreviousEmployer,EntityID,EntityNam
 #output2[, PrevEmployerSpinoutCount := sum(Weight), by = .(conml)]
 output <- rbind(output[!is.na(gvkey)],output2[!is.na(gvkey)])
 output2 <- rbind(output[is.na(gvkey)],output2[is.na(gvkey)])
-temp <- output2[, .N, by = conml]
 
+temp <- output2[, .N, by = conml]
 temp2 <- output[, .N, by = conml]
+
+
 
 fwrite(output,"data/parentsSpinouts.csv")
   

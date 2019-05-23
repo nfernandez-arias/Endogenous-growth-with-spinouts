@@ -8,7 +8,7 @@
 #
 # This runs some basic OLS analyses - is R&D 
 # associated with spinout formation at the firm level?
-#------------------------------------------------#
+#------------------------------------------------#  
 
 rm(list = ls())
 
