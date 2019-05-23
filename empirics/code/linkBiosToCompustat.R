@@ -18,6 +18,7 @@ library(fuzzyjoin)
 compustatFirmsSegments <- fread("data/compustat/firmsSegments.csv")
 compustatFirmsSegments[tic == "IBM", conml := "IBM"]
 compustatFirmsSegments[tic == "GS", conml := "Goldman Sachs"]
+compustatFirmsSegments[tic == "HPQ", conml := "Hewlett-Packard"]
 # select segments
 segments <- compustatFirmsSegments[snms != ""]
 segments <- segments[ gvkey != 17997 | snms != "AT&T"]
@@ -50,6 +51,9 @@ compustatFirmsSegments <- compustatFirmsSegments[ , conml := gsub("( Inc| Corp| 
 #rm(EntitiesPrevEmployers)
 
 EntitiesPrevEmployers <- EntitiesPrevEmployers[, .(Weight,EntityID,EntityName,JoinDate,StartDate,Title,TitleCode,PreviousEmployer)]
+EntitiesPrevEmployers[ PreviousEmployer == "Cisco", PreviousEmployer := "Cisco Systems"]
+EntitiesPrevEmployers[ PreviousEmployer == "Amazon", PreviousEmployer := "Amazon.com"]
+EntitiesPrevEmployers[ PreviousEmployer == "Yahoo" | PreviousEmployer == "Yahoo!", PreviousEmployer := "Verizon"]
 EntitiesPrevEmployers[ , PreviousEmployerCLEAN := gsub("( )?(_x000D_)?(\n)?( )?(_x000D_)?(\n)?( )?_x000D_\n$","",PreviousEmployer), by = PreviousEmployer]
 EntitiesPrevEmployers[ , PreviousEmployerCLEAN := gsub("[.]$","",PreviousEmployerCLEAN), by = PreviousEmployerCLEAN]
 EntitiesPrevEmployers[ , PreviousEmployerCLEAN := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",PreviousEmployerCLEAN), by = PreviousEmployerCLEAN]
