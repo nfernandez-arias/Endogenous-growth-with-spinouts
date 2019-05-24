@@ -90,7 +90,7 @@ output2 <- rbind(output[is.na(gvkey)],output2[is.na(gvkey)])
 temp <- output2[, .N, by = conml]
 temp2 <- output[, .N, by = conml]
 
-
+fwrite(temp[order(-N)],"code/company_list.csv")
 
 fwrite(output,"data/parentsSpinouts.csv")
   

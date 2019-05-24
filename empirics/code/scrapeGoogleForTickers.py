@@ -4,7 +4,7 @@ import csv
 
 def extractTickerFromGoogle(companyName):
     params = {
-        "q" : f" \"{companyName}\" + \"ticker symbol\" ",
+        "q" : f"{companyName} ticker symbol",
         "location" : "New York, New York, United States",
         "hl" : "en",
         "gl" : "us",
@@ -30,13 +30,9 @@ with open('company_list.csv', mode='r') as infile:
     reader = csv.reader(infile)
     firmsCounts = {rows[0]:rows[1] for rows in reader}
 
-print(type(list(firmsCounts.keys())))
-
-print(list(firmsCounts.keys())[3])
-
 firmsTickers = {firm:extractTickerFromGoogle(firm) for firm in list(firmsCounts.keys())[1:100]}
 
-with open('firmsTickers.csv', 'w') as csv_file:
+with open('firmsTickers_1_100_test.csv', 'w') as csv_file:
     writer = csv.writer(csv_file)
     writer.writerow(["Firm Name","Ticker Symbol"])
     for key, value in firmsTickers.items():
