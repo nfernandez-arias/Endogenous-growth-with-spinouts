@@ -2,7 +2,7 @@ from lib.google_search_results import GoogleSearchResults
 import re
 import csv
 
-def extractTickerFromGoogle(companyName):
+def extractPageFromGoogle(companyName):
     params = {
         "q" : f"{companyName} ticker symbol",
         "location" : "New York, New York, United States",
@@ -17,22 +17,32 @@ def extractTickerFromGoogle(companyName):
     client = GoogleSearchResults(params)
     results = client.get_html()
 
+    return results
+
+def extractTickerFromPage(page):
+
     try:
-        found = re.search('<span class=\"HfMth\">(.+?)</span>', results).group(1)
+        found = re.search('<span class=\"HfMth\">(.+?)</span>', page).group(1)
     except AttributeError:
         # AAA, ZZZ not found in the original string
         found = ''
 
     return found
 
-
 with open('company_list.csv', mode='r') as infile:
     reader = csv.reader(infile)
     firmsCounts = {rows[0]:rows[1] for rows in reader}
 
-firmsTickers = {firm:extractTickerFromGoogle(firm) for firm in list(firmsCounts.keys())[1:100]}
+firmsPages = {firm:extractPageFromGoogle(firm) for firm in list(firmsCounts.keys())[1:200]}
+firmsTickers = {firm:extractTickerFromPage(page) for firm,page in list(firmsPages.items())[1:200]}
 
-with open('firmsTickers_1_100_test.csv', 'w') as csv_file:
+with open('firmsPages.csv', 'a') as csv_file:
+    writer = csv.writer(csv_file)
+    writer.writerow(["Firm Name","HTML"])
+    for key, value in firmsPages.items():
+        writer.writerow([key,value])
+
+with open('firmsTickers.csv', 'a') as csv_file:
     writer = csv.writer(csv_file)
     writer.writerow(["Firm Name","Ticker Symbol"])
     for key, value in firmsTickers.items():
