@@ -14,6 +14,7 @@ rm(list = ls())
 library(data.table)
 
 compustat <- fread("raw/compustat/compustat_annual.csv")
+compustat <- compustat[ , .(fyear,gvkey,tic,cusip,cik,conm,conml,state,city,xrd)]
 compustatFirms <- unique(compustat[ , .(gvkey,tic,conm,conml,state,city)])
 setkey(compustatFirms,conml)
 rm(compustat)

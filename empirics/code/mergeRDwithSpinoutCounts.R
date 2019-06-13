@@ -14,7 +14,7 @@ rm(list = ls())
 
 compustat <- fread("raw/compustat/compustat_annual.csv")
 compustat <- compustat[indfmt=="INDL" & datafmt=="STD" & popsrc=="D" & consol=="C"]
-compustat <- compustat[ , .(gvkey,fyear,datadate,state,xrd,emp,sic,naics)]
+compustat <- compustat[ , .(gvkey,fyear,datadate,state,xrd,emp,revt,intan,act,sic,naics)]
 compustat <- compustat[!is.na(fyear)]
 
 # Use 4-digit NAICS codes
@@ -23,13 +23,12 @@ compustat <- compustat[!is.na(fyear)]
 parentsSpinoutCounts <- fread("data/parentsSpinoutCounts.csv")
 
 setkey(compustat,gvkey,fyear)
-setkey(parentsSpinoutCounts,gvkey,year)
+setkey(parentsSpinoutCounts,gvkey,year)  
 
 output <- parentsSpinoutCounts[compustat]
 
-output[is.na(V1) == TRUE, V1 := 0]
-
-setnames(output,"V1","spinoutCount")
+output[is.na(spinoutCount) == TRUE, spinoutCount := 0]
+output[is.na(spinoutCountUnweighted) == TRUE, spinoutCountUnweighted := 0]
 
 output[ , spinoutIndicator := (spinoutCount >= 0.5)]
 

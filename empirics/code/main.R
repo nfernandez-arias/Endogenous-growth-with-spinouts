@@ -29,7 +29,7 @@ source("code/constructSpinoutCounts.R")
 # Combine with data on R&D from compustat_annual
 source("code/mergeRDwithSpinoutCounts.R")
 
-# Next, do regressions
+      # Next, do regressions/b
 source("code/RD_spinouts_OLS.R")
 
 

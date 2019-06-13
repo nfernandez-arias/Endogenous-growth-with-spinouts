@@ -12,8 +12,6 @@
 
 rm(list = ls())
 library(data.table)
-library(dplyr)
-library(fuzzyjoin) 
 
 compustatFirmsSegments <- fread("data/compustat/firmsSegments.csv")
 compustatFirmsSegments[tic == "IBM", conml := "IBM"]
@@ -50,7 +48,7 @@ compustatFirmsSegments <- compustatFirmsSegments[ , conml := gsub("( Inc| Corp| 
 
 #rm(EntitiesPrevEmployers)
 
-EntitiesPrevEmployers <- EntitiesPrevEmployers[, .(Weight,EntityID,EntityName,JoinDate,StartDate,Title,TitleCode,PreviousEmployer)]
+EntitiesPrevEmployers <- EntitiesPrevEmployers[, .(Weight,EntityID,EntityName,FirstName,LastName,JoinDate,StartDate,Title,TitleCode,PreviousEmployer)]
 EntitiesPrevEmployers[ PreviousEmployer == "Cisco", PreviousEmployer := "Cisco Systems"]
 EntitiesPrevEmployers[ PreviousEmployer == "Amazon", PreviousEmployer := "Amazon.com"]
 EntitiesPrevEmployers[ PreviousEmployer == "Yahoo" | PreviousEmployer == "Yahoo!", PreviousEmployer := "Verizon"]
@@ -71,7 +69,7 @@ output <- segments[EntitiesPrevEmployers]
 #output <- EntitiesPrevEmployers[segments]
 #outputFuzzy <- PrevEmployers[1:5000] %>% stringdist_inner_join(segments, by = c(PreviousEmployer = "snms"), method = c("lv"), max_dist = 1, distance_col = "distance")
 
-output <- output[ , .(gvkey,conml,snms,tic,PreviousEmployer,EntityID,EntityName,Weight,JoinDate,StartDate)]
+output <- output[ , .(gvkey,conml,snms,tic,PreviousEmployer,EntityID,EntityName,Weight,FirstName,LastName,JoinDate,StartDate)]
 
 # Analyze output
 #output[, PrevEmployerSpinoutCount := sum(Weight), by = .(snms)]
@@ -81,7 +79,7 @@ firms <- unique(compustatFirmsSegments, by = "gvkey")
 firms[, snms := NA]
 setkey(firms,conml)
 output2 <- firms[EntitiesPrevEmployers]
-output2 <- output2[ , .(gvkey,conml,snms,tic,PreviousEmployer,EntityID,EntityName,Weight,JoinDate,StartDate)]
+output2 <- output2[ , .(gvkey,conml,snms,tic,PreviousEmployer,EntityID,EntityName,Weight,FirstName,LastName,JoinDate,StartDate)]
 
 #output2[, PrevEmployerSpinoutCount := sum(Weight), by = .(conml)]
 output <- rbind(output[!is.na(gvkey)],output2[!is.na(gvkey)])
@@ -92,20 +90,35 @@ temp2 <- output[, .N, by = conml]
 
 fwrite(temp[order(-N)],"code/company_list.csv")
 
+
+
+####################################
+## Merge in additional previous employers using
+# ticker symbols, obtained through scraping Google search results
+####################################
+
+
+# Use firmsTickers to match firms that are not matched by name
+firmsTickers <- fread("data/firmsTickersClean.csv")
+
+# merge with firms database using ticker symbol
+setkey(firmsTickers,tic)
+setkey(firms,tic)
+firmsTickersGvkeys <- firms[firmsTickers]
+
+# merge with EntitiesPrevEmployers and append to output
+setkey(firmsTickersGvkeys,firmName)
+
+temp3 <- firmsTickersGvkeys[EntitiesPrevEmployers][ !is.na(gvkey)]
+
+temp3 <- temp3[ , .(gvkey,conml,snms,tic,PreviousEmployer,EntityID,EntityName,Weight,FirstName,LastName,JoinDate,StartDate)]
+
+output <- unique(rbind(output,temp3), by = c("gvkey","EntityID","FirstName","LastName","JoinDate","StartDate"))
+
+##################################
+# Write output
+##################################
+
 fwrite(output,"data/parentsSpinouts.csv")
-  
-#outputFuzzy <- PrevEmployers[1:5000] %>% stringdist_inner_join(compustatFirms, by = c(PreviousEmployer = "conml"), method = c("lv"), max_dist = 0, distance_col = "distance")
-
-#for (i in 2:16) {
-
-#outputFuzzy <- rbind(outputFuzzy,na.omit(PrevEmployers[5000*(i-1)+1:5000*i]) %>% stringdist_inner_join(compustatFirms, by = c(PreviousEmployer = "conml"), method = c("lv"), max_dist = 0, distance_col = "distance"))
-
-#} 
-
-#i <- 17
-
-#outputFuzzy <- rbind(outputFuzzy,na.omit(tail(PrevEmployers,5000-1)) %>% stringdist_inner_join(compustatFirms, by = c(PreviousEmployer = "conml"), method = c("lv"), max_dist = 0, distance_col = "distance"))
-
-
 
 

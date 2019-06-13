@@ -9,20 +9,21 @@ def extractPageFromGoogle(companyName):
         "hl" : "en",
         "gl" : "us",
         "google_domain" : "google.com",
-        "api_key" : "9b66566f114d4a876cb052f3ff8d5ef682bf76424fdab1928f45433f1cf5f06d",
+        "api_key" : "23b46b2ea7305ea69366b8a689f9c3287878c6fabf60238b8fb0206ebf43e7b9",
         "output" : "html",
         "device" : "desktop",
     }
 
     client = GoogleSearchResults(params)
+    #results = [client.get_html(), client.get_json()]
     results = client.get_html()
 
     return results
 
-def extractTickerFromPage(page):
+def extractTickerFromPage(html):
 
     try:
-        found = re.search('<span class=\"HfMth\">(.+?)</span>', page).group(1)
+        found = re.search('<span class=\"HfMth\">(.+?)</span>', html).group(1)
     except AttributeError:
         # AAA, ZZZ not found in the original string
         found = ''
@@ -33,17 +34,32 @@ with open('company_list.csv', mode='r') as infile:
     reader = csv.reader(infile)
     firmsCounts = {rows[0]:rows[1] for rows in reader}
 
-firmsPages = {firm:extractPageFromGoogle(firm) for firm in list(firmsCounts.keys())[1:200]}
-firmsTickers = {firm:extractTickerFromPage(page) for firm,page in list(firmsPages.items())[1:200]}
+lb = 4500
+ub = 5500
 
+firmsPages = {firm:extractPageFromGoogle(firm) for firm in list(firmsCounts.keys())[lb:ub]}
+
+# Extract ticker symbols from HTML
+firmsTickers = {firm:extractTickerFromPage(page) for firm,page in list(firmsPages.items())}
+
+#print(firmsHTML)
+print(firmsTickers)
 with open('firmsPages.csv', 'a') as csv_file:
+
     writer = csv.writer(csv_file)
-    writer.writerow(["Firm Name","HTML"])
+    #writer.writerow(["Firm Name","HTML"])
     for key, value in firmsPages.items():
         writer.writerow([key,value])
 
+#with open('firmsJSons.csv', 'a') as csv_file:
+
+#    writer = csv.writer(csv_file)
+    #writer.writerow(["Firm Name","JSon"])
+#    for key, value in firmsJSons.items():
+#        writer.writerow([key,value])
+
 with open('firmsTickers.csv', 'a') as csv_file:
     writer = csv.writer(csv_file)
-    writer.writerow(["Firm Name","Ticker Symbol"])
+    #writer.writerow(["Firm Name","Ticker Symbol"])
     for key, value in firmsTickers.items():
        writer.writerow([key, value])

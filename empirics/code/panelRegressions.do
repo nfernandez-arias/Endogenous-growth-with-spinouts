@@ -12,35 +12,46 @@ rename spinoutcountunweighted_ma2 spinoutCountUnweighted_ma2
 rename spinoutcount_ma2 spinoutCount_ma2
 rename spinoutcountunweighted_ma3 spinoutCountUnweighted_ma3
 rename spinoutcount_ma3 spinoutCount_ma3
-
-
+rename firmage age
 
 encode state, gen(stateCode)
 
 xtset gvkey year
 
-* Generate state-year, naics4-year, gvkey-year catgories for clustering purposes
-foreach var in year gvkey naics1 naics2 naics3 naics4 {
-	tostring `var', g(p`var') 
-}
-
-foreach var in pnaics1 pnaics2 pnaics3 pnaics4 {
-	local varname = substr("`var'",2,.)
-	gen `var'_state = `var'+"-"+state
-	encode `var'_state, gen(`var'_state_encode)
-	drop `var'_state
-	rename `var'_state_encode `varname'_state
-	
-	gen `var'_year = `var'+"-"+pyear
-	encode `var'_year, gen(`var'_year_encode)
-	drop `var'_year
-	drop `var'
-	rename `var'_year_encode `varname'_year
-}
-
 *Run regressions
 
-reghdfe spinoutCountUnweighted xrd_ma5 emp, absorb(naics4#year state) vce(cluster naics4 state)
+rename spinoutCountUnweighted Spinouts
+label variable Spinouts "Spinouts"
+
+eststo: quietly reg Spinouts xrd
+eststo: quietly reg Spinouts xrd emp
+eststo: quietly reg Spinouts xrd_ma3 emp
+eststo: quietly reg Spinouts xrd_ma5 emp
+esttab using tables/OLS.tex, replace stats(r2 r2_a N)
+eststo clear
+
+eststo: quietly reg Spinouts xrd_ma3 emp revt
+eststo: quietly reg Spinouts xrd_ma3 emp revt act
+eststo: quietly reg Spinouts xrd_ma3 emp revt act intan
+eststo: quietly reg Spinouts xrd emp revt act intan
+esttab using tables/OLS_more-controls.tex, replace stats(r2 r2_a N)
+eststo clear
+
+eststo: quietly reghdfe Spinouts xrd emp revt act intan, absorb(naics4 age year) cluster(gvkey) 
+eststo: quietly reghdfe Spinouts xrd emp revt act intan, absorb(naics4 age year) cluster(gvkey year)
+eststo: quietly reghdfe Spinouts xrd emp revt act intan, absorb(naics4 age year) cluster(naics4 year)
+eststo: quietly reghdfe Spinouts xrd emp revt act intan, absorb(naics4 age year) cluster(naics4 stateCode)
+eststo: quietly reghdfe Spinouts xrd emp revt act intan, absorb(naics4 age year) cluster(naics4 stateCode year)
+esttab using tables/OLS_FE_industry_age_time.tex, replace stats(vce r2 r2_a N)
+eststo clear
+
+eststo: quietly reghdfe Spinouts xrd emp revt act intan, absorb(gvkey age year) cluster(gvkey)
+eststo: quietly reghdfe Spinouts xrd emp revt act intan, absorb(gvkey age year) cluster(gvkey year)
+eststo: quietly reghdfe Spinouts xrd emp revt act intan, absorb(gvkey age year) cluster(naics4 year)
+eststo: quietly reghdfe Spinouts xrd emp revt act intan, absorb(gvkey age year) cluster(naics4 stateCode)
+eststo: quietly reghdfe Spinouts xrd emp revt act intan, absorb(gvkey age year) cluster(naics4 stateCode year)
+esttab using tables/OLS_FE_firm_age_time.tex, replace stats(vce r2 r2_a N)
+eststo clear
 
 
 * Basic OLS regression

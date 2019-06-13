@@ -1,0 +1,131 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+	
+	
+\title{Endogenous Growth with Spinouts - Empirical Component}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section*{Violante Feedback - 6-6-2019}
+
+\begin{enumerate}
+	\item REPLICATE GOMPERS LERNER SCHARFSTEIN
+	\item Cross-walk - make sure the codes aren't related to SIC or something...how did GLS do it??
+	\item Regressions look interesting -- but would be better to look at outcomes of spinouts besides just spinout counts, and see how these are related to firm R\&D
+	\item Re: potential spinouts vs. spinouts, can compare 1st funding to 2nd or 3rd funding, and how likelihood changes depending on when parent firm gets a patent. This is particularly powerful if, as Gianluca conjectures, most spinouts end up getting *some* funding (otherwise they wouldn't have spun out) (this is essentially valid as long as "trying out an idea" usually costs too much money to fund yourself.)
+	\item Is there any better info in Compustat than just R\&D spending? I.e. R\&D employment? Some measure of high skill employment...
+\end{enumerate}
+
+\section*{Questions}
+
+\begin{enumerate}
+	\item Statistical / economic significance of preliminary results and what this says about feasiblity of IV approach...
+	\item Cross-walk of industry codes - how to assess its quality?
+	\item What controls would be appropriate? E.g., patent stock control? 
+	\item Spinout formation in model and data:
+	\begin{itemize}
+		\item Model: potential spinouts vs. actual spinouts
+		\item Data:
+		\begin{itemize}
+			\item Founding of a startup --> potential spinout
+			\item Raising certain amount of money, or generating revenue (when have data) --> discovery of new variety by a spinout?
+		\end{itemize}
+	\end{itemize}
+	\item Non-constant hazard rate:
+	\begin{itemize}
+		\item When parent firm obtains a patent, the likelihood of a spinout raising money drops, whereas the likelihood of generating new potential spinouts increases. This I could test in the data...
+		\item \textbf{Problem:} I only observe founded firms that end up raising VC money. If a parent firm outcompetes its spinouts in the innovation race, then its spinouts will simply be less likely to appear in the dataset at all.  
+	\end{itemize}
+\end{enumerate}
+
+\section*{Agenda}
+
+\begin{enumerate}
+	\item \textbf{(Significant progress)} Link startups in Venture Source to parent firms in Compustat
+	\begin{itemize}
+		\item \textbf{(done)} Parse employment biographies in Venture Source to extract previous employer 
+		\item \textbf{(done)}) Match parent firms and subsidiaries using Compustat segments database (e.g., Google is a subsidiary of Alphabet, Inc.) 
+		\item \textbf{(done)} Link previous employer to Compustat by matching (cleaned) name of company 
+		\item \textbf{(in progress)} Get more matches by searching Google for "<company name> ticker symbol" and scraping results. Thousands of searches --> need Serp API (trial version for now) to use bots to scrape. So far have gotten about 10\% more matches this way. 
+		\begin{itemize}
+			\item \textbf{Issue: } most spinouts are from parents whose name is only associated with one or two spinouts (perhaps due to misspellings).
+			\item \textbf{Issue: } there are false positives. But this should be relatively easy to fix, since there aren't too many matches. I can check by hand. There seem to be fewer false negatives.
+		\end{itemize} 
+		\item \textbf{(to-do)} Need to check matches for false positives. Measurement error on the LHS so still consistent, but lower power. 
+		\item \textbf{(in progress)} 
+		\item \textbf{(to-do)} Want to compare the counts of my approach to what is obtained by Gompers, Lerner and Scharfstein 2005, which uses the same datasets (for an earlier time period). 
+	\end{itemize}
+	\item \textbf{(to-do)} Construct industry code cross-walk linking NAICS4 and Venture Source industry categories
+	\item \textbf{(to-do)} Construct instrument for R\&D spending using idiosyncratic component of Federal tax subsidies
+	\begin{itemize}
+		\item \textbf{Issue: } Results are already barely significant with firm, firm age and time fixed effects. Just not enough variation in R\&D spending. 
+		\item \textbf{Issue: } Not sure have enough data on spinouts during the time period when the relevant Federal R\&D tax subsidies were put into place
+	\end{itemize}
+	\item \textbf{(to-do)} Construct database linking funding events (amounts, pre- and post- valuations) to daily stock prices (from CRSP)
+	\item \textbf{(in progress)} Run regressions of spinout formation on R\&D spending
+	\begin{itemize}
+		\item OLS using all variation - i.e., no fixed effects
+		\begin{itemize}
+			\item Specifications: simultaneous, lagging moving averages of R\&D vs leading moving averages of spinout formation, etc.
+			\item Relationship between R\&D and spinout formation seems to be more simultaneous (of course, only yearly data. So maybe happening at quarterly frequency or something).
+		\end{itemize}
+		\item OLS with some fixed effects
+		\begin{itemize}
+			\item More conservative clustering choices render insignificant
+		\end{itemize}
+	\end{itemize}
+\end{enumerate}
+
+
+\section*{No fixed effects}
+
+
+\input{../tables/OLS.tex}
+
+\section*{No fixed effects with some additional controls}
+
+\input{../tables/OLS_more-controls.tex}
+
+\section*{NAICS4, age and time fixed effects}
+
+\input{../tables/OLS_FE_industry_age_time.tex}
+
+\section*{Firm, age and time fixed effects}
+
+\input{../tables/OLS_FE_firm_age_time.tex}
+
+\end{document}

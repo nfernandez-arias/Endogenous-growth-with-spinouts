@@ -1,0 +1,71 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+	
+	
+\title{Endogenous Growth with Spinouts - Empirical Component}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section*{Agenda}
+
+\begin{enumerate}
+	\item Link startups in Venture Source to parent firms in Compustat
+	\begin{itemize}
+		\item \textbf{(done)} Parse employment biographies in Venture Source to extract previous employer 
+		\item \textbf{(done)}) Match parent firms and subsidiaries using Compustat segments database (e.g., Google is a subsidiary of Alphabet, Inc.) 
+		\item \textbf{(done)} Link previous employer to Compustat by matching (cleaned) name of company 
+		\item \textbf{(in progress)} Get more matches by searching Google for "<company name> ticker symbol" and scraping results. Thousands of searches --> need Serp API (trial version for now) to use bots to scrape. So far have gotten about 10\% more matches this way. 
+		\item \textbf{(to-do)} Need to check matches for false positives. Measurement error on the LHS so still consistent, but lower power. 
+	\end{itemize}
+	
+	\item \textbf{(to-do)} Construct industry code cross-walk linking NAICS4 and Venture Source industry categories
+	\item 
+\end{enumerate}
+
+\section*{No fixed effects}
+
+\input{OLS.tex}
+
+\section*{NAICS4, age and time fixed effects}
+
+\input{OLS_FE_industry_age_time.tex}
+
+\section*{Firm, age and time fixed effects}
+
+\input{OLS_FE_firm_age_time.tex}
+
+\end{document}

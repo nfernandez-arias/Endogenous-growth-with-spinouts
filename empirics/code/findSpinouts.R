@@ -2,13 +2,13 @@
 #
 # File name: findSpinouts.R
 #
-# Author: Nicolas Fernandez-Arias
+# Author: Nicolas Fernandez-Arias 
 #
 # Purpose:
 #
 # This is the main script for identifying spinouts
 # of Compustat firms by name matching to employee bios 
-# in Venture Source.
+# in Venture Source.  
 #------------------------------------------------#
 
 rm(list = ls())
@@ -19,7 +19,7 @@ source("code/VentureSource/parseBiographies.R")
 
 # Determine which is the previous firm the employee worked at
 source("code/VentureSource/findLastEmployer.R")
-
+    
 # Link employee bios dataset to Compustat firms using fuzzy name matching
 source("code/compustat/extractCompustatFirms.R") # only do the first time - takes a bit of time to read in compustat data
 source("code/compustat/matchCompustatFirmsToSubsidiaries.R")
