@@ -81,9 +81,11 @@ setkey(firms,conml)
 output2 <- firms[EntitiesPrevEmployers]
 output2 <- output2[ , .(gvkey,conml,snms,tic,PreviousEmployer,EntityID,EntityName,Weight,FirstName,LastName,JoinDate,StartDate)]
 
-#output2[, PrevEmployerSpinoutCount := sum(Weight), by = .(conml)]
+#output2[, PrevEmployerSpinoutCount := sum(Weight), by = .(conml)]  
+output3 <- unique(rbind(output2,output),by = c("gvkey","EntityID","FirstName","LastName","JoinDate","StartDate")) 
 output <- rbind(output[!is.na(gvkey)],output2[!is.na(gvkey)])
 output2 <- rbind(output[is.na(gvkey)],output2[is.na(gvkey)])
+
 
 temp <- output2[, .N, by = conml]
 temp2 <- output[, .N, by = conml]

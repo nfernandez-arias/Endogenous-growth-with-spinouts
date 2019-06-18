@@ -1,0 +1,30 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         &\multicolumn{1}{c}{(6)}         \\
+\hline
+xrd         &    0.000286\sym{**} &    0.000286\sym{*}  &    0.000286\sym{*}  &    0.000338\sym{**} &    0.000338\sym{*}  &    0.000338\sym{*}  \\
+            &      (3.00)         &      (2.18)         &      (2.17)         &      (2.97)         &      (2.12)         &      (2.10)         \\
+[1em]
+emp         &    -0.00102         &    -0.00102         &    -0.00102         &    -0.00168         &    -0.00168         &    -0.00168         \\
+            &     (-0.75)         &     (-1.02)         &     (-1.05)         &     (-0.91)         &     (-1.19)         &     (-1.18)         \\
+[1em]
+\_cons      &       0.113\sym{***}&       0.113\sym{**} &       0.113\sym{**} &       0.109\sym{***}&       0.109\sym{*}  &       0.109\sym{*}  \\
+            &      (5.82)         &      (2.78)         &      (2.74)         &      (4.99)         &      (2.13)         &      (2.11)         \\
+[1em]
+NAICS4 FE   &         Yes         &         Yes         &         Yes         &          No         &          No         &          No         \\
+[1em]
+Year FE     &         Yes         &         Yes         &         Yes         &          No         &          No         &          No         \\
+[1em]
+NAICS4-Year FE&          No         &          No         &          No         &         Yes         &         Yes         &         Yes         \\
+\hline
+clustvar    &       gvkey         &      naics4         &      naics3         &       gvkey         &      naics4         &      naics3         \\
+r2\_a        &       0.114         &       0.114         &       0.114         &      0.0718         &      0.0718         &      0.0718         \\
+r2\_a\_within &      0.0861         &      0.0861         &      0.0861         &       0.102         &       0.102         &       0.102         \\
+N           &       13603         &       13603         &       13603         &       12239         &       12239         &       12239         \\
+\hline\hline
+\multicolumn{7}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

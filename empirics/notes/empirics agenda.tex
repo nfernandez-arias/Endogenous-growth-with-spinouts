@@ -40,14 +40,21 @@
 \author{Nicolas Fernandez-Arias}
 \maketitle
 
-\section*{Violante Feedback - 6-6-2019}
+\section*{To-do}
 
 \begin{enumerate}
-	\item REPLICATE GOMPERS LERNER SCHARFSTEIN
+	\item ONLY CONTROL EMPLOYment - everything else too correlated with R\&D 
+	\item firm patents --> shock to firm R\&D spending 
+	\item use other measures of R\&D (patents)
+	\item non-competes affect incentive to do R\&D, but non-competes don't affect difference ..think about this (can maybe look at industry level)
+	\item two approaches: (1) find basic effects of model in data, (2) run regressions in model and data (so just a moment you can use, so specification doesn't matter)
+	\item Talk to some empirical people about the "right" way to do this
+	\item FIGURE OUT HOW GOOD YOUR MATCH IS
+	\item REPLICATE GOMPERS LERNER SCHARFSTEIN (Just replicate the tables)
 	\item Cross-walk - make sure the codes aren't related to SIC or something...how did GLS do it??
 	\item Regressions look interesting -- but would be better to look at outcomes of spinouts besides just spinout counts, and see how these are related to firm R\&D
-	\item Re: potential spinouts vs. spinouts, can compare 1st funding to 2nd or 3rd funding, and how likelihood changes depending on when parent firm gets a patent. This is particularly powerful if, as Gianluca conjectures, most spinouts end up getting *some* funding (otherwise they wouldn't have spun out) (this is essentially valid as long as "trying out an idea" usually costs too much money to fund yourself.)
-	\item Is there any better info in Compustat than just R\&D spending? I.e. R\&D employment? Some measure of high skill employment...
+	\item Re: potential spinouts vs. spinouts, can compare 1st funding to 2nd or 3rd funding, and how likelihood changes depending on when parent firm gets a patent. This is particularly powerful if most spinouts end up getting *some* funding (otherwise they wouldn't have spun out)
+	\item Is there any better info in Compustat than just R\&D spending? I.e. R\&D employment? Some measure of high skill employment...(doesn't look like it...)
 \end{enumerate}
 
 \section*{Questions}
@@ -111,21 +118,63 @@
 \end{enumerate}
 
 
-\section*{No fixed effects}
+\section{No fixed effects}
 
+\subsection{Dep var: spinout count weighted by \# of founders}
 
+\subsubsection{OLS}
 \input{../tables/OLS.tex}
 
-\section*{No fixed effects with some additional controls}
+\subsubsection{Logit}
+\input{../tables/logit.tex}
+\linebreak
+\input{../tables/logit_exitsOnly.tex}
+\linebreak
+\input{../tables/logit_valuableOnly.tex}
+
+\subsection{Dep var: discounted exit value of spinouts}
+
+\input{../tables/OLS_discountedExitValue.tex} 
+
+\section{No fixed effects with some additional controls}
+
+\subsection{Dep var: spinout count weighted by \# of founders}
 
 \input{../tables/OLS_more-controls.tex}
 
-\section*{NAICS4, age and time fixed effects}
+\subsection{Dep var: discounted exit value of spinouts}
 
-\input{../tables/OLS_FE_industry_age_time.tex}
+\input{../tables/OLS_discountedExitValue_more-controls.tex}
 
-\section*{Firm, age and time fixed effects}
+\section{Fixed effects}
 
-\input{../tables/OLS_FE_firm_age_time.tex}
+\subsection{Simultaneous R\&D}
+
+\subsubsection{Spinout count}
+
+\input{../tables/OLS_FE_industry3_age_time.tex}
+\linebreak
+\input{../tables/OLS_FE_industry4_age_time.tex}
+
+
+\subsubsection{Discounted exit value Spinout count}
+\input{../tables/OLS_DEV_FE_industry3_age_time.tex}
+\linebreak
+\input{../tables/OLS_DEV_FE_industry4_age_time.tex}
+
+\subsection{3-year MA of R\&D}
+
+\subsubsection{Spinout count}
+
+\input{../tables/OLS_XRDMA3_FE_industry3_age_time.tex}
+\linebreak
+\input{../tables/OLS_XRDMA3_FE_industry4_age_time.tex}
+
+
+\subsubsection{Discounted exit value Spinout count}
+\input{../tables/OLS_XRDMA3_DEV_FE_industry3_age_time.tex}
+\linebreak
+\input{../tables/OLS_XRDMA3_DEV_FE_industry4_age_time.tex}
+
 
 \end{document}

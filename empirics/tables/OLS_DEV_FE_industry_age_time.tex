@@ -1,0 +1,24 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         \\
+\hline
+xrd         &      0.0104\sym{*}  &      0.0139         &      0.0139         \\
+            &      (1.99)         &      (1.80)         &      (1.60)         \\
+[1em]
+emp         &     -0.0540         &      -0.124         &      -0.124         \\
+            &     (-1.29)         &     (-1.37)         &     (-1.49)         \\
+[1em]
+\_cons      &       5.781\sym{**} &       6.892\sym{**} &       6.892\sym{***}\\
+            &      (2.84)         &      (2.64)         &      (4.76)         \\
+\hline
+vce         &     cluster         &     cluster         &     cluster         \\
+r2          &     0.00591         &      0.0278         &      0.0278         \\
+r2\_a        &    -0.00403         &      -0.110         &      -0.110         \\
+N           &       17068         &       14536         &       14536         \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

@@ -29,6 +29,9 @@ data[, xrd_ma5 := (1/5) * Reduce(`+`, shift(xrd, 0L:4L, type = "lag")), by = gvk
 
 data[, spinoutCountUnweighted_ma2 := (1/2) * Reduce(`+`, shift(spinoutCountUnweighted, 0L:1L, type = "lead")), by = gvkey]
 data[, spinoutCountUnweighted_ma3 := (1/3) * Reduce(`+`, shift(spinoutCountUnweighted, 0L:2L, type = "lead")), by = gvkey]
+    
+data[, spinoutCount_ma2 := (1/2) * Reduce(`+`, shift(spinoutCount, 0L:1L, type = "lead")), by = gvkey]
+data[, spinoutCount_ma3 := (1/3) * Reduce(`+`, shift(spinoutCount, 0L:2L, type = "lead")), by = gvkey]
 
 data[, spinoutCount_ma2 := (1/2) * Reduce(`+`, shift(spinoutCount, 0L:1L, type = "lead")), by = gvkey]
 data[, spinoutCount_ma3 := (1/3) * Reduce(`+`, shift(spinoutCount, 0L:2L, type = "lead")), by = gvkey]
@@ -42,14 +45,16 @@ data <- data[, if(max(na.omit(xrd)) > 0) .SD, by = gvkey]
 # Ignore compustat firms that never have spinouts?
 data <- data[, if(max(na.omit(spinoutCount)) >0) .SD, by = gvkey]
 
-#data <- data[year >= 1986]
+data <- data[year >= 1986]
 
 # Construct 4-digit NAICS codes
+data[, naics6 := substr(naics,1,6)]
+data[, naics5 := substr(naics,1,5)]
 data[, naics4 := substr(naics,1,4)]
 data[, naics3 := substr(naics,1,3)]
 data[, naics2 := substr(naics,1,2)]
 data[, naics1 := substr(naics,1,1)]
-
+  
 # Sort data
 data <- data[order(gvkey,year)]
 
@@ -59,20 +64,20 @@ data[, firmAge := rowidv(gvkey)]
         
 fwrite(data,"data/compustat-spinouts_Stata.csv")
 
-            #### Analyses with spinout counts
+#### Analyses with spinout counts
 
 # Construct scatter plot of R&D spending and spinout formation    
 ggplot(data, aes(x = xrd, y = spinoutCount)) +
-  geom_point(size = 0.1) + 
-  geom_smooth(method = "lm", formula = y ~ poly(x,1), se = TRUE, fullrange =TRUE)
+geom_point(size = 0.1) + 
+geom_smooth(method = "lm", formula = y ~ poly(x,1), se = TRUE, fullrange =TRUE)
 
 ggplot(data, aes(x = xrd_ma3, y = spinoutCountUnweighted_ma3)) +
-  geom_point(size = 0.1) + 
-  geom_smooth(method = "lm", formula = y ~ poly(x,1), se = TRUE, fullrange =TRUE)
+geom_point(size = 0.1) + 
+geom_smooth(method = "lm", formula = y ~ poly(x,1), se = TRUE, fullrange =TRUE)
 
 ggplot(data, aes(x = xrd_ma3, y = spinoutCountUnweighted)) +
-  geom_point(size = 0.1) + 
-  geom_smooth(method = "lm", formula = y ~ poly(x,1), se = TRUE, fullrange =TRUE)
+geom_point(size = 0.1) + 
+geom_smooth(method = "lm", formula = y ~ poly(x,1), se = TRUE, fullrange =TRUE)
 
 # Run OLS - no fixed effects lags of R&D spending
 basicOLS <- lm(spinoutCount ~ xrd, data = data)
@@ -121,15 +126,15 @@ firmFixedEffects_lags <- plm(formula = spinoutCount ~ xrd + lag(xrd,1) + lag(xrd
 summary(firmFixedEffects_lags)
 
 firmFixedEffects_UnweightedSpinoutCount <- plm(formula = spinoutCountUnweighted ~ xrd, data = panelData, 
-                                               effect = "twoways", model = "within", index = c("gvkey","year"))
+                                             effect = "twoways", model = "within", index = c("gvkey","year"))
 summary(firmFixedEffects_UnweightedSpinoutCount)
 
 firmFixedEffects_UnweightedSpinoutCount_lags <- plm(formula = spinoutCountUnweighted ~ xrd + lag(xrd,1) + lag(xrd,2), data = panelData, 
-                                                    effect = "twoways", model = "within", index = c("gvkey","year"))
+                                                  effect = "twoways", model = "within", index = c("gvkey","year"))
 summary(firmFixedEffects_UnweightedSpinoutCount_lags)
 
 firmFixedEffects_UnweightedSpinoutCount_lags_ma3 <- plm(formula = spinoutCountUnweighted ~ xrd_ma3 + lag(xrd_ma3,1) + lag(xrd_ma3,2), data = panelData, 
-                                                    effect = "twoways", model = "within", index = c("gvkey","year"))
+                                                  effect = "twoways", model = "within", index = c("gvkey","year"))
 summary(firmFixedEffects_UnweightedSpinoutCount_lags_ma3)
 
 
