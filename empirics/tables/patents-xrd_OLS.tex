@@ -1,0 +1,35 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
+\hline
+xrd         &    0.000270\sym{***}&    0.000275\sym{***}&    0.000267\sym{***}&    0.000273\sym{***}\\
+            &     (32.33)         &     (32.81)         &     (31.84)         &     (32.80)         \\
+[1em]
+patentapplicationcount&    0.000769\sym{***}&                     &                     &                     \\
+            &     (13.98)         &                     &                     &                     \\
+[1em]
+emp         &    -0.00272\sym{***}&    -0.00233\sym{***}&    -0.00252\sym{***}&    -0.00279\sym{***}\\
+            &    (-13.90)         &    (-11.92)         &    (-12.82)         &    (-14.28)         \\
+[1em]
+patentapplicationcount\_cw&                     &   0.0000473\sym{***}&                     &                     \\
+            &                     &      (8.01)         &                     &                     \\
+[1em]
+patentcount &                     &                     &    0.000588\sym{***}&                     \\
+            &                     &                     &     (10.50)         &                     \\
+[1em]
+patentcount\_cw&                     &                     &                     &   0.0000891\sym{***}\\
+            &                     &                     &                     &     (14.94)         \\
+[1em]
+\_cons      &       0.138\sym{***}&       0.140\sym{***}&       0.139\sym{***}&       0.137\sym{***}\\
+            &     (15.06)         &     (15.24)         &     (15.19)         &     (15.01)         \\
+\hline
+r2          &      0.0875         &      0.0794         &      0.0823         &      0.0891         \\
+r2\_a        &      0.0873         &      0.0792         &      0.0821         &      0.0890         \\
+N           &       14886         &       14886         &       14886         &       14886         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

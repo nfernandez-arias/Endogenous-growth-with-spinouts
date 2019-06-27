@@ -1,0 +1,32 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
+\hline
+patentapplicationcount&    0.000821\sym{***}&                     &                     &                     \\
+            &     (14.43)         &                     &                     &                     \\
+[1em]
+emp         &    0.000885\sym{***}&     0.00145\sym{***}&    0.000946\sym{***}&    0.000918\sym{***}\\
+            &      (5.32)         &      (8.87)         &      (5.59)         &      (5.55)         \\
+[1em]
+patentapplicationcount\_cw&                     &   0.0000420\sym{***}&                     &                     \\
+            &                     &      (6.88)         &                     &                     \\
+[1em]
+patentcount &                     &                     &    0.000714\sym{***}&                     \\
+            &                     &                     &     (12.36)         &                     \\
+[1em]
+patentcount\_cw&                     &                     &                     &   0.0000889\sym{***}\\
+            &                     &                     &                     &     (14.40)         \\
+[1em]
+\_cons      &       0.166\sym{***}&       0.170\sym{***}&       0.167\sym{***}&       0.166\sym{***}\\
+            &     (17.66)         &     (17.95)         &     (17.70)         &     (17.69)         \\
+\hline
+r2          &      0.0234         &      0.0128         &      0.0197         &      0.0233         \\
+r2\_a        &      0.0232         &      0.0127         &      0.0196         &      0.0232         \\
+N           &       14886         &       14886         &       14886         &       14886         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

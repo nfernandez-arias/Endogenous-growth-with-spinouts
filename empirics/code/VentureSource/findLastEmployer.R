@@ -23,16 +23,13 @@ data <- data[order(EntityID,FirstName,LastName)]
 
 data <- data[EntityName != value]
 
+setnames(data,"value","PreviousEmployer")
+
+data <- data[TitleCode == "CEO" | TitleCode == "CTO" | TitleCode == "CCEO" | TitleCode == "PCEO" | Founder == 1]
+
 temp <- data[data[ , .I[1], by = c("EntityID","Title","FirstName","LastName")]$V1]
 
-setnames(temp,"value","PreviousEmployer")
-
 temp[ , variable := NULL]
-
-temp <- temp[ TitleCode != "BD"]
-temp <- temp[ TitleCode != "BDII"]
-temp <- temp[ TitleCode != "BDVI"]
-temp <- temp[ TitleCode != "CBD"]
 
 fwrite(temp,"~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics/data/VentureSource/EntitiesPrevEmployers.csv")
 

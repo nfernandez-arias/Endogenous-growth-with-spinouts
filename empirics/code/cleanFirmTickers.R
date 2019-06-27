@@ -24,8 +24,10 @@ firmsTickers[, tickerSymbol := NULL]
 setnames(firmsTickers,"Symbol","tic")
 setnames(firmsTickers,"Firm Name","firmName")
 
-fwrite(firmsTickers,"data/firmsTickersClean.csv")
 
+
+fwrite(firmsTickers,"data/firmsTickersClean.csv")
+          
 
 
 

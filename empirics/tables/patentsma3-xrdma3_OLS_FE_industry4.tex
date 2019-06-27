@@ -1,0 +1,39 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
+\hline
+xrd\_ma3     &    0.000430\sym{*}  &    0.000439\sym{*}  &    0.000426\sym{*}  &    0.000436\sym{*}  \\
+            &      (2.51)         &      (2.53)         &      (2.45)         &      (2.54)         \\
+[1em]
+patentapplicationcount\_ma3&     0.00113\sym{***}&                     &                     &                     \\
+            &      (4.51)         &                     &                     &                     \\
+[1em]
+emp         &    -0.00149         &   -0.000960         &    -0.00103         &    -0.00158         \\
+            &     (-1.36)         &     (-0.78)         &     (-1.05)         &     (-1.47)         \\
+[1em]
+patentapplicationcount\_cw\_ma3&                     &   0.0000844\sym{***}&                     &                     \\
+            &                     &      (5.28)         &                     &                     \\
+[1em]
+patentcount\_ma3&                     &                     &    0.000837\sym{*}  &                     \\
+            &                     &                     &      (2.64)         &                     \\
+[1em]
+patentcount\_cw\_ma3&                     &                     &                     &    0.000109\sym{***}\\
+            &                     &                     &                     &      (5.11)         \\
+[1em]
+\_cons      &      0.0802         &      0.0797         &      0.0815         &      0.0817         \\
+            &      (1.67)         &      (1.66)         &      (1.68)         &      (1.69)         \\
+[1em]
+State FE    &         Yes         &         Yes         &         Yes         &         Yes         \\
+[1em]
+NAICS4-Year FE&         Yes         &         Yes         &         Yes         &         Yes         \\
+\hline
+r2          &       0.218         &       0.213         &       0.212         &       0.217         \\
+r2\_a\_within &       0.142         &       0.136         &       0.135         &       0.141         \\
+N           &       11753         &       11753         &       11753         &       11753         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

@@ -31,11 +31,11 @@ label variable Spinouts "Spinouts (weighted)"
 rename spinoutcountunweighted_onlyexits Exits
 label variable Exits "Exits"
 
-rename spinoutsdiscountedexitvalue SpinoutsDiscountedExitValue
-label variable SpinoutsDiscountedExitValue "Spinouts (discounted exit value)"
+rename spinoutsdiscountedexitvalue SpinoutsDEV
+label variable SpinoutsDEV "Spinouts DEV"
 
-rename spinoutcountunweighted_discounte Spinouts_discounted
-label variable Spinouts_discounted "Spinout Count (discounted by time to exit)"
+rename spinoutcountunweighted_discounted SpinoutsDTE
+label variable SpinoutsDTE "Spinout Count DTE"
 
 
 *Run regressions
@@ -47,10 +47,25 @@ eststo: quietly reg Spinouts xrd_ma5 emp
 esttab using tables/OLS.tex, replace stats(r2 r2_a N) mlabels(none)
 eststo clear
 
-eststo: quietly reg SpinoutsDiscountedExitValue xrd
-eststo: quietly reg SpinoutsDiscountedExitValue xrd emp
-eststo: quietly reg SpinoutsDiscountedExitValue xrd_ma3 emp
-eststo: quietly reg SpinoutsDiscountedExitValue xrd_ma5 emp
+eststo: quietly reg Spinouts patentapplicationcount emp
+eststo: quietly reg Spinouts patentapplicationcount_cw emp
+eststo: quietly reg Spinouts patentcount emp
+eststo: quietly reg Spinouts patentcount_cw emp
+esttab using tables/patents_OLS.tex, replace stats(r2 r2_a N) mlabels(none)
+eststo clear
+
+eststo: quietly reg Spinouts xrd patentapplicationcount emp
+eststo: quietly reg Spinouts xrd patentapplicationcount_cw emp
+eststo: quietly reg Spinouts xrd patentcount emp
+eststo: quietly reg Spinouts xrd patentcount_cw emp
+esttab using tables/patents-xrd_OLS.tex, replace stats(r2 r2_a N) mlabels(none)
+eststo clear
+
+
+eststo: quietly reg SpinoutsDEV xrd
+eststo: quietly reg SpinoutsDEV xrd emp
+eststo: quietly reg SpinoutsDEV xrd_ma3 emp
+eststo: quietly reg SpinoutsDEV xrd_ma5 emp
 esttab using tables/OLS_discountedExitValue.tex, replace stats(r2 r2_a N) mlabels(none)
 eststo clear
 
@@ -77,6 +92,20 @@ eststo clear
 
 * Fixed effects
 
+** Regular spinout count
+
+eststo model1: quietly reghdfe Spinouts xrd emp, absorb(naics2 year) cluster(gvkey)
+eststo model2: quietly reghdfe Spinouts xrd emp, absorb(naics2 year) cluster(naics4)
+eststo model3: quietly reghdfe Spinouts xrd emp, absorb(naics2 year) cluster(naics3)
+eststo model4: quietly reghdfe Spinouts xrd emp, absorb(naics2#year) cluster(gvkey)
+eststo model5: quietly reghdfe Spinouts xrd emp, absorb(naics2#year) cluster(naics4)
+eststo model6: quietly reghdfe Spinouts xrd emp, absorb(naics2#year) cluster(naics3)
+estfe model*, labels(naics2 "NAICS2 FE" year "Year FE" naics2#year "NAICS2-Year FE")
+return list
+esttab model* using tables/OLS_FE_industry2_age_time.tex, replace stats(clustvar r2_a r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+estfe model*, restore
+eststo clear
+
 eststo model1: quietly reghdfe Spinouts xrd emp, absorb(naics3 year) cluster(gvkey)
 eststo model2: quietly reghdfe Spinouts xrd emp, absorb(naics3 year) cluster(naics4)
 eststo model3: quietly reghdfe Spinouts xrd emp, absorb(naics3 year) cluster(naics3)
@@ -100,29 +129,54 @@ esttab model* using tables/OLS_FE_industry4_age_time.tex, replace stats(clustvar
 estfe model*, restore
 eststo clear
 
-eststo model1: quietly reghdfe SpinoutsDiscountedExitValue xrd emp, absorb(naics3 year) cluster(gvkey)
-eststo model2: quietly reghdfe SpinoutsDiscountedExitValue xrd emp, absorb(naics3 year) cluster(naics4)
-eststo model3: quietly reghdfe SpinoutsDiscountedExitValue xrd emp, absorb(naics3 year) cluster(naics3)
-eststo model4: quietly reghdfe SpinoutsDiscountedExitValue xrd emp, absorb(naics3#year) cluster(gvkey)
-eststo model5: quietly reghdfe SpinoutsDiscountedExitValue xrd emp, absorb(naics3#year) cluster(naics4)
-eststo model6: quietly reghdfe SpinoutsDiscountedExitValue xrd emp, absorb(naics3#year) cluster(naics3)
-estfe model*, labels(naics3 "NAICS3 FE" year "Year FE" naics3#year "NAICS3-Year FE")
-esttab model* using tables/OLS_DEV_FE_industry3_age_time.tex, replace stats(clustvar r2 r2_a N)  indicate(`r(indicate_fe)') mlabels(none)
+** Discounted exit value of spinouts spawned in a given year
+
+eststo model1: quietly reghdfe SpinoutsDEV xrd emp, absorb(naics2 year) cluster(gvkey)
+eststo model2: quietly reghdfe SpinoutsDEV xrd emp, absorb(naics2 year) cluster(naics4)
+eststo model3: quietly reghdfe SpinoutsDEV xrd emp, absorb(naics2 year) cluster(naics3)
+eststo model4: quietly reghdfe SpinoutsDEV xrd emp, absorb(naics2#year) cluster(gvkey)
+eststo model5: quietly reghdfe SpinoutsDEV xrd emp, absorb(naics2#year) cluster(naics4)
+eststo model6: quietly reghdfe SpinoutsDEV xrd emp, absorb(naics2#year) cluster(naics3)
+estfe model*, labels(naics2 "NAICS2 FE" year "Year FE" naics2#year "NAICS2-Year FE")
+esttab model* using tables/OLS_DEV_FE_industry2_age_time.tex, replace stats(clustvar r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
 estfe model*, restore
 eststo clear
 
-eststo model1: quietly reghdfe SpinoutsDiscountedExitValue xrd emp, absorb(naics4 year) cluster(gvkey)
-eststo model2: quietly reghdfe SpinoutsDiscountedExitValue xrd emp, absorb(naics4 year) cluster(naics4)
-eststo model3: quietly reghdfe SpinoutsDiscountedExitValue xrd emp, absorb(naics4 year) cluster(naics3)
-eststo model4: quietly reghdfe SpinoutsDiscountedExitValue xrd emp, absorb(naics4#year) cluster(gvkey)
-eststo model5: quietly reghdfe SpinoutsDiscountedExitValue xrd emp, absorb(naics4#year) cluster(naics4)
-eststo model6: quietly reghdfe SpinoutsDiscountedExitValue xrd emp, absorb(naics4#year) cluster(naics3)
+eststo model1: quietly reghdfe SpinoutsDEV xrd emp, absorb(naics3 year) cluster(gvkey)
+eststo model2: quietly reghdfe SpinoutsDEV xrd emp, absorb(naics3 year) cluster(naics4)
+eststo model3: quietly reghdfe SpinoutsDEV xrd emp, absorb(naics3 year) cluster(naics3)
+eststo model4: quietly reghdfe SpinoutsDEV xrd emp, absorb(naics3#year) cluster(gvkey)
+eststo model5: quietly reghdfe SpinoutsDEV xrd emp, absorb(naics3#year) cluster(naics4)
+eststo model6: quietly reghdfe SpinoutsDEV xrd emp, absorb(naics3#year) cluster(naics3)
+estfe model*, labels(naics3 "NAICS3 FE" year "Year FE" naics3#year "NAICS3-Year FE")
+esttab model* using tables/OLS_DEV_FE_industry3_age_time.tex, replace stats(clustvar r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+estfe model*, restore
+eststo clear
+
+eststo model1: quietly reghdfe SpinoutsDEV xrd emp, absorb(naics4 year) cluster(gvkey)
+eststo model2: quietly reghdfe SpinoutsDEV xrd emp, absorb(naics4 year) cluster(naics4)
+eststo model3: quietly reghdfe SpinoutsDEV xrd emp, absorb(naics4 year) cluster(naics3)
+eststo model4: quietly reghdfe SpinoutsDEV xrd emp, absorb(naics4#year) cluster(gvkey)
+eststo model5: quietly reghdfe SpinoutsDEV xrd emp, absorb(naics4#year) cluster(naics4)
+eststo model6: quietly reghdfe SpinoutsDEV xrd emp, absorb(naics4#year) cluster(naics3)
 estfe model*, labels(naics4 "NAICS4 FE" year "Year FE" naics4#year "NAICS4-Year FE")
-esttab model* using tables/OLS_DEV_FE_industry4_age_time.tex, replace stats(clustvar r2 r2_a N)  indicate(`r(indicate_fe)') mlabels(none)
+esttab model* using tables/OLS_DEV_FE_industry4_age_time.tex, replace stats(clustvar r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
 estfe model*, restore
 eststo clear
 
 * Fixed effects with xrd_ma3
+
+eststo model1: quietly reghdfe Spinouts xrd_ma3 emp, absorb(naics2 year) cluster(gvkey)
+eststo model2: quietly reghdfe Spinouts xrd_ma3 emp, absorb(naics2 year) cluster(naics4)
+eststo model3: quietly reghdfe Spinouts xrd_ma3 emp, absorb(naics2 year) cluster(naics3)
+eststo model4: quietly reghdfe Spinouts xrd_ma3 emp, absorb(naics2#year) cluster(gvkey)
+eststo model5: quietly reghdfe Spinouts xrd_ma3 emp, absorb(naics2#year) cluster(naics4)
+eststo model6: quietly reghdfe Spinouts xrd_ma3 emp, absorb(naics2#year) cluster(naics3)
+estfe model*, labels(naics2 "NAICS2 FE" year "Year FE" naics2#year "NAICS2-Year FE")
+return list
+esttab model* using tables/OLS_XRDMA3_FE_industry2_age_time.tex, replace stats(clustvar r2_a r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+estfe model*, restore
+eststo clear
 
 eststo model1: quietly reghdfe Spinouts xrd_ma3 emp, absorb(naics3 year) cluster(gvkey)
 eststo model2: quietly reghdfe Spinouts xrd_ma3 emp, absorb(naics3 year) cluster(naics4)
@@ -147,27 +201,127 @@ esttab model* using tables/OLS_XRDMA3_FE_industry4_age_time.tex, replace stats(c
 estfe model*, restore
 eststo clear
 
-eststo model1: quietly reghdfe SpinoutsDiscountedExitValue xrd_ma3 emp, absorb(naics3 year) cluster(gvkey)
-eststo model2: quietly reghdfe SpinoutsDiscountedExitValue xrd_ma3 emp, absorb(naics3 year) cluster(naics4)
-eststo model3: quietly reghdfe SpinoutsDiscountedExitValue xrd_ma3 emp, absorb(naics3 year) cluster(naics3)
-eststo model4: quietly reghdfe SpinoutsDiscountedExitValue xrd_ma3 emp, absorb(naics3#year) cluster(gvkey)
-eststo model5: quietly reghdfe SpinoutsDiscountedExitValue xrd_ma3 emp, absorb(naics3#year) cluster(naics4)
-eststo model6: quietly reghdfe SpinoutsDiscountedExitValue xrd_ma3 emp, absorb(naics3#year) cluster(naics3)
-estfe model*, labels(naics3 "NAICS3 FE" year "Year FE" naics3#year "NAICS3-Year FE")
-esttab model* using tables/OLS_XRDMA3_DEV_FE_industry3_age_time.tex, replace stats(clustvar r2 r2_a N)  indicate(`r(indicate_fe)') mlabels(none)
+eststo model1: quietly reghdfe SpinoutsDEV xrd_ma3 emp, absorb(naics2 year) cluster(gvkey)
+eststo model2: quietly reghdfe SpinoutsDEV xrd_ma3 emp, absorb(naics2 year) cluster(naics4)
+eststo model3: quietly reghdfe SpinoutsDEV xrd_ma3 emp, absorb(naics2 year) cluster(naics3)
+eststo model4: quietly reghdfe SpinoutsDEV xrd_ma3 emp, absorb(naics2#year) cluster(gvkey)
+eststo model5: quietly reghdfe SpinoutsDEV xrd_ma3 emp, absorb(naics2#year) cluster(naics4)
+eststo model6: quietly reghdfe SpinoutsDEV xrd_ma3 emp, absorb(naics2#year) cluster(naics3)
+estfe model*, labels(naics2 "NAICS2 FE" year "Year FE" naics2#year "NAICS2-Year FE")
+esttab model* using tables/OLS_XRDMA3_DEV_FE_industry2_age_time.tex, replace stats(clustvar r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
 estfe model*, restore
 eststo clear
 
-eststo model1: quietly reghdfe SpinoutsDiscountedExitValue xrd_ma3 emp, absorb(naics4 year) cluster(gvkey)
-eststo model2: quietly reghdfe SpinoutsDiscountedExitValue xrd_ma3 emp, absorb(naics4 year) cluster(naics4)
-eststo model3: quietly reghdfe SpinoutsDiscountedExitValue xrd_ma3 emp, absorb(naics4 year) cluster(naics3)
-eststo model4: quietly reghdfe SpinoutsDiscountedExitValue xrd_ma3 emp, absorb(naics4#year) cluster(gvkey)
-eststo model5: quietly reghdfe SpinoutsDiscountedExitValue xrd_ma3 emp, absorb(naics4#year) cluster(naics4)
-eststo model6: quietly reghdfe SpinoutsDiscountedExitValue xrd_ma3 emp, absorb(naics4#year) cluster(naics3)
-estfe model*, labels(naics4 "NAICS4 FE" year "Year FE" naics4#year "NAICS4-Year FE")
-esttab model* using tables/OLS_XRDMA3_DEV_FE_industry4_age_time.tex, replace stats(clustvar r2 r2_a N)  indicate(`r(indicate_fe)') mlabels(none)
+eststo model1: quietly reghdfe SpinoutsDEV xrd_ma3 emp, absorb(naics3 year) cluster(gvkey)
+eststo model2: quietly reghdfe SpinoutsDEV xrd_ma3 emp, absorb(naics3 year) cluster(naics4)
+eststo model3: quietly reghdfe SpinoutsDEV xrd_ma3 emp, absorb(naics3 year) cluster(naics3)
+eststo model4: quietly reghdfe SpinoutsDEV xrd_ma3 emp, absorb(naics3#year) cluster(gvkey)
+eststo model5: quietly reghdfe SpinoutsDEV xrd_ma3 emp, absorb(naics3#year) cluster(naics4)
+eststo model6: quietly reghdfe SpinoutsDEV xrd_ma3 emp, absorb(naics3#year) cluster(naics3)
+estfe model*, labels(naics3 "NAICS3 FE" year "Year FE" naics3#year "NAICS3-Year FE")
+esttab model* using tables/OLS_XRDMA3_DEV_FE_industry3_age_time.tex, replace stats(clustvar r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
 estfe model*, restore
 eststo clear
+
+eststo model1: quietly reghdfe SpinoutsDEV xrd_ma3 emp, absorb(naics4 year) cluster(gvkey)
+eststo model2: quietly reghdfe SpinoutsDEV xrd_ma3 emp, absorb(naics4 year) cluster(naics4)
+eststo model3: quietly reghdfe SpinoutsDEV xrd_ma3 emp, absorb(naics4 year) cluster(naics3)
+eststo model4: quietly reghdfe SpinoutsDEV xrd_ma3 emp, absorb(naics4#year) cluster(gvkey)
+eststo model5: quietly reghdfe SpinoutsDEV xrd_ma3 emp, absorb(naics4#year) cluster(naics4)
+eststo model6: quietly reghdfe SpinoutsDEV xrd_ma3 emp, absorb(naics4#year) cluster(naics3)
+estfe model*, labels(naics4 "NAICS4 FE" year "Year FE" naics4#year "NAICS4-Year FE")
+esttab model* using tables/OLS_XRDMA3_DEV_FE_industry4_age_time.tex, replace stats(clustvar r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+estfe model*, restore
+eststo clear
+
+* Patent data
+
+eststo model1: quietly reghdfe Spinouts xrd patentapplicationcount emp, absorb(naics3#year stateCode) cluster(gvkey stateCode)
+eststo model2: quietly reghdfe Spinouts xrd patentapplicationcount_cw emp, absorb(naics3#year stateCode) cluster(gvkey stateCode)
+eststo model3: quietly reghdfe Spinouts xrd patentcount emp, absorb(naics3#year stateCode) cluster(gvkey stateCode)
+eststo model4: quietly reghdfe Spinouts xrd patentcount_cw emp, absorb(naics3#year stateCode) cluster(gvkey stateCode)
+estfe model*, labels(stateCode "State FE" naics3#year "NAICS3-Year FE")
+esttab model* using tables/patents-xrd_OLS_FE_industry3.tex, replace stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+estfe model*, restore
+eststo clear
+
+eststo model1: quietly reghdfe Spinouts xrd patentapplicationcount emp, absorb(naics4#year stateCode) cluster(gvkey stateCode)
+eststo model2: quietly reghdfe Spinouts xrd patentapplicationcount_cw emp, absorb(naics4#year stateCode) cluster(gvkey stateCode)
+eststo model3: quietly reghdfe Spinouts xrd patentcount emp, absorb(naics4#year stateCode) cluster(gvkey stateCode)
+eststo model4: quietly reghdfe Spinouts xrd patentcount_cw emp, absorb(naics4#year stateCode) cluster(gvkey stateCode)
+estfe model*, labels(stateCode "State FE" naics4#year "NAICS4-Year FE")
+esttab model* using tables/patents-xrd_OLS_FE_industry4.tex, replace stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+estfe model*, restore
+eststo clear
+
+eststo model1: quietly reghdfe Spinouts xrd_ma3 patentapplicationcount_ma3 emp, absorb(naics4#year stateCode) cluster(naics4 stateCode)
+eststo model2: quietly reghdfe Spinouts xrd_ma3 patentapplicationcount_cw_ma3 emp, absorb(naics4#year stateCode) cluster(naics4 stateCode)
+eststo model3: quietly reghdfe Spinouts xrd_ma3 patentcount_ma3 emp, absorb(naics4#year stateCode) cluster(naics4 stateCode)
+eststo model4: quietly reghdfe Spinouts xrd_ma3 patentcount_cw_ma3 emp, absorb(naics4#year stateCode) cluster(naics4 stateCode)
+estfe model*, labels(stateCode "State FE" naics4#year "NAICS4-Year FE")
+esttab model* using tables/patentsma3-xrdma3_OLS_FE_industry4.tex, replace stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+estfe model*, restore
+eststo clear
+
+eststo model1: quietly reghdfe SpinoutsDEV  emp xrd_ma3 patentapplicationcount_ma3, absorb(naics4#year stateCode) cluster(naics4 stateCode)
+eststo model2: quietly reghdfe SpinoutsDEV  emp xrd_ma3 patentapplicationcount_cw_ma3, absorb(naics4#year stateCode) cluster(naics4 stateCode)
+eststo model3: quietly reghdfe SpinoutsDEV  emp xrd_ma3 patentcount_ma3, absorb(naics4#year stateCode) cluster(naics4 stateCode)
+eststo model4: quietly reghdfe SpinoutsDEV  emp xrd_ma3 patentcount_cw_ma3, absorb(naics4#year stateCode) cluster(naics4 stateCode)
+estfe model*, labels(stateCode "State FE" naics4#year "NAICS4-Year FE")
+esttab model* using tables/patentsma3-xrdma3_OLS_DEV_FE_industry4.tex, replace stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+*esttab model*, stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+estfe model*, restore
+eststo clear
+
+
+eststo model1: quietly reghdfe SpinoutsDEV xrd patentapplicationcount emp, absorb(naics4 stateCode year) cluster(gvkey stateCode)
+eststo model2: quietly reghdfe SpinoutsDEV xrd patentapplicationcount_cw emp, absorb(naics4 stateCode year) cluster(gvkey stateCode)
+eststo model3: quietly reghdfe SpinoutsDEV xrd patentcount emp, absorb(naics4 stateCode year) cluster(gvkey stateCode)
+eststo model4: quietly reghdfe SpinoutsDEV xrd patentcount_cw emp, absorb(naics4 stateCode year) cluster(gvkey stateCode)
+estfe model*, labels(stateCode "State FE" naics4 "NAICS4 FE" year "Year FE")
+esttab model* using tables/patents-xrd_OLS_DEV_FE_industry4.tex, replace stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+estfe model*, restore
+eststo clear
+
+eststo model1: quietly reghdfe Spinouts xrd patentapplicationcount emp, absorb(naics4 stateCode year) cluster(gvkey stateCode)
+eststo model2: quietly reghdfe Spinouts xrd patentapplicationcount_cw emp, absorb(naics4 stateCode year) cluster(gvkey stateCode)
+eststo model3: quietly reghdfe Spinouts xrd patentcount emp, absorb(naics4 stateCode year) cluster(gvkey stateCode)
+eststo model4: quietly reghdfe Spinouts xrd patentcount_cw emp, absorb(naics4 stateCode year) cluster(gvkey stateCode)
+estfe model*, labels(stateCode "State FE" naics4 "NAICS4 FE" year "Year FE")
+esttab model* using tables/patents-xrd_OLS_FE_industry4.tex, replace stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+estfe model*, restore
+eststo clear
+
+eststo model1: quietly reghdfe SpinoutsDEV xrd patentapplicationcount_ma3 emp, absorb(naics4 stateCode year) cluster(gvkey stateCode)
+eststo model2: quietly reghdfe SpinoutsDEV xrd patentapplicationcount_cw_ma3 emp, absorb(naics4 stateCode year) cluster(gvkey stateCode)
+eststo model3: quietly reghdfe SpinoutsDEV xrd patentcount_ma3 emp, absorb(naics4 stateCode year) cluster(gvkey stateCode)
+eststo model4: quietly reghdfe SpinoutsDEV xrd patentcount_cw_ma3 emp, absorb(naics4 stateCode year) cluster(gvkey stateCode)
+estfe model*, labels(stateCode "State FE" naics4 "NAICS4 FE" year "Year FE")
+esttab model* using tables/patentsma3-xrd_OLS_DEV_FE_industry4.tex, replace stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+estfe model*, restore
+eststo clear
+
+eststo model1: quietly reghdfe Spinouts xrd patentapplicationcount_ma3 emp, absorb(naics4#year stateCode) cluster(naics4 stateCode)
+eststo model2: quietly reghdfe Spinouts xrd patentapplicationcount_cw_ma3 emp, absorb(naics4#year stateCode) cluster(naics4 stateCode)
+eststo model3: quietly reghdfe Spinouts xrd patentcount_ma3 emp, absorb(naics4#year stateCode) cluster(naics4 stateCode)
+eststo model4: quietly reghdfe Spinouts xrd patentcount_cw_ma3 emp, absorb(naics4#year stateCode) cluster(naics4 stateCode)
+estfe model*, labels(stateCode "State FE" naics4#year "NAICS4-Year FE")
+esttab model* using tables/patentsma3-xrd_OLS_FE_industry4.tex, replace stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+estfe model*, restore
+eststo clear
+
+eststo model1: quietly reghdfe SpinoutsDEV xrd patentapplicationcount_ma3 emp, absorb(naics4 stateCode year) cluster(naics4 stateCode)
+eststo model2: quietly reghdfe SpinoutsDEV xrd patentapplicationcount_cw_ma3 emp, absorb(naics4 stateCode year) cluster(naics4 stateCode)
+eststo model3: quietly reghdfe SpinoutsDEV xrd patentcount_ma3 emp, absorb(naics4 stateCode year) cluster(naics4 stateCode)
+eststo model4: quietly reghdfe SpinoutsDEV xrd patentcount_cw_ma3 emp, absorb(naics4 stateCode year) cluster(naics4 stateCode)
+estfe model*, labels(stateCode "State FE" naics4 "NAICS4 FE" year "Year FE")
+esttab model* using tables/patentsma3-xrd_OLS_FE_industry4.tex, replace stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+estfe model*, restore
+eststo clear
+
+
+
+
 
 
 

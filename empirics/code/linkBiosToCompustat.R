@@ -15,7 +15,7 @@ library(data.table)
 
 compustatFirmsSegments <- fread("data/compustat/firmsSegments.csv")
 compustatFirmsSegments[tic == "IBM", conml := "IBM"]
-compustatFirmsSegments[tic == "GS", conml := "Goldman Sachs"]
+compustatFirmsSegments[tic == "GS", conml := "Goldman )Sachs"]
 compustatFirmsSegments[tic == "HPQ", conml := "Hewlett-Packard"]
 # select segments
 segments <- compustatFirmsSegments[snms != ""]
@@ -26,12 +26,12 @@ EntitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")
 ## Select only founders
 ####
 # Count CEO-Chairman and CTOs as founders when no founder listed 
-EntitiesPrevEmployers[, Founder2 := 1 - max(Founder), by = EntityID]
-EntitiesPrevEmployers[Founder2 == 1 & (TitleCode == "CTO" | TitleCode == "CCEO"), Founder := 1]
+#EntitiesPrevEmployers[, Founder2 := 1 - max(Founder), by = EntityID]
+#EntitiesPrevEmployers[Founder2 == 1 & (TitleCode == "CTO" | TitleCode == "CCEO"), Founder := 1]
 
 # Select founders
 
-EntitiesPrevEmployers <- EntitiesPrevEmployers[Founder == 1]
+#EntitiesPrevEmployers <- EntitiesPrevEmployers[Founder == 1]
 EntitiesPrevEmployers <- EntitiesPrevEmployers[!is.na(PreviousEmployer) & PreviousEmployer != ""]
 
 # Set weights to take into account multiple founders at same firm - to not overcount spinouts
@@ -58,6 +58,11 @@ EntitiesPrevEmployers[ , PreviousEmployerCLEAN := gsub("( Inc| Corp| LLC| Ltd| C
 EntitiesPrevEmployers[ , PreviousEmployerCLEAN := gsub("[ ]?[(].*[)]$","",PreviousEmployerCLEAN), by = PreviousEmployerCLEAN]
 EntitiesPrevEmployers[ , PreviousEmployerCLEAN := gsub("^Google.*$","Google",PreviousEmployerCLEAN), by = PreviousEmployerCLEAN]
 
+# Set everything to upper case for easier matching
+
+compustatFirmsSegments[, snms := toupper(snms)]
+compustatFirmsSegments[, conml := toupper(conml)]
+EntitiesPrevEmployers[ , PreviousEmployerCLEAN := toupper(PreviousEmployerCLEAN)]
 
 #PrevEmployers <- unique(PrevEmployers, by = "PreviousEmployerCLEAN")
 
@@ -99,7 +104,6 @@ fwrite(temp[order(-N)],"code/company_list.csv")
 # ticker symbols, obtained through scraping Google search results
 ####################################
 
-
 # Use firmsTickers to match firms that are not matched by name
 firmsTickers <- fread("data/firmsTickersClean.csv")
 
@@ -111,9 +115,20 @@ firmsTickersGvkeys <- firms[firmsTickers]
 # merge with EntitiesPrevEmployers and append to output
 setkey(firmsTickersGvkeys,firmName)
 
-temp3 <- firmsTickersGvkeys[EntitiesPrevEmployers][ !is.na(gvkey)]
+temp3 <- firmsTickersGvkeys[EntitiesPrevEmployers][!is.na(gvkey)]
 
 temp3 <- temp3[ , .(gvkey,conml,snms,tic,PreviousEmployer,EntityID,EntityName,Weight,FirstName,LastName,JoinDate,StartDate)]
+
+
+# Just for testing - remove later
+
+test_output <- output
+test_output2 <- output2
+test_temp3 <- temp3
+
+rm(list = c("compustatFirmsSegments","EntitiesPrevEmployers","firms","firmsTickers","firmsTickersGvkeys","output","output2","output3","segments","temp","temp_output","temp2","temp3"))
+
+# Write output to file
 
 output <- unique(rbind(output,temp3), by = c("gvkey","EntityID","FirstName","LastName","JoinDate","StartDate"))
 

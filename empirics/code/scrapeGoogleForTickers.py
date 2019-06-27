@@ -9,7 +9,7 @@ def extractPageFromGoogle(companyName):
         "hl" : "en",
         "gl" : "us",
         "google_domain" : "google.com",
-        "api_key" : "23b46b2ea7305ea69366b8a689f9c3287878c6fabf60238b8fb0206ebf43e7b9",
+        "api_key" : "ea8844b4b82278532aaf2ef9d64d254cf0db59150b7e3b8e7d09752eccdfffcb",
         "output" : "html",
         "device" : "desktop",
     }
@@ -34,8 +34,8 @@ with open('company_list.csv', mode='r') as infile:
     reader = csv.reader(infile)
     firmsCounts = {rows[0]:rows[1] for rows in reader}
 
-lb = 4500
-ub = 5500
+lb = 16500
+ub = 17000
 
 firmsPages = {firm:extractPageFromGoogle(firm) for firm in list(firmsCounts.keys())[lb:ub]}
 

@@ -1,0 +1,41 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
+\hline
+xrd         &      0.0137         &      0.0137         &      0.0138         &      0.0136         \\
+            &      (1.80)         &      (1.83)         &      (1.78)         &      (1.82)         \\
+[1em]
+patentapplicationcount\_ma3&    -0.00556         &                     &                     &                     \\
+            &     (-0.20)         &                     &                     &                     \\
+[1em]
+emp         &      0.0749         &      0.0558         &       0.102         &      0.0666         \\
+            &      (0.70)         &      (0.60)         &      (0.93)         &      (0.64)         \\
+[1em]
+patentapplicationcount\_cw\_ma3&                     &    0.000616         &                     &                     \\
+            &                     &      (0.31)         &                     &                     \\
+[1em]
+patentcount\_ma3&                     &                     &     -0.0222         &                     \\
+            &                     &                     &     (-0.78)         &                     \\
+[1em]
+patentcount\_cw\_ma3&                     &                     &                     &  -0.0000238         \\
+            &                     &                     &                     &     (-0.01)         \\
+[1em]
+\_cons      &       3.067         &       3.084         &       3.047         &       3.067         \\
+            &      (0.91)         &      (0.93)         &      (0.88)         &      (0.91)         \\
+[1em]
+State FE    &         Yes         &         Yes         &         Yes         &         Yes         \\
+[1em]
+NAICS4 FE   &         Yes         &         Yes         &         Yes         &         Yes         \\
+[1em]
+Year FE     &         Yes         &         Yes         &         Yes         &         Yes         \\
+\hline
+r2          &     0.00814         &     0.00814         &     0.00820         &     0.00813         \\
+r2\_a\_within &     0.00242         &     0.00243         &     0.00249         &     0.00242         \\
+N           &       13085         &       13085         &       13085         &       13085         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}
