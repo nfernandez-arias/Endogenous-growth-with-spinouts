@@ -319,6 +319,16 @@ esttab model* using tables/patentsma3-xrd_OLS_FE_industry4.tex, replace stats(r2
 estfe model*, restore
 eststo clear
 
+* Regressions for Wharton Innovation Conference Research Proposal
+
+eststo model1: reghdfe Spinouts emp xrd patentapplicationcount_cw patentcount_cw_ma3, absorb(naics4#year stateCode#year) cluster(gvkey naics4#year stateCode#year)
+eststo model2: reghdfe SpinoutsDEV emp xrd patentapplicationcount_cw patentcount_cw_ma3, absorb(naics4#year stateCode#year) cluster(gvkey naics4#year stateCode#year)
+estfe model*, labels(gvkey "Firm FE" stateCode#year "State-Year FE" naics4#year "NAICS4-Year FE")
+esttab model* using "../writings/wharton innovation conference/preliminary_results.tex", replace stats(clustvar r2 r2_a_within N)  indicate(`r(indicate_fe)')
+*esttab model*, stats(clustvar r2_a_within N)  indicate(`r(indicate_fe)')
+estfe model*, restore
+eststo clear
+
 
 
 

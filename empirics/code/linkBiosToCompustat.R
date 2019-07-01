@@ -17,9 +17,6 @@ compustatFirmsSegments <- fread("data/compustat/firmsSegments.csv")
 compustatFirmsSegments[tic == "IBM", conml := "IBM"]
 compustatFirmsSegments[tic == "GS", conml := "Goldman )Sachs"]
 compustatFirmsSegments[tic == "HPQ", conml := "Hewlett-Packard"]
-# select segments
-segments <- compustatFirmsSegments[snms != ""]
-segments <- segments[ gvkey != 17997 | snms != "AT&T"]
 
 EntitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")
 
@@ -37,7 +34,6 @@ EntitiesPrevEmployers <- EntitiesPrevEmployers[!is.na(PreviousEmployer) & Previo
 # Set weights to take into account multiple founders at same firm - to not overcount spinouts
 # i.e. this way if we aggregate spinout measure across firms, we get the total number of spinouts
 EntitiesPrevEmployers[, Weight := 1 / .N, by = EntityID]
-
 
 ## Prepare data
 
@@ -68,6 +64,10 @@ EntitiesPrevEmployers[ , PreviousEmployerCLEAN := toupper(PreviousEmployerCLEAN)
 
 # Match first to parent firms via business divisions, using segments data from Compustat
 
+# select segments
+segments <- compustatFirmsSegments[snms != ""]
+segments <- segments[ gvkey != 17997 | snms != "AT&T"]
+
 setkey(segments,snms)
 setkey(EntitiesPrevEmployers,PreviousEmployerCLEAN)
 output <- segments[EntitiesPrevEmployers]
@@ -86,18 +86,31 @@ setkey(firms,conml)
 output2 <- firms[EntitiesPrevEmployers]
 output2 <- output2[ , .(gvkey,conml,snms,tic,PreviousEmployer,EntityID,EntityName,Weight,FirstName,LastName,JoinDate,StartDate)]
 
+output_noNA <- output[!is.na(gvkey)]
+output2_noNA <- output2[!is.na(gvkey)]
+
 #output2[, PrevEmployerSpinoutCount := sum(Weight), by = .(conml)]  
-output3 <- unique(rbind(output2,output),by = c("gvkey","EntityID","FirstName","LastName","JoinDate","StartDate")) 
-output <- rbind(output[!is.na(gvkey)],output2[!is.na(gvkey)])
+
+# output3 computes unique at this point, for testing, but not used later
+output3 <- unique(rbind(output,output2),by = c("gvkey","EntityID","FirstName","LastName","JoinDate","StartDate")) 
+
+# output4 contains the Entity-Manager observations successfully matched. May contain repeats if a firm name is also a segment. Repeats are useful for testing.
+output4 <- rbind(output_noNA,output2_noNA)
+setkey(output4,EntityID,FirstName,LastName,JoinDate,StartDate)
+dups <- duplicated(output4, by = key(output4))
+output4[ , fD := dups | c(tail(dups,-1), FALSE)]
+output4_repeats <- output4[fD == TRUE]
+output4[ , fD := NULL]
+
+# output2 contains the Entity-Manager observations that are not matched to firms in compustat. This is the list of firms that I will feed into Serp API / AltDG  
+# to try and improve the match. Useful for testing.
 output2 <- rbind(output[is.na(gvkey)],output2[is.na(gvkey)])
 
 
-temp <- output2[, .N, by = conml]
-temp2 <- output[, .N, by = conml]
+#temp <- output2[, .N, by = conml]
+#temp2 <- output[, .N, by = conml]
 
-fwrite(temp[order(-N)],"code/company_list.csv")
-
-
+#fwrite(temp[order(-N)],"code/company_list.csv")
 
 ####################################
 ## Merge in additional previous employers using
@@ -115,27 +128,32 @@ firmsTickersGvkeys <- firms[firmsTickers]
 # merge with EntitiesPrevEmployers and append to output
 setkey(firmsTickersGvkeys,firmName)
 
-temp3 <- firmsTickersGvkeys[EntitiesPrevEmployers][!is.na(gvkey)]
+temp <- firmsTickersGvkeys[EntitiesPrevEmployers][!is.na(gvkey)]
 
-temp3 <- temp3[ , .(gvkey,conml,snms,tic,PreviousEmployer,EntityID,EntityName,Weight,FirstName,LastName,JoinDate,StartDate)]
+temp <- temp[ , .(gvkey,conml,snms,tic,PreviousEmployer,EntityID,EntityName,Weight,FirstName,LastName,JoinDate,StartDate)]
 
+output5 <- unique(rbind(output4,temp), by = c("gvkey","EntityID","FirstName","LastName","JoinDate","StartDate"))
 
 # Just for testing - remove later
 
 test_output <- output
+test_output_noNA <- output_noNA
 test_output2 <- output2
-test_temp3 <- temp3
+test_output2_noNA <- output2_noNA
+test_output3 <- output3
+test_output4 <- output4
+test_output4_repeats <- output4_repeats
+test_output5 <- output5
+test_temp <- temp
+  
+rm(list = c("compustatFirmsSegments","EntitiesPrevEmployers","firms","firmsTickers","firmsTickersGvkeys","output","output_noNA","output2","output2_noNA","output3","output4","output4_repeats","output5","segments","temp"))
 
-rm(list = c("compustatFirmsSegments","EntitiesPrevEmployers","firms","firmsTickers","firmsTickersGvkeys","output","output2","output3","segments","temp","temp_output","temp2","temp3"))
-
-# Write output to file
-
-output <- unique(rbind(output,temp3), by = c("gvkey","EntityID","FirstName","LastName","JoinDate","StartDate"))
+rm(list = c("compustatFirmsSegments","EntitiesPrevEmployers","firms","firmsTickers","firmsTickersGvkeys","segments","dups"))
 
 ##################################
 # Write output
 ##################################
 
-fwrite(output,"data/parentsSpinouts.csv")
+fwrite(output5,"data/parentsSpinouts.csv")
 
 

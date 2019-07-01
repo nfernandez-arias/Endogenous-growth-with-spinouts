@@ -1,0 +1,35 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{2}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}\\
+            &\multicolumn{1}{c}{Spinouts}&\multicolumn{1}{c}{SpinoutsDEV}\\
+\hline
+emp         &    -0.00172         &       0.156         \\
+            &     (-1.22)         &      (0.62)         \\
+[1em]
+xrd         &    0.000427\sym{**} &      0.0158         \\
+            &      (2.92)         &      (1.61)         \\
+[1em]
+patentapplicationcount\_cw&   -0.000107\sym{**} &     0.00189         \\
+            &     (-2.91)         &      (1.24)         \\
+[1em]
+patentcount\_cw\_ma3&    0.000200\sym{***}&    -0.00313         \\
+            &      (4.14)         &     (-0.93)         \\
+[1em]
+\_cons      &      0.0814\sym{**} &       2.052         \\
+            &      (2.97)         &      (0.54)         \\
+[1em]
+State-Year FE&         Yes         &         Yes         \\
+[1em]
+NAICS4-Year FE&         Yes         &         Yes         \\
+\hline
+clustvar    &gvkey naics4#year stateCode#year         &gvkey naics4#year stateCode#year         \\
+r2          &       0.258         &      0.0417         \\
+r2\_a\_within &       0.162         &     0.00293         \\
+N           &       11455         &       11455         \\
+\hline\hline
+\multicolumn{3}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{3}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}
