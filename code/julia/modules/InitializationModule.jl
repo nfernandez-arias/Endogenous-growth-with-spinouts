@@ -20,7 +20,7 @@ function setAlgorithmParameters()
 
     mgrid_numPoints = 500
     mgrid_minimum = 0.0
-    mgrid_maximum = .005
+    mgrid_maximum = .05
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-12
 
@@ -33,9 +33,9 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 10
+    incumbentHJB_timeStep = 50
     incumbentHJB_tolerance = 1e-12
-    incumbentHJB_maxIter = 200
+    incumbentHJB_maxIter = 100
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter)
 
@@ -173,11 +173,11 @@ function setModelParameters()
 
     # Spinouts
     ν = 0.0102495
-    ξ = 50
-    ζ = 0.12
+    ξ = 20
+    ζ = 0.01
 
     # CNCs
-    CNC = true
+    CNC = false
 
     # Spinouts from spinouts
 

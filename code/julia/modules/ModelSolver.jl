@@ -438,7 +438,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
             println("-----------------Caught an Error!-------------------------")
             #println("Error: $err")
-            #println(typeof(err))
+            println(typeof(err))
             #sleep(2)
 
             guess = cleanGuess
@@ -450,7 +450,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
             #print("$iterate_zSzE")
             #print("$error_zSzE")
 
-            while iterate_idxM < algoPar.idxM.maxIter && error_idxM > algoPar.idxM.tolerance
+            while iterate_idxM < tempAlgoPar.idxM.maxIter && error_idxM > tempAlgoPar.idxM.tolerance
 
                 #y = [guess.zS guess.zE factor_zS factor_zE]
                 #x = mGrid[:]
@@ -474,7 +474,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 #println("w = $(guess.w)")
 
                 # Update guess object (faster than allocating new one)
-                guess.idxM,factor_zS,factor_zE = update_idxM(algoPar,modelPar,guess,incumbentHJBSolution.V,W)
+                guess.idxM,factor_zS,factor_zE = update_idxM(tempAlgoPar,modelPar,guess,incumbentHJBSolution.V,W)
 
                 # Increase iterator
                 iterate_idxM += 1;
@@ -482,7 +482,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 error_idxM = maximum(abs,guess.idxM - old_idxM)
 
                 if algoPar.idxM_Log.verbose == 2
-                    if iterate_idxM % algoPar.idxM_Log.print_skip == 0
+                    if iterate_idxM % tempAlgoPar.idxM_Log.print_skip == 0
                         println("idxM fixed point: Computed iterate $iterate_idxM with error $error_idxM")
                     end
                 end
