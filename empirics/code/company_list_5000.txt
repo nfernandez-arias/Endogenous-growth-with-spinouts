@@ -1,0 +1,5001 @@
+V1
+Inc
+Verizon
+Stanford University
+McKinsey &
+McKinsey & Company
+Goldman Sachs
+MIT
+Motorola
+Accenture
+Andersen Consulting
+Carnegie Mellon University
+Ernst & Young
+Apple Computer
+Dell
+Salesforce.com
+Deutsche Bank
+PricewaterhouseCoopers
+SAP
+Deloitte Consulting
+Individual Investor
+LLC
+Hewlett Packard
+Massachusetts Institute of Technology
+PayPal
+Bain &
+KPMG
+America Online
+California Institute of Technology
+University of Washington
+Bain & Company
+Merrill Lynch
+Palantir Technologies
+Procter & Gamble
+Adobe Systems
+Columbia University
+Lucent
+Qualcomm
+Boston Consulting Group
+GlaxoSmithKline
+Harvard University
+JDS Uniphase
+New York University
+Arthur Andersen
+Bell Laboratories
+PeopleSoft
+University of Michigan
+Boston University
+Ericsson
+Georgia Institute of Technology
+Gilt Groupe
+Harvard Medical School
+Medtronic
+Polaroid
+Yale University
+Citibank
+Credit Suisse First Boston
+Deloitte & Touche
+UC Berkeley
+Allscripts
+Bell Labs
+Compaq
+Computer Associates
+Fidelity Investments
+GE Healthcare
+Idealab
+Johns Hopkins University
+Lehman Brothers
+MicroCHIPS
+NASA
+UBS
+BEA Systems
+Berkeley
+Booz Allen Hamilton
+CA Technologies
+Cambridge Technology Partners
+DuPont
+EDS
+HP
+JPMorgan Chase
+Merck
+University of Virginia
+Walt Disney
+YouTube
+AT&T Bell Laboratories
+AppNexus
+Bessemer Venture Partners
+Duke University
+General Catalyst Partners
+J.P. Morgan
+Lawrence Livermore National Laboratory
+Mohr Davidow Ventures
+Netscape
+Salesforce
+VeriSign
+Wells Fargo
+Baxter Healthcare
+Bloomberg
+Brown University
+Cornell University
+Deloitte
+FORE Systems
+Flagship Pioneering
+HBO
+Kleiner Perkins Caufield & Byers
+LiveOps
+MIT Media Lab
+Merck Research Laboratories
+MySpace
+New Enterprise Associates
+North Carolina State University
+Novartis
+Quova
+Siemens
+StrongMail Systems
+UCLA
+University of Maryland
+University of Minnesota
+University of Texas
+University of Wisconsin-Madison
+Arthur D. Little
+Bell Atlantic
+Computer Sciences
+IDF
+Intacct
+InterWest Partners
+Israel Defense Forces
+JPMorgan
+MIT Lincoln Laboratory
+Maveron
+Northwestern University
+Ooyala
+Polaris Partners
+Rensselaer Polytechnic Institute
+Rutgers University
+SRI International
+University of Chicago
+University of Florida
+University of Pennsylvania
+University of Rochester
+VMWare
+Vendavo
+Zoho
+iXL
+AT&T Wireless
+Agere
+Altos Ventures
+Archemix
+Ask.com
+Austin Ventures
+Avalon Ventures
+Barclays Capital
+CNET
+Cabletron Systems
+Cadence
+Capital One
+Chase Manhattan Bank
+Citrix
+Dow Chemical
+Dow Jones
+Duke University Medical Center
+Fairchild Semiconductor
+Forward Ventures
+GE
+Individual Investors
+Intellectual Ventures
+J.D. Edwards
+JP Morgan
+KPMG Peat Marwick
+Lufkin & Jenrette
+Managed Objects
+Mayfield Fund
+McKinsey
+Metacafe
+Michigan State University
+Mitchell International
+Motorola Mobility
+Nexaweb Technologies
+Playdom
+Price Waterhouse
+Princeton University
+SAIC
+Samsung Electronics
+Santa Cruz Networks
+Stanford
+StorageTek
+StoredIQ
+Strix Systems
+TL Ventures
+TechStars
+Third Rock Ventures
+Trilogy Software
+University of Arizona
+University of Illinois at Urbana-Champaign
+University of Pittsburgh
+University of Texas Southwestern Medical Center
+Venrock
+Wikia
+deNovis
+A.T. Kearney
+ADP
+AOL Time Warner
+ARCH Venture Partners
+AT&T Bell Labs
+Acxiom
+Alcatel
+Alcatel USA
+Andreessen Horowitz
+Astute Networks
+Atempo
+Bain Capital Ventures
+Banjo
+BodyMedia
+Bridgewater Associates
+Brighter Planet
+Business Objects
+Coca-Cola
+Coopers & Lybrand
+Coradiant
+Datran Media
+Deem
+Emergent Medical Partners
+Epiphany
+Eye-Fi
+Gartner Group
+GeoTrust
+Hawaii Biotech
+Healtheon
+Healthways
+Huffington Post
+InLight Solutions
+Informative
+Johnson Controls
+Khosla Ventures
+Lawrence Berkeley National Laboratory
+LexisNexis
+LogLogic
+Los Alamos National Laboratory
+MTV
+Mars
+Massachusetts General Hospital
+Merck &
+MetaCreations
+Mindjet
+NICE Systems
+Nicholas-Applegate Capital Management
+ObjectVideo
+Omnilink Systems
+Photobucket
+Platinum Technology
+Profectus Biosciences
+Qpass
+Quidsi
+Recondo Technology
+Redpoint Ventures
+Reuters
+Runaware
+Sachs &
+Sallie Mae
+Salomon Brothers
+Salomon Smith Barney
+Samsung
+San Diego
+Sandia National Laboratories
+Scribd
+SensorLogic
+Sequoia Capital
+Silicon Light Machines
+SmithKline Beecham
+Tesla Motors
+Texas A&M University
+The Active Network
+The Walt Disney
+Thomson Financial
+Touchstone Health Partnership
+Trilogy
+TruePosition
+US Navy
+USWeb/CKS
+University of Colorado
+University of Southern California
+Verdasys
+Washington University
+WebSideStory
+Workshare
+XIOtech
+Accel Partners
+AccelOps
+Accela
+Adaptec
+Adimos
+Agilent
+Apollo Group
+AppStream
+Arizona State University
+Arxan Technologies
+Arzoon
+Aternity
+Autotask
+Auxogyn
+Avectra
+Bain Capital
+Bank of America Merrill Lynch
+Bausch & Lomb
+Bellcore
+Benchmark Capital
+BioStratum
+Biogen Idec
+Bivio Networks
+Booz & Company
+Bromium
+Bunchball
+CBS Interactive
+CSC Consulting
+Capital Factory
+Carnegie Mellon
+Charles Schwab
+CipherTrust
+Comerica Bank
+Conformative Systems
+Connexus
+Constant Therapy
+Corporate Executive Board
+Crossbeam Systems
+Crosslink Capital
+DataCert
+Dell Computer
+Demand Media
+Digeo
+Discover Dandelion
+Disney
+Disney Interactive
+Domain Associates
+Dun & Bradstreet
+Dwolla
+EarthLink
+Encover
+Ensenda
+Enterprise Partners Venture Capital
+Epicentric
+Excite@Home
+FaceTime Communications
+Foundstone
+GlobalView Software
+Goby Technologies
+Going.com
+Greycroft Partners
+Hitachi Consulting
+Hughes Aircraft
+Hughes Network Systems
+ICG Commerce
+ID Analytics
+IDEO
+Ignition Partners
+Imagitas
+InQuira
+Infor
+Inform Technologies
+Intalio
+Internap Network Services
+Jacent Technologies
+Jamcracker
+Joyent
+Kodiak Venture Partners
+LSI Logic
+Latham & Watkins
+LivingSocial
+Lotus
+Maide
+MarketTools
+Medsphere Systems
+Mercer Management Consulting
+Meritage Pharma
+Miasole
+Mintera
+Mobeam
+Mobile Content Networks
+NEC
+Nano Terra
+Narus
+National Institutes of Health
+Nebula
+NetDynamics
+Network Associates
+Network Physics
+Nielsen
+Nirvanix
+Nivio
+OzVision
+PLDT Capital
+Pharmix
+Pittsburgh Life Sciences Greenhouse
+PocketThis
+Postini
+PowerOne Media
+PriceWaterhouseCoopers
+Proteolix
+Pulse
+Pulsent
+Purdue University
+Qwest Communications
+SAP America
+Semafore Pharmaceuticals
+Sendmail
+SideStep
+Sierra Monolithics
+SkyBitz
+SkyeTek
+Slalom Consulting
+Small Bone Innovations
+SomaLogic
+SpectraSensors
+Spredfast
+Sutter Hill Ventures
+Symwave
+Teledesic
+Terayon
+The Boston Consulting Group
+Thomson
+Tibco Software
+Tidal Software
+Topio
+Trident Capital
+Trimble Navigation
+TuVox
+UBS Securities
+USWeb
+UnitedHealth Group
+University of Alabama at Birmingham
+University of Illinois
+University of Wisconsin
+VERITAS
+VeriFone
+VetCentric
+Vibren Technologies
+World Wrapps
+Y Combinator
+Yahoo!
+Yammer
+Z2
+mBlox
+mindSHIFT Technologies
+3COM
+454 Life Sciences
+4INFO
+@once.com
+AT&T Labs
+Abbott Labs
+Acorn Campus Ventures
+Acquia
+AdForce
+Addepar
+Adify
+Again Technologies
+AirClic
+Akros Silicon
+Allegro Development
+Amazon Web Services
+Ambric
+American Medical Systems
+Apieron
+Appia
+Arbor Networks
+ArrayPower
+Arris Interactive
+Art.com
+Ascent Biomedical Ventures
+Aster Data
+Aster Data Systems
+Attachmate
+Aura Communications
+Ausra
+Avant!
+AzoogleAds
+BIND Biosciences
+Battery Ventures
+Bay City Capital
+Beatnik
+Bechtel
+Best Buy
+Beyond.com
+BioBehavioral Diagnostics
+Bit9
+Blue Ridge Networks
+Blueprint Ventures
+Bonobos
+Borgess Medical Center
+Borland
+BrainCells
+Breach Security
+BrightPoint Security
+BuzzLogic
+CTI
+Caltech
+Cap Gemini
+CarboMedics
+CardioKine
+Carlson Wagonlit Travel
+Case Western Reserve University
+CaseCentral
+CellzDirect
+Cerebra
+CertCo
+ChannelPoint
+Charles River Ventures
+Cingular Wireless
+Citi
+Classmates Online
+Clear Standards
+Clearwater Advisors
+Clickmarks
+CloudShield Technologies
+CoMentis
+Code Green Networks
+Collective Media
+CommerceFlow
+Compressco Partners
+Construction Software Technologies
+Corbis
+Couchbase
+Crescendo Bioscience
+Decipher Labs
+Del Monte Foods
+Discrete Wireless
+Disney Interactive Studios
+Do Something
+Dotomi
+Draper Fisher Jurvetson
+Drexel University
+Dynamic Details
+Dynasty Technologies
+E&C Medical Intelligence
+E-markets
+EOS Climate
+Eaton
+Ebuzzing
+Elan Pharmaceuticals
+Elance
+Electronic Book Technologies
+Ember
+Emcore
+Emory University
+Emptoris
+En Garde Systems
+Encirq
+Entuity
+Environmental Drilling Solutions
+Eternal Systems
+Evolution Robotics
+Exabyte
+Exostar
+Expand Networks
+Exxon
+Federated Media Publishing
+Ford
+Fortress Technologies
+Foundation Capital
+Foursquare
+Fox Interactive Media
+FrontRange Solutions
+Fujitsu Computer Products of America
+GSR Ventures
+Gainsight
+Gemini Consulting
+Gemvara
+Genacast Ventures
+Gerson Lehrman Group
+Glaxo
+GreenRoad Technologies
+GreenVolts
+Greylock Partners
+Hard Dollar
+Harvard
+Harvard Business School
+Helixis
+Highland Capital Partners
+Honest Buildings
+Huawei
+ICL
+ICTV
+IPMobileNet
+IPWireless
+IQNavigator
+Idun Pharmaceuticals
+Image Metrics
+ImageX
+Impliant
+InCube Ventures
+InPhonic
+Innova Dynamics
+Integra Telecom
+Integrated Micromachines
+Integreon Managed Solutions
+Intent Media
+InterWorld
+Interactions
+International Helfrich
+Intrusic
+Iowa State University
+Iris Associates
+Israeli Defense Forces
+JDSU
+Joost
+KPMG Consulting
+Kaiser Permanente
+Kindred Prints
+Knome
+Kodak
+Lane15 Software
+Layer 7 Technologies
+Leads360
+LearnSomething
+Lightspeed Semiconductor
+Lithium Technologies
+Litle &
+Los Angeles
+MAKO Surgical
+MIT Artificial Intelligence Laboratory
+MPM Capital
+Magic Ruby
+Manugistics
+Maranti Networks
+MarkLogic
+Maroon Bells Capital Partners
+Marvell
+Marvell Semiconductor
+Massachusetts Institute of Technology Investment Management
+Matrix Semiconductor
+Max-Viz
+MeetingOne
+Meltwater Group
+Memento
+Merkle
+Metamarkets
+MicroVention
+Microsoft Corporation
+Miles Electric Vehicles
+Mind Drivers
+Minted
+Mobile 365
+Monitoring Technology
+Monterey Design Systems
+Motorola Semiconductor
+Mpex Pharmaceuticals
+Mu Dynamics
+MuleSoft
+MusicNet
+NASA Ames Research Center
+National Basketball Association
+National Security Agency
+Naval Research Laboratory
+NeoGuide Systems
+NetEffect
+NetOyster
+NetVision
+Netomat
+New York Times
+NewStep Networks
+NexTag
+Nexidia
+Nextreme Thermal Solutions
+Ngmoco
+Nimblefish Technologies
+Nomi
+Northern Telecom
+Novafora
+Novalux
+Novarra
+Nuance
+ObjectFX
+Ohio State University
+Ohm Technologies
+OnForce
+OnLive! Technologies
+One Medical Group
+Onyx Pharmaceuticals
+Onyx Software
+Open Development
+Openlabs Technologies & Consulting
+Openwave Systems
+Oracle Corporation
+Oxford Bioscience Partners
+Palm Computing
+PanTerra Networks
+Paratek Microwave
+Partsearch Technologies
+Paymetric
+PeopleLink
+Permabit
+Philips Semiconductor
+Philips Semiconductors
+Pingtel
+Platfora
+Platform Computing
+PlumChoice
+Primedia
+RPM Consulting
+Ravn.com
+Redbeacon
+ReleaseNow.com
+Rent The Runway
+Reputation.com
+Revascular Therapeutics
+Revenue Cycle Solutions
+Revver
+RichRelevance
+Riot Games
+Roche
+RockYou
+SAS Institute
+SDN Academy
+SGI
+SV Health Investors
+Sabrix
+Sandbridge Technologies
+Sandburst
+Sanera Systems
+Santa Barbara
+Satori Pharmaceuticals
+Scopely
+Screaming Media
+Scripps Research Institute
+Sears
+SecureHealthPay
+SecureInfo
+SecurityFocus
+Seevast
+Severstal NA
+Sevin Rosen Funds
+ShopLocal
+ShopNation
+Shoptalk
+Sierra Atlantic
+SignalDemand
+Silicon Spice
+SilverStorm Technologies
+SimpleGeo
+SkillSurvey
+Skype
+SmartSignal
+SmithKline
+Sofinnova Ventures
+SolFocus
+Sony Signatures
+Sourcemine
+Spotify
+Sprout Group
+Stanford University School of Medicine
+StarStreet
+StorageApps
+StudioNow
+Summit Microelectronics
+Summit Partners
+SunCap Financial
+Superprotonic
+SupportSpace
+SurfKitchen
+Suros Surgical Systems
+TIBCO
+Tap11
+Tapjoy
+Telcontar
+Telcordia Technologies
+Tellme Networks
+Temple University
+TerraGo Technologies
+The HealthCentral Network
+TradeKing
+Travidia
+TriActive
+TripIt
+Tropos Networks
+Tumblr
+Tyco Electronics
+U.S. Navy
+US Interactive
+USC
+Unilever
+United States Air Force
+United States Department of Defense
+United States Marine Corps
+University of California
+University of California Berkeley
+University of Georgia
+University of Kentucky
+University of North Carolina
+University of Utah
+VXtreme
+Vanderbilt University
+VerticalResponse
+Virginia Tech
+Visible Measures
+Visible World
+Viveve
+Vizional Technologies
+Voicestar
+Voxiva
+WIDCOMM
+Wal-Mart
+Warburg Pincus
+Warner Brothers
+Whitby Research
+WibiData
+Wild Brain
+WildTangent
+Williams Lea
+Wilson Sonsini Goodrich & Rosati
+Wily Technology
+Wizards of the Coast
+WorkWell Systems
+World Bank
+XOS Technologies
+Xero
+Xerox PARC
+Zebra Imaging
+Zilliant
+ePartners
+foursquare
+hc1.com
+iLumin
+iVAST
+marchFIRST
+myCFO
+textPlus
+!hey
+1st Books
+2Wire
+3 Day Startup
+42 Entertainment
+ABN AMRO
+ADC Kentrox
+AKQA
+AM Fund
+ANDalyze
+ATA Ventures
+Abbott Vascular
+Aberdeen Group
+Acadia Healthcare
+Accel-KKR
+Accellion
+AccessClosure
+Acclaim Communications
+Accruent
+Accuvant
+AcelRX Pharmaceuticals
+Acopia Networks
+Actimize
+Actional
+Acumentrics
+AdBrite
+AdMob
+AdRoll Group
+Adagio Medical
+Adesso Systems
+Adknowledge
+Adnexus Therapeutics
+Adtran
+Advanced Liquid Logic
+Advanced Visual Systems
+Aegis Analytical
+Aeritas
+Affirm
+Affymax Research Institute
+Ahura Scientific
+Airbnb
+Airgate Wireless
+Airimba Wireless
+AisleBuyer
+Akira Technologies
+Akoya
+Alden Risk Management Services
+Alena Media
+Alere Medical
+Aleri
+Alert Logic
+Alfresco
+All Star Directories
+AllWho
+Allen-Bradley
+Allot Communications
+Alpine Access
+Alpine Data Labs
+Alta Partners
+Altegrity
+Amalfi
+Americas PowerSports
+Amerigroup
+Ameritox
+Amersham Biosciences
+Amie Street
+Ampersand Venture Management
+AmpliMed
+Anacatum Design AB
+Anagran
+Anchor Bay Technologies
+Anderson Consulting
+Angel.com
+Animated Speech
+Apartments.com
+Apex Learning
+AppDynamics
+AppNeta
+Applum
+Approva
+Appstream
+Araxid Prime
+Arcadian Management Services
+Archive Systems
+Argus Management
+AstraZeneca
+Atlantic Bridge Ventures
+Atlantic Media
+Atlas Venture
+Aton Pharma
+Attributor
+Auction.com
+Auctomatic
+August Home
+Aurora Funds
+Authentium
+Avanade
+Avenue A
+Avetta
+Avian Communications
+Avila Therapeutics
+Axya Medical
+Aylus Networks
+B2BWorks
+B2SB Technologies
+BAE Systems
+BCJ Systems
+BabyCenter
+Badgeville
+Barcelona Design
+Barclays
+Barnev
+Bayer HealthCare
+Baylor College of Medicine
+Beatdeck
+Become
+Beliefnet
+Bellamax
+Betable
+BetweenMarkets
+BigFix
+Bindco
+BioImagene
+BioSurgical
+Biophysical
+Biovail Pharmaceuticals
+BitWave Semiconductor
+Bizanga
+Black Duck Software
+BladeFusion Technologies
+Blizzard Entertainment
+Block Financial
+Blue Box Group
+Blue Casa
+Blue Pumpkin Software
+BlueRun Ventures
+BlueStreak
+Blueprint Health
+Blueshift Technologies
+Bluesocket
+Blurb
+Boca Burger
+Boing Boing
+Booking.com
+Borland Software Corporation
+Bose
+Boston College
+BranchOut
+Branded Evolution
+BrassRing
+Brigade
+Brigham & Women's Hospital
+Brigham Young University
+Brilliant Home Technology
+BroadStream
+Broadband Office
+BuildPoint
+Bungee Labs
+Burroughs Wellcome
+Business Engine Software
+Business.com
+C Level Design
+C Speed
+C-bridge Internet Solutions
+C.R. Bard
+C3 Energy
+CBTS
+CERN
+CIBA Vision
+CNN
+CSC
+CUC International
+Calabrio
+CallTech Communications
+Cameron Health
+Cap Gemini Ernst & Young
+Capgemini
+CardioNet
+CareCloud
+Cargill
+Carnegie Learning
+Carnegie Mellon Research Institute
+CashStar
+Caspian Networks
+Castel
+Catch
+Catena
+Catilin
+Causes
+Celcore
+Celerity Systems
+Celleration
+Celotek
+Cendant
+CenterBeam
+Centive
+Cerent
+Cetas Software
+Champion Cart
+CheckM8
+ChemConnect
+Chemical Abstracts
+Cierra
+Cigital
+CincyTech
+Classified Ventures
+Classmates.com
+Clearview International
+Cleveland Clinic
+ClickBank
+ClickFox
+CloudFlare
+Coaptus Medical
+Cogent Healthcare
+Colorado State University
+Colossal Pictures
+Column Five
+Comcast Interactive Media
+Comet Systems
+CommPartners
+CompTIA
+Conexant
+Confirma
+ConjuGon
+Consignd
+Control Data
+Cool Planet Energy Systems
+Cooliris
+Corvis
+CounterStorm
+Covidien
+Cradle Technologies
+Crayon Interface
+Creditex
+Crescendo Networks
+Crisp Media
+Critical Technologies
+Crystal Dynamics
+Crystal IS Innovative Semiconductors
+Crystal Semiconductor/Cirrus Logic
+Curateurs
+Curl
+Cylene Pharmaceuticals
+Cymtec Systems
+Cyota
+DARPA
+DAS Devices
+DCM
+DCVC Management Co.
+DEC
+DataDirect Networks
+DataHero
+Datatrac
+Defense Advanced Research Projects Agency
+Dell EMC
+Department of Defense
+Deposition Sciences
+Design for America
+Dialexa
+Diamond Foundry
+Diamond Technology Partners
+Digg
+Digital 5
+Digital Bridge Holdings
+Digital Equipment Corporation
+Digital Paper
+Digital Performance
+Dillon Read Capital Management
+Disney Mobile
+Distribution Architects International
+Docker
+Doctor Goodwell
+Dorm Room Fund
+Double Fusion
+Doyenz
+DreamHammer
+DreamIt Ventures
+DreamWorks
+Dynamic Technology Systems
+DynamicOps
+E&J Gallo Winery
+ECNext
+EPiCON
+ESPN
+EZchip Technologies
+Echo 360
+Eclipse Surgical Technologies
+Ecochlor
+Edge Diagnostic Systems
+Efficas
+Elan
+Elekta
+Elevation Pharmaceuticals
+Eli Lilly
+Elite Farmers Markets
+Emerald Asset Management
+Emerald BioAgriculture
+Emergent Game Technologies
+EmpowerMX
+EnVivo Pharmaceuticals
+Encompass
+Endeca Technologies
+Engine Yard
+Engineering
+Ensynch
+Entelos
+Enterin
+Entrieva
+Epoch BioSciences
+Espotting
+Estee Lauder
+Ethertronics
+Euclid
+Everstream
+Exclusive Resorts
+Exec
+ExpertPlan
+Expertcity
+ExxonMobil
+Eyeblaster
+F-Secure
+FNX Limited
+Fab.com
+Federal Communications Commission
+Finjan Software
+Fios
+Fireplug
+Firetide
+First Data Corporation
+First Round Capital
+FirstMark Capital
+Fjord Ventures
+Flagship Ventures
+Flashpoint
+Floored
+Fog City Software
+ForSight Vision5
+Forbes
+Forbes.com
+Foresite Capital Management
+Formation 8
+FortiusOne
+Founder Collective
+Founders Fund
+Frazier Healthcare Ventures
+Fred Hutchinson Cancer Research Center
+Freedom OSS
+Freelance
+Frost Data Capital
+Fujitsu Consulting
+Fujitsu Nexion
+Fullscope
+Funzio
+Fuse Capital
+Fyre Storm
+GE Global Research
+GLMX
+GREE International
+GST Telecom
+GTESS
+Gabriel Communications
+Gala Biotech
+Galileo
+Gazillion Entertainment
+Gemfire
+Gen9
+General Assemb.ly
+General DataComm
+Genetix Pharmaceuticals
+GeoCities
+GeoPage.com
+GeoVantage
+Geodesic
+George Mason University
+Germany
+GetSilicon
+Geyser Networks
+GiftCertificates.com
+Giga Scale Integration
+GivingCapital
+Global Commerce Systems
+Global Tower Partners
+GlucoLight
+GoAhead Software
+Goldbach
+GoldenGate Software
+GoodData
+Gracenote
+Greenplum
+Greenstart
+Greystripe
+GridIron Systems
+GridPoint
+Groople
+Ground Travel Technology Team
+Group FMG
+Guardent
+GuardianEdge Technologie
+Guava Technologies
+Guggenheim Partners
+Guru
+HJK Solutions
+Hale BioPharma
+Hambrecht & Quist
+Hands-On Mobile
+Harman International
+Harris Corporation
+Harte-Hanks
+Hashable
+HauteLook
+Havas Digital
+Health Dialog
+Health Language
+HealthAnswers
+HealthCare Financial Partners
+HeartLab
+Helene Curtis
+Helium Systems
+HelixConsulting
+Heyzap
+HiBeam Internet & Voice
+Hipbone
+Home Comfort Zones
+Hope For Vision
+Horizon Therapeutics
+Horizon Ventures
+Hospital Corporation of America
+Hotbar.com
+Hubspan
+Huge
+Hulu
+Hynomics
+Hyper9
+Hypertec
+IBM Global Services
+IC Sensors
+INDIGO
+Ikano Communications
+Ilex Oncology
+Imeem
+In-Q-Tel
+InSilica
+Incipient
+Indiana University
+Indicative
+Infineon
+Infor Global Solutions
+Information Technology Institute
+Informix
+Informix Software
+Infosys Technologies
+Ingrian Networks
+Innolume
+Insider Pages
+Insight Venture Partners
+InstallShield Software
+InstantAction
+Instill
+Institutional Venture Partners
+Integral
+Integrated Genomics
+Intelligent Markets
+Intellution
+Intend Change
+Intermountain Healthcare
+International Genomics Consortium
+Internet Capital Group
+InternetQ
+Intradiem
+Invite Media
+Invitrogen
+J. Crew
+JAM Technologies
+Jackson Square Ventures
+Jasper Wireless
+Jawbone
+JeNu Biosciences
+Jefferies &
+Jobs2web
+Johns Hopkins Hospital
+Johns Hopkins School of Medicine
+Johns Hopkins University School of Medicine
+K2 Media Labs
+KAYAK
+Kaboodle
+Kaiser Associates
+Kalaari Capital Advisors Pvt.
+Kalido
+Kalypsys
+Kana Communications
+Kapitall
+Kenamea
+KickApps
+Kinko's
+Kiva.org
+Kivera
+Klasky Csupo
+Knightsbridge Solutions
+KnowNow
+Knowledge Adventure
+Kontagent
+Kymeta
+L'Oreal
+LRN-The Legal Knowledge Company
+LaamScience
+Lancope
+Larian Communications
+Latterell Venture Partners
+Launchpad LA
+Leaf Healthcare
+Learn2
+Lemon
+Levi Strauss
+Lightspeed Venture Partners
+Ligos
+Lindsay Goldberg
+Liquid Machines
+LiteScape Technologies
+LiveCapital
+Livestar
+Logica
+LoneStar/Hudson Advisors
+LookSmart
+Loopt
+Los Angeles Times
+Lot18
+Lucix
+Lumileds
+Luminescent Technologies
+Lundbeck
+Lutonix
+Lynch Interactive Corporation
+MAYA Design
+MDdatacor
+MILCOM Technologies
+MIT Sloan School of Management
+MPOWER Ventures
+Machinima
+MailFrontier
+Maker Studios
+Maloy Insurance
+ManageSoft
+Managed Healthcare Associates
+MapFactory
+MapQuest
+MarketSoft
+Match.com
+Matrix Partners
+McAfee Associates
+McCown De Leeuw &
+McGill University
+Medebiz
+MediaBank
+MediaMath
+MeetUp
+Memorial Sloan-Kettering Cancer Center
+Menlo Ventures
+Merant
+Merced Systems
+Mercury
+Mercury Computer Systems
+MetaLab
+Metabolon
+Metacode Technologies
+Method Products
+Metrika
+Metromedia Fiber Network
+MiaSole
+MicroVault
+Middlebury Interactive Languages
+MindFrame
+Mint.com
+Mitralign
+Mixpo
+Moai Technologies
+Mobee
+Mobilian
+Mobular Technologies
+Monet Mobile Networks
+Moontoast
+More Magic Solutions
+Morgan Stanley Dean Witter
+MotionDSP
+Motricity
+Mubadala Development
+MultiLink
+Munch On Me
+MyHealthBank
+MyLife.com
+MyShape
+Myspace
+NBC
+NEC Technologies
+NP Photonics
+NTRglobal
+NTera
+NYGene
+Nanogram Devices
+Nanomix
+National University of Singapore
+Navis
+Navisoft
+NearbyNow
+NeoMend
+Netifice Communications
+Netune Solutions
+NewsGator Technologies
+NextAction
+Nickelodeon
+NimbleGen Systems
+North Bridge Venture Partners
+NorthStar
+NovaVision
+Novasys Medical
+NuVox Communications
+Nuelight
+Nuelle
+Nvidia
+ONI Systems
+OSI Consulting
+Oak Ridge National Laboratory
+Oasis Legal Finance
+Oberon Media
+OkCupid Labs
+Oklahoma State University
+Onavo
+One Kings Lane
+OneScreen
+Onward Technologies
+OpenLogic
+OpenReach
+OpenX
+OpenX Technologies
+Openpath Security
+Openwave
+Operative
+Optum
+OrbiMed Advisors
+Organic Avenue
+Outlast Technologies
+Oxford University
+PacketVideo
+Pano Logic
+Pappas Ventures
+ParAccel
+Paracor Medical
+Paradigm Cryptocurrency Fund
+Paradigm Diagnostics
+Parallels
+Parametric Technology
+PatchLink
+Path
+PathScale
+Pathology Partners
+Pathway Genomics
+PaxVax
+PeerApp
+Peletel
+PeopleAdmin
+PeopleSupport.com
+Peopleclick
+Performix Technologies
+Perlego Systems
+Personics
+Persystent Technology
+Pharmaceutical Product Development
+Philips Electronics
+Philips Medical Systems
+PhotoThera
+Physical Rehabilitation Network
+Ping Identity
+Pivot Medical
+Pivot3
+Pixim
+PlanetJam Media Group
+Platform Solutions
+Plum Ventures
+PointServe
+Polatis
+Potenco
+Potentia Pharmaceuticals
+PowerFile
+PowerReviews
+Powered
+Powerway
+PreferredTime
+Presidio Partners
+Primera Capital
+Princeton Lightwave
+Princeton eCom
+Procter and Gamble
+Prodigy
+Proficient Systems
+Project Holodeck
+PwC
+Q-RNA
+Qspeed Semiconductor
+Qualcomm Labs
+Quality Humans
+Quality Systems
+Quan Management
+QuantaLife
+Quantum3D
+RAD Group
+RBC Capital Markets
+REvolution Computing
+RMH
+RRE Ventures
+Rapt
+Rave Wireless
+Ravenflow
+RayTracker
+RealNames
+Rearden Commerce
+Red Condor
+RedSeal Systems
+Redfern Broadband Networks
+Redux
+Redwood Venture Partners
+Reflex Security
+Regeneration Technologies
+Remarkable Wit
+Rembrandt Venture Partners
+Research Triangle Institute
+Resolvyx Pharmaceuticals
+Retail Solutions
+Return Path
+Rev Worldwide
+Revision3
+Rhone-Poulenc
+Rightside
+RivalWatch
+RiverDelta Networks
+RoboteX
+Rochester Institute of Technology
+Rock Health
+Rocket Internet SE
+Rockwell International
+Rodale
+Rolsen
+RxStrategies
+S-Vision
+SANgate Systems
+SAP AG
+SAP Labs
+SAS
+SAVO Group
+SBC Communications
+SPADAC
+SV Life Sciences Advisers
+Saavn
+Safend
+Sagantec Israel
+Sanofi Pasteur
+Sanrad
+Santur
+Savera Systems
+Savings.com
+Sceptor Industries
+Scheer & Company
+Schneider Automation
+ScriptRx
+Seagate
+Seagate Technology
+Sebacia
+Securant Technologies
+Securify
+SeeControl
+Selby Venture Partners
+SelectMinds
+SellPoint
+Sensory Networks
+Sentient Technologies
+Sequence Design
+ServerStack
+ServiceMesh
+Settle
+Shared Spectrum
+Shareholder Communications
+ShiftWise
+ShopWiki
+Shopkick
+ShopperTrak RCT
+SiRF Technology
+Siemens Medical Solutions
+Sierra Ventures
+Sigma Partners
+Silicon Bandwidth
+Silicon Wave
+Silver Lake Management
+Sionex
+Slide
+SmartyPig
+Smith & Nephew
+SnipSnap
+SoBe
+Social Capital
+SocialEngine
+SolidWorks
+Solution 6 Holdings
+Sonus Networks
+Spark Networks
+Spicebox
+Spiration
+Spirited Media
+Split Rock Partners
+Sportsrocket
+Sprint PCS
+Stanford Genome Technology Center
+Stanford Research Institute
+Star Bridge Systems
+StarTek
+StartX
+StockTwits
+Stoke
+StoneFly Networks
+Stottler Henke Artificial Intelligence
+Strategic Mapping
+Streaming Media Systems
+Streamline Health
+Stryker International
+StubHub
+StubHub.com
+SunIntegration Services
+Sunnova Energy
+Superhuman Labs
+Sur la Table
+Surgient Networks
+Sycon Design
+Symmorphix
+Sympara Medical
+Synon
+System Detection
+TCI Interactive
+Tachyon
+Tacoda
+Tagged
+TargetSpot
+Tata Consultancy Services
+Tatum
+Taylor Medical
+TechRx
+Technion
+Teespring
+Teknovus
+Tel Aviv University
+Telecom Towers
+TenFold
+Tensilica
+Tensys Medical
+Terascala
+The Barbarian Group
+The Climate Corporation
+The Concorde Group
+The Foundry
+The Mediatile
+The Nielsen Company
+The Scripps Research Institute
+The White House
+TheStreet.com
+ThinkLink
+ThreatMETRIX
+Thump Games
+TimeSys
+Timogen Systems
+Tokyo
+Topaz Pharmaceuticals
+TrafficMarketplace
+Transaction Transport Technologies
+Traveler's Joy
+Travelers Insurance
+Trellis Bioscience
+TriZetto
+Trilliant
+Trinity Ventures
+Tritium Partners
+True Ventures
+TrustEgg
+Trusted Network Technologies
+Tufts University
+Tumri
+Turbine
+Twilight Venture Partners
+Twitch
+UGO Networks
+US Air Force
+US Airways
+US Army
+USA Global Link
+USinternetworking
+UltraDNS
+Uniden
+United Healthcare
+United Nations
+United Talent Agency
+University of Central Florida
+University of Manchester
+University of Medicine and Dentistry of New Jersey
+University of Montana
+University of Nebraska Lincoln
+University of Pittsburgh Medical Center
+University of Sydney
+Unspam Technologies
+UpNext
+Upstream
+Urban Airship
+Urbana-Champaign
+Utopy
+Valassis
+ValiCert
+ValiGen
+Valore
+Vapore
+Vascular Control Systems
+Vascular Pathways
+VasoNova
+Vaxin
+Vayusa
+Vazu
+Velti
+Venafi
+Ventyx
+Veoh Networks
+Verismo Networks
+Veritas Software
+Vested Health
+Viator
+Vibrant Media
+Vidyo
+Vigilent
+Viki
+Visible Path
+VisionAIR
+Vitas Healthcare
+Vitex Systems
+Vivecon
+Vodafone
+Volera
+Voltage Security
+WGI Group
+Wake Forest University School of Medicine
+Wandrian
+Washington State University
+WaterCove Networks
+Waterborne Environmental
+Waveset Technologies
+WeShop
+Weather Analytics
+Webroot Software
+Webs
+Webvan
+WellGen
+Wellington Partners
+Wellogix
+Wells Fargo Bank
+Western Multiplex
+Westinghouse
+WheelGroup
+WhiteFence
+Whittman-Hart
+WholeSecurity
+Wikio
+Willow Garage
+Wine.com
+Wizmo
+Woodside Fund
+Woodstock Academy of Music
+Works
+XAware
+XPlusOne
+Xaos Tools
+Xeround Systems
+Xionics
+Xobni
+Yahoo
+Yahoo Everywhere
+YouSendIt
+Youtube
+ZEN Biometrics
+Zaarly
+Zaudhaus
+Zelos Therapeutics
+Zero Stage Capital
+ZeroG Wireless
+Zilker Labs
+Zinio Systems
+Ziptronix
+Zkey.com
+Zumbox
+[x+1]
+comScore Networks
+diCarta
+e-Security
+eALITY
+eBay Enterprise
+eCHARGE
+eCommerce Industries
+eHealthContracts
+eMind
+eNewsRelease.com
+eProximiti
+eVoice
+firstRain
+i2 Technologies
+iAcquire
+iCrossing
+iNetProfit
+iPierian
+iReady
+iSkoot
+iWalk
+iXL Enterprises
+mFormation Technologies
+mh2o.com
+mindSHIFT
+modu
+nCircle Network Security
+netForensics
+uCirrus
+101communications
+20th Century Fox
+23andMe
+24 Hour Fitness
+2B Enterprises
+2i Capital Group
+2nd Watch
+2u
+360HIPHOP.com
+360i
+3DO
+3DV Systems
+3Dfx
+3GNet
+3LM
+3Path
+3Pillar Global
+3TIER Environmental Forecast Group
+3dme
+401kExchange.com
+500Friends
+6Sense Insights
+7th Level
+8e6 Technologies
+8pen
+@Last Software
+@pos.com
+@stake
+A Line in the Sand
+A2B Advisors
+A2i
+A9.com
+ABD Insurance & Financial Services
+ABM
+ABT Molecular Imaging
+ACS Legal Solutions
+AGY Therapeutics
+AIG
+AIRS
+AIS
+AJB Global Services
+ALORAD
+AMCC
+AMS
+AOBiome
+AOL Ventures
+APB Holdings
+APTwater
+APX
+ARC
+ARC Agile Technology
+ARES
+ARM
+ASME
+ASPECD Apparel
+AT&T Canada
+AT&T Interactive
+AT&T International
+ATC
+ATDC
+AV Labs
+AVAZ Networks
+AXSUN Technologies
+AZNA Corporation
+Abekas Video Systems
+AbilityOne
+Abine
+Ablation Frontiers
+AboveNet Communications
+Academy of the Pacific Rim
+AcceLight Networks
+AccelChip
+Accelaro Systems
+Accelerator Ventures
+Accelergy
+Accentia
+Accept Software
+Acceptd
+Acceptional
+Access 360 Media
+Access MediQuip
+AccessAble Systems
+Accretive Solutions
+Accriva Diagnostics
+Accugenix
+Accumetrics
+Acirro
+Acorn Cardiovascular
+Acorn Systems
+Acoustic Technologies
+Acteea
+Action Engine
+Active Endpoints
+Active Services
+Active Threat Alert
+ActiveBuddy
+Actuality Systems
+Acuity
+Acumen Sciences
+Acxiom Corporation
+AdECN
+AdKnowledge
+AdMeld
+AdMobius
+AdSpace Networks
+Adaptive Media
+Adaptix
+Adena Ventures
+Adeptra
+Adero
+Adkeeper
+Adly
+Adperio
+Adroll
+Advance Paradigm
+Advanced Data Processing
+Advanced Input Devices
+Advanced Radio Telecom
+Advanced System Products
+Advanced Technology Ventures
+AdvantEdge Partners
+Advanta Business Services
+Advantacare
+Advent Networks
+Adyana
+Aedis IT
+Aegis Semiconductor
+Aerovance
+Aether Biomachines
+Aethon
+Aetna US Healthcare
+Afara Websystems
+Affinity Labs
+Affinity Logic
+Affinity Sysdome Corporation
+Afraxis
+Age Wave
+Agencourt Bioscience
+AgentWare
+Agentis Software
+Aggregate Knowledge
+Agile Studios
+Agility Communications
+Agitar Software
+Agito Networks
+AirFlow Networks
+AirTight Networks
+AirTouch
+Airbiquity
+Aircuity
+AirportChatter
+Airtime for Email
+AkaRx
+Akibia
+Alara
+Alaven Pharmaceutical
+Alexander & Associates
+Alfred Capital Management
+Algos Therapeutics
+Alinean
+Aliqua
+AliveCor
+AlixPartners
+Alkermes
+Alldata
+Allen & Company
+Alliance Manufacturing Software
+Alloy Media & Marketing
+Allrecipes.com
+Alltest
+Allux Medical
+Aloha Networks
+AlphaGraphics
+Alpine Investors
+Alta Analog
+Altea Therapeutics
+Althea Technologies
+Altiris Therapeutics
+Alumni Ventures Group
+Alvarri
+Amadesa
+Amadeus Capital Partners
+Amazon Lab126
+Ambion
+AmbironTrustwave
+Ambit Design Systems
+Amedica
+American Association of Pharmaceutical Scientist
+American Greetings Interactive
+American Home Products
+American Megatrends
+American Pensions
+American Technology Funding
+American University of Sharjah
+Amersham
+Amira Pharmaceuticals
+Ammasso
+Amobee
+Amplified.com
+Amplifier Holdings
+Amplify
+Amprius
+Amylin
+AnaServe
+Anadan
+Anadigm
+Analytics Pros
+Andromedia
+AneuMed
+Angel Medical Systems
+AngioScore
+Angiogenix
+Anka Systems
+Anova Data
+Answer Systems
+AnswerThink
+Antec
+Antenna Software
+Antenum
+Anthem Venture Partners
+AnyPresence
+Anywhere.FM
+Aon
+Apangea Learning
+Apax Partners
+Apertio
+Aperto Networks
+Aperture Venture Partners
+Apex Surgical
+ApopLogic Pharmaceuticals
+AppIQ
+Appature
+Appfluent Technology
+Application Security Industry Consortium
+Applied & Integrated Capital Group
+Applied Identity
+Applied Spine Technologies
+Appriva Medical
+Apptimum
+Appuri
+Aprimo
+Aprisa
+Apsis ProspectEye AB
+Aptein
+Apthera
+ArQule Biomedical Institute
+Aras
+Aravali Technologies
+Arbor Partners
+Arc Worldwide
+Archer Technologies
+Archetype Solutions
+Architel
+Archivas
+Ardesta
+Ardian
+ArelNet
+Arena Solutions
+Arete Therapeutics
+Argus Pharmaceuticals
+Arise Virtual Solutions
+Arista Communications
+Arithmatica
+Armada Venture Group
+Army National Guard
+Aromagen
+ArrowPath Venture Capital
+Arrowhead Research
+Arsenal Medical
+Artesian Therapeutics
+Artifact Software
+Artificial Muscle
+Artimi
+Artios
+Arzco
+Ascent Healthcare Solutions
+Ascent Media
+AshHill Biomedical Investments
+Asia Online
+Asoka
+Aspect Telecommunications
+Aspen Consulting
+Asset International
+Astoria Software
+Astral Systems
+Asylum Telecom
+Asyst Software
+At Time
+AtScale
+Athena Semiconductors
+Atlas Informatics
+Atrionix
+Atrium Legal Technology Services
+Attensity Group
+Atwood Richards
+Auburn University
+Auctionata AG
+AudienceScience
+AudioFeast
+Auditude
+Augmented Development
+Augmentix Corporation
+August Capital
+AusAm Biotechnologies
+Austin Technology Incubator
+Authentic Response
+Authentica
+Authentix Networks
+Automated Healthcare
+Autonomy Computer
+Availant
+Avalanche Technology
+Avalon Photonics
+Avast Software
+Avcon
+Aveksa
+Aventail
+Aventura HQ
+Awardly
+AwarePoint
+Awarepoint
+Axentis
+Axiom
+Axiom Microdevices
+AxisMobile
+Axolotl
+Axon Photonics
+Axonn
+Azelon Pharmaceuticals
+Azul Systems
+Azure Midstream Energy
+BA-Insight
+BAML Capital Partners
+BBC Worldwide
+BBN Technologies
+BBX Technologies
+BCG Digital Ventures
+BEA
+BEING Biopharma
+BIG Interactive
+BISYS
+BMMG
+BMW
+BNY Mellon
+BOC Group
+BP
+BP Solar
+BRM Capital
+BTI
+BU
+BV-Cornerstone Ventures
+BW Energy
+Bacchus Vascular
+Bacterial Barcodes
+Bagcheck
+Banana Republic
+Banc of America Securities
+BankOne
+Baptist Healthcare Systems
+BarSential
+Barclays Global Investors
+Barclays Global Mutual Funds
+Bard Diagnostic Sciences
+BaroFold
+BaroSense
+Bartle Bogle Hegarty
+Baseline Research
+Basho Technologies
+Batanga Network
+Battelle
+Baxano
+Baxter Travenol
+Bay Data Consultants
+Bayer MaterialScience
+Bayer Pharmaceuticals
+Baynote
+BeachMint
+Beam Therapeutics
+Bear Stearns
+Beautycounter
+Bechtel Group
+Bedrocket Media Ventures
+BeeLine Systems
+Bellwave
+Belly
+Berisford Capital Markets
+Berlex Biosciences
+Best Care Pharmacy
+BestTransport
+Beth Israel Deaconess Medical Center
+BidPal Network
+Bigfoot Networks
+Bill.com
+BillFloat
+Billabong
+Bina Technologies
+BioDesign
+BioLucent
+BioMimetic Pharmaceuticals
+BioOptics
+BioSTAR WEST
+Biofree-USA
+Bioheart
+Biomarketing Partners
+Bionic Solution
+Biopsys
+Birch Telecom
+Birchmere Ventures
+Birst
+Birthday Express
+Bit Group
+Biz360
+Bizfinity
+Black & Decker
+Black Arrow
+Black Press
+BlackRock
+Blantyre Malaria Project
+Blast Radius
+Blekko
+Bloom Software
+BloomReach
+Bloomberg BNA
+Bloomfire
+Blu Ocean Ventures
+Blue Agave Software
+Blue Lava Wireless
+Blue Rock Capital
+Blue Shield of California
+BlueCava
+BlueKite.com
+BlueRidge Storage Systems
+BlueSeven Partners
+BlueStar Communications
+BlueStream Ventures
+Bluebird Systems
+Bluefish Wireless
+Bluewolf
+Blumberg Capital
+BoardVantage
+Bonti
+BookTour
+Boonty
+Booyah
+Borland Software
+Bortnik Labs
+Boston Biomedica
+Botanical Labs
+Boulder Ventures
+Boxx Technologies
+Branding Brand
+BreakingPoint Systems
+Breaktime Media
+BridgeStream
+Bridger Photonics
+Brience
+Brierley & Partners
+Brigade Solutions
+Brio Technology
+Bristol-Myers Squibb Company
+Broad Institute
+BroadSource
+Broadband Venture Partners
+Broadreach Consulting
+Broadview Networks
+Broadway Video Entertainment
+Broadwing Communications
+Brocade
+Brocade Communications
+Brokat Technologies
+Bronto Software
+Brookhaven National Laboratory
+Brooks Fiber
+Brooktrout Technology
+Brown Brothers Harriman
+Browning & Clements
+BruinSoft
+Buca
+Bucknell University
+Buddy Media
+Bulletin International
+Bungie
+Burroughs-Wellcome
+Burton Snowboards
+Business Data Exchange
+Business Development
+Business Intelligence Studios
+Business Logic
+BuyWithMe
+BuzzFeed
+Bytemobile
+C-BASS
+C.H. Robinson
+C.Y. Strategy
+CACI
+CAPNIA
+CBS SportsLine.com
+CBT Advisors
+CBay Systems
+CDNetworks
+CDS
+CEB Iconoculture Consumer Insights
+CGI Pharmaceuticals
+CGI Worldwide
+CHANEL
+CIDC
+CIGNA
+CIGNEX Technologies
+CLZ Concepts
+CMD Technology
+CODA Group
+CPlane
+CR Bard
+CRC Health Group
+CRF
+CRI Advantage
+CRS Retail systems
+CRT Group
+CS First Boston
+CV Ingenuity
+CVS Caremark
+CXO Systems
+Caboodle Networks
+Cadence Berkeley Labs
+Cadent Medical
+Cadre Technologies
+CalStar Products
+CalTech
+Caldera
+Calera
+Calhoun Vision
+California
+California Pacific Medical Center
+Caliper
+Callaway Arts & Entertainment
+Calpont
+Cambridge Antibody Technology
+Cambridge North America
+Cambridge Strategic Management Group
+Camiant
+Camstar Systems
+Candela Laser
+Cantor Fitzgerald
+Capella Photonics
+CapitalSoft
+Car Wash Partners
+CarDomain Network
+Carbon Design Systems
+Carbonflow
+Card Express
+Cardinal Partners
+CardioVasc
+Cardiorobotics
+CareMedic Systems
+Career Central
+Career Education Corporation
+Carena
+Cargotech
+Caris Life Sciences
+Carl Zeiss Meditec
+Carlson
+Carlson Companies
+Carlyle Group
+Carnegie Speech
+Carrier IQ
+Cart Logic
+Cartera Commerce
+Cassatt
+Cater2.me
+Catheter Technology
+Causata
+Cauthen & Associates
+Caw Networks
+Cedar Point Communications
+Celetron International
+Cellular One
+Celox Networks
+Cendura
+Center for Advanced Biomedical Biotechnology
+Center of Psychiatric Medicine
+Centeris
+Centers for Disease Control & Prevention
+Centerview Partners
+Centice
+Centillion Networks
+Centillium Communication
+Centinel Spine
+Centrak
+Centro
+Cenzic
+Ceptaris Therapeutics
+Cequint
+Cerberus Capital Management
+Certeon
+Certive
+Certus Software
+Cetacean Networks
+Chakra
+Chameleon Systems
+Changecause
+Changeling Software
+Channel Intelligence
+ChannelWave
+Chapel Hill
+Chargeback Guardian
+Charity Bids
+Charles Schwab &
+Charlesbank Capital Partners
+Charlotte Mecklenburg Hospital Authority
+Charter Life Sciences
+Check
+Cheetah Optics
+Chernin's
+Chesapeake Computer Consultants
+Chiaro Networks
+Chicago
+Chicago Music Exchange
+Children’s Hospital of Philadelphia
+China
+ChipCenter
+Chorus
+Chorus Systems
+Chrome Data
+Chronos Research
+Chumby Industries
+Cidera
+Cinebase Software
+CipherOptics
+CircleLink Health
+Cirtas Systems
+Cisco
+Cisco System
+Citadel Investment Group
+Citadon
+Citi Prepaid Services
+Citrix Online
+City of Los Angeles
+CitySearch
+ClairMail
+Clarabridge
+Clarify Medical
+ClarityBlue
+Clarus
+Clean Power Finance
+Clear IT Leadership
+ClearOrbit
+ClearSky Data
+ClearSlide
+Clearpath
+Clearpath Robotics
+Clearwire Technologies
+Cleveland Clinic Foundation
+Click.tv
+Click2Asia.com
+Clicker Media
+Clinton Foundation
+Cloud Sherpas
+Cloud.com
+CloudFloor
+CloudFloor Corporation
+CloudSwitch
+ClubComputer.com
+ClubMom
+Clustrix
+CoAxia
+CoCo Communications
+CoWare
+CoachUp
+CoalTek
+CobaltBlu
+Code.org
+CodeX
+Coding Staff
+Codon Devices
+Cognio
+Coherent Medical Group
+Collective Intellect
+CollectiveHealth
+College Directory Publishing
+College Prowler
+College Publisher
+CollegeClub.com
+Collgard Biopharmaceuticals
+Colliers International
+Colorado National Bank
+Columbia Business School
+Columbia University Medical Center
+ComVentures
+Comcast Silicon Valley
+CommASIC
+Commonwealth Associates
+Commtouch Software
+Communitect
+Compiere
+Composite Software
+Computed Anatomy
+Computer Associates International
+ComputerVision
+Concerro
+Concordia Pharmaceuticals
+Conde Nast
+Condition One
+Conductor
+Cone & Belding
+Conformia Software
+ConnectSoft
+ConnectSolutions
+Connotate
+Connotate Technologies
+Constellar
+Contact Networks
+Container Management Services
+Contango Capital Management
+Content Raven
+ContentWatch
+ContextWeb
+Continuity Engine
+Continuous Computing
+Continuuity
+Continuum Photonics
+Contour
+Contrast
+Contrast Security
+Converge Medical
+Convergence Design
+Convergent Investors
+Convergent Media Systems
+Convergent Networks
+Convergent Technologies
+Converse Technology
+Convey Software
+Convoke Media
+Convoq
+CopperEye Labs
+Core Capital
+CoreOS
+Coremetrics
+Corensic
+Corepoint
+Corporate Decisions
+Corporate Development
+CorrectNet
+Corrigo
+Corvigo
+Counsel RB Capital
+Counsyl
+Counterparty
+County Line
+CourseAdvisor
+CourseCafe
+Coursera
+Covad Communications
+Covasoft
+Coventor
+Covered Concepts
+Covergence
+Covigo
+Cranite Systems
+Cranium
+Credit Suisse
+CreditRetriever
+Credorax
+Creeris
+Crest Asset Management
+CritBuns
+Cross Border Exchange
+Crossing Automation
+Crosspoint Venture Partners
+Crosstek
+CrowdWork Labs
+CryoXtract Instruments
+Cryptic Studios
+Curagen
+Current Group
+Current TV
+Curriculum Concepts
+Custom Lawns
+Customer Insight Company
+CyberCash
+CyberSafe
+Cybereason
+CycleStay
+Cylex
+Cyphort
+Cyrano Sciences
+CytoPherx
+D. E. Shaw
+D.E. Shaw Financial Technology
+D.N.B. Fund Partners
+D2M
+DAFCA
+DAQRI
+DASH7 Alliance
+DCM Ventures
+DENSO International America
+DG
+DNA Diagnostics Center
+DNA Games
+DNA Health
+DNAnexus
+DR2DR.com
+DVA Technology
+DVDO
+Dachis Group
+Daily Dot Media
+DailyCandy
+Dailybreak
+Dana-Farber Cancer Institute
+Danger
+Daooda
+Daptiv
+Darden
+Dartmouth College
+Dartmouth Medical School
+Data Power Monitoring
+DataCore Software
+DataLogix
+DataStax
+Database Technologies
+Databricks
+Dataupia
+Dategrity
+Davis
+Davis Polk & Wardwell LLP
+Davol
+Davox
+De Novo Ventures
+Deciens Capital
+Decision Point Partners
+DecisionView
+Deepend
+Deezer SA
+Defense Intelligence Agency
+Del Mar Datatrac
+Delicious
+Della.com
+Deloitte Consulting LLP
+DemocracyInAction.org
+DemystData
+Dentistry for Children
+Design Online
+Desktone
+DestinationRx
+Determine Software
+Deutsche Telekom
+Deuxo
+Devax
+Development Seed
+Devon Hill Capital Partners
+Dezine.com
+DiObex
+Diagnostic Monitoring Associates
+Dialpad
+Dialpad Communications
+Diamond Multimedia
+DiamondCluster International
+Dianon Systems
+Dicom Grid
+DigiNovations
+Digicel
+Digital Evolution
+Digital Fuel
+Digital Home Technologies
+Digital RF
+Digital Railroad
+Digital Reef
+Digital Storage
+Digital Tech Publishing
+Digital Variant
+DigitalOcean
+Digium
+Dimension Data
+Din
+Direct Flow Medical
+Directo
+Disc Dynamics
+DiscoverCast
+Disney Interactive Media Group
+Disney Online
+Disney Stores
+Disney/ABC Cable Networks
+DispenseSource
+DisplayLink
+Distiller
+DiviCom
+Divvs
+DoCoMo USA Labs
+Doba
+Doelz Networks
+Doheny Retina Institute
+Domania
+Dominion Telecom Partners
+Domo Technologies 
+Done.com
+Donnerwood Media
+DotSpots
+Double Twist
+DoubleTwist Ventures
+Down2night
+DramaFever
+Draths Corporation
+DreamHost
+DreamWorks Animation
+Dreamfly
+Dreamworks Animation
+Drinking Water for India
+DuoDater
+Duquesne University
+Duracell
+Dynamic Matter
+Dynamic Mobile Data Systems
+Dynamicsoft
+E Ink
+E*TRADE
+E*Trade
+E-chx
+E4X
+EConnect
+EGeen International
+EMC Corporation
+EMI Music
+EMusic
+ENGAJE
+ENIAC Ventures
+ESM Strategies
+ETF Group
+ETView
+EVNTLIVE
+EW Healthcare Partners
+EXIT41
+EXP.com
+Eagle Eye Networks
+Eagle River Holdings
+East Carolina University
+EastBanc Technologies
+Easton-Bell Sports
+Eaton Towers
+Ebates
+Ecast
+Echolab
+EcoATM
+Ecount
+Ecutel
+Eden Communications
+Edge Technologies
+Education Networks of America
+Effective-i
+Efficient Frontier
+Eizel Technologies
+Election.com
+Electric Cloud
+Electric Communities
+Electronic Evidence Discovery
+Electronic Retailing Association
+Element
+Elemental Security
+Elementum SCM
+Elevate Ventures
+Elixis
+Ellerdale
+Ellipsis Digital Systems
+Ellucian
+Elsevier Science
+Embedix
+Emed Technologies
+Emergent Technologies
+Emergin
+Emerson Process Management
+Eminous
+Emuzed
+EnSync Energy Systems
+EnVerv
+Enbala Power Networks
+Encentuate
+Encompass Home Health
+Endeavor Agency
+Endeavor Capital Management
+Endeca
+Endgame
+EndoPassives
+Enemy Kite
+Energy Management Associates
+Eni
+Enigma
+Enkata Technologies
+Enpocket
+Ensequence
+Ensighten
+EnteroMedics
+Enterpulse
+Envaya
+Envis
+Envision
+Envoy Networks
+EnvoyWorldWide
+Enwisen
+Enzo Therapeutics
+Enzon
+EoExchange
+Epana Networks
+Epic Media Group
+Epigraphx
+Epiphany Biosciences
+Equinox Payments
+Ernst & Young LLP
+Escapia
+Estalea
+Estimation
+Eugene BioSource
+European Space Agency
+Eventra
+Eveo
+EverNote
+Evercore Ventures
+Everyone.net
+Everypoint
+Evident Software
+Evincii
+Evite
+Evoke
+Evolution1
+ExaGrid Systems
+Exact
+Exalead
+Exavio
+Excaliard Pharmaceuticals
+Exceptional
+Exclaim Mobility
+Executive Search of America
+Exigen Capital
+Exigen Group
+Exit41
+ExoLink
+Expedia.com
+ExperiaHealth
+Experian Interactive
+ExposureManager
+Express.com
+Extraprise
+Eyematic Interfaces
+Eyron Software
+F&P Farms
+F-Prime Capital Partners
+FASA
+FINTOP Capital
+FND
+FOLIOfn
+FUSE
+Fab
+Factals
+Factery.net
+Fair Credit Lending Group
+Fairchild
+Fakespace
+Fame & Partners Pty.
+Family Oven
+FamilyFinds
+FanDuel
+FanXchange
+Fanhattan
+Fannie Mae
+Farecast
+Fashiolista.com
+Fast Heat
+Fast-Talk Communications
+FastIgnite
+Fat Spaniel Technologies
+FatBrain.com
+Fermi National Accelerator Laboratory
+FetchBack
+Fictionary
+Fidelia
+Fidelity Exploration and Production
+Fifth Coast Communications
+Figuring out what's next
+Fiksu
+FileFish
+Financial Federal Credit
+Financial Technologies International
+Findaway World
+Fingerprint Digital
+FireFox
+FireLayers
+Firefly Network
+Firm58
+First Look Approval
+First Marblehead
+First Union
+Fission Strategy
+Fitech Laboratories
+FitnessKeeper
+Five Across
+Five Star Technologies
+FiveRuns
+Flashgroup
+Flat World Knowledge
+Flatland Online
+Flex Funding
+Flexi International Software
+Flextronics International
+Flextronics Semiconductor
+FlightCaster
+Flixster
+Flock
+Florida Administrators
+Flowr
+Flowtab
+Fluent Entertainment
+Fluidesign
+Fluidnet
+Flurry
+Focus Systems
+Focused Health Solutions
+Foodspotting
+Force Computers
+FormWare
+Formus Communications
+Forte Design Systems
+Forte Systems
+FortyTwo
+Fotolog
+FoundationDB
+Fox Audience Network
+Fox Sports
+Fractal Dynamics
+France Telecom
+Francisco Partners
+Freeborders
+Freelancers Union
+Freeliant
+Freightquote.com
+FreshGuide
+Frictionless Commerce
+Frontline Software Technology
+FuelSpot
+Funambol
+Functional Genetics
+Fundamental Applied Biology
+FundingPost.com
+FundingUniverse.com
+FutureCall Telemarketing
+FutureDial
+FutureSmart
+Fuzebox
+G & L Investments
+GAIN Capital
+GCA Services Group
+GCI
+GDS
+GE Aerospace
+GE Corporate R&D Center
+GE Energy
+GE Medical Systems
+GENEWIZ
+GM
+GM Hughes Electronics
+GMZ Energy
+GNRation
+GOOD Worldwide
+GPlay
+GRB Marketing
+GRIC Communications
+GSV International
+GT Equipment Technologies
+GT Nexus
+GT Solar International
+GTE Communications
+GTE Laboratories
+Gabriel Venture Partners
+Gaia Interactive
+Gala Lab
+Galeo Ventures SA
+GalleryPlayer
+Gallo Wine
+Galoosh
+Game Trust
+GamerDNA
+Gameview Studios
+Gamma-Metrics
+Garafa
+GarageGeeks
+GartnerGroup
+Gazelle Systems
+Gearworks
+Gemesis
+Genalytics
+General Assembly
+General Atomics
+Genesys
+Genome Therapeutics
+Genomyx
+Genovation Capital
+Gensler
+Gentris
+GeoPass
+Geocapital Partners
+Geoforce
+Get Satisfaction
+GetActive
+GetFit.com
+Getable
+Giant Step
+Gilt Groupe Holdings
+Giordano Consulting
+Glam Media
+Glaxo Wellcome
+GloNav
+Global Business Network / Monitor
+Global Factory
+Global Strategy Associates
+Global Telemedix
+Global Vision Communications
+GlobalSpec
+Globalfoundries
+GlobeRanger
+Go Now
+GoSMILE
+GoTo Auctions
+GoldPocket Interactive
+Golden Tickets
+Good Samaritan Hospital
+GoodHome.com
+Goojet
+Gordian Technology
+GotCoders
+GrandBanks Capital
+Granite Technology
+GraniteEdge Networks
+Grant Street Advisors
+Grass Roots Software
+Grayling
+Green Chef
+Green Desk
+Green Mountain Energy
+Green Witch Internet Radio
+GreenBorder Technologies
+GreenMountain Engineering
+GreenPages
+Greenhouse Capital Partners
+Greenline Financial Technologies
+Greens.com
+Greenwich Capital Markets
+GrepData
+Greylock Management Corporation
+Greylock Partner
+Grid Net
+GridPotential
+Gridtech
+Groove Mobile
+Group Commerce
+GroupSystems.com
+Gteko
+Guavus
+Guidance Solutions
+Guide Ventures
+Gumroad
+Gyft
+Gymboree
+H2scan
+HBPR
+HCL Technologies
+HDS
+HESTIA TEC
+HGST
+HNW
+HPA Telecom Group
+HSW International
+HT3
+HTC
+HaL Computer Systems
+Hachette Filipacchi Media
+Haiku Learning
+Haiku Learning Systems
+Half Shell Entertainment
+Halliburton Energy Development
+HaloSource
+Hana Biologics
+Handango
+Handmark
+Hangtime
+Happy Cloud
+Happy Hour Pal
+Hardesty Puckett Queen &
+Harvard Graduate School of Education
+Harvard Institute of Chemistry and Cell Biology
+Harward Technical Enterprises
+Hatteras Networks
+Hatteras Venture Partners
+Hawaii Nanosciences
+Headwaters MB
+Health Leads
+Health Market Science
+HealthCare Ventures
+HealthDataInsights
+HealthInvest Equity Partners
+HealthNation
+Healthline Networks
+Healthpoint Capital
+Hearst
+Heart Leaflet Technologies
+Heavy Reading
+Helio
+HelioVolt
+Hellman & Friedman
+Hemosphere
+Henderson Shapiro
+Hewlett-Packard Laboratories
+HeyAnita.com
+Heyride
+Hi-Media
+HiGear
+High Peaks Venture Partners
+High Sierra Energy
+High Sun Engineering
+HighStreet Networks
+HighWired.com
+Hip Digital Media
+Hipmunk
+Hitachi Data Systems
+Hoffman-LaRoche
+Hoffmann-La Roche
+Holl Technologies
+Hollywood Media
+Home Care Software Solutions
+HomeStore
+Homedco
+Honeybee Robotics
+Horizon Celluar Phone
+Horizon Hobby
+Hosting.com
+HotLink
+HotOffice Technologies
+HotelTonight
+Hotmail
+House Party
+Hublink
+Huddle
+Hudson Development
+Hughes Research Labs
+Human Ventures Capital
+Hummer Winblad Venture Partners
+Hunt Oil Company
+Hurrdat Social Media
+Hydra Biosciences
+HydroActive
+HydroCision
+HyperBranch Medical Technology
+Hyperactive Technologies
+Hyperhyper
+Hyperion
+Hyperpublic
+Hyseq
+Hyundai Electronics America
+I-Cube
+IAC
+IAF
+IBM Global Business Services
+IBM T.J. Watson Research Center
+IBM Thomas J. Watson Research Center
+IBSN
+ICAP Electronic Broking
+ICN Pharmaceuticals
+ICSI
+IDC
+IDEV Technologies
+IDG
+IFILM
+IHS
+IHS Energy
+IIF Management Company
+IKON
+ILX Lightwave
+IMG
+IMS Health
+IMSafer
+INC Research
+ING Barings
+INSCI
+INVISTA
+IOActive
+IP6 Seguridad
+IPI Skyscraper
+IPeria
+IQ Commerce
+IQ Engines
+IQinVision
+IRI
+IRISense
+IROCKE
+ISO Group
+ITEL
+ITI
+ITI Marketing Services
+ITU Ventures
+IVUS Energy Innovations
+IXI
+Iconix
+Iconoculture
+Idanta Partners
+Idearc Media
+IdentityMind
+Idera
+Igloo Products
+Ikadega
+Illumina Accelerator
+Image Technology
+ImageMoverMD
+Imagicast
+Imaginova
+Imago Scientific Instruments
+Imedia
+Immedia Semiconductor
+Immune Control
+Impact Venture Partners
+Impala Linear
+Imperative Networks
+Impreza
+Impulse Monitoring
+In Focus
+InHome Health
+InMage Systems
+InMoment
+InTandem Capital Partners
+InVitae
+Inc.
+Incentive Logic
+Incinerator Studios
+Incyte Genomics
+Index Ventures
+Indiana University School of Medicine
+Indulge.com
+Inetcam
+Ineto
+InfiniSwitch
+Infinium
+InfoDynamics
+InfoGain
+InfoGraphix Technologies
+InfoMove
+InfoSpace
+InfoSpace Mobile
+Infoglide
+Infogrames Entertainment
+Infopia
+InforMax
+InformMed
+Informatics
+Informed Medical Communications
+Infospace
+InfraReDx
+Infraworks
+Infusense
+Infusionsoft
+Ingenico
+Ingersoll Rand
+Ingersoll-Rand
+Inkling
+Inmagic
+InnerWireless
+InnoSphere
+Innobuzz
+Innologic Systems
+Innovative Engineering
+Innovative Marketing
+Inovaz
+Inplane Photonics
+InsWeb
+InsideView
+Insilica
+InstaCache
+Institutional Shareholder Services
+Instromedix
+InteQ
+Integrated Biosystems
+Integrated Capital Group
+Integrated Graphics
+Integrated Materials
+Integrated Media Measurement
+Integrated Medical Technology
+Integrated Trade Processing
+Integrian
+Integrion Financial Network
+Integris Software
+Intel Corporation
+InteliHealth
+Intellext
+IntelliDOT
+Intelligent Automation Systems
+InterDigital Communications
+InterGenetics
+Interactive Info
+Interactive Video Technologies
+Interactive at Tribune Company
+Intergram International
+International Finance
+Internet REIT
+Interpix
+Interra
+Intira
+Intracel Resources
+Intradigm
+Intransa
+Intrepid Learning Solutions
+Intrinsic Graphics
+Intrinsity
+Intrinsix
+Inttra
+Invenergy
+Inverness Medical Innovations
+Investment Advisers
+Invisible Worlds
+InvoStar
+Iospan Wireless
+Ipreo
+Irell & Manella
+Iris Labs
+IronPort Systems
+Ironwood Capital
+Irvine
+Ishoni Networks
+Isothermal Systems Research
+Israel Seed Partners
+Israeli Ministry of Defense
+ItemMaster
+Ivy Asset Management
+JAJAH
+JP Morgan Chase
+Jabber
+JackBe
+Jackalope Labs
+Jadoo Power Systems
+Jan Medical
+Janus Vision Technologies
+Jasper Design Automation
+JasperSoft
+Jennerex
+Jerusalem Venture Partners
+Jet Propulsion Laboratory
+JiWire
+Jibe
+Jigsaw Data
+JobCompass
+Jobsinthemoney
+Joby Energy
+John Nuveen
+Johns Hopkins University Applied Physics Laboratory
+Johnson & Johnson Development
+Johnson Controls Integrated Facilities Management
+Joynet
+Judy's Book
+Juice Wireless
+JumpCloud
+JumpStart
+Jumptap
+Juno
+Justin.tv
+Juvaris BioTherapeutics
+KACE
+KBI Biopharma
+KN Energy
+KOR Electronics
+KSI
+KXEN
+Kabira Technologies
+Kadient
+Kaggle
+Kansas City FiberNet
+Kantar Video
+Kanvas Labs
+Kaplan Educational Centers
+Kaplan Higher Education
+Kapor Enterprises
+Kasenna
+Katalyst Media
+Katango
+Kawama.com
+Kayak.com
+Kazeon Systems
+Keep.com
+Kelson Physician Partners
+Kenet
+Kent & Spiegel
+Ketera Technologies
+Key Indicators
+Key Ingredient
+KeyBank
+KeyEye Communications
+Keystone Dental
+Khan Academy
+Kickfire
+Kiffets
+Kineta
+Kinetic Concepts
+Kinetica Internet Solutions
+Kineto Wireless
+Kiss.com
+Kitchensurfing
+Kiva Systems
+KiwiSweat
+Klout
+Knight Ridder
+Knotel
+Knouen Technologies
+KnowledgeNet
+KnowledgePlanet
+Koch Ventures
+Kolltan Pharmaceuticals
+Konaware
+Konica
+Konnects
+KoolSpan
+Kosmix
+Kovio
+Kraft Foods
+Kroll Ontrack
+Kusiri
+Kyma Technologies
+L'Oréal
+L-3 Communications
+LANDesk Software
+LAST.VC
+LC Design
+LNNi.com
+LS9
+La Jolla Pharmaceutical
+Laboratory Corporation of America
+Laboratory for Surface Science and Technology
+Lachman Goldman Ventures
+Lakeshore Branding
+Landauer Loan Sale Advisory Group
+Landmark Healthcare
+Laser Diagnostic Technologies
+Lasertron
+Laszlo Systems
+Late Night Option
+Latitudes Pro
+LaunchTech
+Launchkey
+Lavastorm Technologies
+Lawrence Ruben Company
+LeadPoint
+Leader Bank
+Leap Management Solutions
+Left Coast Software
+Legg Mason Wood Walker
+Lehigh University
+Lemur Networks
+Lending Club
+Lendio
+Leo Burnett
+Lernout & Hauspie
+LesConcierges
+Level RF
+Lexmark
+Licom Technologies
+LifeScan
+Lifecycle Support
+Lift Media
+LightEdge Solutions
+LightSail Energy
+LightSand Communications
+Lightbit
+Lightside Games
+Lightspeed Software
+Ligos Technology
+Like.com
+Limeade
+Limelight Web Technologies
+Limespot.com
+Limited Brands Direct
+Linden Lab
+Lineage Power Holdings
+Lineo
+Lingt
+Link2Gov
+Linkedin
+Lionite
+Lionsgate
+Liquid Robotics
+Liquidation.com
+Little Black Book
+Little Quake Games
+Litton
+Live Gamer
+LiveMocha
+LiveOffice
+LiveScribe
+LoanSnap
+Local Lift
+LocalBonus
+LocalResponse
+Lockheed Martin Missiles and Fire Control
+Lockton Companies
+LogicTree
+Logoworks
+Lolapps
+Lone Star Overnight
+Long Distance of Michigan
+Longwood Fund Management
+Looking Glass
+Looking Glass Technologies
+Looksmart
+LoopFuse
+Looppay
+LossFixx
+Lotus/IBM
+Lovely
+Lovoltech
+Loyaltyworks
+Lucas Film
+Lucent New Ventures Group
+LucidEra
+LumaPath
+LumeRx
+Lumen Consulting
+Lumencor
+Lumeta
+LuminaAmericas
+Luminetx
+Lux Capital Management
+Luxim Corporation
+Luxtera
+Lycos Europe
+M-Age Consulting
+MAG Computers
+MAK Partners
+MBNA America Bank
+MCG
+MCT Investors
+MD Anderson
+MEDHOST
+MFN
+MJ Research
+MPOWER Labs
+MPV
+MPower Labs
+MRG
+MSHOW.com
+MTC
+MW2 Consulting
+MX Logic
+MaXXan Systems
+MacBeedon Partners
+Mach Ventures
+Macheen
+Macrovision
+MadGlory
+Madge Networks
+Madrona Venture Group
+Magainin Pharmaceuticals
+Magellan Health Services
+Magical Holidays
+Magnifi
+Mainspring Communications
+Majesco Software
+Malibu Networks
+Manage.com
+MangoSoft
+Manhattan Analytics
+Manning Publications
+Mantara
+Marc Ecko Enterprises
+Maret Pharmaceuticals
+Margeotes Fertitta and Partners
+MarginPoint
+MarkMonitor
+Market Force Information
+Market Profile Theorems
+Market Republic Foods
+Marketocracy
+Marketvision Direct
+Marlin Equity Partners
+Marriott
+Mars &
+Marsh
+Marvellous Pictures
+Mass General Cancer Center
+Masscomp
+Massive
+Matrix42
+Maven Networks
+Maverix Biomics
+Mayo Clinic
+McAfee.com
+McCann Erickson
+McGuireWoods
+McKenna Group
+McKesson Medical-Surgical
+McLaren Consulting
+McMaster-Carr
+Meagher & Flom LLP & Affiliates
+Med Tech Ventures
+MedAptus
+MedFocus Management Co.
+MedHelp
+MedMark Services
+MedVantx
+Medaphis
+Medco
+MedeAnalytics
+MediChem Life Sciences
+MediConnect
+MediZeus
+Media Contacts
+Media Platform On Demand
+MediaFriends
+MediaMind
+MediaNet Digital
+MediaOne
+MediaPhy
+MediaRiver
+MediaSentry
+MediaServ
+MediaSpan Group
+Mediamatics
+Medibuy
+Medical Imaging Holdings
+Medio Systems
+Medisyn Technologies
+Meditech Communications
+Mediware Information Systems
+Medsite
+Meetup
+Melbourne IT
+MemboxX
+Memolink
+Mercantec
+Mercato Partners
+Merit Behavioral Care
+Meriton Networks
+Merrill Lynch &
+Merrill Lynch / Bank Of America
+Merrill Lynch Capital Markets
+Merrill Lynch Direct
+Mesa Technology
+Mesa Verde Venture Partners
+MeshNetworks
+MessageGate
+MetaBright
+MetaReward
+Metamark Genetics
+Methodist Hospital
+Metron Aviation
+Metropolis Software
+Metrosol
+Mforma
+Micro J Systems
+MicroAge
+MicroContinuum
+MicroExit
+MicroMass Communications
+MicroSeismic
+MicroTouch Systems
+MicroUnity Systems Engineering
+MicroVision
+Microban International
+Microbia
+Microcon
+Microlab
+Micron Electronics
+Microsoft MTC
+Microsoft Research
+Microsoft Windows
+Midi
+Midtown Equities
+Midway Games West
+MightyHive
+Milo.com
+Mimix Broadband
+Mindful Chef
+Mindmaker
+Mindmatrix
+Minetta Lane Capital Partners
+MiniTime
+Minneapolis Heart Institute
+Minnow Medical
+Mirage Networks
+Mississippi State University
+MitraLife
+Mitsubishi
+MixApp
+Mixt Greens
+Mobcart
+Mobiata
+Mobile Roadie
+MobileSecure
+MobileSolid
+Mobility Network Systems
+Mobiquity
+ModCloth
+ModeWalk
+Mohawk Digital
+Momentum Venture Management
+Monitise
+Monsanto Company
+MonsterCommerce
+MontaVista Software
+Moreover Technologies
+Morgan Keegan & Company
+Morgan Keegan Technology Group
+Morgenthaler
+Morgenthaler Private Equity
+Morphochem
+Mota Motors
+Motion Computing
+Motive Communications
+Movimento Group
+Mozilla
+Multiflow Computer
+MusicIP
+Mxi Technologies
+My Perfect Gig
+Mycroft
+MyoScience
+Mzinga
+NARUS
+NASA Ames Research
+NASA's Jet Propulsion Laboratory
+NBA
+NCMX
+NCT Ventures
+NComputing
+NCsoft
+NCsoft Europe
+NDS Surgical Imaging
+NEON
+NFL
+NGEN Partners
+NICTA
+NREL
+NYC Technology Startup Meetup
+NYLX
+NYU
+Nangate
+Nano-Tex
+NanoBio
+NanoLabs
+Nanostellar
+Nanotechnologies
+Naseeb Networks
+National Cancer Institute
+National Digital Research Centre
+National Education Centre
+National Football League
+National Hospital Specialties
+National Leisure Group
+National Science Foundation
+National Sleep Technologies
+Natural Speech Communication
+NaturalMotion
+Navio
+Naviscan PET Systems
+Navix Radiology Systems
+Negevtech
+Nellix
+Nellymoser
+NeoEdge Networks
+NeoPets
+Neon Enterprise Software
+Neonmob
+Neoteris
+Neotropix
+Nest Labs
+Nestle
+Nestle USA
+Net2Net
+NetBuy
+NetConversions
+NetGenics
+NetGravity
+NetLearning
+NetMotion Wireless
+NetMotion Wireless Holdings
+NetProspex
+NetQuote
+NetScreen/Juniper
+NetTraffic
+NetZentry
+Netik
+Netli
+Netliant
+Netnote International
+Netography
+Netronome Systems
+Netscape/AOL
+Network Inference
+Network Vision
+NeuroPace
+NeuroVista
+Neuron Global
+Neuronex
+Neuroptical Labs
+Neverfail Group
+New Idea Engineering
+New Leaf Venture Partners
+New Light Industries
+NewKidCo
+NewLink
+NewRoads
+NewSchools Venture Fund
+NewView Technologies
+NexPlanar
+Nexiant
+Next Issue Media
+NextBio
+NextCloud
+NextCode
+NextDocs
+NextGen Venture Partners
+NextPage
+NextWave Telecom
+Nextag
+Nextlink Interactive
+Nextpoint
+Nexus Group Consulting
+Nimble Technology
+Ning
+Nishan Systems
+Noblestar Systems
+Nodality
+Nolio
+Nomura
+Nomura Securities
+Noosh
+Nortel Network
+Northrop
+Northwestern Memorial Hospital
+Novaranda
+Novariant
+Novartis Institutes for BioMedical Research
+Novartis Ophthalmics
+Novartis Pharmaceuticals
+Novartis Research Foundation
+Novazone
+Noverant
+Novii Design
+NovoStent
+Novocell
+NovusEdge
+NuMega Technologies
+Nuasis
+NueVis Software
+Numerate
+NutraClick
+O'Herron &
+O'Reilly & Associates
+OMM
+OQO
+Oasis SiliconSystems
+Oasys Water
+Oberheim Electronics
+Oberon FMR
+Object Automation
+ObjectLogic
+Objectivity
+Oblicore
+Obopay
+Octavian
+Oddcast
+Odeo
+Odyssey Logistics & Technology
+OfficeTiger
+Ohio State University-Medical Center
+Oliver Wyman
+Omeros Corporation
+Omidyar Network
+Omix
+Omnia Communications
+On the Go Software
+OnCorps
+OnSite eDiscovery
+OnStation
+Ondello
+One Call Comprehensive Care
+One University Network
+OneAccord Partners
+OneCosmos Network
+OneSpace
+OneWed
+Onelist.com
+Online Network Enterprises
+Online24
+Onsale.com
+Onsite Access
+Ontain
+Ontela
+Onux Medical
+Ooga Labs
+OpSource
+OpTier
+Open Harbor
+Open Mile
+OpenAir
+OpenGrid
+OpenPeak
+OpenPlans
+OpenStreetMap
+OpenVision Technologies
+Openboard
+Openlane
+Opera Solutions
+OpportunitySpace
+Optaros
+OptiNose
+Optiant
+Optica Imaging Systems
+Optical Coating Laboratory
+Optiva Corporation
+OraMetrix
+OrangeSoda
+Orbcomm
+Orbital Data
+Orchard Platform
+OrderMotion
+OrderTrust
+Oregon Health & Science University
+Oregon Health Sciences University
+Organovo
+Oridian
+Orrick Herrington & Sutcliffe
+Orsus Solutions
+Ortiva Wireless
+Osprey Medical
+Osprey Technologies
+Ostrato
+Othera Pharmaceuticals
+Outbox
+Outbrain
+Outreach
+Outsource Recruiters
+Ovation Pharmaceuticals
+Oversee.net
+Overture Networks
+Oxygen Media
+Ozmo
+P-Com
+PBC Lasers
+PDI
+PENSCO Trust Company
+PG&E Generating Company
+PGP
+PHNS
+PLATINUM Technology
+PLYmedia
+PNC Technology Investors
+POLITICO
+PPT Research
+PSC Group
+PSINet
+PSS Systems
+PSi
+PTV Sciences
+Pacific Communication Sciences
+Pacific Crest Securities
+Pacific Edge Software
+Pack and Post
+Packet Design
+Packet Engines
+PacketExchange
+Paglo Labs
+Palindrome Advisors
+Palmer Capital
+Palo Alto Medical Foundation
+Pamlico BioPharma
+PanVera
+Pandemic Studios
+Pangea
+Panorama Capital
+Panzura
+Paradigm Genetics
+Paramount Biosciences
+Parcom Technologies
+Parrable
+Partes
+Parus Interactive
+Passkey
+Passport Health Communications
+PatchPortal
+Pathnet
+Pathway Medical Technologies
+PatientKeeper
+Pattern Recognition
+PayCycle
+Payfone
+PaylinX
+Paymate
+Paymo
+Peanut Labs
+Pearl Street Productions
+Pearson
+Pearson Education
+Peck & Greer
+PeerSay
+Penn State University
+People Power
+PeopleFirst.com
+PeopleLinx
+Peoplefluent
+PerTrac Financial Solutions
+Percardia
+Percussion Software
+Perfect Commerce
+Performant
+Personal Capital
+Perzo
+Peterbuilt Corporation
+Petridish.org
+Petry Interactive
+Pharmaceutical Research Associates
+Pharmaco
+Pharmanex
+Pharsalia Technologies
+Phd Computing
+Phenomenon
+Philips
+Philips Oral Healthcare
+Phillip van Heusen
+Phobos
+Phoenix Health Systems
+PhoneWebinar.com
+Photodigm
+Photuris
+Physic Ventures
+Physical Electronics
+Physical Sciences
+Physicians’ Online
+Piano Networks
+Picarro
+Picolight
+Pictos Technologies
+Piczo
+Pilkiewicz Consulting and Development
+Pinpoint Golf Marketing
+Pinpoint Networks
+Pioneer Investments
+Pittiglio Rabin Todd & McGrath
+Pivotal Systems
+PixSense
+Pixability
+Pixel Magic Imaging
+Pixel Velocity
+Pixion
+Pixomondo
+PlanarMag
+PlanetReuse
+PlasmaSol
+Plastic Jungle
+PlateSpin
+Platinum Equity
+Platinum Software
+Plaxo
+PlayChanger Media
+Playkast
+Plexstar
+Plextronics
+Plimus
+Plug and Play Tech Center
+Plusmo
+Plutus Financial
+Pocket Change
+Pocket Gems
+PocketFuzz
+Pocketwatch
+Poindexter Systems
+Pontis
+PopRule
+Port 80 Interactive
+Portero
+Portico Systems
+Positive Networks
+Post-N-Track
+PostX
+Power Analytics
+Power Computing
+PowerUp Networks
+Powerset
+Practice Fusion
+Pragmatech Software
+Predictive Networks
+Premiere Technologies
+Premise Corporation
+Premise Data
+Prenova
+PrepMe
+Prescient Capital
+Priceline.com
+Pricelock
+Primal Solution
+Primary Care Associates Holding
+Prime Cable
+Primesense
+Princeton Review
+PrintPaks
+Priority Call Management
+Prism Gas Systems
+Prism Venture Management
+Private Practice
+Pro Duct Health
+ProEthic Pharmaceuticals
+ProFounder
+ProLogis
+ProVation Medical
+Procket Networks
+Procter & Gamble Pharmaceuticals
+ProcurePoint Travel Solutions
+Product Genesis
+Product X
+Productivity Point International
+Progressive Media
+Progressive Solutions
+Prolific Interactive
+Proskauer Rose
+Prosper
+Prospex Medical
+Protein Delivery
+Proteus Digital Health
+Protozoa
+Providence RI
+Prudential
+Prudential Securities
+Prysm
+Psilos Group Managers
+Psionic Software
+Psyadon Pharmaceuticals
+PubNub
+Pulsar Ventures
+Pure Digital Technologies
+PureTech
+PureTech Ventures
+PursueCare
+Putnam Investments
+Q Factor Communications
+Q1 Labs
+QLogic Corporation
+QMIND
+QSecure
+Qarbon
+Qloud
+Quadriserv
+Quantcast
+Quantros
+Quantum Vision
+Quarri Technologies
+Quench USA
+QuestLink Technology
+QuickArrow
+Quickcomm
+Quigo Technologies
+Quios
+Quip
+R/GA
+RBS Lynk
+REACH Call
+REALM Business Solutions
+RF Code
+RHK
+RMD Networks
+RMI.net
+ROI2 Web Solutions
+ROLM
+RR Donnelley
+RSL
+RUN
+Rabbit Software
+RabbitMQ
+Racemi
+Radiate Media
+Radient Technologies
+Radio One
+RadioFrame Networks
+Radius Intelligence
+Rafael Advanced Defense Systems
+Rage Frameworks
+Rally
+Rally.org
+Rambler
+Ramot at Tel Aviv University
+Ramsay Healthcare
+Rand McNally
+RangeMark Financial Services
+Rapid Ratings International
+Rappore Technologies
+RatePoint
+RaySat Mobile Antennas
+Razorsight
+Rdio
+ReaMetrix
+Reach Cast
+ReadWriteWeb
+RealOps
+RealReal
+Receptor BioLogix
+RecruiterNet
+Recruiting.com
+Recursion Ventures
+Red Bull
+Red Dog Networks
+Red Rover
+Red Sky Interactive
+Red hills Ventures
+RedLaser
+RedSeal Networks
+RedTail Solutions
+Reddo Mobility
+Redlasso
+Redleaf Group
+Redpoint Bio
+Redstar
+Redtail Solutions
+Reed Business Information
+Reflectivity
+Reflex Systems
+Refresh Dental
+Relationship Science
+RelayRides
+Relayware
+Release Software
+ReliOn
+Reliant Energy Communications
+Relicore
+Relievant Medsystems
+Relsys International
+Remedy Informatics
+RenewData
+Renovar
+RentPath
+Repair.com
+ReplayTV
+Replicon
+Republic of Tea
+ReputationDefender
+Requisite Technology
+ResMed
+Research In Motion
+Resilient Network Systems
+Resolution Health
+Response International Services
+Restoration Hardware
+RetailLabs
+RetailNext
+Rethink Books
+RethinkDB
+RetinaPharma Technologies
+Revolution Analytics
+Rhythm NewMedia
+RichFX
+Richard Stark & Associates
+RideScout
+Ridgecrest Capital Partners
+Ries Cappiello Colwell
+Right Media
+RightOrder
+RightWorks
+Ring Zero Systems
+Ripple Labs
+Rise Health
+Risk Data
+Risk Resources
+Riva Commerce
+River Logic
+Rivera Public Relations
+Rivio
+Rivulet Communications
+Roblox
+RoboCent
+Roche Molecular Diagnostics
+RockThePost
+RockYou!
+RockeTalk
+Rocket Ventures
+Rockwell
+Rockwell Science Center
+Rocky Mountain Institute
+Rome Corporation
+Rooftop Collective
+Roomorama.com
+Ropes & Gray LLP
+Rosetta
+Ross Creek Medical
+Rothschild
+Rovi
+Royal Bank of Scotland Group
+Royal Dutch Shell
+Rubicon Genomics
+Rubicon Project
+Rubicor Medical
+Rubyriders
+Rue La La
+Rumble
+RunTime
+RxAdvance
+RxKinetix
+SASme
+SAY Media
+SBI
+SEED
+SEI
+SEI Information Technology
+SEMATECH
+SFOTLV.ORG - petition for nonstop flight SFO-TLV
+SG Holdings I
+SIDT
+SINTECH
+SKEPSU
+SKOUT
+SNAP Software
+SNOCAP
+SS8 Networks
+STARTeurope
+STMicroelectronics
+STS Biopolymers
+STSN
+SV Angel
+SV Life Sciences
+SVB Capital
+SVI
+Saatchi & Saatchi
+Sabre Communications
+SafeGraph
+SageN Research
+Saint Jude Medical
+SaleSoft
+Sales & Marketing
+Salk Institute
+San Francisco Examiner newspaper
+Sanctuary Ventures
+Sandbox Industries
+Sanderling Consulting
+Sanderling Ventures
+Sanders Prototype
+Sanford-Burnham Medical Research Institute
+Sanmina-SCI
+Santa Clara University
+Santa Cruz Operations
+Sapias
+Sapphire Energy
+Sarnoff
+Satmetrix
+SayHired
+Scalable Software
+ScaleFire Group
+ScanScout
+Scene Genesis
+Schafer
+Schema
+Schoolpop
+Schroders
+SciMed
+Science
+Science Applications International Corporation
+Scitex
+Scitex Digital Video
+ScoreBig
+Scout Media
+Screenlife
+Scribnia
+Scripps Health
+Scripps Institution of Oceanography
+Seabright Studios
+Seattle Children's Sports Concussion Program
+Second Line Search
+SecondMarket
+SecondSpace
+Segovia Technology
+Selectable Media
+Self-Guided Systems
+SellStage
+Semaphore Entertainment Group
+Semaphore Partners
+Semtek Innovative Solutions
+SenSage
+Sensar
+Sensys
+Sention
+Sequana Medical AG
+Sequation
+Serial Innovations
+Sermo
+ServiceBench
+Setford-Shaw-Najarian
+ShareSquare
+ShareThis
+Sharper Logics
+Shelfari
+Sherpa Capital
+Sheyna
+ShieldIP
+Shift Independent
+Shiny Heart Ventures
+Shire Laboratories
+Shire Pharmaceuticals
+Shockwave
+Shockwave Medical
+ShopWell
+ShopperTrak
+Shoreline Communications
+SiLK Information Systems
+Siemens Industry
+Siemens Water Technologies
+Sierra Semiconductor
+SigFig
+Signiant
+Silicon Automation Systems
+Silicon Entertainment
+Silicon Prairie News
+Silicon Valley Bank
+Silicon Valley Internet Capital
+SiliconBlue Technologies
+Silver Lake
+Silver Peak Systems
+Silver Tail Systems
+Silver Tail Systems acquired by RSA/EMC
+SilverStream Software
+SilverVue
+Simbionix
+Simparel
+Simpler Networks
+Simpletastic
+Simplexis
+Simplify
+Simplify Mobile
+Simulmedia
+Sinett
+SinglePlatform
+Siperian
+Site9
+SiteWhirks
+Sitecore
+Six Apart
+Skeleton Development
+Skreened
+SkyPilot Network
+SkyStream Networks
+SkyTel
+SkyTel Communications
+SkyZone Entertainment
+Skymoon Ventures
+Skytap
+Skytide
+Skyword
+Slingshot Aerospace
+Small World Labs
+Smart Destinations
+Smart Therapeutics
+SmartComp
+SmartDrive Systems
+SmartSwing
+SmartSynch
+Smarter Social Media
+Smartleaf
+Smith Rothchild Financial
+Snapdragon Technologies
+Snapfish
+Snapsheet
+Snaptell
+Sociable Labs
+Social Gaming Network
+Social Solutions
+SocialVibe
+Socialcam
+Society for Creative Research
+Socratic Technologies
+SoftSwitching Technologies
+Softbank
+Softier
+Softline Group
+Software AG
+Software Alternatives
+Software Development Corporation
+Soladigm
+Solar Energy Systems
+SolarBridge Technologies
+SolarWinds
+Solazyme
+Solbright
+Solera Networks
+Solid Data Systems
+Solidus Networks
+Solomon Smith Barney
+Solomon Software
+Solon Ventures
+Solus
+Somerset Recon
+SonaCare Medical
+Sonalight
+Sonian
+Sonics
+Sonim Technologies
+Sony Computer Entertainment
+Sony Electronics
+Sound Advice for Sports
+SoundCloud
+Soundhawk
+SourceLabs
+SourceTOAD
+Southern Cross Venture Partners
+Southern Medical
+Southwest Medical Ventures
+Southwestern
+SpaFinder
+Space Systems Loral
+Space Time Insight
+Space.com
+SpaceClaim Corporation
+SpaceX
+Spark Capital
+SpeakerText
+SpecTran Specialty Optics
+Specific Media
+SpectRx
+SpectraPoint Wireless
+Spectrem Group
+Specular
+Spill
+SpineMedica
+Spinecore
+Spinway.com
+Spiracur
+Spirian Technologies
+Splice Machine
+Spoke Software
+Spork Labs
+Spray Venture Partners
+Spreemo
+SpringSource
+Springpath
+Sprinklr
+Sprout
+Spruce Finance
+Squad
+Squarespace
+St. Jude Children's Research Hospital
+Stack Exchange
+Stagecast Software
+Standard Chartered Bank
+Staples Communications
+Star Analytics
+Starlight Networks
+Stata Venture Partners
+State Street Global Advisors
+State of Pennsylvania
+State of Tomorrow
+SteadyMed Therapeutics
+Stealth Flash
+Stealth Mode
+StellarPV
+StepUp Commerce
+SteriFx
+SterilMed
+Sterling Partners
+Sterling Talent Solutions
+Stickam.com
+Stonehill Consultants
+StorageWay
+Storm Ventures
+Storspeed
+Stout Technologies
+Strata8 Networks
+Strategic Decisions Group
+Strategic Management Group
+Strategic Outsourcing
+Stratify
+Strax Data
+StreamBase Systems
+StreamOnce
+StreamSage
+Streamline Strategy Japan
+Streetline Networks
+Streetwise Media
+Stretch
+Stride Rite
+Strom Group
+Stryker Orthopaedics
+Students for Saving Social Security
+StumbleUpon
+Substantial
+Sumo Logic
+Sun Catalytix
+SunCommerce
+SunGard
+SunGard Treasury Systems
+SunRun
+Sungene Technologies
+Sunshine Amalgamedia
+SuperGen
+Superior Global
+SupplyEdge
+SupplyScape
+Supplybase
+Surgi-Vision
+Surgical Navigation Technologies
+Surgical Specialties
+Surgient
+Surigent Networks
+Sweet Spot Golf
+SweetLabs
+Swingtide
+Swiss Federal Institute of Technology
+Switch Development
+Switch Lighting
+Switchouse
+Sylantro Systems
+Symmetrical Technologies
+Symphony Technology Group
+Synaptyx
+Synarc
+Synbody Biotechnology
+Syncplicity
+Syndera
+Synectics Group
+Synergetix Systems
+Synergo Technology
+Synergy Development
+Syntex Management Systems
+SyntheSys Research
+Syntheon
+Synthes Spine
+Synthetic Genomics
+Systinet
+Sytest Systems
+TA Associates
+TARGUS Information
+TDC Acquisition Holdings
+TDS
+TEC Solutions
+TECHTRIBEnetworks
+TPG Capital
+TPresence
+TRADOS
+TRIA Beauty
+TSG Consumer Partners
+TaDa Innovations
+Tachyon Networks
+Tactical Software
+Tahoe Networks
+Take Care Health Systems
+Talent Club SAS
+Talent Sprint Pvt.
+Tality
+Talking Drum
+Talyst
+Tamarac
+Tandem Labs
+TandemSeven
+Taneja Group
+TangoMe
+Tantau Software
+Tantivy Communications
+TargeGen
+Targenics
+Tatara Systems
+Taueret Laboratories
+Teak Technologies
+TeamSnap
+Tech Coast Angels
+TechCrunch
+TechStars Boston
+Technest Holdings
+Technicolor Network Services
+Technology Ventures
+Techsan Electronics
+Tectonic Audio Labs
+Tegic Communications
+Teknema
+Telco Systems/World Access
+Tele Atlas
+TeleTech Holdings
+Telefonica
+Telegis Networks
+Telephia
+Telestream
+Telos
+Telsima
+Telstra
+Telwares
+Tely Labs
+Tendril Networks
+Tenzing
+Tera & Creata
+TeraStor
+Teranetics
+Terayon Communications
+Terazen Technology
+Terracotta
+Tervela
+Tesla Capital
+TetraWave
+Texas
+Texas Tech University
+Text Link Ads
+Thayer Ventures
+The Aviation Group
+The Barton Group
+The Beanstalk Group
+The Bitcoin Society
+The Blackstone Group
+The Brookings Institution
+The Brooklyn Bakery
+The College Board
+The Communications Group
+The Crisler Company
+The Daily
+The Entrepreneurs' Fund
+The Founder Institute
+The Gores Group
+The Green Lake Group
+The Grid
+The Kitchen
+The Knot
+The Minneapolis Heart Institute Foundation
+The New York Times
+The Next Web
+The Palm Beach Post
+The Panda Project
+The Planet
+The Polk Company
+The Princeton Review
+The Retirement Planning Group
+The Return Exchange
+The SAVO Group
+The Stamos Group
+The Suddes Group
+The TIM Group
+The TWC Group
+The Tennis Channel
+The Topps Company
+The Ultimate
+The University of North Carolina
+The Walt Disney Company
+The Weather Channel
+TheFind
+ThePort Network
+TheRealReal
+Themestream
+Theravance
+Think Finance
+Think Software
+Think3
+ThinkNear
+Third North Creative
+Third Screen Media
+Thought Equity Motion
+ThoughtWorks
+Threadflip
+Three Dog Bakery
+Thrillist
+Thrive Capital
+Thumb
+Thumbplay
+TiE
+TiE Silicon Valley
+Tiburon
+TicketLeap
+TicketWeb
+Tiger Management
+Tinkercad
+Tiny Prints
+TissueNet
+Titan
+TixToGo.com/Acteva.com
+TopOPPS
+Topica
+TopicalNet
+Topix.net
+Topspin Media
+Torbit
+Tornier
+Total Renal Care
+Toucan Capital
+Towers Perrin
+TrackSimple
+Tradeffect
+Trailing Twelve Months
+TrainingServer
+Trakus
+Tranquility Bay Resort
+TransCentra
+TransDimension
+TransMotive Technologies
+TransPerfect Translations
+TransactTools
+Transactis
+Transactiv
+Transcriptic
+Transition Engineering
+Translational Genomics Research Institute
+Travel Impressions
+TravelCLICK
+Travelpost
+Traversa Therapeutics
+Trellis Partners
+TrenStar
+Tresensa
+TriNet
+Triad Semiconductor
+Triad Therapeutics
+TrialPay
+Triangle Biomedical Sciences
+Triangle Laboratories
+Tribal Ventures
+Tribe Networks
+Tricon
+Trillion Partners
+Trine Pharmaceuticals
+Trinity Convergence
+Tripod Technologies
+Triscend
+Truffle.io
+Trust Company of the West
+TrustedID
+Trusteer
+Trustwave
+Tufts New England Medical Center
+Tuition.io
+Tulip Memory Systems
+Tunable Photonics
+Turbo Squid
+Turn
+Turnhere
+Tuscany Design Automation
+Tvardi Therapeutics
+TxVia
+Tyco Healthcare
+Typical Mutations
+U-Market Mobile
+U.S. Army
+U.S. Department of Justice
+U.S. Department of the Treasury
+UBS Financial Services
+UBS Investment Bank
+UBS North America
+UBS Warburg
+UC San Diego
+UC Santa Barbara
+UC Santa Cruz
+UCSD
+UMass Boston
+UNIAX
+UNISYS
+UPM Pharmaceuticals
+UPromise
+US Banking Alliance
+US Department of Defense
+US Surgical
+US West Advanced Technologies
+USA
+USAF
+USBuild.com
+UT Southwestern Medical Center
+UUNET
+UUNet
+UXComm
+Ubisoft
+Ultimus
+UltraCell
+Ultratech Stepper
+UnHub
+Unbounded Robotics
+UniServity
+Unified Social
+Unimobile
+Union Bank
+Union Springs
+Unisfair
+United Biosource
+United Health Care-Peak Health
+United Micromachines
+United Road Service
+United States Navy
+Unitrends
+Unity Cloud Solutions
+Unity Semiconductor
+Univ. of Cambridge
+University of Alabama
+University of Arizona College of Pharmacy
+University of California San Diego
+University of California at San Diego
+University of California at San Francisco
+University of California-Los Angeles
+University of Cambridge
+University of Colorado at Boulder
+University of Connecticut
+University of Connecticut Health Center
+University of Houston
+University of Illinois Urbana-Champaign
+University of Louisville
+University of Maine
+University of Maryland School of Medicine
+University of Medicine & Dentistry of New Jersey
+University of Miami
+University of Michigan Health System
+University of Nebraska
+University of New Mexico Health Sciences Center
+University of North Carolina at Chapel Hill
+University of North Carolina-Chapel Hill
+University of Oklahoma
+University of Oregon
+University of San Francisco
+University of South Florida
+University of Texas Austin
+University of Texas at Austin
+University of Toronto
+University of Waterloo
+University of the Pacific
+UniversityNow
+Univetica
+Untangle
+UpdateLogic
+Uphold
+Upload Apps
+UrbanBound
+V-Bits
+V-Enable
+V-SPAN
+VA Linux Systems
+VERISIGN
+VHA
+VMTurbo
+VPNet Technologies
+VR-1
+VSee Lab
+VXI
+VaST Systems Technology
+Valence Resource Group
+Vality Technology
+Valley Ventures
+Valtira
+ValueClick
+VantageCap Partners
+VantagePoint Capital Partners
+VantagePoint Venture Partners
+Vasca
+Vast.com
+Vault.com
+Veebie
+Velan Ventures
+Velio Communications
+VelociData
+Velocify
+Velocimed
+Velocity Mobile
+Velocity11
+Venali
+Venetec International
+Veniti
+Venmo
+Venmo.com
+Venture Alliance
+Venture Factory
+Venture Law Group
+Verari Systems
+Verdezyne
+Verecomm
+VeriWave
+Vericare Management
+Vericept
+Verinata Health
+Verix Computing

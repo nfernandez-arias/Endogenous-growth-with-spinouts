@@ -342,28 +342,28 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     guess = Guess(g,L_RD,w,idxM);
 
     # Initialize outside of loops for returning
-    V = zeros(algoPar.mGrid.numPoints,1)
-    W = zeros(algoPar.mGrid.numPoints,1)
-    zI = zeros(algoPar.mGrid.numPoints,1)
-    noncompete = zeros(size(zI))
-    μ = zeros(algoPar.mGrid.numPoints,1)
-    γ = zeros(algoPar.mGrid.numPoints,1)
-    t = zeros(algoPar.mGrid.numPoints,1)
+    V = zeros(size(mGrid))
+    W = zeros(size(mGrid))
+    zI = zeros(size(mGrid))
+    noncompete = zeros(size(mGrid))
+    γ = zeros(size(mGrid))
+    μ = zeros(size(mGrid))
+    t = zeros(size(mGrid))
 
 
-    factor_zE = zeros(algoPar.mGrid.numPoints,1)
-    factor_zS = zeros(algoPar.mGrid.numPoints,1)
+    factor_zE = zeros(size(mGrid))
+    factor_zS = zeros(size(mGrid))
 
-    spinoutFlow = zeros(algoPar.mGrid.numPoints,1)
+    spinoutFlow = zeros(size(mGrid))
 
-    incumbentHJBSolution = zeros(algoPar.mGrid.numPoints,1)
+    incumbentHJBSolution = zeros(size(mGrid))
 
 
     # In case shit hits the fan
 
     tempAlgoPar = Base.deepcopy(algoPar)
 
-    tempAlgoPar.incumbentHJB.timeStep = 50
+    tempAlgoPar.incumbentHJB.timeStep = 1
     #tempAlgoPar.incumbentHJB.maxIter = 500
 
 

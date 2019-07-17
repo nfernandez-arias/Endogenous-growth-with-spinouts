@@ -12,7 +12,20 @@
 
 rm(list = ls())
 
-firmsTickers <- fread("code/firmsTickers.csv")
+#firmsTickers <- fread("code/firmsTickers.csv")
+
+firmsAltDG <- fread("code/company_list_5000-2019-07-15.csv")
+setnames(firmsAltDG,"Original Input","query")
+setnames(firmsAltDG,"Company Name","companyName")
+
+#results <- firmsAltDG[ , .(query,companyName,Confidence,Ticker,Exchange)][Ticker != ""]
+results <- firmsAltDG[Ticker != ""]
+
+fwrite(results[(Exchange == "NYSE" | Exchange == "NASDAQ") & Confidence >= 0.8][ , .(query,companyName,Ticker)],"data/firmsTickersAltDG.csv")
+
+temp <- results[Confidence >= 0.5][order(Confidence)]
+
+fwrite(firmsTickers,"data/firmsTickersClean.csv")
 
 firmsTickers[, c("Exchange","Symbol") := tstrsplit(tickerSymbol,": ")]
 

@@ -21,7 +21,7 @@ source("code/VentureSource/parseBiographies.R")
 source("code/VentureSource/findLastEmployer.R")
     
 # Link employee bios dataset to Compustat firms using fuzzy name matching
-source("code/compustat/extractCompustatFirms.R") # only do the first time - takes a bit of time to read in compustat data
+source("code/compustat/extractCompustatFirms.R") # only do the first time - takes a b it of time to read in compustat data
 source("code/compustat/matchCompustatFirmsToSubsidiaries.R")
 
 source("code/linkBiosToCompustat.R")

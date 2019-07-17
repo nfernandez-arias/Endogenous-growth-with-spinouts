@@ -17,8 +17,11 @@ compustatFirmsSegments <- fread("data/compustat/firmsSegments.csv")
 compustatFirmsSegments[tic == "IBM", conml := "IBM"]
 compustatFirmsSegments[tic == "GS", conml := "Goldman )Sachs"]
 compustatFirmsSegments[tic == "HPQ", conml := "Hewlett-Packard"]
+compustatFirmsSegments[snms == "HP", snms := ""]
 
 EntitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")
+#EntitiesPrevEmployers[ , foundingYear := pmin(na.omit(year(ymd(JoinDate))),na.omit(year(ymd(StartDate)))), by = .(EntityID)]
+#EntitiesPrevEmployers <- EntitiesPrevEmployers[foundingYear <= 1999]
 
 ## Select only founders
 ####
@@ -56,9 +59,9 @@ EntitiesPrevEmployers[ , PreviousEmployerCLEAN := gsub("^Google.*$","Google",Pre
 
 # Set everything to upper case for easier matching
 
-compustatFirmsSegments[, snms := toupper(snms)]
-compustatFirmsSegments[, conml := toupper(conml)]
-EntitiesPrevEmployers[ , PreviousEmployerCLEAN := toupper(PreviousEmployerCLEAN)]
+#compustatFirmsSegments[, snms := toupper(snms)]
+#compustatFirmsSegments[, conml := toupper(conml)]
+#EntitiesPrevEmployers[ , PreviousEmployerCLEAN := toupper(PreviousEmployerCLEAN)]
 
 #PrevEmployers <- unique(PrevEmployers, by = "PreviousEmployerCLEAN")
 
@@ -104,13 +107,31 @@ output4[ , fD := NULL]
 
 # output2 contains the Entity-Manager observations that are not matched to firms in compustat. This is the list of firms that I will feed into Serp API / AltDG  
 # to try and improve the match. Useful for testing.
-output2 <- rbind(output[is.na(gvkey)],output2[is.na(gvkey)])
 
+#output_NA <- unique(output[is.na(gvkey)], by = c("snms","EntityID","FirstName","LastName"))
+#output2_NA <- unique(output2[is.na(gvkey)], by = c("conml","EntityID","FirstName","LastName"))
 
-#temp <- output2[, .N, by = conml]
+output_NA <- output[is.na(gvkey)]
+output2_NA <- output2[is.na(gvkey)]
+
+output2 <- rbind(output_NA,output2_NA)
+
+output2[is.na(conml)&!is.na(snms), conml := snms]
+
+output2 <- output2[conml != ""]
+setkey(output2,conml)
+
+dups2 <- duplicated(output2, by = c("conml","EntityID","FirstName","LastName"))
+output2_dups <- output2[dups2]
+
+temp <- output2_dups[, .N, by = conml][order(-N)] 
 #temp2 <- output[, .N, by = conml]
 
-#fwrite(temp[order(-N)],"code/company_list.csv")
+#fwrite(data.table(temp[order(-N)]$conml),"code/company_list.txt")
+#fwrite(data.table(temp[order(-N)]$conml)[1:5000],"code/company_list_5000.txt")
+#fwrite(data.table(temp[order(-N)]$conml)[5001:10000],"code/company_list_10000.txt")
+#fwrite(data.table(temp[order(-N)]$conml)[10001:15000],"code/company_list_15000.txt")
+  
 
 ####################################
 ## Merge in additional previous employers using
@@ -118,10 +139,11 @@ output2 <- rbind(output[is.na(gvkey)],output2[is.na(gvkey)])
 ####################################
 
 # Use firmsTickers to match firms that are not matched by name
-firmsTickers <- fread("data/firmsTickersClean.csv")
+#firmsTickers2 <- fread("data/firmsTickersClean.csv")
+firmsTickers <- fread("data/firmsTickersAltDG.csv")
 
 # merge with firms database using ticker symbol
-setkey(firmsTickers,tic)
+setkey(firmsTickers,Ticker)
 setkey(firms,tic)
 firmsTickersGvkeys <- firms[firmsTickers]
 
@@ -146,9 +168,9 @@ test_output4_repeats <- output4_repeats
 test_output5 <- output5
 test_temp <- temp
   
-rm(list = c("compustatFirmsSegments","EntitiesPrevEmployers","firms","firmsTickers","firmsTickersGvkeys","output","output_noNA","output2","output2_noNA","output3","output4","output4_repeats","output5","segments","temp"))
+#rm(list = c("compustatFirmsSegments","EntitiesPrevEmployers","firms","firmsTickers","firmsTickersGvkeys","output","output_noNA","output2","output2_noNA","output3","output4","output4_repeats","output5","segments","temp"))
 
-rm(list = c("compustatFirmsSegments","EntitiesPrevEmployers","firms","firmsTickers","firmsTickersGvkeys","segments","dups"))
+#rm(list = c("compustatFirmsSegments","EntitiesPrevEmployers","firms","firmsTickers","firmsTickersGvkeys","segments","dups"))
 
 ##################################
 # Write output

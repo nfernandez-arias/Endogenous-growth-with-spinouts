@@ -230,7 +230,7 @@ function updateV(algoPar::AlgorithmParameters, modelPar::ModelParameters, A::Spa
 
 	#finally
 
-		error = maximum(abs.(V1-V0)) ./ timeStep
+		error = sum(abs.(V1-V0)) ./ timeStep
 
 		return V1, error
 
@@ -387,11 +387,11 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 		# Hack to avoid instabiities - ALWAYS true in equilibrium
 
-		#V1[idxM+1:end] .= V1[idxM]
+		V1[idxM+1:end] .= V1[idxM]
 
 	    # Normalize error by timeStep because
 	    # it will always be smaller if timeStep is smaller
-	    #error = maximum(abs.(V1-V0)) ./ timeStep
+	    error = sum(abs.(V1-V0)) ./ timeStep
 
 		if verbose == 2
 			if iterate % print_skip == 0

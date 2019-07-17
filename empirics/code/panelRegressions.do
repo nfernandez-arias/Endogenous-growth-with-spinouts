@@ -37,6 +37,13 @@ label variable SpinoutsDEV "Spinouts DEV"
 rename spinoutcountunweighted_discounted SpinoutsDTE
 label variable SpinoutsDTE "Spinout Count DTE"
 
+label variable xrd "R\&D (millions US\$)"
+label variable stateCode "State"
+label variable SpinoutsDEV "Spinouts Discounted Exit Value (millions US\$)"
+label variable emp Employment
+label variable patentcount_cw_ma3 "Patents (CW, ma3)"
+label variable patentapplicationcount_cw "Patent Applications (CW)"
+
 
 *Run regressions
 
@@ -321,11 +328,11 @@ eststo clear
 
 * Regressions for Wharton Innovation Conference Research Proposal
 
-eststo model1: reghdfe Spinouts emp xrd patentapplicationcount_cw patentcount_cw_ma3, absorb(naics4#year stateCode#year) cluster(gvkey naics4#year stateCode#year)
-eststo model2: reghdfe SpinoutsDEV emp xrd patentapplicationcount_cw patentcount_cw_ma3, absorb(naics4#year stateCode#year) cluster(gvkey naics4#year stateCode#year)
-estfe model*, labels(gvkey "Firm FE" stateCode#year "State-Year FE" naics4#year "NAICS4-Year FE")
-esttab model* using "../writings/wharton innovation conference/preliminary_results.tex", replace stats(clustvar r2 r2_a_within N)  indicate(`r(indicate_fe)')
-*esttab model*, stats(clustvar r2_a_within N)  indicate(`r(indicate_fe)')
+eststo model1: reghdfe Spinouts xrd patentapplicationcount_cw patentcount_cw_ma3 emp, absorb(naics4#year stateCode#year) cluster(gvkey naics4#year stateCode#year)
+eststo model2: reghdfe SpinoutsDEV xrd patentapplicationcount_cw patentcount_cw_ma3 emp, absorb(naics4#year stateCode#year) cluster(gvkey naics4#year stateCode#year)
+estfe model*, labels(stateCode#year "State-Year FE" naics4#year "NAICS4-Year FE")
+*esttab model* using "../writings/wharton innovation conference/preliminary_results.tex", replace stats(clustvar r2 r2_a_within N)  indicate(`r(indicate_fe)')
+esttab model*, stats(clustvar r2_a_within N)  indicate(`r(indicate_fe)')
 estfe model*, restore
 eststo clear
 

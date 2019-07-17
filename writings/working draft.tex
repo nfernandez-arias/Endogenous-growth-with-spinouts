@@ -1,4 +1,4 @@
-\documentclass[12pt,english]{article}
+\documentclass[11pt,english]{article}
 %\usepackage{lmodern}
 \linespread{1.05}
 \usepackage{mathpazo}
@@ -17,7 +17,6 @@
 \usepackage[round]{natbib}
 \bibliographystyle{plainnat}
 
-
 \definecolor{red1}{RGB}{128,0,0}
 %\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
 \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
@@ -25,7 +24,7 @@
 
 \usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
 %\usepackage{esint}
-\onehalfspacing
+%\onehalfspacing
 \usepackage{babel}
 \usepackage{amsmath}
 \usepackage{graphicx}
@@ -38,8 +37,43 @@
 \author{Nicolas Fernandez-Arias}
 \maketitle
 
-\textbf{Moll: get to point faster.} \newline
-\textbf{Ezra: reduce emphasis on comparing to similar work. just say what you did. also, be gentle when discussing other work.}
+\begin{abstract}
+	Employee spinouts can be a key driver of productivity growth, but they can also disincentivize innovation ex ante when firms anticipate they will compete with them [NEED TO TALK ABOUT EX ANTE VS EX POST]. A common solution is a non-compete contract (NCC), which legally precludes the employee from competing with her previous employer. However, some states -- in particular, California -- have achieved high rates of productivity growth while refusing to enforce such contracts, and scholarly work thus far has been inconclusive (fix this -- deosn't link to anything). In this paper, I study the effect of competition by employee startups on productivity growth, with an application to the optimal enforcement of covenants not to compete. To do so, I first develop a fully dynamic general equilibrium model of endogenous growth in which R\&D employment by incumbents leads to the formation of spinouts. The model implies that easier employee spinout formation has a non-monotonic effect on growth and welfare: first increasing it but eventually decreasing it by disincentivizing innovation (this sentence is kind of unclear. Try to explicitly talk about the two channels -- more creative destruction, more disincentive -- and then talk about how one eventually dominates). To discipline the model, I construct and analyze a new dataset combining several micro-level datasets: (1) proprietary data on VC-funded startups and their founders, data on R\&D and stock prices (4) patent data for public firms from the NBER-USPTO database (is this too standard to name? looks pedantic), and (5) firm-specific instruments for R\&D expenditure based on subsidies (from \cite{bloom_identifying_2013}). I use the resulting dataset to calibrate the theoretical model's parameters. The model's predictions across NCC enforcement regimes (states? clarify) can be compared to those in the data. Finally, I use the model to study the growth and welfare effects of NCC enforcement and R\&D subsidies. The calibration suggests XYZ.
+\begin{itemize}
+	\item Do I need clarification in first sentence. Also avoid parentheses and reread Cochrane's thing
+	\item Call them non-competes not CNCs 
+	\item Data section: emphasize proprietary + complementary standard data (bucket with everything else). simpler, less pedantic
+	\item Get rid of citation to Bloom -- also, this could be in the methodology section, and avoids having to include this in the data section 
+	\item Empirical methodology kind of clear
+	\item Results scattered across abstract -- try to put all in the end 
+\end{itemize}
+			
+\end{abstract}
+
+\textbf{Notes from Ezra and Moll:}
+
+\begin{itemize}
+	\item Moll: get to point faster (see Research Proposal you submitted recently for a shorter version of introduction.
+	\item Ezra: reduce emphasis on comparing to similar work. just say what you did. also, be gentle when discussing other work. This is VERY important - people will be reviewing your work - be generous (more than already!
+\end{itemize}
+
+\textbf{How do I join the conversation?}
+
+\textbf{What is my motivation?}
+
+\begin{itemize}
+	\item Previous empirical papers are iconclusive
+	\item And specifically, previous modeling isn't the right way to model 
+	\item The theory is very important, because we are talking about contracting (but can I do a good job on this??)
+\end{itemize}
+
+\textbf{What are my contributions?}
+
+\begin{itemize}
+	\item Constructing new data set
+	\item Documenting new empirical facts about relationship of R\&D spending flow and spinout formation (controlling for patent stocks)
+	\item Constructing new model with interesting mechanisms in it (e.g. "escape competition effect"), yet somewhat tractable
+\end{itemize}
 
 \section{Introduction}
 Silicon Valley (SV) is often hailed as a paragon of economic dynamism and innovation. And not without reason: labor productivity growth in the MSA containing SV averaged 2.72\% from 1978 to 2015, compared to an average of about 2\% for the whole country. This difference in growth rates implies a 30\% increase in the level of productivity over the time period, which likely underestimates the contribution to aggregate labor productivity growth for several reasons. \footnote{See \cite{parilla_understanding_2017}. Further, the employment growth rate exceeded the national average during this time period, increasing the contribution to aggregate labor productivity growth. Even more importantly, labor productivity growth in SV has been centered on ICT-producing firms, whose output contributes heavily to labor productivity growth in other industries. \cite{jorgenson_retrospective_2008} attributes nearly half of labor productivity growth from 1973-2006 (and more 60\% from 1995-2000) to ICT. Consistent with this, the appendix of  \cite{parilla_understanding_2017} reports that labor productivity growth peaked at almost 5\% annualized in the MSA containing SV from the years 1994-2005.} The literature has argued for the importance of employee mobility and entrepreneurship in the region, with a particularly important part played by \textit{employee spinouts}: firms founded by former employees in the same or related industries as the former employer. \footnote{See \cite{saxenian_regional_1994}, \cite{gilson_legal_1999}, \cite{fallick_job-hopping_2006}, \cite{franco_covenants_2008}.} \footnote{This is different from a "spinoff", which is a division of a firm that the firm itself decides to sell. The early literature uses these terms interchangeably, but the more recent literature has settled on the term "spinout" for entrepreneurship initiated by the employee.} As an anecdotal illustration, Figure \ref{fairchild_spinouts} shows the many direct and indirect spinouts of Fairchild Semiconductor, one of the first leading semiconductor firms of SV -- itself a spinout of Shockley Laboratories, another semiconductor firm. Although Fairchild was founded in the 1950s, its list of spinouts includes some of the most well-known modern firms in SV, such as Intel and AMD. In turn, the literature has hypothesized that SV's unusual rates of employee mobility and entrepreneurship are due to California's prohibition on the enforcement of covenants not to compete (CNCs). \footnote{\cite{saxenian_regional_1994} attributes SV's rise from the 1960s to the 1990s (relative to Route 128 in Massachusetts, the previous tech hub) to SV's higher degree of employee mobility and entrepreneurship, as well as to its modular industrial structure. In turn, \cite{gilson_legal_1999} argues that this resulted from California's state-level statue not to enforce a labor contract known as a covenant not to compete (CNC), or simply non-compete.  \cite{fallick_job-hopping_2006} complements this view using survey data from the CPS, providing evidence that employee mobility is (1) higher in the computer industry in SV than in computer industries in other regions, and (2) higher in the computer industry in California than in the computer industries outside of California. The authors interpret this as evidence of a California-level factor rather than something SV-specific, and suggest an interpretation in line with the hypothesis of \cite{gilson_legal_1999}. Finally, \cite{franco_covenants_2008} considers a two-region model of spinout formation with and without CNCs in which the enforcing region has more initial firm entry but is eventually overtaken by the non-enforcing region.} Such contracts prevent departing employees from joining or founding competing firms for a span of time (usually 6 months to 2 years) and often in a certain geographical region. Figure \ref{noncompetes_enforcement} illustrates the state-level cross-sectional variation in the degree of enforceability of such contracts. California's lack of enforcement is far from typical.
@@ -726,12 +760,12 @@ Figure \ref{nuxi_chiS_welfare} shows the welfare effects of varying $\nu \xi$ an
 
 Finally, inspecting Figure \ref{nuxi_chiS_welfare} shows that the model predicts substantial welfare gains from increasing the calibrated value of $\nu \xi = 0.1$ to $\nu \xi = 0.4$, of approximately 5\%. This may not be a policy instrument available to the policy maker or even social planner, but it suggests that in this range, relaxing restrictions on spinout formation could significantly improve welfare. 
 
-\begin{figure}[h] \phantomsection
-	\centering
-	\includegraphics[scale=0.5]{../code/julia/figures/presentation/nuxi_chiS_welfare_plot.png}
-	\caption{Welfare implications of varying $\nu \xi$ and $\chi_S$. Welfare is non-monotonic in $\nu \xi$, even though this expands the production possibilities frontier. Peak decentralized welfare is increasing in $\chi_S$.}
-	\label{nuxi_chiS_welfare}
-\end{figure}
+%\begin{figure}[h] \phantomsection
+%	\centering
+%	\includegraphics[scale=0.5]{../code/julia/figures/presentation/nuxi_chiS_welfare_plot.png}
+%	\caption{Welfare implications of varying $\nu \xi$ and $\chi_S$. Welfare is non-monotonic in $\nu \xi$, even though this expands the production possibilities frontier. Peak decentralized welfare is increasing in $\chi_S$.}
+%	\label{nuxi_chiS_welfare}
+%\end{figure}
 
 
 \section{Conclusion}\label{conclusion}
