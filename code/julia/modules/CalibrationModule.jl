@@ -220,11 +220,11 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
         modelPar.λ = x[4]
         modelPar.ν = x[5]
 
-        f = open("./figures/log.txt","a")
+        log_file = open("./figures/log.txt","a")
 
-        write(f,"Iteration: χI = $(x[1]); χS = $(x[2]); χE = $(x[2] * x[3]); λ = $(x[4]); ν = $(x[5])\n")
+        write(log_file,"Iteration: χI = $(x[1]); χS = $(x[2]); χE = $(x[2] * x[3]); λ = $(x[4]); ν = $(x[5])\n")
 
-        close(f)
+        close(log_file)
 
         output = computeScore(algoPar,modelPar,guess,targets,weights)
 

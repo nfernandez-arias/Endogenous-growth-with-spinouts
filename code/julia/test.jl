@@ -9,9 +9,8 @@ using ModelSolver
 using HJBModule
 using InitializationModule
 using DataFrames
-using Gadfly
+using Plots
 using Interpolations
-using Cairo, Fontconfig
 
 algoPar = setAlgorithmParameters()
 modelPar = setModelParameters()
@@ -98,6 +97,7 @@ else
 end
 
 aggregateRDSalesRatio = aggregateRDSpending / aggregateSales
+
 println("\n--------------------------------------------------------------")
 println("R&D Intensity-------------------------------------------------")
 println("--------------------------------------------------------------\n")

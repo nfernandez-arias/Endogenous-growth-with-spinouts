@@ -18,9 +18,9 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 500
+    mgrid_numPoints = 2000
     mgrid_minimum = 0.0
-    mgrid_maximum = .05
+    mgrid_maximum = .02
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-12
 
@@ -35,7 +35,7 @@ function setAlgorithmParameters()
 
     incumbentHJB_timeStep = 50
     incumbentHJB_tolerance = 1e-12
-    incumbentHJB_maxIter = 100
+    incumbentHJB_maxIter = 50
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter)
 
@@ -96,7 +96,7 @@ function setAlgorithmParameters()
 
     write(f, "w Iteration Parameters \n---------------\n")
     for n in fieldnames(IterationParameters)
-        temp = getfield(w,n)
+        temp = getfield(w,n)true
         write(f,"$n: $temp \n")
     end
     write(f, "\n\n")
@@ -165,7 +165,7 @@ function setModelParameters()
 
     # Innovation
     χI = 3
-    χS = 2.5
+    χS = 1.8
     χE = 1.2
     ψI = 0.5
     ψSE = 0.5
@@ -174,7 +174,7 @@ function setModelParameters()
     # Spinouts
     ν = 0.0102495
     ξ = 20
-    ζ = 0.01
+    ζ = 0
 
     # CNCs
     CNC = false
@@ -234,3 +234,4 @@ end
 
 
 end
+draw(PNG("./figures/noncompete_usage.png", 10inch, 10inch), p1)

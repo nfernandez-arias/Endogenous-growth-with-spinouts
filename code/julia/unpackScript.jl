@@ -16,6 +16,11 @@ W = results.spinoutValue
 zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
 zE = AuxiliaryModule.zE(modelPar,V[1],w,zS)
 
+
+zS_density = zeros(size(zS))
+zS_density[2:end] = (zS ./ mGrid)[2:end]
+zS_density[1] = ξ
+
 τI = AuxiliaryModule.τI(modelPar,zI)
 τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
 τE = AuxiliaryModule.τE(modelPar,zS,zE)
