@@ -60,7 +60,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     g_tolerance = 1e-7
-    g_maxIter = 200
+    g_maxIter = 80
     g_updateRate = 0.3
     g_updateRateExponent = 1
 
@@ -74,7 +74,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     L_RD_tolerance = 1e-7
-    L_RD_maxIter = 200
+    L_RD_maxIter = 80
     L_RD_updateRate = 0.3
     L_RD_updateRateExponent = 1
 
@@ -88,7 +88,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     w_tolerance = 1e-7
-    w_maxIter = 200
+    w_maxIter = 80
     w_updateRate = 0.3
     w_updateRateExponent = 1
 
@@ -165,19 +165,19 @@ function setModelParameters()
 
     # Innovation
     χI = 3
-    χS = 1.8
-    χE = 1.2
+    χS = 1
+    χE = 0.2
     ψI = 0.5
     ψSE = 0.5
     λ = 1.0532733
 
     # Spinouts
     ν = 0.0102495
-    ξ = 20
+    ξ = 50
     ζ = 0
 
     # CNCs
-    CNC = false
+    CNC = true
 
     # Spinouts from spinouts
 

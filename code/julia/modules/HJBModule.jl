@@ -315,9 +315,18 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		# and given no non-compete.
 		#---------------------------#
 
-		for i= 1:length(mGrid)-1
+
+		Vprime2 = (V0[3] - V0[2]) / Δm[i]
+
+		print(Vprime2)
+
+		for i= length(mGrid)-1:1
 
 		    Vprime = (V0[i+1] - V0[i]) / Δm[i]
+
+			if i == 1
+				Vprime = Vprime2
+			end
 
 		    numerator = w[i] - ν * Vprime
 		    denominator = (1- ψI) * χI * ( λ * V0[1] - V0[i])
@@ -409,9 +418,6 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 			println("solveIncumbentHJB: Converged in $iterate steps")
 		end
 	end
-
-
-
 
     # Output
     return IncumbentSolution(V0,zI,noncompete)

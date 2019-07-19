@@ -51,7 +51,14 @@ png("figures/plotsGR/innovation_rates_t")
 
 wbar = AuxiliaryModule.Cβ(β)
 p = plot(mGrid, [w[:] (ones(size(mGrid)) * wbar - ν * W) wbar * ones(size(mGrid))], title = "Wages", linestyle = [:solid :dash :solid], label = ["R&D wage" "Production wage minus flow value of knowledge" "Production wage"], xlabel = "Mass of spinouts", ylabel = "Units of final consumption")
-png("figures/plotsGR/wages.png")
+png("figures/plotsGR/wages_m.png")
+
+if idxCNC > 1
+
+    p = plot(t, [w[:] (ones(size(t)) * wbar - ν * W) wbar * ones(size(t))], title = "Wages", linestyle = [:solid :dash :solid], label = ["R&D wage" "Production wage minus flow value of knowledge" "Production wage"], xlabel = "Mass of spinouts", ylabel = "Units of final consumption")
+    png("figures/plotsGR/wages_t.png")
+
+end
 
 #-----------------------------------------#
 # Plot a(m)
@@ -75,15 +82,23 @@ png("figures/plotsGR/mushape.png")
 # Plot μ(m),γ(m),t(m)
 #-----------------------------------------#
 
-p = plot(mGrid, [μ γ t], label = ["\\mu\\(m\\)" "\\gamma\\(m\\)" "t(m)"], title = "Stationary distributions and misc.", layout = (3,1))
-png("figures/plotsGR/gamma_t_μ_vs_m_plots.png")
+if idxCNC > 1
+
+    p = plot(mGrid, [μ γ t], label = ["\\mu\\(m\\)" "\\gamma\\(m\\)" "t(m)"], ylabel = ["Density" "Quality (relative)" "Years"], xlabel = "Mass of spinouts", layout = (3,1))
+    png("figures/plotsGR/gamma_t_μ_vs_m_plots.png")
+
+end
 
 #-----------------------------------------#
 # Plot μ(t),γ(t),m(t)
 #-----------------------------------------#
 
-p = plot(t, [μ .* ν .* a γ t], label = ["\\mu\\(m\\)" "\\gamma\\(m\\)" "t(m)"], title = "Stationary distributions and misc.", layout = (3,1))
-png("figures/plotsGR/gamma_t_μ_vs_t_plots.png")
+if idxCNC > 1
+
+    p = plot(t, [μ .* ν .* a γ], label = ["\\mu\\(m\\)" "\\gamma\\(m\\)"], ylabel = ["Density" "Quality (relative)"], xlabel = "Years since last innovation", layout = (2,1))
+    png("figures/plotsGR/gamma_t_μ_vs_t_plots.png")
+
+end
 
 #-----------------------------------------#
 # Plot "effective R&D wage" vs m :
