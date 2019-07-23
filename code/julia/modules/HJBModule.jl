@@ -296,9 +296,6 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
     while iterate < maxIter && error > tolerance
 
-		#frame = plot(x = mGrid, y = V0, Geom.line, Guide.xlabel("m"),
-		#	Guide.ylabel("V"), Guide.title("Incumbent value V"), Theme(background_color=colorant"white"))
-
         iterate += 1
 
 		#---------------------------#
@@ -306,13 +303,11 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		# and given no non-compete.
 		#---------------------------#
 
+		Vprime2 = (V0[3] - V0[2]) / Δm[2]
 
-		Vprime2 = (V0[3] - V0[2]) / Δm[i]
+		#print(Vprime2)
 
-		print(Vprime2)
-
-		for i= length(mGrid)-1:1
-
+		for i = reverse(1:length(mGrid)-1)
 		    Vprime = (V0[i+1] - V0[i]) / Δm[i]
 
 			if i == 1

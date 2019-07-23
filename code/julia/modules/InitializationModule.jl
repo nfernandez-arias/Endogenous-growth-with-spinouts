@@ -165,8 +165,8 @@ function setModelParameters()
 
     # Innovation
     χI = 3
-    χS = 1
-    χE = 0.2
+    χS = 1.8
+    χE = 1.2
     ψI = 0.5
     ψSE = 0.5
     λ = 1.0532733
