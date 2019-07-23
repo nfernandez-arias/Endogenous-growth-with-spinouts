@@ -74,6 +74,7 @@ segments <- segments[ gvkey != 17997 | snms != "AT&T"]
 setkey(segments,snms)
 setkey(EntitiesPrevEmployers,PreviousEmployerCLEAN)
 output <- segments[EntitiesPrevEmployers]
+
 #output <- EntitiesPrevEmployers[segments]
 #outputFuzzy <- PrevEmployers[1:5000] %>% stringdist_inner_join(segments, by = c(PreviousEmployer = "snms"), method = c("lv"), max_dist = 1, distance_col = "distance")
 
@@ -139,18 +140,19 @@ temp <- output2_dups[, .N, by = conml][order(-N)]
 ####################################
 
 # Use firmsTickers to match firms that are not matched by name
-#firmsTickers2 <- fread("data/firmsTickersClean.csv")
-firmsTickers <- fread("data/firmsTickersAltDG.csv")
+firmsTickers2 <- fread("data/firmsTickersClean.csv")
+#firmsTickers <- fread("data/firmsTickersAltDG.csv")
 
 # merge with firms database using ticker symbol
 setkey(firmsTickers,Ticker)
+setkey(firmsTickers2,tic)
 setkey(firms,tic)
 firmsTickersGvkeys <- firms[firmsTickers]
 
 # merge with EntitiesPrevEmployers and append to output
-setkey(firmsTickersGvkeys,firmName)
+setkey(firmsTickersGvkeys,query)
 
-temp <- firmsTickersGvkeys[EntitiesPrevEmployers][!is.na(gvkey)]
+temp <- EntitiesPrevEmployers[firmsTickersGvkeys, nomatch = 0]
 
 temp <- temp[ , .(gvkey,conml,snms,tic,PreviousEmployer,EntityID,EntityName,Weight,FirstName,LastName,JoinDate,StartDate)]
 

@@ -23,7 +23,7 @@ results <- firmsAltDG[Ticker != ""]
 
 fwrite(results[(Exchange == "NYSE" | Exchange == "NASDAQ") & Confidence >= 0.8][ , .(query,companyName,Ticker)],"data/firmsTickersAltDG.csv")
 
-temp <- results[Confidence >= 0.5][order(Confidence)]
+#temp <- results[Confidence >= 0.5][order(Confidence)]
 
 fwrite(firmsTickers,"data/firmsTickersClean.csv")
 

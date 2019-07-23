@@ -15,7 +15,7 @@ rm(list = ls())
 library(data.table)
 
 segments <- fread("raw/compustat/compustat_segments_annual.csv")
-segments <- segments[ , .(gvkey,srcdate,datadate,snms,tic,stype,soptp1,soptp2)]
+segments <- segments[ , .(gvkey,srcdate,datadate,snms,stype,soptp1,soptp2)]
 segments <- segments[ stype == "BUSSEG"]
 
 #segments <- segments[ soptp1 == "DIV"]

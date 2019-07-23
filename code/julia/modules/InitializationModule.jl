@@ -173,11 +173,11 @@ function setModelParameters()
 
     # Spinouts
     ν = 0.0102495
-    ξ = 50
+    ξ = 20
     ζ = 0
 
     # CNCs
-    CNC = true
+    CNC = false
 
     # Spinouts from spinouts
 
@@ -234,4 +234,3 @@ end
 
 
 end
-draw(PNG("./figures/noncompete_usage.png", 10inch, 10inch), p1)

@@ -172,18 +172,9 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 
     end
 
-	#iMax = length(mGrid)
-	#A[iMax,1] = τI[iMax] * λ
-	#A[iMax,iMax] = - τI[iMax] - τSE[iMax]
-
 	A[end,1] = τI[end] * λ
 	#A[end,1] = τI[end]  # no λ term -- Moll's idea
 	A[end,end] = - τI[end] - τSE[end]
-
-	#A[iMax,1] = 0
-	#A[iMax,iMax] = 0
-
-    #return A
 
 end
 
