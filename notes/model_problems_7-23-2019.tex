@@ -1,0 +1,78 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{Problems with model fit / reasonableness test}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{The symptoms}
+
+I want to match the following features of data:
+
+\begin{enumerate}
+	\item R\&D / sales ratio (but I have no data on R\&D wages)
+	\item Fraction of innovations obtained by ordinary entrants vs. spinouts
+	\item Spinouts have early innovations, whereas ordinary entrants come later
+	\item Non-competes are not used early on in the product life cycle, but are used later. This seems contrary to basic intuition - when you have a new idea you want to protect it, and when it's old you no longer do. 
+\end{enumerate}
+
+Unfortunately, if I pick a low enough $\chi_E / \chi_S$ ratio so that spinouts begin to dominate entrants quickly, the first spinouts are so extremely valuable that the R\&D wage goes negative and I can't match the R\&D / sales ratio. Then again, I only want to match the R\&D wage / sales ratio, but still, this is likely not negative. 
+
+Also, if I want entrants and spinouts to have a similar share of innovation, spinouts must be vastly more effective at R\&D than entrants. This is because (1) it takes time for there to accumulate spinouts, and (2) ordinary entrants do not "get better" over time. 
+
+\section{The root cause}
+
+There are a few components to the root cause of this problem. 
+
+\begin{enumerate}
+	\item Workers do not value the ability to open a spinout nearly as much as the model supposes, since they are risk averse. I cannot put risk aversion into my model without making it substantially more complicated to solve. 
+	\item The model is really at the product level, and there can be creative destruction by existing firms. However, existing firms likely get better over time just as spinouts do, since they poach employees from the leader, etc. just as spinouts are doing. My model does not allow this. 
+	\item I do not have data on the R\&D employment wage bill / sales ratio, which is the statistic in the model. I could augment the model with R\&D costs in terms of the final good which must be paid (i.e. some leontief production function of R\&D, with labor and final goods as inputs), but then in order to discipline the optimal proportions, I need data I don't have. (some data on R\&D employment at the industry level:  \href{https://www.nsf.gov/statistics/2017/nsf17302/}{https://www.nsf.gov/statistics/2017/nsf17302/}).
+\end{enumerate}
+
+
+\section{The solution}
+
+\begin{enumerate}
+	\item Spinouts should not be drawing from an entirely different pool of ideas with massive returns at first. This helps reduce massive R\&D discount early on.
+	\item Could think of spinouts in the model as corresponding to both employee entrepreneurship \textbf{and} employees defecting to established firms. But I only have data on entrepreneurship. 
+	\item When evaluating the effect of non-competes, rather than actually have optimal contracting in the model (which will understate the frequency of non-compete usage, for the same reason that the R\&D wage is so ludicrously low), just impose that there is a restriction. This also solves the problem of non-competes being used later but not earlier.
+\end{enumerate}
+
+
+
+
+\end{document}

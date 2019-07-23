@@ -67,3 +67,4 @@ aPrime[end] = aPrime[end-1]
 
 wbar = AuxiliaryModule.wbar(β)
 Π = AuxiliaryModule.profit(results.finalGuess.L_RD,modelPar)
+idxCNC = findfirst( (noncompete .> 0)[:] )

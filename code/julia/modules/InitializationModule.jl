@@ -20,7 +20,7 @@ function setAlgorithmParameters()
 
     mgrid_numPoints = 2000
     mgrid_minimum = 0.0
-    mgrid_maximum = .02
+    mgrid_maximum = .08
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-12
 
@@ -166,7 +166,7 @@ function setModelParameters()
     # Innovation
     χI = 3
     χS = 1.8
-    χE = 1.2
+    χE = 0.3
     ψI = 0.5
     ψSE = 0.5
     λ = 1.0532733
