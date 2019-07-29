@@ -237,7 +237,7 @@ function updateV(algoPar::AlgorithmParameters, modelPar::ModelParameters, A::Spa
 
 end
 
-function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, verbose = 2, print_skip = 10)
+function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, verbose = 2, print_skip = 10, implicit = true)
 
     ## Unpack model parameters
     ##########################
@@ -381,21 +381,32 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 		τSE = AuxiliaryModule.τSE(modelPar,zS,zE)[:]
 
-	    ## Make update:
-	    u = Π .- zI .* ((1 .- noncompete) .* w + noncompete .* AuxiliaryModule.wbar(modelPar.β))
-		#u = Π .+ τI .* (λ-1) .* V0[1]  .- zI .* ((1 .- noncompete) .* w + noncompete .* AuxiliaryModule.wbar(modelPar.β))  # Moll's idea -- here add (λ-1) * τI * V0[1] term
-		#A = constructMatrixA(algoPar,modelPar,guess,zI)
-		updateMatrixA(algoPar,modelPar,guess,zI,noncompete,A,zS,zE)
+		if implicit == true
 
-		V1,error = updateV(algoPar,modelPar,A,u,V0)
+			## Make update:
+		    u = Π .- zI .* ((1 .- noncompete) .* w + noncompete .* AuxiliaryModule.wbar(modelPar.β))
+			#u = Π .+ τI .* (λ-1) .* V0[1]  .- zI .* ((1 .- noncompete) .* w + noncompete .* AuxiliaryModule.wbar(modelPar.β))  # Moll's idea -- here add (λ-1) * τI * V0[1] term
+			#A = constructMatrixA(algoPar,modelPar,guess,zI)
 
-		# Hack to avoid instabiities - ALWAYS true in equilibrium
+			updateMatrixA(algoPar,modelPar,guess,zI,noncompete,A,zS,zE)
+			V1,error = updateV_implicit(algoPar,modelPar,A,u,V0)
 
-		V1[idxM+1:end] .= V1[idxM]
+			# Hack to avoid instabiities - true in equilibrium
+			V1[idxM+1:end] .= V1[idxM]
 
-	    # Normalize error by timeStep because
-	    # it will always be smaller if timeStep is smaller
-	    error = sum(abs.(V1-V0)) ./ timeStep
+			# Normalize error by timeStep because
+			# it will always be smaller if timeStep is smaller
+			error = sum(abs.(V1-V0)) ./ timeStep
+
+		else
+
+			u = 10
+
+			V1,error = updateV_explicit(algoPar,modelPar,V0)
+
+		end
+
+
 
 		if verbose == 2
 			if iterate % print_skip == 0
@@ -419,6 +430,70 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     return IncumbentSolution(V0,zI,noncompete)
 
 end
+
+function solveIncumbentHJB_explicitMethod(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, verbose = 2, print_skip = 10)
+
+	## Unpack model parameters
+	##########################
+
+	# General
+	ρ = modelPar.ρ
+	β = modelPar.β
+	L = modelPar.L
+
+	# Innovation
+	χI = modelPar.χI
+	χS = modelPar.χS
+	χE = modelPar.χE
+	ψI = modelPar.ψI
+	ψSE = modelPar.ψSE
+	λ = modelPar.λ
+
+	# Spinouts
+	ν = modelPar.ν
+	ξ = modelPar.ξ
+
+	# CNCs
+	CNC = modelPar.CNC
+
+	# Wage
+	wbar = AuxiliaryModule.wbar(modelPar.β)
+
+	# Define some auxiliary functions
+	ϕI(z) = z .^(-ψI)
+	ϕSE(z) = z .^(-ψSE)
+
+	## Unpack algorithm parameters
+	######################################
+	timeStep = algoPar.incumbentHJB.timeStep
+	tolerance = algoPar.incumbentHJB.tolerance
+	maxIter = algoPar.incumbentHJB.maxIter
+
+	verbose = algoPar.incumbentHJB_Log.verbose
+	print_skip = algoPar.incumbentHJB_Log.print_skip
+
+	## Unpack guess
+	###################################################
+	w = guess.w;
+	#zS = guess.zS;
+	#zE = guess.zE;
+	idxM = guess.idxM
+
+	# Compute initial guess for V, "value of staying put"
+	# based on L_RD guess and profit function
+	V0 = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess)
+	noncompete = zeros(size(V0))
+	zI = zeros(size(V0))
+
+	## Construct mGrid and Delta_m vectors
+	mGrid,Δm = mGridBuild(algoPar.mGrid)
+
+	# Finally calculate flow profit
+	Π = AuxiliaryModule.profit(guess.L_RD,modelPar) .* ones(size(mGrid));
+
+	iterate = 0
+	error = 1
+
 
 
 end
