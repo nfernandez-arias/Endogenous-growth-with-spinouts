@@ -120,7 +120,15 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
 
     wS = (sFromS * w .+ (1-sFromS) * wbar)
 
-    temp = modelPar.χS * ϕI(zI + ξ*mGrid) * (modelPar.λ * V[1] - modelPar.ζ) - wS
+    if modelPar.spinoutsSamePool == true
+
+        temp = modelPar.χS * ϕI(zI + ξ*mGrid) * (modelPar.λ * V[1] - modelPar.ζ) - wS
+
+    else
+
+        temp = modelPar.χS * ϕSE(ξ*mGrid) * (modelPar.λ * V[1] - modelPar.ζ) - wS
+
+    end
 
     # Now allowing
 

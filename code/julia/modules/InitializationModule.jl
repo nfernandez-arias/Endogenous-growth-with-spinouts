@@ -33,7 +33,7 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 50
+    incumbentHJB_timeStep = 10
     incumbentHJB_tolerance = 1e-12
     incumbentHJB_maxIter = 50
 
@@ -60,7 +60,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     g_tolerance = 1e-7
-    g_maxIter = 100
+    g_maxIter = 250
     g_updateRate = 0.3
     g_updateRateExponent = 1
 
@@ -74,7 +74,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     L_RD_tolerance = 1e-7
-    L_RD_maxIter = 100
+    L_RD_maxIter = 250
     L_RD_updateRate = 0.3
     L_RD_updateRateExponent = 1
 
@@ -88,7 +88,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     w_tolerance = 1e-7
-    w_maxIter = 100
+    w_maxIter = 250
     w_updateRate = 0.3
     w_updateRateExponent = 1
 
@@ -173,8 +173,8 @@ function setModelParameters()
 
     # Spinouts
     ν = 0.0102495
-    ξ = 20
-    ζ = 0
+    ξ = 30
+    ζ = 0.05
 
     # CNCs
     CNC = false
@@ -185,9 +185,9 @@ function setModelParameters()
 
     # Spinouts ideas from different pool?
 
-    #spinoutsSamePool = false
+    spinoutsSamePool = true
 
-    modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,ζ,CNC,spinoutsFromSpinouts)
+    modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,ζ,CNC,spinoutsFromSpinouts,spinoutsSamePool)
 
     f = open("./figures/modelPar.txt", "w")
 

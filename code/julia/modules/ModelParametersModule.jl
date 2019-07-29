@@ -47,8 +47,10 @@ mutable struct ModelParameters
 
     spinoutsFromSpinouts::Float64
 
+    spinoutsSamePool::Bool
+
 end
 
-export ModelParameters;
+export ModelParameters
 
 end
