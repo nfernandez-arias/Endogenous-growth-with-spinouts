@@ -106,7 +106,7 @@ function zE(modelPar::ModelParameters,incumbentHJBSolution::IncumbentSolution,w:
 
 end
 
-function τSE(modelPar::ModelParameters,zS::Array{Float64},zE::Array{Float64})
+function τSE(modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64},zE::Array{Float64})
 
     χS = modelPar.χS
     χE = modelPar.χE
@@ -114,12 +114,21 @@ function τSE(modelPar::ModelParameters,zS::Array{Float64},zE::Array{Float64})
     ψSE = modelPar.ψSE
 
     ϕSE(z) = z .^(-ψSE)
+    ϕI(z) = z .^(-ψI)
 
-    return (χS * zS + χE * zE) .* ϕSE(zS + zE)
+    if modelPar.spinoutsSamePool == true
+
+        return (χS * zS + χE * zE) .* ϕI(zS + zI + zE)
+
+    else
+
+        return (χS * zS + χE * zE) .* ϕSE(zS + zE)
+
+    end
 
 end
 
-function τE(modelPar::ModelParameters,zS::Array{Float64},zE::Array{Float64})
+function τE(modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64},zE::Array{Float64})
 
     χE = modelPar.χE
 
@@ -127,11 +136,19 @@ function τE(modelPar::ModelParameters,zS::Array{Float64},zE::Array{Float64})
 
     ϕSE(z) = z .^(-ψSE)
 
-    return χE * zE .* ϕSE(zS + zE)
+    if modelPar.spinoutsSamePool == true
+
+        return χE * zE .* ϕI(zI + zS + zE)
+
+    else
+
+        return χE * zE .* ϕSE(zS + zE)
+
+    end
 
 end
 
-function τI(modelPar::ModelParameters,zI::Array{Float64})
+function τI(modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64},zE::Array{Float64})
 
     χI = modelPar.χI
 
@@ -139,7 +156,15 @@ function τI(modelPar::ModelParameters,zI::Array{Float64})
 
     ϕI(z) = z .^(-ψI)
 
-    return χI * zI .* ϕI(zI)
+    if modelPar.spinoutsSamePool == true
+
+        return χI * zI .* ϕI(zI + zS + zE)
+
+    else
+
+        return χI * zI .* ϕI(zI)
+
+    end
 
 end
 

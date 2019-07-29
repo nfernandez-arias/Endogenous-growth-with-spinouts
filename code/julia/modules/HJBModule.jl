@@ -168,8 +168,8 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
     ## Compute A Matrix
     ##############################################
 
-	τI = AuxiliaryModule.τI(modelPar,zI)
-	τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
+	τI = AuxiliaryModule.τI(modelPar,zI,zS,zE)
+	τSE = AuxiliaryModule.τSE(modelPar,zI,zS,zE)
 
     for i = 1:length(mGrid)-1
 
@@ -187,7 +187,7 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 
 end
 
-function updateV(algoPar::AlgorithmParameters, modelPar::ModelParameters, A::SparseMatrixCSC{Float64,Int64}, u::Array{Float64}, V0::Array{Float64})
+function updateV_implicit(algoPar::AlgorithmParameters, modelPar::ModelParameters, A::SparseMatrixCSC{Float64,Int64}, u::Array{Float64}, V0::Array{Float64})
 
 	# Unpack
 
@@ -495,5 +495,7 @@ function solveIncumbentHJB_explicitMethod(algoPar::AlgorithmParameters, modelPar
 	error = 1
 
 
+
+end
 
 end

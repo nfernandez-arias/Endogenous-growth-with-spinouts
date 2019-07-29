@@ -33,7 +33,7 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 10
+    incumbentHJB_timeStep = 50
     incumbentHJB_tolerance = 1e-12
     incumbentHJB_maxIter = 50
 
@@ -173,8 +173,8 @@ function setModelParameters()
 
     # Spinouts
     ν = 0.0102495
-    ξ = 30
-    ζ = 0.05
+    ξ = 20
+    ζ = 0
 
     # CNCs
     CNC = false
@@ -185,7 +185,7 @@ function setModelParameters()
 
     # Spinouts ideas from different pool?
 
-    spinoutsSamePool = true
+    spinoutsSamePool = false
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,ζ,CNC,spinoutsFromSpinouts,spinoutsSamePool)
 
