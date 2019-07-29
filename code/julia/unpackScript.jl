@@ -14,7 +14,7 @@ noncompete = results.incumbent.noncompete
 W = results.spinoutValue
 
 zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
-zE = AuxiliaryModule.zE(modelPar,V[1],w,zS)
+zE = AuxiliaryModule.zE(modelPar,results.incumbent,w,zS)
 
 
 zS_density = zeros(size(zS))

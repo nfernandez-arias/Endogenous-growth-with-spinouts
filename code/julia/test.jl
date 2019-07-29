@@ -27,7 +27,7 @@ V = results.incumbent.V
 idxM = results.finalGuess.idxM
 w = results.finalGuess.w
 zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
-zE = AuxiliaryModule.zE(modelPar,V[1],w,zS)
+zE = AuxiliaryModule.zE(modelPar,results.incumbent,w,zS)
 
 #plot(mGrid,zE)
 #--------------------------------#

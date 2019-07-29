@@ -11,7 +11,7 @@ __precompile__()
 
 module AuxiliaryModule
 
-using AlgorithmParametersModule, ModelParametersModule, GuessModule
+using AlgorithmParametersModule, ModelParametersModule, GuessModule, HJBModule
 
 export LF,profit,initialGuessIncumbentHJB
 
@@ -79,15 +79,24 @@ function zS(algoPar::AlgorithmParameters,modelPar::ModelParameters,idxM::Int64)
 
 end
 
-function zE(modelPar::ModelParameters,V0::Float64,w::Array{Float64},zS::Array{Float64})
+function zE(modelPar::ModelParameters,V0::Float64,zI::Array{Float64},w::Array{Float64},zS::Array{Float64})
 
-    zE = max.( (wbar(modelPar.β) ./ (modelPar.χE * (modelPar.λ .* V0 - modelPar.ζ))).^(-1/modelPar.ψSE) .- zS,0)
+    zE = max.( (wbar(modelPar.β) ./ (modelPar.χE * (modelPar.λ .* V0 - modelPar.ζ))).^(-1/modelPar.ψI) .- zS .- zI,0)
 
     return zE
 
 end
 
+function zE(modelPar::ModelParameters,incumbentHJBSolution::IncumbentSolution,w::Array{Float64},zS::Array{Float64})
 
+    V = incumbentHJBSolution.V
+    zI = incumbentHJBSolution.zI
+
+    V0 = V[1]
+
+    return zE(modelPar,V0,zI,w,zS)
+
+end
 
 function τSE(modelPar::ModelParameters,zS::Array{Float64},zE::Array{Float64})
 

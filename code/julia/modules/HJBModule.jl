@@ -68,7 +68,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	wbar = AuxiliaryModule.wbar(modelPar.β)
 
 	zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
-	zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution.V[1],w,zS)
+	zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution,w,zS)
 
 	V = incumbentHJBSolution.V
 	zI = incumbentHJBSolution.zI
@@ -368,7 +368,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		τI = AuxiliaryModule.τI(modelPar,zI)[:]
 
 		zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)[:]
-		zE = AuxiliaryModule.zE(modelPar,V0[1],w,zS)[:]
+		zE = AuxiliaryModule.zE(modelPar,V0[1],zI,w,zS)[:]
 
 		τSE = AuxiliaryModule.τSE(modelPar,zS,zE)[:]
 

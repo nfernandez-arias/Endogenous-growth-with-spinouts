@@ -68,7 +68,7 @@ function update_L_RD_w(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 
 end
 
-function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, V::Array{Float64}, W::Array{Float64})
+function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, incumbentHJBSolution::IncumbentSolution, W::Array{Float64})
 
     ## Build grid
     mGrid,Δm = mGridBuild(algoPar.mGrid)
@@ -98,6 +98,10 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     ϕSE(z) = z .^(-ψSE)
 
     #########
+    ## Unpack incumbent HJB solution
+    V = incumbentHJBSolution.V
+    zI = incumbentHJBSolution.zI
+
     ## Unpack guesses
 
     old_idxM = guess.idxM
@@ -109,14 +113,14 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
 
     # Compute implied zS, zE
     old_zS = AuxiliaryModule.zS(algoPar,modelPar,old_idxM)
-    old_zE = AuxiliaryModule.zE(modelPar,V[1],w,old_zS)
+    old_zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution,w,old_zS)
 
     #########
     ## Compute new guesses
 
     wS = (sFromS * w .+ (1-sFromS) * wbar)
 
-    temp = modelPar.χS * ϕSE(ξ*mGrid) * (modelPar.λ * V[1] - modelPar.ζ) - (sFromS * w .+ (1-sFromS) * wbar)
+    temp = modelPar.χS * ϕI(zI + ξ*mGrid) * (modelPar.λ * V[1] - modelPar.ζ) - wS
 
     # Now allowing
 
@@ -126,12 +130,13 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
         idxM = 1   # if spinouts should simply not be entering, set idxM = 0
     end
 
-    factor_zS = χS .* ϕSE(old_zS + old_zE) .* λ .* V[1] ./ wS
-    factor_zE = χE .* ϕSE(old_zS + old_zE) .* λ .* V[1] ./ wS
+    #factor_zS = χS .* ϕSE(old_zS + old_zE) .* λ .* V[1] ./ wS
+    #factor_zE = χE .* ϕSE(old_zS + old_zE) .* λ .* V[1] ./ wS
 
     idxM = ceil(Int64,algoPar.idxM.updateRate * idxM + (1 - algoPar.idxM.updateRate) * old_idxM)
 
-    return idxM,factor_zS,factor_zE
+    #return idxM,factor_zS,factor_zE
+    return idxM
 
 end
 
@@ -150,7 +155,7 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
     idxCNC = findfirst( (noncompete .> 0)[:] )
 
     zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
-    zE = AuxiliaryModule.zE(modelPar,V[1],w,zS)
+    zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution,w,zS)
     τI = AuxiliaryModule.τI(modelPar,zI)
     τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
 
@@ -354,7 +359,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     tempAlgoPar = Base.deepcopy(algoPar)
 
-    tempAlgoPar.incumbentHJB.timeStep = 100
+    tempAlgoPar.incumbentHJB.timeStep = 1
     #tempAlgoPar.incumbentHJB.maxIter = 500
 
 
@@ -401,14 +406,14 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 old_idxM = guess.idxM
 
                 zS = AuxiliaryModule.zS(algoPar,modelPar,old_idxM)
-                zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution.V,w,zS)
+                zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution,w,zS)
 
                 #println("zS = $zS")
                 #println("zE = $zE")
 
 
                 # Update guess object (faster than making new one)
-                guess.idxM,factor_zS,factor_zE = update_idxM(algoPar,modelPar,guess,incumbentHJBSolution.V,W)
+                guess.idxM = update_idxM(algoPar,modelPar,guess,incumbentHJBSolution,W)
 
                 # Increase iterator
                 iterate_idxM += 1;
@@ -463,7 +468,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 #println("w = $(guess.w)")
 
                 # Update guess object (faster than allocating new one)
-                guess.idxM,factor_zS,factor_zE = update_idxM(tempAlgoPar,modelPar,guess,incumbentHJBSolution.V,W)
+                guess.idxM = update_idxM(tempAlgoPar,modelPar,guess,incumbentHJBSolution,W)
 
                 # Increase iterator
                 iterate_idxM += 1;

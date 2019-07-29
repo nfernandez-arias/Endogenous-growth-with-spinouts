@@ -166,7 +166,7 @@ function setModelParameters()
     # Innovation
     χI = 3
     χS = 1.8
-    χE = 0.7
+    χE = 1.2
     ψI = 0.5
     ψSE = 0.5
     λ = 1.0532733
@@ -181,7 +181,11 @@ function setModelParameters()
 
     # Rate of Spinout formation of spinouts (fraction of rate for incumbents)
 
-    spinoutsFromSpinouts = 0.7
+    spinoutsFromSpinouts = 1
+
+    # Spinouts ideas from different pool?
+
+    #spinoutsSamePool = false
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,ζ,CNC,spinoutsFromSpinouts)
 
