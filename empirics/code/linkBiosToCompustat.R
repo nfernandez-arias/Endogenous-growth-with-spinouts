@@ -141,7 +141,7 @@ temp <- output2_dups[, .N, by = conml][order(-N)]
 
 # Use firmsTickers to match firms that are not matched by name
 firmsTickers2 <- fread("data/firmsTickersClean.csv")
-#firmsTickers <- fread("data/firmsTickersAltDG.csv")
+firmsTickers <- fread("data/firmsTickersAltDG.csv")
 
 # merge with firms database using ticker symbol
 setkey(firmsTickers,Ticker)

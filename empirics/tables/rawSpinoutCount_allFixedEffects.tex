@@ -1,0 +1,42 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
+\hline
+xrd         &    0.000460\sym{*}  &                     &    0.000460\sym{*}  &                     \\
+            &      (2.44)         &                     &      (2.43)         &                     \\
+[1em]
+patentcount\_cw\_ma5&   0.0000996         &   0.0000881         &                     &                     \\
+            &      (1.00)         &      (0.83)         &                     &                     \\
+[1em]
+patentapplicationcount\_cw\_ma5&   0.0000267         &   0.0000358         &                     &                     \\
+            &      (0.29)         &      (0.36)         &                     &                     \\
+[1em]
+emp         &    -0.00104         &   -0.000909         &    -0.00128         &    -0.00115         \\
+            &     (-0.75)         &     (-0.62)         &     (-0.88)         &     (-0.74)         \\
+[1em]
+xrd\_ma3     &                     &    0.000482\sym{*}  &                     &    0.000480\sym{*}  \\
+            &                     &      (2.38)         &                     &      (2.37)         \\
+[1em]
+patentcount\_cw\_ma3&                     &                     &    0.000232\sym{*}  &    0.000220         \\
+            &                     &                     &      (2.14)         &      (1.94)         \\
+[1em]
+patentapplicationcount\_cw\_ma3&                     &                     &   -0.000118         &   -0.000107         \\
+            &                     &                     &     (-1.29)         &     (-1.10)         \\
+[1em]
+\_cons      &      0.0854         &      0.0871         &      0.0958         &      0.0978         \\
+            &      (1.59)         &      (1.64)         &      (1.94)         &      (1.99)         \\
+[1em]
+State-Year FE&         Yes         &         Yes         &         Yes         &         Yes         \\
+[1em]
+NAICS4-Year FE&         Yes         &         Yes         &         Yes         &         Yes         \\
+\hline
+r2          &       0.272         &       0.265         &       0.266         &       0.258         \\
+r2\_a\_within &       0.166         &       0.158         &       0.167         &       0.158         \\
+N           &       11503         &       11503         &       12649         &       12649         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

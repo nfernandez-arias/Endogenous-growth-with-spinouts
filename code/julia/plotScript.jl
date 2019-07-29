@@ -4,7 +4,7 @@
 
 gr()
 #Plots.scalefontsizes(1.2)
-p = plot(mGrid,[V[:] W[:] zI[:] zS_density[:]], title = ["Incumbent value" "Spinout value" "Incumbent policy" "Spinout policy"], xlabel = "Mass of spinouts", label = ["V(m)" "W(m)" "z_I(m)" "z_S(m) / m"], layout = (2,2))
+p = plot(mGrid,[V[:] W[:] zI[:] zS[:]], legend = :bottomright, title = ["Incumbent value" "Spinout value" "Incumbent policy" "Aggregated spinout policy"], xlabel = "Mass of spinouts", label = ["V(m)" "W(m)" "z_I(m)" "z_S(m)"], layout = (2,2))
 png("figures/plotsGR/HJB_solutions_plot.png")
 
 #---------------------------#
@@ -49,13 +49,13 @@ png("figures/plotsGR/innovation_rates_t")
 #-----------------------------------------#
 
 
-wbar = AuxiliaryModule.Cβ(β)
-p = plot(mGrid, [w[:] (ones(size(mGrid)) * wbar - ν * W) wbar * ones(size(mGrid))], title = "Wages", linestyle = [:solid :dash :solid], label = ["R&D wage" "Production wage minus flow value of knowledge" "Production wage"], xlabel = "Mass of spinouts", ylabel = "Units of final consumption")
+wbars = ones(size(mGrid)) * AuxiliaryModule.Cβ(β)
+p = plot(mGrid, [w (sFromS * w + (1-sFromS) * wbars) (wbars - ν*W) wbars], title = "Wages", legend = :bottomright, linestyle = [:solid :dash :solid], label = ["R&D wage (incumbents)" "R&D wage (spinouts)" "Production wage minus flow value of knowledge" "Production wage"], xlabel = "Mass of spinouts", ylabel = "Units of final consumption")
 png("figures/plotsGR/wages_m.png")
 
 if maximum(noncompete) == 0 || idxCNC > 1
 
-    p = plot(t, [w[:] (ones(size(t)) * wbar - ν * W) wbar * ones(size(t))], title = "Wages", linestyle = [:solid :dash :solid], legend = :bottomright, label = ["R&D wage" "Production wage minus flow value of knowledge" "Production wage"], xlabel = "Years since last innovation", ylabel = "Units of final consumption")
+    p = plot(t, [w (sFromS * w + (1-sFromS) * wbars) (wbars - ν*W) wbars], title = "Wages", linestyle = [:solid :dash :solid], legend = :bottomright, label = ["R&D wage (incumbents)" "R&D wage (spinouts)" "Production wage minus flow value of knowledge" "Production wage"], xlabel = "Years since last innovation", ylabel = "Units of final consumption")
     png("figures/plotsGR/wages_t.png")
 
 end

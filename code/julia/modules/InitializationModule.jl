@@ -18,9 +18,9 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 2000
+    mgrid_numPoints = 1000
     mgrid_minimum = 0.0
-    mgrid_maximum = .08
+    mgrid_maximum = .01
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-12
 
@@ -60,7 +60,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     g_tolerance = 1e-7
-    g_maxIter = 80
+    g_maxIter = 100
     g_updateRate = 0.3
     g_updateRateExponent = 1
 
@@ -74,7 +74,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     L_RD_tolerance = 1e-7
-    L_RD_maxIter = 80
+    L_RD_maxIter = 100
     L_RD_updateRate = 0.3
     L_RD_updateRateExponent = 1
 
@@ -88,7 +88,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     w_tolerance = 1e-7
-    w_maxIter = 80
+    w_maxIter = 100
     w_updateRate = 0.3
     w_updateRateExponent = 1
 
@@ -102,11 +102,11 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     idxM_tolerance = 1e-7
-    idxM_maxIter = 100
+    idxM_maxIter = 30
     idxM_updateRate = 0.8
     idxM_updateRateExponent = 1
 
-    idxM = IterationParameters(idxM_tolerance,idxM_maxIter,idxM_updateRate,idxM_updateRateExponent);
+    idxM = IterationParameters(idxM_tolerance,idxM_maxIter,idxM_updateRate,idxM_updateRateExponent)
 
     write(f, "idxM Iteration Parameters \n---------------\n")
     for n in fieldnames(IterationParameters)
@@ -166,7 +166,7 @@ function setModelParameters()
     # Innovation
     χI = 3
     χS = 1.8
-    χE = 0.3
+    χE = 0.7
     ψI = 0.5
     ψSE = 0.5
     λ = 1.0532733
@@ -179,9 +179,9 @@ function setModelParameters()
     # CNCs
     CNC = false
 
-    # Spinouts from spinouts
+    # Rate of Spinout formation of spinouts (fraction of rate for incumbents)
 
-    spinoutsFromSpinouts = true
+    spinoutsFromSpinouts = 0.7
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,ζ,CNC,spinoutsFromSpinouts)
 

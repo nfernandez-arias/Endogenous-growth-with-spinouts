@@ -356,6 +356,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		zI[end] = zI[end-1]
 		noncompete[end] = noncompete[end-1]
 
+		# Stability hack
 		#zI[idxM+1:end] .= zI[idxM]
 
 		if CNC == false

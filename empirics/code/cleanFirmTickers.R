@@ -14,7 +14,11 @@ rm(list = ls())
 
 #firmsTickers <- fread("code/firmsTickers.csv")
 
-firmsAltDG <- fread("code/company_list_5000-2019-07-15.csv")
+firmsAltDG_1 <- fread("code/company_list_5000-2019-07-15.csv")
+firmsAltDG_2 <- fread("code/company_list_10000-2019-07-21.csv")
+
+firmsAltDG <- rbind(firmsAltDG_1,firmsAltDG_2)
+
 setnames(firmsAltDG,"Original Input","query")
 setnames(firmsAltDG,"Company Name","companyName")
 

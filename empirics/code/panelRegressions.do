@@ -47,6 +47,37 @@ label variable patentapplicationcount_cw "Patent Applications (CW)"
 
 *Run regressions
 
+
+ **** Headlines
+ 
+eststo model1: quietly reghdfe Spinouts xrd patentcount_cw_ma5 patentapplicationcount_cw_ma5 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode year)
+eststo model2: quietly reghdfe Spinouts xrd_ma3 patentcount_cw_ma5 patentapplicationcount_cw_ma5 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode year)
+eststo model3: quietly reghdfe Spinouts xrd patentcount_cw_ma3 patentapplicationcount_cw_ma3 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode year)
+eststo model4: quietly reghdfe Spinouts xrd_ma3 patentcount_cw_ma3 patentapplicationcount_cw_ma3 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode year) 
+estfe model*, labels(stateCode#year "State-Year FE" naics4#year "NAICS4-Year FE" year "Year FE")
+esttab model* using tables/rawSpinoutCount_allFixedEffects.tex, replace stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+estfe model*, restore
+eststo clear
+
+eststo model1: quietly reghdfe SpinoutsDEV xrd patentcount_cw_ma5 patentapplicationcount_cw_ma5 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode year)
+eststo model2: quietly reghdfe SpinoutsDEV xrd_ma3 patentcount_cw_ma5 patentapplicationcount_cw_ma5 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode year)
+eststo model3: quietly reghdfe SpinoutsDEV xrd patentcount_cw_ma3 patentapplicationcount_cw_ma3 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode year)
+eststo model4: quietly reghdfe SpinoutsDEV xrd_ma3 patentcount_cw_ma3 patentapplicationcount_cw_ma3 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode year) 
+estfe model*, labels(stateCode#year "State-Year FE" naics4#year "NAICS4-Year FE" year "Year FE")
+esttab model* using tables/SpinoutDEV_allFixedEffects.tex, replace stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+estfe model*, restore
+eststo clear
+ 
+ 
+ 
+ 
+ 
+ ** others
+ 
+ 
+ 
+ 
+
 eststo: quietly reg Spinouts xrd
 eststo: quietly reg Spinouts xrd emp
 eststo: quietly reg Spinouts xrd_ma3 emp

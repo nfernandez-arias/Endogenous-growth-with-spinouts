@@ -60,17 +60,33 @@ There are a few components to the root cause of this problem.
 \begin{enumerate}
 	\item Workers do not value the ability to open a spinout nearly as much as the model supposes, since they are risk averse. I cannot put risk aversion into my model without making it substantially more complicated to solve. 
 	\item The model is really at the product level, and there can be creative destruction by existing firms. However, existing firms likely get better over time just as spinouts do, since they poach employees from the leader, etc. just as spinouts are doing. My model does not allow this. 
-	\item I do not have data on the R\&D employment wage bill / sales ratio, which is the statistic in the model. I could augment the model with R\&D costs in terms of the final good which must be paid (i.e. some leontief production function of R\&D, with labor and final goods as inputs), but then in order to discipline the optimal proportions, I need data I don't have. (some data on R\&D employment at the industry level:  \href{https://www.nsf.gov/statistics/2017/nsf17302/}{https://www.nsf.gov/statistics/2017/nsf17302/}).
+	\item I do not have data on the R\&D employment wage bill / sales ratio, which is the statistic in the model. I could augment the model with R\&D costs in terms of the final good which must be paid (i.e. some leontief production function of R\&D, with labor and final goods as inputs), but then in order to discipline the optimal proportions, I need data I don't have.
 \end{enumerate}
 
 
 \section{The solution}
 
 \begin{enumerate}
+	\item R\&D sales ratio: could instead match R\&D employment / total employment ratio. Have some data on R\&D employment at the industry level: \linebreak \href{https://www.nsf.gov/statistics/2017/nsf17302/}{https://www.nsf.gov/statistics/2017/nsf17302/}
+	\begin{itemize}
+		\item ...but no data on effective units of labor per employee in R\&D vs non-R\&D. So, a fraction $L_{RD}^{\textrm{data}} \in (0,1)$ of employment in the data likely corresponds to a fraction $L_{RD}^{\textrm{model}} > L_{RD}^{\textrm{data}}$ in the model.
+		\item What about using scholastic attainment as a measure? And look at scholastic attainment in R\&D vs non-R\&D workers maybe by industry, or by state-industry. 
+		\item The classic thing to use would be simply to look at R\&D wage bill vs non-R\&D wage bill, but I don't have that. Plus, my wage bill is off for reasons discussed previously.
+	\end{itemize}
 	\item Spinouts should not be drawing from an entirely different pool of ideas with massive returns at first. This helps reduce massive R\&D discount early on.
+	\begin{itemize}
+		\item Currently, given $V$, it is easy to pin down the free-entry threshold. 
+		\item If I want to allow for drawing from the same pool, then there is a fixed point problem.
+		\item However, there is already a fixed point problem, since $V$ depends on $zS,zE$ -- so does this actually pose an issue? I.e., I can simply solve for the optimal $zS,zE$, taking as given $zI$, etc.
+		\item So, the only issue is that I don't have a closed form solution. Thus, I want to solve numerically. I have to solve on a large number of points, so doing in parallel makes sense. Should be doable. 
+		\item How to formulate? A reasonable way would be to say that they simply both draw from the same pool, so that you have a $\phi(z_I + z_S + z_E)$, and type $J$'s return from investing $z_J$ units, given $z_{-J}$, is $\chi^J \phi(z_J + z_{-J})$. So if $\chi_E$ is assumed to be small, then the free entry amount of $z_E$ is small, etc.
+		\item Could even have a *probability* of a spinout drawing from a new idea pool. Something like that. 
+		\item Shouldn't be too hard -- one day of work. 
+	\end{itemize}
 	\item Could think of spinouts in the model as corresponding to both employee entrepreneurship \textbf{and} employees defecting to established firms. But I only have data on entrepreneurship. 
 	\item When evaluating the effect of non-competes, rather than actually have optimal contracting in the model (which will understate the frequency of non-compete usage, for the same reason that the R\&D wage is so ludicrously low), just impose that there is a restriction. This also solves the problem of non-competes being used later but not earlier.
 \end{enumerate}
+
 
 
 

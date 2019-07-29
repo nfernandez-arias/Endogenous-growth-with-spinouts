@@ -24,7 +24,7 @@ source("code/matchPatentsToCompustat.R")
 # e.g. (1) whether they achieve revenue, (2) how much funding they receive, (3) whether they IPO, (4) IPO market capitalization
 source("code/constructSpinoutAttributes.R")
 
-# Next, do some basic analyses  
+# Next, do some basic analyses    
 source("code/basicSpinoutAnalysis.R")
 
 # Construct  NAICS - VentureSource industry cross-walk?
@@ -43,7 +43,7 @@ source("code/mergePatents_RD-Spinouts.R")
 # Next, prepare the data for panel regressions in Stata
 source("code/prepareDataForStata.R")
 
-  
+      
 
 
 
