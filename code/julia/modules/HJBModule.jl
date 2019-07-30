@@ -343,11 +343,12 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		end
 
 		## Unpack tau functions
-		########################################
-		τI = AuxiliaryModule.τI(modelPar,zI,zS,zE)[:]
+		#######################################
 
 		zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)[:]
 		zE = AuxiliaryModule.zE(modelPar,V0[1],zI,w,zS)[:]
+
+		τI = AuxiliaryModule.τI(modelPar,zI,zS,zE)[:]
 
 		τSE = AuxiliaryModule.τSE(modelPar,zI,zS,zE)[:]
 

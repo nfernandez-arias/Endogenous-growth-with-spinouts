@@ -1,8 +1,4 @@
 
-
-
-
-
 L_RD = results.finalGuess.L_RD
 #γ = results.finalGuess.γ
 w = results.finalGuess.w
@@ -16,14 +12,13 @@ W = results.spinoutValue
 zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
 zE = AuxiliaryModule.zE(modelPar,results.incumbent,w,zS)
 
-
 zS_density = zeros(size(zS))
 zS_density[2:end] = (zS ./ mGrid)[2:end]
 zS_density[1] = modelPar.ξ
 
-τI = AuxiliaryModule.τI(modelPar,zI)
-τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
-τE = AuxiliaryModule.τE(modelPar,zS,zE)
+τI = AuxiliaryModule.τI(modelPar,zI,zS,zE)
+τSE = AuxiliaryModule.τSE(modelPar,zI,zS,zE)
+τE = AuxiliaryModule.τE(modelPar,zI,zS,zE)
 τS = zeros(size(τE))
 τS[:] = τSE[:] - τE[:]
 

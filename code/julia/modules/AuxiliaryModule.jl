@@ -112,6 +112,7 @@ function τSE(modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64},zE
     χE = modelPar.χE
 
     ψSE = modelPar.ψSE
+    ψI = modelPar.ψI
 
     ϕSE(z) = z .^(-ψSE)
     ϕI(z) = z .^(-ψI)
@@ -133,8 +134,10 @@ function τE(modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64},zE:
     χE = modelPar.χE
 
     ψSE = modelPar.ψSE
+    ψI = modelPar.ψI
 
     ϕSE(z) = z .^(-ψSE)
+    ϕI(z) = z .^(-ψI)
 
     if modelPar.spinoutsSamePool == true
 

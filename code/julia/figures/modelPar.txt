@@ -14,6 +14,6 @@ L: 1.0
 ζ: 0.0 
 CNC: false 
 spinoutsFromSpinouts: 1.0 
-spinoutsSamePool: false 
+spinoutsSamePool: true 
 
 

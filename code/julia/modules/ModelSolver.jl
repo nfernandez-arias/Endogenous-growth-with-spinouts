@@ -164,8 +164,8 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
 
     zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
     zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution,w,zS)
-    τI = AuxiliaryModule.τI(modelPar,zI)
-    τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
+    τI = AuxiliaryModule.τI(modelPar,zI,zS,zE)
+    τSE = AuxiliaryModule.τSE(modelPar,zI,zS,zE)
 
     ν = modelPar.ν
     λ = modelPar.λ

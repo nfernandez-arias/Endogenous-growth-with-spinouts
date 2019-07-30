@@ -20,7 +20,7 @@ function setAlgorithmParameters()
 
     mgrid_numPoints = 1000
     mgrid_minimum = 0.0
-    mgrid_maximum = .01
+    mgrid_maximum = .03
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-12
 
@@ -35,7 +35,7 @@ function setAlgorithmParameters()
 
     incumbentHJB_timeStep = 50
     incumbentHJB_tolerance = 1e-12
-    incumbentHJB_maxIter = 50
+    incumbentHJB_maxIter = 100
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter)
 
