@@ -74,8 +74,8 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	zI = incumbentHJBSolution.zI
 	noncompete = incumbentHJBSolution.noncompete
 
-	τI = AuxiliaryModule.τI(modelPar,zI)
-	τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
+	τI = AuxiliaryModule.τI(modelPar,zI,zS,zE)
+	τSE = AuxiliaryModule.τSE(modelPar,zI,zS,zE)
 	τ = τI .+ τSE
 
 	a = sFromS * zS .+ zI .* (1 .- noncompete)  # Take into account effect of non-competes on drift
@@ -118,7 +118,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
 end
 
-function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, zI::Array{Float64}, noncompete,A::SparseMatrixCSC{Float64,Int64},zS::Array{Float64},zE::Array{Float64})
+function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, zI::Array{Float64}, noncompete::Array{Float64}, A::SparseMatrixCSC{Float64,Int64},zS::Array{Float64},zE::Array{Float64})
 
     ## Unpack model parameters
     ##########################
@@ -195,52 +195,22 @@ function updateV_implicit(algoPar::AlgorithmParameters, modelPar::ModelParameter
 	ρ = modelPar.ρ
 	V1 = zeros(size(u))
 
-	# Try-catch formulation
+	B = (1/timeStep + ρ) * I - A
 
-	#try
+	b = u .+ (1/timeStep) .* V0
 
-		B = (1/timeStep + ρ) * I - A
+	V1 = B \ b
 
-		b = u .+ (1/timeStep) .* V0
+	error = sum(abs.(V1-V0)) ./ timeStep
 
-		V1 = B \ b
-
-		#error = maximum(abs.(V1-V0)) ./ timeStep
-
-		#return V1,error
-
-	# catch err
-
-	#	if isa(err,LoadError)
-
-	#		timeStep = 1
-
-	#		B = (1/timeStep + ρ) * I - A
-
-	#		b = u .+ (1/timeStep) .* V0
-
-	#		V1 = B \ b
-
-			#error = maximum(abs.(V1-V0)) ./ timeStep
-
-			#return V1,error
-
-	#	end
-
-	#finally
-
-		error = sum(abs.(V1-V0)) ./ timeStep
-
-		return V1, error
-
-	#end
+	return V1, error
 
 end
 
 function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, verbose = 2, print_skip = 10, implicit = true)
 
     ## Unpack model parameters
-    ##########################
+    ##########################h
 
     # General
     ρ = modelPar.ρ
@@ -374,19 +344,18 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 		## Unpack tau functions
 		########################################
-		τI = AuxiliaryModule.τI(modelPar,zI)[:]
+		τI = AuxiliaryModule.τI(modelPar,zI,zS,zE)[:]
 
 		zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)[:]
 		zE = AuxiliaryModule.zE(modelPar,V0[1],zI,w,zS)[:]
 
-		τSE = AuxiliaryModule.τSE(modelPar,zS,zE)[:]
+		τSE = AuxiliaryModule.τSE(modelPar,zI,zS,zE)[:]
 
 		if implicit == true
 
 			## Make update:
 		    u = Π .- zI .* ((1 .- noncompete) .* w + noncompete .* AuxiliaryModule.wbar(modelPar.β))
 			#u = Π .+ τI .* (λ-1) .* V0[1]  .- zI .* ((1 .- noncompete) .* w + noncompete .* AuxiliaryModule.wbar(modelPar.β))  # Moll's idea -- here add (λ-1) * τI * V0[1] term
-			#A = constructMatrixA(algoPar,modelPar,guess,zI)
 
 			updateMatrixA(algoPar,modelPar,guess,zI,noncompete,A,zS,zE)
 			V1,error = updateV_implicit(algoPar,modelPar,A,u,V0)
@@ -399,8 +368,6 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 			error = sum(abs.(V1-V0)) ./ timeStep
 
 		else
-
-			u = 10
 
 			V1,error = updateV_explicit(algoPar,modelPar,V0)
 
