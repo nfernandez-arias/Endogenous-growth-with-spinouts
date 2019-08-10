@@ -14,9 +14,9 @@
 
 rm(list = ls())
 
-data <- fread("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics/data/VentureSource/EntitiesBios.csv")
+data <- fread("data/VentureSource/EntitiesBiosIndustries.csv")
 
-data <- melt(data, id.vars = c("EntityID","EntityName","JoinDate","StartDate","Founder","Title","TitleCode","FirstName","LastName"), 
+data <- melt(data, id.vars = c("EntityID","EntityName","JoinDate","StartDate","foundingYear","Founder","Title","TitleCode","FirstName","LastName","IndustryCodeDesc","SubcodeDesc"), 
              measure.vars = c("Company1","Company2","Company3","Company4","Company5"))
 
 data <- data[order(EntityID,FirstName,LastName)]
@@ -31,7 +31,7 @@ temp <- data[data[ , .I[1], by = c("EntityID","Title","FirstName","LastName")]$V
 
 temp[ , variable := NULL]
 
-fwrite(temp,"~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics/data/VentureSource/EntitiesPrevEmployers.csv")
+fwrite(temp,"data/VentureSource/EntitiesPrevEmployers.csv")
 
 
 

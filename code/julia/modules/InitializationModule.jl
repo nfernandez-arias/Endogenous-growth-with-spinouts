@@ -18,7 +18,7 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 1000
+    mgrid_numPoints = 10
     mgrid_minimum = 0.0
     mgrid_maximum = .03
     mgrid_logSpacing = true
@@ -166,14 +166,14 @@ function setModelParameters()
     # Innovation
     χI = 3
     χS = 1.8
-    χE = 1.2
+    χE = 0.7
     ψI = 0.5
     ψSE = 0.5
     λ = 1.0532733
 
     # Spinouts
     ν = 0.0102495
-    ξ = 20
+    ξ = 50
     ζ = 0
 
     # CNCs
@@ -181,11 +181,11 @@ function setModelParameters()
 
     # Rate of Spinout formation of spinouts (fraction of rate for incumbents)
 
-    spinoutsFromSpinouts = 1
+    spinoutsFromSpinouts = 0.5
 
     # Spinouts ideas from different pool?
 
-    spinoutsSamePool = false
+    spinoutsSamePool = true
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,ζ,CNC,spinoutsFromSpinouts,spinoutsSamePool)
 
@@ -217,7 +217,7 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
     w = wbar * ones(size(mGrid))
     #w = 0.5 * wbar * ones(pa.mGrid.numPoints,1)
 
-    idxM = pa.mGrid.numPoints
+    idxM = ceil(pa.mGrid.numPoints / 2)
     #idxM = 1
 
     #zS = pm.ξ .* mGrid

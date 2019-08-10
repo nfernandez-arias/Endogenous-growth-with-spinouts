@@ -27,11 +27,12 @@ source("code/constructSpinoutAttributes.R")
 # Next, do some basic analyses    
 source("code/basicSpinoutAnalysis.R")
 
-# Construct  NAICS - VentureSource industry cross-walk?
+# Construct VentureSource - NAICS cross-walk
+source("code/VentureSource/prepare-VentureSource-NAICS-Crosswalk.R")
 
 # Construct parentFirm-year spinout counts and spinout indicator 
 # (for now, not considering industry) 
-source("code/constructSpinoutCounts.R") 
+source("code/constructSpinoutCounts.R")
 
 # Combine with data on R&D from c ompustat_annual
 source("code/mergeRDwithSpinoutCounts.R")
@@ -42,7 +43,7 @@ source("code/mergePatents_RD-Spinouts.R")
 
 # Next, prepare the data for panel regressions in Stata
 source("code/prepareDataForStata.R")
-
+  
       
 
 

@@ -402,6 +402,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
                 # Solve HJB - output contains incumbent value V and policy zI
 
+                sol = IncumbentSolution(V,zI,noncompete)
                 incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,guess)
 
                 #println("V = $(incumbentHJBSolution.V)")

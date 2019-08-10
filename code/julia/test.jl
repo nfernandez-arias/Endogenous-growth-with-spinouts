@@ -8,9 +8,7 @@ using GuessModule
 using ModelSolver
 using HJBModule
 using InitializationModule
-using DataFrames
 using Plots
-using Interpolations
 
 algoPar = setAlgorithmParameters()
 modelPar = setModelParameters()

@@ -21,6 +21,7 @@ __precompile__()
 module HJBModule
 
 using AlgorithmParametersModule, ModelParametersModule, GuessModule, Optim, LinearAlgebra, SparseArrays
+using Plots
 import AuxiliaryModule
 
 export IncumbentSolution, solveIncumbentHJB, solveSpinoutHJB
@@ -209,6 +210,19 @@ end
 
 function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, verbose = 2, print_skip = 10, implicit = true)
 
+	V = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess)
+
+	zI = zeros(size(V))
+	noncompete = zeros(size(V))
+
+	incumbentSolution = IncumbentSolution(V,zI,noncompete)
+
+	return solveIncumbentHJB(algoPar,modelPar,guess,incumbentSolution,verbose,print_skip,implicit)
+
+end
+
+function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, incumbentHJBSolution::IncumbentSolution, verbose = 2, print_skip = 10, implicit = true)
+
     ## Unpack model parameters
     ##########################h
 
@@ -255,11 +269,35 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     #zE = guess.zE;
 	idxM = guess.idxM
 
+	mGrid, Δm = mGridBuild(algoPar.mGrid)
+
     # Compute initial guess for V, "value of staying put"
     # based on L_RD guess and profit function
+
     V0 = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess)
+	plot(mGrid,V0, label = "Incumbent Value", xlabel = "Mass of spinouts")
+	png("figures/plotsGR/diagnostic_V.png")
+
+	# Load in incumbent solution from previous iteration, as basis
+	# for computing zS and zE.
+
+	V_store = incumbentHJBSolution.V
+	zI_store = incumbentHJBSolution.zI
+	zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
+	zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution,w,zS)
+
+	# Initialize incumbent policies
 	noncompete = zeros(size(V0))
     zI = zeros(size(V0))
+
+
+	# Some diagnostics
+	plot(mGrid,w, label = "R&D wage", xlabel = "Mass of spinouts")
+	png("figures/plotsGR/diagnostic_w.png")
+
+	plot(mGrid,[zS zE], label = ["zS" "zE"], xlabel = "Mass of spinouts")
+	png("figures/plotsGR/diagnostic_zSzE.png")
+
 
     ## Construct mGrid and Delta_m vectors
     mGrid,Δm = mGridBuild(algoPar.mGrid)
@@ -273,9 +311,13 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     iterate = 0
     error = 1
 
+	#incumbentObjective(x) = 0
+
     while iterate < maxIter && error > tolerance
 
         iterate += 1
+
+		print("iterate: $iterate \n")
 
 		#---------------------------#
 		# Calculate optimal non-compete and optimal zI given non-compete
@@ -284,45 +326,103 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 		Vprime2 = (V0[3] - V0[2]) / Δm[2]
 
+		#zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
+		#zE = AuxiliaryModule.zE(modelPar,V0[1],zI,w,zS)
+
 		#print(Vprime2)
 
-		for i = reverse(1:length(mGrid)-1)
-		    Vprime = (V0[i+1] - V0[i]) / Δm[i]
+		if modelPar.spinoutsSamePool == true
 
-			if i == 1
-				Vprime = Vprime2
-			end
+			for i = reverse(1:length(mGrid)-1)
+			    Vprime = (V0[i+1] - V0[i]) / Δm[i]
 
-		    numerator = w[i] - ν * Vprime
-		    denominator = (1- ψI) * χI * ( λ * V0[1] - V0[i])
-		    ratio = numerator / denominator
-
-			#print("$(numerator - wbar)")
-
-			if ratio > 0
-
-				if numerator <= wbar
-					noncompete[i] = 0
-					#noncompete[i] = 1
-					zI[i] = ratio^(-1/ψI)
-					#numerator_CNC = AuxiliaryModule.wbar(modelPar.β)
-					#ratio_CNC = numerator_CNC / denominator
-					#zI[i] = ratio_CNC^(-1/ψI)
-
-				else
-					noncompete[i] = 1
-					numerator_CNC = AuxiliaryModule.wbar(modelPar.β)
-					ratio_CNC = numerator_CNC / denominator
-
-					zI[i] = ratio_CNC^(-1/ψI)
-					#zI[i] = ratio^(-1/ψI)
+				if i == 1
+					Vprime = Vprime2
 				end
 
-			else
+				objective1(z) = -(z * χI * ϕI(z + zS[i] + zE[i])  * ( λ * V0[1] - V0[i] ) - z * ( w[i] - ν * Vprime))
+				objective2(z) = -(z * χI * ϕI(z + zS[i] + zE[i])  * ( λ * V0[1] - V0[i] ) - z * wbar)
 
-				noncompete[i] = 0
-				#noncompete[i] = 1
-				zI[i] = 0.01
+				if CNC == false || w[i] - ν * Vprime <= wbar
+
+					print("Branch 1: \n")
+
+					#incumbentObjective(z) = -(z * χI * ϕI(z + zS[i] + zE[i])  * ( λ * V0[1] - V0[i] ) - z * ( w[i] - ν * Vprime))
+
+					incumbentObjective(z::Float64) = 0
+
+					plot(0:0.01:1,incumbentObjective, label = "Incumbent Objective", xlabel = "R&D effort zI", ylabel = "Flow + continuation payoff")
+					png("figures/plotsGR/diagnostic_incumbentObjective.png")
+
+					lower = 0.0
+					upper = Inf
+
+					print("incumbentObjective at z = 0: $(incumbentObjective(0)) \n")
+					print("incumbentOjbective at z = 1: $(incumbentObjective(1)) \n")
+
+					result = optimize(incumbentObjective,lower,upper)
+
+					zI[i] = Optim.minimizer(result)
+
+					print("zI[i] = $(zI[i]) \n\n")
+
+				else
+
+					noncompete[i] = 1
+
+					#incumbentObjective(z) = -(z * χI * ϕI(z + zS[i] + zE[i])  * ( λ * V0[1] - V0[i] ) - z * wbar)
+
+					lower = 0.0
+					upper = Inf
+
+					#result = optimize(incumbentObjective,lower,upper)
+
+					#zI[i] = Optim.minimizer(result)
+
+					zI[i] = 0
+				end
+
+
+
+			end
+
+		else
+
+			for i = reverse(1:length(mGrid)-1)
+				Vprime = (V0[i+1] - V0[i]) / Δm[i]
+
+				if i == 1
+					Vprime = Vprime2
+				end
+
+				numerator = w[i] - ν * Vprime
+				denominator = (1- ψI) * χI * ( λ * V0[1] - V0[i])
+				ratio = numerator / denominator
+
+				#print("$(numerator - wbar)")
+
+				if ratio > 0
+
+					if CNC == false || numerator <= wbar
+
+						noncompete[i] = 0
+						zI[i] = ratio^(-1/ψI)
+
+					else
+
+						noncompete[i] = 1
+						numerator_CNC = AuxiliaryModule.wbar(modelPar.β)
+						ratio_CNC = numerator_CNC / denominator
+						zI[i] = ratio_CNC^(-1/ψI)
+
+					end
+
+				else
+
+					noncompete[i] = 0
+					zI[i] = 0.01 # not realy used...but haven't deleted just in case..
+
+				end
 
 			end
 
@@ -335,33 +435,49 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		zI[end] = zI[end-1]
 		noncompete[end] = noncompete[end-1]
 
+		gr()
+		plot(mGrid,zI)
+		png("figures/plotsGR/diagnostic_zI.png")
+		#print(zI)
+
+		plot(0:0.01:1,ϕI)
+		png("figures/plotsGR/diagnostic_ϕI.png")
+
+
 		# Stability hack
 		#zI[idxM+1:end] .= zI[idxM]
+
+
+		## This should be deletable - but for now keeping it in just in case
 
 		if CNC == false
 			noncompete[:] .= 0
 		end
 
-		## Unpack tau functions
+		## Unpack z and tau functions
 		#######################################
 
 		zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)[:]
 		zE = AuxiliaryModule.zE(modelPar,V0[1],zI,w,zS)[:]
 
 		τI = AuxiliaryModule.τI(modelPar,zI,zS,zE)[:]
-
 		τSE = AuxiliaryModule.τSE(modelPar,zI,zS,zE)[:]
 
 		if implicit == true
 
-			## Make update:
+			## Implicit method
+
+			# Compute flow payoff
 		    u = Π .- zI .* ((1 .- noncompete) .* w + noncompete .* AuxiliaryModule.wbar(modelPar.β))
 			#u = Π .+ τI .* (λ-1) .* V0[1]  .- zI .* ((1 .- noncompete) .* w + noncompete .* AuxiliaryModule.wbar(modelPar.β))  # Moll's idea -- here add (λ-1) * τI * V0[1] term
 
+			# Update "transition" matrix A
 			updateMatrixA(algoPar,modelPar,guess,zI,noncompete,A,zS,zE)
+
+			# Implicit update step to compute V1 and error
 			V1,error = updateV_implicit(algoPar,modelPar,A,u,V0)
 
-			# Hack to avoid instabiities - true in equilibrium
+			# Hack to avoid instabiities - will be true in equilibrium
 			V1[idxM+1:end] .= V1[idxM]
 
 			# Normalize error by timeStep because
@@ -369,6 +485,8 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 			error = sum(abs.(V1-V0)) ./ timeStep
 
 		else
+
+			## Explicit method
 
 			V1,error = updateV_explicit(algoPar,modelPar,V0)
 
