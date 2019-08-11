@@ -129,7 +129,7 @@ output_NA <- output[is.na(gvkey)]
 output2_NA <- output2[is.na(gvkey)]
 
 output2 <- rbind(output_NA,output2_NA)
-
+ 
 output2[is.na(conml)&!is.na(snms), conml := snms]
 
 output2 <- output2[conml != ""]

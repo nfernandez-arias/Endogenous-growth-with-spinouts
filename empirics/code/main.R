@@ -43,7 +43,7 @@ source("code/mergePatents_RD-Spinouts.R")
 
 # Next, prepare the data for panel regressions in Stata
 source("code/prepareDataForStata.R")
-  
+      
       
 
 

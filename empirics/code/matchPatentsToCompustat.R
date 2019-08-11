@@ -21,7 +21,6 @@ source("code/matchPatentsGvkeys.R")
 # Next compute patent counts
 source("code/constructPatentCounts.R")
 
-
 #patents_ipc <- fread("data/nber uspto/pat76_06_ipc.csv")[order(patent,pdpass)]
 patentsAssignees <- fread("data/nber uspto/patassg.csv")[order(patnum,pdpass)]
 originality <- fread("data/nber uspto/orig_gen_76_06.csv")[order(patent)]
