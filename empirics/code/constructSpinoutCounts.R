@@ -60,7 +60,7 @@ parentsSpinouts_naics1 <- parentsSpinouts[(substr(NAICS1,1,1) == substr(naics,1,
 ## Here decide which one to use
 
 #parentsSpinouts <- parentsSpinouts_naics4
-
+  
 # adding up individual weights; equivalently, unweighted at STARTUP level
 temp <- parentsSpinouts[ , sum(Weight), by = .(gvkey,year)]
 setnames(temp,"V1","spinoutCount")
