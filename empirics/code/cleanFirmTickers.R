@@ -18,6 +18,7 @@ firmsAltDG_1 <- fread("code/company_list_5000-2019-07-15.csv")
 firmsAltDG_2 <- fread("code/company_list_10000-2019-07-21.csv")
 firmsAltDG_3 <- fread("code/company_list_15000-2019-07-26.csv")
 
+#firmsAltDG <- rbind(firmsAltDG_1,firmsAltDG_2)
 firmsAltDG <- rbind(firmsAltDG_1,firmsAltDG_2,firmsAltDG_3)
 
 setnames(firmsAltDG,"Original Input","query")

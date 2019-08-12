@@ -41,7 +41,7 @@ parentsSpinouts <- parentsSpinouts[!is.na(foundingYear)]
 ###########
 
 parentsSpinouts[ , yearError := foundingYear - joinYear]
-parentsSpinouts <- parentsSpinouts[yearError == 0]
+#parentsSpinouts <- parentsSpinouts[yearError == 0]
 parentsSpinouts[,  year := joinYear]
 parentsSpinouts[, foundingYear := NULL]
 parentsSpinouts[, joinYear := NULL]

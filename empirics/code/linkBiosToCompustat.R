@@ -18,12 +18,12 @@ compustatFirmsSegments <- fread("data/compustat/firmsSegments.csv")
 compustatFirmsSegments[tic == "IBM", conml := "IBM"]
 compustatFirmsSegments[tic == "GS", conml := "Goldman )Sachs"] 
 compustatFirmsSegments[tic == "HPQ", conml := "Hewlett-Packard"]
-compustatFirmsSegments[snms == "HP", snms := ""]
+compustatFirmsSegments[snms == "HP", snms := ""] 
 
 EntitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")
 #EntitiesPrevEmployers[ , foundingYear := pmin(na.omit(year(ymd(JoinDate))),na.omit(year(ymd(StartDate)))), by = .(EntityID)]
 EntitiesPrevEmployers[ , joinYear := year(ymd(JoinDate))]
-EntitiesPrevEmployers[ is.na(joinYear) , joinYear := as.numeric(foundingYear)]
+EntitiesPrevEmployers[ is.na(joinYear) , joinYear := foundingYear]
 #EntitiesPrevEmployers <- EntitiesPrevEmployers[foundingYear <= 1999]
 
 ## Select only founders
