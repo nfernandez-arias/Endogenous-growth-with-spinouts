@@ -20,8 +20,6 @@ rename valuablespinoutindicator valuableSpinoutIndicator
 
 encode state, gen(stateCode)
 
-xtset gvkey year
-
 rename spinoutCount spinoutCountWeighted
 label variable spinoutCountUnweighted "Spinouts (unweighted)"
 
@@ -47,27 +45,117 @@ label variable patentapplicationcount_cw "Patent Applications (CW)"
 
 *Run regressions
 
+xtset gvkey year
+
+encode naics4year, gen(naics4yearCode)
+
+set emptycells drop
+
+
+*** Spinout counts: all types
+
+eststo model1: quietly reghdfe Spinouts xrd emp patentcount_cw_cumulative patentapplicationcount_cw_ma3, absorb(gvkey) cluster(naics4 stateCode)
+eststo model2: quietly xtnbreg Spinouts xrd emp patentcount_cw_cumulative patentapplicationcount_cw_ma3, fe  
+eststo model3: quietly poisson Spinouts xrd emp patentcount_cw_cumulative patentapplicationcount_cw_ma3 i.stateCode i.naics4, robust
+eststo model4: quietly xtpoisson Spinouts xrd emp patentcount_cw_cumulative patentapplicationcount_cw_ma3, fe robust
+*estfe model*, labels(stateCode#year "State-Year FE" naics4#year "NAICS4-Year FE")
+esttab model* using tables/all_spinoutCount_regressions.tex, replace se stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') nonumbers mtitles("OLS (FE)" "Negative binomial FE" "Poisson" "Poisson FE") keep(xrd emp patentcount_cw_cumulative patentapplicationcount_cw_ma3)
+estfe model*, restore
+eststo clear
+
+*** Effect of CNC enforcement on R&D - spinout relationship
+
+gen xrdTimesTreatedPost = xrd * treatedpost
+
+eststo model1: quietly reghdfe Spinouts xrd xrdTimesTreatedPost emp patentcount_cw_cumulative patentapplicationcount_cw_ma3, absorb(gvkey) cluster(naics4 stateCode)
+*eststo model2: quietly xtnbreg Spinouts xrd xrdTimesTreatedPost emp patentcount_cw_cumulative patentapplicationcount_cw_ma3, fe  
+eststo model3: quietly poisson Spinouts xrd xrdTimesTreatedPost emp patentcount_cw_cumulative patentapplicationcount_cw_ma3 i.stateCode i.naics4, robust
+eststo model4: quietly xtpoisson Spinouts xrd xrdTimesTreatedPost emp patentcount_cw_cumulative patentapplicationcount_cw_ma3, fe robust
+*estfe model*, labels(stateCode#year "State-Year FE" naics4#year "NAICS4-Year FE")
+esttab model* using tables/all_spinoutCount_regressions_JeffersCourtRulings.tex, replace se stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') nonumbers mtitles("OLS (FE)" "Negative binomial FE" "Poisson" "Poisson FE") keep(xrd xrdTimesTreatedPost emp patentcount_cw_cumulative patentapplicationcount_cw_ma3)
+estfe model*, restore
+eststo clear
+
+gen xrdTimesNCC_1991 = xrd * ncc_1991
+
+eststo model1: quietly reghdfe Spinouts xrd xrdTimesNCC_1991 emp patentcount_cw_cumulative patentapplicationcount_cw_ma3, absorb(gvkey naics4#year) cluster(stateCode)
+*eststo model2: quietly xtnbreg Spinouts treatedpost i.naics4yearCode, fe  
+*eststo model3: quietly poisson Spinouts xrd xrdTimesNCC_1991 emp patentcount_cw_cumulative patentapplicationcount_cw_ma3 i.naics4, robust
+eststo model4: quietly xtpoisson Spinouts xrd xrdTimesNCC_1991 emp patentcount_cw_cumulative patentapplicationcount_cw_ma3, fe robust
+*estfe model*, labels(naics4#year "NAICS4-Year FE")
+esttab model* using tables/all_spinoutCount_regressions_NCC1991-Starr2018.tex, replace se stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') nonumbers mtitles("OLS (FE)" "Negative binomial FE" "Poisson" "Poisson FE") keep(xrd xrdTimesNCC_1991 emp patentcount_cw_cumulative patentapplicationcount_cw_ma3)
+estfe model*, restore
+eststo clear
+
+
+*** Effect of CNC enforcement on spinout generation
+
+eststo model1: quietly reghdfe Spinouts treatedpost, absorb(gvkey naics4#year) cluster(stateCode)
+*eststo model2: quietly xtnbreg Spinouts treatedpost i.naics4yearCode, fe  
+*eststo model3: quietly poisson Spinouts treatedpost i.naics4yearCode, robust
+*eststo model4: quietly xtpoisson Spinouts treatedpost i.naics4yearCode, fe robust
+estfe model*, labels(stateCode#year "State-Year FE" naics4#year "NAICS4-Year FE")
+esttab model* using tables/noPredictors_spinoutCount_regressions_JeffersCourtRulings.tex, replace se stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') nonumbers mtitles("OLS (FE)" "Negative binomial FE" "Poisson" "Poisson FE") keep(treatedpost)
+estfe model*, restore
+eststo clear
 
  **** Headlines
  
-eststo model1: quietly reghdfe Spinouts xrd patentcount_cw_ma5 patentapplicationcount_cw_ma5 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode)
-eststo model2: quietly reghdfe Spinouts xrd_ma3 patentcount_cw_ma5 patentapplicationcount_cw_ma5 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode)
-eststo model3: quietly reghdfe Spinouts xrd patentcount_cw_ma3 patentapplicationcount_cw_ma3 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode)
-eststo model4: quietly reghdfe Spinouts xrd_ma3 patentcount_cw_ma3 patentapplicationcount_cw_ma3 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode) 
+eststo model1: quietly reghdfe Spinouts xrd emp, absorb(gvkey) cluster(naics4 stateCode)
+eststo model2: quietly reghdfe Spinouts xrd_ma3 patentcount_cw_cumulative patentapplicationcount_cw_ma5 emp, absorb(gvkey) cluster(naics4 stateCode)
+eststo model3: quietly reghdfe Spinouts xrd patentcount_cw_cumulative patentapplicationcount_cw_ma3 emp, absorb(gvkey) cluster(naics4 stateCode)
+eststo model4: quietly reghdfe Spinouts xrd_ma3 patentcount_cw_cumulative patentapplicationcount_cw_ma3 emp, absorb(gvkey) cluster(naics4 stateCode) 
+eststo model5: quietly reghdfe Spinouts xrd_ma3 patentcount_cw_cumulative emp, absorb(gvkey) cluster(naics4 stateCode)
 estfe model*, labels(stateCode#year "State-Year FE" naics4#year "NAICS4-Year FE" year "Year FE" gvkey "Parent Firm FE")
-esttab model* using tables/rawSpinoutCount_allFixedEffects.tex, replace stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+esttab model* using tables/rawSpinoutCount_firmFE.tex, replace se stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') 
 estfe model*, restore
 eststo clear
 
-eststo model1: quietly reghdfe SpinoutsDEV xrd patentcount_cw_ma5 patentapplicationcount_cw_ma5 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode)
-eststo model2: quietly reghdfe SpinoutsDEV xrd_ma3 patentcount_cw_ma5 patentapplicationcount_cw_ma5 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode)
-eststo model3: quietly reghdfe SpinoutsDEV xrd patentcount_cw_ma3 patentapplicationcount_cw_ma3 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode)
-eststo model4: quietly reghdfe SpinoutsDEV xrd_ma3 patentcount_cw_ma3 patentapplicationcount_cw_ma3 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode) 
+eststo model1: quietly reghdfe SpinoutsDEV xrd patentcount_cw_cumulative patentapplicationcount_cw_ma5 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode)
+eststo model2: quietly reghdfe SpinoutsDEV xrd_ma3 patentcount_cw_cumulative patentapplicationcount_cw_ma5 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode)
+eststo model3: quietly reghdfe SpinoutsDEV xrd patentcount_cw_cumulative patentapplicationcount_cw_ma3 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode)
+eststo model4: quietly reghdfe SpinoutsDEV xrd_ma3 patentcount_cw_cumulative patentapplicationcount_cw_ma3 emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode) 
+eststo model5: quietly reghdfe SpinoutsDEV xrd_ma3 patentcount_cw_cumulative emp, absorb(naics4#year stateCode#year) cluster(naics4 stateCode)
 estfe model*, labels(stateCode#year "State-Year FE" naics4#year "NAICS4-Year FE" year "Year FE" gvkey "Parent Firm FE")
-esttab model* using tables/SpinoutDEV_allFixedEffects.tex, replace stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+esttab model* using tables/SpinoutDEV_allFixedEffects.tex, replace se stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
 estfe model*, restore
 eststo clear
- 
+
+eststo: quietly xtnbreg Spinouts xrd emp, fe
+eststo: quietly xtnbreg Spinouts xrd patentcount_cw_cumulative patentapplicationcount_cw_ma5 emp, fe
+eststo: quietly xtnbreg Spinouts xrd patentcount_cw_ma3 patentapplicationcount_cw_ma3 emp, fe
+eststo: quietly xtnbreg Spinouts xrd_ma3 patentcount_cw_cumulative patentapplicationcount_cw_ma3 emp, fe
+esttab using tables/xtnbreg_rawSpinoutCount_firmFE.tex, replace se stats(clustvar r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+*estfe model*, restore
+eststo clear
+
+eststo: quietly nbreg Spinouts xrd emp
+eststo: quietly nbreg Spinouts xrd patentcount_cw_cumulative patentapplicationcount_cw_ma5 emp
+eststo: quietly nbreg Spinouts xrd patentcount_cw_ma3 patentapplicationcount_cw_ma3 emp
+eststo: quietly nbreg Spinouts xrd_ma3 patentcount_cw_cumulative patentapplicationcount_cw_ma3 emp
+esttab using tables/nbreg_rawSpinoutCount_stateFE.tex, replace se stats(clustvar r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none) keep(xrd emp patentcount_cw_cumulative patentcount_cw_ma3 patentapplicationcount_cw_ma3 patentapplicationcount_cw_ma5)
+*estfe model*, restore
+eststo clear
+
+eststo: quietly xtpoisson Spinouts xrd emp, fe robust
+eststo: quietly xtpoisson Spinouts xrd patentcount_cw_cumulative patentapplicationcount_cw_ma5 emp, fe robust
+eststo: quietly xtpoisson Spinouts xrd patentcount_cw_ma3 patentapplicationcount_cw_ma3 emp, fe robust
+eststo: quietly xtpoisson Spinouts xrd_ma3 patentcount_cw_cumulative patentapplicationcount_cw_ma3 emp, fe robust
+esttab using tables/xtpoisson_rawSpinoutCount_firmFE.tex, replace se stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none)
+*estfe model*, restore
+eststo clear
+
+eststo: quietly poisson Spinouts xrd emp i.stateCode, robust
+eststo: quietly poisson Spinouts xrd patentcount_cw_cumulative patentapplicationcount_cw_ma5 emp i.stateCode, robust
+eststo: quietly poisson Spinouts xrd patentcount_cw_ma3 patentapplicationcount_cw_ma3 emp i.stateCode, robust
+eststo: quietly poisson Spinouts xrd_ma3 patentcount_cw_cumulative patentapplicationcount_cw_ma3 emp i.stateCode, robust
+esttab using tables/poisson_rawSpinoutCount_stateFE.tex, replace se stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mlabels(none) keep(xrd emp patentcount_cw_cumulative patentcount_cw_ma3 patentapplicationcount_cw_ma3 patentapplicationcount_cw_ma5)
+*estfe model*, restore
+eststo clear
+
+
+
+
  
  
  

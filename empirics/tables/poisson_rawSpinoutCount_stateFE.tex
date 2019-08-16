@@ -1,0 +1,33 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
+\hline
+Spinouts    &                     &                     &                     &                     \\
+xrd         &       0.102\sym{***}&       0.102\sym{***}&       0.105\sym{***}&                     \\
+            &   (0.00693)         &   (0.00734)         &   (0.00706)         &                     \\
+[1em]
+emp         &       0.155\sym{***}&      0.0757\sym{***}&       0.104\sym{***}&      0.0826\sym{***}\\
+            &    (0.0141)         &    (0.0201)         &    (0.0165)         &    (0.0202)         \\
+[1em]
+patentcount\_cw\_cumulative&                     &      0.0128\sym{***}&                     &      0.0124\sym{**} \\
+            &                     &   (0.00377)         &                     &   (0.00393)         \\
+[1em]
+patentapplicationcount\_cw\_ma5&                     &      0.0163\sym{***}&                     &                     \\
+            &                     &   (0.00218)         &                     &                     \\
+[1em]
+patentcount\_cw\_ma3&                     &                     &      0.0310\sym{***}&                     \\
+            &                     &                     &   (0.00481)         &                     \\
+[1em]
+patentapplicationcount\_cw\_ma3&                     &                     &     -0.0127\sym{**} &      0.0134\sym{***}\\
+            &                     &                     &   (0.00468)         &   (0.00212)         \\
+\hline
+r2          &                     &                     &                     &                     \\
+r2\_a\_within &                     &                     &                     &                     \\
+N           &       15284         &       13459         &       14685         &       14685         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

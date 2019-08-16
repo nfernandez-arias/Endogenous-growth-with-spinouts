@@ -1,0 +1,30 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{2}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{OLS (FE)}&\multicolumn{1}{c}{Negative binomial FE}\\
+\hline
+main        &                     &                     \\
+xrd         &       0.173         &      0.0494\sym{***}\\
+            &    (0.0893)         &   (0.00550)         \\
+[1em]
+xrdTimesNCC\_1991&     -0.0317         &   -0.000873         \\
+            &    (0.0267)         &   (0.00237)         \\
+[1em]
+emp         &      0.0112         &      0.0251         \\
+            &    (0.0399)         &    (0.0348)         \\
+[1em]
+patentcount\_cw\_cumulative&       0.145\sym{***}&       0.107\sym{*}  \\
+            &    (0.0373)         &    (0.0517)         \\
+[1em]
+patentapplicationcount\_cw\_ma3&      0.0587\sym{***}&      0.0282\sym{*}  \\
+            &    (0.0156)         &    (0.0118)         \\
+\hline
+r2          &       0.601         &                     \\
+r2\_a\_within &       0.146         &                     \\
+N           &       14004         &       14223         \\
+\hline\hline
+\multicolumn{3}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{3}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

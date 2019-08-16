@@ -27,12 +27,16 @@ source("code/constructSpinoutAttributes.R")
 # Next, do some basic analyses    
 source("code/basicSpinoutAnalysis.R")
 
+# Prepare dataset for event study to see how 
+# much spinout funding affects parent firm stock price
+source("code/prepareEventStudyDataset")
+
 # Construct VentureSource - NAICS cross-walk
 source("code/VentureSource/prepare-VentureSource-NAICS-Crosswalk.R")
 
 # Construct parentFirm-year spinout counts and spinout indicator 
 # (for now, not considering industry) 
-source("code/constructSpinoutCounts.R")
+source("code/constructSpinoutCounts.R") 
 
 # Combine with data on R&D from c ompustat_annual
 source("code/mergeRDwithSpinoutCounts.R")
@@ -41,9 +45,18 @@ source("code/mergeRDwithSpinoutCounts.R")
 source("code/matchPatentsToCompustat.R")
 source("code/mergePatents_RD-Spinouts.R")
 
+#### Non-competes stuff
+
+# Add variable encoding whether state has been trated by non-compete enforcement 
+# using Jeffers' court rulings dates
+source("code/addNoncompeteEnforcementChanges.R")
+
+# Add variable encoding state-level strength of non-compete enforcement from Bishara 2011 / Starr 2018
+source("code/addNoncompeteEnforcementIndices.R")
+
 # Next, prepare the data for panel regressions in Stata
 source("code/prepareDataForStata.R")
-      
+                    
       
 
 

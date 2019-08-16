@@ -1,0 +1,39 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
+\hline
+Spinouts    &                     &                     &                     &                     \\
+xrd         &       0.101\sym{***}&       0.103\sym{***}&       0.105\sym{***}&                     \\
+            &   (0.00535)         &   (0.00576)         &   (0.00565)         &                     \\
+[1em]
+emp         &   -0.000720         &     -0.0968\sym{***}&     -0.0610\sym{**} &     -0.0962\sym{***}\\
+            &    (0.0166)         &    (0.0192)         &    (0.0199)         &    (0.0192)         \\
+[1em]
+patentcount\_cw\_cumulative&                     &      0.0267\sym{***}&                     &      0.0283\sym{***}\\
+            &                     &   (0.00270)         &                     &   (0.00262)         \\
+[1em]
+patentapplicationcount\_cw\_ma5&                     &      0.0161\sym{***}&                     &                     \\
+            &                     &   (0.00228)         &                     &                     \\
+[1em]
+patentcount\_cw\_ma3&                     &                     &      0.0415\sym{***}&                     \\
+            &                     &                     &   (0.00443)         &                     \\
+[1em]
+patentapplicationcount\_cw\_ma3&                     &                     &     -0.0161\sym{***}&      0.0137\sym{***}\\
+            &                     &                     &   (0.00441)         &   (0.00210)         \\
+[1em]
+xrd\_ma3     &                     &                     &                     &       0.108\sym{***}\\
+            &                     &                     &                     &   (0.00600)         \\
+[1em]
+\_cons      &      -1.353\sym{***}&      -1.351\sym{***}&      -1.359\sym{***}&      -1.354\sym{***}\\
+            &    (0.0246)         &    (0.0263)         &    (0.0248)         &    (0.0255)         \\
+\hline
+r2          &                     &                     &                     &                     \\
+r2\_a\_within &                     &                     &                     &                     \\
+N           &       17047         &       15004         &       16353         &       16353         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

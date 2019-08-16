@@ -22,7 +22,7 @@ compustatFirmsSegments[snms == "HP", snms := ""]
 
 EntitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")
 #EntitiesPrevEmployers[ , foundingYear := pmin(na.omit(year(ymd(JoinDate))),na.omit(year(ymd(StartDate)))), by = .(EntityID)]
-EntitiesPrevEmployers[ , joinYear := year(ymd(JoinDate))]
+EntitiesPrevEmployers[ , joinYear := as.integer(year(ymd(JoinDate)))]
 EntitiesPrevEmployers[ is.na(joinYear) , joinYear := foundingYear]
 #EntitiesPrevEmployers <- EntitiesPrevEmployers[foundingYear <= 1999]
 
@@ -43,7 +43,7 @@ EntitiesPrevEmployers[, Weight := 1 / .N, by = EntityID]
 
 ## Prepare data
 
-compustatFirmsSegments <- compustatFirmsSegments[ , .(gvkey,naics,NAICSS1,NAICSS2,dataYear,conml,snms,tic)]
+compustatFirmsSegments <- compustatFirmsSegments[ , .(gvkey,cusip,naics,NAICSS1,NAICSS2,dataYear,conml,snms,tic)]
 compustatFirmsSegments <- compustatFirmsSegments[ , conml := gsub("[.]$","",conml), by = gvkey]
 compustatFirmsSegments <- compustatFirmsSegments[ , conml := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",conml), by = gvkey]
 #PrevEmployers <- unique(EntitiesPrevEmployers[, .(Weight,EntityID,EntityName,JoinDate,StartDate,Title,TitleCode,PreviousEmployer)], by = "PreviousEmployer")
@@ -91,7 +91,7 @@ output <- tempSegments[EntitiesPrevEmployers]
 #output <- EntitiesPrevEmployers[segments]
 #outputFuzzy <- PrevEmployers[1:5000] %>% stringdist_inner_join(segments, by = c(PreviousEmployer = "snms"), method = c("lv"), max_dist = 1, distance_col = "distance")
 
-output <- output[ , .(gvkey,naics,NAICSS1,NAICSS2,conml,snms,tic,PreviousEmployer,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,Weight,FirstName,LastName,joinYear)]
+output <- output[ , .(gvkey,cusip,naics,NAICSS1,NAICSS2,conml,snms,tic,PreviousEmployer,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,Weight,FirstName,LastName,joinYear)]
 
 # Analyze output
 #output[, PrevEmployerSpinoutCount := sum(Weight), by = .(snms)]
@@ -101,7 +101,7 @@ firms <- unique(compustatFirmsSegments, by = "gvkey")
 firms[, snms := NA]
 setkey(firms,conml)
 output2 <- firms[EntitiesPrevEmployers]
-output2 <- output2[ , .(gvkey,naics,NAICSS1,NAICSS2,conml,snms,tic,PreviousEmployer,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,Weight,FirstName,LastName,joinYear)]
+output2 <- output2[ , .(gvkey,cusip,naics,NAICSS1,NAICSS2,conml,snms,tic,PreviousEmployer,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,Weight,FirstName,LastName,joinYear)]
 
 output_noNA <- output[!is.na(gvkey)]
 output2_noNA <- output2[!is.na(gvkey)]
@@ -167,7 +167,7 @@ setkey(firmsTickersGvkeys,query)
 
 temp <- EntitiesPrevEmployers[firmsTickersGvkeys, nomatch = 0]
 
-temp <- temp[ , .(gvkey,naics,NAICSS1,NAICSS2,conml,snms,tic,PreviousEmployer,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,Weight,FirstName,LastName,joinYear)]
+temp <- temp[ , .(gvkey,cusip,naics,NAICSS1,NAICSS2,conml,snms,tic,PreviousEmployer,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,Weight,FirstName,LastName,joinYear)]
 
 output5 <- unique(rbind(output4,temp), by = c("gvkey","EntityID","foundingYear","FirstName","LastName","joinYear")) 
 

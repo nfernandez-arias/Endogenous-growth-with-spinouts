@@ -51,6 +51,7 @@ BDVI[ , c("Position14","Company14") := tstrsplit(Job14,",\\s*(?=[^,]+$)", perl=T
 BDVI[ , c("Position15","Company15") := tstrsplit(Job15,",\\s*(?=[^,]+$)", perl=TRUE)]
 
 BDVI[ , c("Job1","Job2","Job3","Job4","Job5","Job6","Job7","Job8","Job9","Job10","Job11","Job12","Job13","Job14","Job15") := NULL]
+
 #BDVI[ , c("Job1","Job2","Job3","Job4","Job5") := NULL]
 
 temp <- fread("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics/raw/VentureSource/PrincetonContactRevised.csv")

@@ -1,42 +1,39 @@
 {
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{l*{4}{c}}
+\begin{tabular}{l*{5}{c}}
 \hline\hline
-            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
 \hline
-xrd         &     0.00780\sym{***}&                     &     0.00758\sym{***}&                     \\
-            &      (4.26)         &                     &      (4.41)         &                     \\
+xrd         &       3.620\sym{*}  &                     &       3.480\sym{*}  &                     &                     \\
+            &     (1.428)         &                     &     (1.330)         &                     &                     \\
 [1em]
-patentcount\_cw\_ma5&    -0.00289         &    -0.00311         &                     &                     \\
-            &     (-1.43)         &     (-1.62)         &                     &                     \\
+patentcount\_cw\_cumulative&       0.278         &       0.218         &       0.401         &       0.341         &       0.575         \\
+            &     (0.524)         &     (0.546)         &     (0.434)         &     (0.454)         &     (0.429)         \\
 [1em]
-patentapplicationcount\_cw\_ma5&     0.00568\sym{**} &     0.00587\sym{**} &                     &                     \\
-            &      (3.08)         &      (3.37)         &                     &                     \\
+patentapplicationcount\_cw\_ma5&       0.715\sym{**} &       0.735\sym{**} &                     &                     &                     \\
+            &     (0.251)         &     (0.257)         &                     &                     &                     \\
 [1em]
-emp         &      0.0103         &      0.0107         &     0.00887         &     0.00923         \\
-            &      (0.27)         &      (0.27)         &      (0.26)         &      (0.26)         \\
+emp         &      -2.218         &      -1.945         &      -2.336\sym{*}  &      -2.077         &      -1.348         \\
+            &     (1.127)         &     (1.116)         &     (1.082)         &     (1.061)         &     (1.057)         \\
 [1em]
-xrd\_ma3     &                     &     0.00824\sym{***}&                     &     0.00800\sym{***}\\
-            &                     &      (4.05)         &                     &      (4.24)         \\
+xrd\_ma3     &                     &       3.711\sym{*}  &                     &       3.564\sym{*}  &       3.529\sym{*}  \\
+            &                     &     (1.486)         &                     &     (1.365)         &     (1.386)         \\
 [1em]
-patentcount\_cw\_ma3&                     &                     &    -0.00128         &    -0.00150         \\
-            &                     &                     &     (-0.57)         &     (-0.70)         \\
+patentapplicationcount\_cw\_ma3&                     &                     &       0.809\sym{***}&       0.836\sym{***}&                     \\
+            &                     &                     &     (0.159)         &     (0.156)         &                     \\
 [1em]
-patentapplicationcount\_cw\_ma3&                     &                     &     0.00427         &     0.00447\sym{*}  \\
-            &                     &                     &      (1.86)         &      (2.05)         \\
+\_cons      &       3.165\sym{**} &       3.287\sym{**} &       4.946\sym{***}&       5.068\sym{***}&       5.282\sym{***}\\
+            &     (1.132)         &     (1.093)         &     (0.909)         &     (0.857)         &     (0.876)         \\
 [1em]
-\_cons      &       2.703\sym{**} &       2.728\sym{**} &       3.897\sym{***}&       3.924\sym{***}\\
-            &      (3.49)         &      (3.52)         &      (5.48)         &      (5.48)         \\
+State-Year FE&         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
 [1em]
-State-Year FE&         Yes         &         Yes         &         Yes         &         Yes         \\
-[1em]
-NAICS4-Year FE&         Yes         &         Yes         &         Yes         &         Yes         \\
+NAICS4-Year FE&         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
 \hline
-r2          &      0.0318         &      0.0317         &      0.0206         &      0.0206         \\
-r2\_a\_within &     0.00314         &     0.00305         &     0.00123         &     0.00118         \\
-N           &       18573         &       18573         &       20382         &       20382         \\
+r2          &      0.0341         &      0.0338         &      0.0237         &      0.0236         &      0.0235         \\
+r2\_a\_within &     0.00407         &     0.00382         &     0.00155         &     0.00145         &     0.00142         \\
+N           &       12241         &       12241         &       13477         &       13477         &       13477         \\
 \hline\hline
-\multicolumn{5}{l}{\footnotesize \textit{t} statistics in parentheses}\\
-\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\multicolumn{6}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{6}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
 \end{tabular}
 }

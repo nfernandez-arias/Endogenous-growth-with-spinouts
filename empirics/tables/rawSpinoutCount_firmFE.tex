@@ -1,0 +1,37 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{5}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\hline
+xrd         &       0.224\sym{*}  &                     &       0.191\sym{*}  &                     &                     \\
+            &    (0.0948)         &                     &    (0.0892)         &                     &                     \\
+[1em]
+emp         &      0.0233         &      0.0679\sym{*}  &      0.0493         &      0.0729\sym{*}  &      0.0871\sym{**} \\
+            &    (0.0350)         &    (0.0319)         &    (0.0301)         &    (0.0301)         &    (0.0305)         \\
+[1em]
+xrd\_ma3     &                     &       0.181\sym{*}  &                     &       0.203\sym{*}  &       0.199         \\
+            &                     &    (0.0874)         &                     &    (0.0984)         &    (0.0986)         \\
+[1em]
+patentcount\_cw\_cumulative&                     &       0.149\sym{***}&       0.155\sym{***}&       0.152\sym{***}&      0.0865\sym{**} \\
+            &                     &    (0.0312)         &    (0.0291)         &    (0.0316)         &    (0.0304)         \\
+[1em]
+patentapplicationcount\_cw\_ma5&                     &      0.0699\sym{***}&                     &                     &                     \\
+            &                     &    (0.0147)         &                     &                     &                     \\
+[1em]
+patentapplicationcount\_cw\_ma3&                     &                     &      0.0580\sym{***}&      0.0602\sym{***}&                     \\
+            &                     &                     &    (0.0138)         &    (0.0145)         &                     \\
+[1em]
+\_cons      &       0.148         &     -0.0489         &     -0.0366         &     -0.0409         &      0.0744         \\
+            &    (0.0813)         &    (0.0901)         &    (0.0900)         &    (0.0917)         &    (0.0694)         \\
+[1em]
+Parent Firm FE&         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+\hline
+r2          &       0.519         &       0.592         &       0.549         &       0.548         &       0.537         \\
+r2\_a\_within &       0.132         &       0.154         &       0.158         &       0.155         &       0.135         \\
+N           &       15266         &       13441         &       14669         &       14669         &       14669         \\
+\hline\hline
+\multicolumn{6}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{6}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

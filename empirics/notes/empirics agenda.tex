@@ -122,22 +122,65 @@
 Throughout, the subscripts refer to firm $i$ in industry $j$ in state $s$ during year $t$. 
 
 \subsection{Link between R\&D spending and spinout formation}
-
-Assess the link between 
+ 
+Assess the link between R\&D spending and spinout formation as follows:
+\begin{align*}
+	y_{ijst} &= \alpha_{jt} + \sigma_{st} + \beta RD_{it} + \gamma X_{it} + \epsilon_{ijst}
+\end{align*}
 
 \subsection{Effect of non-competes}
-	
-First, we can assess the effect of non-competes on spinout formation generally:
 
+\subsubsection{Jeffers' specification}
+
+First, we can assess the effect of non-competes on spinout formation generally -- the specification in Jeffers' paper on CNCs and spinouts: 
 \begin{align*}
-	y_{ijst} &= \alpha_{jt} + \sigma_{st} + \beta RD 
+	y_{ijst} &= \alpha + \beta(treated_s \times post_{st}) + \gamma_i + \theta_{jt} + \epsilon_{ijst} 
 \end{align*}
+
+This might work. 
+
+\subsubsection{Effect on R\&D --> spinout link}
+
 
 \section{Important regressions}
 
+\input{../tables/all_spinoutCount_regressions.tex}
+
+\subsection{With Jeffers court rulings}
+
+\input{../tables/all_spinoutCount_regressions_JeffersCourtRulings.tex}
+
+\subsection{With NCC enforcement index from Starr 2018 (1991 index)}
+
+\input{../tables/all_spinoutCount_regressions_NCC1991-Starr2018.tex}
+
+\subsection{Jeffers replication (kind of)}
+
+\input{../tables/noPredictors_spinoutCount_regressions_JeffersCourtRulings.tex}
+
 \subsection{Raw spinout count}
 
-\input{../tables/rawSpinoutCount_allFixedEffects.tex}
+\input{../tables/rawSpinoutCount_firmFE.tex}
+\linebreak
+
+\subsection{Raw spinout count: negative binomial fixed effects regression}
+
+\input{../tables/xtnbreg_rawSpinoutCount_firmFE.tex}
+\linebreak
+
+\subsection{Neg. bin., no FE}
+
+\input{../tables/nbreg_rawSpinoutCount_firmFE.tex}
+\linebreak
+
+\subsection{Raw spinout count: poisson regression}
+
+\input{../tables/xtpoisson_rawSpinoutCount_firmFE.tex}
+\linebreak
+
+\subsection{poisson regression, state dummies}
+
+\input{../tables/poisson_rawSpinoutCount_stateFE.tex}
 \linebreak
 
 \subsection{Spinout DEV}
