@@ -440,7 +440,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         catch err
 
             println("-----------------Caught an Error!-------------------------")
-            #println("Error: $err")
+            println("Error: $err")
             println(typeof(err))
             #sleep(2)
 
@@ -509,6 +509,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
             #### Updating L_RD,w
 
             ## Updating w
+
+            print("Type: $(typeof(incumbentHJBSolution))")
 
             V = incumbentHJBSolution.V
             zI = incumbentHJBSolution.zI

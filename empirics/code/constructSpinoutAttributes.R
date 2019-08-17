@@ -45,19 +45,12 @@ deals[exit == 1 & cumExit == 1, valAtExit := PostValUSD]
 deals[exit == 1 & cumExit == 1, raisedAtExit_USD := RaisedUSD]
 
 exits <- deals[exit == 1 & cumExit == 1, .(EntityID,EntityName,maxExit,foundingYear,exitYear,valAtExit,raisedAtExit_USD,RoundType)]
+
 noexits <- unique(deals[maxExit != 1], by = "EntityID")[,.(EntityID,EntityName,maxExit,foundingYear,exitYear,valAtExit,raisedAtExit_USD,RoundType)]
 
 noexits[, RoundType := NA]
 
 exits <- rbind(exits,noexits)
-
-
-
-
-
-
-
-
 
 
 # Get unique record for each EntityID

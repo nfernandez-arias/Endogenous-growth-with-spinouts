@@ -29,6 +29,9 @@ segmentsUnique <- unique(segments, by = c("snms", "gvkey"))
 segmentsUnique[ , count := .N , by = snms]
 setkey(segmentsUnique,gvkey,snms)
 setkey(segments,gvkey,snms)
+
+segmentsUnique <- segmentsUnique[ , .(gvkey,snms,count)]
+
 segments <- segmentsUnique[segments]
 segments <- segments[count == 1]
 

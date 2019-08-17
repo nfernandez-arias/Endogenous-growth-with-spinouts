@@ -124,47 +124,20 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
     ## Unpack model parameters
     ##########################
 
-    # General
-    #ρ = modelPar.ρ;
-    #β = modelPar.β;
-    #L = modelPar.L;
-
-    # Innovation
-    #χI = modelPar.χI;
-    #χS = modelPar.χS;
-    #χE = modelPar.χE;
-    #ψI = modelPar.ψI;
-    #ψSE = modelPar.ψSE;
     λ = modelPar.λ;
 
     # Spinouts
     ν = modelPar.ν;
-    #ξ = modelPar.ξ;
+
 	sFromS = modelPar.spinoutsFromSpinouts
-
-
-    # Define some auxiliary functions
-    #ϕI(z) = z .^(-ψI)
-
-    ## Unpack algorithm parameters
-    ######################################
-    #timeStep = algoPar.incumbentHJB.timeStep
-    #tolerance = algoPar.incumbentHJB.tolerance
-    #maxIter = algoPar.incumbentHJB.maxIter
 
     ## Unpack guess
     ###################################################
-    #Π = AuxiliaryModule.profit(guess.L_RD,modelPar)
-    #w = guess.w
+
 	idxM = guess.idxM
-
-
 
     # Construct mGrid
     mGrid,Δm = mGridBuild(algoPar.mGrid)
-
-    # Initialize A matrix - NO NEED, SINCE UPDATING
-    #A = spzeros(length(mGrid),length(mGrid))
 
     ## Compute A Matrix
     ##############################################
@@ -317,7 +290,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
         iterate += 1
 
-		print("iterate: $iterate \n")
+		#print("iterate: $iterate \n")
 
 		#---------------------------#
 		# Calculate optimal non-compete and optimal zI given non-compete
@@ -345,26 +318,43 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 				if CNC == false || w[i] - ν * Vprime <= wbar
 
-					print("Branch 1: \n")
+					#print("Branch 1: \n")
 
 					#incumbentObjective(z) = -(z * χI * ϕI(z + zS[i] + zE[i])  * ( λ * V0[1] - V0[i] ) - z * ( w[i] - ν * Vprime))
 
-					incumbentObjective(z::Float64) = 0
+					#incumbentObjective(z::Float64) = 0
 
-					plot(0:0.01:1,incumbentObjective, label = "Incumbent Objective", xlabel = "R&D effort zI", ylabel = "Flow + continuation payoff")
-					png("figures/plotsGR/diagnostic_incumbentObjective.png")
+					#plot(0:0.01:1,objective1, label = "Incumbent Objective", xlabel = "R&D effort zI", ylabel = "Flow + continuation payoff")
+					#png("figures/plotsGR/diagnostic_incumbentObjective.png")
 
-					lower = 0.0
-					upper = Inf
+					lower = 0
+					upper = 10
 
-					print("incumbentObjective at z = 0: $(incumbentObjective(0)) \n")
-					print("incumbentOjbective at z = 1: $(incumbentObjective(1)) \n")
+					#print("zS[$i] = $(zS[i])\n")
+					#print("zE[$i] = $(zE[i])\n")
+					#print("λ = $λ\n")
+					#print("χI = $χI\n")
+					#print("V0[1] = $(V0[1])\n")
+					#print("V0[$i] = $(V0[i])\n")
+					#print("w[$i] = $(w[i])\n")
 
-					result = optimize(incumbentObjective,lower,upper)
+					#print("objective1(0.01) = $(objective1(0.01))\n")
+					#print("objective1(1) = $(objective1(1))\n")
+
+					#plot(0:0.01:1,objective1,title = "objective1", label = "incumbent objective", xlabel = "z")
+					#png("figures/plotsGR/diagnostic_incumbentObjective.png")
+
+
+					#print("incumbentObjective at z = 0: $(incumbentObjective(0)) \n")
+					#print("incumbentOjbective at z = 1: $(incumbentObjective(1)) \n")
+
+					result = optimize(objective1,lower,upper)
+
+					#print("result = $result\n")
 
 					zI[i] = Optim.minimizer(result)
 
-					print("zI[i] = $(zI[i]) \n\n")
+					#print("zI[$i] = $(zI[i]) \n\n")
 
 				else
 
@@ -435,13 +425,13 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		zI[end] = zI[end-1]
 		noncompete[end] = noncompete[end-1]
 
-		gr()
-		plot(mGrid,zI)
-		png("figures/plotsGR/diagnostic_zI.png")
+		#gr()
+		#plot(mGrid,zI)
+		#png("figures/plotsGR/diagnostic_zI.png")
 		#print(zI)
 
-		plot(0:0.01:1,ϕI)
-		png("figures/plotsGR/diagnostic_ϕI.png")
+		#plot(0:0.01:1,ϕI)
+		#png("figures/plotsGR/diagnostic_ϕI.png")
 
 
 		# Stability hack

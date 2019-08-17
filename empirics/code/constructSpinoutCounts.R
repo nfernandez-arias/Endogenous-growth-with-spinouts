@@ -40,12 +40,14 @@ parentsSpinouts <- parentsSpinouts[!is.na(foundingYear)]
 # For now, only considering as founders those employees who joined during the founding year.
 ###########
 
-parentsSpinouts[ , yearError := foundingYear - joinYear]
-#parentsSpinouts <- parentsSpinouts[yearError == 0]
+parentsSpinouts[ , yearError := joinYear - foundingYear]
+parentsSpinouts <- parentsSpinouts[yearError <= 1]
 parentsSpinouts[,  year := joinYear]
 parentsSpinouts[, foundingYear := NULL]
 parentsSpinouts[, joinYear := NULL]
 parentsSpinouts[, yearError := NULL]
+
+fwrite(parentsSpinouts,"data/parentsSpinoutsExits.csv")
 
 ##########
 # Compute the spinout count -- 

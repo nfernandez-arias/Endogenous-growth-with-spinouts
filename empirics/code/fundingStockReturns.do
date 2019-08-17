@@ -15,11 +15,11 @@ by cusip: gen totalFundingLag3 = totalfunding[_n-3]
 
 **** Run regression with firm fixed effects
 
-reghdfe abnormalretdollars_z totalfunding_z, absorb(cusip) cluster(cusip)
+reghdfe abnormalretdollars totalfunding, absorb(cusip) cluster(cusip)
 
-reg abnormalretdollars totalfunding totalFundingLag
+reg abnormalretdollars totalfunding
 
-reg abnormalretdollars_z totalfunding_z
+reg abnormalretdollars totalfunding
 
 
 

@@ -32,6 +32,12 @@ data[, patentCount_CW := (patentCount_CW - mean(patentCount_CW)) / sd(patentCoun
 data[, patentCount_CW_cumulative := (patentCount_CW_cumulative - mean(patentCount_CW_cumulative)) / sd(patentCount_CW_cumulative)]
 data[, emp := (emp - mean(emp,na.rm = TRUE)) / sd(emp, na.rm = TRUE)]
 
+data[, spinoutCount := (spinoutCount - mean(spinoutCount,na.rm = TRUE)) / sd(spinoutCount, na.rm = TRUE)]
+data[, spinoutCountUnweighted := (spinoutCountUnweighted - mean(spinoutCountUnweighted,na.rm = TRUE)) / sd(spinoutCountUnweighted, na.rm = TRUE)]
+data[, spinoutCountUnweighted_onlyExits := (spinoutCountUnweighted_onlyExits - mean(spinoutCountUnweighted_onlyExits,na.rm = TRUE)) / sd(spinoutCountUnweighted_onlyExits, na.rm = TRUE)]
+data[, emp := (emp - mean(emp,na.rm = TRUE)) / sd(emp, na.rm = TRUE)]
+
+
 ## Compute moving averages
 data[, xrd_ma3 := (1/3) * Reduce(`+`, shift(xrd, 0L:2L, type = "lag")), by = gvkey]
 data[, xrd_ma5 := (1/5) * Reduce(`+`, shift(xrd, 0L:4L, type = "lag")), by = gvkey]
@@ -70,7 +76,7 @@ data <- data[, if(max(na.omit(xrd)) > 0) .SD, by = gvkey]
 data <- data[, if(max(na.omit(spinoutCount)) >0) .SD, by = gvkey]
 
 data <- data[year >= 1986]
-data <- data[year <= 2014]
+data <- data[year <= 2015]
 
 # Construct 4-digit NAICS codes
 data[, naics6 := substr(naics,1,6)]
@@ -94,7 +100,7 @@ data[, naics4Year := as.factor(paste(naics4,year))]
 
 data[, naics4Year_count := .N, by = naics4Year]
 data[naics4Year_count <= 10, naics4Year_drop := 1]
-
+  
   
 
 fwrite(data,"data/compustat-spinouts_Stata.csv")

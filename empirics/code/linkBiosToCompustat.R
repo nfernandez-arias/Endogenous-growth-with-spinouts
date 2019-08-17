@@ -43,7 +43,7 @@ EntitiesPrevEmployers[, Weight := 1 / .N, by = EntityID]
 
 ## Prepare data
 
-compustatFirmsSegments <- compustatFirmsSegments[ , .(gvkey,cusip,naics,NAICSS1,NAICSS2,dataYear,conml,snms,tic)]
+compustatFirmsSegments <- compustatFirmsSegments[ , .(gvkey,state,city,cusip,naics,NAICSS1,NAICSS2,dataYear,conml,snms,tic)]
 compustatFirmsSegments <- compustatFirmsSegments[ , conml := gsub("[.]$","",conml), by = gvkey]
 compustatFirmsSegments <- compustatFirmsSegments[ , conml := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",conml), by = gvkey]
 #PrevEmployers <- unique(EntitiesPrevEmployers[, .(Weight,EntityID,EntityName,JoinDate,StartDate,Title,TitleCode,PreviousEmployer)], by = "PreviousEmployer")
@@ -53,7 +53,7 @@ compustatFirmsSegments <- compustatFirmsSegments[ , conml := gsub("( Inc| Corp| 
 EntitiesPrevEmployers <- EntitiesPrevEmployers[, .(Weight,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,FirstName,LastName,joinYear,Title,TitleCode,PreviousEmployer)]
 EntitiesPrevEmployers[ PreviousEmployer == "Cisco", PreviousEmployer := "Cisco Systems"]
 EntitiesPrevEmployers[ PreviousEmployer == "Amazon", PreviousEmployer := "Amazon.com"]
-EntitiesPrevEmployers[ PreviousEmployer == "Yahoo" | PreviousEmployer == "Yahoo!", PreviousEmployer := "Verizon"]
+EntitiesPrevEmployers[ PreviousEmployer == "Yahoo" | PreviousEmployer == "Yahoo!", PreviousEmployer :=  "Verizon"]
 EntitiesPrevEmployers[ , PreviousEmployerCLEAN := gsub("( )?(_x000D_)?(\n)?( )?(_x000D_)?(\n)?( )?_x000D_\n$","",PreviousEmployer), by = PreviousEmployer]
 EntitiesPrevEmployers[ , PreviousEmployerCLEAN := gsub("[.]$","",PreviousEmployerCLEAN), by = PreviousEmployerCLEAN]
 EntitiesPrevEmployers[ , PreviousEmployerCLEAN := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",PreviousEmployerCLEAN), by = PreviousEmployerCLEAN]
@@ -91,7 +91,7 @@ output <- tempSegments[EntitiesPrevEmployers]
 #output <- EntitiesPrevEmployers[segments]
 #outputFuzzy <- PrevEmployers[1:5000] %>% stringdist_inner_join(segments, by = c(PreviousEmployer = "snms"), method = c("lv"), max_dist = 1, distance_col = "distance")
 
-output <- output[ , .(gvkey,cusip,naics,NAICSS1,NAICSS2,conml,snms,tic,PreviousEmployer,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,Weight,FirstName,LastName,joinYear)]
+output <- output[ , .(gvkey,cusip,state,city,naics,NAICSS1,NAICSS2,conml,snms,tic,PreviousEmployer,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,Weight,FirstName,LastName,joinYear)]
 
 # Analyze output
 #output[, PrevEmployerSpinoutCount := sum(Weight), by = .(snms)]
@@ -101,7 +101,7 @@ firms <- unique(compustatFirmsSegments, by = "gvkey")
 firms[, snms := NA]
 setkey(firms,conml)
 output2 <- firms[EntitiesPrevEmployers]
-output2 <- output2[ , .(gvkey,cusip,naics,NAICSS1,NAICSS2,conml,snms,tic,PreviousEmployer,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,Weight,FirstName,LastName,joinYear)]
+output2 <- output2[ , .(gvkey,cusip,state,city,naics,NAICSS1,NAICSS2,conml,snms,tic,PreviousEmployer,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,Weight,FirstName,LastName,joinYear)]
 
 output_noNA <- output[!is.na(gvkey)]
 output2_noNA <- output2[!is.na(gvkey)]
@@ -160,6 +160,7 @@ firmsTickers <- fread("data/firmsTickersAltDG.csv")
 setkey(firmsTickers,Ticker)
 #setkey(firmsTickers2,tic)
 setkey(firms,tic)
+#firmsTickersGvkeys <- firms[firmsTickers]
 firmsTickersGvkeys <- firms[firmsTickers]
 
 # merge with EntitiesPrevEmployers and append to output 
@@ -167,7 +168,9 @@ setkey(firmsTickersGvkeys,query)
 
 temp <- EntitiesPrevEmployers[firmsTickersGvkeys, nomatch = 0]
 
-temp <- temp[ , .(gvkey,cusip,naics,NAICSS1,NAICSS2,conml,snms,tic,PreviousEmployer,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,Weight,FirstName,LastName,joinYear)]
+temp <- temp[ , .(gvkey,cusip,state,city,naics,NAICSS1,NAICSS2,conml,snms,tic,PreviousEmployer,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,Weight,FirstName,LastName,joinYear)]
+
+temp <- temp[!is.na(gvkey)]
 
 output5 <- unique(rbind(output4,temp), by = c("gvkey","EntityID","foundingYear","FirstName","LastName","joinYear")) 
 

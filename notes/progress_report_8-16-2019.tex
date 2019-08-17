@@ -1,0 +1,113 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+	
+	
+\title{Endogenous Growth with Spinouts - Progress Report and Issues}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Progress update}
+
+\subsection{Spinouts dataset}
+
+\begin{itemize}
+	\item Coverage: US VC-funded spinouts, 1986-2014
+	\item 12,010 parent firm - spinout pairs
+	\item 3,483 unique parent firms
+	\item 9,280 unique spinout firms
+	\item See Figure \ref{TotalSpinoutCount}
+\end{itemize}
+
+\begin{figure}[h] \phantomsection 
+	\centering
+	\includegraphics[scale=0.43]{../empirics/code/plots/totalSpinoutsAndStartupsPerYear.png}
+	\caption{Rapid decrease after 2012 in both series (though earlier for spinouts series). Could be due to typical lag between founding and first VC-funding (when a startup first appears in the dataset). I estimated the pattern of founding-funding lags and use that to "correct" the data, but it does not completely remove the decrease. Hence, some (potentially corner) combination of the following is true: (1) the dataset coverage is declining in recent years, (2) the speed with which startups receive VC-funding after being founded has decreased, (3) the number of startups founded each year which eventually receive VC funding is declining in recent years. For now I am planning on doing robustness checks to make sure this isn't affecting results.}
+	\label{TotalSpinoutCount}
+\end{figure}
+
+
+\section{Main issues to be resolved}
+
+\subsection{Theory}
+
+\subsubsection{Negative R\&D wage}
+
+\begin{itemize}
+	\item Model produces far too low R\&D wage, so can't match R\&D spending / sales -- negative for most of the state space, due to the high value of forming a spin out. Adding deadweight loss of creative destruction actually makes this *worse*, since it lowers entry by spinouts in general equilibrium. I think I can fix this by having spinouts not draw from a different pool of ideas, but I need to implement this.
+	\item At the end of the day, this might be "unfixable" because workers in reality are risk averse but in the model risk-neutral...but adding worker risk aversion makes my model intractable.
+	\item Target 50\% of R\&D - GDP ratio to calibrate, since approximately half of R\&D spending goes to wages
+\end{itemize}
+
+\subsubsection{Non-competes in the model}
+
+\begin{itemize}
+	\item As we have discussed before, my model may not be a good model of \textit{why} non-competes are signed. Hence, the model will not do a good job predicting which employment contracts will be bound by non-competes if I add optimal contracting to the model. 
+	\item My idea: as in Baslandze 2019, posit increased deadweight loss of forming spinouts in states where non-competes are enforced more heavily, without modeling the contracting problem. I will simply cite evidence from Starr 2019 ("Noncompetes in the U.S. Labor force") that shows that non-competes are prevalent among highly skilled workers. 
+	\item I will validate the model by comparing its predictions across enforcement regimes anyway...so shouldn't be a big deal to use this "unrealistic" assumption, no?
+\end{itemize}
+
+\subsection{Empirics}
+
+\subsubsection{R\&D and spinout formation}
+
+\begin{enumerate}
+	\item Finding some results that suggest R\&D spending leads to spinout formation, even with Parent firm and Naics4-year fixed effects, and appropriate clustering. 
+	\item Patent counts and patent applications also predict spinouts
+	\item One standard deviation change in R\&D spending has larger effect on expected spinout formation than one standard deviation change in other control variables, though close for some
+	\item Some lingering details on these regressions: OLS vs Poisson vs Negative Binomial -- need to implement the alternatives carefully
+\end{enumerate}
+
+\subsubsection{Non-compete enforcement}
+
+\begin{enumerate}
+	\item Generally, not finding significant results -- appears to be due to low economic significance rather than low statistical power...
+\end{enumerate}
+
+\subsubsection{Effect of spinout financing deals on parent firm market value}
+
+\begin{enumerate}
+	\item Same as before -- appears to be due to low significance, not low power.
+	\item Still no results even when using \textit{abnormal} returns, based on Fama-French 3-factor model.
+\end{enumerate}
+
+
+
+\end{document}
+
+
+
+

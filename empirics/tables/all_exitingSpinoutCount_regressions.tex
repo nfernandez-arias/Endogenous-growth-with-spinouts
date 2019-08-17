@@ -1,0 +1,27 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{OLS (FE)}&\multicolumn{1}{c}{Negative binomial FE}&\multicolumn{1}{c}{Poisson}&\multicolumn{1}{c}{Poisson FE}\\
+\hline
+main        &                     &                     &                     &                     \\
+xrd         &      0.0485\sym{**} &      0.0206\sym{***}&      0.0890\sym{***}&      0.0203\sym{***}\\
+            &    (0.0142)         &   (0.00524)         &   (0.00630)         &   (0.00616)         \\
+[1em]
+emp         &     -0.0180         &    -0.00362         &      0.0199         &    -0.00736         \\
+            &    (0.0153)         &    (0.0233)         &    (0.0266)         &    (0.0287)         \\
+[1em]
+patentcount\_cw\_cumulative&       0.126\sym{***}&      0.0664\sym{***}&      0.0181\sym{***}&       0.126         \\
+            &    (0.0311)         &    (0.0135)         &   (0.00512)         &    (0.0716)         \\
+[1em]
+patentapplicationcount\_cw\_ma3&      0.0532\sym{***}&      0.0220\sym{***}&      0.0167\sym{***}&      0.0358\sym{*}  \\
+            &    (0.0118)         &   (0.00341)         &   (0.00256)         &    (0.0163)         \\
+\hline
+r2          &       0.416         &                     &                     &                     \\
+r2\_a\_within &      0.0596         &                     &                     &                     \\
+N           &       14931         &       10753         &       14950         &       10753         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

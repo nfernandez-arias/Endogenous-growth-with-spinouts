@@ -44,7 +44,8 @@ CRSP[ , month := month(ymd(date))]
 
 CRSP[ , date := substr(date,1,6)]
 
-out <- out[ , .(year,month,RaisedUSD,gvkey,cusip)]
+out <- out[ , .(year,month,EntityID,RoundID,RaisedUSD,gvkey,cusip)]
+out <- unique(out, by = c("gvkey","EntityID","RoundID"))
 CRSP <- CRSP[ , .(date,year,month,CUSIP,retDollars,RET,marketValueLag)]
 
 # Compustat drops 9th digit checksum
@@ -104,10 +105,7 @@ setnames(famaFrenchCoefficients,"HML","coef_HML")
 setkey(famaFrenchCoefficients,cusip)
 setkey(CRSP,cusip)
 
-
-
 CRSP <- famaFrenchCoefficients[CRSP]
-
 
 ## Now can compute abnormal excess return
 
@@ -122,8 +120,14 @@ CRSP <- CRSP[ , .(cusip,date,year,month,gvkey,abnormalRetDollars,totalFunding)][
 CRSP[ , abnormalRetDollars_z := (abnormalRetDollars - mean(abnormalRetDollars, na.rm = TRUE)) / sd(abnormalRetDollars, na.rm = TRUE)]
 CRSP[ , totalFunding_z := (totalFunding - mean(totalFunding, na.rm = TRUE)) / sd(totalFunding, na.rm = TRUE)]
 
-# Save data for use in Stata for regressions
+## Some plots
+
+plot(CRSP$totalFunding_z,CRSP$abnormalRetDollars_z)
+
+# Save data for use in Stata for regressions    
 fwrite(CRSP,"data/funding_stockReturns.csv")
+
+    
   
   
 
