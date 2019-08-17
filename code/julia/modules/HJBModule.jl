@@ -110,7 +110,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	for i = 1:Imax-1
 
 		j = Imax - i
-
+ζ
 		W[j] = ((a[j] *  ν / Δm[j]) * W[j+1] + zS_density[j] * ( spinoutFlow[j] )) / (ρ + τ[j] + a[j] * ν / Δm[j])
 
 	end
@@ -247,7 +247,8 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     # Compute initial guess for V, "value of staying put"
     # based on L_RD guess and profit function
 
-    V0 = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess)
+    #V0 = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess)
+	V0 = incumbentHJBSolution.V
 	plot(mGrid,V0, label = "Incumbent Value", xlabel = "Mass of spinouts")
 	png("figures/plotsGR/diagnostic_V.png")
 
@@ -362,14 +363,13 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 					#incumbentObjective(z) = -(z * χI * ϕI(z + zS[i] + zE[i])  * ( λ * V0[1] - V0[i] ) - z * wbar)
 
-					lower = 0.0
-					upper = Inf
+					lower = 0
+					upper = 10
 
-					#result = optimize(incumbentObjective,lower,upper)
+					result = optimize(objective2,lower,upper)
 
-					#zI[i] = Optim.minimizer(result)
+					zI[i] = Optim.minimizer(result
 
-					zI[i] = 0
 				end
 
 
@@ -447,11 +447,11 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		## Unpack z and tau functions
 		#######################################
 
-		zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)[:]
-		zE = AuxiliaryModule.zE(modelPar,V0[1],zI,w,zS)[:]
+		#zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)[:]
+		#zE = AuxiliaryModule.zE(modelPar,V0[1],zI,w,zS)[:]
 
-		τI = AuxiliaryModule.τI(modelPar,zI,zS,zE)[:]
-		τSE = AuxiliaryModule.τSE(modelPar,zI,zS,zE)[:]
+		#τI = AuxiliaryModule.τI(modelPar,zI,zS,zE)[:]
+		#τSE = AuxiliaryModule.τSE(modelPar,zI,zS,zE)[:]
 
 		if implicit == true
 

@@ -16,13 +16,13 @@ export setAlgorithmParameters, setModelParameters, setInitialGuess
 
 function setAlgorithmParameters()
 
-    outerLoopMax = 300
+    outerLoopMax = 200
 
     f = open("./figures/algoPar.txt", "w")
 
     mgrid_numPoints = 1000
     mgrid_minimum = 0.0
-    mgrid_maximum = .1
+    mgrid_maximum = .01
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-12
 
@@ -36,15 +36,15 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     incumbentHJB_timeStep = 50
-    incumbentHJB_tolerance = 1e-12
-    incumbentHJB_maxIter = 100
+    incumbentHJB_tolerance = 1e-8
+    incumbentHJB_maxIter = 200
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter)
 
     write(f, "Incumbent HJB Parameters \n---------------\n")
     for n in fieldnames(HJBellmanParameters)
         temp = getfield(incumbentHJB,n)
-        write(f,"$n: $temp \n")
+        write(f,"$n: $temp \n")false
     end
     write(f, "\n\n")
 
@@ -104,7 +104,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     idxM_tolerance = 1e-7
-    idxM_maxIter = 30
+    idxM_maxIter = 50
     idxM_updateRate = 0.8
     idxM_updateRateExponent = 1
 
@@ -167,27 +167,27 @@ function setModelParameters()
 
     # Innovation
     χI = 3
-    χS = 2.5
-    χE = 0.7
+    χS = 1.4
+    χE = 0.5
     ψI = 0.5
     ψSE = 0.5
     λ = 1.0532733
 
     # Spinouts
     ν = 0.0102495
-    ξ = 20
-    ζ = 0.1
+    ξ = 40
+    ζ = 0.15
 
     # CNCs
     CNC = false
 
     # Rate of Spinout formation of spinouts (fraction of rate for incumbents)
 
-    spinoutsFromSpinouts = 1
+    spinoutsFromSpinouts = 0
 
     # Spinouts ideas from different pool?
 
-    spinoutsSamePool = true
+    spinoutsSamePool = false
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,ζ,CNC,spinoutsFromSpinouts,spinoutsSamePool)
 

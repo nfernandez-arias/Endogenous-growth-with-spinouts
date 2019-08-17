@@ -209,9 +209,16 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
         integral = cumsum(summand[:])
         μ = exp.(-integral)
 
+        #print("a: $(a[1:10])\n")
+        #print("aPrime: $(aPrime[1:10])\n")
+        #print("Integrand: $(integrand[1:10])\n")
+        #print("Summand: $(summand[1:10])\n")
+        #print("Integral: $(integral[1:10])\n")
+        #print("μ: $(μ[1:10])\n")
+
         #println("type of variable idxCNC: $(typeof(idxCNC))")
 
-        println("Noncompetes used? $(maximum(noncompete))")
+        #println("Noncompetes used? $(maximum(noncompete))")
 
         if sFromS == 0
 
@@ -346,13 +353,17 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     guess = Guess(g,L_RD,w,idxM);
 
     # Initialize outside of loops for returning
-    V = zeros(size(mGrid))
+    V = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,initGuess)
     W = zeros(size(mGrid))
     zI = zeros(size(mGrid))
     noncompete = zeros(size(mGrid))
     γ = zeros(size(mGrid))
     μ = zeros(size(mGrid))
     t = zeros(size(mGrid))
+
+
+    # Iniital guess
+    sol = IncumbentSolution(V,zI,noncompete)
 
 
     factor_zE = zeros(size(mGrid))
@@ -399,11 +410,11 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 #Plots.plot(x,y,label=["zS" "zE" "zS factor" "zE factor"])
                 #frame(anim)
 
+                sol = IncumbentSolution(V,zI,noncompete)
 
                 # Solve HJB - output contains incumbent value V and policy zI
 
-                sol = IncumbentSolution(V,zI,noncompete)
-                incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,guess)
+                incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,guess,sol)
 
                 #println("V = $(incumbentHJBSolution.V)")
 
@@ -460,12 +471,11 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 #Plots.plot(x,y,label=["zS" "zE" "zS factor" "zE factor"])
                 #frame(anim)
 
+                sol = IncumbentSolution(V,zI,noncompete)
 
                 # Solve HJB - output contains incumbent value V and policy zI
 
-                incumbentHJBSolution = solveIncumbentHJB(tempAlgoPar,modelPar,guess)
-
-
+                incumbentHJBSolution = solveIncumbentHJB(tempAlgoPar,modelPar,guess,sol)
 
                 # Update zS and zE given solution HJB and optimality / free entry conditions
 
@@ -510,7 +520,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
             ## Updating w
 
-            print("Type: $(typeof(incumbentHJBSolution))")
+            #print("Type: $(typeof(incumbentHJBSolution))")
 
             V = incumbentHJBSolution.V
             zI = incumbentHJBSolution.zI
