@@ -181,6 +181,8 @@ function updateV_implicit(algoPar::AlgorithmParameters, modelPar::ModelParameter
 
 end
 
+#function updateV_explicit(algoPar::AlgorithmParameters, modelPar::ModelParameters, )
+
 function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, verbose = 2, print_skip = 10, implicit = true)
 
 	V = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess)
@@ -301,7 +303,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		Vprime2 = (V0[3] - V0[2]) / Δm[2]
 
 		#zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
-		#zE = AuxiliaryModule.zE(modelPar,V0[1],zI,w,zS)
+		#zE = AuxiliaryModule.zE(modelPar,V0[1],zI,w,zS)updateV_implicit
 
 		#print(Vprime2)
 
@@ -478,7 +480,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 			## Explicit method
 
-			V1,error = updateV_explicit(algoPar,modelPar,V0)
+			V1,error = updateV_explicit(algoPar,modelPar,guess,V0)
 
 		end
 

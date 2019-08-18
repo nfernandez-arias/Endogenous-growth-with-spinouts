@@ -19,7 +19,38 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 # Solve model with the above parameters
 #--------------------------------#
 
-@timev results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
+@timev w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
+
+diagNumPoints = 30
+
+anim = @animate for i = 1:diagNumPoints
+    plot(mGrid,w_diag[:,i])
+end
+gif(anim,"figures/plotsGR/w_animation.gif",fps = 5)
+
+anim = @animate for i = 1:diagNumPoints
+    plot(mGrid,V_diag[:,i])
+end
+gif(anim,"figures/plotsGR/V_animation.gif",fps = 5)
+
+anim = @animate for i = 1:diagNumPoints
+    plot(mGrid,W_diag[:,i])
+end
+gif(anim,"figures/plotsGR/W_animation.gif",fps = 5)
+
+
+anim = @animate for i = 1:diagNumPoints
+    plot(mGrid,μ_diag[:,i])
+end
+gif(anim,"figures/plotsGR/μ_animation.gif",fps = 5)
+
+plot(1:diagNumPoints,g_diag[:])
+png("figures/plotsGR/g_diagnostic.png")
+
+plot(1:diagNumPoints,L_RD_diag[:])
+png("figures/plotsGR/L_RD_diagnostic.png")
+
+
 
 V = results.incumbent.V
 idxM = results.finalGuess.idxM

@@ -20,6 +20,7 @@
 *.RData
 *cbp16co.txt
 *.html
+*.gif
 manta_crawler/
 empirics/code/company_list*.txt
 

@@ -335,7 +335,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
     # While loop to compute fixed point
-    iterate_g_L_RD_w = 0
+    iterate_g_L_RD_w = 1
     error_g = 1
     error_L_RD = 1
     error_w = 1
@@ -373,7 +373,6 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     incumbentHJBSolution = zeros(size(mGrid))
 
-
     # In case shit hits the fan
 
     tempAlgoPar = Base.deepcopy(algoPar)
@@ -381,16 +380,28 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     tempAlgoPar.incumbentHJB.timeStep = 1
     #tempAlgoPar.incumbentHJB.maxIter = 500
 
+    # Diagnostics
+
+    diagStoreNumPoints = 30
+
+    w_diag = zeros(length(mGrid),diagStoreNumPoints)
+    V_diag = zeros(length(mGrid),diagStoreNumPoints)
+    W_diag = zeros(length(mGrid),diagStoreNumPoints)
+    μ_diag = zeros(length(mGrid),diagStoreNumPoints)
+
+    g_diag = zeros(1,diagStoreNumPoints)
+    L_RD_diag = zeros(1,diagStoreNumPoints)
+
 
     while (iterate_g_L_RD_w < algoPar.g.maxIter && error_g > algoPar.g.tolerance) || (iterate_g_L_RD_w < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate_g_L_RD_w < algoPar.w.maxIter && error_w > algoPar.w.tolerance)
 
-        iterate_g_L_RD_w += 1
+        #iterate_g_L_RD_w += 1
 
         if !(algoPar.idxM_Log.verbose in (0,1,2))
             throw(ArgumentError("algoPar.idxM_Log.verbose should be 0, 1 or 2"))
         end
 
-        #guess.zS = initGuess.zS;
+        #guess.zS = initGuess.zS;g_diag = zeros(1,diagStoreNumPoints)
         #guess.zE = initGuess.zE;
 
         #anim = Animation()
@@ -410,15 +421,12 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 #Plots.plot(x,y,label=["zS" "zE" "zS factor" "zE factor"])
                 #frame(anim)
 
+                #sol = IncumbentSolution(AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess),zI,noncompete)
                 sol = IncumbentSolution(V,zI,noncompete)
 
                 # Solve HJB - output contains incumbent value V and policy zI
 
                 incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,guess,sol)
-
-                #println("V = $(incumbentHJBSolution.V)")
-
-
 
                 # Update zS and zE given solution HJB and optimality / free entry conditions
 
@@ -471,6 +479,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 #Plots.plot(x,y,label=["zS" "zE" "zS factor" "zE factor"])
                 #frame(anim)
 
+                #sol = IncumbentSolution(AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess),zI,noncompete)
                 sol = IncumbentSolution(V,zI,noncompete)
 
                 # Solve HJB - output contains incumbent value V and policy zI
@@ -490,7 +499,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 guess.idxM = update_idxM(tempAlgoPar,modelPar,guess,incumbentHJBSolution,W)
 
                 # Increase iterator
-                iterate_idxM += 1;
+                iterate_idxM += 1
                 # Check convergence
                 error_idxM = maximum(abs,guess.idxM - old_idxM)
 
@@ -569,6 +578,14 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
             guess.L_RD = L_RD
             guess.w = w
 
+            g_diag[iterate_g_L_RD_w - 1] = g
+            L_RD_diag[iterate_g_L_RD_w - 1] = L_RD
+
+            w_diag[:,iterate_g_L_RD_w - 1] = w
+            V_diag[:,iterate_g_L_RD_w - 1] = V
+            W_diag[:,iterate_g_L_RD_w - 1] = W
+            μ_diag[:,iterate_g_L_RD_w - 1] = μ
+
         end
 
     end
@@ -597,7 +614,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         end
     end
 
-    return ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
+    return w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
 
 end
 

@@ -16,7 +16,7 @@ export setAlgorithmParameters, setModelParameters, setInitialGuess
 
 function setAlgorithmParameters()
 
-    outerLoopMax = 200
+    outerLoopMax = 30
 
     f = open("./figures/algoPar.txt", "w")
 
@@ -167,16 +167,16 @@ function setModelParameters()
 
     # Innovation
     χI = 3
-    χS = 1.4
-    χE = 0.5
+    χS = 1.5
+    χE = 0.7
     ψI = 0.5
     ψSE = 0.5
     λ = 1.0532733
 
     # Spinouts
     ν = 0.0102495
-    ξ = 70
-    ζ = 0.15
+    ξ = 60
+    ζ = 0
 
     # CNCs
     CNC = false
