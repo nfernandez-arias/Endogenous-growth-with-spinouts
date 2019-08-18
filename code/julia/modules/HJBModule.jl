@@ -368,7 +368,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 					result = optimize(objective2,lower,upper)
 
-					zI[i] = Optim.minimizer(result
+					zI[i] = Optim.minimizer(result)
 
 				end
 
