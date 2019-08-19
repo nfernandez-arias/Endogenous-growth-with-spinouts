@@ -16,15 +16,15 @@ export setAlgorithmParameters, setModelParameters, setInitialGuess
 
 function setAlgorithmParameters()
 
-    outerLoopMax = 30
+    outerLoopMax = 2
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 1000
+    mgrid_numPoints = 500
     mgrid_minimum = 0.0
-    mgrid_maximum = .01
+    mgrid_maximum = .02
     mgrid_logSpacing = true
-    mgrid_logSpacingMinimum = 1e-12
+    mgrid_logSpacingMinimum = 1e-10 * mgrid_maximum
 
     mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum)
 
@@ -91,7 +91,7 @@ function setAlgorithmParameters()
 
     w_tolerance = 1e-7
     w_maxIter = outerLoopMax
-    w_updateRate = 0.3
+    w_updateRate = 0.1
     w_updateRateExponent = 1
 
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent)
@@ -175,7 +175,7 @@ function setModelParameters()
 
     # Spinouts
     ν = 0.0102495
-    ξ = 60
+    ξ = 20
     ζ = 0
 
     # CNCs
@@ -183,7 +183,7 @@ function setModelParameters()
 
     # Rate of Spinout formation of spinouts (fraction of rate for incumbents)
 
-    spinoutsFromSpinouts = 0
+    spinoutsFromSpinouts = 0.5
 
     # Spinouts ideas from different pool?
 
@@ -219,7 +219,8 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
     w = wbar * ones(size(mGrid))
     #w = 0.5 * wbar * ones(pa.mGrid.numPoints,1)
 
-    idxM = ceil(pa.mGrid.numPoints / 2)
+    #idxM = ceil(pa.mGrid.numPoints / 2)
+    idxM = 1
     #idxM = 1
 
     #zS = pm.ξ .* mGrid

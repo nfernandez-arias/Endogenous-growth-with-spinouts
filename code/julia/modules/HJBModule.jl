@@ -266,7 +266,6 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 	noncompete = zeros(size(V0))
     zI = zeros(size(V0))
 
-
 	# Some diagnostics
 	plot(mGrid,w, label = "R&D wage", xlabel = "Mass of spinouts")
 	png("figures/plotsGR/diagnostic_w.png")

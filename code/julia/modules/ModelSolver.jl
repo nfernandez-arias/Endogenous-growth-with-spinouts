@@ -176,6 +176,8 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
     τ = τI .+ τSE
 
     a = ν .* (sFromS .* zS .+ zI .* (1 .- noncompete))   # No spinouts from zE or from incumbents using non-competes.
+
+    #print("a = $a\n")
     RDlabor = zS .+ zE .+ zI
 
     if noncompete[1] == 1
@@ -382,7 +384,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     # Diagnostics
 
-    diagStoreNumPoints = 30
+    diagStoreNumPoints = 1
 
     w_diag = zeros(length(mGrid),diagStoreNumPoints)
     V_diag = zeros(length(mGrid),diagStoreNumPoints)
@@ -578,8 +580,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
             guess.L_RD = L_RD
             guess.w = w
 
-            g_diag[iterate_g_L_RD_w - 1] = g
-            L_RD_diag[iterate_g_L_RD_w - 1] = L_RD
+            g_diag[1,iterate_g_L_RD_w - 1] = g
+            L_RD_diag[1,iterate_g_L_RD_w - 1] = L_RD
 
             w_diag[:,iterate_g_L_RD_w - 1] = w
             V_diag[:,iterate_g_L_RD_w - 1] = V

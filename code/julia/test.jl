@@ -21,7 +21,7 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 
 @timev w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
 
-diagNumPoints = 30
+diagNumPoints = 1
 
 anim = @animate for i = 1:diagNumPoints
     plot(mGrid,w_diag[:,i])
@@ -49,8 +49,6 @@ png("figures/plotsGR/g_diagnostic.png")
 
 plot(1:diagNumPoints,L_RD_diag[:])
 png("figures/plotsGR/L_RD_diagnostic.png")
-
-
 
 V = results.incumbent.V
 idxM = results.finalGuess.idxM
