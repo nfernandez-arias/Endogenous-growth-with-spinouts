@@ -17,12 +17,13 @@ export setAlgorithmParameters, setModelParameters, setInitialGuess
 function setAlgorithmParameters()
 
     outerLoopMax = 2
+    middleLoopMax = 10
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 500
+    mgrid_numPoints = 1000
     mgrid_minimum = 0.0
-    mgrid_maximum = .02
+    mgrid_maximum = .1
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-10 * mgrid_maximum
 
@@ -104,7 +105,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     idxM_tolerance = 1e-7
-    idxM_maxIter = 50
+    idxM_maxIter = middleLoopMax
     idxM_updateRate = 0.8
     idxM_updateRateExponent = 1
 
@@ -118,7 +119,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     zE_tolerance = 1e-7
-    zE_maxIter = 50
+    zE_maxIter = middleLoopMax
     zE_updateRate = 0.5
     zE_updateRateExponent = 1
 

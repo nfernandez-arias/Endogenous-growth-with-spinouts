@@ -19,7 +19,7 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 # Solve model with the above parameters
 #--------------------------------#
 
-@timev w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
+@timev w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,V_innerDiag,idxM_innerDiag,zE_innerDiag,results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
 
 diagNumPoints = 1
 
@@ -49,6 +49,21 @@ png("figures/plotsGR/g_diagnostic.png")
 
 plot(1:diagNumPoints,L_RD_diag[:])
 png("figures/plotsGR/L_RD_diagnostic.png")
+
+innerDiagNumPoints = 10
+
+anim = @animate for i = 1:innerDiagNumPoints
+    plot(mGrid,V_innerDiag[:,i])
+end
+gif(anim,"figures/plotsGR/V_inner_animation.gif",fps = 1)
+
+plot(1:innerDiagNumPoints,idxM_innerDiag[:])
+png("figures/plotsGR/idxM_innerDiagnostic.png")
+
+plot(1:innerDiagNumPoints,zE_innerDiag[:])
+png("figures/plotsGR/zE_innerDiagnostic.png")
+
+
 
 V = results.incumbent.V
 idxM = results.finalGuess.idxM

@@ -375,9 +375,15 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     # Diagnostics
 
     diagStoreNumPoints = 1
+    innerDiagStoreNumPoints = 10
 
     w_diag = zeros(length(mGrid),diagStoreNumPoints)
     V_diag = zeros(length(mGrid),diagStoreNumPoints)
+
+    V_innerDiag = zeros(length(mGrid),innerDiagStoreNumPoints)
+    zE_innerDiag = zeros(1,innerDiagStoreNumPoints)
+    idxM_innerDiag = zeros(1,innerDiagStoreNumPoints)
+
     W_diag = zeros(length(mGrid),diagStoreNumPoints)
     μ_diag = zeros(length(mGrid),diagStoreNumPoints)
 
@@ -401,10 +407,10 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         cleanGuess = Guess(guess.g,guess.L_RD,guess.w,guess.idxM,guess.zE)
 
         # Initialize while loop variables
-        iterate_idxM = 0
+        iterate_idxM = 1
         error_idxM = 1
 
-        iterate_zE = 0
+        iterate_zE = 1
         error_zE = 1
 
         try
@@ -427,6 +433,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
                 # Record initial values
                 old_idxM = guess.idxM
+                old_zE = guess.zE
 
                 zS = AuxiliaryModule.zS(algoPar,modelPar,old_idxM)
                 #zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution,w,zS)
@@ -438,16 +445,23 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 # Update guess object (faster than making new one)
                 guess.idxM, guess.zE = update_idxM_zE(algoPar,modelPar,guess,incumbentHJBSolution,W)
 
-                # Increase iterator
-                iterate_idxM += 1;
+                V_innerDiag[:,iterate_idxM] = incumbentHJBSolution.V
+                zE_innerDiag[1,iterate_idxM] = guess.zE
+                idxM_innerDiag[1,iterate_idxM] = guess.idxM
+
                 # Check convergence
                 error_idxM = max(maximum(abs,guess.idxM - old_idxM),maximum(abs,guess.idxM - old_idxM));
+                error_zE = abs(guess.zE - old_zE)
 
                 if algoPar.idxM_zE_Log.verbose == 2
                     if iterate_idxM % algoPar.idxM_zE_Log.print_skip == 0
                         println("idxM fixed point: Computed iterate $iterate_idxM with error: (idxM, $error_idxM; zE, $error_zE)")
                     end
                 end
+
+                # Increase iterator
+                iterate_idxM += 1
+                iterate_zE += 1
 
             end
 
@@ -496,12 +510,16 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 # Update guess object (faster than allocating new one)
                 guess.idxM,guess.zE = update_idxM_zE(tempAlgoPar,modelPar,guess,incumbentHJBSolution,W)
 
-                # Increase iterator
-                iterate_idxM += 1
+                # Record diagnostics
+                V_innerDiag[:,iterate_idxM] = incumbentHJBSolution.V[:]
+                zE_innerDiag[1,iterate_idxM] = guess.zE
+                idxM_innerDiag[1,iterate_idxM] = guess.idxM
+
+
                 # Check convergence
                 error_idxM = maximum(abs,guess.idxM - old_idxM)
 
-                iterate_zE += 1
+
                 error_zE = abs(guess.zE - old_zE)
 
                 if algoPar.idxM_zE_Log.verbose == 2
@@ -509,6 +527,10 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                         println("idxM,zE fixed point: Computed iterate $iterate_idxM with error: (idxM, $error_idxM; zE, $error_zE)")
                     end
                 end
+
+                # Increase iterator
+                iterate_idxM += 1
+                iterate_zE += 1
 
             end
 
@@ -615,7 +637,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         end
     end
 
-    return w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
+    return w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,V_innerDiag,idxM_innerDiag,zE_innerDiag,ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
 
 end
 
