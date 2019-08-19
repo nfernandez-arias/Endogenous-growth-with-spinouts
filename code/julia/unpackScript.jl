@@ -3,6 +3,7 @@ L_RD = results.finalGuess.L_RD
 #γ = results.finalGuess.γ
 w = results.finalGuess.w
 idxM = results.finalGuess.idxM
+zE = results.finalGuess.zE
 V = results.incumbent.V
 zI = results.incumbent.zI
 zIfromFOC = zeros(size(zI))
@@ -10,17 +11,17 @@ noncompete = results.incumbent.noncompete
 W = results.spinoutValue
 
 zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
-zE = AuxiliaryModule.zE(modelPar,results.incumbent,w,zS)
+#zE = AuxiliaryModule.zE(modelPar,results.incumbent,w,zS)
 
 zS_density = zeros(size(zS))
 zS_density[2:end] = (zS ./ mGrid)[2:end]
 zS_density[1] = modelPar.ξ
 
-τI = AuxiliaryModule.τI(modelPar,zI,zS,zE)
+τI = AuxiliaryModule.τI(modelPar,zI,zS)
 τSE = AuxiliaryModule.τSE(modelPar,zI,zS,zE)
-τE = AuxiliaryModule.τE(modelPar,zI,zS,zE)
+τE = AuxiliaryModule.τE(modelPar,zE)
 τS = zeros(size(τE))
-τS[:] = τSE[:] - τE[:]
+τS = τSE - τE * ones(size(τSE))
 
 sFromS = modelPar.spinoutsFromSpinouts
 
@@ -28,7 +29,7 @@ L_F = AuxiliaryModule.LF(L_RD,modelPar)
 
 τ = τI + τSE
 
-z = zS + zE + zI
+z = zS + zE * ones(size(zS)) + zI
 a = sFromS * zS .+ zI .* (1 .- noncompete)
 
 finalGoodsLabor = AuxiliaryModule.LF(L_RD,modelPar)

@@ -50,17 +50,17 @@ png("figures/plotsGR/g_diagnostic.png")
 plot(1:diagNumPoints,L_RD_diag[:])
 png("figures/plotsGR/L_RD_diagnostic.png")
 
-innerDiagNumPoints = 10
+innerDiagNumPoints = 9
 
 anim = @animate for i = 1:innerDiagNumPoints
     plot(mGrid,V_innerDiag[:,i])
 end
 gif(anim,"figures/plotsGR/V_inner_animation.gif",fps = 1)
 
-plot(1:innerDiagNumPoints,idxM_innerDiag[:])
+plot(1:innerDiagNumPoints,idxM_innerDiag[1:innerDiagNumPoints])
 png("figures/plotsGR/idxM_innerDiagnostic.png")
 
-plot(1:innerDiagNumPoints,zE_innerDiag[:])
+plot(1:innerDiagNumPoints,zE_innerDiag[1:innerDiagNumPoints])
 png("figures/plotsGR/zE_innerDiagnostic.png")
 
 

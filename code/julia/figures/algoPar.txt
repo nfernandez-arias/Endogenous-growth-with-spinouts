@@ -9,9 +9,9 @@ logSpacingMinimum: 1.0000000000000001e-11
 
 Incumbent HJB Parameters 
 ---------------
-timeStep: 50.0 
+timeStep: 100.0 
 tolerance: 1.0e-8 
-maxIter: 200 
+maxIter: 50 
 
 
 Spinout HJB Parameters 

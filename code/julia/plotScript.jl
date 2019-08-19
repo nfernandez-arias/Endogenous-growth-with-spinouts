@@ -38,10 +38,10 @@ png("figures/plotsGR/HJB_tests.png")
 # Plot innovation hazard rates
 #----------------------------------------#
 
-plot(mGrid,[τI[:] τS[:] τE[:] τ[:]], layout = (1), xlabel = "Mass of spinouts", ylabel = "Yearly hazard rate of innovation", title = "Hazard rates of innovation", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
+plot(mGrid,[τI[:] τS[:] τE*ones(size(τ[:])) τ[:]], layout = (1), xlabel = "Mass of spinouts", ylabel = "Yearly hazard rate of innovation", title = "Hazard rates of innovation", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
 png("figures/plotsGR/innovation_rates_m")
 
-plot(t,[τI[:] τS[:] τE[:] τ[:]], layout = (1), xlabel = "Years since last innovation", ylabel = "Yearly hazard rate of innovation", title = "Hazard rates of innovation", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
+plot(t,[τI[:] τS[:] τE*ones(size(τ[:])) τ[:]], layout = (1), xlabel = "Years since last innovation", ylabel = "Yearly hazard rate of innovation", title = "Hazard rates of innovation", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
 png("figures/plotsGR/innovation_rates_t")
 
 #-----------------------------------------#
