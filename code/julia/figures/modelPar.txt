@@ -13,7 +13,7 @@ L: 1.0
 ξ: 20.0 
 ζ: 0.0 
 CNC: false 
-spinoutsFromSpinouts: 0.5 
-spinoutsSamePool: false 
+spinoutsFromSpinouts: 1.0 
+spinoutsSamePool: true 
 
 

@@ -20,11 +20,11 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 500
+    mgrid_numPoints = 1000
     mgrid_minimum = 0.0
     mgrid_maximum = .02
     mgrid_logSpacing = true
-    mgrid_logSpacingMinimum = 1e-10 * mgrid_maximum
+    mgrid_logSpacingMinimum = 1e-12 * mgrid_maximum
 
     mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum)
 
@@ -183,11 +183,11 @@ function setModelParameters()
 
     # Rate of Spinout formation of spinouts (fraction of rate for incumbents)
 
-    spinoutsFromSpinouts = 0.5
+    spinoutsFromSpinouts = 1
 
     # Spinouts ideas from different pool?
 
-    spinoutsSamePool = false
+    spinoutsSamePool = true
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,ζ,CNC,spinoutsFromSpinouts,spinoutsSamePool)
 

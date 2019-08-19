@@ -36,6 +36,7 @@ mutable struct ModelParameters
 
     ## Spinouts
     ###############
+
     # Knowledge spillover rate
     ν::Float64
     # Size of spinout

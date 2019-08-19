@@ -95,7 +95,7 @@ end
 
 if maximum(noncompete) == 0 || idxCNC > 1
 
-    p = plot(t, [μ .* ν .* a γ], label = ["\\mu\\(m\\)" "\\gamma\\(m\\)"], ylabel = ["Density" "Quality (relative)"], xlabel = "Years since last innovation", layout = (2,1))
+    p = plot(t, [μ .* ν .* a γ], label = ["\\mu\\(t\\)" "\\gamma\\(t\\)"], ylabel = ["Density" "Quality (relative)"], xlabel = "Years since last innovation", layout = (2,1))
     png("figures/plotsGR/gamma_t_μ_vs_t_plots.png")
 
 end
