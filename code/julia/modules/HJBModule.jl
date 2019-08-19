@@ -66,16 +66,17 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
     ###################################################
     w = guess.w
 	idxM = guess.idxM
+	zE = guess.zE
 	wbar = AuxiliaryModule.wbar(modelPar.β)
 
 	zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
-	zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution,w,zS)
+	#zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution,w,zS)
 
 	V = incumbentHJBSolution.V
 	zI = incumbentHJBSolution.zI
 	noncompete = incumbentHJBSolution.noncompete
 
-	τI = AuxiliaryModule.τI(modelPar,zI,zS,zE)
+	τI = AuxiliaryModule.τI(modelPar,zI,zS)
 	τSE = AuxiliaryModule.τSE(modelPar,zI,zS,zE)
 	τ = τI .+ τSE
 
@@ -93,24 +94,14 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	# Spinout flow construction
 	spinoutFlow = zeros(size(zS))
 
-	if modelPar.spinoutsSamePool == true
-
-		spinoutFlow = χS .* ϕI(zS + zI + zE) .* (λ * V[1] - ζ) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
-
-	else
-
-		spinoutFlow = χS .* ϕSE(zS .+ zE) .* (λ * V[1] - ζ) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
-
-	end
-
-	Imax = length(mGrid)
+	spinoutFlow = χS .* ϕI(zS + zI) .* (λ * V[1] - ζ) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
 
 	W = zeros(size(V))
 
-	for i = 1:Imax-1
+	for i = 1:length(mGrid)-1
 
-		j = Imax - i
-ζ
+		j = length(mGrid) - i
+
 		W[j] = ((a[j] *  ν / Δm[j]) * W[j+1] + zS_density[j] * ( spinoutFlow[j] )) / (ρ + τ[j] + a[j] * ν / Δm[j])
 
 	end
@@ -119,7 +110,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
 end
 
-function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, zI::Array{Float64}, noncompete::Array{Float64}, A::SparseMatrixCSC{Float64,Int64},zS::Array{Float64},zE::Array{Float64})
+function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, zI::Array{Float64}, noncompete::Array{Float64}, A::SparseMatrixCSC{Float64,Int64},zS::Array{Float64})
 
     ## Unpack model parameters
     ##########################
@@ -135,6 +126,7 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
     ###################################################
 
 	idxM = guess.idxM
+	zE = guess.zE
 
     # Construct mGrid
     mGrid,Δm = mGridBuild(algoPar.mGrid)
@@ -142,7 +134,7 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
     ## Compute A Matrix
     ##############################################
 
-	τI = AuxiliaryModule.τI(modelPar,zI,zS,zE)
+	τI = AuxiliaryModule.τI(modelPar,zI,zS)
 	τSE = AuxiliaryModule.τSE(modelPar,zI,zS,zE)
 
     for i = 1:length(mGrid)-1
@@ -239,28 +231,26 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
     ## Unpack guess
     ###################################################
-    w = guess.w;
-    #zS = guess.zS;
-    #zE = guess.zE;
+    w = guess.w
 	idxM = guess.idxM
+	zE = guess.zE
 
+	# Consruct mGrid and zS
 	mGrid, Δm = mGridBuild(algoPar.mGrid)
+	zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
 
     # Compute initial guess for V, "value of staying put"
     # based on L_RD guess and profit function
 
     #V0 = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess)
 	V0 = incumbentHJBSolution.V
-	plot(mGrid,V0, label = "Incumbent Value", xlabel = "Mass of spinouts")
-	png("figures/plotsGR/diagnostic_V.png")
+	#plot(mGrid,V0, label = "Incumbent Value", xlabel = "Mass of spinouts")
+	#png("figures/plotsGR/diagnostic_V.png")
 
 	# Load in incumbent solution from previous iteration, as basis
 	# for computing zS and zE.
-
 	V_store = incumbentHJBSolution.V
 	zI_store = incumbentHJBSolution.zI
-	zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
-	zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution,w,zS)
 
 	# Initialize incumbent policies
 	noncompete = zeros(size(V0))
@@ -270,7 +260,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 	plot(mGrid,w, label = "R&D wage", xlabel = "Mass of spinouts")
 	png("figures/plotsGR/diagnostic_w.png")
 
-	plot(mGrid,[zS zE], label = ["zS" "zE"], xlabel = "Mass of spinouts")
+	plot(mGrid,[zS zE * ones(size(zS))], label = ["zS" "zE"], xlabel = "Mass of spinouts")
 	png("figures/plotsGR/diagnostic_zSzE.png")
 
 
@@ -315,8 +305,8 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 					Vprime = Vprime2
 				end
 
-				objective1(z) = -(z * χI * ϕI(z + zS[i] + zE[i])  * ( λ * V0[1] - V0[i] ) - z * ( w[i] - ν * Vprime))
-				objective2(z) = -(z * χI * ϕI(z + zS[i] + zE[i])  * ( λ * V0[1] - V0[i] ) - z * wbar)
+				objective1(z) = -(z * χI * ϕI(z + zS[i])  * ( λ * V0[1] - V0[i] ) - z * ( w[i] - ν * Vprime))
+				objective2(z) = -(z * χI * ϕI(z + zS[i])  * ( λ * V0[1] - V0[i] ) - z * wbar)
 
 				if CNC == false || w[i] - ν * Vprime <= wbar
 
@@ -463,7 +453,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 			#u = Π .+ τI .* (λ-1) .* V0[1]  .- zI .* ((1 .- noncompete) .* w + noncompete .* AuxiliaryModule.wbar(modelPar.β))  # Moll's idea -- here add (λ-1) * τI * V0[1] term
 
 			# Update "transition" matrix A
-			updateMatrixA(algoPar,modelPar,guess,zI,noncompete,A,zS,zE)
+			updateMatrixA(algoPar,modelPar,guess,zI,noncompete,A,zS)
 
 			# Implicit update step to compute V1 and error
 			V1,error = updateV_implicit(algoPar,modelPar,A,u,V0)
@@ -516,7 +506,7 @@ function solveIncumbentHJB_explicitMethod(algoPar::AlgorithmParameters, modelPar
 	# General
 	ρ = modelPar.ρ
 	β = modelPar.β
-	L = modelPar.L
+	L = modelPar.Linitial
 
 	# Innovation
 	χI = modelPar.χI

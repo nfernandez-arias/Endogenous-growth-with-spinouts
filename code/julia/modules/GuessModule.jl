@@ -28,6 +28,9 @@ mutable struct Guess
     # Spinout entry threshold
     idxM::Int64
 
+    # Entrant innovation rate
+    zE::Float64
+
     # Spinout and entrant R&D effort
     #zS::Array{Float64}
 

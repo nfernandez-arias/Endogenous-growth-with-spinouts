@@ -95,8 +95,9 @@ mutable struct AlgorithmParameters
     L_RD::IterationParameters
     w::IterationParameters
     idxM::IterationParameters
+    zE::IterationParameters
     g_L_RD_w_Log::LogParameters
-    idxM_Log::LogParameters
+    idxM_zE_Log::LogParameters
     incumbentHJB_Log::LogParameters
 
 end

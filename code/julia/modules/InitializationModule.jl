@@ -117,6 +117,20 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
+    zE_tolerance = 1e-7
+    zE_maxIter = 50
+    zE_updateRate = 0.5
+    zE_updateRateExponent = 1
+
+    zE = IterationParameters(zE_tolerance,zE_maxIter,zE_updateRate,zE_updateRateExponent)
+
+    write(f, "zE Iteration Parameters \n---------------\n")
+    for n in fieldnames(IterationParameters)
+        temp = getfield(zE,n)
+        write(f,"$n: $temp \n")
+    end
+    write(f, "\n\n")
+
     # Logging parameters
 
     g_L_RD_w_Log_verbose = 2
@@ -130,13 +144,13 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    idxM_Log_verbose = 2
-    idxM_Log_print_skip = 1
-    idxM_Log = LogParameters(idxM_Log_verbose,idxM_Log_print_skip)
+    idxM_zE_Log_verbose = 2
+    idxM_zE_Log_print_skip = 1
+    idxM_zE_Log = LogParameters(idxM_zE_Log_verbose,idxM_zE_Log_print_skip)
 
-    write(f, "zSzE Logging Parameters \n---------------\n")
+    write(f, "idxM_zE Logging Parameters \n---------------\n")
     for n in fieldnames(LogParameters)
-        temp = getfield(idxM_Log,n)
+        temp = getfield(idxM_zE_Log,n)
         write(f,"$n: $temp \n")
     end
     write(f, "\n\n")
@@ -154,7 +168,7 @@ function setAlgorithmParameters()
 
     close(f)
 
-    return AlgorithmParameters(mGrid, incumbentHJB, spinoutHJB, g, L_RD, w, idxM, g_L_RD_w_Log, idxM_Log, incumbentHJB_Log)
+    return AlgorithmParameters(mGrid, incumbentHJB, spinoutHJB, g, L_RD, w, idxM, zE, g_L_RD_w_Log, idxM_zE_Log, incumbentHJB_Log)
 
 end
 
@@ -183,11 +197,11 @@ function setModelParameters()
 
     # Rate of Spinout formation of spinouts (fraction of rate for incumbents)
 
-    spinoutsFromSpinouts = 0.5
+    spinoutsFromSpinouts = 1
 
     # Spinouts ideas from different pool?
 
-    spinoutsSamePool = false
+    spinoutsSamePool = true
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,ζ,CNC,spinoutsFromSpinouts,spinoutsSamePool)
 
@@ -223,6 +237,8 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
     idxM = 1
     #idxM = 1
 
+    zE = 0.1
+
     #zS = pm.ξ .* mGrid
 
     #zS = 0.1 * ones(pa.mGrid.numPoints,1)
@@ -233,7 +249,7 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
     #zE = 0 * ones(pa.mGrid.numPoints,1);
 
     #return InitialGuess(L_RD,w,idxM,zS,zE)
-    initGuess = Guess(g,L_RD,w,idxM)
+    initGuess = Guess(g,L_RD,w,idxM,zE)
 
     return initGuess
 
