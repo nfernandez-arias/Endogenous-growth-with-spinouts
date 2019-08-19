@@ -94,7 +94,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	# Spinout flow construction
 	spinoutFlow = zeros(size(zS))
 
-	spinoutFlow = χS .* ϕI(zS + zI) .* (λ * V[1] - ζ) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
+	spinoutFlow = χS .* ϕI(0.1*ones(size(zS)) + zS + zI) .* (λ * V[1] - ζ) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
 
 	W = zeros(size(V))
 
