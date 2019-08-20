@@ -137,7 +137,7 @@ function τI(modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64})
 
     ϕI(z) = z .^(-ψI)
 
-    return χI * zI .* ϕI(zI + zS)
+    return χI * zI .* ϕI(zI + zS + ones(size(zS)) * 0.1)
 
 end
 

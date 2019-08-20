@@ -94,7 +94,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	# Spinout flow construction
 	spinoutFlow = zeros(size(zS))
 
-	spinoutFlow = χS .* ϕI(0.1*ones(size(zS)) + zS + zI) .* (λ * V[1] - ζ) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
+	spinoutFlow = χS .* ϕI(zS + zI) .* (λ * V[1] - ζ) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
 
 	W = zeros(size(V))
 
@@ -206,7 +206,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     ψSE = modelPar.ψSE
     λ = modelPar.λ
 
-    # Spinouts
+    # Spinoutsi don't
     ν = modelPar.ν
     ξ = modelPar.ξ
 
@@ -263,7 +263,6 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 	plot(mGrid,[zS zE * ones(size(zS))], label = ["zS" "zE"], xlabel = "Mass of spinouts")
 	png("figures/plotsGR/diagnostic_zSzE.png")
 
-
     ## Construct mGrid and Delta_m vectors
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
@@ -273,14 +272,17 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 	# Initialize transition matrix
 	A = spzeros(length(mGrid),length(mGrid))
 
-    iterate = 0
+    iterate = 1
     error = 1
 
 	#incumbentObjective(x) = 0
 
-    while iterate < maxIter && error > tolerance
+	diagLength = 100
+	V_innerMostDiag = zeros(length(mGrid[:]),diagLength)
+	zI_innerMostDiag = zeros(length(mGrid[:]),diagLength)
+	objective_Diag = zeros(length(0:0.1:10),diagLength)
 
-        iterate += 1
+    while iterate < maxIter && error > tolerance
 
 		#print("iterate: $iterate \n")
 
@@ -305,8 +307,8 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 					Vprime = Vprime2
 				end
 
-				objective1(z) = -(z * χI * ϕI(z + zS[i])  * ( λ * V0[1] - V0[i] ) - z * ( w[i] - ν * Vprime))
-				objective2(z) = -(z * χI * ϕI(z + zS[i])  * ( λ * V0[1] - V0[i] ) - z * wbar)
+				objective1(z) = -(z * χI * ϕI(0.1 + z + zS[i])  * ( λ * V0[1] - V0[i] ) - z * ( w[i] - ν * Vprime))
+				objective2(z) = -(z * χI * ϕI(0.1 + z + zS[i])  * ( λ * V0[1] - V0[i] ) - z * wbar)
 
 				if CNC == false || w[i] - ν * Vprime <= wbar
 
@@ -459,7 +461,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 			V1,error = updateV_implicit(algoPar,modelPar,A,u,V0)
 
 			# Hack to avoid instabiities - will be true in equilibrium
-			V1[idxM+1:end] .= V1[idxM]
+			#V1[idxM+1:end] .= V1[idxM]
 
 			# Normalize error by timeStep because
 			# it will always be smaller if timeStep is smaller
@@ -481,7 +483,20 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 			end
 		end
 
+		Vprime3 = (V0[3] - V0[2]) / Δm[2]
+
+		objective3(z) = -(z .* χI .* ϕI(z + ones(size(z)) * (zS[1] + 0.1))  .* ( λ * V0[1] .- V0[1] ) - z .* ( w[1] .- ν * Vprime3))
+
 	    V0 = V1
+
+		V_innerMostDiag[:,iterate] = V0
+		zI_innerMostDiag[:,iterate] = zI
+
+		objective_Diag[:,iterate] = objective3(0:0.1:10)
+
+		iterate += 1
+
+		print("Iterate: $iterate\n")
 
 	end
 
@@ -494,7 +509,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 	end
 
     # Output
-    return IncumbentSolution(V0,zI,noncompete)
+    return objective_Diag,V_innerMostDiag,zI_innerMostDiag,IncumbentSolution(V0,zI,noncompete)
 
 end
 
