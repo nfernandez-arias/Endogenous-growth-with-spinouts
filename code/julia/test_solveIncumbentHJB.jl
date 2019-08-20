@@ -15,14 +15,13 @@ modelPar = setModelParameters()
 mGrid,Δm = mGridBuild(algoPar.mGrid)
 initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 
-
 #sol = IncumbentSolution(zeros(size(mGrid)) * 0.5,zeros(size(mGrid)),zeros(size(mGrid)))
 sol = IncumbentSolution(AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,initGuess),zeros(size(mGrid)),zeros(size(mGrid)))
 
 objective_diag,V_diag,zI_diag,out = solveIncumbentHJB(algoPar,modelPar,initGuess,sol)
 
 anim = @animate for i = 1:length(V_diag[1,:])
-    plot(mGrid,V_diag[:,i], title = "V_diag[:,$i]", ylims = (0,.6))
+    plot(mGrid,V_diag[:,i], title = "V_diag[:,$i]", ylims = (0,1))
 end
 gif(anim,"figures/plotsGR/V_innermost_animation.gif",fps = 5)
 
@@ -94,8 +93,8 @@ for i=1:length(V_diag[1,:])
     V = V_diag[:,i]
     Vprime,V1prime = computeVprime(V)
 
-    errors1[:,i] = (ρ .+ τSE) .* V .- Π .- a .* ν .* Vprime .- zI .* (χI .* ϕI(zI) .* (λ .* V[1] .- V) .- w)
-    errors2[:,i] = (ρ .+ τSE) .* V .- Π .- a .* ν .* V1prime .- zI .* (χI .* ϕI(zI) .* (λ .* V[1] .- V) .- w)
+    errors1[:,i] = (ρ .+ τSE) .* V .- Π .- a .* ν .* Vprime .- zI .* (χI .* ϕI(zI + 0.1 * ones(size(zI)) + zS) .* (λ .* V[1] .- V) .- w)
+    errors2[:,i] = (ρ .+ τSE) .* V .- Π .- a .* ν .* V1prime .- zI .* (χI .* ϕI(zI + 0.1 * ones(size(zI)) + zS) .* (λ .* V[1] .- V) .- w)
 
 end
 

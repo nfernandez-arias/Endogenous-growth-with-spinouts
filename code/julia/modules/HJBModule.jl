@@ -135,6 +135,7 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
     ##############################################
 
 	τI = AuxiliaryModule.τI(modelPar,zI,zS)
+	#τE = AuxiliaryModule.τE(modelPar,zE)
 	τSE = AuxiliaryModule.τSE(modelPar,zI,zS,zE)
 
     for i = 1:length(mGrid)-1
@@ -143,6 +144,7 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 		#A[i,1] = τI[i]  # no λ term -- Moll's idea
 		A[i,i+1] = ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i]) / Δm[i]
 		A[i,i] = - ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i]) / Δm[i] - τI[i] - τSE[i]
+		#A[i,i] = - ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i]) / Δm[i] - τI[i] - τE[i]
 		#A[i,i] = - ν * (zI[i] + aSE[i]) / Δm[i]
 
     end
@@ -150,6 +152,7 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 	A[end,1] = τI[end] * λ
 	#A[end,1] = τI[end]  # no λ term -- Moll's idea
 	A[end,end] = - τI[end] - τSE[end]
+	#A[end,end] = - τI[end] - τE[end]
 
 end
 
@@ -185,6 +188,98 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 	incumbentSolution = IncumbentSolution(V,zI,noncompete)
 
 	return solveIncumbentHJB(algoPar,modelPar,guess,incumbentSolution,verbose,print_skip,implicit)
+
+end
+
+function solveIncumbentHJB_shooting(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, verbose = 2, print_skip = 10)
+
+	V = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess)
+
+	zI = zeros(size(V))
+	noncompete = zeros(size(V))
+
+	incumbentSolution = IncumbentSolution(V,zI,noncompete)
+
+	return solveIncumbentHJB_shooting(algoPar,modelPar,guess,incumbentSolution,verbose,print_skip)
+
+end
+
+function solveIncumbentHJB_shooting(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, incumbentHJBSolution::IncumbentSolution, verbose = 2, print_skip = 10)
+
+	# Basic idea:
+	# Guess V[end]
+	# Integrate HJB backwards
+	# Check free entry condition
+	# If V[1] too high, guess lower V[end]
+	# Continue until convergence
+
+	## Unpack model parameters
+	##########################h
+
+	# General
+	ρ = modelPar.ρ
+	β = modelPar.β
+	L = modelPar.L
+
+	# Innovation
+	χI = modelPar.χI
+	χS = modelPar.χS
+	χE = modelPar.χE
+	ψI = modelPar.ψI
+	ψSE = modelPar.ψSE
+	λ = modelPar.λ
+
+	# Spinoutsi don't
+	ν = modelPar.ν
+	ξ = modelPar.ξ
+
+	# CNCs
+	CNC = modelPar.CNC
+
+	# Wage
+	wbar = AuxiliaryModule.wbar(modelPar.β)
+
+	# Define some auxiliary functions
+	ϕI(z) = z .^(-ψI)
+	ϕSE(z) = z .^(-ψSE)
+
+	## Unpack algorithm parameters
+	######################################
+	timeStep = algoPar.incumbentHJB.timeStep
+	tolerance = algoPar.incumbentHJB.tolerance
+	maxIter = algoPar.incumbentHJB.maxIter
+
+	verbose = algoPar.incumbentHJB_Log.verbose
+	print_skip = algoPar.incumbentHJB_Log.print_skip
+
+	## Unpack guess
+	###################################################
+	w = guess.w
+	idxM = guess.idxM
+	zE = guess.zE
+
+	# Consruct mGrid and zS
+	mGrid, Δm = mGridBuild(algoPar.mGrid)
+	zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
+
+    # Compute initial guess for V, "value of staying put"
+    # based on L_RD guess and profit function
+
+    #V0 = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess)
+	V0 = incumbentHJBSolution.V
+	#plot(mGrid,V0, label = "Incumbent Value", xlabel = "Mass of spinouts")
+	#png("figures/plotsGR/diagnostic_V.png")
+
+
+	# Initial guess
+	V0end = incumbentHJBSolution.V[end]
+
+	for i = reverse(1:length(mGrid)-1)
+
+		objective(z) = z * ϕI(z + zS[i]) * (λ*V[1] - V[i])
+
+	end
+
 
 end
 
@@ -277,7 +372,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 	#incumbentObjective(x) = 0
 
-	diagLength = 100
+	diagLength = 200
 	V_innerMostDiag = zeros(length(mGrid[:]),diagLength)
 	zI_innerMostDiag = zeros(length(mGrid[:]),diagLength)
 	objective_Diag = zeros(length(0:0.1:10),diagLength)
@@ -307,7 +402,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 					Vprime = Vprime2
 				end
 
-				objective1(z) = -(z * χI * ϕI(0.1 + z + zS[i])  * ( λ * V0[1] - V0[i] ) - z * ( w[i] - ν * Vprime))
+				objective1(z) = -(z * χI * ϕI(0.1 + z + zS[i])  * ( λ * V0[1] - V0[i] ) - z * ( w[i] - ν * Vprime)) - zS[i] * χS * ϕI(0.1 + z + zS[i]) * V0[i]
 				objective2(z) = -(z * χI * ϕI(0.1 + z + zS[i])  * ( λ * V0[1] - V0[i] ) - z * wbar)
 
 				if CNC == false || w[i] - ν * Vprime <= wbar

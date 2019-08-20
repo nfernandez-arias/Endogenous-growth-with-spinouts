@@ -36,9 +36,9 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = .001
+    incumbentHJB_timeStep = .1
     incumbentHJB_tolerance = 1e-8
-    incumbentHJB_maxIter = 100
+    incumbentHJB_maxIter = 200
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter)
 
