@@ -4,7 +4,7 @@ numPoints: 1000
 minimum: 0.0 
 maximum: 0.02 
 logSpacing: true 
-logSpacingMinimum: 2.0e-14 
+logSpacingMinimum: 2.0e-12 
 
 
 Incumbent HJB Parameters 
@@ -68,6 +68,6 @@ print_skip: 1
 incumbent HJB Logging Parameters 
 ---------------
 verbose: 2 
-print_skip: 100 
+print_skip: 1 
 
 

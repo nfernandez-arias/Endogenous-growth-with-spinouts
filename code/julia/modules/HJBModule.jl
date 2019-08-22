@@ -110,7 +110,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	for i = 1:Imax-1
 
 		j = Imax - i
-ζ
+
 		W[j] = ((a[j] *  ν / Δm[j]) * W[j+1] + zS_density[j] * ( spinoutFlow[j] )) / (ρ + τ[j] + a[j] * ν / Δm[j])
 
 	end
@@ -283,16 +283,17 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 	# Initialize transition matrix
 	A = spzeros(length(mGrid),length(mGrid))
 
-    iterate = 0
+    iterate = 1
     error = 1
+
+	diagNumPoints = 100
+
+	V_diag = zeros(length(mGrid),diagNumPoints)
+	zI_diag = zeros(length(mGrid),diagNumPoints)
 
 	#incumbentObjective(x) = 0
 
     while iterate < maxIter && error > tolerance
-
-        iterate += 1
-
-		#print("iterate: $iterate \n")
 
 		#---------------------------#
 		# Calculate optimal non-compete and optimal zI given non-compete
@@ -315,8 +316,8 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 					Vprime = Vprime2
 				end
 
-				objective1(z) = -(z * χI * ϕI(z + zS[i] + zE[i])  * ( λ * V0[1] - V0[i] ) - z * ( w[i] - ν * Vprime))
-				objective2(z) = -(z * χI * ϕI(z + zS[i] + zE[i])  * ( λ * V0[1] - V0[i] ) - z * wbar)
+				objective1(z) = -(z * χI * ϕI(z + zS[i] + zE[i])  * ( λ * V0[1] - V0[i] ) - z * ( w[i] - ν * Vprime) - zS[i] * χS * ϕI(z + zS[i] + zE[i]) * V0[i] )
+				objective2(z) = -(z * χI * ϕI(z + zS[i] + zE[i])  * ( λ * V0[1] - V0[i] ) - z * wbar - zS[i] * χS * ϕI(z + zS[i] + zE[i]) * V0[i] )
 
 				if CNC == false || w[i] - ν * Vprime <= wbar
 
@@ -493,6 +494,11 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 	    V0 = V1
 
+		V_diag[:,iterate] = V1
+		zI_diag[:,iterate] = zI
+
+		iterate += 1
+
 	end
 
 	if verbose >= 1
@@ -504,7 +510,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 	end
 
     # Output
-    return IncumbentSolution(V0,zI,noncompete)
+    return V_diag,zI_diag,IncumbentSolution(V0,zI,noncompete)
 
 end
 

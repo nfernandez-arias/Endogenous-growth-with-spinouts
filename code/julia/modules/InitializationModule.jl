@@ -20,7 +20,7 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 500
+    mgrid_numPoints = 1000
     mgrid_minimum = 0.0
     mgrid_maximum = .02
     mgrid_logSpacing = true
@@ -142,7 +142,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     incumbentHJB_Log_verbose = 2
-    incumbentHJB_Log_print_skip = 100
+    incumbentHJB_Log_print_skip = 1
     incumbentHJB_Log = LogParameters(incumbentHJB_Log_verbose,incumbentHJB_Log_print_skip)
 
     write(f, "incumbent HJB Logging Parameters \n---------------\n")
@@ -183,11 +183,11 @@ function setModelParameters()
 
     # Rate of Spinout formation of spinouts (fraction of rate for incumbents)
 
-    spinoutsFromSpinouts = 0.5
+    spinoutsFromSpinouts = 1
 
     # Spinouts ideas from different pool?
 
-    spinoutsSamePool = false
+    spinoutsSamePool = true
 
     modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,ζ,CNC,spinoutsFromSpinouts,spinoutsSamePool)
 
@@ -219,8 +219,8 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
     w = wbar * ones(size(mGrid))
     #w = 0.5 * wbar * ones(pa.mGrid.numPoints,1)
 
-    #idxM = ceil(pa.mGrid.numPoints / 2)
-    idxM = 1
+    idxM = ceil(pa.mGrid.numPoints / 2)
+    #idxM = 1
     #idxM = 1
 
     #zS = pm.ξ .* mGrid
