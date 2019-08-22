@@ -24,7 +24,7 @@ using AlgorithmParametersModule, ModelParametersModule, GuessModule, Optim, Line
 using Plots
 import AuxiliaryModule
 
-export IncumbentSolution, solveIncumbentHJB, solveSpinoutHJB
+export IncumbentSolution, solveIncumbentHJB, solveSpinoutHJB, solveIncumbentHJB_shooting
 
 struct IncumbentSolution
 
@@ -195,6 +195,12 @@ function solveIncumbentHJB_shooting(algoPar::AlgorithmParameters, modelPar::Mode
 
 	V = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess)
 
+	zE = guess.zE
+
+	V0 = AuxiliaryModule.wbar(modelPar.β) / (modelPar.χE * modelPar.λ)
+
+ 	Vend = V0/2
+
 	zI = zeros(size(V))
 	noncompete = zeros(size(V))
 
@@ -236,6 +242,9 @@ function solveIncumbentHJB_shooting(algoPar::AlgorithmParameters, modelPar::Mode
 	# CNCs
 	CNC = modelPar.CNC
 
+	# Spinouts from spinouts
+	sFromS = modelPar.spinoutsFromSpinouts
+
 	# Wage
 	wbar = AuxiliaryModule.wbar(modelPar.β)
 
@@ -262,6 +271,10 @@ function solveIncumbentHJB_shooting(algoPar::AlgorithmParameters, modelPar::Mode
 	mGrid, Δm = mGridBuild(algoPar.mGrid)
 	zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
 
+	τE = AuxiliaryModule.τE(modelPar,zE)
+
+	Π = AuxiliaryModule.profit(guess.L_RD,modelPar)
+
     # Compute initial guess for V, "value of staying put"
     # based on L_RD guess and profit function
 
@@ -270,16 +283,74 @@ function solveIncumbentHJB_shooting(algoPar::AlgorithmParameters, modelPar::Mode
 	#plot(mGrid,V0, label = "Incumbent Value", xlabel = "Mass of spinouts")
 	#png("figures/plotsGR/diagnostic_V.png")
 
+	# Initialize output V1
+	V1 = zeros(size(mGrid))
+	zI = zeros(size(mGrid))
 
-	# Initial guess
-	V0end = incumbentHJBSolution.V[end]
+	Vprime2 = (V0[3] - V0[2]) / Δm[2]
 
-	for i = reverse(1:length(mGrid)-1)
+	iterate = 1
+	error = 1
 
-		objective(z) = z * ϕI(z + zS[i]) * (λ*V[1] - V[i])
+	diagNumPoints = 1000
+	V_diag = zeros(length(mGrid[:]),diagNumPoints)
+	zI_diag = zeros(size(V_diag))
+
+	# This is the goal of the iteration below
+	V0_target = AuxiliaryModule.wbar(modelPar.β) / (modelPar.χE * modelPar.λ)
+	V0_endGuess = V0[end]
+
+	while iterate < maxIter && error > tolerance
+
+		for i = reverse(1:idxM-1)
+
+			Vprime = (V0[i+1] - V0[i]) / Δm[i]
+
+			#if i == 1
+			#	Vprime = Vprime2
+			#end
+
+			#objective(z) = - (z * χI * ϕI(z + zS[i]) * (λ*V0_target - V0[i]) - z * (w[i] - ν * Vprime) - zS[i] * χS * ϕI(z + zS[i]) * V0[i])
+			objective(z) = - (z * χI * ϕI(z + zS[i]) * (λ*V0[1] - V0[i]) - z * (w[i] - ν * Vprime) - zS[i] * χS * ϕI(z + zS[i]) * V0[i])
+
+			lower = 0
+			upper = 10
+
+			result = optimize(objective,lower,upper)
+
+			#print("result = $result\n")
+
+			zI[i] = Optim.minimizer(result)
+
+			zAgg = zI[i] + zS[i]
+
+			τI = χI * zI[i] * ϕI(zAgg)
+
+			τSI = χI * zI[i] + χS * zS[i] * ϕI(zAgg)
+
+			#zDriftAgg = zI[i] + z
+
+			V1[i] = (ρ + τE + τSI + zAgg *  ν/Δm[i] )^(-1) * (Π + τI * λ * V0[1] - zI[i] * w[i] + (ν * zAgg / Δm[i]) * V1[i+1])
+
+		end
+
+		V1[idxM:end] = V0_endGuess * ones(size(V1[idxM:end]))
+
+		V0_endGuess = V0_endGuess * (V0_target / V1[1])^(1/5)
+
+		iterate += 1
+		error = abs(V1[1] - V0_target)
+
+		print("Iterate $iterate with error $error\n")
+
+		V_diag[:,iterate] = V1
+		zI_diag[:,iterate] = zI
 
 	end
 
+	noncompete = zeros(size(mGrid))
+
+	return V_diag,zI_diag,IncumbentSolution(V1,zI,noncompete)
 
 end
 

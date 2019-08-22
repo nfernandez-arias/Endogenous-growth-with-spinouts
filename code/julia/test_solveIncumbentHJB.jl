@@ -18,7 +18,8 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 #sol = IncumbentSolution(zeros(size(mGrid)) * 0.5,zeros(size(mGrid)),zeros(size(mGrid)))
 sol = IncumbentSolution(AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,initGuess),zeros(size(mGrid)),zeros(size(mGrid)))
 
-objective_diag,V_diag,zI_diag,out = solveIncumbentHJB(algoPar,modelPar,initGuess,sol)
+#objective_diag,V_diag,zI_diag,out = solveIncumbentHJB_shooting(algoPar,modelPar,initGuess,sol)
+V_diag,zI_diag,out = solveIncumbentHJB_shooting(algoPar,modelPar,initGuess,sol)
 
 anim = @animate for i = 1:length(V_diag[1,:])
     plot(mGrid,V_diag[:,i], title = "V_diag[:,$i]", ylims = (0,1))
@@ -30,10 +31,10 @@ anim = @animate for i = 1:length(zI_diag[1,:])
 end
 gif(anim,"figures/plotsGR/zI_innermost_animation.gif",fps = 5)
 
-anim = @animate for i = 1:length(objective_diag[1,:])
+#anim = @animate for i = 1:length(objective_diag[1,:])
     plot(0:0.1:10,objective_diag[:,i], title = "objective_diag[:,$i]")
-end
-gif(anim,"figures/plotsGR/objective_diag_animation.gif",fps = 5)
+#end
+#gif(anim,"figures/plotsGR/objective_diag_animation.gif",fps = 5)
 
 V = out.V
 zI = out.zI
@@ -93,8 +94,8 @@ for i=1:length(V_diag[1,:])
     V = V_diag[:,i]
     Vprime,V1prime = computeVprime(V)
 
-    errors1[:,i] = (ρ .+ τSE) .* V .- Π .- a .* ν .* Vprime .- zI .* (χI .* ϕI(zI + 0.1 * ones(size(zI)) + zS) .* (λ .* V[1] .- V) .- w)
-    errors2[:,i] = (ρ .+ τSE) .* V .- Π .- a .* ν .* V1prime .- zI .* (χI .* ϕI(zI + 0.1 * ones(size(zI)) + zS) .* (λ .* V[1] .- V) .- w)
+    errors1[:,i] = (ρ .+ τSE) .* V .- Π .- a .* ν .* Vprime .- zI .* (χI .* ϕI(zI + zS) .* (λ .* V[1] .- V) .- w)
+    errors2[:,i] = (ρ .+ τSE) .* V .- Π .- a .* ν .* V1prime .- zI .* (χI .* ϕI(zI + zS) .* (λ .* V[1] .- V) .- w)
 
 end
 

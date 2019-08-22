@@ -11,7 +11,7 @@ Incumbent HJB Parameters
 ---------------
 timeStep: 0.1 
 tolerance: 1.0e-8 
-maxIter: 200 
+maxIter: 1000 
 
 
 Spinout HJB Parameters 

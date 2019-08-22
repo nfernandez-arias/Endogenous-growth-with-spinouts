@@ -38,7 +38,7 @@ function setAlgorithmParameters()
 
     incumbentHJB_timeStep = .1
     incumbentHJB_tolerance = 1e-8
-    incumbentHJB_maxIter = 200
+    incumbentHJB_maxIter = 1000
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter)
 
@@ -183,7 +183,7 @@ function setModelParameters()
     # Innovation
     χI = 3
     χS = 1.5
-    χE = 0.7
+    χE = 3
     ψI = 0.5
     ψSE = 0.5
     λ = 1.0532733
@@ -240,7 +240,7 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
 
 
 
-    zE = 0.05
+    zE = 0.1
 
     #zS = pm.ξ .* mGrid
 
