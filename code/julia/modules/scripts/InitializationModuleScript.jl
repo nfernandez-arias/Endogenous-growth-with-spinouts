@@ -159,16 +159,16 @@ function setModelParameters()
     L = 1
 
     # Innovation
-    χI = 3
-    χS = 1.5
-    χE = 0.7
+    χI = 3.25
+    χS = 1.425
+    χE = 1.2
     ψI = 0.5
     ψSE = 0.5
     λ = 1.0532733
 
     # Spinouts
     ν = 0.0102495
-    ξ = 20
+    ξ = 10
     ζ = 0
 
     # CNCs

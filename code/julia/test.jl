@@ -45,8 +45,8 @@ png("figures/plotsGR/L_RD_diagnostic.png")
 V = results.incumbent.V
 idxM = results.finalGuess.idxM
 w = results.finalGuess.w
-zS = AuxiliaryModule.zSFunc(algoPar,modelPar,idxM)
-zE = AuxiliaryModule.zEFunc(modelPar,results.incumbent,w,zS)
+zS = EndogenousGrowthWithSpinouts.zSFunc(algoPar,modelPar,idxM)
+zE = EndogenousGrowthWithSpinouts.zEFunc(modelPar,results.incumbent,w,zS)
 
 #plot(mGrid,zE)
 #--------------------------------#

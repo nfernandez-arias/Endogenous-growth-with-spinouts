@@ -49,7 +49,7 @@ png("figures/plotsGR/innovation_rates_t")
 #-----------------------------------------#
 
 
-wbars = ones(size(mGrid)) * AuxiliaryModule.Cβ(β)
+wbars = ones(size(mGrid)) * EndogenousGrowthWithSpinouts.Cβ(β)
 p = plot(mGrid, [w (sFromS * w + (1-sFromS) * wbars) (wbars - ν*W) wbars], title = "Wages", legend = :bottomright, linestyle = [:solid :dash :solid], label = ["R&D wage (incumbents)" "R&D wage (spinouts)" "Production wage minus flow value of knowledge" "Production wage"], xlabel = "Mass of spinouts", ylabel = "Units of final consumption")
 png("figures/plotsGR/wages_m.png")
 
