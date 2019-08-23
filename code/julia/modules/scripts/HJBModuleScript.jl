@@ -1,5 +1,5 @@
 #---------------------------------
-# Name: HJBModule.jl
+# Name: HJBModuleScript.jl
 #
 # Module relating to solving HJBs
 #
@@ -16,18 +16,7 @@
 #
 #
 
-__precompile__()
-
-module HJBModule
-
-#include("AlgorithmParametersModule.jl")
-#include("ModelParametersModule.jl")
-#include("GuessModule.jl")
-#include("AuxiliaryModule.jl")
-
-using AlgorithmParametersModule, ModelParametersModule, GuessModule, Optim, LinearAlgebra, SparseArrays
-using Plots
-import AuxiliaryModule
+using Optim, LinearAlgebra, SparseArrays, Plots
 
 export solveIncumbentHJB, solveSpinoutHJB
 
@@ -63,17 +52,17 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
     ###################################################
     w = guess.w
 	idxM = guess.idxM
-	wbar = AuxiliaryModule.wbar(modelPar.β)
+	wbar = wbarFunc(modelPar.β)
 
-	zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
-	zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution,w,zS)
+	zS = zSFunc(algoPar,modelPar,idxM)
+	zE = zEFunc(modelPar,incumbentHJBSolution,w,zS)
 
 	V = incumbentHJBSolution.V
 	zI = incumbentHJBSolution.zI
 	noncompete = incumbentHJBSolution.noncompete
 
-	τI = AuxiliaryModule.τI(modelPar,zI,zS,zE)
-	τSE = AuxiliaryModule.τSE(modelPar,zI,zS,zE)
+	τI = τIFunc(modelPar,zI,zS,zE)
+	τSE = τSEFunc(modelPar,zI,zS,zE)
 	τ = τI .+ τSE
 
 	a = sFromS * zS .+ zI .* (1 .- noncompete)  # Take into account effect of non-competes on drift
@@ -139,8 +128,8 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
     ## Compute A Matrix
     ##############################################
 
-	τI = AuxiliaryModule.τI(modelPar,zI,zS,zE)
-	τSE = AuxiliaryModule.τSE(modelPar,zI,zS,zE)
+	τI = τIFunc(modelPar,zI,zS,zE)
+	τSE = τSEFunc(modelPar,zI,zS,zE)
 
     for i = 1:length(mGrid)-1
 
@@ -182,7 +171,7 @@ end
 
 function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, verbose = 2, print_skip = 10, implicit = true)
 
-	V = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess)
+	V = initialGuessIncumbentHJB(algoPar,modelPar,guess)
 
 	zI = zeros(size(V))
 	noncompete = zeros(size(V))
@@ -219,7 +208,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 	CNC = modelPar.CNC
 
 	# Wage
-	wbar = AuxiliaryModule.wbar(modelPar.β)
+	wbar = wbarFunc(modelPar.β)
 
     # Define some auxiliary functions
     ϕI(z) = z .^(-ψI)
@@ -246,7 +235,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     # Compute initial guess for V, "value of staying put"
     # based on L_RD guess and profit function
 
-    #V0 = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess)
+    #V0 = initialGuessIncumbentHJB(algoPar,modelPar,guess)
 	V0 = incumbentHJBSolution.V
 	plot(mGrid,V0, label = "Incumbent Value", xlabel = "Mass of spinouts")
 	png("figures/plotsGR/diagnostic_V.png")
@@ -256,8 +245,8 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 	V_store = incumbentHJBSolution.V
 	zI_store = incumbentHJBSolution.zI
-	zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
-	zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution,w,zS)
+	zS = zSFunc(algoPar,modelPar,idxM)
+	zE = zEFunc(modelPar,incumbentHJBSolution,w,zS)
 
 	# Initialize incumbent policies
 	noncompete = zeros(size(V0))
@@ -275,7 +264,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
     # Finally calculate flow profit
-	Π = AuxiliaryModule.profit(guess.L_RD,modelPar) .* ones(size(mGrid));
+	Π = profit(guess.L_RD,modelPar) .* ones(size(mGrid));
 
 	# Initialize transition matrix
 	A = spzeros(length(mGrid),length(mGrid))
@@ -300,8 +289,8 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 		Vprime2 = (V0[3] - V0[2]) / Δm[2]
 
-		#zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
-		#zE = AuxiliaryModule.zE(modelPar,V0[1],zI,w,zS)updateV_implicit
+		#zS = zS(algoPar,modelPar,idxM)
+		#zE = zE(modelPar,V0[1],zI,w,zS)updateV_implicit
 
 		#print(Vprime2)
 
@@ -401,7 +390,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 					else
 
 						noncompete[i] = 1
-						numerator_CNC = AuxiliaryModule.wbar(modelPar.β)
+						numerator_CNC = wbarFunc(modelPar.β)
 						ratio_CNC = numerator_CNC / denominator
 						zI[i] = ratio_CNC^(-1/ψI)
 
@@ -447,19 +436,19 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		## Unpack z and tau functions
 		#######################################
 
-		#zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)[:]
-		#zE = AuxiliaryModule.zE(modelPar,V0[1],zI,w,zS)[:]
+		#zS = zS(algoPar,modelPar,idxM)[:]
+		#zE = zE(modelPar,V0[1],zI,w,zS)[:]
 
-		#τI = AuxiliaryModule.τI(modelPar,zI,zS,zE)[:]
-		#τSE = AuxiliaryModule.τSE(modelPar,zI,zS,zE)[:]
+		#τI = τI(modelPar,zI,zS,zE)[:]
+		#τSE = τSE(modelPar,zI,zS,zE)[:]
 
 		if implicit == true
 
 			## Implicit method
 
 			# Compute flow payoff
-		    u = Π .- zI .* ((1 .- noncompete) .* w + noncompete .* AuxiliaryModule.wbar(modelPar.β))
-			#u = Π .+ τI .* (λ-1) .* V0[1]  .- zI .* ((1 .- noncompete) .* w + noncompete .* AuxiliaryModule.wbar(modelPar.β))  # Moll's idea -- here add (λ-1) * τI * V0[1] term
+		    u = Π .- zI .* ((1 .- noncompete) .* w + noncompete .* wbarFunc(modelPar.β))
+			#u = Π .+ τI .* (λ-1) .* V0[1]  .- zI .* ((1 .- noncompete) .* w + noncompete .* wbarFunc(modelPar.β))  # Moll's idea -- here add (λ-1) * τI * V0[1] term
 
 			# Update "transition" matrix A
 			updateMatrixA(algoPar,modelPar,guess,zI,noncompete,A,zS,zE)
@@ -538,7 +527,7 @@ function solveIncumbentHJB_explicitMethod(algoPar::AlgorithmParameters, modelPar
 	CNC = modelPar.CNC
 
 	# Wage
-	wbar = AuxiliaryModule.wbar(modelPar.β)
+	wbar = wbarFunc(modelPar.β)
 
 	# Define some auxiliary functions
 	ϕI(z) = z .^(-ψI)
@@ -562,7 +551,7 @@ function solveIncumbentHJB_explicitMethod(algoPar::AlgorithmParameters, modelPar
 
 	# Compute initial guess for V, "value of staying put"
 	# based on L_RD guess and profit function
-	V0 = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess)
+	V0 = initialGuessIncumbentHJB(algoPar,modelPar,guess)
 	noncompete = zeros(size(V0))
 	zI = zeros(size(V0))
 
@@ -570,13 +559,11 @@ function solveIncumbentHJB_explicitMethod(algoPar::AlgorithmParameters, modelPar
 	mGrid,Δm = mGridBuild(algoPar.mGrid)
 
 	# Finally calculate flow profit
-	Π = AuxiliaryModule.profit(guess.L_RD,modelPar) .* ones(size(mGrid));
+	Π = profit(guess.L_RD,modelPar) .* ones(size(mGrid));
 
 	iterate = 0
 	error = 1
 
 
-
-end
 
 end

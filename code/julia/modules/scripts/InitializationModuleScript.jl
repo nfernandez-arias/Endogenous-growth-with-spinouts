@@ -1,20 +1,9 @@
 #---------------------------------
-# Name: InitializationModule.jl
+# Name: InitializationModuleScript.jl
 #
 # Module containing scripts for initializaiton
 # in main.jl
 #
-
-__precompile__()
-
-module InitializationModule
-
-#include("./AlgorithmParametersModule.jl")
-#include("./ModelParametersModule.jl")
-#include("./GuessModule.jl")
-#include("./AuxiliaryModule.jl")
-
-using AlgorithmParametersModule, ModelParametersModule, GuessModule, AuxiliaryModule
 
 export setAlgorithmParameters, setModelParameters, setInitialGuess
 
@@ -39,9 +28,9 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 50
+    incumbentHJB_timeStep = 0.01
     incumbentHJB_tolerance = 1e-8
-    incumbentHJB_maxIter = 200
+    incumbentHJB_maxIter = 50
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter)
 
@@ -218,15 +207,15 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
 
     β = pm.β
     #wbar = (β^β)*(1-β)^(2-2*β);
-    wbar = AuxiliaryModule.Cβ(β)
+    wbar = wbarFunc(β)
 
     w = wbar * ones(size(mGrid))
     #w = 0.5 * wbar * ones(pa.mGrid.numPoints,1)
 
 
-    #idxM = ceil(pa.mGrid.numPoints / 2)
+    idxM = ceil(pa.mGrid.numPoints / 2)
 
-    idxM = 1
+    #idxM = 5
     #idxM = 1
 
     #zS = pm.ξ .* mGrid
@@ -242,8 +231,5 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
     initGuess = Guess(g,L_RD,w,idxM)
 
     return initGuess
-
-end
-
 
 end

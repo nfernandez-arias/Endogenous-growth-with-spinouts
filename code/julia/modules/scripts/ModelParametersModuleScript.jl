@@ -1,15 +1,11 @@
 #---------------------------------
-# Name: ModelParametersModule.jl
+# Name: ModelParametersModuleScript.jl
 #
 # Module relating to model parameters
 #
 # Contains definitions of
 # modelParameters composite type
 #
-
-__precompile__()
-
-module ModelParametersModule
 
 export ModelParameters, IncumbentSolution
 
@@ -59,7 +55,5 @@ struct IncumbentSolution
     V::Array{Float64}
     zI::Array{Float64}
 	noncompete::Array{Int64}
-
-end
 
 end

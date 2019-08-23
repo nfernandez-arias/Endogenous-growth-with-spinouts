@@ -15,19 +15,7 @@
 # Contains definitions of
 # ModelSolution composite type
 
-__precompile__()
-
-module ModelSolver
-
-#include("AlgorithmParametersModule.jl")
-#include("ModelParametersModule.jl")
-#include("GuessModule.jl")
-#include("HJBModule.jl")
-#include("InitializationModule.jl")
-
-using AlgorithmParametersModule, ModelParametersModule, GuessModule, HJBModule, InitializationModule
-#using Plots, GR
-import AuxiliaryModule,Base.deepcopy
+import Base.deepcopy
 
 export solveModel,ModelSolution,AuxiliaryEquilibriumVariables
 
@@ -57,7 +45,7 @@ function update_L_RD_w(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
     ## Update w
     # Load parameters and model constants
     ν = modelPar.ν
-    wbar = AuxiliaryModule.wbar(modelPar.β)
+    wbar = wbarFunc(modelPar.β)
 
     # First compute W, value of spinout, for computing R&D wage update
     W,spinoutFlow = solveSpinoutHJB(algoPar,modelPar,initGuess,V)
@@ -113,13 +101,13 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     old_idxM = guess.idxM
     #println("old_idxM = $old_idxM")
     w = guess.w
-    wbar = AuxiliaryModule.wbar(modelPar.β) * ones(size(w))
+    wbar = wbarFunc(modelPar.β) * ones(size(w))
 
     #println("V[1] = $(V[1])")
 
     # Compute implied zS, zE
-    old_zS = AuxiliaryModule.zS(algoPar,modelPar,old_idxM)
-    old_zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution,w,old_zS)
+    old_zS = zSFunc(algoPar,modelPar,old_idxM)
+    old_zE = zEFunc(modelPar,incumbentHJBSolution,w,old_zS)
 
     #########
     ## Compute new guesses
@@ -168,10 +156,10 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
     noncompete = incumbentHJBSolution.noncompete
     idxCNC = findfirst( (noncompete .> 0)[:] )
 
-    zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
-    zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution,w,zS)
-    τI = AuxiliaryModule.τI(modelPar,zI,zS,zE)
-    τSE = AuxiliaryModule.τSE(modelPar,zI,zS,zE)
+    zS = zSFunc(algoPar,modelPar,idxM)
+    zE = zEFunc(modelPar,incumbentHJBSolution,w,zS)
+    τI = τIFunc(modelPar,zI,zS,zE)
+    τSE = τSEFunc(modelPar,zI,zS,zE)
 
     ν = modelPar.ν
     λ = modelPar.λ
@@ -361,7 +349,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     guess = Guess(g,L_RD,w,idxM);
 
     # Initialize outside of loops for returning
-    V = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,initGuess)
+    V = initialGuessIncumbentHJB(algoPar,modelPar,initGuess)
     W = zeros(size(mGrid))
     zI = zeros(size(mGrid))
     noncompete = zeros(size(mGrid))
@@ -429,7 +417,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 #Plots.plot(x,y,label=["zS" "zE" "zS factor" "zE factor"])
                 #frame(anim)
 
-                #sol = IncumbentSolution(AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess),zI,noncompete)
+                #sol = IncumbentSolution(initialGuessIncumbentHJB(algoPar,modelPar,guess),zI,noncompete)
                 sol = IncumbentSolution(V,zI,noncompete)
 
                 # Solve HJB - output contains incumbent value V and policy zI
@@ -441,8 +429,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 # Record initial values
                 old_idxM = guess.idxM
 
-                zS = AuxiliaryModule.zS(algoPar,modelPar,old_idxM)
-                zE = AuxiliaryModule.zE(modelPar,incumbentHJBSolution,w,zS)
+                zS = zSFunc(algoPar,modelPar,old_idxM)
+                zE = zEFunc(modelPar,incumbentHJBSolution,w,zS)
 
                 #println("zS = $zS")
                 #println("zE = $zE")
@@ -487,7 +475,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 #Plots.plot(x,y,label=["zS" "zE" "zS factor" "zE factor"])
                 #frame(anim)
 
-                #sol = IncumbentSolution(AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess),zI,noncompete)
+                #sol = IncumbentSolution(initialGuessIncumbentHJB(algoPar,modelPar,guess),zI,noncompete)
                 sol = IncumbentSolution(V,zI,noncompete)
 
                 # Solve HJB - output contains incumbent value V and policy zI
@@ -548,7 +536,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
             # Use spinout value to compute implied no-CNC R&D wage
             ν = modelPar.ν
-            wbar = AuxiliaryModule.wbar(modelPar.β)
+            wbar = wbarFunc(modelPar.β)
             temp_w = wbar .* ones(size(W)) .- ν .* W
 
             # Calculate updated w
@@ -623,7 +611,5 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     end
 
     return w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
-
-end
 
 end

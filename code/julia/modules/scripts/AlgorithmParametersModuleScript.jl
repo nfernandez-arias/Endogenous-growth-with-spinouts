@@ -1,5 +1,5 @@
 #---------------------------------
-# Name: AlgorithmParametersModule.jl
+# Name: AlgorithmParametersModuleScript.jl
 #
 # Module relating to algorithm parameters
 #
@@ -7,9 +7,6 @@
 # algorithm types and some
 # auxiliary functions.
 
-__precompile__()
-
-module AlgorithmParametersModule
 
 import Base.deepcopy
 
@@ -101,6 +98,3 @@ mutable struct AlgorithmParameters
 end
 
 Base.deepcopy(m::AlgorithmParameters) = AlgorithmParameters([ deepcopy(getfield(m, k)) for k = 1:length(fieldnames(typeof(m))) ]...)
-
-
-end
