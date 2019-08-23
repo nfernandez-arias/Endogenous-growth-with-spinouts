@@ -1,14 +1,6 @@
 include("loadPath.jl")
 
-using Revise
-using AlgorithmParametersModule
-using ModelParametersModule
-using AuxiliaryModule
-using GuessModule
-using ModelSolver
-using HJBModule
-using InitializationModule
-using Plots
+using EndogenousGrowthWithSpinouts
 
 algoPar = setAlgorithmParameters()
 modelPar = setModelParameters()

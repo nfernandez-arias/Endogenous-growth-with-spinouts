@@ -16,7 +16,7 @@
 #
 #
 
-using Optim, LinearAlgebra, SparseArrays, Plots
+using Optim, LinearAlgebra, SparseArrays
 
 export solveIncumbentHJB, solveSpinoutHJB
 
@@ -96,7 +96,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	for i = 1:Imax-1
 
 		j = Imax - i
-ζ
+
 		W[j] = ((a[j] *  ν / Δm[j]) * W[j+1] + zS_density[j] * ( spinoutFlow[j] )) / (ρ + τ[j] + a[j] * ν / Δm[j])
 
 	end
