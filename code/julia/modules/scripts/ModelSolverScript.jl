@@ -36,32 +36,6 @@ struct ModelSolution
 
 end
 
-function update_L_RD_w(algoPar::AlgorithmParameters, modelPar::ModelParameters, initGuess::Guess, incumbentHJBSolution::IncumbentSolution)
-
-    # Unpack incumbentHJBSolution
-    V = incumbentHJBSolution.V
-    zI = incumbentHJBSolution.zI
-
-    ## Update w
-    # Load parameters and model constants
-    ν = modelPar.ν
-    wbar = wbarFunc(modelPar.β)
-
-    # First compute W, value of spinout, for computing R&D wage update
-    W,spinoutFlow = solveSpinoutHJB(algoPar,modelPar,initGuess,V)
-    # Compute new wage
-    temp_w = wbar .* ones(size(W)) .- ν .* W
-    w = algoPar.w.updateRate .* temp_w .+ (1 .- algoPar.w.updateRate) .* initGuess.w
-
-    ## Update L_RD
-
-    # Need to solve KF equation - easy given tau.
-    # Then need to aggregate back up to L_RD
-
-    return Guess(initGuess.L_RD, w, initGuess.zS, initGuess.zE),W
-
-end
-
 function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, incumbentHJBSolution::IncumbentSolution, W::Array{Float64})
 
     ## Build grid
@@ -361,13 +335,12 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     # Iniital guess
     sol = IncumbentSolution(V,zI,noncompete)
 
-
     factor_zE = zeros(size(mGrid))
     factor_zS = zeros(size(mGrid))
 
     spinoutFlow = zeros(size(mGrid))
 
-    incumbentHJBSolution = zeros(size(mGrid))
+    #incumbentHJBSolution = sol
 
     # In case shit hits the fan
 
@@ -378,7 +351,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     # Diagnostics
 
-    diagStoreNumPoints = 1
+    diagStoreNumPoints = 100
 
     w_diag = zeros(length(mGrid),diagStoreNumPoints)
     V_diag = zeros(length(mGrid),diagStoreNumPoints)
@@ -408,21 +381,27 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         iterate_idxM = 0
         error_idxM = 1
 
-        try
+        while iterate_idxM < algoPar.idxM.maxIter && error_idxM > algoPar.idxM.tolerance
 
-            while iterate_idxM < algoPar.idxM.maxIter && error_idxM > algoPar.idxM.tolerance
+            #y = [guess.zS guess.zE factor_zS factor_zE]
+            #x = mGrid[:]
+            #Plots.plot(x,y,label=["zS" "zE" "zS factor" "zE factor"])
+            #frame(anim)
 
-                #y = [guess.zS guess.zE factor_zS factor_zE]
-                #x = mGrid[:]
-                #Plots.plot(x,y,label=["zS" "zE" "zS factor" "zE factor"])
-                #frame(anim)
+            #sol = IncumbentSolution(initialGuessIncumbentHJB(algoPar,modelPar,guess),zI,noncompete)
+            sol = IncumbentSolution(V,zI,noncompete)
 
-                #sol = IncumbentSolution(initialGuessIncumbentHJB(algoPar,modelPar,guess),zI,noncompete)
-                sol = IncumbentSolution(V,zI,noncompete)
+            # Solve HJB - output contains incumbent value V and policy zI
 
-                # Solve HJB - output contains incumbent value V and policy zI
+            try
 
-                incumbentHJBSolution = solveIncumbentHJB(algoPar,modelPar,guess,sol)
+                sol = solveIncumbentHJB(algoPar,modelPar,guess,sol)
+
+            catch err
+                print("Caught an error: $(typeof(err))\n")
+                sol = solveIncumbentHJB(tempAlgoPar,modelPar,guess,sol)
+
+            finally
 
                 # Update zS and zE given solution HJB and optimality / free entry conditions
 
@@ -430,14 +409,14 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 old_idxM = guess.idxM
 
                 zS = zSFunc(algoPar,modelPar,old_idxM)
-                zE = zEFunc(modelPar,incumbentHJBSolution,w,zS)
+                zE = zEFunc(modelPar,sol,w,zS)
 
                 #println("zS = $zS")
                 #println("zE = $zE")
 
 
                 # Update guess object (faster than making new one)
-                guess.idxM = update_idxM(algoPar,modelPar,guess,incumbentHJBSolution,W)
+                guess.idxM = update_idxM(algoPar,modelPar,guess,sol,W)
 
                 # Increase iterator
                 iterate_idxM += 1;
@@ -452,137 +431,78 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
             end
 
-        catch err
-
-            println("-----------------Caught an Error!-------------------------")
-            #println("Error: $err")
-            println(typeof(err))
-            #sleep(2)
-
-            guess = cleanGuess
-
-            # While loop to compute fixed point
-            iterate_idxM = 0
-            error_idxM = 1
-
-            #print("$iterate_zSzE")
-            #print("$error_zSzE")
-
-            while iterate_idxM < tempAlgoPar.idxM.maxIter && error_idxM > tempAlgoPar.idxM.tolerance
-
-                #y = [guess.zS guess.zE factor_zS factor_zE]
-                #x = mGrid[:]
-                #Plots.plot(x,y,label=["zS" "zE" "zS factor" "zE factor"])
-                #frame(anim)
-
-                #sol = IncumbentSolution(initialGuessIncumbentHJB(algoPar,modelPar,guess),zI,noncompete)
-                sol = IncumbentSolution(V,zI,noncompete)
-
-                # Solve HJB - output contains incumbent value V and policy zI
-
-                incumbentHJBSolution = solveIncumbentHJB(tempAlgoPar,modelPar,guess,sol)
-
-                # Update zS and zE given solution HJB and optimality / free entry conditions
-
-                # Record initial values
-                old_idxM = guess.idxM
-
-
-                #println("V = $(incumbentHJBSolution.V)")
-                #println("w = $(guess.w)")
-
-                # Update guess object (faster than allocating new one)
-                guess.idxM = update_idxM(tempAlgoPar,modelPar,guess,incumbentHJBSolution,W)
-
-                # Increase iterator
-                iterate_idxM += 1
-                # Check convergence
-                error_idxM = maximum(abs,guess.idxM - old_idxM)
-
-                if algoPar.idxM_Log.verbose == 2
-                    if iterate_idxM % tempAlgoPar.idxM_Log.print_skip == 0
-                        println("idxM fixed point: Computed iterate $iterate_idxM with error $error_idxM")
-                    end
-                end
-
-            end
-
-        finally
-
-        #gif(anim, "./figures/animation.gif", fps = 15)
-
-            if algoPar.idxM_Log.verbose >= 1
-                if error_idxM > algoPar.idxM.tolerance
-                    @warn("TWO ERRORS -- OR, maxIter attained in zSzE computation")
-                elseif algoPar.idxM_Log.verbose == 2
-                    println("idxM fixed point: Converged in $iterate_idxM steps with error $error_idxM")
-                end
-            end
-
-            ######## Checking for convergence of L_RD and w
-
-            #### Updating L_RD,w
-
-            ## Updating w
-
-            #print("Type: $(typeof(incumbentHJBSolution))")
-
-            V = incumbentHJBSolution.V
-            zI = incumbentHJBSolution.zI
-            noncompete = incumbentHJBSolution.noncompete
-
-            # Solve spinout HJB using incumbent HJB
-            W,spinoutFlow = solveSpinoutHJB(algoPar,modelPar,guess,incumbentHJBSolution)
-
-            # Use spinout value to compute implied no-CNC R&D wage
-            ν = modelPar.ν
-            wbar = wbarFunc(modelPar.β)
-            temp_w = wbar .* ones(size(W)) .- ν .* W
-
-            # Calculate updated w
-            w = algoPar.w.updateRate .* temp_w .+ (1 .- algoPar.w.updateRate) .* guess.w
-
-            ## Updating g,L_RD
-            temp_g,temp_L_RD,μ,γ,t = update_g_L_RD(algoPar,modelPar,guess,incumbentHJBSolution)
-
-            g = algoPar.g.updateRate .* temp_g .+ (1 .- algoPar.g.updateRate) .* guess.g
-            L_RD = algoPar.L_RD.updateRate .* temp_L_RD .+ (1 .- algoPar.L_RD.updateRate) .* guess.L_RD
-
-            #### Error
-
-            ## Compute error
-
-            #newGuess = Guess(guess.L_RD, guess.w, guess.zS, guess.zE)
-
-            error_g = abs(temp_g - guess.g)
-            error_L_RD = abs(temp_L_RD - guess.L_RD)
-            error_w = maximum(abs,temp_w .- guess.w)
-
-            ## Log
-
-            if algoPar.g_L_RD_w_Log.verbose == 2
-                if iterate_g_L_RD_w % algoPar.g_L_RD_w_Log.print_skip == 0
-                    println("g,L_RD,w fixed point: Computed iterate $iterate_g_L_RD_w with error: (g, $error_g; L_RD, $error_L_RD; w, $error_w)")
-                end
-            end
-
-            iterate_g_L_RD_w += 1
-
-            #### Update guess        #### Update guess
-
-            guess.g = g
-            guess.L_RD = L_RD
-            guess.w = w
-
-            g_diag[1,iterate_g_L_RD_w - 1] = g
-            L_RD_diag[1,iterate_g_L_RD_w - 1] = L_RD
-
-            w_diag[:,iterate_g_L_RD_w - 1] = w
-            V_diag[:,iterate_g_L_RD_w - 1] = V
-            W_diag[:,iterate_g_L_RD_w - 1] = W
-            μ_diag[:,iterate_g_L_RD_w - 1] = μ
-
         end
+
+        if algoPar.idxM_Log.verbose >= 1
+            if error_idxM > algoPar.idxM.tolerance
+                @warn("maxIter attained in zSzE computation")
+            elseif algoPar.idxM_Log.verbose == 2
+                println("idxM fixed point: Converged in $iterate_idxM steps with error $error_idxM")
+            end
+        end
+
+        ######## Checking for convergence of L_RD and w
+
+        #### Updating L_RD,w
+
+        ## Updating w
+
+        #print("Type: $(typeof(incumbentHJBSolution))")
+
+        V = sol.V
+        zI = sol.zI
+        noncompete = sol.noncompete
+
+        # Solve spinout HJB using incumbent HJB
+        W,spinoutFlow = solveSpinoutHJB(algoPar,modelPar,guess,sol)
+
+        # Use spinout value to compute implied no-CNC R&D wage
+        ν = modelPar.ν
+        wbar = wbarFunc(modelPar.β)
+        temp_w = wbar .* ones(size(W)) .- ν .* W
+
+        # Calculate updated w
+        w = algoPar.w.updateRate .* temp_w .+ (1 .- algoPar.w.updateRate) .* guess.w
+
+        ## Updating g,L_RD
+        temp_g,temp_L_RD,μ,γ,t = update_g_L_RD(algoPar,modelPar,guess,sol)
+
+        g = algoPar.g.updateRate .* temp_g .+ (1 .- algoPar.g.updateRate) .* guess.g
+        L_RD = algoPar.L_RD.updateRate .* temp_L_RD .+ (1 .- algoPar.L_RD.updateRate) .* guess.L_RD
+
+        #### Error
+
+        ## Compute error
+
+        #newGuess = Guess(guess.L_RD, guess.w, guess.zS, guess.zE)
+
+        error_g = abs(temp_g - guess.g)
+        error_L_RD = abs(temp_L_RD - guess.L_RD)
+        error_w = maximum(abs,temp_w .- guess.w)
+
+        ## Log
+
+        if algoPar.g_L_RD_w_Log.verbose == 2
+            if iterate_g_L_RD_w % algoPar.g_L_RD_w_Log.print_skip == 0
+                println("g,L_RD,w fixed point: Computed iterate $iterate_g_L_RD_w with error: (g, $error_g; L_RD, $error_L_RD; w, $error_w)")
+            end
+        end
+
+        iterate_g_L_RD_w += 1
+
+        #### Update guess        #### Update guess
+
+        guess.g = g
+        guess.L_RD = L_RD
+        guess.w = w
+
+        g_diag[1,iterate_g_L_RD_w - 1] = g
+        L_RD_diag[1,iterate_g_L_RD_w - 1] = L_RD
+
+        w_diag[:,iterate_g_L_RD_w - 1] = w
+        V_diag[:,iterate_g_L_RD_w - 1] = V
+        W_diag[:,iterate_g_L_RD_w - 1] = W
+        μ_diag[:,iterate_g_L_RD_w - 1] = μ
 
     end
 

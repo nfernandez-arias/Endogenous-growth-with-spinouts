@@ -9,29 +9,29 @@ zIfromFOC = zeros(size(zI))
 noncompete = results.incumbent.noncompete
 W = results.spinoutValue
 
-zS = AuxiliaryModule.zS(algoPar,modelPar,idxM)
-zE = AuxiliaryModule.zE(modelPar,results.incumbent,w,zS)
+zS = EndogenousGrowthWithSpinouts.zSFunc(algoPar,modelPar,idxM)
+zE = EndogenousGrowthWithSpinouts.zEFunc(modelPar,results.incumbent,w,zS)
 
 zS_density = zeros(size(zS))
 zS_density[2:end] = (zS ./ mGrid)[2:end]
 zS_density[1] = modelPar.ξ
 
-τI = AuxiliaryModule.τI(modelPar,zI,zS,zE)
-τSE = AuxiliaryModule.τSE(modelPar,zI,zS,zE)
-τE = AuxiliaryModule.τE(modelPar,zI,zS,zE)
+τI = EndogenousGrowthWithSpinouts.τIFunc(modelPar,zI,zS,zE)
+τSE = EndogenousGrowthWithSpinouts.τSEFunc(modelPar,zI,zS,zE)
+τE = EndogenousGrowthWithSpinouts.τEFunc(modelPar,zI,zS,zE)
 τS = zeros(size(τE))
 τS[:] = τSE[:] - τE[:]
 
 sFromS = modelPar.spinoutsFromSpinouts
 
-L_F = AuxiliaryModule.LF(L_RD,modelPar)
+L_F = EndogenousGrowthWithSpinouts.LF(L_RD,modelPar)
 
 τ = τI + τSE
 
 z = zS + zE + zI
 a = sFromS * zS .+ zI .* (1 .- noncompete)
 
-finalGoodsLabor = AuxiliaryModule.LF(L_RD,modelPar)
+finalGoodsLabor = EndogenousGrowthWithSpinouts.LF(L_RD,modelPar)
 
 mGrid,Δm = mGridBuild(algoPar.mGrid)
 
@@ -60,6 +60,6 @@ aPrime[end] = aPrime[end-1]
 β = modelPar.β
 #wbar = (β^β)*(1-β)^(2-2*β);
 
-wbar = AuxiliaryModule.wbar(β)
-Π = AuxiliaryModule.profit(results.finalGuess.L_RD,modelPar)
+wbar = EndogenousGrowthWithSpinouts.wbarFunc(β)
+Π = EndogenousGrowthWithSpinouts.profit(results.finalGuess.L_RD,modelPar)
 idxCNC = findfirst( (noncompete .> 0)[:] )

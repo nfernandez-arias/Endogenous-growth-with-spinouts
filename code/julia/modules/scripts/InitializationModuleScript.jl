@@ -15,7 +15,7 @@ function setAlgorithmParameters()
 
     mgrid_numPoints = 1000
     mgrid_minimum = 0.0
-    mgrid_maximum = .1
+    mgrid_maximum = .02
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-10 * mgrid_maximum
 
@@ -28,7 +28,7 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 10
+    incumbentHJB_timeStep = 50
     incumbentHJB_tolerance = 1e-8
     incumbentHJB_maxIter = 200
 
@@ -84,7 +84,7 @@ function setAlgorithmParameters()
 
     w_tolerance = 1e-7
     w_maxIter = outerLoopMax
-    w_updateRate = 0.1
+    w_updateRate = 0.3
     w_updateRateExponent = 1
 
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent)
