@@ -237,8 +237,8 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
     #V0 = initialGuessIncumbentHJB(algoPar,modelPar,guess)
 	V0 = incumbentHJBSolution.V
-	plot(mGrid,V0, label = "Incumbent Value", xlabel = "Mass of spinouts")
-	png("figures/plotsGR/diagnostic_V.png")
+	#plot(mGrid,V0, label = "Incumbent Value", xlabel = "Mass of spinouts")
+	#png("figures/plotsGR/diagnostic_V.png")
 
 	# Load in incumbent solution from previous iteration, as basis
 	# for computing zS and zE.
@@ -253,11 +253,11 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     zI = zeros(size(V0))
 
 	# Some diagnostics
-	plot(mGrid,w, label = "R&D wage", xlabel = "Mass of spinouts")
-	png("figures/plotsGR/diagnostic_w.png")
+	#plot(mGrid,w, label = "R&D wage", xlabel = "Mass of spinouts")
+	#png("figures/plotsGR/diagnostic_w.png")
 
-	plot(mGrid,[zS zE], label = ["zS" "zE"], xlabel = "Mass of spinouts")
-	png("figures/plotsGR/diagnostic_zSzE.png")
+	#plot(mGrid,[zS zE], label = ["zS" "zE"], xlabel = "Mass of spinouts")
+	#png("figures/plotsGR/diagnostic_zSzE.png")
 
 
     ## Construct mGrid and Delta_m vectors

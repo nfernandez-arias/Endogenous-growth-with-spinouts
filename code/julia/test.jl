@@ -1,6 +1,8 @@
 include("loadPath.jl")
 
 using EndogenousGrowthWithSpinouts
+using Plots
+gr()
 
 algoPar = setAlgorithmParameters()
 modelPar = setModelParameters()
@@ -11,9 +13,8 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 # Solve model with the above parameters
 #--------------------------------#
 
-@timev w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
-
-diagNumPoints = 100
+#@timev w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
+@timev w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,results.finalGuess,results.incumbent)
 
 anim = @animate for i = 1:length(w_diag[1,:])
     plot(mGrid,[w_diag[:,i] EndogenousGrowthWithSpinouts.wbarFunc(modelPar.β) * ones(size(mGrid))], labels = ["R&D wage" "Production wage"], ylims = (min(0,1.5 * minimum(w_diag)),1.5 * maximum(w_diag)), legend = :bottomright)

@@ -9,13 +9,13 @@ export setAlgorithmParameters, setModelParameters, setInitialGuess
 
 function setAlgorithmParameters()
 
-    outerLoopMax = 100
+    outerLoopMax = 200
 
     f = open("./figures/algoPar.txt", "w")
 
     mgrid_numPoints = 1000
     mgrid_minimum = 0.0
-    mgrid_maximum = .02
+    mgrid_maximum = .1
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-10 * mgrid_maximum
 
@@ -159,8 +159,8 @@ function setModelParameters()
     L = 1
 
     # Innovation
-    χI = 3.25
-    χS = 1.425
+    χI = 5
+    χS = 3.5
     χE = 1.2
     ψI = 0.5
     ψSE = 0.5

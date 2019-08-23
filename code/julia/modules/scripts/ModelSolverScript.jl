@@ -290,11 +290,22 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
 
 end
 
-
 function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initGuess::Guess)
 
-    # For plotting - use GR backend
-    #gr()
+    mGrid,Δm = mGridBuild(algoPar.mGrid)
+
+    V = initialGuessIncumbentHJB(algoPar,modelPar,initGuess)
+    zI = zeros(size(mGrid))
+    noncompete = zeros(size(mGrid))
+
+    incumbentSolution = IncumbentSolution(V,zI,noncompete)
+
+    return solveModel(algoPar,modelPar,initGuess,incumbentSolution)
+
+end
+
+
+function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initGuess::Guess,incumbentSolution::IncumbentSolution)
 
     # Error message
     if !(algoPar.g_L_RD_w_Log.verbose in (0,1,2))
@@ -320,7 +331,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     # Construct new guess object - this will be the object
     # that will be updated throughout the algorithm
 
-    guess = Guess(g,L_RD,w,idxM);
+    guess = Guess(g,L_RD,w,idxM)
 
     # Initialize outside of loops for returning
     V = initialGuessIncumbentHJB(algoPar,modelPar,initGuess)
@@ -332,8 +343,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     t = zeros(size(mGrid))
 
 
-    # Iniital guess
-    sol = IncumbentSolution(V,zI,noncompete)
+    # Iniital incument solution guess
+    sol = incumbentSolution
 
     factor_zE = zeros(size(mGrid))
     factor_zS = zeros(size(mGrid))
@@ -346,12 +357,12 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     tempAlgoPar = Base.deepcopy(algoPar)
 
-    tempAlgoPar.incumbentHJB.timeStep = 1
+    tempAlgoPar.incumbentHJB.timeStep = 5
     #tempAlgoPar.incumbentHJB.maxIter = 500
 
     # Diagnostics
 
-    diagStoreNumPoints = 100
+    diagStoreNumPoints = 200
 
     w_diag = zeros(length(mGrid),diagStoreNumPoints)
     V_diag = zeros(length(mGrid),diagStoreNumPoints)
@@ -389,7 +400,6 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
             #frame(anim)
 
             #sol = IncumbentSolution(initialGuessIncumbentHJB(algoPar,modelPar,guess),zI,noncompete)
-            sol = IncumbentSolution(V,zI,noncompete)
 
             # Solve HJB - output contains incumbent value V and policy zI
 

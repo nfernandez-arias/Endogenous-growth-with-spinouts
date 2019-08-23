@@ -11,10 +11,11 @@ algoPar = setAlgorithmParameters()
 modelPar = setModelParameters()
 mGrid,Δm = mGridBuild(algoPar.mGrid)
 initGuess = setInitialGuess(algoPar,modelPar,mGrid)
+
 #initGuess2 = setInitialGuess(algoPar,modelPar,mGrid)
 
-#sol = IncumbentSolution(zeros(size(mGrid)) * 0.5,zeros(size(mGrid)),zeros(size(mGrid)))
-sol = IncumbentSolution(EndogenousGrowthWithSpinouts.initialGuessIncumbentHJB(algoPar,modelPar,initGuess),zeros(size(mGrid)),zeros(size(mGrid)))
+sol = IncumbentSolution(zeros(size(mGrid)) * 0.5,zeros(size(mGrid)),zeros(size(mGrid)))
+#sol = IncumbentSolution(EndogenousGrowthWithSpinouts.initialGuessIncumbentHJB(algoPar,modelPar,initGuess),zeros(size(mGrid)),zeros(size(mGrid)))
 
 #objective_diag,V_diag,zI_diag,out = solveIncumbentHJB_shooting(algoPar,modelPar,initGuess,sol)
 V_diag,zI_diag,out = solveIncumbentHJB(algoPar,modelPar,initGuess,sol)
