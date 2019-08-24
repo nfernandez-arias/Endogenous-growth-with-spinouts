@@ -132,7 +132,7 @@ flowOutput = (((1-β) * wbar^(-1) )^(1-β))/(1-β) * L_F
 if noncompete[1] == 1
     spinoutEntryCost = 0
 else
-    spinoutEntryCost = ζ * sum(τS .* γ .* μ .* Δm)
+    spinoutEntryCost = ζ * sum(τS .* γ .* μ .* Δm) * λ * V[1]
 end
 
 welfare = (flowOutput - spinoutEntryCost) / (ρ - g)

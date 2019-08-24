@@ -171,7 +171,7 @@ function setModelParameters()
     #ν = 0.0102495
     ν = 0.04
     ξ = 20
-    ζ = 0
+    ζ = 0.8
 
     # CNCs
     CNC = false
