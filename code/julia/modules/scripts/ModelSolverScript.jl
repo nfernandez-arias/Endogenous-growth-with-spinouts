@@ -138,12 +138,13 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
     ν = modelPar.ν
     λ = modelPar.λ
     sFromS = modelPar.spinoutsFromSpinouts
+    sFromE = modelPar.spinoutsFromEntrants
 
     μ = zeros(size(mGrid))
 
     τ = τI .+ τSE
 
-    a = ν .* (sFromS .* zS .+ zI .* (1 .- noncompete))   # No spinouts from zE or from incumbents using non-competes.
+    a = ν .* (sFromE .* zE .+ sFromS .* zS .+ zI .* (1 .- noncompete))   # No spinouts from zE or from incumbents using non-competes.
 
     #print("a = $a\n")
     RDlabor = zS .+ zE .+ zI
@@ -357,12 +358,12 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     tempAlgoPar = Base.deepcopy(algoPar)
 
-    tempAlgoPar.incumbentHJB.timeStep = 5
+    tempAlgoPar.incumbentHJB.timeStep = 1
     #tempAlgoPar.incumbentHJB.maxIter = 500
 
     # Diagnostics
 
-    diagStoreNumPoints = 200
+    diagStoreNumPoints = 100
 
     w_diag = zeros(length(mGrid),diagStoreNumPoints)
     V_diag = zeros(length(mGrid),diagStoreNumPoints)

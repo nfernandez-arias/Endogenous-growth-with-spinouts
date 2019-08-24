@@ -150,6 +150,18 @@ function τEFunc(modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64}
 
 end
 
+function τIFunc(modelPar::ModelParameters,zI::Array{Float64})
+
+    χI = modelPar.χI
+
+    ψI = modelPar.ψI
+
+    ϕI(z) = z .^(-ψI)
+
+    return χI * zI .* ϕI(zI)
+
+end
+
 function τIFunc(modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64},zE::Array{Float64})
 
     χI = modelPar.χI

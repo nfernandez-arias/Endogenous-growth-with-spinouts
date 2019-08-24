@@ -1,8 +1,6 @@
 include("loadPath.jl")
 
 using EndogenousGrowthWithSpinouts
-using Plots
-gr()
 
 algoPar = setAlgorithmParameters()
 modelPar = setModelParameters()
@@ -13,179 +11,21 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 # Solve model with the above parameters
 #--------------------------------#
 
-#@timev w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
-@timev w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,results.finalGuess,results.incumbent)
-
-anim = @animate for i = 1:length(w_diag[1,:])
-    plot(mGrid,[w_diag[:,i] EndogenousGrowthWithSpinouts.wbarFunc(modelPar.β) * ones(size(mGrid))], labels = ["R&D wage" "Production wage"], ylims = (min(0,1.5 * minimum(w_diag)),1.5 * maximum(w_diag)), legend = :bottomright)
-end
-gif(anim,"figures/plotsGR/w_animation.gif",fps = 5)
-
-anim = @animate for i = 1:length(V_diag[1,:])
-    plot(mGrid,V_diag[:,i], ylims = (min(0,1.2 * minimum(V_diag)),1.2 * maximum(V_diag)), label = "V(m): iterate $i")
-end
-gif(anim,"figures/plotsGR/V_animation.gif",fps = 5)
-
-anim = @animate for i = 1:length(W_diag[1,:])
-    plot(mGrid,W_diag[:,i], ylims = (min(0,1.2 * minimum(W_diag)), 1.2  * maximum(W_diag)), label = "W(m): iterate $i")
-end
-gif(anim,"figures/plotsGR/W_animation.gif",fps = 5)
+@timev w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
+#@timev w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,results.finalGuess,results.incumbent)
 
 
-anim = @animate for i = 1:length(μ_diag[1,:])
-    plot(mGrid,μ_diag[:,i], label = "mu(m): iterate $i")
-end
-gif(anim,"figures/plotsGR/μ_animation.gif",fps = 5)
-
-plot(1:length(g_diag[:]),g_diag[:])
-png("figures/plotsGR/g_diagnostic.png")
-
-plot(1:length(L_RD_diag[:]),L_RD_diag[:])
-png("figures/plotsGR/L_RD_diagnostic.png")
-
-V = results.incumbent.V
-idxM = results.finalGuess.idxM
-w = results.finalGuess.w
-zS = EndogenousGrowthWithSpinouts.zSFunc(algoPar,modelPar,idxM)
-zE = EndogenousGrowthWithSpinouts.zEFunc(modelPar,results.incumbent,w,zS)
-
-#plot(mGrid,zE)
-#--------------------------------#
-# Unpack - using unpackScript.jl
-#--------------------------------#
-
-include("unpackScript.jl")
+using Plots
+gr()
 
 #--------------------------------#
-# Display solution
+# Compute diagnostics
 #--------------------------------#
 
-g = results.finalGuess.g
-L_RD = results.finalGuess.L_RD
-μ = results.auxiliary.μ
-γ = results.auxiliary.γ
-t = results.auxiliary.t
-
-idxCNC = findfirst( (noncompete .> 0)[:] )
-
-println("\n--------------------------------------------------------------")
-println("Growth and RD Labor Allocation--------------------------------")
-println("--------------------------------------------------------------\n")
-println("g: $g (growth rate) \nL_RD: $L_RD (labor allocation to R&D)")
-
-if noncompete[1] == 1
-    innovationRateIncumbent = τI[1]
-    entryRateOrdinary = τE[1]
-    entryRateSpinouts = 0
-else
-    innovationRateIncumbent = sum(τI .* μ .* Δm)
-    entryRateOrdinary = sum(τE .* μ .* Δm)
-    entryRateSpinouts = sum(τS .* μ .* Δm)
-end
-
-entryRateTotal = entryRateOrdinary + entryRateSpinouts
-
-println("\n--------------------------------------------------------------")
-println("Innovation rates----------------------------------------------")
-println("--------------------------------------------------------------\n")
-println("$innovationRateIncumbent (Incumbents)")
-println("$entryRateOrdinary (Entrants)")
-println("$entryRateSpinouts (Spinouts)")
-println("$entryRateTotal (Entrants + Spinouts)")
-
-internalInnovationShare = innovationRateIncumbent / (innovationRateIncumbent + entryRateTotal)
-println("\n--------------------------------------------------------------")
-println("Internal vs. External Contributions to Innovations------------")
-println("--------------------------------------------------------------\n")
-println("$internalInnovationShare (Internal share)")
-println("$(1-internalInnovationShare) (External share)")
-
-spinoutFraction = entryRateSpinouts / entryRateTotal
-println("\n--------------------------------------------------------------")
-println("Makeup of firms-----------------------------------------------")
-println("--------------------------------------------------------------\n")
-println("$spinoutFraction (Steady state fraction firms that started as spinouts)")
-
-
-aggregateSales = finalGoodsLabor
-
-if noncompete[1] == 1
-    aggregateRDSpending = wbar * z[1]
-else
-    aggregateRDSpending = sum(w .* z .* γ .* μ .* Δm)
-end
-
-aggregateRDSalesRatio = aggregateRDSpending / aggregateSales
-
-println("\n--------------------------------------------------------------")
-println("R&D Intensity-------------------------------------------------")
-println("--------------------------------------------------------------\n")
-println("$aggregateRDSalesRatio (Total R&D spending / Total revenue from sales of intermediate goods)\n")
-
-
-
-println("\n--------------------------------------------------------------")
-println("NON-TARGETED MOMENTS--------------------------------------------")
-println("--------------------------------------------------------------\n")
-
-
-if noncompete[1] == 1
-    growthContribution_incumbent = (λ - 1) * τI[1]
-    growthContribution_entrants = (λ - 1) * τE[1]
-    growthContribution_spinouts = 0
-else
-    growthContribution_incumbent = (λ - 1) * sum(τI .* γ .* μ .* Δm)
-    growthContribution_entrants = (λ - 1) * sum(τE .* γ .* μ .* Δm)
-    growthContribution_spinouts = (λ - 1) * sum(τS .* γ .* μ .* Δm)
-end
-
-# Sanity check
-totalGrowth = growthContribution_incumbent + growthContribution_entrants + growthContribution_spinouts
-
-growthShare_incumbent = growthContribution_incumbent / totalGrowth
-growthShare_entrants = growthContribution_entrants / totalGrowth
-growthShare_spinouts = growthContribution_spinouts / totalGrowth
-
-#println("\n--------------------------------------------------------------")
-println("Growth contributions--------------------------------------------")
-println("--------------------------------------------------------------\n")
-println("$growthContribution_incumbent (Growth due to incumbents)\n")
-println("$growthContribution_entrants (Growth due to ordinary entrants)\n")
-println("$growthContribution_spinouts (Growth due to spinouts)\n")
-
-println("\n--------------------------------------------------------------")
-println("Growth shares---------------------------------------------------")
-println("--------------------------------------------------------------\n")
-println("$growthShare_incumbent (Growth share: incumbents)\n")
-println("$growthShare_entrants (Growth share: ordinary entrants)\n")
-println("$growthShare_spinouts (Growth share: spinouts)\n")
-
-
-#### Equilibrium evaluation
-
-# Welfare
-flowOutput = (((1-β) * wbar^(-1) )^(1-β))/(1-β) * L_F
-
-if noncompete[1] == 1
-    spinoutEntryCost = 0
-else
-    spinoutEntryCost = ζ * sum(τS .* γ .* μ .* Δm)
-end
-
-welfare = (flowOutput - spinoutEntryCost) / (ρ - g)
-welfare2 = flowOutput / (ρ - g)
-
-println("\n--------------------------------------------------------------")
-println("Welfare---------------------------------------------------------")
-println("--------------------------------------------------------------\n")
-println("$welfare (Welfare)")
-println("$welfare2 (Welfare with no deadweight loss of spinout entry)")
+include("testDiags.jl")
 
 #--------------------------------#
-# Make some plots                #
+# Make plots and compute statistics
 #--------------------------------#
 
-include("plotScript.jl")
-
-
-#include("presentationPlots.jl")
+include("testPlots.jl")

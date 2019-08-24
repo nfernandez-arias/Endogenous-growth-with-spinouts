@@ -9,13 +9,13 @@ export setAlgorithmParameters, setModelParameters, setInitialGuess
 
 function setAlgorithmParameters()
 
-    outerLoopMax = 200
+    outerLoopMax = 100
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 1000
+    mgrid_numPoints = 3000
     mgrid_minimum = 0.0
-    mgrid_maximum = .1
+    mgrid_maximum = .02
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-10 * mgrid_maximum
 
@@ -28,7 +28,7 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 50
+    incumbentHJB_timeStep = 100
     incumbentHJB_tolerance = 1e-8
     incumbentHJB_maxIter = 200
 
@@ -159,30 +159,33 @@ function setModelParameters()
     L = 1
 
     # Innovation
-    χI = 5
-    χS = 3.5
+    χI = 3.6
+    χS = 2.5
     χE = 1.2
     ψI = 0.5
     ψSE = 0.5
     λ = 1.0532733
+    #λ = 1.10
 
     # Spinouts
-    ν = 0.0102495
-    ξ = 10
+    #ν = 0.0102495
+    ν = 0.04
+    ξ = 20
     ζ = 0
 
     # CNCs
     CNC = false
 
-    # Rate of Spinout formation of spinouts (fraction of rate for incumbents)
+    # Rate of Spinout formation of spinouts and entrants
 
-    spinoutsFromSpinouts = 1
+    spinoutsFromSpinouts = 0.05
+    spinoutsFromEntrants = 0.05
 
     # Spinouts ideas from different pool?
 
     spinoutsSamePool = false
 
-    modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,ζ,CNC,spinoutsFromSpinouts,spinoutsSamePool)
+    modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,ζ,CNC,spinoutsFromSpinouts,spinoutsFromEntrants,spinoutsSamePool)
 
     f = open("./figures/modelPar.txt", "w")
 
