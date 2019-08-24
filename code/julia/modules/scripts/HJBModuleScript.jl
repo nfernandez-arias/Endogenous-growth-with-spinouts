@@ -460,7 +460,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 			V1,error = updateV_implicit(algoPar,modelPar,A,u,V0)
 
 			# Hack to avoid instabiities - will be true in equilibrium
-			V1[idxM+1:end] .= V1[idxM]
+			#V1[idxM+1:end] .= V1[idxM]
 
 			# Normalize error by timeStep because
 			# it will always be smaller if timeStep is smaller

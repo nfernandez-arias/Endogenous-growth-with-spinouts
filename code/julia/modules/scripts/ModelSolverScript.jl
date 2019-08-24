@@ -36,7 +36,7 @@ struct ModelSolution
 
 end
 
-function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, incumbentHJBSolution::IncumbentSolution, W::Array{Float64})
+function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, incumbentHJBSolution::IncumbentSolution)
 
     ## Build grid
     mGrid,Δm = mGridBuild(algoPar.mGrid)
@@ -346,6 +346,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     # Iniital incument solution guess
     sol = incumbentSolution
+    sol1 = incumbentSolution
 
     factor_zE = zeros(size(mGrid))
     factor_zS = zeros(size(mGrid))
@@ -358,8 +359,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     tempAlgoPar = Base.deepcopy(algoPar)
 
-    tempAlgoPar.incumbentHJB.timeStep = 1
-    #tempAlgoPar.incumbentHJB.maxIter = 500
+    tempAlgoPar.incumbentHJB.timeStep = 5
+    tempAlgoPar.incumbentHJB.maxIter = 500
 
     # Diagnostics
 
@@ -406,11 +407,11 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
             try
 
-                sol = solveIncumbentHJB(algoPar,modelPar,guess,sol)
+                sol1 = solveIncumbentHJB(algoPar,modelPar,guess,sol)
 
             catch err
                 print("Caught an error: $(typeof(err))\n")
-                sol = solveIncumbentHJB(tempAlgoPar,modelPar,guess,sol)
+                sol1 = solveIncumbentHJB(tempAlgoPar,modelPar,guess,sol)
 
             finally
 
@@ -427,10 +428,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
 
                 # Update guess object (faster than making new one)
-                guess.idxM = update_idxM(algoPar,modelPar,guess,sol,W)
+                guess.idxM = update_idxM(algoPar,modelPar,guess,sol1)
 
-                # Increase iterator
-                iterate_idxM += 1;
                 # Check convergence
                 error_idxM = max(maximum(abs,guess.idxM - old_idxM),maximum(abs,guess.idxM - old_idxM));
 
@@ -439,6 +438,11 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                         println("idxM fixed point: Computed iterate $iterate_idxM with error $error_idxM")
                     end
                 end
+
+                # Increase iterator
+                iterate_idxM += 1
+
+                sol = sol1
 
             end
 

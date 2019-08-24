@@ -13,9 +13,9 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 3000
+    mgrid_numPoints = 1000
     mgrid_minimum = 0.0
-    mgrid_maximum = .005
+    mgrid_maximum = .05
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-10 * mgrid_maximum
 
@@ -159,27 +159,27 @@ function setModelParameters()
     L = 1
 
     # Innovation
-    χI = 15
-    χS = 12
+    χI = 3
+    χS = 2.5
     χE = 1.2
     ψI = 0.5
     ψSE = 0.5
-    λ = 1.035
+    λ = 1.054
     #λ = 1.10
 
     # Spinouts
     #ν = 0.0102495
-    ν = 0.04
-    ξ = 20
-    ζ = 0.87
+    ν = 0.01
+    ξ = 10
+    ζ = 0
 
     # CNCs
     CNC = false
 
     # Rate of Spinout formation of spinouts and entrants
 
-    spinoutsFromSpinouts = 0.07
-    spinoutsFromEntrants = 0.03
+    spinoutsFromSpinouts = 1
+    spinoutsFromEntrants = 1
 
     # Spinouts ideas from different pool?
 
