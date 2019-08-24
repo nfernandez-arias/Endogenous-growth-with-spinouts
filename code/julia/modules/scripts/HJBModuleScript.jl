@@ -43,6 +43,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
     ξ = modelPar.ξ
 	ζ = modelPar.ζ
 	sFromS = modelPar.spinoutsFromSpinouts
+	sFromE = modelPar.spinoutsFromEntrants
 
     # Define some auxiliary functions
     ϕI(z) = z .^(-ψI)
@@ -65,7 +66,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	τSE = τSEFunc(modelPar,zI,zS,zE)
 	τ = τI .+ τSE
 
-	a = sFromS * zS .+ zI .* (1 .- noncompete)  # Take into account effect of non-competes on drift
+	a = sFromE * zE .+ sFromS * zS .+ zI .* (1 .- noncompete)  # Take into account effect of non-competes on drift
 
     ## Construct mGrid and Delta_m vectors
     mGrid,Δm = mGridBuild(algoPar.mGrid)
@@ -116,6 +117,7 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
     ν = modelPar.ν;
 
 	sFromS = modelPar.spinoutsFromSpinouts
+	sFromE = modelPar.spinoutsFromEntrants
 
     ## Unpack guess
     ###################################################
@@ -133,16 +135,16 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 
     for i = 1:length(mGrid)-1
 
-		A[i,1] = τI[i] * λ
-		#A[i,1] = τI[i]  # no λ term -- Moll's idea
-		A[i,i+1] = ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i]) / Δm[i]
-		A[i,i] = - ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i]) / Δm[i] - τI[i] - τSE[i]
+		#A[i,1] = τI[i] * λ
+		A[i,1] = τI[i]  # no λ term -- Moll's idea
+		A[i,i+1] = ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i] + sFromE * zE[i]) / Δm[i]
+		A[i,i] = - ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i] + sFromE * zE[i]) / Δm[i] - τI[i] - τSE[i]
 		#A[i,i] = - ν * (zI[i] + aSE[i]) / Δm[i]
 
     end
 
-	A[end,1] = τI[end] * λ
-	#A[end,1] = τI[end]  # no λ term -- Moll's idea
+	#A[end,1] = τI[end] * λ
+	A[end,1] = τI[end]  # no λ term -- Moll's idea
 	A[end,end] = - τI[end] - τSE[end]
 
 end
@@ -436,9 +438,10 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		## Unpack z and tau functions
 		#######################################
 
-		#zS = zS(algoPar,modelPar,idxM)[:]
-		#zE = zE(modelPar,V0[1],zI,w,zS)[:]
+		#zS = zSFunc(algoPar,modelPar,idxM)[:]
+		#zE = zEFunc(modelPar,V0[1],zI,w,zS)[:]
 
+		τI = τIFunc(modelPar,zI)
 		#τI = τI(modelPar,zI,zS,zE)[:]
 		#τSE = τSE(modelPar,zI,zS,zE)[:]
 
@@ -447,8 +450,8 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 			## Implicit method
 
 			# Compute flow payoff
-		    u = Π .- zI .* ((1 .- noncompete) .* w + noncompete .* wbarFunc(modelPar.β))
-			#u = Π .+ τI .* (λ-1) .* V0[1]  .- zI .* ((1 .- noncompete) .* w + noncompete .* wbarFunc(modelPar.β))  # Moll's idea -- here add (λ-1) * τI * V0[1] term
+		    #u = Π .- zI .* ((1 .- noncompete) .* w + noncompete .* wbarFunc(modelPar.β))
+			u = Π .+ τI .* (λ-1) .* V0[1]  .- zI .* ((1 .- noncompete) .* w + noncompete .* wbarFunc(modelPar.β))  # Moll's idea -- here add (λ-1) * τI * V0[1] term
 
 			# Update "transition" matrix A
 			updateMatrixA(algoPar,modelPar,guess,zI,noncompete,A,zS,zE)

@@ -23,13 +23,14 @@ zS_density[1] = modelPar.ξ
 τS[:] = τSE[:] - τE[:]
 
 sFromS = modelPar.spinoutsFromSpinouts
+sFromE = modelPar.spinoutsFromEntrants
 
 L_F = EndogenousGrowthWithSpinouts.LF(L_RD,modelPar)
 
 τ = τI + τSE
 
 z = zS + zE + zI
-a = sFromS * zS .+ zI .* (1 .- noncompete)
+a = sFromE * zE .+ sFromS * zS .+ zI .* (1 .- noncompete)
 
 finalGoodsLabor = EndogenousGrowthWithSpinouts.LF(L_RD,modelPar)
 

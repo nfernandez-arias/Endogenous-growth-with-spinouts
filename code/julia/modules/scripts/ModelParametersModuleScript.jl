@@ -45,6 +45,7 @@ mutable struct ModelParameters
     CNC::Bool
 
     spinoutsFromSpinouts::Float64
+	spinoutsFromEntrants::Float64
 
     spinoutsSamePool::Bool
 
