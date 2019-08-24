@@ -82,11 +82,11 @@ function zEFunc(modelPar::ModelParameters,V0::Float64,zI::Array{Float64},w::Arra
 
     if modelPar.spinoutsSamePool == true
 
-        zE = max.( (wbarFunc(modelPar.β) ./ (modelPar.χE * (modelPar.λ .* (1 - modelPar.ζ) * V0))).^(-1/modelPar.ψI) .- zS .- zI,0)
+        zE = max.( (wbarFunc(modelPar.β) ./ (modelPar.χE * (modelPar.λ .* V0))).^(-1/modelPar.ψI) .- zS .- zI,0)
 
     else
 
-        zE = max.( (wbarFunc(modelPar.β) ./ (modelPar.χE * (modelPar.λ .* (1 - modelPar.ζ) * V0))).^(-1/modelPar.ψSE) .- zS,0)
+        zE = max.( (wbarFunc(modelPar.β) ./ (modelPar.χE * (modelPar.λ .* V0))).^(-1/modelPar.ψSE) .- zS,0)
 
     end
 
