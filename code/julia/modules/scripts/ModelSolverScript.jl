@@ -90,11 +90,11 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
 
     if modelPar.spinoutsSamePool == true
 
-        temp = modelPar.χS * ϕI(zI + ξ*mGrid) * (modelPar.λ * V[1] - modelPar.ζ) - wS
+        temp = modelPar.χS * ϕI(zI + ξ*mGrid) * (modelPar.λ * (1-modelPar.ζ) * V[1]) - wS
 
     else
 
-        temp = modelPar.χS * ϕSE(ξ*mGrid) * (modelPar.λ * V[1] - modelPar.ζ) - wS
+        temp = modelPar.χS * ϕSE(ξ*mGrid) * (modelPar.λ * (1 - modelPar.ζ) * V[1]) - wS
 
     end
 

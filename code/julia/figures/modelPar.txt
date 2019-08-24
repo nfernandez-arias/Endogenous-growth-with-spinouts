@@ -11,7 +11,7 @@ L: 1.0
 λ: 1.0532733 
 ν: 0.04 
 ξ: 20.0 
-ζ: 0.0 
+ζ: 0.8 
 CNC: false 
 spinoutsFromSpinouts: 0.05 
 spinoutsFromEntrants: 0.05 
