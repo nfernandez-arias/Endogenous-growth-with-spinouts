@@ -15,7 +15,7 @@ function setAlgorithmParameters()
 
     mgrid_numPoints = 3000
     mgrid_minimum = 0.0
-    mgrid_maximum = .02
+    mgrid_maximum = .005
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-10 * mgrid_maximum
 
@@ -159,27 +159,27 @@ function setModelParameters()
     L = 1
 
     # Innovation
-    χI = 3.6
-    χS = 2.5
+    χI = 15
+    χS = 12
     χE = 1.2
     ψI = 0.5
     ψSE = 0.5
-    λ = 1.0532733
+    λ = 1.035
     #λ = 1.10
 
     # Spinouts
     #ν = 0.0102495
     ν = 0.04
     ξ = 20
-    ζ = 0.8
+    ζ = 0.87
 
     # CNCs
     CNC = false
 
     # Rate of Spinout formation of spinouts and entrants
 
-    spinoutsFromSpinouts = 0.05
-    spinoutsFromEntrants = 0.05
+    spinoutsFromSpinouts = 0.07
+    spinoutsFromEntrants = 0.03
 
     # Spinouts ideas from different pool?
 

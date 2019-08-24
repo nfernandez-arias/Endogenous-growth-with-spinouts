@@ -66,26 +66,32 @@ println("$spinoutFraction (Steady state fraction firms that started as spinouts)
 aggregateSales = finalGoodsLabor
 
 wageSpinouts = (modelPar.spinoutsFromSpinouts * w + (1 - modelPar.spinoutsFromSpinouts) * EndogenousGrowthWithSpinouts.wbarFunc(modelPar.β) * ones(size(mGrid)))
-wageEntrants = EndogenousGrowthWithSpinouts.wbarFunc(modelPar.β) * ones(size(mGrid))
+wageEntrants = (modelPar.spinoutsFromEntrants * w + (1 - modelPar.spinoutsFromEntrants) * EndogenousGrowthWithSpinouts.wbarFunc(modelPar.β) * ones(size(mGrid)))
 
 if noncompete[1] == 1
     aggregateRDSpending = wbar * z[1]
 else
     incumbentRDSpending = sum(w .* zI .* γ .* μ .* Δm)
-    entrantRDSpending = sum( wageEntrants .* zE .* γ .* μ .* Δm)
+    incumbentRDSpending2 = sum(wageEntrants .* zI .* γ .* μ .* Δm)
+    entrantRDSpending = sum(wageEntrants .* zE .* γ .* μ .* Δm)
     spinoutRDSpending = sum(wageSpinouts.* zS .* γ .* μ .* Δm)
     aggregateRDSpending = incumbentRDSpending + entrantRDSpending + spinoutRDSpending
 end
 
 aggregateRDSalesRatio = aggregateRDSpending / aggregateSales
 incumbentRDSalesRatio = incumbentRDSpending / aggregateSales
+incumbentRDSalesRatio2 = incumbentRDSpending2 / aggregateSales
+entrantRDSalesRatio = entrantRDSpending / aggregateSales
+spinoutRDSalesRatio = spinoutRDSpending / aggregateSales
 
 println("\n--------------------------------------------------------------")
 println("R&D Intensity-------------------------------------------------")
 println("--------------------------------------------------------------\n")
 println("$aggregateRDSalesRatio (Total R&D spending / Total revenue from sales of intermediate goods)\n")
 println("$incumbentRDSalesRatio (Incumbent R&D spending / Total sales revenue from intermediate goods)\n")
-
+println("$incumbentRDSalesRatio2 (Incumbent R&D spending (if paid spinout R&D wages) / Total sales revenue from intermediate goods)\n")
+println("$entrantRDSalesRatio (Entrant R&D spending / Total sales revenue from intermediate goods)\n")
+println("$spinoutRDSalesRatio (Spinout R&D spending / Total sales revenue from intermediate goods)\n")
 
 println("\n--------------------------------------------------------------")
 println("NON-TARGETED MOMENTS--------------------------------------------")
