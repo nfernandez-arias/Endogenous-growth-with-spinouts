@@ -1,4 +1,5 @@
 
+
 V = results.incumbent.V
 idxM = results.finalGuess.idxM
 w = results.finalGuess.w
@@ -29,6 +30,35 @@ println("Growth and RD Labor Allocation--------------------------------")
 println("--------------------------------------------------------------\n")
 println("g: $g (growth rate) \nL_RD: $L_RD (labor allocation to R&D)")
 
+
+
+
+mass_spinoutsFromIncumbents = zeros(size(mGrid))
+mass_spinoutsFromSpinouts = zeros(size(mGrid))
+mass_spinoutsFromEntrants = zeros(size(mGrid))
+
+fraction_spinoutsFromIncumbents = zeros(size(mGrid))
+fraction_spinoutsFromSpinouts = zeros(size(mGrid))
+fraction_spinoutsFromEntrants = zeros(size(mGrid))
+
+for i = 2:length(mGrid)
+
+    mass_spinoutsFromIncumbents[i] = ν * sum( zI[1:i-1] .* ((ν*a[1:i-1]).^(-1)) .* Δm[1:i-1])
+    mass_spinoutsFromSpinouts[i] = sFromS * ν * sum( zS[1:i-1] .* ((ν*a[1:i-1]).^(-1)) .* Δm[1:i-1])
+    mass_spinoutsFromEntrants[i] = sFromE * ν * sum( zE[1:i-1] .* ((ν*a[1:i-1]).^(-1)) .* Δm[1:i-1])
+
+end
+
+totalMass = mass_spinoutsFromIncumbents + mass_spinoutsFromSpinouts + mass_spinoutsFromEntrants
+
+# Leave the first index equal to zero - does not matter, since
+# only using to compute integrals where it is multiplied by
+# τS, and τS[1] = 0 as well.
+
+fraction_spinoutsFromIncumbents[2:end] = mass_spinoutsFromIncumbents[2:end] ./ mGrid[2:end]
+fraction_spinoutsFromSpinouts[2:end] = mass_spinoutsFromSpinouts[2:end] ./ mGrid[2:end]
+fraction_spinoutsFromEntrants[2:end] = mass_spinoutsFromEntrants[2:end] ./ mGrid[2:end]
+
 if noncompete[1] == 1
     innovationRateIncumbent = τI[1]
     entryRateOrdinary = τE[1]
@@ -37,7 +67,13 @@ else
     innovationRateIncumbent = sum(τI .* μ .* Δm)
     entryRateOrdinary = sum(τE .* μ .* Δm)
     entryRateSpinouts = sum(τS .* μ .* Δm)
+    entryRateSpinoutsFromIncumbents = sum(fraction_spinoutsFromIncumbents .* τS .* μ .* Δm)
+    entryRateSpinoutsFromSpinouts = sum(fraction_spinoutsFromSpinouts .* τS .* μ .* Δm)
+    entryRateSpinoutsFromEntrants = sum(fraction_spinoutsFromEntrants .* τS .* μ .* Δm)
 end
+
+
+
 
 entryRateTotal = entryRateOrdinary + entryRateSpinouts
 
@@ -45,9 +81,19 @@ println("\n--------------------------------------------------------------")
 println("Innovation rates----------------------------------------------")
 println("--------------------------------------------------------------\n")
 println("$innovationRateIncumbent (Incumbents)")
+println("$entryRateTotal (Total - Entrants + All Spinouts)")
+println("\nof which:\n")
 println("$entryRateOrdinary (Entrants)")
 println("$entryRateSpinouts (Spinouts)")
-println("$entryRateTotal (Entrants + Spinouts)")
+println("\nof which:\n")
+println("$entryRateSpinoutsFromIncumbents (Spinouts from Incumbents)")
+println("$entryRateSpinoutsFromSpinouts (Spinouts from Spinouts)")
+println("$entryRateSpinoutsFromEntrants (Spinouts from Entrants)")
+println("\nIn percentages:\n")
+println("$(entryRateSpinoutsFromIncumbents / entryRateSpinouts) (Spinouts from Incumbents)")
+println("$(entryRateSpinoutsFromSpinouts / entryRateSpinouts) (Spinouts from Spinouts)")
+println("$(entryRateSpinoutsFromEntrants / entryRateSpinouts) (Spinouts from Entrants)")
+
 
 internalInnovationShare = innovationRateIncumbent / (innovationRateIncumbent + entryRateTotal)
 println("\n--------------------------------------------------------------")

@@ -1,8 +1,6 @@
-using Plots
-gr()
 
 anim = @animate for i = 1:length(w_diag[1,:])
-    plot(mGrid,[w_diag[:,i] EndogenousGrowthWithSpinouts.wbarFunc(modelPar.β) * ones(size(mGrid))], labels = ["R&D wage" "Production wage"], ylims = (min(0,1.5 * minimum(w_diag)),1.5 * maximum(w_diag)), legend = :bottomright)
+    plot(mGrid,[w_diag[:,i] EndogenousGrowthWithSpinouts.wbarFunc(modelPar.β) * ones(size(mGrid))], labels = ["R&D wage: iterate $i" "Production wage"], ylims = (min(0,1.5 * minimum(w_diag)),1.5 * maximum(w_diag)), legend = :bottomright)
 end
 gif(anim,"figures/plotsGR/w_animation.gif",fps = 5)
 

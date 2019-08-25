@@ -13,10 +13,9 @@
 # Types:
 #
 # incumbentSolution
-#
-#
 
 using Optim, LinearAlgebra, SparseArrays
+import UnicodePlots
 
 export solveIncumbentHJB, solveSpinoutHJB
 
@@ -135,16 +134,16 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 
     for i = 1:length(mGrid)-1
 
-		#A[i,1] = τI[i] * λ
-		A[i,1] = τI[i]  # no λ term -- Moll's idea
+		A[i,1] = τI[i] * λ
+		#A[i,1] = τI[i]  # no λ term -- Moll's idea
 		A[i,i+1] = ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i] + sFromE * zE[i]) / Δm[i]
 		A[i,i] = - ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i] + sFromE * zE[i]) / Δm[i] - τI[i] - τSE[i]
 		#A[i,i] = - ν * (zI[i] + aSE[i]) / Δm[i]
 
     end
 
-	#A[end,1] = τI[end] * λ
-	A[end,1] = τI[end]  # no λ term -- Moll's idea
+	A[end,1] = τI[end] * λ
+	#A[end,1] = τI[end]  # no λ term -- Moll's idea
 	A[end,end] = - τI[end] - τSE[end]
 
 end
@@ -161,7 +160,11 @@ function updateV_implicit(algoPar::AlgorithmParameters, modelPar::ModelParameter
 
 	b = u .+ (1/timeStep) .* V0
 
-	V1 = B \ b
+	try
+	 	V1 = B \ b
+	catch caughtError
+		print(B)
+	end
 
 	error = sum(abs.(V1-V0)) ./ timeStep
 
@@ -376,6 +379,10 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 					Vprime = Vprime2
 				end
 
+				#if i >= idxM
+				#	Vprime = 0
+				#end
+
 				numerator = w[i] - ν * Vprime
 				denominator = (1- ψI) * χI * ( λ * V0[1] - V0[i])
 				ratio = numerator / denominator
@@ -411,10 +418,14 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 		# Hack - "guess and verify", true in eq by continuity
 
-		zI[1] = zI[2] #- no need for hack with Moll's method
-		noncompete[1] = noncompete[2]
 		zI[end] = zI[end-1]
-		noncompete[end] = noncompete[end-1]
+
+		#zI[1] = zI[2] #- no need for hack with Moll's method
+		#noncompete[1] = noncompete[2]
+
+		# Try this stability method
+		#zI[idxM+1:end] = zI[idxM] * ones(size(zI[idxM+1:end]))
+		#noncompete[idxM+1:end] = noncompete[idxM] * ones(size(zI[idxM+1:end]))
 
 		#gr()
 		#plot(mGrid,zI)
@@ -450,17 +461,30 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 			## Implicit method
 
 			# Compute flow payoff
-		    #u = Π .- zI .* ((1 .- noncompete) .* w + noncompete .* wbarFunc(modelPar.β))
-			u = Π .+ τI .* (λ-1) .* V0[1]  .- zI .* ((1 .- noncompete) .* w + noncompete .* wbarFunc(modelPar.β))  # Moll's idea -- here add (λ-1) * τI * V0[1] term
+		    u = Π .- zI .* ((1 .- noncompete) .* w + noncompete .* wbarFunc(modelPar.β))
+			#u = Π .+ τI .* (λ-1) .* V0[1]  .- zI .* ((1 .- noncompete) .* w + noncompete .* wbarFunc(modelPar.β))  # Moll's idea -- here add (λ-1) * τI * V0[1] term
 
 			# Update "transition" matrix A
 			updateMatrixA(algoPar,modelPar,guess,zI,noncompete,A,zS,zE)
 
+			#print("Type of A: $(typeof(A))\n")
+			#print(A)
+			#print(UnicodePlots.spy(A))
+			#png("spyA.png")
+
 			# Implicit update step to compute V1 and error
-			V1,error = updateV_implicit(algoPar,modelPar,A,u,V0)
+			try
+				V1,error = updateV_implicit(algoPar,modelPar,A,u,V0)
+
+			catch caughtError
+
+				#print(caughtError)
+				#V1,error = updateV_explicit(algoPar,modelPar,A,u,V0)
+
+			end
 
 			# Hack to avoid instabiities - will be true in equilibrium
-			#V1[idxM+1:end] .= V1[idxM]
+			V1[idxM+1:end] .= V1[idxM]
 
 			# Normalize error by timeStep because
 			# it will always be smaller if timeStep is smaller
@@ -565,8 +589,19 @@ function solveIncumbentHJB_explicitMethod(algoPar::AlgorithmParameters, modelPar
 	# Finally calculate flow profit
 	Π = profit(guess.L_RD,modelPar) .* ones(size(mGrid));
 
-	iterate = 0
+	iterate = 1
 	error = 1
+
+
+	while iterate < maxIter && error > tolerance
+
+
+		Vprime2 = (V0[3] - V0[2]) / Δm[2]
+
+
+
+
+	end
 
 
 

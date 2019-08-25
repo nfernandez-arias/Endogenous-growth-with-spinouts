@@ -4,8 +4,15 @@
 
 gr()
 #Plots.scalefontsizes(1.2)
-p = plot(mGrid,[V[:] W[:] zI[:] zS[:]], legend = :bottomright, title = ["Incumbent value" "Spinout value" "Incumbent policy" "Aggregated spinout policy"], xlabel = "Mass of spinouts", label = ["V(m)" "W(m)" "z_I(m)" "z_S(m)"], layout = (2,2))
+p = plot(mGrid,[V[:] W[:] zI[:] zS[:]], legend = :bottomright, title = ["Incumbent and Aggregate Spinout value" "Spinout value" "Incumbent policy" "Aggregated spinout policy"], xlabel = "Mass of spinouts", label = ["V(m)" "W(m)" "z_I(m)" "z_S(m)"], layout = (2,2))
 png("figures/plotsGR/HJB_solutions_plot.png")
+
+#---------------------------#
+# Plot V and m * W(m) , aggregate spinout value
+#---------------------------#
+
+p = plot(mGrid,[V[:] mGrid[:].*W[:]], title = "Incumbent and aggregate high-type entrant values", ylabel = "Value", xlabel = "Mass of spinouts", label = ["V(m)" "W(m) * m"])
+png("figures/plotsGR/Incumbent_AggSpinout_Values.png")
 
 #---------------------------#
 # Plot HJB Error
@@ -50,12 +57,12 @@ png("figures/plotsGR/innovation_rates_t")
 
 
 wbars = ones(size(mGrid)) * EndogenousGrowthWithSpinouts.Cβ(β)
-p = plot(mGrid, [w (sFromS * w + (1-sFromS) * wbars) (wbars - ν*W) wbars], title = "Wages", legend = :bottomright, linestyle = [:solid :dash :solid], label = ["R&D wage (incumbents)" "R&D wage (spinouts)" "Production wage minus flow value of knowledge" "Production wage"], xlabel = "Mass of spinouts", ylabel = "Units of final consumption")
+p = plot(mGrid, [w wageSpinouts wageEntrants (wbars - ν*W) wbars], title = "Wages", legend = :bottomright, linestyle = [:dash :dash :dash :solid :solid], label = ["R&D wage (incumbents)" "R&D wage (spinouts)" "R&D wage (entrants)" "Production wage minus flow value of knowledge" "Production wage"], xlabel = "Mass of spinouts", ylabel = "Units of final consumption")
 png("figures/plotsGR/wages_m.png")
 
 if maximum(noncompete) == 0 || idxCNC > 1
 
-    p = plot(t, [w (sFromS * w + (1-sFromS) * wbars) (wbars - ν*W) wbars], title = "Wages", linestyle = [:solid :dash :solid], legend = :bottomright, label = ["R&D wage (incumbents)" "R&D wage (spinouts)" "Production wage minus flow value of knowledge" "Production wage"], xlabel = "Years since last innovation", ylabel = "Units of final consumption")
+    p = plot(t, [w wageSpinouts wageEntrants (wbars - ν*W) wbars], title = "Wages", linestyle = [:dash :dash :dash :solid :solid], legend = :bottomright, label = ["R&D wage (incumbents)" "R&D wage (spinouts)" "R&D wage (entrants)" "Production wage minus flow value of knowledge" "Production wage"], xlabel = "Years since last innovation", ylabel = "Units of final consumption")
     png("figures/plotsGR/wages_t.png")
 
 end
@@ -64,8 +71,23 @@ end
 # Plot a(m)
 #-----------------------------------------#
 
-p = plot(mGrid,a, title = "Eq. drift in m-space", label = "a(m)", xlabel = "Mass of spinouts", ylabel = "Expected mass of spinouts formed per year")
+p = plot(mGrid,ν * a, title = "Eq. drift in m-space", label = "a(m)", xlabel = "Mass of spinouts", ylabel = "Expected mass of spinouts formed per year")
 png("figures/plotsGR/drift.png")
+
+#-----------------------------------------#
+# Plot aI(m),aE(m),aS(m)
+#-----------------------------------------#
+aI = ν * zI .* (1 .- noncompete)
+aS = sFromS * ν * zS
+aE = sFromE * ν * zE
+
+p = plot(ξ*mGrid,[ξ*ν * a ξ*aI ξ*aS ξ*aE ξ*(aI + aS + aE)], title = "Eq. drift in m-space", label = ["a(m)" "Incumbent" "Spinouts" "Entrants" "checksum"], xlabel = "Effective mass of spinouts (m * xi)", ylabel = "Effective mass of spinouts per year")
+png("figures/plotsGR/drift_sources_m.png")
+
+p = plot(t,[ξ*ν * a ξ*aI ξ*aS ξ*aE (aI + aS + aE)], title = "Eq. drift in m-space", label = ["a(m)" "Incumbent" "Spinouts" "Entrants" "checksum"], xlabel = "Years since last innovation", ylabel = "Effective mass of spinouts per year")
+png("figures/plotsGR/drift_sources_t.png")
+
+
 
 #-----------------------------------------#
 # Plot the construction of μ(m)

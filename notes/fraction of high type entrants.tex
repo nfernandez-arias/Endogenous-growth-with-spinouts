@@ -1,0 +1,88 @@
+\documentclass[12pt,english]{article}
+\usepackage{palatino}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{courier}
+\usepackage{verbatim}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\begin{document}
+	
+\title{Fraction of high-type entrants}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+Suppose that instead of thinking of entrants vs. spinouts, one considers low-type vs high-type entrants. High-type entrants are either former low-type entrants who have learned in the process of innovation (or simply form at an exogenous rate), or formed as spinouts of incumbent firms or spinouts. 
+
+Consider the case where high-type entrants form at an exogenous rate or as spinouts. Then, 
+\begin{align*}
+	\frac{dm}{dt} &= \nu^I z_I(m(t)) + \nu^S z_S(m(t)) + \nu_0
+\end{align*}
+
+So, we can integrate to compute $m^I(m),m^S(m),m^0(m)$, where $m^J$ refers to the mass the has come from a particular source ($J = 0$ refers to exogenously forming high-type entrants).
+
+This yields: 
+\begin{align*}
+	m^I(m) &= \nu^I \int_0^{t(m)} z^I(m(t')) dt' \\
+	m^S(m) &= \nu^S \int_0^{t(m)} z^S(m(t')) dt'\\
+	m^0(m) &= \nu_0 \int_0^{t(m)} dt' = \nu_0 t(m)
+\end{align*}
+
+where $t(m)$ is the equilibrium amount of time to reach state $m$, that is
+\begin{align*}
+	t(m) &= \int_0^m t'(\tilde{m}) d\tilde{m} \\
+	     &= \int_0^m \frac{1}{m'(t(\tilde{m}))} d\tilde{m} \\
+	     &= \int_0^m \frac{1}{a(\tilde{m})} d\tilde{m}
+\end{align*}
+
+where $m(t)$ is the inverse function of $t(m)$ and where $a(m)$ is the equilibrium rate of drift as a function of $m$. Hence, we calculate $t(m)$ from equilibrium objects, etc.
+
+Another way we could do it is to use a change of variable in the integral:
+
+\begin{align*}
+m^I(m) &= \nu^I \int_0^m z^I(m') \frac{dt}{dm'} dm' \\
+m^S(m) &= \nu^S \int_0^m z^S(m') \frac{dt}{dm'} dm' \\
+m^0(m) &= \nu_0 \int_0^m \frac{dt}{dm'} dm' = \nu_0 t(m)
+\end{align*}
+
+This has the advantage that we do not need to construct a new grid. Recall that we already computed $t'(m)$ above:
+\begin{align*}
+	t'(\tilde{m}) &= \frac{1}{m'(t(\tilde{m}))} \\ 
+	 			  &= \frac{1}{a(\tilde{m})}
+\end{align*}
+
+
+Then we simply make the assumption that at all $m$, the fraction of active spinouts which come from each source is proportional to the fraction from each origin until that point. At $m = M^*$ there is some fraction from each source active. Afterwards, deciding who is active is irrelevant for computing the equilibrium, but is important for the interpretation of the model (although maybe not quantitatively important, which is a good thing -- the model almost never gets to $m = M^*$). 
+
+Finally, we can compute
+\begin{align*}
+	m^J &= \int_0^{\infty} \frac{m^J(m)}{m} \mu(m) dm \\
+	\textrm{entry}^J &= \int_0^{\infty} \frac{m^J(m)}{m} \tau^H(m) \mu(m) dm \\
+	g^J &= (\lambda - 1) \int_0^{\infty} \frac{m^J(m)}{m} \tau^H(m) \gamma(m) \mu(m) dm
+\end{align*}
+
+for $J \in \{I,S,0\}$, where $m^J$ is the BGP mass of spinouts from source $J$, $\textrm{entry}^J$ is the BGP entry hazard rate corresponding to source $J$, and $g^J$ is the growth rate coming from source $J$.
+
+If we are matching the model to the entry rate of all spinouts, we are interested in $e^I + e^S$. If our data only measures the entry rate of spinouts from incumbents, then we should really be matching $e^I$. This is why it is important to compute these. However, they are not necessary for computing the equilibrium of the model, as I said before.  
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

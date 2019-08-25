@@ -364,7 +364,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     # Diagnostics
 
-    diagStoreNumPoints = 100
+    diagStoreNumPoints = 200
 
     w_diag = zeros(length(mGrid),diagStoreNumPoints)
     V_diag = zeros(length(mGrid),diagStoreNumPoints)
@@ -391,7 +391,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         cleanGuess = Guess(guess.g,guess.L_RD,guess.w,guess.idxM)
 
         # Initialize while loop variables
-        iterate_idxM = 0
+        iterate_idxM = 1
         error_idxM = 1
 
         while iterate_idxM < algoPar.idxM.maxIter && error_idxM > algoPar.idxM.tolerance

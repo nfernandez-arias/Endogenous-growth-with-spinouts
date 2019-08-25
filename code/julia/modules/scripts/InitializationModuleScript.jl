@@ -9,13 +9,13 @@ export setAlgorithmParameters, setModelParameters, setInitialGuess
 
 function setAlgorithmParameters()
 
-    outerLoopMax = 100
+    outerLoopMax = 200
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 1000
+    mgrid_numPoints = 850
     mgrid_minimum = 0.0
-    mgrid_maximum = .05
+    mgrid_maximum = .11
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-10 * mgrid_maximum
 
@@ -30,7 +30,7 @@ function setAlgorithmParameters()
 
     incumbentHJB_timeStep = 100
     incumbentHJB_tolerance = 1e-8
-    incumbentHJB_maxIter = 200
+    incumbentHJB_maxIter = 20
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter)
 
@@ -135,7 +135,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     incumbentHJB_Log_verbose = 2
-    incumbentHJB_Log_print_skip = 50
+    incumbentHJB_Log_print_skip = 2
     incumbentHJB_Log = LogParameters(incumbentHJB_Log_verbose,incumbentHJB_Log_print_skip)
 
     write(f, "incumbent HJB Logging Parameters \n---------------\n")
@@ -160,8 +160,8 @@ function setModelParameters()
 
     # Innovation
     χI = 3
-    χS = 2.5
-    χE = 1.2
+    χS = 2.3
+    χE = 0.5
     ψI = 0.5
     ψSE = 0.5
     λ = 1.054
@@ -171,15 +171,15 @@ function setModelParameters()
     #ν = 0.0102495
     ν = 0.01
     ξ = 10
-    ζ = 0
+    ζ = 0.1
 
     # CNCs
     CNC = false
 
     # Rate of Spinout formation of spinouts and entrants
 
-    spinoutsFromSpinouts = 1
-    spinoutsFromEntrants = 1
+    spinoutsFromSpinouts = 0.5
+    spinoutsFromEntrants = 0.2
 
     # Spinouts ideas from different pool?
 
@@ -212,7 +212,7 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
     #wbar = (β^β)*(1-β)^(2-2*β);
     wbar = wbarFunc(β)
 
-    w = wbar * ones(size(mGrid))
+    w = 0.5 * wbar * ones(size(mGrid))
     #w = 0.5 * wbar * ones(pa.mGrid.numPoints,1)
 
 

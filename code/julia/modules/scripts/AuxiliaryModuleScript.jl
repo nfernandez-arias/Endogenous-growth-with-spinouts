@@ -80,13 +80,15 @@ end
 
 function zEFunc(modelPar::ModelParameters,V0::Float64,zI::Array{Float64},w::Array{Float64},zS::Array{Float64})
 
+    wageEntrants = (modelPar.spinoutsFromEntrants * w + (1 - modelPar.spinoutsFromEntrants) * wbarFunc(modelPar.β) * ones(size(w)))
+
     if modelPar.spinoutsSamePool == true
 
-        zE = max.( (wbarFunc(modelPar.β) ./ (modelPar.χE * (modelPar.λ .* V0))).^(-1/modelPar.ψI) .- zS .- zI,0)
+        zE = max.( (wageEntrants ./ (modelPar.χE * (modelPar.λ .* V0))).^(-1/modelPar.ψI) .- zS .- zI,0)
 
     else
 
-        zE = max.( (wbarFunc(modelPar.β) ./ (modelPar.χE * (modelPar.λ .* V0))).^(-1/modelPar.ψSE) .- zS,0)
+        zE = max.( (wageEntrants ./ (modelPar.χE * (modelPar.λ .* V0))).^(-1/modelPar.ψSE) .- zS,0)
 
     end
 
