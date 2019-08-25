@@ -19,14 +19,16 @@ include("testWelfarePlots.jl")
 using Plots
 gr()
 
-#--------------------------------#
-# Compute diagnostics
-#--------------------------------#
-
-include("testDiags.jl")
 
 #--------------------------------#
 # Make plots and compute statistics
 #--------------------------------#
 
 include("testPlots.jl")
+
+
+#--------------------------------#
+# Compute diagnostics
+#--------------------------------#
+
+include("testDiags.jl")

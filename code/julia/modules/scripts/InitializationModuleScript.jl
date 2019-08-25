@@ -9,13 +9,13 @@ export setAlgorithmParameters, setModelParameters, setInitialGuess
 
 function setAlgorithmParameters()
 
-    outerLoopMax = 200
+    outerLoopMax = 100
 
     f = open("./figures/algoPar.txt", "w")
 
     mgrid_numPoints = 850
     mgrid_minimum = 0.0
-    mgrid_maximum = .11
+    mgrid_maximum = .1
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-10 * mgrid_maximum
 
@@ -159,9 +159,9 @@ function setModelParameters()
     L = 1
 
     # Innovation
-    χI = 3
-    χS = 2.3
-    χE = 0.5
+    χI = 8
+    χS = 3
+    χE = 0.7
     ψI = 0.5
     ψSE = 0.5
     λ = 1.054
@@ -169,20 +169,20 @@ function setModelParameters()
 
     # Spinouts
     #ν = 0.0102495
-    ν = 0.01
-    ξ = 10
-    ζ = 0.7
+    ν = 0.03
+    ξ = 20
+    ζ = 0.9
 
     # Creative destruction
-    κ = 0
+    κ = 0.2
 
     # CNCs
     CNC = false
 
     # Rate of Spinout formation of spinouts and entrants
 
-    spinoutsFromSpinouts = 0.5
-    spinoutsFromEntrants = 0.2
+    spinoutsFromSpinouts = 0.2
+    spinoutsFromEntrants = 0.1
 
     # Spinouts ideas from different pool?
 

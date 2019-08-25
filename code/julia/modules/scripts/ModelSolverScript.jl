@@ -366,7 +366,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     # Diagnostics
 
-    diagStoreNumPoints = 200
+    diagStoreNumPoints = 100
 
     w_diag = zeros(length(mGrid),diagStoreNumPoints)
     V_diag = zeros(length(mGrid),diagStoreNumPoints)
