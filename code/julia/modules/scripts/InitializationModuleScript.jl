@@ -171,7 +171,10 @@ function setModelParameters()
     #ν = 0.0102495
     ν = 0.01
     ξ = 10
-    ζ = 0.1
+    ζ = 0.7
+
+    # Creative destruction
+    κ = 0
 
     # CNCs
     CNC = false

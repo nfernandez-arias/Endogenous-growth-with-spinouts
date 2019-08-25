@@ -81,11 +81,13 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
 	if modelPar.spinoutsSamePool == true
 
-		spinoutFlow = χS .* ϕI(zS + zI + zE) .* (λ * (1-ζ) * V[1] ) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
+		#spinoutFlow = χS .* ϕI(zS + zI + zE) .* (λ * (1-ζ) * V[1] ) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
+		spinoutFlow = χS .* ϕI(zS + zI + zE) .* (λ * V[1] ) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
 
 	else
 
-		spinoutFlow = χS .* ϕSE(zS .+ zE) .* (λ * (1-ζ) * V[1]) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
+		#spinoutFlow = χS .* ϕSE(zS .+ zE) .* (λ * (1-ζ) * V[1]) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
+		spinoutFlow = χS .* ϕSE(zS .+ zE) .* (λ * V[1]) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
 
 	end
 
