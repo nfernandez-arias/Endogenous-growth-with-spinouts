@@ -90,11 +90,13 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
 
     if modelPar.spinoutsSamePool == true
 
-        temp = modelPar.χS * ϕI(zI + ξ*mGrid) * (modelPar.λ * (1-modelPar.ζ) * V[1]) - wS
+        #temp = modelPar.χS * ϕI(zI + ξ*mGrid) * (modelPar.λ * (1-modelPar.ζ) * V[1]) - wS
+        temp = modelPar.χS * ϕI(zI + ξ*mGrid) * (modelPar.λ * V[1]) - wS
 
     else
 
-        temp = modelPar.χS * ϕSE(ξ*mGrid) * (modelPar.λ * (1 - modelPar.ζ) * V[1]) - wS
+        #temp = modelPar.χS * ϕSE(ξ*mGrid) * (modelPar.λ * (1 - modelPar.ζ) * V[1]) - wS
+        temp = modelPar.χS * ϕSE(ξ*mGrid) * (modelPar.λ *  V[1]) - wS
 
     end
 
@@ -474,7 +476,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         # Use spinout value to compute implied no-CNC R&D wage
         ν = modelPar.ν
         wbar = wbarFunc(modelPar.β)
-        temp_w = wbar .* ones(size(W)) .- ν .* W
+        #temp_w = wbar .* ones(size(W)) .- ν .* W
+        temp_w = wbar .* ones(size(W)) .- (1-modelPar.ζ) *  ν .* W
 
         # Calculate updated w
         w = algoPar.w.updateRate .* temp_w .+ (1 .- algoPar.w.updateRate) .* guess.w
