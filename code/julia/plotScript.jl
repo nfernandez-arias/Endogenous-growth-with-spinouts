@@ -1,12 +1,10 @@
 #---------------------------#
 # Plot V,W,zI,zS/m
 #---------------------------#
-
-gr()
-#Plots.scalefontsizes(1.2)
+Plots.scalefontsizes(0.9)
 p = plot(mGrid,[V[:] W[:] zI[:] zS[:]], legend = :bottomright, title = ["Incumbent and Aggregate Spinout value" "Spinout value" "Incumbent policy" "Aggregated spinout policy"], xlabel = "Mass of spinouts", label = ["V(m)" "W(m)" "z_I(m)" "z_S(m)"], layout = (2,2))
 png("figures/plotsGR/HJB_solutions_plot.png")
-
+Plots.scalefontsizes(0.9^(-1))
 #---------------------------#
 # Plot V and m * W(m) , aggregate spinout value
 #---------------------------#
