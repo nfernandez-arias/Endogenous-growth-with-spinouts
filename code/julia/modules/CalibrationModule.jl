@@ -9,7 +9,7 @@ __precompile__()
 module CalibrationModule
 
 using AlgorithmParametersModule, ModelParametersModule, GuessModule, ModelSolver, AuxiliaryModule
-using LinearAlgebra, Statistics, Compat, Optim, ForwardDiff, ReverseDiff
+using LinearAlgebra, Statistics, Optim, ForwardDiff, ReverseDiff
 
 export CalibrationTarget,CalibrationParameters,calibrateModel,computeModelMoments,computeScore
 
