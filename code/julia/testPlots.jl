@@ -196,11 +196,38 @@ println("--------------------------------------------------------------\n")
 println("$welfare (Welfare)")
 println("$welfare2 (Welfare with no deadweight loss of spinout entry)")
 
+
 #--------------------------------#
 # Make some plots                #
 #--------------------------------#
 
 include("plotScript.jl")
+
+
+
+#--------------------------------#
+# Decomposing ratio of zI[1] and zE[1]
+#--------------------------------#
+
+VPrime2 = (V[3] - V[2]) / Δm[2]
+
+χE = modelPar.χE
+κ = modelPar.κ
+relativeProductivity = χE / χI
+businessStealing = λ / (λ - 1)
+wageDifference = w[1] / wageEntrants[1]
+cannibalizationBySpinouts = (w[1] - ν * VPrime2) / w[1]
+total = (1-κ) * (1 / (1-modelPar.ψI)) * relativeProductivity * businessStealing * wageDifference * cannibalizationBySpinouts
+
+println("\n--------------------------------------------------------------")
+println("Difference in R&D effort ---------------------------------------")
+println("--------------------------------------------------------------\n")
+println("Relative productivity: $relativeProductivity")
+println("Business stealing: $businessStealing")
+println("Nominal wage ratio: $wageDifference")
+println("Cannibalization by spinouts: $cannibalizationBySpinouts")
+println("Total: $total")
+println("Real: $((zE[1] / zI[1])^(modelPar.ψI))")
 
 
 #include("presentationPlots.jl")

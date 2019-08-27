@@ -7,5 +7,7 @@ module EndogenousGrowthWithSpinouts
     include("scripts/InitializationModuleScript.jl")
     include("scripts/HJBModuleScript.jl")
     include("scripts/ModelSolverScript.jl")
+    include("scripts/ModelStatisticsModuleScript.jl")
+    include("scripts/CalibrationModuleScript.jl")
 
 end

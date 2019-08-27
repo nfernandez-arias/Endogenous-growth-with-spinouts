@@ -6,16 +6,15 @@
 #
 #----------------------------------------------------#
 
-
-
 #-------------------------------#
 # Import modules
 #-------------------------------#
 
 using Revise
-using InitializationModule,AlgorithmParametersModule
-using ModelSolver
-using CalibrationModule
+using AutoGrad
+
+include("loadPath.jl")
+using EndogenousGrowthWithSpinouts
 
 #-------------------------------#
 # Set initial parameter settings, guess
@@ -35,7 +34,7 @@ InternalPatentShare = CalibrationTarget(0.2,1)
 SpinoutEntryRate = CalibrationTarget(0.05,1)
 SpinoutShare = CalibrationTarget(0.3,0)
 g = CalibrationTarget(0.015,1)
-RDLaborAllocation = CalibrationTarget(0.05,0)
+RDLaborAllocation = CalibrationTarget(.05,0)
 
 calibPar = CalibrationParameters(RDintensity,InternalPatentShare,SpinoutEntryRate,SpinoutShare,g,RDLaborAllocation)
 
@@ -43,12 +42,14 @@ calibPar = CalibrationParameters(RDintensity,InternalPatentShare,SpinoutEntryRat
 # Run calibration
 #-------------------------------#
 
-@time results,moments,score = calibrateModel(algoPar,modelPar,initGuess,calibPar)
+#@time results,moments,score = calibrateModel(algoPar,modelPar,initGuess,calibPar)
+
+gradient = calibrateModel(algoPar,modelPar,initGuess,calibPar)
 
 println(results)
 println("\nMinimizer: $(results.minimizer)")
 println("Moments: $moments")
-println("Score: $score")
+println("Score: $score")s
 
 #-------------------------------#
 # Display diagnostics

@@ -24,18 +24,18 @@ data[is.na(xrd) == TRUE, xrd := 0]
 # Decide whether to use normalized variable or not -- 
 # if not, COMMENT OUT these lines
 
-data[, xrd := (xrd - mean(xrd)) / sd(xrd)]
-data[, patentApplicationCount := (patentApplicationCount - mean(patentApplicationCount)) / sd(patentApplicationCount)]
-data[, patentApplicationCount_CW := (patentApplicationCount_CW - mean(patentApplicationCount_CW)) / sd(patentApplicationCount_CW)]
-data[, patentCount := (patentCount - mean(patentCount)) / sd(patentCount)]
-data[, patentCount_CW := (patentCount_CW - mean(patentCount_CW)) / sd(patentCount_CW)]
-data[, patentCount_CW_cumulative := (patentCount_CW_cumulative - mean(patentCount_CW_cumulative)) / sd(patentCount_CW_cumulative)]
-data[, emp := (emp - mean(emp,na.rm = TRUE)) / sd(emp, na.rm = TRUE)]
+#data[, xrd := (xrd - mean(xrd)) / sd(xrd)]
+#data[, patentApplicationCount := (patentApplicationCount - mean(patentApplicationCount)) / sd(patentApplicationCount)]
+#data[, patentApplicationCount_CW := (patentApplicationCount_CW - mean(patentApplicationCount_CW)) / sd(patentApplicationCount_CW)]
+#data[, patentCount := (patentCount - mean(patentCount)) / sd(patentCount)]
+#data[, patentCount_CW := (patentCount_CW - mean(patentCount_CW)) / sd(patentCount_CW)]
+#data[, patentCount_CW_cumulative := (patentCount_CW_cumulative - mean(patentCount_CW_cumulative)) / sd(patentCount_CW_cumulative)]
+#data[, emp := (emp - mean(emp,na.rm = TRUE)) / sd(emp, na.rm = TRUE)]
 
-data[, spinoutCount := (spinoutCount - mean(spinoutCount,na.rm = TRUE)) / sd(spinoutCount, na.rm = TRUE)]
-data[, spinoutCountUnweighted := (spinoutCountUnweighted - mean(spinoutCountUnweighted,na.rm = TRUE)) / sd(spinoutCountUnweighted, na.rm = TRUE)]
-data[, spinoutCountUnweighted_onlyExits := (spinoutCountUnweighted_onlyExits - mean(spinoutCountUnweighted_onlyExits,na.rm = TRUE)) / sd(spinoutCountUnweighted_onlyExits, na.rm = TRUE)]
-data[, emp := (emp - mean(emp,na.rm = TRUE)) / sd(emp, na.rm = TRUE)]
+#data[, spinoutCount := (spinoutCount - mean(spinoutCount,na.rm = TRUE)) / sd(spinoutCount, na.rm = TRUE)]
+#data[, spinoutCountUnweighted := (spinoutCountUnweighted - mean(spinoutCountUnweighted,na.rm = TRUE)) / sd(spinoutCountUnweighted, na.rm = TRUE)]
+#data[, spinoutCountUnweighted_onlyExits := (spinoutCountUnweighted_onlyExits - mean(spinoutCountUnweighted_onlyExits,na.rm = TRUE)) / sd(spinoutCountUnweighted_onlyExits, na.rm = TRUE)]
+#data[, emp := (emp - mean(emp,na.rm = TRUE)) / sd(emp, na.rm = TRUE)]
 
 
 ## Compute moving averages

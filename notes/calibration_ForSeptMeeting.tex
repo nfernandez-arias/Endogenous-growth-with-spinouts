@@ -1,0 +1,109 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+	
+	
+\title{Endogenous Growth with Spinouts - Calibration}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+The parameters I want to calibrate are:
+
+\begin{itemize}
+	\item $\rho$ : this is calibrated to the interest rate separately
+	\item $\beta$ : this is calibrated to the profit/sales ratio
+	\item $\chi^I,\chi^S,\chi^E$ 
+	\item $\zeta,\kappa$
+	\item $\nu^I,\nu^S,\nu^E$
+	\item $\xi$
+	\item $\lambda$
+\end{itemize}
+
+This means I have 10 parameters, although $\xi$ is not independent of the $\nu$ parameters, so really 9 parameters.
+
+The moments I have in mind are:
+
+\begin{enumerate}
+	\item The R\&D / sales ratio
+	\begin{itemize}
+		\item Problem: in model, all of R\&D is employment
+		\item Would make more sense to also require final good, but how much? Some parameter, to then match to 50\% spending on employment
+	\end{itemize}
+	\item R\&D / GDP ratio
+	\item Firm entry rate
+	\begin{itemize}
+		\item Model counterpart? Entrants (low and high type) in model includes regular entrants and creative destruction by existing firms which are expanding. So model should be much higher than entry rate in the data.
+		\item An interesting possibility would be to look at new establishments / number of firms. Not perfect, but it uses new establishments to measure both new firms and creative destruction by existing firms. 
+		\item Don't stress about it too hard for now. Ask Esteban what he thinks.
+	\end{itemize}
+	\item Ratio of entry rate by spinouts / total entry rate
+	\item External citations share
+	\begin{itemize}
+		\item Model counterpart: creative destruction fraction of innovation
+	\end{itemize}
+	\item Productivity growth in the economy
+	\item Value of spinouts created per dollar of R\&D
+	\begin{itemize}
+		\item This is something I can calculate from my dataset that no other dataset has...
+		\item Model counterpart: weighted average
+		\begin{align*}
+			\frac{\int_0^{\infty} \nu^I W(m) z^I(m) \mu(m) dm}{\int_0^{\infty} z^I(m) w(m) \mu(m) dm}
+		\end{align*}
+	\end{itemize}
+	\item R\&D wages compared unskilled wage ratio
+	\begin{itemize}
+		\item Problem: in data, R\&D workers have more human capital
+		\item The model is more about what percentage discount is taken to work in a knowledge field by people of the same human capital
+		\item Can I compute this somehow? Seems like it.. Just need to compute how much wage is added by human capital, and then look at the coefficient on R\&D employment
+		\item Problem, even if all data available: R\&D employment could easily be associated with unobserved human capital. Maybe...only look within PhDs or something. 
+	\end{itemize}
+	\item R\&D employment to employment ratio
+	\begin{itemize}
+		\item Problem: same as above
+		\item Solution: need to look in terms of units of human capital, obviously. So, calculate the amount of human capital in R\&D employment relative to all of the human capital. Not totally obvious but it should be possible to at least somewhat correct for this issue. 
+	\end{itemize}
+	\item Correlation between current number of spinouts in some "product development stage" and parent firm R\&D expenditure? Also could be something my data tells me about...of course, there could easily be an omitted variable, whereas my model is causal, but still. 
+	\item Also have the stuff on non-competes, but I was going to use that as validation...idk. Maybe I can use some as calibration, and some as validation? That's what Baslandze does. 
+\end{enumerate}
+
+\begin{remark}
+	Is it a huge deal if you have more parameters than statistics to calibrate them with? I mean, my model has some structure that is appealing for other reasons, which restricts its ability to match $N$ numbers with $N$ parameters. So it's still evidence in favor of the model that it is capable of replicating even $N'<N$ numbers with $N$ parameters, no? In any case, there is some leeway for reducing the number of parameters above. 
+\end{remark}
+
+
+
+
+\end{document}

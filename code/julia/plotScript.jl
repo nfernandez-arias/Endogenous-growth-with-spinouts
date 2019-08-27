@@ -137,6 +137,29 @@ p = plot(t, [ν*V1prime ν*W ν*(V1prime .+ W)], label = ["Firm" "R&D employee" 
 png("figures/plotsGR/effectiveRDWage_vs_t.png")
 
 #-----------------------------------------#
+# Plot decomposition of difference in R\&D spending
+# versus m
+#-----------------------------------------#
+
+χE = modelPar.χE
+κ = modelPar.κ
+relativeProductivity = χE / χI
+businessStealing = λ / (λ - 1)
+wageDifference = w ./ wageEntrants
+cannibalizationBySpinouts = (w .- ν * V1prime) ./ w
+escapeCompetition = ones(size(V)) * (λ * V[1] - V[1]) ./ (λ * V[1] * ones(size(V)) - V)
+total = (1-κ) * (1 / (1-modelPar.ψI)) .* relativeProductivity .* businessStealing .* wageDifference .* cannibalizationBySpinouts .* escapeCompetition
+real = ((zE + zS) ./ zI).^(ψI)
+
+p = plot(t,[total real],label = ["Aggregated decomp." "Actual model"], title = "Check-sum of decomposition")
+png("figures/plotsGR/diagnostics/zEzIRatioDecomp_checksum.png")
+
+plotArray = [log(businessStealing)*ones(size(V)) log.(wageDifference) log.(cannibalizationBySpinouts) log.(escapeCompetition)]
+labels = ["Business stealing" "Wage ratio" "Cannibalization by spinouts" "Escape competition"]
+p = plot(t,plotArray, label = labels)
+png("figures/plotsGR/diagnostics/zEzIRatioDecomp.png")
+
+#-----------------------------------------#
 # Non-compete usage
 #-----------------------------------------#
 

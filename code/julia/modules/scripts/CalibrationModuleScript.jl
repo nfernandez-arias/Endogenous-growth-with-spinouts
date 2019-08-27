@@ -4,10 +4,6 @@
 # Module containing functions for calibrating the model
 #
 
-__precompile__()
-
-module CalibrationModule
-
 using LinearAlgebra, Statistics, Optim
 
 export CalibrationTarget,CalibrationParameters,calibrateModel,computeModelMoments,computeScore
@@ -51,10 +47,17 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
     ν = modelPar.ν
     ξ = modelPar.ξ
+    ζ = modelPar.ζ
+    κ = modelPar.κ
 
-    wbar = AuxiliaryModule.Cβ(β)
+    CNC = modelPar.CNC
 
-    #-----------------------------------#
+    sFromS = modelPar.spinoutsFromSpinouts
+    sFromE = modelPar.spinoutsFromEntrants
+
+    wbar = Cβ(β)
+
+    #-----------------------------------#name
     # Build mGrid
     #-----------------------------------#
     mGrid,Δm = mGridBuild(algoPar.mGrid)
@@ -66,32 +69,18 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     #results,factor_zS,factor_zE,spinoutFlow = solveModel(algoPar,modelPar,guess)
     results,factor_zS,factor_zE,spinoutFlow = solveModel(algoPar,modelPar,guess,incumbentSolution)
 
-    #-----------------------------------#
-    # Extract aggregate equilibrium variables
-    #-----------------------------------#
-    g = results.finalGuess.g
-    L_RD = results.finalGuess.L_RD
-    w = results.finalGuess.w
-    idxM = results.finalGuess.idxM
 
-    #-----------------------------------#
-    # Modify guesses in place
-    #-----------------------------------#
-
-    guess.g = g
-    guess.L_RD = L_RD
-    guess.w = w
-    guess.idxM = idxM
-
-    incumbentSolution.V = results.incumbent.V
-    incumbentSolution.zI = results.incumbent.zI
-    incumbentSolution.noncompete = results.incumbent.noncompete
+    wageEntrants = sFromE * w + (1-sFromE) * wbar * ones(size(w))
+    wageSpinouts = sFromS * w + (1-sFromS) * wbar * ones(size(w))
 
 
+    μ = results.auxiliary.μ
     γ = results.auxiliary.γ
     t = results.auxiliary.t
 
-    Π = AuxiliaryModule.profit(results.finalGuess.L_RD,modelPar)
+    Π = profit(results.finalGuess.L_RD,modelPar)
+
+
 
     #-----------------------------------#
     # Extract individual policies
@@ -99,18 +88,23 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     V = results.incumbent.V
     zI = results.incumbent.zI
     W = results.spinoutValue
-    zE = results.finalGuess.zE
+
+
+    zS = zSFunc(algoPar,modelPar,idxM)
+    zE = zEFunc(modelPar,results.incumbent,w,zS)
+
     #-----------------------------------#
     # Extract derived equilibrium variables
     #-----------------------------------#
-    τI = AuxiliaryModule.τI(modelPar,zI)
-    τSE = AuxiliaryModule.τSE(modelPar,zS,zE)
-    τE = AuxiliaryModule.τE(modelPar,zS,zE)
+    τI = τIFunc(modelPar,zI)
+    τSE = τSEFunc(modelPar,zI,zS,zE)
+    τE = τEFunc(modelPar,zI,zS,zE)
     τS = zeros(size(τE))
     τS = τSE - τE
     τ = τI + τSE
     z = zS + zE + zI
-    finalGoodsLabor = AuxiliaryModule.LF(L_RD,modelPar)
+    a = sFromE .* zE .+ sFromS .* zS .+ zI
+    finalGoodsLabor = LF(L_RD,modelPar)
 
     #-----------------------------------#
     # Viewing z as drift a, also compute aPrime
@@ -121,25 +115,35 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
     for i = 1:length(aPrime)-1
 
-        aPrime[i] = (z[i+1] - z[i]) / Δm[i]
+        aPrime[i] = (a[i+1] - a[i]) / Δm[i]
 
     end
-    println(aPrime[length(z)])
 
     #x = aPrime[end-1]
     #println(aPrime[length(z) - 1])
     #aPrime[end] = aPrime[end-1]
 
     #-----------------------------------#
-    # Calculate
+    # Calculate entry rates
     #-----------------------------------#
 
-    # Compute μ
-    integrand =  (ν .* aPrime .+ τ) ./ (ν .* z)
-    summand = integrand .* Δm
-    integral = cumsum(summand[:])
-    μ = exp.(-integral)
-    μ = μ / sum(μ .* Δm)
+    mIFrac,mSFrac,mEFrac = spinoutMassDecomposition(algoPar,modelPar,guess,incumbentSolution)
+
+    if noncompete[1] == 1
+        innovationRateIncumbent = τI[1]
+        entryRateOrdinary = τE[1]
+        entryRateSpinouts = 0
+    else
+        innovationRateIncumbent = sum(τI .* μ .* Δm)
+        entryRateOrdinary = sum(τE .* μ .* Δm)
+        entryRateSpinouts = sum(τS .* μ .* Δm)
+        entryRateSpinoutsFromIncumbents = sum(mIFrac .* τS .* μ .* Δm)
+        entryRateSpinoutsFromSpinouts = sum(mSFrac .* τS .* μ .* Δm)
+        entryRateSpinoutsFromEntrants = sum(mEFrac .* τS .* μ .* Δm)
+    end
+
+
+
 
     innovationRateIncumbent = sum(τI .* μ .* Δm)
     entryRateOrdinary = sum(τE .* μ .* Δm)
@@ -151,8 +155,12 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     spinoutShare = entryRateSpinouts / entryRate
 
     aggregateSales = finalGoodsLabor
-    aggregateRDSpending = sum(w .* z .* γ .* μ .* Δm)
+
+    aggregateRDSpending = sum(w .* zI .* γ .* μ .* Δm) + sum(wageEntrants .* zE .* γ .* μ .* Δm) + sum(wageSpinouts .* zS .* γ .* μ .* Δm)
+
     RDintensity = aggregateRDSpending / aggregateSales
+
+    RDintensity =
 
     modelMoments = zeros(6)
 
@@ -163,7 +171,7 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     modelMoments[5] = g
     modelMoments[6] = L_RD
 
-    return modelMoments
+    return modelMoments,results
 
 end
 
@@ -175,7 +183,20 @@ function computeScore(algoPar::AlgorithmParameters,modelPar::ModelParameters,gue
 
     # Eventually, would be cool if this could adapt to what fields are in the struct calibPar...
 
-    modelMoments = computeModelMoments(algoPar,modelPar,guess,incumbentSolution)
+    modelMoments,results = computeModelMoments(algoPar,modelPar,guess,incumbentSolution)
+
+    #-----------------------------------#
+    # Modify guesses in place
+    #-----------------------------------#
+
+    guess.g = results.finalGuess.g
+    guess.L_RD = results.finalGuess.L_RD
+    guess.w = results.finalGuess.w
+    guess.idxM = results.finalGuess.idxM
+
+    incumbentSolution.V = results.incumbent.V
+    incumbentSolution.zI = results.incumbent.zI
+    incumbentSolution.noncompete = results.incumbent.noncompete
 
     #--------------------------------#
     # Compute score
@@ -206,7 +227,7 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
     weights = weights / sum(weights)
 
     # Initial incumbent guess
-    V = AuxiliaryModule.initialGuessIncumbentHJB(algoPar,modelPar,guess)
+    V = initialGuessIncumbentHJB(algoPar,modelPar,guess)
     zI = zeros(size(V))
     noncompete = zeros(size(V))
     incumbentSolution = IncumbentSolution(V,zI,noncompete)
@@ -218,16 +239,16 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
     # First, define objective function f in format that can
     # be used with ReverseDiff.jl
 
-    function f(x::Vector{Float64})
+    function f(x::Param{Array{Float64,1}})
 
         # Unpack x vector into modelPar struct for inputting into model solver
 
         #modelPar.ρ = x[1]
-        modelPar.χI = x[1]
-        modelPar.χS = x[2]
-        modelPar.χE = x[3] * x[2]
-        modelPar.λ = x[4]
-        modelPar.ν = x[5]
+        modelPar.χI = value(x)[1]
+        modelPar.χS = value(x)[2]
+        modelPar.χE = value(x)[3] * value(x)[2]
+        modelPar.λ = value(x)[4]
+        modelPar.ν = value(x)[5]
 
         log_file = open("./figures/CalibrationLog.txt","a")
 
@@ -251,38 +272,54 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
 
     # Finally, use Optim.jl to optimize the objective function
 
-    initial_x = [ modelPar.χI;
-                  modelPar.χS;
-                  modelPar.χE / modelPar.χS;
-                  modelPar.λ;
+    initial_x = [ modelPar.χI,
+                  modelPar.χS,
+                  modelPar.χE / modelPar.χS,
+                  modelPar.λ,
                   modelPar.ν ]
+
+    x0 = Param(initial_x)
 
     lower = [1, 1, 0.2, 1.01, 0.02]
     upper = [6, 6, 0.9, 1.08, 0.09]
 
     #inner_optimizer = GradientDescent()
-    inner_optimizer = LBFGS()
+    #inner_optimizer = LBFGS()
 
-    results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(iterations = 50, store_trace = true, show_trace = true))
+
+
+    #results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(iterations = 50, store_trace = true, show_trace = true))
     #results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer))
     #results = optimize(f,initial_x,inner_optimizer,Optim.Options(iterations = 1, store_trace = true, show_trace = true))
     #results = optimize(f,initial_x,method = inner_optimizer,iterations = 1,store_trace = true, show_trace = false)
 
-    x = results.minimizer
+    #x = results.minimizer
+
+    # UMake some plots and return
 
     #modelPar.ρ = x[1]
-    modelPar.χI = x[1]
-    modelPar.χS = x[2]
-    modelPar.χE = x[3] * x[2]
-    modelPar.λ = x[4]
-    modelPar.ν = x[5]
+    #modelPar.χI = x[1]
+    #modelPar.χS = x[2]
+    #modelPar.χE = x[3] * x[2]
+    #modelPar.λ = x[4]
+    #modelPar.ν = x[5]
 
-    finalMoments = computeModelMoments(algoPar,modelPar,guess)
-    finalScore = computeScore(algoPar,modelPar,guess,targets,weights)
-    return results,finalMoments,finalScore
+    #finalMoments = computeModelMoments(algoPar,modelPar,guess)
+    #finalScore = computeScore(algoPar,modelPar,guess,targets,weights)
+    #return results,finalMoments,finalScore
 
+    #g = @diff f(x0)
 
-end
+    #println("g is : $([g])")
 
+    #temp = collect(g.list)
+
+    #dump(temp[5],maxdepth = 1)
+
+    #dump(temp[5],maxdepth = 2)
+
+    #gradient = grad(g,x0)
+
+    #println("Gradient at x0 is: $gradient")
 
 end

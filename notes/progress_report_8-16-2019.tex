@@ -66,11 +66,103 @@
 
 \subsubsection{Negative R\&D wage}
 
+\paragraph{Problem}
+
 \begin{itemize}
 	\item Model produces far too low R\&D wage, so can't match R\&D spending / sales -- negative for most of the state space, due to the high value of forming a spin out. Adding deadweight loss of creative destruction actually makes this *worse*, since it lowers entry by spinouts in general equilibrium. I think I can fix this by having spinouts not draw from a different pool of ideas, but I need to implement this.
 	\item At the end of the day, this might be "unfixable" because workers in reality are risk averse but in the model risk-neutral...but adding worker risk aversion makes my model intractable.
 	\item Target 50\% of R\&D - GDP ratio to calibrate, since approximately half of R\&D spending goes to wages
 \end{itemize}
+
+\paragraph{Possible solutions}
+
+\begin{itemize}
+	\item Employees value continuation payoff lower. Interpretation: have to raise money and give up a stake? But not really in the model.
+	\item Deadweight loss of creative destruction -- DOES NOT WORK because reduces entry
+\end{itemize}
+
+
+\subsubsection{Incumbents not spending enough on R\&D}
+
+\paragraph{Problem} 
+
+\begin{itemize}
+	\item Can do a decomposition of $\log\Big(\big(\frac{z_E(m)}{z_I(m)}\big)^{\psi}\Big)$ into the various sources of the differences, as
+	\begin{align*}
+		\Big(\frac{z_E(0)}{z_I(0)}\Big)^{\psi} &= \Bigg(1-\kappa \Bigg) \times \Bigg(\frac{1}{1-\psi} \Bigg) \times \Bigg( \frac{\chi_E}{\chi_I} \Bigg) \times \Bigg( \frac{\lambda}{\lambda-1} \Bigg) \times \Bigg( \frac{w_I}{w_E} \Bigg) 
+	\end{align*}
+	
+	For general $m$, have
+	\begin{align*}
+	\Big(\frac{z_E(m) + z_S(m)}{z_I(m)}\Big)^{\psi} &=  \Bigg(1-\kappa \Bigg) \times \Bigg(\frac{1}{1-\psi} \Bigg) \times \Bigg( \frac{\chi_E}{\chi_I} \Bigg) \times \Bigg( \frac{\lambda V(0)}{\lambda V(0) - V(m)} \Bigg) \times \Bigg( \frac{w_I^{\textrm{effective}}(m)}{w_E(m)} \Bigg) 
+	\end{align*}
+	
+	In turn, have
+	\begin{align*}
+		\frac{w_I^{\textrm{effective}}(m)}{w_E(m)} &= \frac{w_I(m) - \nu V'(m)}{w_E(m)} \\
+								  				   &= \frac{w_I(m)}{w_E(m)} \times \frac{w_I(m) - \nu V'(m)}{w_I(m)} \\
+								  				   &= \frac{\overline{w} - \nu^I W(m)}{\overline{w} - \nu^E W(m)}  \times \frac{w_I(m) - \nu V'(m)}{\overline{w} - \nu^I W(m)}
+ 	\end{align*}
+ 	
+ 	Also,
+ 	\begin{align*}
+ 		\frac{\lambda V(0)}{\lambda V(0) - V(m)} &= \frac{\lambda V(0)}{\lambda V(0) - V(0)} \times \frac{\lambda V(0) - V(0)}{\lambda V(0) - V(m)} \\
+ 		                            &= \frac{\lambda}{\lambda - 1} \times \frac{\lambda V(0) - V(0)}{\lambda V(0) - V(m)}
+ 	\end{align*}
+ 	
+ 	Putting it all together we get (for $m \le M^*$)
+ 	\begin{align*}
+	\Bigg(\frac{z_E(m) + z_S(m)}{z_I(m)}\Bigg)^{\psi} &=  \overbrace{\Bigg(1-\kappa \Bigg) }^{\textrm{DW Loss from creative destruction}}\times \overbrace{\Bigg(\frac{1}{1-\psi} \Bigg)}^{\textrm{DRS in R\&D}} \times \overbrace{\Bigg( \frac{\chi_E}{\chi_I} \Bigg) }^{\textrm{Relative prod.}}\times \overbrace{\Bigg( \frac{\lambda}{\lambda - 1}  \Bigg) }^{\textrm{Business-stealing}} \\ \times \underbrace{\Bigg( \frac{\lambda V(0) - V(0)}{\lambda V(0) - V(m)}\Bigg)}_{\textrm{"Escape competition"}}
+	          &\times \underbrace{\Bigg( \frac{\overline{w} - \nu^I W(m)}{\overline{w} - \nu^E W(m)}\Bigg)}_{\textrm{Nominal wage difference}} \times \underbrace{\Bigg( \frac{w_I(m) - \nu V'(m)}{\overline{w} - \nu^I W(m)} \Bigg)}_{\textrm{Cannibalization by spinouts}}
+ 	\end{align*}
+ 	
+ 	Note though that the model spends most of time at $m << M^*$, so to a reasonable approximation, the issue I am having is related to the ratio $z_E(0) / z_E(0)$. 
+ 	
+ 	An analogous decomposition can be used for spending on R\&D by entrants/spinouts vs. incumbents. For now, using $w_E(m) \approx w_s(m)$ (this can easily be improved but will do later), get 
+ 	\begin{align*}
+ 		\Bigg(\frac{z_E(m)w_E(m) + z_S(m)w_S(m)}{z_I(m) w_I(m)}\Bigg)^{\psi} &\approx \Bigg(\frac{(z_E(m) + z_S(m)) w_E(m) }{z_I(m) w_I(m)}\Bigg)^{\psi} \\  
+ 		&= \Bigg(  \frac{z_E(m) + z_S(m)}{z_I(m)}\Bigg)^{\psi} \Bigg( \frac{w_E(m)}{w_I(m)}\Bigg)^{\psi}
+ 	\end{align*}
+ 	so that, using the previous decomposition, it follows that we can decompose the ratio of R\&D wage bills with 
+ 	\begin{align*}
+ 	 \Bigg(\frac{z_E(m)w_E(m) + z_S(m)w_S(m)}{z_I(m) w_I(m)}\Bigg)^{\psi}  &\approx \overbrace{\Bigg(1-\kappa \Bigg) }^{\textrm{DW Loss from creative destruction}}\times  \overbrace{\Bigg(\frac{1}{1-\psi} \Bigg)}^{\textrm{DRS in R\&D}} \times \overbrace{\Bigg( \frac{\chi_E}{\chi_I} \Bigg) }^{\textrm{Relative prod.}} \\ \times \underbrace{\Bigg( \frac{\lambda}{\lambda - 1}  \Bigg) }_{\textrm{Business-stealing}} \times \underbrace{\Bigg( \frac{\lambda V(0) - V(0)}{\lambda V(0) - V(m)}\Bigg)}_{\textrm{"Escape competition"}}
+ 	&\times \underbrace{\Bigg( \frac{\overline{w} - \nu^I W(m)}{\overline{w} - \nu^E W(m)}\Bigg)^{1-\psi}}_{\textrm{Nominal wage difference}} \times \underbrace{\Bigg( \frac{w_I(m) - \nu V'(m)}{\overline{w} - \nu^I W(m)} \Bigg)}_{\textrm{Cannibalization by spinouts}}
+ 	\end{align*}
+ 		
+ 	The only difference is that now the ratio of nominal wages has an exponent $1-\psi$ on it: raising the incumbent wage diminishes the incumbent wage bill by less than it diminishes the incumbent R\&D effort, since the wage bill is the product of wage and R\&D effort. Intuitive. 	
+ 	
+	The key elements of this decomposition are:
+	\begin{itemize}
+		\item The first term comes from the fact that incumbents take into account their effect on decreasing returns to R\&D, while entrants and spinouts do not. With an R\&D elasticity of $0.5$, this leads to a factor of 2. 
+		\item The second term is the relative productivity term. Self-explanatory. 
+		\item $\frac{\lambda}{\lambda-1}$: incumbents have no business-stealing incentive. This is about 20.. With $\psi = 0.5$, this alone accounts for a entrants doing 400 times more innovation than incumbents!!
+		\item The fourth 
+		\item $\frac{w_I}{w_E}$: incumbent pays a different wage since employees learn faster from them. For most calibrations I'm looking for, this doesnt' make a big difference.
+		\item The last term -- cannibalization from spinouts -- does play a significant difference - can be a factor of approx 10 for calibrations i've explored. 
+	\end{itemize}
+
+	\begin{remark}
+		Exploiting the decomposition to improve the fit of the model is possible, but not trivial. E.g., the decomposition suggests increasing $\lambda$ while decreasing all $\chi$ variables would keep growth steady while reorienting innovation behavior towards incumbents, but it also changes $V$ and particularly $W$, which could affect other terms in the decomposition. 
+	\end{remark}
+
+	\begin{remark}
+		I care about \emph{both} of these decompositions. The wage bill is important for matching the data on R\&D spending / sales ratio, and the R\&D effort is important for matching the rate of spinout formation by incumbents
+	\end{remark}
+\end{itemize}
+
+
+
+\paragraph{Solution}
+
+The most promising avenues for fixing this are: 
+\begin{enumerate}
+	\item Adding spinouts which do not compete with parent firms. This reduces the contribution of the last term (without affecting the nominal wage difference).
+	\item Increasing $\lambda$ while decreasing all other innovation productivity parameters to keep $g$ and total spending constant
+	\item Increasing rate of drift of $m$ so that more time is spent at higher $m$, increasing the "escape competition" effect
+	\item Decreasing the ratio of $\chi_E / \chi_E$ further. 
+\end{enumerate}
+
+
 
 \subsubsection{Non-competes in the model}
 

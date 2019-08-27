@@ -366,15 +366,15 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     # Diagnostics
 
-    diagStoreNumPoints = 100
+    #diagStoreNumPoints = 100
 
-    w_diag = zeros(length(mGrid),diagStoreNumPoints)
-    V_diag = zeros(length(mGrid),diagStoreNumPoints)
-    W_diag = zeros(length(mGrid),diagStoreNumPoints)
-    μ_diag = zeros(length(mGrid),diagStoreNumPoints)
+    #w_diag = zeros(length(mGrid),diagStoreNumPoints)
+    #V_diag = zeros(length(mGrid),diagStoreNumPoints)
+    #W_diag = zeros(length(mGrid),diagStoreNumPoints)
+    #μ_diag = zeros(length(mGrid),diagStoreNumPoints)
 
-    g_diag = zeros(1,diagStoreNumPoints)
-    L_RD_diag = zeros(1,diagStoreNumPoints)
+    #g_diag = zeros(1,diagStoreNumPoints)
+    #L_RD_diag = zeros(1,diagStoreNumPoints)
 
 
     while (iterate_g_L_RD_w < algoPar.g.maxIter && error_g > algoPar.g.tolerance) || (iterate_g_L_RD_w < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate_g_L_RD_w < algoPar.w.maxIter && error_w > algoPar.w.tolerance)
@@ -514,13 +514,13 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         guess.L_RD = L_RD
         guess.w = w
 
-        g_diag[1,iterate_g_L_RD_w - 1] = g
-        L_RD_diag[1,iterate_g_L_RD_w - 1] = L_RD
+        #g_diag[1,iterate_g_L_RD_w - 1] = g
+        #L_RD_diag[1,iterate_g_L_RD_w - 1] = L_RD
 
-        w_diag[:,iterate_g_L_RD_w - 1] = w
-        V_diag[:,iterate_g_L_RD_w - 1] = V
-        W_diag[:,iterate_g_L_RD_w - 1] = W
-        μ_diag[:,iterate_g_L_RD_w - 1] = μ
+        #w_diag[:,iterate_g_L_RD_w - 1] = w
+        #V_diag[:,iterate_g_L_RD_w - 1] = V
+        #W_diag[:,iterate_g_L_RD_w - 1] = W
+        #μ_diag[:,iterate_g_L_RD_w - 1] = μ
 
     end
 
@@ -548,6 +548,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         end
     end
 
-    return w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
+    #return w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
+    return ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
 
 end

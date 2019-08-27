@@ -54,7 +54,7 @@ mutable struct ModelParameters
 
 end
 
-struct IncumbentSolution
+mutable struct IncumbentSolution
 
     V::Array{Float64}
     zI::Array{Float64}
