@@ -11,7 +11,6 @@
 #-------------------------------#
 
 using Revise
-using AutoGrad
 
 include("loadPath.jl")
 using EndogenousGrowthWithSpinouts
@@ -29,12 +28,12 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 # Enter calibration targets
 #-------------------------------#
 
-RDintensity = CalibrationTarget(0.15,1)
-InternalPatentShare = CalibrationTarget(0.2,1)
-SpinoutEntryRate = CalibrationTarget(0.05,1)
-SpinoutShare = CalibrationTarget(0.3,0)
+RDintensity = CalibrationTarget(0.11,1)
+InternalPatentShare = CalibrationTarget(0.5,1)
+SpinoutEntryRate = CalibrationTarget(0.03,1)
+SpinoutShare = CalibrationTarget(0.3,1)
 g = CalibrationTarget(0.015,1)
-RDLaborAllocation = CalibrationTarget(.05,0)
+RDLaborAllocation = CalibrationTarget(.1,1)
 
 calibPar = CalibrationParameters(RDintensity,InternalPatentShare,SpinoutEntryRate,SpinoutShare,g,RDLaborAllocation)
 
@@ -42,9 +41,9 @@ calibPar = CalibrationParameters(RDintensity,InternalPatentShare,SpinoutEntryRat
 # Run calibration
 #-------------------------------#
 
-#@time results,moments,score = calibrateModel(algoPar,modelPar,initGuess,calibPar)
+@time results,moments,score = calibrateModel(algoPar,modelPar,initGuess,calibPar)
 
-gradient = calibrateModel(algoPar,modelPar,initGuess,calibPar)
+#gradient = calibrateModel(algoPar,modelPar,initGuess,calibPar)
 
 println(results)
 println("\nMinimizer: $(results.minimizer)")

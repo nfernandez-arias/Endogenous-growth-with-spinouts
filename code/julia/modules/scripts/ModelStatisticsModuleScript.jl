@@ -23,15 +23,20 @@ function spinoutMassDecomposition(algoPar::AlgorithmParameters,modelPar::ModelPa
 
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
+    zS = zSFunc(algoPar,modelPar,idxM)
+    zE = zEFunc(modelPar,incumbentSolution,w,zS)
+
+    a = sFromE * zE + sFromS * zS + zI
+
     mI = zeros(size(mGrid))
     mS = zeros(size(mGrid))
     mE = zeros(size(mGrid))
 
-    mI_frac = zeros(size(mGrid))
-    mS_frac = zeros(size(mGrid))
-    mE_frac = zeros(size(mGrid))
+    mIFrac = zeros(size(mGrid))
+    mSFrac = zeros(size(mGrid))
+    mEFrac = zeros(size(mGrid))
 
-    for i = 2:length(mGrid))
+    for i = 2:length(mGrid)
 
         mI[i] = ν * sum( zI[1:i-1] .* ((ν*a[1:i-1]).^(-1)) .* Δm[1:i-1])
         mS[i] = sFromS * ν * sum( zS[1:i-1] .* ((ν*a[1:i-1]).^(-1)) .* Δm[1:i-1])
@@ -39,9 +44,9 @@ function spinoutMassDecomposition(algoPar::AlgorithmParameters,modelPar::ModelPa
 
     end
 
-    mI_frac[2:end] = mI[2:end] ./ mGrid[2:end]
-    mS_frac[2:end] = mS[2:end] ./ mGrid[2:end]
-    mE_frac[2:end] = mE[2:end] ./ mGrid[2:end]
+    mIFrac[2:end] = mI[2:end] ./ mGrid[2:end]
+    mSFrac[2:end] = mS[2:end] ./ mGrid[2:end]
+    mEFrac[2:end] = mE[2:end] ./ mGrid[2:end]
 
     return mIFrac,mSFrac,mEFrac
 

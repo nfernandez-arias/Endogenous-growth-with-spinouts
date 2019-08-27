@@ -70,13 +70,15 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     results,factor_zS,factor_zE,spinoutFlow = solveModel(algoPar,modelPar,guess,incumbentSolution)
 
 
-    wageEntrants = sFromE * w + (1-sFromE) * wbar * ones(size(w))
-    wageSpinouts = sFromS * w + (1-sFromS) * wbar * ones(size(w))
+    g = results.finalGuess.g
+    L_RD = results.finalGuess.L_RD
+    w = results.finalGuess.w
+    idxM = results.finalGuess.idxM
 
-
+    t = results.auxiliary.t
     μ = results.auxiliary.μ
     γ = results.auxiliary.γ
-    t = results.auxiliary.t
+
 
     Π = profit(results.finalGuess.L_RD,modelPar)
 
@@ -87,7 +89,15 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     #-----------------------------------#
     V = results.incumbent.V
     zI = results.incumbent.zI
+    noncompete = results.incumbent.noncompete
+
     W = results.spinoutValue
+
+
+    wageEntrants = sFromE * w + (1-sFromE) * wbar * ones(size(w))
+    wageSpinouts = sFromS * w + (1-sFromS) * wbar * ones(size(w))
+
+
 
 
     zS = zSFunc(algoPar,modelPar,idxM)
@@ -127,7 +137,12 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     # Calculate entry rates
     #-----------------------------------#
 
+    ## Decompose high type entrants into spinouts from incumbents, spinouts from spinouts, and non-spinouts (i.e. former ordinary entrants)
+
     mIFrac,mSFrac,mEFrac = spinoutMassDecomposition(algoPar,modelPar,guess,incumbentSolution)
+
+
+    ## Using the above, calculate entry rates by each group
 
     if noncompete[1] == 1
         innovationRateIncumbent = τI[1]
@@ -142,9 +157,6 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
         entryRateSpinoutsFromEntrants = sum(mEFrac .* τS .* μ .* Δm)
     end
 
-
-
-
     innovationRateIncumbent = sum(τI .* μ .* Δm)
     entryRateOrdinary = sum(τE .* μ .* Δm)
     entryRateSpinouts = sum(τS .* μ .* Δm)
@@ -152,21 +164,29 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
     internalPatentShare = innovationRateIncumbent / (innovationRateIncumbent + entryRate)
 
-    spinoutShare = entryRateSpinouts / entryRate
+    spinoutShare = (entryRateSpinoutsFromIncumbents + entryRateSpinoutsFromSpinouts) / entryRate
+
+    ## Calculate RD intensity for incumbents
 
     aggregateSales = finalGoodsLabor
 
-    aggregateRDSpending = sum(w .* zI .* γ .* μ .* Δm) + sum(wageEntrants .* zE .* γ .* μ .* Δm) + sum(wageSpinouts .* zS .* γ .* μ .* Δm)
+    aggregateRDSpendingByIncumbents = sum(w .* zI .* γ .* μ .* Δm)
+    aggregateRDSpendingBySpinouts = sum(wageSpinouts .* zS .* γ .* μ .* Δm)
+    aggregateRDSpendingByEntrants = sum(wageEntrants .* zE .* γ .* μ .* Δm)
 
-    RDintensity = aggregateRDSpending / aggregateSales
+    aggregateRDSpending = aggregateRDSpendingByIncumbents + aggregateRDSpendingBySpinouts + aggregateRDSpendingByEntrants
 
-    RDintensity =
+    RDintensity = aggregateRDSpendingByIncumbents / aggregateSales
+
+
+
+    ## Return model moments
 
     modelMoments = zeros(6)
 
     modelMoments[1] = RDintensity
     modelMoments[2] = internalPatentShare
-    modelMoments[3] = entryRateSpinouts
+    modelMoments[3] = entryRateSpinoutsFromIncumbents + entryRateSpinoutsFromSpinouts
     modelMoments[4] = spinoutShare
     modelMoments[5] = g
     modelMoments[6] = L_RD
@@ -239,16 +259,16 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
     # First, define objective function f in format that can
     # be used with ReverseDiff.jl
 
-    function f(x::Param{Array{Float64,1}})
+    function f(x::Array{Float64})
 
         # Unpack x vector into modelPar struct for inputting into model solver
 
         #modelPar.ρ = x[1]
-        modelPar.χI = value(x)[1]
-        modelPar.χS = value(x)[2]
-        modelPar.χE = value(x)[3] * value(x)[2]
-        modelPar.λ = value(x)[4]
-        modelPar.ν = value(x)[5]
+        modelPar.χI = x[1]
+        modelPar.χS = x[2]
+        modelPar.χE = x[3] * x[2]
+        modelPar.λ = x[4]
+        modelPar.ν = x[5]
 
         log_file = open("./figures/CalibrationLog.txt","a")
 
@@ -278,35 +298,33 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
                   modelPar.λ,
                   modelPar.ν ]
 
-    x0 = Param(initial_x)
+    #x0 = Param(initial_x)
 
-    lower = [1, 1, 0.2, 1.01, 0.02]
-    upper = [6, 6, 0.9, 1.08, 0.09]
+    lower = [1, 1, 0.1, 1.01, 0.008]
+    upper = [10, 6, 0.7, 1.12, 0.05]
 
     #inner_optimizer = GradientDescent()
-    #inner_optimizer = LBFGS()
+    inner_optimizer = LBFGS()
 
-
-
-    #results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(iterations = 50, store_trace = true, show_trace = true))
+    results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(iterations = 1, store_trace = true, show_trace = true))
     #results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer))
     #results = optimize(f,initial_x,inner_optimizer,Optim.Options(iterations = 1, store_trace = true, show_trace = true))
     #results = optimize(f,initial_x,method = inner_optimizer,iterations = 1,store_trace = true, show_trace = false)
 
-    #x = results.minimizer
+    x = results.minimizer
 
     # UMake some plots and return
 
-    #modelPar.ρ = x[1]
-    #modelPar.χI = x[1]
-    #modelPar.χS = x[2]
-    #modelPar.χE = x[3] * x[2]
-    #modelPar.λ = x[4]
-    #modelPar.ν = x[5]
+    modelPar.ρ = x[1]
+    modelPar.χI = x[1]
+    modelPar.χS = x[2]
+    modelPar.χE = x[3] * x[2]
+    modelPar.λ = x[4]
+    modelPar.ν = x[5]
 
-    #finalMoments = computeModelMoments(algoPar,modelPar,guess)
-    #finalScore = computeScore(algoPar,modelPar,guess,targets,weights)
-    #return results,finalMoments,finalScore
+    finalMoments = computeModelMoments(algoPar,modelPar,guess)
+    finalScore = computeScore(algoPar,modelPar,guess,targets,weights)
+    return results,finalMoments,finalScore
 
     #g = @diff f(x0)
 

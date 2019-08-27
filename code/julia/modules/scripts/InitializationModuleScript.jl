@@ -159,12 +159,12 @@ function setModelParameters()
     L = 1
 
     # Innovation
-    χI = 3
-    χS = 1
+    χI = 4
+    χS = 2
     χE = 0.5
     ψI = 0.5
     ψSE = 0.5
-    λ = 1.10
+    λ = 1.08
     #λ = 1.10
 
     # Spinouts
@@ -174,7 +174,7 @@ function setModelParameters()
     ζ = 0.93
 
     # Creative destruction
-    κ = 0.7
+    κ = 0.5
 
     # CNCs
     CNC = false
@@ -182,7 +182,7 @@ function setModelParameters()
     # Rate of Spinout formation of spinouts and entrants
 
     spinoutsFromSpinouts = 0.1
-    spinoutsFromEntrants = 0.05
+    spinoutsFromEntrants = 0.1
 
     # Spinouts ideas from different pool?
 
