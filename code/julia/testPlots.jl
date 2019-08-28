@@ -43,7 +43,7 @@ fraction_spinoutsFromEntrants = zeros(size(mGrid))
 
 for i = 2:length(mGrid)
 
-    mass_spinoutsFromIncumbents[i] = ν * sum( zI[1:i-1] .* ((ν*a[1:i-1]).^(-1)) .* Δm[1:i-1])
+    mass_spinoutsFromIncumbents[i] =  sum( (1 .- noncompete[1:i-1]) .* zI[1:i-1] .* ((ν*a[1:i-1]).^(-1)) .* Δm[1:i-1])
     mass_spinoutsFromSpinouts[i] = sFromS * ν * sum( zS[1:i-1] .* ((ν*a[1:i-1]).^(-1)) .* Δm[1:i-1])
     mass_spinoutsFromEntrants[i] = sFromE * ν * sum( zE[1:i-1] .* ((ν*a[1:i-1]).^(-1)) .* Δm[1:i-1])
 
@@ -59,18 +59,12 @@ fraction_spinoutsFromIncumbents[2:end] = mass_spinoutsFromIncumbents[2:end] ./ m
 fraction_spinoutsFromSpinouts[2:end] = mass_spinoutsFromSpinouts[2:end] ./ mGrid[2:end]
 fraction_spinoutsFromEntrants[2:end] = mass_spinoutsFromEntrants[2:end] ./ mGrid[2:end]
 
-if noncompete[1] == 1
-    innovationRateIncumbent = τI[1]
-    entryRateOrdinary = τE[1]
-    entryRateSpinouts = 0
-else
-    innovationRateIncumbent = sum(τI .* μ .* Δm)
-    entryRateOrdinary = sum(τE .* μ .* Δm)
-    entryRateSpinouts = sum(τS .* μ .* Δm)
-    entryRateSpinoutsFromIncumbents = sum(fraction_spinoutsFromIncumbents .* τS .* μ .* Δm)
-    entryRateSpinoutsFromSpinouts = sum(fraction_spinoutsFromSpinouts .* τS .* μ .* Δm)
-    entryRateSpinoutsFromEntrants = sum(fraction_spinoutsFromEntrants .* τS .* μ .* Δm)
-end
+innovationRateIncumbent = sum(τI .* μ .* Δm)
+entryRateOrdinary = sum(τE .* μ .* Δm)
+entryRateSpinouts = sum(τS .* μ .* Δm)
+entryRateSpinoutsFromIncumbents = sum(fraction_spinoutsFromIncumbents .* τS .* μ .* Δm)
+entryRateSpinoutsFromSpinouts = sum(fraction_spinoutsFromSpinouts .* τS .* μ .* Δm)
+entryRateSpinoutsFromEntrants = sum(fraction_spinoutsFromEntrants .* τS .* μ .* Δm)
 
 
 
@@ -114,15 +108,11 @@ aggregateSales = finalGoodsLabor
 wageSpinouts = (modelPar.spinoutsFromSpinouts * w + (1 - modelPar.spinoutsFromSpinouts) * EndogenousGrowthWithSpinouts.wbarFunc(modelPar.β) * ones(size(mGrid)))
 wageEntrants = (modelPar.spinoutsFromEntrants * w + (1 - modelPar.spinoutsFromEntrants) * EndogenousGrowthWithSpinouts.wbarFunc(modelPar.β) * ones(size(mGrid)))
 
-if noncompete[1] == 1
-    aggregateRDSpending = wbar * z[1]
-else
-    incumbentRDSpending = sum(w .* zI .* γ .* μ .* Δm)
-    incumbentRDSpending2 = sum(wageEntrants .* zI .* γ .* μ .* Δm)
-    entrantRDSpending = sum(wageEntrants .* zE .* γ .* μ .* Δm)
-    spinoutRDSpending = sum(wageSpinouts.* zS .* γ .* μ .* Δm)
-    aggregateRDSpending = incumbentRDSpending + entrantRDSpending + spinoutRDSpending
-end
+incumbentRDSpending = sum(w .* zI .* γ .* μ .* Δm)
+incumbentRDSpending2 = sum(wageEntrants .* zI .* γ .* μ .* Δm)
+entrantRDSpending = sum(wageEntrants .* zE .* γ .* μ .* Δm)
+spinoutRDSpending = sum(wageSpinouts.* zS .* γ .* μ .* Δm)
+aggregateRDSpending = incumbentRDSpending + entrantRDSpending + spinoutRDSpending
 
 aggregateRDSalesRatio = aggregateRDSpending / aggregateSales
 incumbentRDSalesRatio = incumbentRDSpending / aggregateSales
@@ -143,16 +133,9 @@ println("\n--------------------------------------------------------------")
 println("NON-TARGETED MOMENTS--------------------------------------------")
 println("--------------------------------------------------------------\n")
 
-
-if noncompete[1] == 1
-    growthContribution_incumbent = (λ - 1) * τI[1]
-    growthContribution_entrants = (λ - 1) * τE[1]
-    growthContribution_spinouts = 0
-else
-    growthContribution_incumbent = (λ - 1) * sum(τI .* γ .* μ .* Δm)
-    growthContribution_entrants = (λ - 1) * sum(τE .* γ .* μ .* Δm)
-    growthContribution_spinouts = (λ - 1) * sum(τS .* γ .* μ .* Δm)
-end
+growthContribution_incumbent = (λ - 1) * sum(τI .* γ .* μ .* Δm)
+growthContribution_entrants = (λ - 1) * sum(τE .* γ .* μ .* Δm)
+growthContribution_spinouts = (λ - 1) * sum(τS .* γ .* μ .* Δm)
 
 # Sanity check
 totalGrowth = growthContribution_incumbent + growthContribution_entrants + growthContribution_spinouts
@@ -215,8 +198,8 @@ VPrime2 = (V[3] - V[2]) / Δm[2]
 κ = modelPar.κ
 relativeProductivity = χE / χI
 businessStealing = λ / (λ - 1)
-wageDifference = w[1] / wageEntrants[1]
-cannibalizationBySpinouts = (w[1] - ν * VPrime2) / w[1]
+wageDifference = (noncompete[1] * wbar  + (1-noncompete[1]) * w[1])  / wageEntrants[1]
+cannibalizationBySpinouts = (w[1] - (1-noncompete[1]) * ν * VPrime2) / w[1]
 total = (1-κ) * (1 / (1-modelPar.ψI)) * relativeProductivity * businessStealing * wageDifference * cannibalizationBySpinouts
 
 println("\n--------------------------------------------------------------")

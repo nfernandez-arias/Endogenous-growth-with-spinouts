@@ -4,7 +4,7 @@ using Plots
 gr()
 #using Compat
 
-#using Revise
+using Revise
 using EndogenousGrowthWithSpinouts
 
 algoPar = setAlgorithmParameters()
@@ -14,16 +14,29 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 
 #initGuess2 = setInitialGuess(algoPar,modelPar,mGrid)
 
-sol = IncumbentSolution(zeros(size(mGrid)) * 0.5,zeros(size(mGrid)),zeros(size(mGrid)))
-#sol = IncumbentSolution(EndogenousGrowthWithSpinouts.initialGuessIncumbentHJB(algoPar,modelPar,initGuess),zeros(size(mGrid)),zeros(size(mGrid)))
+#sol = IncumbentSolution(zeros(size(mGrid)) * 0.5,zeros(size(mGrid)),zeros(size(mGrid)))
+sol = IncumbentSolution(EndogenousGrowthWithSpinouts.initialGuessIncumbentHJB(algoPar,modelPar,initGuess),zeros(size(mGrid)),zeros(size(mGrid)))
 
 #objective_diag,V_diag,zI_diag,out = solveIncumbentHJB_shooting(algoPar,modelPar,initGuess,sol)
-V_diag,zI_diag,out = solveIncumbentHJB(algoPar,modelPar,initGuess,sol)
+V_diag,zI_diag,noncompete_diag,out = solveIncumbentHJB(algoPar,modelPar,initGuess)
 
 anim = @animate for i = 1:length(V_diag[1,:])
-    plot(mGrid,V_diag[:,i], title = "V_diag[:,$i]", ylims = (0,1))
+    plot(mGrid,V_diag[:,i], ylims = (min(0,1.2 * minimum(V_diag)),1.2 * maximum(V_diag)), label = "V(m): iterate $i")
 end
-gif(anim,"figures/plotsGR/V_innermost_animation.gif",fps = 5)
+gif(anim,"figures/plotsGR/V_innermost_animation.gif",fps = 1)
+
+anim = @animate for i = 1:length(zI_diag[1,:])
+    plot(mGrid,zI_diag[:,i], ylims = (min(0,1.2 * minimum(zI_diag)),1.2 * maximum(zI_diag)), label = "V(m): iterate $i")
+end
+gif(anim,"figures/plotsGR/zI_innermost_animation.gif",fps = 1)
+
+anim = @animate for i = 1:length(noncompete_diag[1,:])
+    plot(mGrid,noncompete_diag[:,i], ylims = (min(0,1.2 * minimum(noncompete_diag)),1.2 * maximum(noncompete_diag)), label = "V(m): iterate $i")
+end
+gif(anim,"figures/plotsGR/noncompete_innermost_animation.gif",fps = 1)
+
+
+
 
 anim = @animate for i = 1:length(zI_diag[1,:])
     plot(mGrid,zI_diag[:,i], title = "zI_diag[:,$i]")
