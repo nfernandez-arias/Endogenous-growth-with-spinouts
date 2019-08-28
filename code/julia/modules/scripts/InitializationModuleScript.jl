@@ -15,7 +15,7 @@ function setAlgorithmParameters()
 
     mgrid_numPoints = 5000
     mgrid_minimum = 0.0
-    mgrid_maximum = .3
+    mgrid_maximum = .05
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-8 * mgrid_maximum
 
@@ -159,12 +159,12 @@ function setModelParameters()
     L = 1
 
     # Innovation
-    χI = 4
-    χS = 2
+    χI = 3
+    χS = 1
     χE = 0.5
     ψI = 0.5
     ψSE = 0.5
-    λ = 1.08
+    λ = 1.10
     #λ = 1.10
 
     # Spinouts
@@ -174,7 +174,7 @@ function setModelParameters()
     ζ = 0.93
 
     # Creative destruction
-    κ = 0.5
+    κ = 0.7
 
     # CNCs
     CNC = false
@@ -182,7 +182,7 @@ function setModelParameters()
     # Rate of Spinout formation of spinouts and entrants
 
     spinoutsFromSpinouts = 0.1
-    spinoutsFromEntrants = 0.1
+    spinoutsFromEntrants = 0.05
 
     # Spinouts ideas from different pool?
 
@@ -220,6 +220,8 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
 
 
     idxM = ceil(pa.mGrid.numPoints / 2)
+
+    #idxM = pa.mGrid.numPoints
 
     #idxM = 5
     #idxM = 1

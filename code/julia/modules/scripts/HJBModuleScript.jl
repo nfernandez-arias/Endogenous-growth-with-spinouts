@@ -279,9 +279,10 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     iterate = 1
     error = 1
 
-	#diagNumPoints = 50
+	#diagNumPoints = 20
 	#V_diag = zeros(length(mGrid),diagNumPoints)
 	#zI_diag = zeros(length(mGrid),diagNumPoints)
+	#noncompete_diag = zeros(length(mGrid),diagNumPoints)
 
 	#incumbentObjective(x) = 0
 
@@ -510,6 +511,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 		#V_diag[:,iterate] = V1
 		#zI_diag[:,iterate] = zI
+		#noncompete_diag[:,iterate] = noncompete
 
 		V0 = V1
 
@@ -526,7 +528,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 	end
 
     # Output
-    #return V_diag,zI_diag,IncumbentSolution(V0,zI,noncompete)
+    #return V_diag,zI_diag,noncompete_diag,IncumbentSolution(V0,zI,noncompete)
 	return IncumbentSolution(V0,zI,noncompete)
 
 end

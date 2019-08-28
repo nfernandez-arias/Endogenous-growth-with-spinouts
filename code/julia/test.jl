@@ -14,7 +14,7 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 
 include("testWelfarePlots.jl")
 
-@timev w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
+@timev w_diag,V_diag,noncompete_diag,W_diag,μ_diag,g_diag,L_RD_diag,results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
 #@timev w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,results.finalGuess,results.incumbent)
 
 @timev results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
