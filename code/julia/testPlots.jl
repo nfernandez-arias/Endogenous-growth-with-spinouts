@@ -198,8 +198,8 @@ VPrime2 = (V[3] - V[2]) / Δm[2]
 κ = modelPar.κ
 relativeProductivity = χE / χI
 businessStealing = λ / (λ - 1)
-wageDifference = w[1] / wageEntrants[1]
-cannibalizationBySpinouts = (w[1] - ν * VPrime2) / w[1]
+wageDifference = (noncompete[1] * wbar  + (1-noncompete[1]) * w[1])  / wageEntrants[1]
+cannibalizationBySpinouts = (w[1] - (1-noncompete[1]) * ν * VPrime2) / w[1]
 total = (1-κ) * (1 / (1-modelPar.ψI)) * relativeProductivity * businessStealing * wageDifference * cannibalizationBySpinouts
 
 println("\n--------------------------------------------------------------")

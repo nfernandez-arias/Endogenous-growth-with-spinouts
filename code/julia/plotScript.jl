@@ -82,7 +82,7 @@ aE = sFromE * ν * zE
 p = plot(ξ*mGrid,[ξ*ν * a ξ*aI ξ*aS ξ*aE ξ*(aI + aS + aE)], title = "Eq. drift in m-space", label = ["a(m)" "Incumbent" "Spinouts" "Entrants" "checksum"], xlabel = "Effective mass of spinouts (m * xi)", ylabel = "Effective mass of spinouts per year")
 png("figures/plotsGR/drift_sources_m.png")
 
-p = plot(t,[ξ*ν * a ξ*aI ξ*aS ξ*aE (aI + aS + aE)], title = "Eq. drift in m-space", label = ["a(m)" "Incumbent" "Spinouts" "Entrants" "checksum"], xlabel = "Years since last innovation", ylabel = "Effective mass of spinouts per year")
+p = plot(t,[ξ*ν * a ξ*aI ξ*aS ξ*aE ξ * (aI + aS + aE)], title = "Eq. drift in m-space", label = ["a(m)" "Incumbent" "Spinouts" "Entrants" "checksum"], xlabel = "Years since last innovation", ylabel = "Effective mass of spinouts per year")
 png("figures/plotsGR/drift_sources_t.png")
 
 

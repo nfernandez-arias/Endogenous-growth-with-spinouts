@@ -162,11 +162,7 @@ function updateV_implicit(algoPar::AlgorithmParameters, modelPar::ModelParameter
 
 	b = u .+ (1/timeStep) .* V0
 
-	try
-	 	V1 = B \ b
-	catch caughtError
-		print(B)
-	end
+	V1 = B \ b
 
 	error = sum(abs.(V1-V0)) ./ timeStep
 
