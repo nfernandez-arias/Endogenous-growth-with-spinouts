@@ -24,6 +24,8 @@ modelPar = setModelParameters()
 mGrid,Δm = mGridBuild(algoPar.mGrid)
 initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 
+modelPar.CNC = true
+
 #-------------------------------#
 # Enter calibration targets
 #-------------------------------#
@@ -35,6 +37,7 @@ SpinoutShare = CalibrationTarget(0.3,1)
 g = CalibrationTarget(0.015,1)
 RDLaborAllocation = CalibrationTarget(.1,1)
 WageRatio = CalibrationTarget(0.7,1)
+
 
 calibPar = CalibrationParameters(RDintensity,InternalPatentShare,SpinoutEntryRate,SpinoutShare,g,RDLaborAllocation,WageRatio)
 
@@ -55,7 +58,7 @@ println("Score: $score")
 # Display diagnostics
 #-------------------------------#
 
-f = open("./figures/calibration_output_noCNC.txt","w")
+f = open("./figures/calibration_output_CNC.txt","w")
 
 write(f,"$results\n\n")
 write(f,"Minimizer: $(results.minimizer)\n")

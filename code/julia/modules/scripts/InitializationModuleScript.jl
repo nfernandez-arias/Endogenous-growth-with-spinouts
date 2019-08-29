@@ -13,9 +13,9 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 500
+    mgrid_numPoints = 2000
     mgrid_minimum = 0.0
-    mgrid_maximum = .02
+    mgrid_maximum = .15
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-10 * mgrid_maximum
 

@@ -6,8 +6,7 @@
 
 using LinearAlgebra, Statistics, Optim
 
-export CalibrationTarget,CalibrationParameters,calibrateModel,computeModelMoments,computeScore
-
+export CalibrationTarget,ModelMoments,CalibrationParameters,calibrateModel,computeModelMoments,computeScore
 struct CalibrationTarget
 
     value::Float64
@@ -24,6 +23,21 @@ struct CalibrationParameters
     SpinoutShare::CalibrationTarget
     g::CalibrationTarget
     RDLaborAllocation::CalibrationTarget
+    WageRatio::CalibrationTarget
+
+end
+
+mutable struct ModelMoments
+
+    RDintensity::Float64
+    InternalPatentShare::Float64
+    EntryRate::Float64
+    SpinoutShare::Float64
+    g::Float64
+    RDLaborAllocation::Float64
+    WageRatio::Float64
+
+    ModelMoments() = new()
 
 end
 
@@ -144,18 +158,12 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
     ## Using the above, calculate entry rates by each group
 
-    if noncompete[1] == 1
-        innovationRateIncumbent = τI[1]
-        entryRateOrdinary = τE[1]
-        entryRateSpinouts = 0
-    else
-        innovationRateIncumbent = sum(τI .* μ .* Δm)
-        entryRateOrdinary = sum(τE .* μ .* Δm)
-        entryRateSpinouts = sum(τS .* μ .* Δm)
-        entryRateSpinoutsFromIncumbents = sum(mIFrac .* τS .* μ .* Δm)
-        entryRateSpinoutsFromSpinouts = sum(mSFrac .* τS .* μ .* Δm)
-        entryRateSpinoutsFromEntrants = sum(mEFrac .* τS .* μ .* Δm)
-    end
+    innovationRateIncumbent = sum(τI .* μ .* Δm)
+    entryRateOrdinary = sum(τE .* μ .* Δm)
+    entryRateSpinouts = sum(τS .* μ .* Δm)
+    entryRateSpinoutsFromIncumbents = sum(mIFrac .* τS .* μ .* Δm)
+    entryRateSpinoutsFromSpinouts = sum(mSFrac .* τS .* μ .* Δm)
+    entryRateSpinoutsFromEntrants = sum(mEFrac .* τS .* μ .* Δm)
 
     innovationRateIncumbent = sum(τI .* μ .* Δm)
     entryRateOrdinary = sum(τE .* μ .* Δm)
@@ -178,24 +186,26 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
     RDintensity = aggregateRDSpendingByIncumbents / aggregateSales
 
-
+    # Average wage of RD employee / average wage of production employee (of same human capital)
+    WageRatio = (aggregateRDSpending / L_RD)  / wbar
 
     ## Return model moments
 
-    modelMoments = zeros(6)
+    modelMoments = ModelMoments()
 
-    modelMoments[1] = RDintensity
-    modelMoments[2] = internalPatentShare
-    modelMoments[3] = entryRateSpinoutsFromIncumbents + entryRateSpinoutsFromSpinouts
-    modelMoments[4] = spinoutShare
-    modelMoments[5] = g
-    modelMoments[6] = L_RD
+    modelMoments.RDintensity  = RDintensity
+    modelMoments.InternalPatentShare = internalPatentShare
+    modelMoments.EntryRate = entryRateSpinoutsFromIncumbents + entryRateSpinoutsFromSpinouts
+    modelMoments.SpinoutShare = spinoutShare
+    modelMoments.g = g
+    modelMoments.RDLaborAllocation = L_RD
+    modelMoments.WageRatio = WageRatio
 
     return modelMoments,results
 
 end
 
-function computeScore(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess,targets::Vector{Float64},weights::Vector{Float64},incumbentSolution::IncumbentSolution)
+function computeScore(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess,calibPar::CalibrationParameters,targets::Array{Float64},weights::Array{Float64},incumbentSolution::IncumbentSolution)
 
     #--------------------------------#
     # Comute model moments
@@ -222,35 +232,41 @@ function computeScore(algoPar::AlgorithmParameters,modelPar::ModelParameters,gue
     # Compute score
     #--------------------------------#
 
-    score = (modelMoments - targets)' * Diagonal(weights) * (modelMoments - targets)
+    modelMomentsVec = zeros(length(fieldnames(typeof(modelMoments))),1)
 
-    return score
+    modelMomentsVec[1] = modelMoments.RDintensity
+    modelMomentsVec[2] = modelMoments.InternalPatentShare
+    modelMomentsVec[3] = modelMoments.EntryRate
+    modelMomentsVec[4] = modelMoments.SpinoutShare
+    modelMomentsVec[5] = modelMoments.g
+    modelMomentsVec[6] = modelMoments.RDLaborAllocation
+    modelMomentsVec[7] = modelMoments.WageRatio
+
+    score = (modelMomentsVec - targets)' * Diagonal(weights) * (modelMomentsVec - targets)
+
+    return score[1]
 
 end
 
 function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess,calibPar::CalibrationParameters)
-
-    targets = zeros(length(fieldnames(typeof(calibPar))))
-    weights = zeros(length(targets))
-
-    namesVec = fieldnames(typeof(calibPar))
-
-    for i = 1:length(namesVec)
-
-        temp = getfield(calibPar,namesVec[i])
-        targets[i] = temp.value
-        weights[i] = temp.weight
-
-    end
-
-    # Normalize weights
-    weights = weights / sum(weights)
 
     # Initial incumbent guess
     V = initialGuessIncumbentHJB(algoPar,modelPar,guess)
     zI = zeros(size(V))
     noncompete = zeros(size(V))
     incumbentSolution = IncumbentSolution(V,zI,noncompete)
+
+    targets = zeros(length(fieldnames(typeof(calibPar))),1)
+    weights = zeros(size(targets))
+
+    for (i,field) = enumerate(fieldnames(typeof(calibPar)))
+
+        temp = getfield(calibPar,field)
+
+        targets[i] = temp.value
+        weights[i] = temp.weight
+
+    end
 
     #----------------------------------#
     # Calibrate model based on weights
@@ -269,14 +285,18 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
         modelPar.χE = x[3] * x[2]
         modelPar.λ = x[4]
         modelPar.ν = x[5]
+        modelPar.ζ = x[6]
+        modelPar.κ = x[7]
+        modelPar.spinoutsFromSpinouts = x[8]
+        modelPar.spinoutsFromEntrants = x[9]
 
         log_file = open("./figures/CalibrationLog.txt","a")
 
-        write(log_file,"Iteration: χI = $(x[1]); χS = $(x[2]); χE = $(x[2] * x[3]); λ = $(x[4]); ν = $(x[5])\n")
+        write(log_file,"Iteration: χI = $(x[1]); χS = $(x[2]); χE = $(x[2] * x[3]); λ = $(x[4]); ν = $(x[5])\n; ζ = $(x[6]); κ = $(x[7]); sFromS = $(x[8]); sFromE = $(x[9])\n";)
 
         close(log_file)
 
-        output = computeScore(algoPar,modelPar,guess,targets,weights,incumbentSolution)
+        output = computeScore(algoPar,modelPar,guess,calibPar,targets,weights,incumbentSolution)
 
     end
 
@@ -296,15 +316,19 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
                   modelPar.χS,
                   modelPar.χE / modelPar.χS,
                   modelPar.λ,
-                  modelPar.ν ]
+                  modelPar.ν,
+                  modelPar.ζ,
+                  modelPar.κ,
+                  modelPar.spinoutsFromSpinouts,
+                  modelPar.spinoutsFromEntrants ]
 
-    #x0 = Param(initial_x)
 
-    lower = [1, 1, 0.1, 1.01, 0.008]
-    upper = [10, 6, 0.7, 1.12, 0.05]
+    lower = [1, 1, 0.1, 1.01, 0.008, 0, 0, 0.05, 0.05]
+    upper = [10, 6, 0.9, 1.12, 0.05, 1, 0.8, 1, 1]
 
     #inner_optimizer = GradientDescent()
     inner_optimizer = LBFGS()
+
 
     results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(iterations = 1, store_trace = true, show_trace = true))
     #results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer))
@@ -315,15 +339,20 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
 
     # UMake some plots and return
 
-    modelPar.ρ = x[1]
     modelPar.χI = x[1]
     modelPar.χS = x[2]
     modelPar.χE = x[3] * x[2]
     modelPar.λ = x[4]
     modelPar.ν = x[5]
+    modelPar.ζ = x[6]
+    modelPar.κ = x[7]
+    modelPar.spinoutsFromSpinouts = x[8]
+    modelPar.spinoutsFromEntrants = x[9]
 
-    finalMoments = computeModelMoments(algoPar,modelPar,guess)
-    finalScore = computeScore(algoPar,modelPar,guess,targets,weights)
+    modelSolution,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,guess)
+
+    finalMoments = computeModelMoments(algoPar,modelPar,guess,modelSolution.incumbent)
+    finalScore = computeScore(algoPar,modelPar,guess,calibPar,targets,weights,modelSolution.incumbent)
     return results,finalMoments,finalScore
 
     #g = @diff f(x0)
