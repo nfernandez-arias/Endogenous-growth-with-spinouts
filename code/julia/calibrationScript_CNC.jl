@@ -11,7 +11,7 @@
 #-------------------------------#
 
 using Revise
-using JLD2
+using JLD2, FileIO
 
 include("loadPath.jl")
 using EndogenousGrowthWithSpinouts
@@ -24,8 +24,6 @@ algoPar = setAlgorithmParameters()
 modelPar = setModelParameters()
 mGrid,Δm = mGridBuild(algoPar.mGrid)
 initGuess = setInitialGuess(algoPar,modelPar,mGrid)
-
-# Swtich to allowing non-competes
 
 modelPar.CNC = true
 
@@ -50,7 +48,7 @@ calibPar = CalibrationParameters(RDintensity,InternalPatentShare,SpinoutEntryRat
 @time calibrationResults,modelMoments,modelResults,score = calibrateModel(algoPar,modelPar,initGuess,calibPar)
 
 # Store results in JLD2 file
-@save "output/calibrationResults_CNC.jld2" calibrationResults modelMoments modelResults score
+@save "output/calibrationResults.jld2" calibrationResults modelMoments modelResults score
 
 println(calibrationResults)
 
@@ -68,7 +66,7 @@ println("κ = $(calibrationResults.minimizer[7])")
 println("spinoutsFromSpinouts = $(calibrationResults.minimizer[8])")
 println("spinoutsFromEntrants = $(calibrationResults.minimizer[9])\n\n")
 
-println("Moments: $moments\n\n")
+println("Moments: $modelMoments\n\n")
 
 
 println("Format : (target, model)\n")
@@ -104,7 +102,7 @@ write(f,"κ = $(calibrationResults.minimizer[7])\n")
 write(f,"spinoutsFromSpinouts = $(calibrationResults.minimizer[8])\n")
 write(f,"spinoutsFromEntrants = $(calibrationResults.minimizer[9])\n\n\n")
 
-write(f,"Moments: $moments\n\n\n")
+write(f,"Moments: $modelMoments\n\n\n")
 
 
 write(f,"Format : (target, model)\n\n")

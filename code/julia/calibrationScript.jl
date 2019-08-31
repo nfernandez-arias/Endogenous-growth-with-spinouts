@@ -64,7 +64,7 @@ println("κ = $(calibrationResults.minimizer[7])")
 println("spinoutsFromSpinouts = $(calibrationResults.minimizer[8])")
 println("spinoutsFromEntrants = $(calibrationResults.minimizer[9])\n\n")
 
-println("Moments: $moments\n\n")
+println("Moments: $modelMoments\n\n")
 
 
 println("Format : (target, model)\n")
@@ -100,7 +100,7 @@ write(f,"κ = $(calibrationResults.minimizer[7])\n")
 write(f,"spinoutsFromSpinouts = $(calibrationResults.minimizer[8])\n")
 write(f,"spinoutsFromEntrants = $(calibrationResults.minimizer[9])\n\n\n")
 
-write(f,"Moments: $moments\n\n\n")
+write(f,"Moments: $modelMoments\n\n\n")
 
 
 write(f,"Format : (target, model)\n\n")
