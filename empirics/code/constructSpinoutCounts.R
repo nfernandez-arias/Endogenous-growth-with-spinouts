@@ -59,9 +59,16 @@ parentsSpinouts_naics3 <- parentsSpinouts[(substr(NAICS1,1,3) == substr(naics,1,
 parentsSpinouts_naics2 <- parentsSpinouts[(substr(NAICS1,1,2) == substr(naics,1,2)) | (substr(NAICS2,1,2) == substr(naics,1,2)) | (substr(NAICS3,1,2) == substr(naics,1,2)) | (substr(NAICS4,1,2) == substr(naics,1,2))]
 parentsSpinouts_naics1 <- parentsSpinouts[(substr(NAICS1,1,1) == substr(naics,1,1)) | (substr(NAICS2,1,1) == substr(naics,1,1)) | (substr(NAICS3,1,1) == substr(naics,1,1)) | (substr(NAICS4,1,1) == substr(naics,1,1))]
 
+## Record for use elsewhere
+
+fwrite(parentsSpinouts_naics4,"data/parentsSpinoutsExits_naics4.csv")
+fwrite(parentsSpinouts_naics3,"data/parentsSpinoutsExits_naics3.csv")
+fwrite(parentsSpinouts_naics2,"data/parentsSpinoutsExits_naics2.csv")
+fwrite(parentsSpinouts_naics1,"data/parentsSpinoutsExits_naics1.csv")
+
 ## Here decide which one to use
 
-#parentsSpinouts <- parentsSpinouts_naics4
+parentsSpinouts <- parentsSpinouts_naics4
   
 # adding up individual weights; equivalently, unweighted at STARTUP level
 temp <- parentsSpinouts[ , sum(Weight), by = .(gvkey,year)]

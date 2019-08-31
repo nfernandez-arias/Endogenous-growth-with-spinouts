@@ -1,0 +1,67 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+	
+	
+\title{Non-competing spinouts}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+Suppose some fraction $\theta$ of spinouts generated do not compete with the parent firm but rather become high-type potential entrants in a random line $j$. Then the value of this is
+\begin{align*}
+	\mathcal{W} &= \int_0^{\infty} W(m)\mu(m)dm
+\end{align*}
+
+so that the indifference condition becomes
+\begin{align*}
+	\overline{w} &= w^K(m) + \nu^K \Big( \theta \mathcal{W} + (1-\theta) W(m) \Big)
+\end{align*}
+
+In order to get this result we have to make a more complicated assumption in the full model. For a line $j$ in state $(m,q,Q)$, intensity per unit of effort of a potential spinout forming in line $j$ is $(1-\theta) (q/Q)^{-1} \nu^K$. But the intensity for a spinout forming in a different line $j$ is simply $\theta \nu^K$. This assumption is necessary so that the wage does not depend on $q/Q$, since $\mathcal{W} = \mathcal{W}(Q)$ while $W(m,q,Q)$ depends on $q/Q$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

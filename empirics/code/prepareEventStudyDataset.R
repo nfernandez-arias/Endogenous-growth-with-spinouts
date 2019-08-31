@@ -16,7 +16,7 @@ rm(list = ls())
 library(lubridate)
 library(quantmod)
 
-parentsSpinouts <- unique(fread("data/parentsSpinouts.csv"), by = c("gvkey","EntityID"))
+parentsSpinouts <- unique(fread("data/parentsSpinoutsExits_naics4.csv"), by = c("gvkey","EntityID"))
 
 deals <- fread("raw/VentureSource/01Deals.csv")[order(EntityID,RoundNo)][, .(EntityID,RoundID,EntityName,CloseDate,RoundNo,RoundType,RoundBusinessStatus,RaisedUSD)]
 
@@ -44,7 +44,7 @@ CRSP[ , month := month(ymd(date))]
 
 CRSP[ , date := substr(date,1,6)]
 
-out <- out[ , .(year,month,EntityID,RoundID,RaisedUSD,gvkey,cusip)]
+out <- out[ , .(year,month,EntityID,RoundID,RoundType,RaisedUSD,gvkey,cusip)]
 out <- unique(out, by = c("gvkey","EntityID","RoundID"))
 CRSP <- CRSP[ , .(date,year,month,CUSIP,retDollars,RET,marketValueLag)]
 
@@ -61,7 +61,7 @@ CRSP <- CRSP[order(gvkey,year,month)]
 
 ## Add up all funding events
 
-CRSP[ , totalFunding := sum(RaisedUSD), by = c("cusip","year","month")]
+CRSP[, totalFunding := sum(na.omit(RaisedUSD)), by = c("cusip","year","month")]
 CRSP <- unique(CRSP, by = c("cusip","year","month"))
 
 CRSP[ , RaisedUSD := NULL]
@@ -108,7 +108,7 @@ setkey(CRSP,cusip)
 CRSP <- famaFrenchCoefficients[CRSP]
 
 ## Now can compute abnormal excess return
-
+      
 ## Expected return for holding period 
 
 CRSP[, expectedExcessReturn := coef_intercept + coef_mktExcess * mktExcess + coef_SMB * SMB + coef_HML * HML]
@@ -123,14 +123,17 @@ CRSP[ , totalFunding_z := (totalFunding - mean(totalFunding, na.rm = TRUE)) / sd
 ## Some plots
 
 plot(CRSP$totalFunding_z,CRSP$abnormalRetDollars_z)
+plot(CRSP$totalFunding,CRSP$abnormalRetDollars)
+
+CRSP <- CRSP[ year <= 2014]
 
 # Save data for use in Stata for regressions    
 fwrite(CRSP,"data/funding_stockReturns.csv")
-
+  
     
   
   
-
+  
 
 
 

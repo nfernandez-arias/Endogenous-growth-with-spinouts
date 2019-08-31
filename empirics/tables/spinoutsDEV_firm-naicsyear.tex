@@ -1,0 +1,39 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         \\
+\hline
+xrd         &     0.00563\sym{**} &     0.00398\sym{*}  &                     \\
+            &   (0.00186)         &   (0.00184)         &                     \\
+[1em]
+patentcount\_cw\_cumulative&   0.0000859         &    0.000197         &   0.0000903         \\
+            & (0.0000872)         & (0.0000992)         & (0.0000943)         \\
+[1em]
+patentapplicationcount\_cw\_ma5&     0.00195         &                     &     0.00197         \\
+            &   (0.00114)         &                     &   (0.00114)         \\
+[1em]
+emp         &     -0.0313         &     -0.0763         &     -0.0218         \\
+            &    (0.0415)         &    (0.0732)         &    (0.0424)         \\
+[1em]
+patentapplicationcount\_cw\_ma3&                     &     0.00260\sym{**} &                     \\
+            &                     &  (0.000798)         &                     \\
+[1em]
+xrd\_ma3     &                     &                     &     0.00532\sym{**} \\
+            &                     &                     &   (0.00193)         \\
+[1em]
+\_cons      &       3.624\sym{**} &       7.277\sym{***}&       3.586\sym{**} \\
+            &     (1.233)         &     (1.210)         &     (1.221)         \\
+[1em]
+NAICS4-Year FE&         Yes         &         Yes         &         Yes         \\
+[1em]
+Parent Firm FE&         Yes         &         Yes         &         Yes         \\
+\hline
+r2          &      0.0803         &      0.0943         &      0.0802         \\
+r2\_a\_within &   0.0000351         &   -0.000232         &  -0.0000194         \\
+N           &       17005         &       18665         &       17005         \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

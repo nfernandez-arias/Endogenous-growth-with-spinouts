@@ -1,30 +1,29 @@
 {
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{l*{4}{c}}
+\begin{tabular}{l*{2}{c}}
 \hline\hline
-            &\multicolumn{1}{c}{OLS (FE)}&\multicolumn{1}{c}{Negative binomial FE}&\multicolumn{1}{c}{Poisson}&\multicolumn{1}{c}{Poisson FE}\\
+            &\multicolumn{1}{c}{OLS (FE)}&\multicolumn{1}{c}{Negative binomial FE}\\
 \hline
-main        &                     &                     &                     &                     \\
-xrd         &    0.000689\sym{**} &    0.000652\sym{***}&    0.000372\sym{***}&    0.000123\sym{***}\\
-            &  (0.000222)         & (0.0000300)         & (0.0000231)         & (0.0000191)         \\
+xrd         &    0.000626\sym{**} &     0.00400         \\
+            &  (0.000218)         &   (0.00285)         \\
 [1em]
-xrdTimesTreatedPost&   -0.000224\sym{*}  & -0.00000443         &    0.000114         &  -0.0000385         \\
-            & (0.0000874)         &  (0.000173)         &  (0.000110)         & (0.0000643)         \\
+xrdTimesTreatedPost&   -0.000161         &    -0.00164         \\
+            & (0.0000822)         &   (0.00246)         \\
 [1em]
-emp         &    0.000961         &     0.00190\sym{**} &     0.00145\sym{*}  &    0.000642         \\
-            &   (0.00118)         &  (0.000708)         &  (0.000623)         &  (0.000919)         \\
+emp         &    0.000704         &     -0.0761         \\
+            &   (0.00116)         &    (0.0751)         \\
 [1em]
-patentcount\_cw\_cumulative&   0.0000253\sym{***}&  0.00000281\sym{**} &  0.00000197\sym{***}&   0.0000208\sym{*}  \\
-            &(0.00000563)         &(0.000000939)         &(0.000000583)         & (0.0000105)         \\
+patentcount\_cw\_cumulative&   0.0000238\sym{***}&    0.000197\sym{*}  \\
+            &(0.00000562)         & (0.0000853)         \\
 [1em]
-patentapplicationcount\_cw\_ma3&    0.000198\sym{***}&   0.0000732\sym{***}&   0.0000331\sym{***}&    0.000105\sym{*}  \\
-            & (0.0000493)         & (0.0000169)         &(0.00000666)         & (0.0000469)         \\
+patentapplicationcount\_cw\_ma3&    0.000214\sym{***}&     0.00260\sym{**} \\
+            & (0.0000506)         &  (0.000807)         \\
 \hline
-r2          &       0.586         &                     &                     &                     \\
-r2\_a\_within &       0.126         &                     &                     &                     \\
-N           &       20368         &       21710         &       21710         &       22706         \\
+r2          &       0.580         &      0.0943         \\
+r2\_a\_within &       0.118         &   -0.000297         \\
+N           &       18665         &       18665         \\
 \hline\hline
-\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
-\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\multicolumn{3}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{3}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
 \end{tabular}
 }

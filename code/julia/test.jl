@@ -6,7 +6,7 @@ using EndogenousGrowthWithSpinouts
 algoPar = setAlgorithmParameters()
 modelPar = setModelParameters()
 mGrid,Δm = mGridBuild(algoPar.mGrid)
-initGuess = setInitialGualgoPar,modelPar,guess,calibParess(algoPar,modelPar,mGrid)
+initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 
 #--------------------------------#
 # Solve model with the above parameters

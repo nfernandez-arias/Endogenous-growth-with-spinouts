@@ -24,10 +24,6 @@ source("code/matchPatentsToCompustat.R")
 # e.g. (1) whether they achieve revenue, (2) how much funding they receive, (3) whether they IPO, (4) IPO market capitalization
 source("code/constructSpinoutAttributes.R")
 
-# Prepare dataset for event study to see how 
-# much spinout funding affects parent firm stock price
-source("code/prepareEventStudyDataset")
-
 # Construct VentureSource - NAICS cross-walk
 source("code/VentureSource/prepare-VentureSource-NAICS-Crosswalk.R")
 
@@ -56,7 +52,11 @@ source("code/addNoncompeteEnforcementIndices.R")
 
 # Next, prepare the data for panel regressions in Stata
 source("code/prepareDataForStata.R")
-                            
+
+# Prepare dataset for event study to see how 
+# much spinout funding affects parent firm stock price
+source("code/prepareEventStudyDataset.R")
+                              
       
 
 

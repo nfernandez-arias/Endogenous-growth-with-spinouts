@@ -19,7 +19,7 @@ struct CalibrationParameters
 
     RDintensity::CalibrationTarget
     InternalPatentShare::CalibrationTarget
-    EntryRate::CalibrationTarget
+    SpinoutEntryRate::CalibrationTarget
     SpinoutShare::CalibrationTarget
     g::CalibrationTarget
     RDLaborAllocation::CalibrationTarget
@@ -31,7 +31,7 @@ mutable struct ModelMoments
 
     RDintensity::Float64
     InternalPatentShare::Float64
-    EntryRate::Float64
+    SpinoutEntryRate::Float64
     SpinoutShare::Float64
     g::Float64
     RDLaborAllocation::Float64
@@ -195,7 +195,7 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
     modelMoments.RDintensity  = RDintensity
     modelMoments.InternalPatentShare = internalPatentShare
-    modelMoments.EntryRate = entryRateSpinoutsFromIncumbents + entryRateSpinoutsFromSpinouts
+    modelMoments.SpinoutEntryRate = entryRateSpinoutsFromIncumbents + entryRateSpinoutsFromSpinouts
     modelMoments.SpinoutShare = spinoutShare
     modelMoments.g = g
     modelMoments.RDLaborAllocation = L_RD
@@ -236,13 +236,14 @@ function computeScore(algoPar::AlgorithmParameters,modelPar::ModelParameters,gue
 
     modelMomentsVec[1] = modelMoments.RDintensity
     modelMomentsVec[2] = modelMoments.InternalPatentShare
-    modelMomentsVec[3] = modelMoments.EntryRate
+    modelMomentsVec[3] = modelMoments.SpinoutEntryRate
     modelMomentsVec[4] = modelMoments.SpinoutShare
     modelMomentsVec[5] = modelMoments.g
     modelMomentsVec[6] = modelMoments.RDLaborAllocation
     modelMomentsVec[7] = modelMoments.WageRatio
 
-    score = (modelMomentsVec - targets)' * Diagonal(weights) * (modelMomentsVec - targets)
+    # divide error by target moment -- "unit free" errors. Weights can then reflect purely imoportance of the moment.
+    score = ((modelMomentsVec - targets)./targets)' * Diagonal(weights) * ((modelMomentsVec - targets)./targets)
 
     return score[1]
 
@@ -330,12 +331,12 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
     inner_optimizer = LBFGS()
 
 
-    results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(iterations = 1, store_trace = true, show_trace = true))
+    calibrationResults = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(iterations = 500, store_trace = true, show_trace = true))
     #results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer))
     #results = optimize(f,initial_x,inner_optimizer,Optim.Options(iterations = 1, store_trace = true, show_trace = true))
     #results = optimize(f,initial_x,method = inner_optimizer,iterations = 1,store_trace = true, show_trace = false)
 
-    x = results.minimizer
+    x = calibrationResults.minimizer
 
     # UMake some plots and return
 
@@ -351,9 +352,10 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
 
     modelSolution,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,guess)
 
-    finalMoments = computeModelMoments(algoPar,modelPar,guess,modelSolution.incumbent)
+    finalMoments,finalResults = computeModelMoments(algoPar,modelPar,guess,modelSolution.incumbent)
+
     finalScore = computeScore(algoPar,modelPar,guess,calibPar,targets,weights,modelSolution.incumbent)
-    return results,finalMoments,finalScore
+    return calibrationResults,finalMoments,finalResults,finalScore
 
     #g = @diff f(x0)
 

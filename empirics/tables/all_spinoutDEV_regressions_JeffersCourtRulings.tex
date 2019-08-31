@@ -1,0 +1,29 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{1}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{OLS Spinouts DEV}\\
+\hline
+xrd         &     0.00400         \\
+            &   (0.00285)         \\
+[1em]
+xrdTimesTreatedPost&    -0.00164         \\
+            &   (0.00246)         \\
+[1em]
+emp         &     -0.0761         \\
+            &    (0.0751)         \\
+[1em]
+patentcount\_cw\_cumulative&    0.000197\sym{*}  \\
+            & (0.0000853)         \\
+[1em]
+patentapplicationcount\_cw\_ma3&     0.00260\sym{**} \\
+            &  (0.000807)         \\
+\hline
+r2          &      0.0943         \\
+r2\_a\_within &   -0.000297         \\
+N           &       18665         \\
+\hline\hline
+\multicolumn{2}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{2}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}
