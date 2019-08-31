@@ -284,12 +284,18 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
         g = (λ - 1) .* sum(γ .* μ .* τ .* Δm)
 
         #----------------------#
+        # Compute drift due to non-competing spinouts
+        #----------------------#
+
+        driftNonCompeting = abarFunc(algoPar,modelPar,zI,zS,zE,μ)
+
+        #----------------------#
         # Return output
         #----------------------#
 
     end
 
-    return g,L_RD,μ,γ,t
+    return g,L_RD,μ,γ,t,driftNonCompeting
 
 end
 
@@ -330,6 +336,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     L_RD = initGuess.L_RD
     w = initGuess.w
     idxM = initGuess.idxM
+    driftNonCompeting = initGuess.driftNonCompeting
 
     # Construct new guess object - this will be the object
     # that will be updated throughout the algorithm
@@ -471,11 +478,13 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         zI = sol.zI
         noncompete = sol.noncompete
 
+        W,spinoutFlow = solveSpinoutHJB(algoPar,modelPar,guess,sol,guess.driftNonCompeting)
+
         ## Updating g,L_RD
-        temp_g,temp_L_RD,μ,γ,t = update_g_L_RD(algoPar,modelPar,guess,sol)
+        temp_g,temp_L_RD,μ,γ,t,driftNonCompeting = update_g_L_RD(algoPar,modelPar,guess,sol)
 
         # Solve spinout HJB using incumbent HJB
-        W,spinoutFlow = solveSpinoutHJB(algoPar,modelPar,guess,sol,μ)
+
 
         # Use spinout value to compute implied no-CNC R&D wage
         ν = modelPar.ν
@@ -509,11 +518,12 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
         iterate_g_L_RD_w += 1
 
-        #### Update guess        #### Update guess
+        #### Update guesses
 
         guess.g = g
         guess.L_RD = L_RD
         guess.w = w
+        guess.driftNonCompeting = driftNonCompeting
 
         #g_diag[1,iterate_g_L_RD_w - 1] = g
         #L_RD_diag[1,iterate_g_L_RD_w - 1] = L_RD

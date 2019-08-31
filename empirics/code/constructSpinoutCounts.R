@@ -36,7 +36,7 @@ parentsSpinouts <- parentsSpinouts[!is.na(foundingYear)]
  
 ###############
 # Who is a founder? 
-#
+#     
 # For now, only considering as founders those employees who joined during the founding year.
 ###########
 
@@ -68,7 +68,7 @@ fwrite(parentsSpinouts_naics1,"data/parentsSpinoutsExits_naics1.csv")
 
 ## Here decide which one to use
 
-parentsSpinouts <- parentsSpinouts_naics4
+#parentsSpinouts <- parentsSpinouts_naics4
   
 # adding up individual weights; equivalently, unweighted at STARTUP level
 temp <- parentsSpinouts[ , sum(Weight), by = .(gvkey,year)]

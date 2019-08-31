@@ -213,31 +213,14 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
     L_RD = 0.1
 
     β = pm.β
-    #wbar = (β^β)*(1-β)^(2-2*β);
     wbar = wbarFunc(β)
-
     w = 0.5 * wbar * ones(size(mGrid))
-    #w = 0.5 * wbar * ones(pa.mGrid.numPoints,1)
-
 
     idxM = ceil(pa.mGrid.numPoints / 2)
 
-    #idxM = pa.mGrid.numPoints
+    driftNonCompeting = 0
 
-    #idxM = 5
-    #idxM = 1
-
-    #zS = pm.ξ .* mGrid
-
-    #zS = 0.1 * ones(pa.mGrid.numPoints,1)
-
-    #zE = 0.1 * zS
-
-    #zE = 0.1*ones(size(zS))
-    #zE = 0 * ones(pa.mGrid.numPoints,1);
-
-    #return InitialGuess(L_RD,w,idxM,zS,zE)
-    initGuess = Guess(g,L_RD,w,idxM)
+    initGuess = Guess(g,L_RD,w,idxM,driftNonCompeting)
 
     return initGuess
 

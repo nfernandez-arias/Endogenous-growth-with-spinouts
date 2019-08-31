@@ -24,6 +24,9 @@ mutable struct Guess
     # Spinout entry threshold
     idxM::Int64
 
+    # Drift due to non-competing spinouts
+    driftNonCompeting::Float64
+
     # Spinout and entrant R&D effort
     #zS::Array{Float64}
 
