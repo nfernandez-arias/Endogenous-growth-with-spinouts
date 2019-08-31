@@ -19,7 +19,7 @@ import UnicodePlots
 
 export solveIncumbentHJB, solveSpinoutHJB
 
-function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, incumbentHJBSolution::IncumbentSolution)
+function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, incumbentHJBSolution::IncumbentSolution, μ::Array{Float64})
 
 	## Unpack model parameters
     ##########################
@@ -134,12 +134,14 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 	τI = τIFunc(modelPar,zI,zS,zE)
 	τSE = τSEFunc(modelPar,zI,zS,zE)
 
+	#abar = 
+
     for i = 1:length(mGrid)-1
 
 		A[i,1] = τI[i] * λ
 		#A[i,1] = τI[i]  # no λ term -- Moll's idea
-		A[i,i+1] = ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i] + sFromE * zE[i]) / Δm[i]
-		A[i,i] = - ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i] + sFromE * zE[i]) / Δm[i] - τI[i] - τSE[i]
+		A[i,i+1] = (θ * abar + (1-θ) * ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i] + sFromE * zE[i])) / Δm[i]
+		A[i,i] = - (θ * abar + (1-θ) * ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i] + sFromE * zE[i])) / Δm[i] - τI[i] - τSE[i]
 		#A[i,i] = - ν * (zI[i] + aSE[i]) / Δm[i]
 
     end

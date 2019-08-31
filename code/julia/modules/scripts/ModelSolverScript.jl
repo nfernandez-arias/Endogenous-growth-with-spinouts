@@ -471,8 +471,11 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         zI = sol.zI
         noncompete = sol.noncompete
 
+        ## Updating g,L_RD
+        temp_g,temp_L_RD,μ,γ,t = update_g_L_RD(algoPar,modelPar,guess,sol)
+
         # Solve spinout HJB using incumbent HJB
-        W,spinoutFlow = solveSpinoutHJB(algoPar,modelPar,guess,sol)
+        W,spinoutFlow = solveSpinoutHJB(algoPar,modelPar,guess,sol,μ)
 
         # Use spinout value to compute implied no-CNC R&D wage
         ν = modelPar.ν
@@ -482,9 +485,6 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
         # Calculate updated w
         w = algoPar.w.updateRate .* temp_w .+ (1 .- algoPar.w.updateRate) .* guess.w
-
-        ## Updating g,L_RD
-        temp_g,temp_L_RD,μ,γ,t = update_g_L_RD(algoPar,modelPar,guess,sol)
 
         g = algoPar.g.updateRate .* temp_g .+ (1 .- algoPar.g.updateRate) .* guess.g
         L_RD = algoPar.L_RD.updateRate .* temp_L_RD .+ (1 .- algoPar.L_RD.updateRate) .* guess.L_RD

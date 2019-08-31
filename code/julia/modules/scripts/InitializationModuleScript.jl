@@ -170,6 +170,7 @@ function setModelParameters()
     # Spinouts
     #ν = 0.0102495
     ν = 0.05
+    θ = 0
     ξ = 20
     ζ = 0.4
 
@@ -188,7 +189,7 @@ function setModelParameters()
 
     spinoutsSamePool = false
 
-    modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,ζ,κ,CNC,spinoutsFromSpinouts,spinoutsFromEntrants,spinoutsSamePool)
+    modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,θ,ξ,ζ,κ,CNC,spinoutsFromSpinouts,spinoutsFromEntrants,spinoutsSamePool)
 
     f = open("./figures/modelPar.txt", "w")
 
