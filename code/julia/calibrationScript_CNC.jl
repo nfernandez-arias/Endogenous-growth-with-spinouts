@@ -11,6 +11,7 @@
 #-------------------------------#
 
 using Revise
+using JLD2
 
 include("loadPath.jl")
 using EndogenousGrowthWithSpinouts
@@ -23,6 +24,8 @@ algoPar = setAlgorithmParameters()
 modelPar = setModelParameters()
 mGrid,Δm = mGridBuild(algoPar.mGrid)
 initGuess = setInitialGuess(algoPar,modelPar,mGrid)
+
+# Swtich to allowing non-competes
 
 modelPar.CNC = true
 
@@ -46,8 +49,8 @@ calibPar = CalibrationParameters(RDintensity,InternalPatentShare,SpinoutEntryRat
 
 @time calibrationResults,modelMoments,modelResults,score = calibrateModel(algoPar,modelPar,initGuess,calibPar)
 
-#gradient = calibrateModel(algoPar,modelPar,initGuess,calibPar)
-
+# Store results in JLD2 file
+@save "output/calibrationResults_CNC.jld2" calibrationResults modelMoments modelResults score
 
 println(calibrationResults)
 
@@ -72,11 +75,11 @@ println("Format : (target, model)\n")
 
 println("R&D Intensity: ($(RDintensity.value) , $(modelMoments.RDintensity))")
 println("Internal innovation share: ($(InternalPatentShare.value) , $(modelMoments.InternalPatentShare))")
-println("R&D Intensity: ($(SpinoutEntryRate.value) , $(modelMoments.SpinoutEntryRate))")
-println("R&D Intensity: ($(SpinoutShare.value) , $(modelMoments.SpinoutShare))")
-println("R&D Intensity: ($(g.value) , $(modelMoments.g))")
-println("R&D Intensity: ($(RDLaborAllocation.value) , $(modelMoments.RDLaborAllocation))")
-println("R&D Intensity: ($(WageRatio.value) , $(modelMoments.WageRatio))")
+println("Spinout Entry Rate: ($(SpinoutEntryRate.value) , $(modelMoments.SpinoutEntryRate))")
+println("Spinout Fractions of entry: ($(SpinoutShare.value) , $(modelMoments.SpinoutShare))")
+println("growth rate: ($(g.value) , $(modelMoments.g))")
+println("R&D Labor allocation: ($(RDLaborAllocation.value) , $(modelMoments.RDLaborAllocation))")
+println("Wage ratio (R&D to production): ($(WageRatio.value) , $(modelMoments.WageRatio))")
 
 
 #-------------------------------#
@@ -108,16 +111,16 @@ write(f,"Format : (target, model)\n\n")
 
 write(f,"R&D Intensity: ($(RDintensity.value) , $(modelMoments.RDintensity))\n")
 write(f,"Internal innovation share: ($(InternalPatentShare.value) , $(modelMoments.InternalPatentShare))\n")
-write(f,"R&D Intensity: ($(SpinoutEntryRate.value) , $(modelMoments.SpinoutEntryRate))\n")
-write(f,"R&D Intensity: ($(SpinoutShare.value) , $(modelMoments.SpinoutShare))\n")
-write(f,"R&D Intensity: ($(g.value) , $(modelMoments.g))\n")
-write(f,"R&D Intensity: ($(RDLaborAllocation.value) , $(modelMoments.RDLaborAllocation))\n")
-write(f,"R&D Intensity: ($(WageRatio.value) , $(modelMoments.WageRatio))\n")
+write(f,"Spinout Entry Rate: ($(SpinoutEntryRate.value) , $(modelMoments.SpinoutEntryRate))\n")
+write(f,"Spinout Fractions of entry: ($(SpinoutShare.value) , $(modelMoments.SpinoutShare))\n")
+write(f,"growth rate: ($(g.value) , $(modelMoments.g))\n")
+write(f,"R&D Labor allocation: ($(RDLaborAllocation.value) , $(modelMoments.RDLaborAllocation))\n")
+write(f,"Wage ratio (R&D to production): ($(WageRatio.value) , $(modelMoments.WageRatio))\n")
 
 close(f)
 
-using Plots
-gr()
+#using Plots
+#gr()
 
 #--------------------------------#
 # Make plots and compute statistics
@@ -125,9 +128,9 @@ gr()
 
 # rename here so I can reuse script..
 
-results = modelResults
+#results = modelResults
 
-include("testPlots_calibration_noCNC.jl")
+#include("testPlots_calibration_noCNC.jl")
 
 #--------------------------------#
 # Compute diagnostics
