@@ -22,10 +22,16 @@ include("testWelfarePlots.jl")
 using Plots
 gr()
 
+using JLD2, FileIO, Optim
+@load "output/calibrationResults.jld2" modelMoments modelResults score
+results = modelResults
+
 #--------------------------------#
 # Make plots and compute statistics
 #--------------------------------#
 
+
+include("testPlots_calibration_noCNC.jl")
 include("testPlots.jl")
 
 #--------------------------------#

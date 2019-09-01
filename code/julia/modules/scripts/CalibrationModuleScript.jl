@@ -21,7 +21,7 @@ struct CalibrationParameters
     InternalPatentShare::CalibrationTarget
     SpinoutEntryRate::CalibrationTarget
     SpinoutShare::CalibrationTarget
-    g::CalibrationTarget
+    g::CalibrationTargets
     RDLaborAllocation::CalibrationTarget
     WageRatio::CalibrationTarget
 

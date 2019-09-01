@@ -46,7 +46,7 @@ calibPar = CalibrationParameters(RDintensity,InternalPatentShare,SpinoutEntryRat
 @time calibrationResults,modelMoments,modelResults,score = calibrateModel(algoPar,modelPar,initGuess,calibPar)
 
 # Store results in JLD2 file
-@save "output/calibrationResults.jld2" calibrationResults modelMoments modelResults score
+@save "output/calibrationResults_noCNC.jld2" calibrationResults modelMoments modelResults score
 
 println(calibrationResults)
 

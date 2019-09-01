@@ -13,14 +13,14 @@ function f(x)
 end
 
 
-initial_x = [0.0 0.0]
+initial_x = [0.0 0.0 0.0 0.0]
 
-lower = [-0.5 -0.5]
-upper = [1.5 1.5]
+lower = [-0.5 -0.5 -0.5 -0.5]
+upper = [1.5 1.5 1.5 1.5]
 
 
 inner_optimizer = LBFGS()
 
 #results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(iterations = 0, store_trace = true, show_trace = true))
 
-results = optimize(f,initial_x,inner_optimizer,Optim.Options(iterations = 0, store_trace = true, show_trace = true))
+results = optimize(f,initial_x,inner_optimizer,Optim.Options(iterations = 1, store_trace = true, show_trace = true))
