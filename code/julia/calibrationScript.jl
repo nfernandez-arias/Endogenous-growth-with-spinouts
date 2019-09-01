@@ -84,7 +84,7 @@ println("Wage ratio (R&D to production): ($(WageRatio.value) , $(modelMoments.Wa
 
 f = open("./figures/calibration_output_noCNC.txt","w")
 
-write(f,"$results\n\n")
+write(f,"$calibrationResults\n\n")
 
 write(f,"Score: $score\n")
 
