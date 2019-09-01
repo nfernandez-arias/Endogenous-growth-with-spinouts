@@ -130,6 +130,21 @@ function aFunc(modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64},z
 
 end
 
+function WcalFunc(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess,W::Array{Float64},μ::Array{Float64},γ::Array{Float64})
+
+    mGrid,Δm = mGridBuild(algoPar.mGrid)
+
+    θ = modelPar.θ
+    ν = modelPar.ν
+    sFromS = modelPar.spinoutsFromSpinouts
+    sFromE = modelPar.spinoutsFromEntrants
+
+    Wcal = sum(W .* γ .* μ .* Δm)
+
+    return Wcal
+
+end
+
 function τSEFunc(modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64},zE::Array{Float64})
 
     χS = modelPar.χS

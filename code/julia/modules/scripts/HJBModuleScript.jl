@@ -125,6 +125,7 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
     ###################################################
 
 	idxM = guess.idxM
+	driftNonCompeting = guess.driftNonCompeting
 
     # Construct mGrid
     mGrid,Δm = mGridBuild(algoPar.mGrid)
@@ -135,12 +136,14 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 	τI = τIFunc(modelPar,zI,zS,zE)
 	τSE = τSEFunc(modelPar,zI,zS,zE)
 
+	drift = driftNonCompeting * ones(size(mGrid)) + ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i] + sFromE * zE[i])
+
     for i = 1:length(mGrid)-1
 
 		A[i,1] = τI[i] * λ
 		#A[i,1] = τI[i]  # no λ term -- Moll's idea
-		A[i,i+1] = ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i] + sFromE * zE[i]) / Δm[i]
-		A[i,i] = - ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i] + sFromE * zE[i]) / Δm[i] - τI[i] - τSE[i]
+		A[i,i+1] = drift[i] / Δm[i]
+		A[i,i] = - drift[i] / Δm[i] - τI[i] - τSE[i]
 		#A[i,i] = - ν * (zI[i] + aSE[i]) / Δm[i]
 
     end
@@ -231,6 +234,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     ## Unpack guess
     ###################################################
     w = guess.w;
+	wNC = guess.wNC;
     #zS = guess.zS;
     #zE = guess.zE;
 	idxM = guess.idxM
@@ -393,7 +397,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 				if ratio > 0
 
-					if CNC == false || numerator <=
+					if CNC == false || numerator <= wNC[i]
 
 						noncompete[i] = 0
 						zI[i] = ratio^(-1/ψI)
@@ -401,8 +405,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 					else
 
 						noncompete[i] = 1
-						numerator_CNC = wbarFunc(modelPar.β)
-						ratio_CNC = numerator_CNC / denominator
+						ratio_CNC = wNC[i] / denominator
 						zI[i] = ratio_CNC^(-1/ψI)
 
 					end

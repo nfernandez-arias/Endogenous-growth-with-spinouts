@@ -216,11 +216,13 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
     wbar = wbarFunc(β)
     w = 0.5 * wbar * ones(size(mGrid))
 
+    wNC = w
+
     idxM = ceil(pa.mGrid.numPoints / 2)
 
-    driftNonCompeting = 0
+    driftNC = 0
 
-    initGuess = Guess(g,L_RD,w,idxM,driftNonCompeting)
+    initGuess = Guess(g,L_RD,w,wNC,idxM,driftNC)
 
     return initGuess
 

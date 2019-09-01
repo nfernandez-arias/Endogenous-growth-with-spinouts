@@ -335,6 +335,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     g = initGuess.g
     L_RD = initGuess.L_RD
     w = initGuess.w
+    wNC = initGUess.wNC
     idxM = initGuess.idxM
     driftNonCompeting = initGuess.driftNonCompeting
 
@@ -478,25 +479,28 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         zI = sol.zI
         noncompete = sol.noncompete
 
+        # Solve spinout HJB using incumbent HJB
         W,spinoutFlow = solveSpinoutHJB(algoPar,modelPar,guess,sol,guess.driftNonCompeting)
 
         ## Updating g,L_RD
         temp_g,temp_L_RD,μ,γ,t,driftNonCompeting = update_g_L_RD(algoPar,modelPar,guess,sol)
 
-        # Solve spinout HJB using incumbent HJB
-
-
         # Use spinout value to compute implied no-CNC R&D wage
         ν = modelPar.ν
         wbar = wbarFunc(modelPar.β)
-        #temp_w = wbar .* ones(size(W)) .- ν .* W
-        temp_w = wbar .* ones(size(W)) .- (1-modelPar.ζ) *  ν .* W
+
+        # Calculate non-compete wage
+        temp_wNC = ones(size(mGrid)) .* (wbar .- modelPar.θ * (1-modelPar.ζ) * ν .* WcalFunc(algoPar,modelPar,guess,W,μ,γ))
+        temp_w = temp_wNC .- (1-modelPar.θ) * (1-modelPar.ζ) *  ν .* W
 
         # Calculate updated w
         w = algoPar.w.updateRate .* temp_w .+ (1 .- algoPar.w.updateRate) .* guess.w
-
+        wNC = algoPar.w.updateRate .* temp_wNC .+ (1 .- algoPar.w.updateRate) .* guess.wNC
         g = algoPar.g.updateRate .* temp_g .+ (1 .- algoPar.g.updateRate) .* guess.g
         L_RD = algoPar.L_RD.updateRate .* temp_L_RD .+ (1 .- algoPar.L_RD.updateRate) .* guess.L_RD
+
+
+
 
         #### Error
 
@@ -523,6 +527,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         guess.g = g
         guess.L_RD = L_RD
         guess.w = w
+        guess.wNC = wNC
         guess.driftNonCompeting = driftNonCompeting
 
         #g_diag[1,iterate_g_L_RD_w - 1] = g
@@ -562,6 +567,6 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     #return w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
     #return w_diag,V_diag,noncompete_diag,W_diag,μ_diag,g_diag,L_RD_diag,ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
-    return ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
+    return wNC,ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
 
 end
