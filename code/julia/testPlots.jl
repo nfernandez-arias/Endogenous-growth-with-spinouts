@@ -6,6 +6,13 @@ w = results.finalGuess.w
 zS = EndogenousGrowthWithSpinouts.zSFunc(algoPar,modelPar,idxM)
 zE = EndogenousGrowthWithSpinouts.zEFunc(modelPar,results.incumbent,w,zS)
 
+
+g = results.finalGuess.g
+L_RD = results.finalGuess.L_RD
+μ = results.auxiliary.μ
+γ = results.auxiliary.γ
+t = results.auxiliary.t
+
 #plot(mGrid,zE)
 #--------------------------------#
 # Unpack - using unpackScript.jl
@@ -17,56 +24,58 @@ include("unpackScript.jl")
 # Display solution
 #--------------------------------#
 
-g = results.finalGuess.g
-L_RD = results.finalGuess.L_RD
-μ = results.auxiliary.μ
-γ = results.auxiliary.γ
-t = results.auxiliary.t
+
 
 idxCNC = findfirst( (noncompete .> 0)[:] )
+
 
 println("\n--------------------------------------------------------------")
 println("Growth and RD Labor Allocation--------------------------------")
 println("--------------------------------------------------------------\n")
 println("g: $g (growth rate) \nL_RD: $L_RD (labor allocation to R&D)")
 
+mass_competingSpinoutsFromIncumbents = zeros(size(mGrid))
+mass_competingSpinoutsFromSpinouts = zeros(size(mGrid))
+mass_competingSpinoutsFromEntrants = zeros(size(mGrid))
+mass_nonCompetingSpinoutsFromIncumbents = zeros(size(mGrid))
+mass_nonCompetingSpinoutsFromSpinouts = zeros(size(mGrid))
 
-
-
-mass_spinoutsFromIncumbents = zeros(size(mGrid))
-mass_spinoutsFromSpinouts = zeros(size(mGrid))
-mass_spinoutsFromEntrants = zeros(size(mGrid))
-
-fraction_spinoutsFromIncumbents = zeros(size(mGrid))
-fraction_spinoutsFromSpinouts = zeros(size(mGrid))
-fraction_spinoutsFromEntrants = zeros(size(mGrid))
+fraction_competingSpinoutsFromIncumbents = zeros(size(mGrid))
+fraction_competingSpinoutsFromSpinouts = zeros(size(mGrid))
+fraction_competingSpinoutsFromEntrants = zeros(size(mGrid))
+fraction_nonCompetingSpinoutsFromIncumbents = zeros(size(mGrid))
+fraction_nonCompetingSpinoutsFromSpinouts = zeros(size(mGrid))
 
 for i = 2:length(mGrid)
 
-    mass_spinoutsFromIncumbents[i] =  sum( (1 .- noncompete[1:i-1]) .* zI[1:i-1] .* ((ν*a[1:i-1]).^(-1)) .* Δm[1:i-1])
-    mass_spinoutsFromSpinouts[i] = sFromS * ν * sum( zS[1:i-1] .* ((ν*a[1:i-1]).^(-1)) .* Δm[1:i-1])
-    mass_spinoutsFromEntrants[i] = sFromE * ν * sum( zE[1:i-1] .* ((ν*a[1:i-1]).^(-1)) .* Δm[1:i-1])
+    mass_nonCompetingSpinoutsFromIncumbents[i] = ν * sum( zI[1:i-1] .* ((ν*aNonCompeting[1:i-1]).^(-1)) .* Δm[1:i-1])
+    mass_nonCompetingSpinoutsFromSpinouts[i] = sFromS * ν * sum( zS[1:i-1] .* ((ν*aNonCompeting[1:i-1]).^(-1)) .* Δm[1:i-1])
+    mass_competingSpinoutsFromIncumbents[i] =  ν * sum( (1 .- noncompete[1:i-1]) .* zI[1:i-1] .* ((ν*aCompeting[1:i-1]).^(-1)) .* Δm[1:i-1])
+    mass_competingSpinoutsFromSpinouts[i] = sFromS * ν * sum( zS[1:i-1] .* ((ν*aCompeting[1:i-1]).^(-1)) .* Δm[1:i-1])
+    mass_competingSpinoutsFromEntrants[i] = sFromE * ν * sum( zE[1:i-1] .* ((ν*aCompeting[1:i-1]).^(-1)) .* Δm[1:i-1])
 
 end
 
-totalMass = mass_spinoutsFromIncumbents + mass_spinoutsFromSpinouts + mass_spinoutsFromEntrants
+totalMass = mass_competingSpinoutsFromIncumbents + mass_competingSpinoutsFromSpinouts + mass_competingSpinoutsFromEntrants + mass_nonCompetingSpinoutsFromIncumbents + mass_nonCompetingSpinoutsFromSpinouts
 
 # Leave the first index equal to zero - does not matter, since
 # only using to compute integrals where it is multiplied by
 # τS, and τS[1] = 0 as well.
 
-fraction_spinoutsFromIncumbents[2:end] = mass_spinoutsFromIncumbents[2:end] ./ mGrid[2:end]
-fraction_spinoutsFromSpinouts[2:end] = mass_spinoutsFromSpinouts[2:end] ./ mGrid[2:end]
-fraction_spinoutsFromEntrants[2:end] = mass_spinoutsFromEntrants[2:end] ./ mGrid[2:end]
+fraction_competingSpinoutsFromIncumbents[2:end] = mass_competingSpinoutsFromIncumbents[2:end] ./ mGrid[2:end]
+fraction_competingSpinoutsFromSpinouts[2:end] = mass_competingSpinoutsFromSpinouts[2:end] ./ mGrid[2:end]
+fraction_competingSpinoutsFromEntrants[2:end] = mass_competingSpinoutsFromEntrants[2:end] ./ mGrid[2:end]
+fraction_nonCompetingSpinoutsFromIncumbents[2:end] = mass_nonCompetingSpinoutsFromIncumbents[2:end] ./ mGrid[2:end]
+fraction_nonCompetingSpinoutsFromSpinouts[2:end] = mass_nonCompetingSpinoutsFromSpinouts[2:end] ./ mGrid[2:end]
 
 innovationRateIncumbent = sum(τI .* μ .* Δm)
 entryRateOrdinary = sum(τE .* μ .* Δm)
 entryRateSpinouts = sum(τS .* μ .* Δm)
-entryRateSpinoutsFromIncumbents = sum(fraction_spinoutsFromIncumbents .* τS .* μ .* Δm)
-entryRateSpinoutsFromSpinouts = sum(fraction_spinoutsFromSpinouts .* τS .* μ .* Δm)
-entryRateSpinoutsFromEntrants = sum(fraction_spinoutsFromEntrants .* τS .* μ .* Δm)
-
-
+entryRateCompetingSpinoutsFromSpinouts = sum(fraction_competingSpinoutsFromSpinouts .* τS .* μ .* Δm)
+entryRateCompetingSpinoutsFromIncumbents = sum(fraction_competingSpinoutsFromIncumbents .* τS .* μ .* Δm)
+entryRateCompetingSpinoutsFromEntrants = sum(fraction_competingSpinoutsFromEntrants .* τS .* μ .* Δm)
+entryRateNonCompetingSpinoutsFromIncumbents = sum(fraction_nonCompetingSpinoutsFromIncumbents .* τS .* μ .* Δm)
+entryRateNonCompetingSpinoutsFromSpinouts = sum(fraction_nonCompetingSpinoutsFromSpinouts .* τS .* μ .* Δm)
 
 
 entryRateTotal = entryRateOrdinary + entryRateSpinouts
@@ -80,13 +89,17 @@ println("\nof which:\n")
 println("$entryRateOrdinary (Entrants)")
 println("$entryRateSpinouts (Spinouts)")
 println("\nof which:\n")
-println("$entryRateSpinoutsFromIncumbents (Spinouts from Incumbents)")
-println("$entryRateSpinoutsFromSpinouts (Spinouts from Spinouts)")
-println("$entryRateSpinoutsFromEntrants (Spinouts from Entrants)")
+println("$entryRateCompetingSpinoutsFromIncumbents (Competing Spinouts from Incumbents)")
+println("$entryRateCompetingSpinoutsFromSpinouts (Competing Spinouts from Spinouts)")
+println("$entryRateCompetingSpinoutsFromEntrants (Competing Spinouts from Entrants)")
+println("$entryRateNonCompetingSpinoutsFromIncumbents (Noncompeting Spinouts from Incumbents)")
+println("$entryRateNonCompetingSpinoutsFromSpinouts (Noncompeting Spinouts from Spinouts)")
 println("\nIn percentages:\n")
-println("$(entryRateSpinoutsFromIncumbents / entryRateSpinouts) (Spinouts from Incumbents)")
-println("$(entryRateSpinoutsFromSpinouts / entryRateSpinouts) (Spinouts from Spinouts)")
-println("$(entryRateSpinoutsFromEntrants / entryRateSpinouts) (Spinouts from Entrants)")
+println("$(entryRateCompetingSpinoutsFromIncumbents / entryRateSpinouts) (Competing Spinouts from Incumbents)")
+println("$(entryRateCompetingSpinoutsFromSpinouts / entryRateSpinouts) (Competing Spinouts from Spinouts)")
+println("$(entryRateCompetingSpinoutsFromEntrants / entryRateSpinouts) (Competing Spinouts from Entrants)")
+println("$(entryRateNonCompetingSpinoutsFromIncumbents / entryRateSpinouts) (Noncompeting Spinouts from Incumbents)")
+println("$(entryRateNonCompetingSpinoutsFromSpinouts / entryRateSpinouts) (Noncompeting Spinouts from Spinouts)")
 
 
 internalInnovationShare = innovationRateIncumbent / (innovationRateIncumbent + entryRateTotal)
@@ -105,8 +118,8 @@ println("$spinoutFraction (Steady state fraction firms that started as spinouts)
 
 aggregateSales = finalGoodsLabor
 
-wageSpinouts = (modelPar.spinoutsFromSpinouts * w + (1 - modelPar.spinoutsFromSpinouts) * EndogenousGrowthWithSpinouts.wbarFunc(modelPar.β) * ones(size(mGrid)))
-wageEntrants = (modelPar.spinoutsFromEntrants * w + (1 - modelPar.spinoutsFromEntrants) * EndogenousGrowthWithSpinouts.wbarFunc(modelPar.β) * ones(size(mGrid)))
+wageSpinouts = (sFromS * w + (1 - modelPar.spinoutsFromSpinouts) * EndogenousGrowthWithSpinouts.wbarFunc(modelPar.β) * ones(size(mGrid)))
+wageEntrants = (sFromE * w + (1 - modelPar.spinoutsFromEntrants) * EndogenousGrowthWithSpinouts.wbarFunc(modelPar.β) * ones(size(mGrid)))
 
 incumbentRDSpending = sum(w .* zI .* γ .* μ .* Δm)
 incumbentRDSpending2 = sum(wageEntrants .* zI .* γ .* μ .* Δm)
@@ -199,7 +212,7 @@ VPrime2 = (V[3] - V[2]) / Δm[2]
 relativeProductivity = χE / χI
 businessStealing = λ / (λ - 1)
 wageDifference = (noncompete[1] * wbar  + (1-noncompete[1]) * w[1])  / wageEntrants[1]
-cannibalizationBySpinouts = (w[1] - (1-noncompete[1]) * ν * VPrime2) / w[1]
+cannibalizationBySpinouts = (w[1] - (1-θ) * (1-noncompete[1]) * ν * VPrime2) / w[1]
 total = (1-κ) * (1 / (1-modelPar.ψI)) * relativeProductivity * businessStealing * wageDifference * cannibalizationBySpinouts
 
 println("\n--------------------------------------------------------------")

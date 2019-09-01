@@ -170,7 +170,7 @@ function setModelParameters()
     # Spinouts
     #ν = 0.0102495
     ν = 0.05
-    θ = 0
+    θ = 0.4
     ξ = 20
     ζ = 0.4
 

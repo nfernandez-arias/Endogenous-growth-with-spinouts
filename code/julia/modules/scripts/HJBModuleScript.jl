@@ -52,7 +52,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
     ###################################################
     w = guess.w
 	idxM = guess.idxM
-	driftNonCompeting = guess.driftNonCompeting
+	driftNC = guess.driftNC
 	wbar = wbarFunc(modelPar.β)
 
 	zS = zSFunc(algoPar,modelPar,idxM)
@@ -66,7 +66,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	τSE = τSEFunc(modelPar,zI,zS,zE)
 	τ = τI .+ τSE
 
-	a = driftNonCompeting * ones(size(zI)) + sFromE * zE .+ sFromS * zS .+ zI .* (1 .- noncompete)  # Take into account effect of non-competes on drift
+	drift = driftNC * ν * (ones(size(zI)) + sFromE * zE .+ sFromS * zS .+ zI .* (1 .- noncompete)) # Take into account effect of non-competes on drift
 
     ## Construct mGrid and Delta_m vectors
     mGrid,Δm = mGridBuild(algoPar.mGrid)
@@ -100,7 +100,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
 		j = Imax - i
 
-		W[j] = ((a[j] *  ν / Δm[j]) * W[j+1] + zS_density[j] * ( spinoutFlow[j] )) / (ρ + τ[j] + a[j] * ν / Δm[j])
+		W[j] = ((drift[j] / Δm[j]) * W[j+1] + zS_density[j] * ( spinoutFlow[j] )) / (ρ + τ[j] + drift[j] / Δm[j])
 
 	end
 
@@ -125,7 +125,7 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
     ###################################################
 
 	idxM = guess.idxM
-	driftNonCompeting = guess.driftNonCompeting
+	driftNC = guess.driftNC
 
     # Construct mGrid
     mGrid,Δm = mGridBuild(algoPar.mGrid)
@@ -136,7 +136,7 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 	τI = τIFunc(modelPar,zI,zS,zE)
 	τSE = τSEFunc(modelPar,zI,zS,zE)
 
-	drift = driftNonCompeting * ones(size(mGrid)) + ν * ((1-noncompete[i]) * zI[i] + sFromS * zS[i] + sFromE * zE[i])
+	drift = driftNC * ones(size(mGrid)) + ν * (((1 .- noncompete) .* zI) + (sFromS * zS) + (sFromE * zE))
 
     for i = 1:length(mGrid)-1
 
@@ -238,7 +238,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     #zS = guess.zS;
     #zE = guess.zE;
 	idxM = guess.idxM
-	driftNonCompeting = guess.driftNonCompeting
+	driftNC = guess.driftNC
 
 	mGrid, Δm = mGridBuild(algoPar.mGrid)
 

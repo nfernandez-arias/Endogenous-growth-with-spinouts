@@ -122,6 +122,21 @@ function abarFunc(algoPar::AlgorithmParameters,modelPar::ModelParameters,zI::Arr
 
 end
 
+function abarIncumbentsFunc(algoPar::AlgorithmParameters,modelPar::ModelParameters,zI::Array{Float64},μ::Array{Float64})
+
+    mGrid,Δm = mGridBuild(algoPar.mGrid)
+
+    θ = modelPar.θ
+    ν = modelPar.ν
+    sFromS = modelPar.spinoutsFromSpinouts
+    sFromE = modelPar.spinoutsFromEntrants
+
+    abar = θ * ν * sum( zI .* μ .* Δm )
+
+    return abar
+
+end
+
 function aFunc(modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64},zE::Array{Float64},abar::Float64)
 
     a = abar + (1-θ) * ν * (zI + sFromS * zS + sFromE * zE)

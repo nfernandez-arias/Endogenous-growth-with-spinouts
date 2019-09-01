@@ -1,8 +1,24 @@
 
+
+ϕSE(z) = z .^(-modelPar.ψSE)
+ϕI(z) = z .^(-modelPar.ψI)
+χS = modelPar.χS
+λ = modelPar.λ
+ρ = modelPar.ρ
+ν = modelPar.ν
+ξ = modelPar.ξ
+ζ = modelPar.ζ
+ψI = modelPar.ψI
+χI = modelPar.χI
+β = modelPar.β
+θ = modelPar.θ
+
 L_RD = results.finalGuess.L_RD
 #γ = results.finalGuess.γ
 w = results.finalGuess.w
+wNC = results.finalGuess.wNC
 idxM = results.finalGuess.idxM
+driftNC = results.finalGuess.driftNC
 V = results.incumbent.V
 zI = results.incumbent.zI
 zIfromFOC = zeros(size(zI))
@@ -30,7 +46,10 @@ L_F = EndogenousGrowthWithSpinouts.LF(L_RD,modelPar)
 τ = τI + τSE
 
 z = zS + zE + zI
-a = sFromE * zE .+ sFromS * zS .+ zI .* (1 .- noncompete)
+aTotal = ν^(-1) * (ones(size(zI)) * driftNC + ν * (sFromE * zE .+ sFromS * zS .+ zI .* (1 .- noncompete)))
+aBarIncumbents = ν^(-1) * EndogenousGrowthWithSpinouts.abarIncumbentsFunc(algoPar,modelPar,zI,μ)
+aCompeting = aTotal - ν^(-1) *  driftNC * ones(size(zI))
+aNonCompeting = aTotal - aCompeting
 
 finalGoodsLabor = EndogenousGrowthWithSpinouts.LF(L_RD,modelPar)
 
@@ -48,17 +67,6 @@ end
 
 aPrime[end] = aPrime[end-1]
 
-ϕSE(z) = z .^(-modelPar.ψSE)
-ϕI(z) = z .^(-modelPar.ψI)
-χS = modelPar.χS
-λ = modelPar.λ
-ρ = modelPar.ρ
-ν = modelPar.ν
-ξ = modelPar.ξ
-ζ = modelPar.ζ
-ψI = modelPar.ψI
-χI = modelPar.χI
-β = modelPar.β
 #wbar = (β^β)*(1-β)^(2-2*β);
 
 wbar = EndogenousGrowthWithSpinouts.wbarFunc(β)
