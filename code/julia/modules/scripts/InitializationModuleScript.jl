@@ -15,7 +15,7 @@ function setAlgorithmParameters()
 
     mgrid_numPoints = 2000
     mgrid_minimum = 0.0
-    mgrid_maximum = .15
+    mgrid_maximum = .02
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-10 * mgrid_maximum
 
@@ -172,7 +172,7 @@ function setModelParameters()
     ν = 0.05
     θ = 0.4
     ξ = 20
-    ζ = 0.4
+    ζ = 0.9
 
     # Creative destruction
     κ = 0.2
