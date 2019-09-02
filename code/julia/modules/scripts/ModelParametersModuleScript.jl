@@ -37,6 +37,8 @@ mutable struct ModelParameters
 
     # Knowledge spillover rate
     ν::Float64
+	# Fraction non-competing
+	θ::Float64
     # Size of spinout
     ξ::Float64
     # Employee knowledge value discount

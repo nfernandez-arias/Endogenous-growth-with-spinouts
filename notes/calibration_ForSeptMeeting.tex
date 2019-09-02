@@ -81,9 +81,17 @@ The moments I have in mind are:
 		\item This is something I can calculate from my dataset that no other dataset has...
 		\item Model counterpart: weighted average
 		\begin{align*}
-			\frac{\int_0^{\infty} \nu^I W(m) z^I(m) \mu(m) dm}{\int_0^{\infty} z^I(m) w(m) \mu(m) dm}
+			\frac{\int_0^{\infty} \nu W(m) z^I(m) \gamma(m) \mu(m) dm}{\int_0^{\infty} z^I(m) w(m) \gamma(m) \mu(m) dm}
 		\end{align*}
+		\item Actually, the regression in the data is closer to capturing the integral of the ratio of the integrands above,
+		\begin{align*}
+			\int_0^{\infty} \Big(\theta \nu W(m) / w(m) \Big) \mu(m) dm 
+		\end{align*} 
 	\end{itemize}
+	\item Value of non-competing spinouts created per dollar of R\&D ($\gamma$ because more workers for higher $q$)
+		\begin{align*}
+		\nu \mathcal{W} \int_0^{\infty} \Big(\gamma(m) / w(m) \Big)\mu(m) dm 
+		\end{align*}
 	\item R\&D wages compared unskilled wage ratio
 	\begin{itemize}
 		\item Problem: in data, R\&D workers have more human capital

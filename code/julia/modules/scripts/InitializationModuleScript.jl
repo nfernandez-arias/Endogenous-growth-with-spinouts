@@ -13,9 +13,9 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 2000
+    mgrid_numPoints = 1000
     mgrid_minimum = 0.0
-    mgrid_maximum = .15
+    mgrid_maximum = .02
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-10 * mgrid_maximum
 
@@ -161,7 +161,7 @@ function setModelParameters()
     # Innovation
     χI = 3
     χS = 1.2
-    χE = 0.9
+    χE = 0.6
     ψI = 0.5
     ψSE = 0.5
     λ = 1.08
@@ -170,14 +170,15 @@ function setModelParameters()
     # Spinouts
     #ν = 0.0102495
     ν = 0.05
+    θ = 0.2
     ξ = 20
-    ζ = 0.4
+    ζ = 0.9
 
     # Creative destruction
     κ = 0.2
 
     # CNCs
-    CNC = false
+    CNC = true
 
     # Rate of Spinout formation of spinouts and entrants
 
@@ -188,7 +189,7 @@ function setModelParameters()
 
     spinoutsSamePool = false
 
-    modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,ξ,ζ,κ,CNC,spinoutsFromSpinouts,spinoutsFromEntrants,spinoutsSamePool)
+    modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,θ,ξ,ζ,κ,CNC,spinoutsFromSpinouts,spinoutsFromEntrants,spinoutsSamePool)
 
     f = open("./figures/modelPar.txt", "w")
 
@@ -212,31 +213,16 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
     L_RD = 0.1
 
     β = pm.β
-    #wbar = (β^β)*(1-β)^(2-2*β);
     wbar = wbarFunc(β)
-
     w = 0.5 * wbar * ones(size(mGrid))
-    #w = 0.5 * wbar * ones(pa.mGrid.numPoints,1)
 
+    wNC = w
 
     idxM = ceil(pa.mGrid.numPoints / 2)
 
-    #idxM = pa.mGrid.numPoints
+    driftNC = 0
 
-    #idxM = 5
-    #idxM = 1
-
-    #zS = pm.ξ .* mGrid
-
-    #zS = 0.1 * ones(pa.mGrid.numPoints,1)
-
-    #zE = 0.1 * zS
-
-    #zE = 0.1*ones(size(zS))
-    #zE = 0 * ones(pa.mGrid.numPoints,1);
-
-    #return InitialGuess(L_RD,w,idxM,zS,zE)
-    initGuess = Guess(g,L_RD,w,idxM)
+    initGuess = Guess(g,L_RD,w,wNC,idxM,driftNC)
 
     return initGuess
 

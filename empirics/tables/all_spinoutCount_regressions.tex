@@ -1,27 +1,27 @@
 {
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{l*{3}{c}}
+\begin{tabular}{l*{2}{c}}
 \hline\hline
-            &\multicolumn{1}{c}{OLS (FE)}&\multicolumn{1}{c}{Negative binomial FE}&\multicolumn{1}{c}{Poisson}\\
+            &\multicolumn{1}{c}{OLS (FE)}&\multicolumn{1}{c}{Negative binomial FE}\\
 \hline
-main        &                     &                     &                     \\
-xrd         &    0.000625\sym{*}  &    0.000126\sym{***}&    0.000111\sym{***}\\
-            &  (0.000259)         & (0.0000138)         & (0.0000180)         \\
+main        &                     &                     \\
+xrd         &    0.000625\sym{*}  &    0.000111\sym{***}\\
+            &  (0.000259)         & (0.0000180)         \\
 [1em]
-emp         &    0.000681         &    0.000111         &    0.000776         \\
-            &   (0.00117)         &  (0.000504)         &  (0.000989)         \\
+emp         &    0.000681         &    0.000776         \\
+            &   (0.00117)         &  (0.000989)         \\
 [1em]
-patentcount\_cw\_cumulative&   0.0000238\sym{***}&   0.0000111\sym{***}&   0.0000205\sym{*}  \\
-            &(0.00000520)         &(0.00000134)         &(0.00000956)         \\
+patentcount\_cw\_cumulative&   0.0000238\sym{***}&   0.0000205\sym{*}  \\
+            &(0.00000520)         &(0.00000956)         \\
 [1em]
-patentapplicationcount\_cw\_ma3&    0.000215\sym{***}&   0.0000636\sym{***}&    0.000109\sym{*}  \\
-            & (0.0000487)         &(0.00000709)         & (0.0000450)         \\
+patentapplicationcount\_cw\_ma3&    0.000215\sym{***}&    0.000109\sym{*}  \\
+            & (0.0000487)         & (0.0000450)         \\
 \hline
-r2          &       0.579         &                     &                     \\
-r2\_a\_within &       0.118         &                     &                     \\
-N           &       18665         &       21094         &       21094         \\
+r2          &       0.579         &                     \\
+r2\_a\_within &       0.118         &                     \\
+N           &       18665         &       21094         \\
 \hline\hline
-\multicolumn{4}{l}{\footnotesize Standard errors in parentheses}\\
-\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\multicolumn{3}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{3}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
 \end{tabular}
 }
