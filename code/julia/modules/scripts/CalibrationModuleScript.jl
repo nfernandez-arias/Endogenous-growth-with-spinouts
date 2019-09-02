@@ -366,7 +366,7 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
     modelPar.spinoutsFromSpinouts = x[8]
     modelPar.spinoutsFromEntrants = x[9]
 
-    modelSolution,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,guess)
+    wNC,modelSolution,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,guess)
 
     finalMoments,finalResults = computeModelMoments(algoPar,modelPar,guess,modelSolution.incumbent)
 
