@@ -80,7 +80,7 @@ end
 
 function zEFunc(modelPar::ModelParameters,V0::Float64,zI::Array{Float64},w::Array{Float64},wE::Array{Float64}, zS::Array{Float64})
 
-    wE = (modelPar.spinoutsFromEntrants * w + (1 - modelPar.spinoutsFromEntrants) * wbarFunc(modelPar.β) * ones(size(w)))
+    #wE = (modelPar.spinoutsFromEntrants * w + (1 - modelPar.spinoutsFromEntrants) * wbarFunc(modelPar.β) * ones(size(w)))
 
     if modelPar.spinoutsSamePool == true
 
