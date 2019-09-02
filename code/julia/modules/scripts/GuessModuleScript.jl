@@ -26,6 +26,9 @@ mutable struct Guess
     # Non-compete wage
     wNC::Array{Float64}
 
+    # Entrants wage
+    wE::Array{Float64}
+
     # Spinout entry threshold
     idxM::Int64
 

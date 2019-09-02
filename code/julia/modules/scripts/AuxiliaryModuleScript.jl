@@ -78,17 +78,15 @@ function zSFunc(algoPar::AlgorithmParameters,modelPar::ModelParameters,idxM::Int
 
 end
 
-function zEFunc(modelPar::ModelParameters,V0::Float64,zI::Array{Float64},w::Array{Float64},zS::Array{Float64})
-
-    wageEntrants = (modelPar.spinoutsFromEntrants * w + (1 - modelPar.spinoutsFromEntrants) * wbarFunc(modelPar.β) * ones(size(w)))
+function zEFunc(modelPar::ModelParameters,V0::Float64,zI::Array{Float64},wE::Array{Float64}, zS::Array{Float64})
 
     if modelPar.spinoutsSamePool == true
 
-        zE = max.( (wageEntrants ./ (modelPar.χE * (modelPar.λ * (1-modelPar.κ) .* V0))).^(-1/modelPar.ψI) .- zS .- zI,0)
+        zE = max.( (wE ./ (modelPar.χE * (modelPar.λ * (1-modelPar.κ) .* V0))).^(-1/modelPar.ψI) .- zS .- zI,0)
 
     else
 
-        zE = max.( (wageEntrants ./ (modelPar.χE * (modelPar.λ * (1-modelPar.κ) .* V0))).^(-1/modelPar.ψSE) .- zS,0)
+        zE = max.( (wE ./ (modelPar.χE * (modelPar.λ * (1-modelPar.κ) .* V0))).^(-1/modelPar.ψSE) .- zS,0)
 
     end
 
@@ -96,14 +94,14 @@ function zEFunc(modelPar::ModelParameters,V0::Float64,zI::Array{Float64},w::Arra
 
 end
 
-function zEFunc(modelPar::ModelParameters,incumbentHJBSolution::IncumbentSolution,w::Array{Float64},zS::Array{Float64})
+function zEFunc(modelPar::ModelParameters,incumbentHJBSolution::IncumbentSolution,wE::Array{Float64},zS::Array{Float64})
 
     V = incumbentHJBSolution.V
     zI = incumbentHJBSolution.zI
 
     V0 = V[1]
 
-    return zEFunc(modelPar,V0,zI,w,zS)
+    return zEFunc(modelPar,V0,zI,wE,zS)
 
 end
 

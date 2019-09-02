@@ -9,11 +9,11 @@ L: 1.0
 ψI: 0.5 
 ψSE: 0.5 
 λ: 1.08 
-ν: 0.05 
-θ: 0.2 
+ν: 0.01 
+θ: 0.5 
 ξ: 20.0 
-ζ: 0.9 
-κ: 0.2 
+ζ: 0.0 
+κ: 0.0 
 CNC: false 
 spinoutsFromSpinouts: 0.1 
 spinoutsFromEntrants: 0.05 

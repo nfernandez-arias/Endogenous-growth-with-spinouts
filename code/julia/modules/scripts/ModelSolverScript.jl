@@ -75,13 +75,14 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     old_idxM = guess.idxM
     #println("old_idxM = $old_idxM")
     w = guess.w
+    #wE = guess.wE
     wbar = wbarFunc(modelPar.β) * ones(size(w))
 
     #println("V[1] = $(V[1])")
 
     # Compute implied zS, zE
-    old_zS = zSFunc(algoPar,modelPar,old_idxM)
-    old_zE = zEFunc(modelPar,incumbentHJBSolution,w,old_zS)
+    #old_zS = zSFunc(algoPar,modelPar,old_idxM)
+    #old_zE = zEFunc(modelPar,incumbentHJBSolution,wE,old_zS)
 
     #########
     ## Compute new guesses
@@ -125,7 +126,10 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
 
     g = guess.g
     w = guess.w
+    wNC = guess.wNC
+    wE = guess.wE
     idxM = guess.idxM
+    driftNC = guess.driftNC
 
     zI = incumbentHJBSolution.zI
     V = incumbentHJBSolution.V
@@ -133,12 +137,13 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
     idxCNC = findfirst( (noncompete .> 0)[:] )
 
     zS = zSFunc(algoPar,modelPar,idxM)
-    zE = zEFunc(modelPar,incumbentHJBSolution,w,zS)
+    zE = zEFunc(modelPar,incumbentHJBSolution,wE,zS)
     τI = τIFunc(modelPar,zI,zS,zE)
     τSE = τSEFunc(modelPar,zI,zS,zE)
 
     ν = modelPar.ν
     λ = modelPar.λ
+    θ = modelPar.θ
     sFromS = modelPar.spinoutsFromSpinouts
     sFromE = modelPar.spinoutsFromEntrants
 
@@ -146,7 +151,7 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
 
     τ = τI .+ τSE
 
-    a = ν .* (sFromE .* zE .+ sFromS .* zS .+ zI .* (1 .- noncompete))   # No spinouts from zE or from incumbents using non-competes.
+    a = driftNC * ones(size(mGrid)) + (1-θ ) * ν .* (sFromE .* zE .+ sFromS .* zS .+ zI .* (1 .- noncompete))   # No spinouts from zE or from incumbents using non-competes.
 
     #print("a = $a\n")
     RDlabor = zS .+ zE .+ zI
@@ -316,6 +321,11 @@ end
 
 function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initGuess::Guess,incumbentSolution::IncumbentSolution)
 
+    ν = modelPar.ν
+    ζ = modelPar.ζ
+    θ = modelPar.θ
+    sFromE = modelPar.spinoutsFromEntrants
+
     # Error message
     if !(algoPar.g_L_RD_w_Log.verbose in (0,1,2))
         throw(ArgumentError("verbose should be 0, 1 or 2"))
@@ -336,13 +346,14 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     L_RD = initGuess.L_RD
     w = initGuess.w
     wNC = initGuess.wNC
+    wE = initGuess.wE
     idxM = initGuess.idxM
     driftNC = initGuess.driftNC
 
     # Construct new guess object - this will be the object
     # that will be updated throughout the algorithm
 
-    guess = Guess(g,L_RD,w,wNC,idxM,driftNC)
+    guess = Guess(g,L_RD,w,wNC,wE,idxM,driftNC)
 
     # Initialize outside of loops for returning
     V = initialGuessIncumbentHJB(algoPar,modelPar,initGuess)
@@ -364,6 +375,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     spinoutFlow = zeros(size(mGrid))
 
     #incumbentHJBSolution = sol
+
+
 
     # In case shit hits the fan
 
@@ -399,7 +412,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
         #anim = Animation()
 
-        cleanGuess = Guess(guess.g,guess.L_RD,guess.w,guess.wNC,guess.idxM,guess.driftNC)
+        cleanGuess = Guess(guess.g,guess.L_RD,guess.w,guess.wNC,guess.wE,guess.idxM,guess.driftNC)
 
         # Initialize while loop variables
         iterate_idxM = 1
@@ -430,13 +443,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
                 # Record initial values
                 old_idxM = guess.idxM
-
                 zS = zSFunc(algoPar,modelPar,old_idxM)
-                zE = zEFunc(modelPar,sol,w,zS)
-
-                #println("zS = $zS")
-                #println("zE = $zE")
-
+                zE = zEFunc(modelPar,sol,wE,zS)
 
                 # Update guess object (faster than making new one)
                 guess.idxM = update_idxM(algoPar,modelPar,guess,sol1)
@@ -488,12 +496,15 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         # Use spinout value to compute implied no-CNC R&D wage
         ν = modelPar.ν
         wbar = wbarFunc(modelPar.β)
+        Wcal = WcalFunc(algoPar,modelPar,guess,W,μ,γ)
 
         # Calculate non-compete wage
-        temp_wNC = ones(size(mGrid)) .* (wbar .- modelPar.θ * (1-modelPar.ζ) * ν .* WcalFunc(algoPar,modelPar,guess,W,μ,γ))
-        temp_w = temp_wNC .- (1-modelPar.θ) * (1-modelPar.ζ) *  ν .* W
+        temp_wE = (ones(size(mGrid)) .* wbar) .- (1- θ) * (sFromE * (1-ζ) * ν) * W
+        temp_wNC = ones(size(mGrid)) .* (wbar - θ * (1-ζ) * ν * Wcal)
+        temp_w = temp_wNC .- (1-θ) * (1-ζ) *  ν .* W
 
         # Calculate updated w
+        wE = algoPar.w.updateRate .* temp_wE .+ (1 .- algoPar.w.updateRate) .* guess.wE
         w = algoPar.w.updateRate .* temp_w .+ (1 .- algoPar.w.updateRate) .* guess.w
         wNC = algoPar.w.updateRate .* temp_wNC .+ (1 .- algoPar.w.updateRate) .* guess.wNC
         g = algoPar.g.updateRate .* temp_g .+ (1 .- algoPar.g.updateRate) .* guess.g
@@ -511,12 +522,14 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         error_g = abs(temp_g - guess.g)
         error_L_RD = abs(temp_L_RD - guess.L_RD)
         error_w = maximum(abs,temp_w .- guess.w)
+        error_wE = maximum(abs,temp_wE .- guess.wE)
+        error_wNC = maximum(abs,temp_wNC .- guess.wNC)
 
         ## Log
 
         if algoPar.g_L_RD_w_Log.verbose == 2
             if iterate_g_L_RD_w % algoPar.g_L_RD_w_Log.print_skip == 0
-                println("g,L_RD,w fixed point: Computed iterate $iterate_g_L_RD_w with error: (g, $error_g; L_RD, $error_L_RD; w, $error_w)")
+                println("g,L_RD,w fixed point: Computed iterate $iterate_g_L_RD_w with error: (g, $error_g; L_RD, $error_L_RD; w, $error_w; wE: $error_wE; wNC: $error_wNC)")
             end
         end
 
@@ -528,6 +541,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         guess.L_RD = L_RD
         guess.w = w
         guess.wNC = wNC
+        guess.wE = wE
         guess.driftNC = driftNC
 
         #g_diag[1,iterate_g_L_RD_w - 1] = g
@@ -567,6 +581,6 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     #return w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
     #return w_diag,V_diag,noncompete_diag,W_diag,μ_diag,g_diag,L_RD_diag,ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
-    return wNC,ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
+    return ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
 
 end

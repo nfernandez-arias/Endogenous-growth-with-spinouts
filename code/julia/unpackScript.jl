@@ -17,6 +17,7 @@
 L_RD = results.finalGuess.L_RD
 #γ = results.finalGuess.γ
 w = results.finalGuess.w
+wE = results.finalGuess.wE
 wNC = results.finalGuess.wNC
 idxM = results.finalGuess.idxM
 driftNC = results.finalGuess.driftNC

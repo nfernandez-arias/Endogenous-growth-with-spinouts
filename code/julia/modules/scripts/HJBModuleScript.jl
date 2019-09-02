@@ -80,6 +80,8 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	# Spinout flow construction
 	spinoutFlow = zeros(size(zS))
 
+
+
 	if modelPar.spinoutsSamePool == true
 
 		#spinoutFlow = χS .* ϕI(zS + zI + zE) .* (λ * (1-ζ) * V[1] ) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
@@ -175,7 +177,7 @@ function updateV_implicit(algoPar::AlgorithmParameters, modelPar::ModelParameter
 
 end
 
-#function updateV_explicit(algoPar::AlgorithmParameters, modelPar::ModelParameters, )
+#function updateV_explicit(algoPar::AlgorithmParameters, modelPar::ModelParameters, )modelParmodelPar.modelPar.modelPar.modelPar.modelPar.modelPar.modelPar.modelPar..
 
 function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, verbose = 2, print_skip = 10, implicit = true)
 
@@ -234,8 +236,9 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
     ## Unpack guess
     ###################################################
-    w = guess.w;
-	wNC = guess.wNC;
+    w = guess.w
+	wNC = guess.wNC
+	wE = guess.wE
     #zS = guess.zS;
     #zE = guess.zE;
 	idxM = guess.idxM
@@ -257,7 +260,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 	V_store = incumbentHJBSolution.V
 	zI_store = incumbentHJBSolution.zI
 	zS = zSFunc(algoPar,modelPar,idxM)
-	zE = zEFunc(modelPar,incumbentHJBSolution,w,zS)
+	zE = zEFunc(modelPar,incumbentHJBSolution,wE,zS)
 
 	# Initialize incumbent policies
 	noncompete = zeros(size(V0))
@@ -467,7 +470,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 			## Implicit method
 
 			# Compute flow payoff
-		    u = Π .- zI .* ((1 .- noncompete) .* w + noncompete .* wbarFunc(modelPar.β))
+		    u = Π .- zI .* ((1 .- noncompete) .* w + noncompete .* wNC)
 			#u = Π .+ τI .* (λ-1) .* V0[1]  .- zI .* ((1 .- noncompete) .* w + noncompete .* wbarFunc(modelPar.β))  # Moll's idea -- here add (λ-1) * τI * V0[1] term
 
 			# Update "transition" matrix A

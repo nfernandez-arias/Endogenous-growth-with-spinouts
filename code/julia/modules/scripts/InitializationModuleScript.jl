@@ -9,7 +9,7 @@ export setAlgorithmParameters, setModelParameters, setInitialGuess
 
 function setAlgorithmParameters()
 
-    outerLoopMax = 100
+    outerLoopMax = 150
 
     f = open("./figures/algoPar.txt", "w")
 
@@ -169,13 +169,13 @@ function setModelParameters()
 
     # Spinouts
     #ν = 0.0102495
-    ν = 0.05
-    θ = 0.2
+    ν = 0.01
+    θ = 0.5
     ξ = 20
-    ζ = 0.9
+    ζ = 0
 
     # Creative destruction
-    κ = 0.2
+    κ = 0
 
     # CNCs
     CNC = false
@@ -217,12 +217,13 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
     w = 0.5 * wbar * ones(size(mGrid))
 
     wNC = w
+    wE = w
 
     idxM = ceil(pa.mGrid.numPoints / 2)
 
     driftNC = 0
 
-    initGuess = Guess(g,L_RD,w,wNC,idxM,driftNC)
+    initGuess = Guess(g,L_RD,w,wNC,wE,idxM,driftNC)
 
     return initGuess
 

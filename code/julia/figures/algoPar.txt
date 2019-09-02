@@ -24,7 +24,7 @@ maxIter: 150
 g Iteration Parameters 
 ---------------
 tolerance: 1.0e-7 
-maxIter: 100.0 
+maxIter: 150.0 
 updateRate: 0.3 
 updateRateExponent: 1.0 
 
@@ -32,7 +32,7 @@ updateRateExponent: 1.0
 L_RD Iteration Parameters 
 ---------------
 tolerance: 1.0e-7 
-maxIter: 100.0 
+maxIter: 150.0 
 updateRate: 0.3 
 updateRateExponent: 1.0 
 
@@ -40,7 +40,7 @@ updateRateExponent: 1.0
 w Iteration Parameters 
 ---------------
 tolerance: 1.0e-7 
-maxIter: 100.0 
+maxIter: 150.0 
 updateRate: 0.3 
 updateRateExponent: 1.0 
 

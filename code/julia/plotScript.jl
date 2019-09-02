@@ -143,19 +143,21 @@ png("figures/plotsGR/effectiveRDWage_vs_t.png")
 χE = modelPar.χE
 κ = modelPar.κ
 relativeProductivity = χE / χI
-businessStealing = λ / (λ - 1)
+businessStealing = λ / (λ - 1) * ones(size(V))
+creativeDestructionCost = (1-κ) * ones(size(V))
+DRS = 1/(1-modelPar.ψI) * ones(size(V))
 wageDifference = w ./ wageEntrants
 cannibalizationBySpinouts = (w .- (1-θ) * ν * V1prime) ./ w
 nonCompetesEffect = (wNC .* noncompete) ./ (w .- (1-θ) * ν * V1prime) + (1 .- noncompete)
 escapeCompetition = ones(size(V)) * (λ * V[1] - V[1]) ./ (λ * V[1] * ones(size(V)) - V)
-total = (1-κ) * (1 / (1-modelPar.ψI)) .* relativeProductivity .* businessStealing .* wageDifference .* cannibalizationBySpinouts .* nonCompetesEffect .* escapeCompetition
+total = creativeDestructionCost .* DRS .* relativeProductivity .* businessStealing .* creativeDestructionCost .* wageDifference .* cannibalizationBySpinouts .* nonCompetesEffect .* escapeCompetition
 real = ((zE + zS) ./ zI).^(ψI)
 
 p = plot(t,[total real],label = ["Aggregated decomp." "Actual model"], title = "Check-sum of decomposition")
 png("figures/plotsGR/diagnostics/zEzIRatioDecomp_checksum.png")
 
-plotArray = [log(businessStealing)*ones(size(V)) log.(wageDifference) log.(cannibalizationBySpinouts) log.(nonCompetesEffect) log.(escapeCompetition)]
-labels = ["Business stealing" "Wage ratio" "Cannibalization by spinouts" "Noncompetes effect" "Escape competition"]
+plotArray = [log.(businessStealing) log.(creativeDestructionCost) log.(DRS) log.(wageDifference) log.(cannibalizationBySpinouts) log.(nonCompetesEffect) log.(escapeCompetition)]
+labels = ["Business stealing" "creativeDestructionCost" "DRS" "Wage ratio" "Cannibalization by spinouts" "Noncompetes effect" "Escape competition"]
 p = plot(t,plotArray, label = labels)
 png("figures/plotsGR/diagnostics/zEzIRatioDecomp.png")
 

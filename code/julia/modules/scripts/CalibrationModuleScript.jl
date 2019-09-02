@@ -84,7 +84,7 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     #-----------------------------------#
 
     #results,factor_zS,factor_zE,spinoutFlow = solveModel(algoPar,modelPar,guess)
-    wNC,results,factor_zS,factor_zE,spinoutFlow = solveModel(algoPar,modelPar,guess,incumbentSolution)
+    results,factor_zS,factor_zE,spinoutFlow = solveModel(algoPar,modelPar,guess,incumbentSolution)
 
 
     g = results.finalGuess.g
@@ -235,7 +235,10 @@ function computeScore(algoPar::AlgorithmParameters,modelPar::ModelParameters,gue
     guess.g = results.finalGuess.g
     guess.L_RD = results.finalGuess.L_RD
     guess.w = results.finalGuess.w
+    guess.wNC = results.finalGuess.wNC
+    guess.wE = results.finalGuess.wE
     guess.idxM = results.finalGuess.idxM
+    guess.driftNC = results.finalGuess.driftNC
 
     incumbentSolution.V = results.incumbent.V
     incumbentSolution.zI = results.incumbent.zI
@@ -366,7 +369,7 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
     modelPar.spinoutsFromSpinouts = x[8]
     modelPar.spinoutsFromEntrants = x[9]
 
-    wNC,modelSolution,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,guess)
+    modelSolution,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,guess)
 
     finalMoments,finalResults = computeModelMoments(algoPar,modelPar,guess,modelSolution.incumbent)
 

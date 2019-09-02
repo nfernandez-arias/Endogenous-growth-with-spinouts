@@ -120,7 +120,7 @@ println("$spinoutFraction (Steady state fraction firms that started as spinouts)
 aggregateSales = finalGoodsLabor
 
 wageSpinouts = (sFromS * w + (1-sFromS) * EndogenousGrowthWithSpinouts.wbarFunc(modelPar.β) * ones(size(mGrid)))
-wageEntrants = (sFromE * w + (1 - sFromE) * EndogenousGrowthWithSpinouts.wbarFunc(modelPar.β) * ones(size(mGrid)))
+wageEntrants = wE
 
 incumbentRDSpending = sum((w.*(1 .- noncompete) + wNC .* noncompete) .* zI .* γ .* μ .* Δm)
 incumbentRDSpending2 = sum(wageEntrants .* zI .* γ .* μ .* Δm)
@@ -212,16 +212,20 @@ VPrime2 = (V[3] - V[2]) / Δm[2]
 κ = modelPar.κ
 relativeProductivity = χE / χI
 businessStealing = λ / (λ - 1)
+creativeDestructionCost = (1-κ)
+DRS = (1 / (1-modelPar.ψI))
 wageDifference = w[1]  / wageEntrants[1]
 cannibalizationBySpinouts = (w[1] - (1-θ) * ν * VPrime2) / w[1]
 nonCompetesEffect = (wNC[1] * noncompete[1]) / (w[1] - (1-θ) * ν * VPrime2) + (1 - noncompete[1])
-total = (1-κ) * (1 / (1-modelPar.ψI)) * relativeProductivity * businessStealing * wageDifference * cannibalizationBySpinouts * nonCompetesEffect
+total = relativeProductivity * businessStealing * creativeDestructionCost * DRS * wageDifference * cannibalizationBySpinouts * nonCompetesEffect
 
 println("\n--------------------------------------------------------------")
 println("Difference in R&D effort ---------------------------------------")
 println("--------------------------------------------------------------\n")
 println("Relative productivity: $relativeProductivity")
 println("Business stealing: $businessStealing")
+println("Creative destruction cost: $creativeDestructionCost")
+println("Decreasing returns: $DRS")
 println("Nominal wage ratio: $wageDifference")
 println("Cannibalization by spinouts: $cannibalizationBySpinouts")
 println("Noncompetes effect: $nonCompetesEffect")
