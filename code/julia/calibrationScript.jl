@@ -13,7 +13,6 @@
 using Revise
 using JLD2, FileIO
 
-include("loadPath.jl")
 using EndogenousGrowthWithSpinouts
 
 #-------------------------------#

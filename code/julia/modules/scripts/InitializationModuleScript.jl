@@ -170,12 +170,12 @@ function setModelParameters()
     # Spinouts
     #ν = 0.0102495
     ν = 0.01
-    θ = 0.2
+    θ = 0
     ξ = 20
     ζ = 0
 
     # Creative destruction
-    κ = 0
+    κ = 0.5
 
     # CNCs
     CNC = false

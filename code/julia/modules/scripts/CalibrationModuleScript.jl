@@ -356,7 +356,7 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
     inner_optimizer = LBFGS()
 
 
-    calibrationResults = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(iterations = 1, store_trace = true, show_trace = true))
+    calibrationResults = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(outer_iterations = 1, iterations = 1, store_trace = true, show_trace = true))
     #results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer))
     #results = optimize(f,initial_x,inner_optimizer,Optim.Options(iterations = 1, store_trace = true, show_trace = true))
     #results = optimize(f,initial_x,method = inner_optimizer,iterations = 1,store_trace = true, show_trace = false)
