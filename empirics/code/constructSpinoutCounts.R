@@ -16,6 +16,7 @@ library(tidyr)
 
 parentsSpinouts <- fread("data/parentsSpinouts.csv") 
 exits <- fread("data/VentureSource/exits.csv")[ , .(EntityID,maxExit,exitYear,valAtExit,raisedAtExit_USD,RoundType,timeToExit,discountedExitValue)]
+firstFundings <- fread("data/VentureSource/exits.csv")[ , .(EntityID,maxFunding,firstFundingYear,valAtFirstFunding,raisedAtFirstFunding_USD,RoundType,timeToFirstFunding,discountedFirstFundingValue)]
 
 # First merge with information on exit values
 setkey(parentsSpinouts,EntityID)

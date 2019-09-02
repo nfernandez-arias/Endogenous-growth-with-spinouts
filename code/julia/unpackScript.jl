@@ -12,6 +12,7 @@
 χI = modelPar.χI
 β = modelPar.β
 θ = modelPar.θ
+κ = modelPar.κ
 
 L_RD = results.finalGuess.L_RD
 #γ = results.finalGuess.γ

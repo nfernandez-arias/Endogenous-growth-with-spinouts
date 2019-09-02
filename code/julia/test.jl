@@ -1,5 +1,3 @@
-include("loadPath.jl")
-
 using Revise
 using EndogenousGrowthWithSpinouts
 
