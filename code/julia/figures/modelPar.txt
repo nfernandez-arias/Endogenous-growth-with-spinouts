@@ -5,27 +5,16 @@ Model Parameters
 L: 1.0 
 χI: 3.0 
 χS: 1.2 
-<<<<<<< HEAD
-χE: 0.9 
-=======
 χE: 0.6 
->>>>>>> NonCompetingSpinouts
 ψI: 0.5 
 ψSE: 0.5 
 λ: 1.08 
 ν: 0.05 
-<<<<<<< HEAD
-ξ: 20.0 
-ζ: 0.4 
-κ: 0.2 
-CNC: false 
-=======
 θ: 0.2 
 ξ: 20.0 
 ζ: 0.9 
 κ: 0.2 
-CNC: true 
->>>>>>> NonCompetingSpinouts
+CNC: false 
 spinoutsFromSpinouts: 0.1 
 spinoutsFromEntrants: 0.05 
 spinoutsSamePool: false 

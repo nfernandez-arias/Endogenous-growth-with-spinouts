@@ -178,7 +178,7 @@ function setModelParameters()
     κ = 0.2
 
     # CNCs
-    CNC = true
+    CNC = false
 
     # Rate of Spinout formation of spinouts and entrants
 

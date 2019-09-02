@@ -7,6 +7,7 @@
 using LinearAlgebra, Statistics, Optim
 
 export CalibrationTarget,ModelMoments,CalibrationParameters,calibrateModel,computeModelMoments,computeScore
+
 struct CalibrationTarget
 
     value::Float64
@@ -21,9 +22,10 @@ struct CalibrationParameters
     InternalPatentShare::CalibrationTarget
     SpinoutEntryRate::CalibrationTarget
     SpinoutShare::CalibrationTarget
-    g::CalibrationTargets
+    g::CalibrationTarget
     RDLaborAllocation::CalibrationTarget
     WageRatio::CalibrationTarget
+    SpinoutsNCShare::CalibrationTarget
 
 end
 
@@ -36,6 +38,7 @@ mutable struct ModelMoments
     g::Float64
     RDLaborAllocation::Float64
     WageRatio::Float64
+    SpinoutsNCShare::Float64
 
     ModelMoments() = new()
 
@@ -81,7 +84,7 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     #-----------------------------------#
 
     #results,factor_zS,factor_zE,spinoutFlow = solveModel(algoPar,modelPar,guess)
-    results,factor_zS,factor_zE,spinoutFlow = solveModel(algoPar,modelPar,guess,incumbentSolution)
+    wNC,results,factor_zS,factor_zE,spinoutFlow = solveModel(algoPar,modelPar,guess,incumbentSolution)
 
 
     g = results.finalGuess.g
@@ -153,7 +156,7 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
     ## Decompose high type entrants into spinouts from incumbents, spinouts from spinouts, and non-spinouts (i.e. former ordinary entrants)
 
-    mIFrac,mSFrac,mEFrac = spinoutMassDecomposition(algoPar,modelPar,guess,incumbentSolution)
+    mIFrac,mSFrac,mEFrac,mI_NC_Frac,mS_NC_Frac = spinoutMassDecomposition(algoPar,modelPar,guess,incumbentSolution,μ,γ,t)
 
 
     ## Using the above, calculate entry rates by each group
@@ -164,6 +167,9 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     entryRateSpinoutsFromIncumbents = sum(mIFrac .* τS .* μ .* Δm)
     entryRateSpinoutsFromSpinouts = sum(mSFrac .* τS .* μ .* Δm)
     entryRateSpinoutsFromEntrants = sum(mEFrac .* τS .* μ .* Δm)
+
+    entryRateNonCompetingSpinoutsFromIncumbents = sum(mI_NC_Frac .* τS .* μ .* Δm)
+    entryRateNonCompetingSpinoutsFromSpinouts = sum(mS_NC_Frac .* τS .* μ .* Δm)
 
     innovationRateIncumbent = sum(τI .* μ .* Δm)
     entryRateOrdinary = sum(τE .* μ .* Δm)
@@ -189,6 +195,12 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     # Average wage of RD employee / average wage of production employee (of same human capital)
     WageRatio = (aggregateRDSpending / L_RD)  / wbar
 
+    # Non-competing spinouts share of spinout entry (i.e. successful innovations)
+
+    SpinoutsNCShare = (entryRateNonCompetingSpinoutsFromIncumbents +entryRateNonCompetingSpinoutsFromSpinouts) / entryRateSpinouts
+
+
+
     ## Return model moments
 
     modelMoments = ModelMoments()
@@ -200,6 +212,7 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     modelMoments.g = g
     modelMoments.RDLaborAllocation = L_RD
     modelMoments.WageRatio = WageRatio
+    modelMoments.SpinoutsNCShare = SpinoutsNCShare
 
     return modelMoments,results
 
@@ -241,6 +254,7 @@ function computeScore(algoPar::AlgorithmParameters,modelPar::ModelParameters,gue
     modelMomentsVec[5] = modelMoments.g
     modelMomentsVec[6] = modelMoments.RDLaborAllocation
     modelMomentsVec[7] = modelMoments.WageRatio
+    modelMomentsVec[8] = modelMoments.SpinoutsNCShare
 
     # divide error by target moment -- "unit free" errors. Weights can then reflect purely imoportance of the moment.
     score = ((modelMomentsVec - targets)./targets)' * Diagonal(weights) * ((modelMomentsVec - targets)./targets)
@@ -290,10 +304,11 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
         modelPar.κ = x[7]
         modelPar.spinoutsFromSpinouts = x[8]
         modelPar.spinoutsFromEntrants = x[9]
+        modelPar.θ = x[10]
 
         log_file = open("./figures/CalibrationLog.txt","a")
 
-        write(log_file,"Iteration: χI = $(x[1]); χS = $(x[2]); χE = $(x[2] * x[3]); λ = $(x[4]); ν = $(x[5])\n; ζ = $(x[6]); κ = $(x[7]); sFromS = $(x[8]); sFromE = $(x[9])\n";)
+        write(log_file,"Iteration: χI = $(x[1]); χS = $(x[2]); χE = $(x[2] * x[3]); λ = $(x[4]); ν = $(x[5])\n; ζ = $(x[6]); κ = $(x[7]); sFromS = $(x[8]); sFromE = $(x[9])\n; θ = $(x[10])\n")
 
         close(log_file)
 
@@ -321,17 +336,18 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
                   modelPar.ζ,
                   modelPar.κ,
                   modelPar.spinoutsFromSpinouts,
-                  modelPar.spinoutsFromEntrants ]
+                  modelPar.spinoutsFromEntrants,
+                  modelPar.θ ]
 
 
-    lower = [1, 1, 0.1, 1.01, 0.008, 0, 0, 0.05, 0.05]
-    upper = [10, 6, 0.9, 1.12, 0.05, 1, 0.8, 1, 1]
+    lower = [1, 1, 0.1, 1.01, 0.008, 0, 0, 0.05, 0.05, 0.05]
+    upper = [10, 6, 0.9, 1.12, 0.05, 1, 0.8, 1, 1, 0.95]
 
     #inner_optimizer = GradientDescent()
     inner_optimizer = LBFGS()
 
 
-    calibrationResults = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(iterations = 500, store_trace = true, show_trace = true))
+    calibrationResults = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(iterations = 1, store_trace = true, show_trace = true))
     #results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer))
     #results = optimize(f,initial_x,inner_optimizer,Optim.Options(iterations = 1, store_trace = true, show_trace = true))
     #results = optimize(f,initial_x,method = inner_optimizer,iterations = 1,store_trace = true, show_trace = false)

@@ -38,8 +38,9 @@ SpinoutShare = CalibrationTarget(0.3,1)
 g = CalibrationTarget(0.015,1)
 RDLaborAllocation = CalibrationTarget(.1,1)
 WageRatio = CalibrationTarget(0.7,1)
+SpinoutsNCShare = CalibrationTarget(0.5,1)
 
-calibPar = CalibrationParameters(RDintensity,InternalPatentShare,SpinoutEntryRate,SpinoutShare,g,RDLaborAllocation,WageRatio)
+calibPar = CalibrationParameters(RDintensity,InternalPatentShare,SpinoutEntryRate,SpinoutShare,g,RDLaborAllocation,WageRatio,SpinoutsNCShare)
 
 #-------------------------------#
 # Run calibration
