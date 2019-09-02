@@ -51,12 +51,13 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
     ## Unpack guess
     ###################################################
     w = guess.w
+	wE = guess.wE
 	idxM = guess.idxM
 	driftNC = guess.driftNC
 	wbar = wbarFunc(modelPar.β)
 
 	zS = zSFunc(algoPar,modelPar,idxM)
-	zE = zEFunc(modelPar,incumbentHJBSolution,w,zS)
+	zE = zEFunc(modelPar,incumbentHJBSolution,w,wE,zS)
 
 	V = incumbentHJBSolution.V
 	zI = incumbentHJBSolution.zI
@@ -258,7 +259,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 	V_store = incumbentHJBSolution.V
 	zI_store = incumbentHJBSolution.zI
 	zS = zSFunc(algoPar,modelPar,idxM)
-	zE = zEFunc(modelPar,incumbentHJBSolution,wE,zS)
+	zE = zEFunc(modelPar,incumbentHJBSolution,w,wE,zS)
 
 	# Initialize incumbent policies
 	noncompete = zeros(size(V0))

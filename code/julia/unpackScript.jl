@@ -28,7 +28,7 @@ noncompete = results.incumbent.noncompete
 W = results.spinoutValue
 
 zS = EndogenousGrowthWithSpinouts.zSFunc(algoPar,modelPar,idxM)
-zE = EndogenousGrowthWithSpinouts.zEFunc(modelPar,results.incumbent,w,zS)
+zE = EndogenousGrowthWithSpinouts.zEFunc(modelPar,results.incumbent,w,wE,zS)
 
 zS_density = zeros(size(zS))
 zS_density[2:end] = (zS ./ mGrid)[2:end]
