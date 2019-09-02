@@ -137,7 +137,7 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
     idxCNC = findfirst( (noncompete .> 0)[:] )
 
     zS = zSFunc(algoPar,modelPar,idxM)
-    zE = zEFunc(modelPar,incumbentHJBSolution,wE,zS)
+    zE = zEFunc(modelPar,incumbentHJBSolution,w,wE,zS)
     τI = τIFunc(modelPar,zI,zS,zE)
     τSE = τSEFunc(modelPar,zI,zS,zE)
 
@@ -444,7 +444,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                 # Record initial values
                 old_idxM = guess.idxM
                 zS = zSFunc(algoPar,modelPar,old_idxM)
-                zE = zEFunc(modelPar,sol,wE,zS)
+                zE = zEFunc(modelPar,sol,w,wE,zS)
 
                 # Update guess object (faster than making new one)
                 guess.idxM = update_idxM(algoPar,modelPar,guess,sol1)
