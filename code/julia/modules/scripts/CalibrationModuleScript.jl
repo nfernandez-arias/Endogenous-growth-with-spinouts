@@ -90,6 +90,8 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     g = results.finalGuess.g
     L_RD = results.finalGuess.L_RD
     w = results.finalGuess.w
+    wNC = results.finalGuess.wNC
+    wE = results.finalGuess.wE
     idxM = results.finalGuess.idxM
 
     t = results.auxiliary.t
@@ -118,7 +120,7 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
 
     zS = zSFunc(algoPar,modelPar,idxM)
-    zE = zEFunc(modelPar,results.incumbent,w,zS)
+    zE = zEFunc(modelPar,results.incumbent,w,wE,zS)
 
     #-----------------------------------#
     # Extract derived equilibrium variables
@@ -309,9 +311,13 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
         modelPar.spinoutsFromEntrants = x[9]
         modelPar.θ = x[10]
 
-        log_file = open("./figures/CalibrationLog.txt","a")
+        if modelPar.CNC == true
+            log_file = open("./figures/CalibrationLog_CNC.txt","a")
+        else
+            log_file = open("./figures/CalibrationLog_noCNC.txt","a")
+        end
 
-        write(log_file,"Iteration: χI = $(x[1]); χS = $(x[2]); χE = $(x[2] * x[3]); λ = $(x[4]); ν = $(x[5])\n; ζ = $(x[6]); κ = $(x[7]); sFromS = $(x[8]); sFromE = $(x[9])\n; θ = $(x[10])\n")
+        write(log_file,"Iteration: χI = $(x[1]); χS = $(x[2]); χE = $(x[2] * x[3]); λ = $(x[4]); ν = $(x[5]); ζ = $(x[6]); κ = $(x[7]); sFromS = $(x[8]); sFromE = $(x[9]); θ = $(x[10])\n")
 
         close(log_file)
 

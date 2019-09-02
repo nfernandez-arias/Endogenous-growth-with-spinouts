@@ -15,6 +15,7 @@ function spinoutMassDecomposition(algoPar::AlgorithmParameters,modelPar::ModelPa
     g = guess.g
     L_RD = guess.L_RD
     w = guess.w
+    wE = guess.wE
     wNC = guess.wNC
     idxM = guess.idxM
     driftNC = guess.driftNC
@@ -27,7 +28,7 @@ function spinoutMassDecomposition(algoPar::AlgorithmParameters,modelPar::ModelPa
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
     zS = zSFunc(algoPar,modelPar,idxM)
-    zE = zEFunc(modelPar,incumbentSolution,w,zS)
+    zE = zEFunc(modelPar,incumbentSolution,w,wE,zS)
 
     a = sFromE * zE + sFromS * zS + zI
 
