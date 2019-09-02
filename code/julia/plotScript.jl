@@ -68,7 +68,7 @@ png("figures/plotsGR/wages_t.png")
 # Plot a(m)
 #-----------------------------------------#
 
-p = plot(mGrid,ν * a, title = "Eq. drift in m-space", label = "a(m)", xlabel = "Mass of spinouts", ylabel = "Expected mass of spinouts formed per year")
+p = plot(mGrid,ν * aTotal, title = "Eq. drift in m-space", label = "a(m)", xlabel = "Mass of spinouts", ylabel = "Expected mass of spinouts formed per year")
 png("figures/plotsGR/drift.png")
 
 #-----------------------------------------#

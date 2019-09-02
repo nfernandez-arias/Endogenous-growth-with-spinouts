@@ -177,8 +177,6 @@ function updateV_implicit(algoPar::AlgorithmParameters, modelPar::ModelParameter
 
 end
 
-#function updateV_explicit(algoPar::AlgorithmParameters, modelPar::ModelParameters, )modelParmodelPar.modelPar.modelPar.modelPar.modelPar.modelPar.modelPar.modelPar..
-
 function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, verbose = 2, print_skip = 10, implicit = true)
 
 	V = initialGuessIncumbentHJB(algoPar,modelPar,guess)
