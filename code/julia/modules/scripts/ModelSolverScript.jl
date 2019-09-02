@@ -287,7 +287,7 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
         # Compute drift due to non-competing spinouts
         #----------------------#
 
-        driftNC = abarFunc(algoPar,modelPar,zI,zS,zE,μ)
+        driftNC = abarFunc(algoPar,modelPar,zI,zS,zE,μ,γ)
 
         #----------------------#
         # Return output

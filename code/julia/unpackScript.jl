@@ -46,8 +46,9 @@ L_F = EndogenousGrowthWithSpinouts.LF(L_RD,modelPar)
 τ = τI + τSE
 
 z = zS + zE + zI
-aTotal = ν^(-1) * (ones(size(zI)) * driftNC + ν * (sFromE * zE .+ sFromS * zS .+ zI .* (1 .- noncompete)))
-aBarIncumbents = ν^(-1) * EndogenousGrowthWithSpinouts.abarIncumbentsFunc(algoPar,modelPar,zI,μ)
+aTotal = ν^(-1) * (ones(size(zI)) * driftNC + ν * (1-θ) * (sFromE * zE .+ sFromS * zS .+ zI .* (1 .- noncompete)))
+aBarIncumbents = ν^(-1) * EndogenousGrowthWithSpinouts.abarIncumbentsFunc(algoPar,modelPar,zI,μ,γ)
+aBar = ν^(-1) * EndogenousGrowthWithSpinouts.abarFunc(algoPar,modelPar,zI,zS,zE,μ,γ)
 aCompeting = aTotal - ν^(-1) *  driftNC * ones(size(zI))
 aNonCompeting = aTotal - aCompeting
 
@@ -56,6 +57,8 @@ finalGoodsLabor = EndogenousGrowthWithSpinouts.LF(L_RD,modelPar)
 mGrid,Δm = mGridBuild(algoPar.mGrid)
 
 #Compute derivative of a for calculating stationary distribution
+
+a = aTotal
 
 aPrime = zeros(size(a))
 

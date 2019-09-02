@@ -42,7 +42,7 @@
 
 Suppose some fraction $\theta$ of spinouts generated do not compete with the parent firm but rather become high-type potential entrants in a random line $j$. Then the value of this is
 \begin{align*}
-	\mathcal{W} &= \int_0^{\infty} W(m)\mu(m)dm
+	\mathcal{W} &= \int_0^{\infty} W(m) \gamma(m) \mu(m)dm
 \end{align*}
 
 so that the indifference condition becomes
@@ -50,17 +50,19 @@ so that the indifference condition becomes
 	\overline{w} &= w^K(m) + \nu^K \Big( \theta \mathcal{W} + (1-\theta) W(m) \Big)
 \end{align*}
 
-In order to get this result we have to make a more complicated assumption in the full model. For a line $j$ in state $(m,q,Q)$, intensity per unit of effort of a potential spinout forming in line $j$ is $(1-\theta) (q/Q)^{-1} \nu^K$. But the intensity for a spinout forming in a different line $j$ is simply $\theta \nu^K$. This assumption is necessary so that the wage does not depend on $q/Q$, since $\mathcal{W} = \mathcal{W}(Q)$ while $W(m,q,Q)$ depends on $q/Q$.
+In order to get this result we have to make a more complicated assumption in the full model. For a line $j$ in state $(m,q,Q)$, intensity per unit of effort of a potential spinout forming in line $j$ is $(1-\theta) (q/Q)^{-1} \nu^K$. But the intensity for a spinout forming in a different line $j$ is simply $\theta \nu^K$. This assumption is necessary so that the wage does not depend on $q/Q$, since $\mathcal{W} = \mathcal{W}(Q)$ while $W(m,q,Q)$ depends on $q/Q$. This means that we have to include $\gamma$ in there. 
 
 The above adds a flow of high-type spinouts into all lines $j$, given by
 \begin{align*}
-	\overline{a} &= \theta \int_0^{\infty} \Big( \nu^I z^I(m) + \nu^S z^S(m) \Big) \mu(m) dm 
+	\overline{a} &= \theta \int_0^{\infty} \Big( \nu^I z^I(m) + \nu^S z^S(m) \Big) \gamma(m) \mu(m) dm 
 \end{align*}
 
 The drift in a line $j$ in state $m$ is
 \begin{align*}
 	\dot{m} &= \overline{a} + (1-\theta) \Big(\nu^I z^I + \nu^S z^S + \nu^E z^E \Big) 
 \end{align*}
+
+
 
 
 

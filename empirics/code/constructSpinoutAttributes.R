@@ -27,6 +27,7 @@ deals[,foundingYear := year(ymd(StartDate))]
 
 # Flag rounds as exits or non-exits 
 deals[RoundType == "IPO" | RoundType == "ACQ", exit  := 1]
+deals[RoundType == ]
 deals[is.na(exit), exit := 0]
 
 # Compute whether there is an exit at all for the EntityID: if maxExit == 1, there is an exit. Otherwise no exit.

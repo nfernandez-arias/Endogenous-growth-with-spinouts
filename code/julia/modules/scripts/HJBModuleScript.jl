@@ -113,10 +113,11 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
     ## Unpack model parameters
     ##########################
 
-    λ = modelPar.λ;
+    λ = modelPar.λ
 
     # Spinouts
-    ν = modelPar.ν;
+    ν = modelPar.ν
+	θ = modelPar.θ
 
 	sFromS = modelPar.spinoutsFromSpinouts
 	sFromE = modelPar.spinoutsFromEntrants
@@ -136,7 +137,7 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 	τI = τIFunc(modelPar,zI,zS,zE)
 	τSE = τSEFunc(modelPar,zI,zS,zE)
 
-	drift = driftNC * ones(size(mGrid)) + ν * (((1 .- noncompete) .* zI) + (sFromS * zS) + (sFromE * zE))
+	drift = driftNC * ones(size(mGrid)) + (1-θ) * ν * (((1 .- noncompete) .* zI) + (sFromS * zS) + (sFromE * zE))
 
     for i = 1:length(mGrid)-1
 
