@@ -30,7 +30,7 @@ function spinoutMassDecomposition(algoPar::AlgorithmParameters,modelPar::ModelPa
     zS = zSFunc(algoPar,modelPar,idxM)
     zE = zEFunc(modelPar,incumbentSolution,w,wE,zS)
 
-    a = sFromE * zE + sFromS * zS + zI
+    a = driftNC*ones(size(zI)) + (1-θ) * ν * (sFromE * zE + sFromS * zS + (1 .- noncompete) .* zI)
 
     mI = zeros(size(mGrid))
     mS = zeros(size(mGrid))
@@ -44,14 +44,14 @@ function spinoutMassDecomposition(algoPar::AlgorithmParameters,modelPar::ModelPa
 
     for i = 2:length(mGrid)
 
-        mI[i] = ν * (1-θ) * sum( zI[1:i-1] .* ((ν*a[1:i-1]).^(-1)) .* Δm[1:i-1])
-        mS[i] = sFromS * (1-θ) * ν * sum( zS[1:i-1] .* ((ν*a[1:i-1]).^(-1)) .* Δm[1:i-1])
-        mE[i] = sFromE * (1-θ) * ν * sum( zE[1:i-1] .* ((ν*a[1:i-1]).^(-1)) .* Δm[1:i-1])
+        mI[i] = ν * (1-θ) * sum( (1 .- noncompete[1:i-1]) .* zI[1:i-1] .* a[1:i-1].^(-1) .* Δm[1:i-1])
+        mS[i] = sFromS * (1-θ) * ν * sum( zS[1:i-1] .* a[1:i-1].^(-1) .* Δm[1:i-1])
+        mE[i] = sFromE * (1-θ) * ν * sum( zE[1:i-1] .* a[1:i-1].^(-1) .* Δm[1:i-1])
 
     end
 
     mI_NC = abarIncumbentsFunc(algoPar,modelPar,zI,μ,γ) * t
-    mS_NC = abarFunc(algoPar,modelPar,zI,zS,zE,μ,γ) * t
+    mS_NC = abarFunc(algoPar,modelPar,zI,zS,zE,μ,γ) * t - mI_NC
 
     mIFrac[2:end] = mI[2:end] ./ mGrid[2:end]
     mSFrac[2:end] = mS[2:end] ./ mGrid[2:end]

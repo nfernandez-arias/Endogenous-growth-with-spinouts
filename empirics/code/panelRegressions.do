@@ -52,16 +52,25 @@ encode naics4year, gen(naics4yearCode)
 
 set emptycells drop
 
+* California and Massachusetts indicators
+gen californiaIndicator = 1 if state == "CA"
+replace californiaIndicator = 0 if californiaIndicator == .
+gen xrdCalif = xrd * californiaIndicator
+
+gen massachusettsIndicator = 1 if state == "MA"
+replace massachusettsIndicator = 0 if massachusettsIndicator == .
+gen xrdMass = xrd * massachusettsIndicator
 
 
 *** Spinout counts: all types
 
 eststo model1: quietly reghdfe Spinouts xrd emp patentcount_cw_cumulative patentapplicationcount_cw_ma3, absorb(gvkey naics4#year) cluster(naics4 stateCode)
-*eststo model2: quietly xtnbreg Spinouts xrd emp patentcount_cw_cumulative patentapplicationcount_cw_ma3, fe  
-*eststo model3: quietly poisson Spinouts xrd emp patentcount_cw_cumulative patentapplicationcount_cw_ma3 i.stateCode i.naics4 i.year, robust
-eststo model4: quietly xtpoisson Spinouts xrd emp patentcount_cw_cumulative patentapplicationcount_cw_ma3, fe robust
+eststo model2: quietly reghdfe Spinouts xrd xrdCalif xrdMass emp patentcount_cw_cumulative patentapplicationcount_cw_ma3, absorb(gvkey naics4#year) cluster(naics4 stateCode)
+*eststo model3: quietly xtnbreg Spinouts xrd emp patentcount_cw_cumulative patentapplicationcount_cw_ma3, fe  
+eststo model3: quietly poisson Spinouts xrd xrdCalif xrdMass emp patentcount_cw_cumulative patentapplicationcount_cw_ma3 i.naics4 i.year, robust
+eststo model4: quietly xtpoisson Spinouts xrd xrdCalif xrdMass emp patentcount_cw_cumulative patentapplicationcount_cw_ma3, fe robust
 *estfe model*, labels(gvkey "Parent Firm FE" year "Year FE")
-esttab model* using tables/all_spinoutCount_regressions.tex, replace se stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') nonumbers mtitles("OLS (FE)" "Negative binomial FE" "Poisson" "Poisson FE") keep(xrd emp patentcount_cw_cumulative patentapplicationcount_cw_ma3)
+esttab model* using tables/all_spinoutCount_regressions.tex, replace se stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') nonumbers mtitles("OLS (FE)" "OLS (FE) with indicators" "negative binomial FE" "Poisson FE") keep(xrd xrdCalif xrdMass emp patentcount_cw_cumulative patentapplicationcount_cw_ma3)
 *estfe model*, restore
 eststo clear
 

@@ -1,0 +1,246 @@
+\documentclass[english,usenames,dvipsnames]{beamer}
+\usetheme{default}
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{footline}[frame number]
+\setbeamercolor{alerted text}{fg=blue1}
+%\setbeamercolor{frametitle}{fg=blue2}
+\usepackage[utf8]{inputenc}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{appendixnumberbeamer}
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{bbm}
+\usepackage{amsthm}
+\usepackage{verbatim}
+%\usepackage{palatino}
+\definecolor{red1}{RGB}{255,50,0}
+\definecolor{blue1}{RGB}{80,80,255}
+\definecolor{blue2}{rgb}{0.22,0.37,1}
+\definecolor{green1}{RGB}{34,139,35}
+
+\setbeamertemplate{itemize items}[default]
+
+
+\title{Employee Spinouts, Creative Destruction and Endogenous Growth}
+\author{Nicolas Fernandez-Arias}
+%\date{March 7, 2019}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Motivation}
+\begin{itemize}
+	\item Question: should we encourage or discourage employee spinouts? 
+	\begin{itemize}
+		\item Spinouts = firms founded by ex-employees
+	\end{itemize}
+	\item Entry contributes significantly to productivity growth
+	\begin{itemize}
+		\item Over 10-year horizon, 25\% of labor productivity growth accounted by entry in manufacturing (Baily-Bartelsman-Haltiwanger 1996)
+		\item ~25\% of aggregate productivity growth due to entrants (Akcigit-Kerr 2017)
+	\end{itemize}
+	\item Spinouts are most innovative entrants
+	\begin{itemize}
+		\item Fairchild semiconductor / Silicon Valley (Saxenian 1994); Detroit automakers
+		\item Spinouts: more patents / R\&D, sales growth, survival (Baslandze 2019) 
+		\item Spinouts 15-30\% of entrants; larger, grow faster, more survival (Muendler et al. 2012, Brazilian data)
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Motivation - Theory}
+\label{theory_big_picture}
+\begin{itemize}
+	\item Schumpeter 1942, Arrow 1962, Romer 1986, Grossman-Helpman 1991, etc.: \alert{underinvestment} in knowledge due to \alert{limited excludability}
+	\item Patent literature: dynamic efficiency vs. static monopoly distortion tradeoff
+	\item Creative destruction by spinouts similar tradeoff
+	\item Should we encourage or discourage spinout formation?
+	\item Existing frameworks (e.g., Franco-Filson 2006, Baslandze 2019) underemphasize disincentive for firm R\&D 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model - Overview}
+\begin{itemize}	
+	\item Quality ladder model of endogenous growth through creative destruction 
+	\begin{itemize}
+		\item builds on Akcigit-Kerr 2017, "Growth through heterogeneous innovations"
+		\item Grossman-Helpman 1991
+	\end{itemize}
+	\item \textbf{New feature:} R\&D workers \alert{learn on the job} how to form \alert{competing spinouts}
+	\begin{itemize}
+		\item \alert{Endogenous knowledge spillovers} \ldots
+		\item \ldots Can \alert{disincentivize incumbent R\&D}
+		\item \alert{Escape competition effect} incentivizes incumbent innovation 
+	\end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model - Households}
+\begin{itemize}
+	\item Unit continuum of households are risk-neutral, discount rate $\rho > 0$, objective
+	\begin{align*}
+	\mathbb{E}_t \int_0^{\infty} e^{-\rho s} c_i(t+s) ds
+	\end{align*}
+	where $c_i(t)$ is household $i$ consumption of final good at time $t$
+	\item Unit endowment of labor, supplied inelastically to final goods production, intermediate goods production or R\&D
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model - Production}
+\begin{itemize}
+	\item Final good
+	\item Continuum of intermediate goods
+	\item TFP growth through innovation in intermediate goods production
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model - Final good}
+\begin{itemize}
+	\item Final good output $Y(t)$,
+	\begin{align*}
+	Y(t) &= \frac{L_F^{\beta}(t)}{1-\beta} \int_0^1 q_j^{\beta}(t) k_j^{1-\beta} (t) dj 
+	\end{align*}
+	\item Labor $L_F(t)$
+	\item Intermediate goods $k_j(t)$, qualities $q_j(t)$, $j \in [0,1]$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model - Intermediate goods}
+\begin{itemize}
+	\item Production technology
+	\begin{align*}
+	k_j = Q l_j
+	\end{align*}
+	where $Q = \int_0^1 q_j dj$ is average quality
+	\item Scaling to ensure balanced growth
+	\item Based on setup in AK 2017
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model - Innovation}
+\begin{itemize}
+	\item Innovation in good $j$ leads to quality jumps to $\lambda q_j$, for $\lambda > 1$
+	\item Temporary monopoly in good $j$
+	\begin{itemize}
+		\item no limit pricing due to two-stage Bertrand assumption from AK 2017
+	\end{itemize}
+	\item Measure R\&D in units of effective R\&D $z$
+	\item One unit of effective R\&D on quality $q$ requires $(q/Q)z$ units of labor in R\&D
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model - Innovation}
+\begin{itemize}
+	\item Incumbent ($I$) discovers next innovation with Poison intensity
+	\begin{align*}
+	\tau^I(z) &= \chi_I z^{1-\psi}
+	\end{align*}
+	where $\psi \approx 0.5$ measures decreasing returns and $\chi_I$ is R\&D productivity
+	\item Ordinary potential entrants ($E$) and potential spinouts ($S$) 
+	\begin{align*}
+	\tau^S(z,\overbrace{z_E+z_S}^{\textrm{aggregate}}) &= \chi_{S} z (z_E + z_S)^{1-\psi} \\
+	\tau^E(z,z_E+z_S) &= \chi_{E} z (z_E + z_S)^{1-\psi}
+	\end{align*}
+	\item Aggregate, not individual, DRS
+	\item Potential spinouts have \alert{capacity constraint} $z_S^s \le \xi$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model - Innovation}
+\begin{itemize}
+	\item Each good line $j$,
+	\begin{itemize}
+		\item Mass $1$ of ordinary \alert{potential entrants}
+		\item Mass $m_j$ of \alert{potential spinouts} 
+	\end{itemize}
+	\item $m_j$ grows over time; upon innovation, jumps to $0$
+	\item Effort of potential entrant $e \in [0,1]$ and potential entrant $s \in [0,m_j]$: $z_E^e, z_S^s$ 
+	\item Aggregate $z_E = \int_0^1 z_E^e de$ and $z_S = \int_0^{m_j} z_S^s ds$ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model - Formation of potential spinouts}
+\begin{itemize}
+	\item At rate $(1-\theta)(Q/q) \nu$ per year of labor, R\&D worker gets idea for a potential spinout in own line $j$
+	\item At rate $\theta \nu$,  $j' \ne j$, idea generated in another line $j' \ne j$
+	\item Immediately begins hiring R\&D to try to implement
+	\begin{itemize}
+		\item Continue to work - no opportunity cost (tractability) 
+		\item Can interpret as selling, for full value, to competitive investor fringe owned by households
+	\end{itemize}
+	\item Law of motion for mass of potential spinouts: $\dot{m}_j = \dot{m}_j^{\textrm{from $j$}} + \dot{m}_j^{\textrm{from $j' \ne j$}}$ where
+	\begin{align*}
+	\dot{m}_j^{\textrm{from $j$}}&= (1-\theta) \nu z_{I,j}\\
+	\dot{m}_j^{\textrm{from $j' \ne j$}} &= \theta \nu \int_0^1 q_j z_{I,j} dj
+	\end{align*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Equilibrium - Static equilibrium conditions}
+\begin{itemize}
+	\item Given aggregate R\&D labor allocation $L^{RD}$
+	\item $C(\beta) = \Big(\frac{\beta}{1-\beta} (1-\beta)^{\frac{1-\beta}{\beta}} \Big)^{\beta}$ 
+	\item Final goods wage $w_F = C(\beta) Q$
+	\item Intermediate goods price $p = (1-\beta)^{-1} \frac{w_F}{Q} = (1-\beta)^{-1} C(\beta)$
+	\item Final goods production labor allocation $L_F = \frac{1 - L_{RD}}{1 + \frac{1-\beta}{C(\beta)}}$
+	\item Intermediate goods firm profits $\beta q_j L_F$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Equilibrium - Dynamic equilibrium conditions}
+\begin{itemize}
+	\item Worker indifference conditions
+	\item Incumbent, potential spinout HJBs
+	\item Potential entrants zero profit condition
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Equilibrium - Worker indifference conditions}
+\begin{itemize}
+	\item $w_I(t) = w_F(t) = \bar{w}(t)$
+	\item $W(q,m,t)$ value of potential spinout
+	\item $w(\tilde{q},m,t) + \tilde{q}^{-1} \nu W(q,m,t) = \bar{w}(t)$
+	\item \alert{Paying for knowledge} as in Franco-Filson 2006
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Equilibrium - HJB equations}
+\begin{itemize}
+	\item Incumbent HJB
+	\footnotesize
+	\begin{align*}
+	(r(t) + &\overbrace{\tau_{SE}(\tilde{q},m,t)}^{\textrm{Creative destruction}}) V(q,m,t) = \overbrace{\beta q L_F(t)}^{\textrm{Flow profit}} + \overbrace{a_{SE}(\tilde{q},m,t) \nu V_m(q,m,t)}^{\textrm{Drift in $m$-space due to $z_E,z_S$}} \\
+	& + \overbrace{V_t(q,m,t)}^{\textrm{Non-stationarity}} + \max_{z \ge 0} \Big \{ \overbrace{\chi_I z \phi_I(z)\big[V(\lambda q,0,t) - V(q,m,t) \big] }^{\textrm{Innovation arrival}}\\
+	& - \underbrace{\tilde{q}z w(\tilde{q},m,t) + \tilde{q}^{-1} \nu \tilde{q} z V_m(q,m,t)}_{\textrm{Effective R\&D cost}}\Big\}
+	\end{align*}
+	\normalsize
+	\item Potential spinout HJB
+	\footnotesize
+	\begin{align*}
+	(r(t) + \overbrace{\tau(\tilde{q},m,t)}^{\textrm{Innovation rate}}) &W(q,m,t) = \overbrace{a(\tilde{q},m,t) \nu W_m(q,m,t)}^{\textrm{Drift in $m$-space}} + \overbrace{W_t(q,m,t)}^{\textrm{Non-stationarity}} \\
+	&+ \max_{0 \le z \le \xi} \Big \{ \overbrace{\chi_S z \phi_{SE}(z_E(\tilde{q},m,t) + z_S(\tilde{q},m,t)) V(\lambda q,0,t)}^{\textrm{Innovation arrival}} \\
+	& - \underbrace{\tilde{q}z w(\tilde{q},m,t)}_{\textrm{R\&D cost}}\Big\}
+	\end{align*}
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

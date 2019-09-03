@@ -93,6 +93,7 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     wNC = results.finalGuess.wNC
     wE = results.finalGuess.wE
     idxM = results.finalGuess.idxM
+    driftNC = results.finalGuess.driftNC
 
     t = results.auxiliary.t
     μ = results.auxiliary.μ
@@ -113,11 +114,8 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     W = results.spinoutValue
 
 
-    wageEntrants = sFromE * w + (1-sFromE) * wbar * ones(size(w))
+    wageEntrants = wE
     wageSpinouts = sFromS * w + (1-sFromS) * wbar * ones(size(w))
-
-
-
 
     zS = zSFunc(algoPar,modelPar,idxM)
     zE = zEFunc(modelPar,results.incumbent,w,wE,zS)
@@ -132,25 +130,7 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     τS = τSE - τE
     τ = τI + τSE
     z = zS + zE + zI
-    a = sFromE .* zE .+ sFromS .* zS .+ zI
     finalGoodsLabor = LF(L_RD,modelPar)
-
-    #-----------------------------------#
-    # Viewing z as drift a, also compute aPrime
-    #-----------------------------------#
-
-    #a = copy(z)
-    aPrime = zeros(length(z))
-
-    for i = 1:length(aPrime)-1
-
-        aPrime[i] = (a[i+1] - a[i]) / Δm[i]
-
-    end
-
-    #x = aPrime[end-1]
-    #println(aPrime[length(z) - 1])
-    #aPrime[end] = aPrime[end-1]
 
     #-----------------------------------#
     # Calculate entry rates
@@ -262,6 +242,9 @@ function computeScore(algoPar::AlgorithmParameters,modelPar::ModelParameters,gue
     modelMomentsVec[8] = modelMoments.SpinoutsNCShare
 
     # divide error by target moment -- "unit free" errors. Weights can then reflect purely imoportance of the moment.
+
+    score = [0]
+
     score = ((modelMomentsVec - targets)./targets)' * Diagonal(weights) * ((modelMomentsVec - targets)./targets)
 
     return score[1]
@@ -307,21 +290,31 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
         modelPar.ν = x[5]
         modelPar.ζ = x[6]
         modelPar.κ = x[7]
-        modelPar.spinoutsFromSpinouts = x[8]
-        modelPar.spinoutsFromEntrants = x[9]
-        modelPar.θ = x[10]
+        modelPar.θ = x[8]
 
         if modelPar.CNC == true
             log_file = open("./figures/CalibrationLog_CNC.txt","a")
+            log_file2 = open("./figures/CalibrationLog_CNC_objectiveValues.txt","a")
         else
             log_file = open("./figures/CalibrationLog_noCNC.txt","a")
+            log_file2 = open("./figures/CalibrationLog_noCNC_objectiveValues.txt","a")
         end
 
-        write(log_file,"Iteration: χI = $(x[1]); χS = $(x[2]); χE = $(x[2] * x[3]); λ = $(x[4]); ν = $(x[5]); ζ = $(x[6]); κ = $(x[7]); sFromS = $(x[8]); sFromE = $(x[9]); θ = $(x[10])\n")
-
+        write(log_file,"Iteration: χI = $(x[1]); χS = $(x[2]); χE = $(x[2] * x[3]); λ = $(x[4]); ν = $(x[5]); ζ = $(x[6]); κ = $(x[7]); θ = $(x[8])\n")
         close(log_file)
 
         output = computeScore(algoPar,modelPar,guess,calibPar,targets,weights,incumbentSolution)
+
+        if modelPar.CNC == true
+            log_file = open("./figures/CalibrationLog_CNC_objectiveValues.txt","a")
+        else
+            log_file = open("./figures/CalibrationLog_noCNC_objectiveValues.txt","a")
+        end
+
+        write(log_file, "Value of objective: $output\n")
+        close(log_file)
+
+        return output
 
     end
 
@@ -344,19 +337,16 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
                   modelPar.ν,
                   modelPar.ζ,
                   modelPar.κ,
-                  modelPar.spinoutsFromSpinouts,
-                  modelPar.spinoutsFromEntrants,
                   modelPar.θ ]
 
-
-    lower = [1, 1, 0.1, 1.01, 0.008, 0, 0, 0.05, 0.05, 0.05]
-    upper = [10, 6, 0.9, 1.12, 0.05, 1, 0.8, 1, 1, 0.95]
+    lower = [1, 1, 0.2, 1.01, 0.01, 0.6, 0.2, 0.05]
+    upper = [8, 5, 0.8, 1.10, 0.05, 0.98, 0.8, 0.95]
 
     #inner_optimizer = GradientDescent()
     inner_optimizer = LBFGS()
 
 
-    calibrationResults = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(outer_iterations = 1, iterations = 1, store_trace = true, show_trace = true))
+    calibrationResults = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(outer_iterations = 1000, iterations = 1000, store_trace = true, show_trace = true))
     #results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer))
     #results = optimize(f,initial_x,inner_optimizer,Optim.Options(iterations = 1, store_trace = true, show_trace = true))
     #results = optimize(f,initial_x,method = inner_optimizer,iterations = 1,store_trace = true, show_trace = false)
@@ -372,8 +362,7 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
     modelPar.ν = x[5]
     modelPar.ζ = x[6]
     modelPar.κ = x[7]
-    modelPar.spinoutsFromSpinouts = x[8]
-    modelPar.spinoutsFromEntrants = x[9]
+    modelPar.θ = x[8]
 
     modelSolution,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,guess)
 

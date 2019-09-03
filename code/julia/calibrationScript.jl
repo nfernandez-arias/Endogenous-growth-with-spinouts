@@ -28,12 +28,12 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 # Enter calibration targets
 #-------------------------------#
 
-RDintensity = CalibrationTarget(0.11,1)
+RDintensity = CalibrationTarget(0.041,1)
 InternalPatentShare = CalibrationTarget(0.5,0.5)
 SpinoutEntryRate = CalibrationTarget(0.03,1)
 SpinoutShare = CalibrationTarget(0.3,1)
 g = CalibrationTarget(0.015,1)
-RDLaborAllocation = CalibrationTarget(.1,1)
+RDLaborAllocation = CalibrationTarget(.08,1)
 WageRatio = CalibrationTarget(0.7,1)
 SpinoutsNCShare = CalibrationTarget(0.5,1)
 
@@ -46,7 +46,11 @@ calibPar = CalibrationParameters(RDintensity,InternalPatentShare,SpinoutEntryRat
 @time calibrationResults,modelMoments,modelResults,score = calibrateModel(algoPar,modelPar,initGuess,calibPar)
 
 # Store results in JLD2 file
-@save "output/calibrationResults_noCNC.jld2" calibrationResults modelMoments modelResults score
+if modelPar.CNC == true
+    @save "output/calibrationResults_CNC.jld2" calibrationResults modelMoments modelResults score
+else
+    @save "output/calibrationResults_noCNC.jld2" calibrationResults modelMoments modelResults score
+end
 
 println(calibrationResults)
 
@@ -56,14 +60,12 @@ println("\nMinimizer: \n\n")
 
 println("χI = $(calibrationResults.minimizer[1])")
 println("χS = $(calibrationResults.minimizer[2])")
-println("χE = $(calibrationResults.minimizer[3] * calibrationResults.minimizer[3])")
+println("χE = $(calibrationResults.minimizer[3] * calibrationResults.minimizer[2])")
 println("λ = $(calibrationResults.minimizer[4])")
 println("ν = $(calibrationResults.minimizer[5])")
-println("θ = $(calibrationResults.minimizer[10])")
+println("θ = $(calibrationResults.minimizer[8])")
 println("ζ = $(calibrationResults.minimizer[6])")
 println("κ = $(calibrationResults.minimizer[7])")
-println("spinoutsFromSpinouts = $(calibrationResults.minimizer[8])")
-println("spinoutsFromEntrants = $(calibrationResults.minimizer[9])\n\n")
 
 println("Moments: $modelMoments\n\n")
 
@@ -84,7 +86,11 @@ println("Spinouts NC Share: ($(SpinoutsNCShare.value) , $(modelMoments.SpinoutsN
 # Display diagnostics
 #-------------------------------#
 
-f = open("./figures/calibration_output_noCNC.txt","w")
+if modelPar.CNC == true
+    f = open("./figures/calibration_output_CNC.txt","w")
+else
+    f = open("./figures/calibration_output_noCNC.txt","w")
+end
 
 write(f,"$calibrationResults\n\n")
 
@@ -94,14 +100,12 @@ write(f,"\nMinimizer: \n\n\n")
 
 write(f,"χI = $(calibrationResults.minimizer[1])\n")
 write(f,"χS = $(calibrationResults.minimizer[2])\n")
-write(f,"χE = $(calibrationResults.minimizer[3] * calibrationResults.minimizer[3])\n")
+write(f,"χE = $(calibrationResults.minimizer[3] * calibrationResults.minimizer[2])\n")
 write(f,"λ = $(calibrationResults.minimizer[4])\n")
 write(f,"ν = $(calibrationResults.minimizer[5])\n")
-write(f,"θ = $(calibrationResults.minimizer[10])\n")
+write(f,"θ = $(calibrationResults.minimizer[8])\n")
 write(f,"ζ = $(calibrationResults.minimizer[6])\n")
 write(f,"κ = $(calibrationResults.minimizer[7])\n")
-write(f,"spinoutsFromSpinouts = $(calibrationResults.minimizer[8])\n")
-write(f,"spinoutsFromEntrants = $(calibrationResults.minimizer[9])\n\n\n")
 
 write(f,"Moments: $modelMoments\n\n\n")
 

@@ -156,149 +156,73 @@ function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,gu
     #print("a = $a\n")
     RDlabor = zS .+ zE .+ zI
 
-    if (noncompete[1] == 1) & (sFromS == 0) & (sFromE == 0)
+    #----------------------#
+    # Solve KF equation
+    #----------------------#
 
-        L_RD = zI[1] + zE[1]
-        g = (λ - 1) * τ[1]
-        γ = zeros(1,1)
-        t = zeros(1,1)
+    # Compute derivative of a for calculating stationary distribution
+    aPrime = zeros(size(a))
+    for i = 1:length(aPrime)-1
 
-        μ[1] = 1/Δm[1]
-        μ[2:end] .= 0
-
-    else
-
-        #----------------------#
-        # Solve KF equation
-        #----------------------#
-
-        # Compute derivative of a for calculating stationary distribution
-        aPrime = zeros(size(a))
-        for i = 1:length(aPrime)-1
-
-            aPrime[i] = (a[i+1] - a[i]) / Δm[i]
-
-        end
-        aPrime[end] = aPrime[end-1]
-
-        # Integrate ODE to compute shape of μ
-        integrand =  (aPrime .+ τ) ./ a
-        summand = integrand .* Δm
-        integral = cumsum(summand[:])
-        μ = exp.(-integral)
-
-        #print("a: $(a[1:10])\n")
-        #print("aPrime: $(aPrime[1:10])\n")
-        #print("Integrand: $(integrand[1:10])\n")
-        #print("Summand: $(summand[1:10])\n")
-        #print("Integral: $(integral[1:10])\n")
-        #print("μ: $(μ[1:10])\n")
-
-        #println("type of variable idxCNC: $(typeof(idxCNC))")
-
-        #println("Noncompetes used? $(maximum(noncompete))")
-
-        if sFromS == 0
-
-            #----------------------#
-            # Compute μ(m)
-            #----------------------#
-
-            if maximum(noncompete) > 0
-
-                # Compute mass at mass point (divided by Δm there)
-                # This allow a "density" to encode a mass point.
-                μ[idxCNC] = (μ[idxCNC] / τ[idxCNC])/ Δm[idxCNC]
-                μ[idxCNC+1:end] .= 0
-
-                #a[idxCNC:end] .= 0
-
-                # Rescale to obtain density
-                μ = μ / sum(μ .* Δm)
-
-            else
-
-                μ = μ / sum(μ .* Δm)
-
-            end
-
-            #----------------------#
-            # Compute γ(m)
-            #----------------------#
-
-            # First step: compute t(m), equilibrium time it takes to reach state m
-
-            t = zeros(size(mGrid))
-            t[2:end] = cumsum(Δm[1:end-1] ./ a[1:end-1])
-
-            # Next step: compute shape of γ(m)
-
-            γShape = exp.(- guess.g .* t)
-
-            # Take into account mass point:
-
-            if maximum(noncompete) == 1
-                γShape[idxCNC] = γShape[idxCNC] * τ[idxCNC] / (g + τ[idxCNC])
-            end
-
-            # Compute C_gamma
-
-            γScale = sum(γShape .* μ .* Δm)^(-1)
-
-            # Finally compute γ
-
-            γ = γScale * γShape
-
-        else
-
-            μ = μ / sum(μ .* Δm)
-
-            #----------------------#
-            # Compute γ(m)
-            #----------------------#
-
-            # First step: compute t(m), equilibrium time it takes to reach state m
-
-            t = zeros(size(mGrid))
-            t[2:end] = cumsum(Δm[1:end-1] ./ a[1:end-1])
-
-            # Next step: compute shape of γ(m)
-
-            γShape = exp.(- guess.g .* t)
-
-            # Compute C_gamma
-
-            γScale = sum(γShape .* μ .* Δm)^(-1)
-
-            # Finally compute γ
-
-            γ = γScale * γShape
-
-        end
-
-        #----------------------#
-        # Compute implied L_RD
-        #----------------------#
-
-        L_RD = sum(γ .* μ .* RDlabor .* Δm)
-
-        #----------------------#
-        # Compute implied g
-        #----------------------#
-
-        g = (λ - 1) .* sum(γ .* μ .* τ .* Δm)
-
-        #----------------------#
-        # Compute drift due to non-competing spinouts
-        #----------------------#
-
-        driftNC = abarFunc(algoPar,modelPar,zI,zS,zE,μ,γ)
-
-        #----------------------#
-        # Return output
-        #----------------------#
+        aPrime[i] = (a[i+1] - a[i]) / Δm[i]
 
     end
+    aPrime[end] = aPrime[end-1]
+
+    # Integrate ODE to compute shape of μ
+    integrand =  (aPrime .+ τ) ./ a
+    summand = integrand .* Δm
+    integral = cumsum(summand[:])
+    μ = exp.(-integral)
+
+    #----------------------#
+    # Compute μ(m)
+    #----------------------#
+
+    μ = μ / sum(μ .* Δm)
+
+    #----------------------#
+    # Compute γ(m)
+    #----------------------#
+
+    # First step: compute t(m), equilibrium time it takes to reach state m
+
+    t = zeros(size(mGrid))
+    t[2:end] = cumsum(Δm[1:end-1] ./ a[1:end-1])
+
+    # Next step: compute shape of γ(m)
+
+    γShape = exp.(- guess.g .* t)
+
+    # Compute C_gamma
+
+    γScale = sum(γShape .* μ .* Δm)^(-1)
+
+    # Finally compute γ
+
+    γ = γScale * γShape
+
+    #----------------------#
+    # Compute implied L_RD
+    #----------------------#
+
+    L_RD = sum(γ .* μ .* RDlabor .* Δm)
+
+    #----------------------#
+    # Compute implied g
+    #----------------------#
+
+    g = (λ - 1) .* sum(γ .* μ .* τ .* Δm)
+
+    #----------------------#
+    # Compute drift due to non-competing spinouts
+    #----------------------#
+
+    driftNC = abarFunc(algoPar,modelPar,zI,zS,zE,μ,γ)
+
+    #----------------------#
+    # Return output
+    #----------------------#
 
     return g,L_RD,μ,γ,t,driftNC
 
