@@ -1,0 +1,62 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
+            &\multicolumn{1}{c}{Counts}&\multicolumn{1}{c}{Founder counts}&\multicolumn{1}{c}{Valuation}\\
+\hline
+xrd\_lag1    &       0.566\sym{*}  &       0.870\sym{*}  &       20.66\sym{*}  \\
+            &     (0.269)         &     (0.412)         &     (8.769)         \\
+[1em]
+xrd\_plac\_pre\_3\_l1&      -0.251\sym{***}&      -0.435\sym{**} &      -16.46\sym{*}  \\
+            &    (0.0705)         &     (0.146)         &     (6.793)         \\
+[1em]
+xrd\_plac\_pre\_2\_l1&      -0.148         &      -0.194         &      -12.44\sym{*}  \\
+            &     (0.103)         &     (0.139)         &     (5.990)         \\
+[1em]
+xrd\_plac\_pre\_1\_l1&      0.0484         &      0.0764         &      -10.40         \\
+            &     (0.123)         &     (0.172)         &     (5.555)         \\
+[1em]
+xrd\_plac\_post\_0\_l1&      0.0712         &      0.0752         &      -10.18         \\
+            &    (0.0878)         &     (0.144)         &     (6.025)         \\
+[1em]
+xrd\_plac\_post\_1\_l1&           0         &           0         &           0         \\
+            &  (1.48e-17)         &  (1.06e-10)         &  (2.90e-15)         \\
+[1em]
+xrd\_plac\_post\_2\_l1&      -0.168         &      -0.245         &       10.47         \\
+            &     (0.125)         &     (0.195)         &     (17.31)         \\
+[1em]
+xrd\_plac\_post\_3\_l1&      -0.469\sym{*}  &      -0.704\sym{*}  &       13.60         \\
+            &     (0.221)         &     (0.321)         &     (15.78)         \\
+[1em]
+tobin\_q     &    0.000161         &   -0.000152         &     -0.0102         \\
+            &  (0.000667)         &  (0.000986)         &    (0.0332)         \\
+[1em]
+salesfd     &  0.00000529         &  0.00000808         &    0.000247         \\
+            &(0.00000362)         &(0.00000624)         &  (0.000234)         \\
+[1em]
+at          &    1.43e-08         &-0.000000404         &  -0.0000101         \\
+            &(0.00000165)         &(0.00000274)         & (0.0000427)         \\
+[1em]
+emp         &     0.00171         &     0.00260         &     -0.0146         \\
+            &   (0.00100)         &   (0.00149)         &    (0.0859)         \\
+[1em]
+\_cons      &      0.0108         &      0.0166         &       0.293         \\
+            &    (0.0167)         &    (0.0254)         &     (0.698)         \\
+[1em]
+Parent Firm FE&         Yes         &         Yes         &         Yes         \\
+[1em]
+Parent Firm Age FE&         Yes         &         Yes         &         Yes         \\
+[1em]
+NAICS4-Year FE&         Yes         &         Yes         &         Yes         \\
+[1em]
+State-Year FE&         Yes         &         Yes         &         Yes         \\
+\hline
+r2          &       0.607         &       0.602         &       0.300         \\
+r2\_a\_within &       0.130         &       0.123         &      0.0474         \\
+N           &       60847         &       60847         &       60847         \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

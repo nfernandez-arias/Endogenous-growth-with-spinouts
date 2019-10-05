@@ -52,6 +52,13 @@
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Spinouts of Fairchild Semiconductor}
+\begin{figure}
+	\includegraphics[scale=0.32]{../figures/fairchildren_early.png}
+	\caption{Source: Endeavor Insights}
+\end{figure}
+\end{frame}
+
 \begin{frame}{Motivation - Theory}
 \label{theory_big_picture}
 \begin{itemize}
@@ -63,7 +70,44 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Model - Overview}
+\begin{frame}{Related literature}
+\begin{itemize}
+	\item Firm dynamics and endogenous growth
+	\begin{itemize}
+		\item Romer 1986, Grossman \& Helpman 1991, Aghion \& Howitt 1992, Klette \& Kortum 2004, Acmemoglu \& Akcigit 2012, Akcigit \& Kerr 2017
+	\end{itemize}
+	\item Models of employee spinouts
+	\begin{itemize}
+		\item Klepper 2002, Klepper \& Sleeper 2005, Franco \& Filson 2006, Franco \& Mitchell 2008, Rauch 2015, Rossi-Hansberg \& Chatterjee 2012
+		\item Baslandze 2019 closest to this paper
+	\end{itemize}
+	\item Empirics on employee mobility, spinouts
+	\begin{itemize}
+		\item Spawning of spinouts: Gompers et al. 2005, Garmaise 2011, Baslandze 2019
+		\item Effect on parent firms: Campbell et. al 2012, Wezel et al. 2006
+		\item Effect of non-compete enforcement: Garmaise 2009, Marx et al 2009, Samila-Sorenson 2011, Jeffers 2018
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Overview and results}
+\begin{itemize}
+	\item Develop model of endogenous growth with creative destruction
+	\item Calibrate model with help from new microdata on employee spinouts (VentureSource + Compustat + NBER USPTO)
+	\begin{itemize}
+		\item Information on founders of VC-funded startups
+		\item Information on valuations / amounts raised at funding rounds / exits
+	\end{itemize}
+	\item Key results so far:
+	\begin{itemize}
+		\item Enforcing non-competes increases welfare by 18\% in current calibration
+		\item Incumbents do almost twice as much R\&D (for a roughly 50\% increase in innovation arrival rates)
+		\item and spinout entry only goes down slightly: within-industry spinouts are replaced by out-of-industry spinouts.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model}
 \begin{itemize}	
 	\item Quality ladder model of endogenous growth through creative destruction 
 	\begin{itemize}
@@ -79,6 +123,15 @@
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Model - Overview}
+\begin{itemize}
+	\item Households consume and supply labor to production of intermediate and final goods and R\&D on intermediate goods
+	\item Intermediate goods firms do R\&D to improve production technology, driving aggregate TFP growth
+	\item R\&D by incumbents transfers knowledge to employees, who become high-type potential entrants, creating more R\&D competition
+	\item Non-compete contracts can allow incumbents to protect their monopoly on their knowledge, but may reduce entry
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Model - Households}
 \begin{itemize}
 	\item Unit continuum of households are risk-neutral, discount rate $\rho > 0$, objective
@@ -90,22 +143,16 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Model - Production}
-\begin{itemize}
-	\item Final good
-	\item Continuum of intermediate goods
-	\item TFP growth through innovation in intermediate goods production
-\end{itemize}
-\end{frame}
+
 
 \begin{frame}{Model - Final good}
 \begin{itemize}
-	\item Final good output $Y(t)$,
+	\item Final good output $Y$ produced using production function
 	\begin{align*}
-	Y(t) &= \frac{L_F^{\beta}(t)}{1-\beta} \int_0^1 q_j^{\beta}(t) k_j^{1-\beta} (t) dj 
+	F(L,\{q_j\},\{k_j\}) &= \frac{L^{\beta}(t)}{1-\beta} \int_0^1 q_j^{\beta} k_j^{1-\beta}  dj 
 	\end{align*}
 	\item Labor $L_F(t)$
-	\item Intermediate goods $k_j(t)$, qualities $q_j(t)$, $j \in [0,1]$
+	\item Intermediate goods $\{k_j\}$, qualities $\{q_j\}$, $j \in [0,1]$
 \end{itemize}
 \end{frame}
 
@@ -128,25 +175,6 @@
 	\begin{itemize}
 		\item no limit pricing due to two-stage Bertrand assumption from AK 2017
 	\end{itemize}
-	\item Measure R\&D in units of effective R\&D $z$
-	\item One unit of effective R\&D on quality $q$ requires $(q/Q)z$ units of labor in R\&D
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Model - Innovation}
-\begin{itemize}
-	\item Incumbent ($I$) discovers next innovation with Poison intensity
-	\begin{align*}
-	\tau^I(z) &= \chi_I z^{1-\psi}
-	\end{align*}
-	where $\psi \approx 0.5$ measures decreasing returns and $\chi_I$ is R\&D productivity
-	\item Ordinary potential entrants ($E$) and potential spinouts ($S$) 
-	\begin{align*}
-	\tau^S(z,\overbrace{z_E+z_S}^{\textrm{aggregate}}) &= \chi_{S} z (z_E + z_S)^{1-\psi} \\
-	\tau^E(z,z_E+z_S) &= \chi_{E} z (z_E + z_S)^{1-\psi}
-	\end{align*}
-	\item Aggregate, not individual, DRS
-	\item Potential spinouts have \alert{capacity constraint} $z_S^s \le \xi$
 \end{itemize}
 \end{frame}
 
@@ -163,28 +191,56 @@
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Model - Innovation}
+\begin{itemize}
+	\item Scaling assumption: one unit of R\&D on quality $q$ requires $(q/Q)$ units of labor in R\&D
+	\item Incumbent ($I$) discovers next innovation with Poisson intensity
+	\begin{align*}
+	\tau^I(z) &= \chi_I z^{1-\psi}
+	\end{align*}
+	where $z$ is units of R\&D, $\chi_I$ is R\&D productivity, and $\psi \in (0,1)$ measures decreasing returns to R\&D 
+	\item Ordinary entrants ($E$) and spinouts ($S$) 
+	\begin{align*}
+	\tau^S(z,\overbrace{z_E+z_S}^{\textrm{aggregate}}) &= \chi_{S} z (z_E + z_S)^{-\psi} \\
+	\tau^E(z,z_E+z_S) &= \chi_{E} z (z_E + z_S)^{-\psi}
+	\end{align*}
+	\item Aggregate DRS: \alert{fishing out} externalities
+	\item Spinouts have \alert{capacity constraint} $z_S^s \le \xi$ (can replace with DRS)
+\end{itemize}
+\end{frame}
+
+
+
 \begin{frame}{Model - Formation of potential spinouts}
 \begin{itemize}
-	\item At rate $(1-\theta)(Q/q) \nu$ per year of labor, R\&D worker gets idea for a potential spinout in own line $j$
-	\item At rate $\theta \nu$,  $j' \ne j$, idea generated in another line $j' \ne j$
+	\item At rate $(1-\theta)(Q/q_j) \nu$ per year of labor, R\&D worker gets idea for a potential spinout in own line $j$
+	\item Idea generated in random line $j' \ne j$ with Poisson probability $\theta \nu$ 
 	\item Immediately begins hiring R\&D to try to implement
 	\begin{itemize}
-		\item Continue to work - no opportunity cost (tractability) 
-		\item Can interpret as selling, for full value, to competitive investor fringe owned by households
+		\item Continue to work - no labor / entrepreneurship choice
 	\end{itemize}
 	\item Law of motion for mass of potential spinouts: $\dot{m}_j = \dot{m}_j^{\textrm{from $j$}} + \dot{m}_j^{\textrm{from $j' \ne j$}}$ where
 	\begin{align*}
 	\dot{m}_j^{\textrm{from $j$}}&= (1-\theta) \nu z_{I,j}\\
-	\dot{m}_j^{\textrm{from $j' \ne j$}} &= \theta \nu \int_0^1 q_j z_{I,j} dj
+	\dot{m}_j^{\textrm{from $j' \ne j$}} &= \theta \nu \int_0^1 \frac{q_j}{Q} z_{I,j} dj
+	\end{align*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model - Aggregation}
+\begin{itemize}
+	\item $\tau_j(t)$ denotes the Poisson intensity of an innovation arriving at $j$ at time $t$
+	\item Growth rate of aggreagte TFP $Q(t)$
+	\begin{align*}
+	g_t &= (\lambda -1) \int_0^1 \Big(q_{j}(t)/Q(t)\Big) \tau_j(t) dj 
 	\end{align*}
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Equilibrium - Static equilibrium conditions}
 \begin{itemize}
-	\item Given aggregate R\&D labor allocation $L^{RD}$
-	\item $C(\beta) = \Big(\frac{\beta}{1-\beta} (1-\beta)^{\frac{1-\beta}{\beta}} \Big)^{\beta}$ 
-	\item Final goods wage $w_F = C(\beta) Q$
+	\item Given aggregate R\&D labor allocation $L^{RD}$ calculate static equilibrium variables
+	\item Final goods wage $\bar{w}(t) = \Big(\frac{\beta}{1-\beta} (1-\beta)^{\frac{1-\beta}{\beta}} \Big)^{\beta} Q_t = C(\beta) Q_t$
 	\item Intermediate goods price $p = (1-\beta)^{-1} \frac{w_F}{Q} = (1-\beta)^{-1} C(\beta)$
 	\item Final goods production labor allocation $L_F = \frac{1 - L_{RD}}{1 + \frac{1-\beta}{C(\beta)}}$
 	\item Intermediate goods firm profits $\beta q_j L_F$
@@ -193,40 +249,353 @@
 
 \begin{frame}{Equilibrium - Dynamic equilibrium conditions}
 \begin{itemize}
-	\item Worker indifference conditions
+	\item Look for BGP equilibrium with $g_t \equiv g, r_t \equiv r, L_{RD}(t) = L_{RD}$ and so on  
 	\item Incumbent, potential spinout HJBs
 	\item Potential entrants zero profit condition
+	\item Worker indifference conditions
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Equilibrium - Scaling of value functions}
+\begin{itemize}
+	\item Incumbent and spinout value functions $V(q,m,t),W(q,m,t)$
+	\item (Recast as proposition) Guess and verify: BGP equilibrium with $V(q,m,t) = qV(m); W(q,m,t) = qW(m)$ and all innovation arrival rates depend on $m$ only
+	\item Unfortunately, \alert{risk aversion breaks this}
+	\begin{itemize}
+		\item Relies on the fact that the value of a $(Q/q) \nu (1-\theta)$ intensity of discovering an idea of value $W(m)q$ be \alert{constant in $q$}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Incmbent - HJB equations}
+\begin{itemize}
+	\item Incumbent HJB
+	\small
+	\begin{align*}
+		(r + \tau_S(m) + &\tau_E(m)) V(m) = \Pi + \bar{\sigma}V'(m)  \\
+		                                &+ \max_{z \ge 0} z \Bigg\{ \chi_I z^{-\psi} \Big( \lambda V(0) - V(m) \Big) - (w(m) - \theta \nu V'(m))   \Bigg\}
+	\end{align*}
+	\normalsize
+	\item Potential spinout HJB
+	\small
+	\begin{align*}
+		(r + \tau_S(m) + \tau_E(m)) W(m) &= \Big( \bar{\sigma} + \sigma(m) \Big)W'(m)  \\
+										&+ \max_{0 \le z \le \xi} z \Bigg\{ \chi_S z^{-\psi} (1-\kappa) \lambda  V(0) - w(m)  \Bigg\}
+	\end{align*}
+	\normalsize
+	where $\kappa \lambda V(0)$ is the cost of creative destruction 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Equilibrium - Free entry}
+\begin{itemize}
+	\item Free entry implies zero expected profits for ordinary entrants if R\&D effort is positive:
+	\begin{align*}
+		\chi_E \Big(z_E(m) + z_S(m) \Big)^{-\psi} (1-\kappa) \lambda V(0) \le \bar{w}
+	\end{align*} 
+	with equality whenever $z_E(m) > 0$
+	\item $\chi_S > \chi_E$ $\Rightarrow$ potential spinouts perform R\&D whenever $z_E(m) > 0$
+	\item Potential spinout free entry: $M > 0$ such that
+	\begin{align*}
+		\chi_S \big( \xi M \big)^{-\psi} \lambda V(0) = \bar{w}
+	\end{align*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Equilibrium - Entrant and spinout policies}
+\begin{itemize}
+	\item (aggregated) R\&D policy functions
+	\begin{align*}
+	z_S(m) &= \min \Big\{\xi m, \xi M \Big\} \\
+	z_E(m) &= \max\Bigg\{0, \Bigg(\frac{\bar{w}}{\chi_E\lambda V(0)}\Bigg)^{-1/\psi} - z_S(m) \Bigg\}
+	\end{align*}
+	\item $\chi_S \le \chi_E$: nests model with no spinouts, no state variable
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Equilibrium - Worker indifference conditions}
 \begin{itemize}
-	\item $w_I(t) = w_F(t) = \bar{w}(t)$
-	\item $W(q,m,t)$ value of potential spinout
-	\item $w(\tilde{q},m,t) + \tilde{q}^{-1} \nu W(q,m,t) = \bar{w}(t)$
-	\item \alert{Paying for knowledge} as in Franco-Filson 2006
+	\item Value of working in R\&D for incumbent equals value of working in other employment
+	\item $W(m)$ is value of potential spinout in line $j$
+	\item $\mathcal{W} \equiv \int_0^\infty W(m) \mu(m) dm$  
+	\item Indifference condition
+	\small
+	\begin{align*}
+	w(m) + \nu (1-\zeta) \Big(\theta \mathcal{W} + (1-\theta) W(m) \Big) &= \bar{w}
+	\end{align*}
+	where $\zeta \in (0,1)$ is the proportional cost of spinning.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Equilibrium - HJB equations}
+\begin{frame}{Equilibrum - aggregation}
 \begin{itemize}
-	\item Incumbent HJB
-	\footnotesize
+	\item Stationary distribution of lines $j$ in $m$-space satisfies Kolmogorov Forward equation
 	\begin{align*}
-	(r(t) + &\overbrace{\tau_{SE}(\tilde{q},m,t)}^{\textrm{Creative destruction}}) V(q,m,t) = \overbrace{\beta q L_F(t)}^{\textrm{Flow profit}} + \overbrace{a_{SE}(\tilde{q},m,t) \nu V_m(q,m,t)}^{\textrm{Drift in $m$-space due to $z_E,z_S$}} \\
-	& + \overbrace{V_t(q,m,t)}^{\textrm{Non-stationarity}} + \max_{z \ge 0} \Big \{ \overbrace{\chi_I z \phi_I(z)\big[V(\lambda q,0,t) - V(q,m,t) \big] }^{\textrm{Innovation arrival}}\\
-	& - \underbrace{\tilde{q}z w(\tilde{q},m,t) + \tilde{q}^{-1} \nu \tilde{q} z V_m(q,m,t)}_{\textrm{Effective R\&D cost}}\Big\}
+		0 = -\frac{d}{dm} \Big( \big(\bar{\sigma} + \sigma(m) \big)\mu(m) \Big) - \tau(m) \mu(m) 
 	\end{align*}
-	\normalsize
-	\item Potential spinout HJB
-	\footnotesize
+	\item Also,  $\mathbb{E}_{q}[q/Q_t|m,t] = \gamma(m)$, exists and satisfies
 	\begin{align*}
-	(r(t) + \overbrace{\tau(\tilde{q},m,t)}^{\textrm{Innovation rate}}) &W(q,m,t) = \overbrace{a(\tilde{q},m,t) \nu W_m(q,m,t)}^{\textrm{Drift in $m$-space}} + \overbrace{W_t(q,m,t)}^{\textrm{Non-stationarity}} \\
-	&+ \max_{0 \le z \le \xi} \Big \{ \overbrace{\chi_S z \phi_{SE}(z_E(\tilde{q},m,t) + z_S(\tilde{q},m,t)) V(\lambda q,0,t)}^{\textrm{Innovation arrival}} \\
-	& - \underbrace{\tilde{q}z w(\tilde{q},m,t)}_{\textrm{R\&D cost}}\Big\}
+		\gamma(m) &= C_{\gamma} e^{-g s(m)}
+	\end{align*}
+	where $s(m)$ is the equilibrium number of years to reach $m$ (conditional on no innovations)
+	\item Law of iterated expectations determines $C_{\gamma}$: 
+	\begin{align*}
+		1 = E_{q}[q/Q,t] = E_m[ E_{q}[q/Q|m,t] ,t] = \int_0^{\infty} \gamma(m) \mu(m) dm
 	\end{align*}
 \end{itemize}
 \end{frame}
+
+\begin{frame}{Non-competes}
+\begin{itemize}
+	\item Incumbent HJB can impose a permanent noncompete
+	\small
+	\begin{align*}
+	(r + \tau_{SE}(m)) V(m) &= \Pi + \bar{\sigma}V'(m)  \\
+	+ &\max_{z \ge 0, x \in \{0,1\} } z \Bigg\{ \chi_I z^{-\psi} \Big( \lambda V(0) - V(m) \Big) \\
+	- &(1-x) \Big(w(m) - \theta \nu V'(m) \Big) - x w^{NC} \Bigg\}
+	\end{align*}
+	\normalsize
+	where $w^{NC}$ satisfies another worker indifference condition
+	\begin{align*}
+		\bar{w} &= w^{NC} + \nu (1-\zeta) (1-\theta) \mathcal{W}
+	\end{align*}
+	since spinouts are still allowed in other lines $j' \ne j$
+	\item Optimal policy is $x = 1$ iff $w^{NC} < w(m) - \theta \nu V'(m)$ 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Solving the model}
+\begin{enumerate}
+	\small
+	\item Guess $\{g, L_{RD}, w(m), w^{NC}, M, \bar{\sigma} \}$
+	\begin{enumerate}
+		\small
+		\item Static equilibrium conditions $\Rightarrow L_I,L_F,\pi$
+		\begin{enumerate}
+			\small
+			\item Free entry, etc. $\Rightarrow z_S(m), z_E(m)$
+			\item Incumbent HJB $\Rightarrow  V(m),z_I(m)$
+			\item Update $M$ and check for convergence
+		\end{enumerate}
+		\item Spinout HJB $\Rightarrow$ $W(m)$
+		\item Aggregation $\Rightarrow$ $\mu(m),\gamma(m),g,L_{RD},\bar{\sigma},\mathcal{W}$
+		\item Worker indifference $\Rightarrow$ $w(m),w^{NC}$
+		\item Check convergence of of $\{g, L_{RD}, w(m), w^{NC}, M, \bar{\sigma} \}$
+	\end{enumerate}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Calibration - Targets}
+\begin{table}[H]
+	\scriptsize
+	\centering{}%
+	\begin{tabular}{lll}
+		Table 1 &  &  \tabularnewline
+		Calibration Targets &  &  \tabularnewline
+		\hline 
+		Moment  & Target & Model \tabularnewline
+		&   & \tabularnewline
+		\hline 
+		Growth rate $g$ & 0.015 & 0.02 \tabularnewline
+		Interest rate $r$ & 0.05 & 0.05 \tabularnewline
+		Profit / sales ratio & .109 & .109 \tabularnewline
+		R\&D spending / sales ratio & \alert{0.04} & \alert{0.002} \tabularnewline
+		Internal patent share & 0.5 & 0.55 \tabularnewline
+		Spinout entry rate & 0.03 & 0.025 \tabularnewline
+		Share of entry by spinouts & 0.30 & 0.21 \tabularnewline
+		(*) Spinout / entrant development $\rightarrow$ revenue (exit?) transition rates & x & x \tabularnewline
+		(*) Pre-money valuation at first funding generated by dollar of R\&D & x & x \tabularnewline
+		R\&D share of effective employment & \alert{0.08} & \alert{0.031} \tabularnewline
+		R\&D wages to production wages (incumbent) & \alert{0.7} & \alert{0.42} \tabularnewline
+		R\&D wages to production wages (all) & 0.9 & 0.95
+	\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}{Calibration - Parameters}
+\begin{table}[h]
+	\scriptsize
+	\centering{}%
+	\begin{tabular}{lll}
+		Table 2 &  &  \tabularnewline
+		Calibration Parameters &  &  \tabularnewline
+		\hline 
+		Parameter & Explanation & Value\tabularnewline
+		\tabularnewline
+		\hline 
+		Normalized & & \tabularnewline
+		$\xi$ & Spinout R\&D capacity & 20 \tabularnewline
+		&  & \tabularnewline
+		Chosen outside model & & \tabularnewline
+		$\psi_I$ & Incumbent R\&D curvature & 0.5\tabularnewline
+		$\psi_E$ & non-Incumbent R\&D curvature & 0.5\tabularnewline
+		&  & \tabularnewline
+		Chosen to match data & & \tabularnewline
+		$\rho$ & Discount rate & 0.05\tabularnewline
+		$\beta$ & $\beta^{-1}$ is EoS between intermediate goods & 0.106\tabularnewline
+		$\lambda$ & Innovation step size & 1.073\tabularnewline
+		$\chi_I$ & Incumbent R\&D productivity & 2.891\tabularnewline
+		$\chi_E$ & Entrant R\&D productivity & 0.656\tabularnewline
+		$\chi_S$ & Spinout R\&D productivity & 1.1667\tabularnewline
+		$\nu$ & Learning rate & 0.025 \tabularnewline
+		$\theta$ & Fraction of spinouts in $j' \ne j$ & 0.453 \tabularnewline
+		$\zeta$ & Worker discounting of knowledge value & 0.5147 \tabularnewline
+		$\kappa$ & Cost of creative destruction & 0.389
+	\end{tabular}
+\end{table}
+\end{frame}
+
+
+\begin{frame}{Identification}
+\begin{itemize}
+	\item Some parameters are calibrated directly to statistics in the data
+	\begin{itemize}
+		\item $\rho$: interest rate
+		\item $\beta$: profit-sales ratio
+	\end{itemize}
+	\footnotesize
+	\item The rest calibrated using simulated method of moments
+	\item Growth rate informs all innovation parameters
+	\item Incumbent R\&D spending / incumbent sales ratio informs $\chi_I$
+	\item Internal patent share informs $\chi_I / \chi_S, \chi_I / \chi_E, \kappa, \lambda, \nu$
+	\item The entry rate informs $\chi_S,\chi_E,\kappa,\nu$
+	\item The ratio of spinout entry to non-spinout entry informs $\chi_S / \chi_E, \nu$
+	\item (*) Spinout / entrant transition to revenue rate informs $\chi_S / \chi_E$
+	\item (*) Pre-money valuation at first funding generated by dollar R\&D informs $\nu$ and $\zeta$ 
+	\item R\&D share of effective employment informs innovation parameters
+	\item Ratio of wages of R\&D workers at incumbents to wages of R\&D workers at spinouts informs $\theta$
+	\item Ratio of wages of R\&D workers to production workers informs $\zeta , \nu$ 
+	\item Ratio of spinout formation rate in enforcing vs. non-enforcing states informs $\theta,\zeta,\nu$ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Discussion}
+\begin{itemize}
+	\item $\theta$ can act as a reduced form for a "baseline" level of non-compete enforcement
+	\item Model misses wages
+	\begin{itemize}
+		\footnotesize
+		\item How to measure wage of R\&D worker compared to production worker, holding constant human capital?
+	\end{itemize}
+	\item Model misses R\&D spending badly
+	\begin{itemize}
+		\footnotesize
+		\item First, in data, not all R\&D spending is wages
+		\item Second, Firms in model are kind of like products in the data, assuming firms start with one product. 
+		\item Model about R\&D spending on own products, not entry into other products
+		\item Entrants in model should include existing firms destroying other incumbents' products (as in AK 2017)
+	\end{itemize}
+	\normalsize
+	\item Model misseses R\&D labor allocation
+	\begin{itemize}
+		\footnotesize
+		\item How to measure effective employment, not nominal employment, in R\&D? Average human capital of R\&D workers
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Studying the model}
+\begin{itemize}
+	\item Compute welfare by starting model at $t=0$ with $Q_0 = 1$ and computing PDV of consumption
+	\begin{align*}
+		\textrm{Welfare} &= \frac{\overbrace{Y_0}^{\textrm{Output}} - \overbrace{\kappa \lambda V(0) \int_0^{\infty} \tau_{SE}(m) \gamma(m) \mu(m) dm}^{\textrm{Cost of creative destr.}}}{\rho - g} 
+	\end{align*}
+	\item How to interprete worker discount of value of spinning out, $\zeta$? 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Comparative static: adding non-competes}
+\begin{itemize}
+	\item With non-competes enforced, welfare increases by $18.9$\%
+	\item This is due to an increase in $g$ of $0.5$ percentage points to $2.5\%$
+	\item What key weakly identified parameters does this rely on?
+	\begin{itemize}
+		\item $\psi$: if $\psi$ is higher, DRS is more severe, hence the response to changing incentives is smaller
+		\item $\zeta$: if $\zeta$ is lower, R\&D wages are lower, hence non-competes reduce by less the effective wage paid by incumbents
+		\item $\theta$: higher $\theta$ means fewer spinouts ruled out by noncompetes, but also smaller benefit to incentives. So not clear. 
+		\item The assumption that R\&D generates spinouts. If spinout entry is matched, R\&D has to generate a lot of competition. If some spinouts are generated regardless of R\&D then this could give a different answer, then I try to match what I find in the VentureSource data.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Comparing moments}
+\begin{table}[H]
+	\scriptsize
+	\centering{}%
+	\begin{tabular}{lll}
+		Table 3 &  &  \tabularnewline
+		Comparing regimes &  &  \tabularnewline
+		\hline 
+		Moment  & Non-competes & No non-competes\tabularnewline
+		&   & \tabularnewline
+		\hline 
+		Growth rate $g$ & 0.0248 & 0.02 \tabularnewline
+		Interest rate $r$ & 0.05 & 0.05 \tabularnewline
+		Profit / sales ratio & .109 & .109 \tabularnewline
+		R\&D spending / sales ratio & 0.007 & 0.002 \tabularnewline
+		Internal patent share & 0.64 & 0.55 \tabularnewline
+		Spinout entry rate & 0.022 & 0.025 \tabularnewline
+		Share of entry by spinouts & 0.18 & 0.21 \tabularnewline
+		R\&D share of effective employment & 0.033 & 0.031 \tabularnewline
+		R\&D wages to production wages (incumbent) & 0.77 & 0.42 \tabularnewline
+		R\&D wages to production wages (all) & 0.96 & 0.95
+	\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}{Comparing innovation rates}
+\begin{figure}
+	\includegraphics[scale=0.25]{figures/compStatNC/noNC/innovation_rates_t.png}
+	\includegraphics[scale=0.25]{figures/compStatNC/NC/innovation_rates_t.png}
+	\caption{\footnotesize Incumbent innovates more, but with less steep slope. Spinouts grow at a similar rate: there is twice as much R\&D by incumbents, so twice as many non-competing spinouts, and no effect on total spinouts.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Comparing innovation rates}
+\begin{figure}
+	\includegraphics[scale=0.25]{figures/compStatNC/noNC/innovation_rates_m.png}
+	\includegraphics[scale=0.25]{figures/compStatNC/NC/innovation_rates_m.png}
+	\caption{\footnotesize The innovation rate of the incumbent given $m$ starts higher and is concave in $m$ (not a general result). It finishes slightly lower as well, but the model spend almost no time in that part of the state space.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Drift in $m$-space}
+\begin{figure}
+	\includegraphics[scale=0.25]{figures/compStatNC/noNC/drift_sources_t.png}
+	\includegraphics[scale=0.25]{figures/compStatNC/NC/drift_sources_t.png}
+	\caption{\footnotesize Drift starts out slightly higher in the enforcement regime, but increases in the non-enforcement between innovations, since incumbents increase their R\&D.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Comparing stationary distributions $\mu$}
+\begin{figure}
+	\includegraphics[scale=0.25]{figures/compStatNC/noNC/mu_vs_t_plots.png}
+	\includegraphics[scale=0.25]{figures/compStatNC/NC/mu_vs_t_plots.png}
+	\caption{\footnotesize The mass in $\mu$ shifts closer to 0 as overall innovation increases.}
+\end{figure}
+\end{frame}
+
+
+\appendix
+
+\begin{frame}{Microfoundation of external spinouts}
+\begin{itemize}
+	\item Worker has time 1 for external spinout formation, which can be targeted, but costs $q/Q$ units when targeted at $q$
+	\item CRS would imply all target $m = 0$, DRS implies non-degenerate distribution
+	\item End up with 
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+
+
+
 
 
 

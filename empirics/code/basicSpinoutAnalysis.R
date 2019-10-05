@@ -29,7 +29,7 @@ setkey(startupData,EntityID)
 setkey(parentsSpinouts,EntityID)
 
 output <- startupData[parentsSpinouts]
-output[ , foundingYear := year(mdy(StartDate))]
+output[ , foundingYear := year(mdy(StartDate))]   
 
 ### Exits
 

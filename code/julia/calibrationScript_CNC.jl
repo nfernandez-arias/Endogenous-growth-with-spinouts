@@ -36,23 +36,17 @@ SpinoutEntryRate = CalibrationTarget(0.03,1)
 SpinoutShare = CalibrationTarget(0.3,1)
 g = CalibrationTarget(0.015,1)
 RDLaborAllocation = CalibrationTarget(.08,1)
-WageRatio = CalibrationTarget(0.7,1)
+WageRatio = CalibrationTarget(0.9,1)
+WageRatioIncumbents = CalibrationTarget(0.7,0)
 SpinoutsNCShare = CalibrationTarget(0.5,1)
 
-calibPar = CalibrationParameters(RDintensity,InternalPatentShare,SpinoutEntryRate,SpinoutShare,g,RDLaborAllocation,WageRatio,SpinoutsNCShare)
+calibPar = CalibrationParameters(RDintensity,InternalPatentShare,SpinoutEntryRate,SpinoutShare,g,RDLaborAllocation,WageRatio,WageRatioIncumbents,SpinoutsNCShare)
 
 #-------------------------------#
 # Run calibration
 #-------------------------------#
 
 @time calibrationResults,modelMoments,modelResults,score = calibrateModel(algoPar,modelPar,initGuess,calibPar)
-
-# Store results in JLD2 file
-if modelPar.CNC == true
-    @save "output/calibrationResults_CNC.jld2" calibrationResults modelMoments modelResults score
-else
-    @save "output/calibrationResults_noCNC.jld2" calibrationResults modelMoments modelResults score
-end
 
 println(calibrationResults)
 
@@ -67,7 +61,7 @@ println("λ = $(calibrationResults.minimizer[4])")
 println("ν = $(calibrationResults.minimizer[5])")
 println("θ = $(calibrationResults.minimizer[8])")
 println("ζ = $(calibrationResults.minimizer[6])")
-println("κ = $(calibrationResults.minimizer[7])")
+println("κ = $(calibrationResults.minimizer[7])\n")
 
 println("Moments: $modelMoments\n\n")
 
@@ -80,7 +74,8 @@ println("Spinout Entry Rate: ($(SpinoutEntryRate.value) , $(modelMoments.Spinout
 println("Spinout Fractions of entry: ($(SpinoutShare.value) , $(modelMoments.SpinoutShare))")
 println("growth rate: ($(g.value) , $(modelMoments.g))")
 println("R&D Labor allocation: ($(RDLaborAllocation.value) , $(modelMoments.RDLaborAllocation))")
-println("Wage ratio (R&D to production): ($(WageRatio.value) , $(modelMoments.WageRatio))")
+println("Wage ratio (average R&D wage to production wage): ($(WageRatio.value) , $(modelMoments.WageRatio))")
+println("Wage ratio incumbents (same but only incumbents): ($(WageRatioIncumbents.value) , $(modelMoments.WageRatioIncumbents))")
 println("Spinouts NC Share: ($(SpinoutsNCShare.value) , $(modelMoments.SpinoutsNCShare))")
 
 
@@ -107,7 +102,7 @@ write(f,"λ = $(calibrationResults.minimizer[4])\n")
 write(f,"ν = $(calibrationResults.minimizer[5])\n")
 write(f,"θ = $(calibrationResults.minimizer[8])\n")
 write(f,"ζ = $(calibrationResults.minimizer[6])\n")
-write(f,"κ = $(calibrationResults.minimizer[7])\n")
+write(f,"κ = $(calibrationResults.minimizer[7])\n\n")
 
 write(f,"Moments: $modelMoments\n\n\n")
 
@@ -120,10 +115,20 @@ write(f,"Spinout Entry Rate: ($(SpinoutEntryRate.value) , $(modelMoments.Spinout
 write(f,"Spinout Fractions of entry: ($(SpinoutShare.value) , $(modelMoments.SpinoutShare))\n")
 write(f,"growth rate: ($(g.value) , $(modelMoments.g))\n")
 write(f,"R&D Labor allocation: ($(RDLaborAllocation.value) , $(modelMoments.RDLaborAllocation))\n")
-write(f,"Wage ratio (R&D to production): ($(WageRatio.value) , $(modelMoments.WageRatio))\n")
+write(f,"Wage ratio (average R&D wage to production wage): ($(WageRatio.value) , $(modelMoments.WageRatio))\n")
+write(f,"Wage ratio incumbents (same but only incumbents): ($(WageRatioIncumbents.value) , $(modelMoments.WageRatioIncumbents))\n")
 write(f,"Spinouts NC Share: ($(SpinoutsNCShare.value) , $(modelMoments.SpinoutsNCShare))\n")
 
 close(f)
+
+
+# Store results in JLD2 file
+if modelPar.CNC == true
+    @save "output/calibrationResults_CNC.jld2" modelMoments modelResults score
+else
+    @save "output/calibrationResults_noCNC.jld2" modelMoments modelResults score
+end
+
 
 #using Plots
 #gr()

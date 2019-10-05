@@ -1,0 +1,38 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
+            &\multicolumn{1}{c}{Counts}&\multicolumn{1}{c}{Founder counts}&\multicolumn{1}{c}{Valuation}\\
+\hline
+xrd         &       0.431\sym{**} &       0.685\sym{**} &       18.88\sym{**} \\
+            &     (0.166)         &     (0.224)         &     (6.059)         \\
+[1em]
+tobin\_q\_assets&     0.00916\sym{***}&      0.0142\sym{***}&       0.474\sym{***}\\
+            &   (0.00202)         &   (0.00346)         &     (0.131)         \\
+[1em]
+at          &     -0.0115\sym{***}&     -0.0188\sym{***}&      -0.481\sym{***}\\
+            &   (0.00263)         &   (0.00444)         &     (0.139)         \\
+[1em]
+emp         &    0.000616         &     0.00184         &      -0.759         \\
+            &   (0.00160)         &   (0.00249)         &     (0.527)         \\
+[1em]
+patentcount\_cw\_cumulative&  0.00000618         &   0.0000112         &  -0.0000137         \\
+            &(0.00000414)         &(0.00000716)         &  (0.000322)         \\
+[1em]
+Parent Firm FE&         Yes         &         Yes         &         Yes         \\
+[1em]
+Parent Firm Age FE&         Yes         &         Yes         &         Yes         \\
+[1em]
+NAICS4-Year FE&         Yes         &         Yes         &         Yes         \\
+[1em]
+State-Year FE&         Yes         &         Yes         &         Yes         \\
+\hline
+r2\_a        &       0.545         &       0.533         &       0.188         \\
+r2\_a\_within &       0.156         &       0.153         &      0.0285         \\
+N           &       40444         &       40444         &       40444         \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

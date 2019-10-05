@@ -1,0 +1,164 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{Some issues}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Product-level data}
+
+Broda-Weinstein 2010 has some moments I could use (see Figure \ref{broda-weinstein-2010-figs})
+
+\begin{figure}[h]	\phantomsection
+	\center
+	\includegraphics[scale = 0.5]{figures/broda-weinstein-table3.png}
+	\includegraphics[scale = 0.5]{figures/broda-weinstein-table4.png}
+	\caption{Value of new UPCs refers to total sales during year $t$ of new UPCs. I.e., "creation" and "destruction" are sales-weighted product entry and exit rates.  From Broda-Weinstein 2010: "Comparing the extent of firm creation to that of product creation suggests that 92 percent of product creation happens within existing manufacturers, and 97 percent of product destruction happens within existing manufacturers. At four-year frequencies the comparable numbers are 82 and 87 percent, respectively. This implies that over a four-year period, 18 percent of the value of overall consumption is coming from products of completely new manufacturers, and 13 percent of product exit is happening because manufacturers disappear."}
+	\label{broda-weinstein-2010-figs}
+\end{figure}
+
+\subsection{Issues}
+
+\begin{itemize}
+	\item Even if I can divide product entry between existing firms and new firms, I don't know how much of product entry of existing firm is due to creative destruction vs own product improvements
+	\item Seems like this idea won't work and adds too much complexity without really helping much
+\end{itemize}
+
+\section{Modeling incumbent external innovation}
+
+Makes sense, but only do if easy to do...at this point, the priority is pinning down the quantification of a mechanism using the model. 
+
+It's true that this would let me match stuff, it doesn't help me match anything related to my MECHANISM. There's lots of stuff in the world...
+
+\begin{itemize}
+	\item Still, without fixing this, I do not believe the new firm entry rate is a reasonable way to calibrate the model. It significantly understates the rate of creative destruction, which is an important driver of the mechanisms in the model (though not clear whether a constant shift int he rate of creative destruction affects comparative statics? have to think about)
+	\item In addition, can't use R\&D intensity as a moment if I'm modeling only a type of R\&D that doesnt have as strong incentives or usefulness as R\&D does in the real world
+	\item Hence, I believe the model would be significantly improved by adding multi-product firms, and I believe this can be done easily (i.e. I can do it this weekend) by following the framework in Klette-Kortum,
+	\item Klette-Kortum is set up very tractably, 
+	\begin{itemize}
+		\item i.e. firms operate as distinct product lines, so firm size distribution does not affect how policy functions aggregate. 
+		\item No additional state variable for firm problem (firm value now scales linearly with average quality $\overline{q}$ and number of lines $n$)
+		\item Slight change in incumbent HJB (now has a flow probability of adding a random product, etc.)
+	\end{itemize}
+	\item Then larger firms will have more products and patents etc, I can match total R\&D spending. Everything matches the usual firm size / R\&D moments (well not all, because I don't have some of Klette-Kortum's features)
+	\item Two new parameters: $\chi_I^{\textrm{External}}$ and $\psi_I^{\textrm{External}}$. Set curvature parameter to 0.5 as the rest of them, and identify ratio of productivity parameter to the own-product R\&D productivity by matching using fraction of incumbent patents mostly citing their own products
+	\item Match "entry" in the model to actual entry of firms
+	\item And spinout entry is fraction of entering firms which are spinouts
+	\item Essentially, I am simplifying one aspect of Klette Kortum (the fact that revenue productivity depends on the step size, which comes from their limit-pricing assumption) while adding another (that incumbents can innovate on their own products, and that this induces a higher rate of creative destruction for them). 
+\end{itemize}
+
+\section{Innovative vs non-innovative firms}
+
+Didn't ask him, but I know it wouldn't be a priority.
+
+\begin{itemize}
+	\item Currently the model relies on R\&D leading to spinout formation, which I find limited evidence for in the data
+	\item 
+	\item Would be nice to be able to get discipline on $\nu$ by comparing rates of spinout formation from high R\&D firms and low R\&D firms
+	\item In the model as is, all firms have same R\&D / sales ratio
+	\item Could, as in Baslandze, make two types of firms, high and low-innovativeness
+	\item High-type firms have faster revenue growth than low-type firms -- divide Compustat firms into two groups based on revenue growth, or R\&D intensity, or something
+	\item Introduce a new parameter (relative R\&D productivity of high-type firms), calibrate by matching the growth rates or R\&D intensity ratio between these two groups
+	\item Then calibrate $\nu$ by looking at relative spinout formation from high-type vs low-type firms (in the model, $\nu$ drives this by interacting with higher R\&D spending by high-type firms)
+\end{itemize}
+
+
+\section{Industry of spinout firms}
+
+Nothing I can do about it.
+
+\begin{itemize}
+	\item My data on spinouts does not have NAICS codes
+	\item It has some industry descriptions, but they are not equivalent to NAICS codes -- even in some cases when they appear to be, they are not
+	\begin{itemize}
+		\item E.g. most categories in my data have many firms in them that really should be categorized as software companies
+	\end{itemize}
+	\item My defense: NAICS measures of competition are weak anyway -- 4-digit NAICS codes are something like "automobiles" or "software publishers" which are extremely broad categories encompassing many businesses which do not compete with each other. 
+	\item So taking an indirect approach, e.g. by calibrating $\theta$ using the relative rate of spinout formation in enforcing vs. non-enforcing states, could even be preferable
+	\item Still...not sure about this at all. 
+\end{itemize}
+
+\section{Definition of spinouts?}
+
+Didn't ask him about it.
+
+\begin{itemize}
+	\item My spinouts are "firms founded by people whose last employer was a publicly traded firm"
+	\item But really, I want to identify firms founded by people who acquired knowledge and ideas at their previous employer, due to the knowledge embedded in the firm
+	\item Often this is identified with "within-industry spinouts", but I don't have industry information
+	\item However, this isn't really right: first of all, industry is an extremely crude measure anyway, and secondly, knowledge is learned likely deployed regardless of whether the product is in the same industry or not
+	\item So the real thing that would be useful would be to somehow identify, based on employees' positions at their previous employer, employees who likely gained knowledge from their employment
+	\item I already looked, and it can't be something like "engineers" because those are a tiny fraction. 
+	\item However, maybe if I reduce attention to founders who are CTOs (and thereby reduce the number of spinouts) this will work
+\end{itemize}
+
+\section{Strength of Non-competes}
+
+Not priority for now. Work on calibration.
+
+\begin{itemize}
+	\item Currently model allows only for permanent non-compete agreements.
+	\item Allowing for non-competes to last $T$ units of time is infeasible, since it would require the firm's state variable to include a continuum of masses for each $t < T$ 
+	\begin{itemize}
+		\item Shi avoids this issue by modeling the cost to the firm in a reduced form (losing human capital of manager, reduced form "lost business" cost), rather than as a consequence of a general equilibrium model
+		\item Baslandze sidesteps this issue by not modeling non-competes explicitly, rather modeling their *enforcement* as a higher fixed cost of spinout formation
+	\end{itemize}
+	\item Hence, use perpetual youth non-compete: constant Poisson intensity $p$ of expiry, average duration $1/p$. 
+	\item In every calibration I've done, whenever non-competes are optimal, permanent non-competes are optimal, so it *seems* WLOG to assume that non-competes are always the longest allowed
+	\item This still requires firm problem to have two state variables: mass of spinouts and mass of workers currently bound by non-competes and awaiting expiry.
+	\item Easier model is to simply model strength of non-compete enforcement as a probability that the permanent non-compete is in fact enforced. 
+	\item For the worker, this is the same as an additional fixed cost of within-industry spinout formation.
+	\item For the firm, it is slightly different, but similar
+	\item Tractable, but still captures (in contrast with Baslandze) the fact that some spinouts will not be prevented by non-competes as they well...do not compete!
+	\item Baslandze's defense: fixed cost is calibrated to reduce spinouts by the amount that that non-compete enforcement actually reduces them by in the data. So may not make a huge difference. Not sure. 
+\end{itemize}
+
+\section{Justifying my version of "motivation for non-competes}
+
+Agrees.
+
+\begin{itemize}
+	\item Other papers focus on cost to firm of lost payouts from human capital embodied in the worker (Baslandze, Shi)
+	\item But this is an odd thing to focus on in the context of non-competes: if firms were really worried about losing workers, they would make workers sign contracts with penalties for leaving prematurely *for any reason* (e.g. "Liquidated damages provision", perfectly enforceable in states like California with very limited non-competes provided that "the amount determined is considered, at the time the contract is entered into, to be a reasonable estimate of actual losses which will be suffered by a non-breaching party"). 
+	\item If this kind of contract is unavailable for whatever reason, it can by approximated by backloading of wages (though this requires firm commitment)
+	\item Therefore my focus on the incumbent's innovation-spinout Competition tradeoff is singificantly more grounded in economic theory.
+	\item Does this make sense?
+\end{itemize}
+
+
+
+
+\end{document}

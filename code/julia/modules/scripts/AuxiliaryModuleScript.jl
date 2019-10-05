@@ -150,6 +150,24 @@ function aFunc(modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64},z
 
 end
 
+function WcalFunc(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess,W::Array{Float64},μ::Array{Float64},γ::Array{Float64},CNC::Bool)
+
+    if CNC == true
+
+        modelPar.CNC = true
+
+        return WcalFunc(algoPar,modelPar,guess,W,μ,γ)
+
+    else
+
+        modelPar.CNC = false
+
+        return WcalFunc(algoPar,modelPar,guess,W,μ,γ)
+
+    end
+
+end
+
 function WcalFunc(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess,W::Array{Float64},μ::Array{Float64},γ::Array{Float64})
 
     mGrid,Δm = mGridBuild(algoPar.mGrid)

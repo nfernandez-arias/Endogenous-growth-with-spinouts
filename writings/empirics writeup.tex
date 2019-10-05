@@ -1,0 +1,92 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{Empirics}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Determinants of spinout formation}
+
+\input{../empirics/tables/presentationRegressions.tex} \\
+\input{../empirics/tables/presentationRegressions_logs_babinaHowell.tex} \\
+
+\input{../empirics/tables/presentationRegressions_logs_IV.tex}
+
+\subsection{Spinout counts}
+\scriptsize
+\input{../empirics/tables/spinoutCounts_regressions.tex}
+
+\subsection{Founder counts}
+
+\input{../empirics/tables/founderCounts_regressions.tex}
+
+
+\subsection{Spinout valuation}
+
+\input{../empirics/tables/spinoutDFFV_regressions.tex}
+
+
+\subsection{Log specification from Babina \& Howell}
+
+\begin{itemize}
+	\item They have establishment-level data so I can't do their exact specification
+	\item If I do 
+\end{itemize}
+
+
+\section{Effect of Non-compete enforcement on investment and R\&D}
+
+\input{../empirics/tables/noncompeteRegressions.tex}
+
+\input{../empirics/tables/naics4_nonnaics4_regressions.tex}
+
+
+
+\section{Properties of spinout firms}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

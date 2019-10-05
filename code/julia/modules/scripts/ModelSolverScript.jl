@@ -242,6 +242,23 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
 end
 
+function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initGuess::Guess,CNC::Bool)
+
+    if CNC == true
+
+        modelPar.CNC = true
+
+        return solveModel(algoPar,modelPar,initGuess)
+
+    else
+
+        modelPar.CNC = false
+
+        return solveModel(algoPar,modelPar,initGuess)
+
+    end
+
+end
 
 function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initGuess::Guess,incumbentSolution::IncumbentSolution)
 

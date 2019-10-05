@@ -1,0 +1,78 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{To-do 9-12-2019}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Theory}
+
+\begin{itemize}
+	\item Implement new "external spinout" assumptions (although my original assumption is consistent with how "external innovation" is usually modeled, e.g. Lentz-Mortensen 2008 or Akcigit-Kerr 2017.)
+	\item Discuss assumptions that spinouts depend on R\&D, in particular how it may be robust to R\&D not *directly* causing spinouts (or other misspecificaitons, like time lags)
+	\begin{itemize}
+		\item May not have direct evidence of this parameter. One possibility would be to compare R\&D firms to non-R\&D firms?
+	\end{itemize}
+	\item Explicitly discuss "catching up" by potential spinouts left behind (no incentive to because don't preserve R\&D tech and can't enter due to costly imitation).
+	\item Figure out a way to concisely explain the limitations due to no risk aversion
+	\begin{itemize}
+		\item In particular, there is a paper close to mine by Salome Baslandze which \textit{does} have risk aversion. But I believe the paper is wrong...when calculating the value of gaining the potential for a spinout, no reference is made to the stochastic discount factor of the relevant worker...Maybe the right way to think about it is that it is not really risk aversion, but time preference? So not an advantage of her paper.
+	\end{itemize}
+\end{itemize}
+
+\section{Empirics}
+
+Main issue: low R\&D spending due to no external innovation by incumbents + Arrow's replacement effect.
+
+Solution: interpret firms in model as products, model does not speak to attempts by incumbent firms to acquire new products. Ordinary entrants in the model represent creative destruction by existing firms as well as by startups. In order to go with this interpretation I need:
+
+\begin{itemize}
+	\item Calculate product entry rate
+	\item Calculate fraction of R\&D spending by incumbents dedicated to internal innovation -- e.g., by looking at fraction of patents by Compustat firms that cite mostly their own patents vs. other patents
+	\item Using VentureSource data, calculate likelihood of regular entrant transitioning to "revenue" stage or above, as well as for spinouts, and compare.
+	\item Due to this being a different calibration than usual, will get lower $\lambda$ and higher $\chi_I,\chi_S,\chi_E$ parameters than other similar models calibrated to firm-level data.
+	\item Meeting with Steve Redding on Wednesday to talk about this possibility
+\end{itemize}
+
+
+
+
+
+
+
+
+
+\end{document}

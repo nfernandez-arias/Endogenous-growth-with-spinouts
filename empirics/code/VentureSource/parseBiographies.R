@@ -59,7 +59,7 @@ temp <- temp[ , .(EntityID,EntityName)]
 names <- unique(temp)
 
 fwrite(names,"~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics/data/VentureSource/EntityNames.csv")
-    
+
 rm(temp)
 
 setkey(names,EntityID)

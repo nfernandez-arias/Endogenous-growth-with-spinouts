@@ -25,6 +25,7 @@ struct CalibrationParameters
     g::CalibrationTarget
     RDLaborAllocation::CalibrationTarget
     WageRatio::CalibrationTarget
+    WageRatioIncumbents::CalibrationTarget
     SpinoutsNCShare::CalibrationTarget
 
 end
@@ -38,9 +39,18 @@ mutable struct ModelMoments
     g::Float64
     RDLaborAllocation::Float64
     WageRatio::Float64
+    WageRatioIncumbents::Float64
     SpinoutsNCShare::Float64
 
     ModelMoments() = new()
+
+end
+
+function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess)
+
+    results,a,b,c = solveModel(algoPar,modelPar,guess)
+
+    return computeModelMoments(algoPar,modelPar,results.finalGuess,results.incumbent)
 
 end
 
@@ -138,7 +148,7 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
     ## Decompose high type entrants into spinouts from incumbents, spinouts from spinouts, and non-spinouts (i.e. former ordinary entrants)
 
-    mIFrac,mSFrac,mEFrac,mI_NC_Frac,mS_NC_Frac = spinoutMassDecomposition(algoPar,modelPar,guess,incumbentSolution,μ,γ,t)
+    mIFrac,mSFrac,mEFrac,mI_NC_Frac,mS_NC_Frac = spinoutMassDecomposition(algoPar,modelPar,guess,results.incumbent,μ,γ,t)
 
 
     ## Using the above, calculate entry rates by each group
@@ -160,15 +170,19 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
     internalPatentShare = innovationRateIncumbent / (innovationRateIncumbent + entryRate)
 
-    spinoutShare = (entryRateSpinoutsFromIncumbents + entryRateSpinoutsFromSpinouts) / entryRate
+    allSpinoutsEntry = (entryRateSpinoutsFromIncumbents + entryRateNonCompetingSpinoutsFromIncumbents + entryRateSpinoutsFromSpinouts + entryRateNonCompetingSpinoutsFromSpinouts)
+    spinoutShare = allSpinoutsEntry / entryRate
+
 
     ## Calculate RD intensity for incumbents
 
     aggregateSales = finalGoodsLabor
 
-    aggregateRDSpendingByIncumbents = sum(w .* zI .* γ .* μ .* Δm)
+    aggregateRDSpendingByIncumbents = sum(((1 .- noncompete) .* w + noncompete .* wNC).* zI .* γ .* μ .* Δm)
     aggregateRDSpendingBySpinouts = sum(wageSpinouts .* zS .* γ .* μ .* Δm)
     aggregateRDSpendingByEntrants = sum(wageEntrants .* zE .* γ .* μ .* Δm)
+
+    aggregateRDLaborByIncumbents = sum( zI .* γ .* μ .* Δm)
 
     aggregateRDSpending = aggregateRDSpendingByIncumbents + aggregateRDSpendingBySpinouts + aggregateRDSpendingByEntrants
 
@@ -176,6 +190,8 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
     # Average wage of RD employee / average wage of production employee (of same human capital)
     WageRatio = (aggregateRDSpending / L_RD)  / wbar
+
+    WageRatioIncumbents = (aggregateRDSpendingByIncumbents / aggregateRDLaborByIncumbents ) / wbar
 
     # Non-competing spinouts share of spinout entry (i.e. successful innovations)
 
@@ -189,11 +205,12 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
     modelMoments.RDintensity  = RDintensity
     modelMoments.InternalPatentShare = internalPatentShare
-    modelMoments.SpinoutEntryRate = entryRateSpinoutsFromIncumbents + entryRateSpinoutsFromSpinouts
+    modelMoments.SpinoutEntryRate = allSpinoutsEntry
     modelMoments.SpinoutShare = spinoutShare
     modelMoments.g = g
     modelMoments.RDLaborAllocation = L_RD
     modelMoments.WageRatio = WageRatio
+    modelMoments.WageRatioIncumbents = WageRatioIncumbents
     modelMoments.SpinoutsNCShare = SpinoutsNCShare
 
     return modelMoments,results
@@ -239,7 +256,8 @@ function computeScore(algoPar::AlgorithmParameters,modelPar::ModelParameters,gue
     modelMomentsVec[5] = modelMoments.g
     modelMomentsVec[6] = modelMoments.RDLaborAllocation
     modelMomentsVec[7] = modelMoments.WageRatio
-    modelMomentsVec[8] = modelMoments.SpinoutsNCShare
+    modelMomentsVec[8] = modelMoments.WageRatioIncumbents
+    modelMomentsVec[9] = modelMoments.SpinoutsNCShare
 
     # divide error by target moment -- "unit free" errors. Weights can then reflect purely imoportance of the moment.
 
@@ -339,14 +357,14 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
                   modelPar.κ,
                   modelPar.θ ]
 
-    lower = [1, 1, 0.2, 1.01, 0.01, 0.6, 0.2, 0.05]
-    upper = [8, 5, 0.8, 1.10, 0.05, 0.98, 0.8, 0.95]
+    lower = [0.5, 0.5, 0.2, 1.01, 0.01, 0.4, 0.15, 0.05]
+    upper = [8, 5, 0.8, 1.10, 0.035, 0.98, 0.9, 0.95]
 
     #inner_optimizer = GradientDescent()
     inner_optimizer = LBFGS()
 
 
-    calibrationResults = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(outer_iterations = 1000, iterations = 1000, store_trace = true, show_trace = true))
+    calibrationResults = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(outer_iterations = 1000000, iterations = 10000000))
     #results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer))
     #results = optimize(f,initial_x,inner_optimizer,Optim.Options(iterations = 1, store_trace = true, show_trace = true))
     #results = optimize(f,initial_x,method = inner_optimizer,iterations = 1,store_trace = true, show_trace = false)

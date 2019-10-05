@@ -1,0 +1,88 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{To-do 9-16-2019}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section{Theory}
+
+\begin{itemize}
+	\item \textbf{Esteban thinks this won't help -- need to think about it more} Implement new "external spinout" assumptions (although my original assumption is consistent with how "external innovation" is usually modeled, e.g. Lentz-Mortensen 2008 or Akcigit-Kerr 2017.)
+	\item \textbf{DIDNT ASK ESTEBAN STILL DO THIS}Discussed with Ezra about assumptions on productions function -- there should be an equivalence, so not too worried (maybe don't even bring it up).
+	\item \textbf{YES} Easier to sell by just saying that $\xi = 1$ is a normalization, since $\xi,\nu$ not separately identified by the model?
+	\item \textbf{Get some stuff that motivates it in the data, then produce model that embodies that hypothesis, and run with its conclsuions} Discuss assumptions that spinouts depend on R\&D, in particular how it may be robust to R\&D not *directly* causing spinouts (or other misspecificaitons, like time lags)
+	\begin{itemize}
+		\item May not have direct evidence of this parameter. One possibility would be to compare R\&D firms to non-R\&D firms? Patenting vs non-patenting firms?
+	\end{itemize}
+	\item \textbf{YES - ESTEBAN AGREES WITH INTERP}Explicitly discuss "catching up" by potential spinouts left behind (no incentive to because don't preserve R\&D tech and can't enter due to costly imitation).
+	\item \textbf{Esteban says don't worry about this - just emphasize how your modelling is different} Figure out a way to concisely explain the limitations due to no risk aversion
+	\begin{itemize}
+		\item In particular, there is a paper close to mine by Salome Baslandze which \textit{does} have risk aversion. But I believe the paper is wrong...when calculating the value of gaining the potential for a spinout, no reference is made to the stochastic discount factor of the relevant worker...Maybe the right way to think about it is that it is not really risk aversion, but time preference? So...not an advantage of her paper? 
+		\item Currently I am just explaining how not 
+	\end{itemize}
+\end{itemize}
+
+\section{Empirics}
+
+Main issue: low R\&D spending due to no external innovation by incumbents + Arrow's replacement effect.
+
+\textbf{Esteban: Is this really true? Why unable to generate more R\&D spending by simply cranking up incumbent innovation rate? Can I do it by giving them larger step sizes? Think about this.}
+
+Solution: interpret firms in model as products, model does not speak to attempts by incumbent firms to acquire new products. Ordinary entrants in the model represent creative destruction by existing firms as well as by startups. In order to go with this interpretation I need:
+
+\textbf{Esteban: problem with the below strategy: in order to estimate spinout entry rate, need fraction of products entering with new firms or something, which have not considered yet.}
+
+\begin{itemize}
+	\item Calculate product entry rate
+	\item Calculate fraction of R\&D spending by incumbents dedicated to internal innovation -- e.g., by looking at fraction of patents by Compustat firms that cite mostly their own patents vs. other patents
+	\begin{itemize}
+		\item C.f. "Patents to products" paper by Argente et al. to relate patents and product entry
+	\end{itemize}
+	\item Using VentureSource data, calculate likelihood of regular entrant transitioning to "revenue" stage or above, as well as for spinouts, and compare.
+	\item Due to this being a different calibration than usual, will get lower $\lambda$ and higher $\chi_I,\chi_S,\chi_E$ parameters than other similar models calibrated to firm-level data.
+	\item Meeting with Steve Redding on Wednesday to talk about this possibility using Nielsen data, will get a sense if it's possible to do at this point
+\end{itemize}
+
+
+
+
+
+
+
+
+
+\end{document}

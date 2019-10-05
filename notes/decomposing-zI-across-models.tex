@@ -1,0 +1,71 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+	
+	
+\title{Decomposing difference in $z_I$ across models}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+Have
+\begin{align*}
+	W_{\text{free}}(m) &= \nu (1-\zeta) \Big(\theta \mathcal{W} + (1-\theta) W(m) \Big)  \\
+	W_{\text{noncompete}}(m) &= \nu (1-\zeta) \theta \mathcal{W}
+\end{align*}
+
+\begin{align*}
+	z_I = \max_{z \ge 0} z^{1-\psi} \chi_I(\lambda V(0) - V(m)) - z (\bar{w} - W_{\text{free}}(m) - \nu V'(m)) 
+\end{align*}
+
+First order condition:
+\begin{align*}
+	(1-\psi) z_I^{-\psi} \chi_I \Big( \lambda V(0) - V(m) \Big) &= (\bar{w} - W_{\text{free}}(m) - \nu V'(m)) \\
+	z_I^{-\psi} &= (1-\psi)^{-1}  \frac{\bar{w} - W_{\text{free}}(m) - \nu V'(m)}{\chi_I \Big( \lambda V(0) - V(m) \Big)} \\
+	z_I &= (1-\psi)^{1/\psi} \Bigg( \frac{\bar{w} - W_{\text{free}}(m) - \nu V'(m)}{\chi_I \Big( \lambda V(0) - V(m) \Big)}\Bigg)^{-1/\psi} 
+\end{align*}
+
+If there are noncompetes, it is
+\begin{align*}
+	z_I &= (1-\psi)^{1/\psi} \Bigg( \frac{\Big(1-x(m)\Big) \Big(\bar{w} - W_{\text{free}}(m) - \nu V'(m) \Big) + x(m) \Big( w \Big)}{\chi_I \Big( \lambda V(0) - V(m) \Big)}\Bigg)^{-1/\psi} 	
+\end{align*}
+
+
+
+
+
+
+
+\end{document}

@@ -34,8 +34,7 @@
 \newtheorem{remark}{Remark}
 \begin{document}
 	
-	
-	
+
 \title{Non-competing spinouts}
 \author{Nicolas Fernandez-Arias}
 \maketitle
@@ -62,12 +61,59 @@ The drift in a line $j$ in state $m$ is
 	\dot{m} &= \overline{a} + (1-\theta) \Big(\nu^I z^I + \nu^S z^S + \nu^E z^E \Big) 
 \end{align*}
 
+\section{Improved version}
 
+Suppose there are decreasing returns to innovation in a particular line, $f(\ell)$. Then the maximization problem is
+\begin{align*}
+	\max_{\ell_j} \int_0^1 f(\ell_j) q_j W(m_j) dj 
+\end{align*}
 
+subject to
+\begin{align*}
+	\int_0^1 \ell_j (q_j/Q) dj \le 1
+\end{align*}
 
+Lagrangean:
+\begin{align*}
+	\mathcal{L} &= \int_0^1 f(\ell_j) q_j W(m_j) dj  + \lambda \Big( 1 - \int_0^1 \ell_j (q_j/Q) dj \Big)
+\end{align*}
 
+FOC:
+\begin{align*}
+	f'(\ell_j) q_j W(m_j) &= \lambda \frac{q_j}{Q}
+\end{align*}
 
+Because of the assumptions, the $q_j$ cancels out, leaving
+\begin{align}
+	f'(\ell_j) =  \frac{\lambda}{Q W(m_j)} \label{FOC}
+\end{align}
 
+Suppose $f(\ell) = \ell^{\alpha}$ for some $\alpha \in [0,1)$, where $\alpha = 0$ is understood to represent $f(\ell) = \log(\ell)$. Then $f'(\ell) = \alpha \ell^{\alpha-1}$. Dividing (\ref{FOC}) at different values of $j$ yields
+\begin{align}
+	\frac{\ell_j}{\ell_{j'}} &= \Bigg(\frac{W(m_{j})}{W(m_{j'})}\Bigg) ^{\frac{1}{1-\alpha}} \label{laborRatio}
+\end{align}
+
+Substituting into the budget constraint,
+\begin{align*}
+	1 &= \int_0^1 \ell_0 \frac{\ell_j}{\ell_0} \frac{q_j}{Q} dj \\
+	  &= \int_0^1 \ell_0 \Bigg(\frac{W(m_{j})}{W(m_0)}\Bigg) ^{\frac{1}{1-\alpha}} \frac{q_j}{Q} dj 
+\end{align*}
+
+determines $\ell_0$. 
+
+Practically, it is necessary to compute this integral in a different space, 
+\begin{align*}
+	1 = \int_0^{\infty} \ell(0) \Bigg(\frac{W(m)}{W(0)}\Bigg) ^{\frac{1}{1-\alpha}} \gamma(m) \mu(m) dm 
+\end{align*}
+
+where $\ell(0)$ is the allocation per unit of relative quality to each line in state $m = 0$. Given $\ell(0)$ one can compute $\ell(m)$ for all $m > 0$ using the spinout value $W(m)$. 
+
+Finally, the rate of drift for a good in state $m$ is
+\begin{align*}
+	f(\ell(m)) \theta \nu \int_0^{\infty} z_I(m) \gamma(m) \mu(m) dm 
+\end{align*} 
+
+which can be calculated readily from everything available. 
 
 
 

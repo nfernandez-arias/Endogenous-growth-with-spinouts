@@ -21,7 +21,7 @@ using Plots
 gr()
 
 using JLD2, FileIO, Optim
-@load "output/calibrationResults.jld2" modelMoments modelResults score
+@load "output/calibrationResults_noCNC.jld2" modelMoments modelResults score
 results = modelResults
 
 #--------------------------------#
@@ -36,3 +36,15 @@ include("testPlots.jl")
 #--------------------------------#
 
 include("testDiags.jl")
+
+
+
+results1 = results
+results2 = results
+aNC = a
+aNoNC =
+## Random stuff
+
+p = plot(t, [results1.auxiliary.μ.*ν.*a results2.auxiliary.μ.*ν.*aNC], xlims = (0,35), title = "Stationary distribution", label = ["Baseline" "Noncompetes"], ylabel = "Density", xlabel = "Years since last innovation", linestyle = [:solid :dash])
+
+png("figures/plotsGR/compStatNC_mu.png")

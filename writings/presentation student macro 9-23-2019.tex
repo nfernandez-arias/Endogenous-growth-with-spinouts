@@ -1,0 +1,267 @@
+\documentclass[english,usenames,dvipsnames]{beamer}
+\usetheme{default}
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{footline}[frame number]
+\setbeamercolor{alerted text}{fg=blue1}
+%\setbeamercolor{frametitle}{fg=blue2}
+\usepackage[utf8]{inputenc}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{appendixnumberbeamer}
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{bbm}
+\usepackage{amsthm}
+\usepackage{verbatim}
+%\usepackage{palatino}
+\definecolor{red1}{RGB}{255,50,0}
+\definecolor{blue1}{RGB}{80,80,255}
+\definecolor{blue2}{rgb}{0.22,0.37,1}
+\definecolor{green1}{RGB}{34,139,35}
+
+\setbeamertemplate{itemize items}[default]
+
+
+\title{Employee Spinouts, Creative Destruction and Endogenous Growth}
+\author{Nicolas Fernandez-Arias}
+%\date{March 7, 2019}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Motivation}
+\begin{itemize}
+	\item Entry contributes significantly to productivity growth
+	\begin{itemize}
+		\item Over 10-year horizon, 25\% of labor productivity growth accounted by entry in manufacturing (Baily-Bartelsman-Haltiwanger 1996)
+		\item ~25\% of aggregate productivity growth due to entrants (Akcigit-Kerr 2017)
+	\end{itemize}
+	\item Spinouts: entrants whose founders use human capital developed at previous employer
+	\begin{itemize}
+		\item All Spinouts: more patents / R\&D, sales growth, survival (Baslandze 2019) 
+		\item Same-industry spinouts: 15-30\% of entrants; larger, grow faster, higher survival rates (Muendler et al. 2012, Brazilian data)
+		\item Fairchild semiconductor / Silicon Valley (Saxenian 1994); Detroit automakers
+		\item Modern high-profile examples: Tinder $\rightarrow$ Bumble; Ableton $\rightarrow$ Bitwig Studio
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+	\item Non-competes policy debate
+	\begin{itemize}
+		\item Non-competes restrict spinouts
+		\item Many states passing laws restricting enforcement of noncompetes (Hawaii in 2015, Massachussetts and Maryland in 2019, many others)
+		\item Attempt to emulate Silicon Valley (very low enforcement)
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Spinouts of Fairchild Semiconductor}
+\begin{figure}
+	\includegraphics[scale=0.34]{../figures/fairchildren_early.png}
+	\caption{Source: Endeavor Insights}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Motivation - Theory}
+\label{theory_big_picture}
+\begin{itemize}
+	\item Schumpeter 1942, Arrow 1962, Romer 1986, Grossman-Helpman 1991, etc.: \alert{underinvestment} in knowledge due to \alert{limited excludability}
+	\item Patent literature: dynamic efficiency vs. static monopoly distortion tradeoff
+	\item Creative destruction by spinouts similar tradeoff
+	\item Should we encourage or discourage spinout formation?
+	\item Existing frameworks (e.g., Franco-Filson 2006, Baslandze 2019) underemphasize disincentive for firm R\&D 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Related literature}
+\begin{itemize}
+	\item Firm dynamics and endogenous growth
+	\begin{itemize}
+		\item Romer 1986, Grossman \& Helpman 1991, Aghion \& Howitt 1992, Klette \& Kortum 2004, Acmemoglu \& Akcigit 2012, Akcigit \& Kerr 2017
+	\end{itemize}
+	\item Models of employee spinouts
+	\begin{itemize}
+		\item Klepper 2002, Klepper \& Sleeper 2005, Franco \& Filson 2006, Franco \& Mitchell 2008, Rauch 2015, Rossi-Hansberg \& Chatterjee 2012
+		\item Baslandze 2019
+	\end{itemize}
+	\item Empirics on employee mobility, spinouts
+	\begin{itemize}
+		\item Spawning of spinouts: Gompers et al. 2005, Garmaise 2011, Baslandze 2019
+		\item Effect on parent firms: Campbell et. al 2012, Wezel et al. 2006
+		\item Effect of non-compete enforcement: Garmaise 2009, Marx et al 2009, Samila-Sorenson 2011, Jeffers 2018, Shi 2018
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Overview and results}
+\begin{itemize}
+	\item Develop model of endogenous growth with creative destruction
+	\item Calibrate model with help from new microdata on employee spinouts (VentureSource + Compustat + NBER USPTO)
+	\begin{itemize}
+		\item Information on founders of VC-funded startups
+		\item Information on valuations / amounts raised at funding rounds / exits
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Data - Venture Source}
+\begin{itemize}
+	\item Venture Source
+	\begin{itemize}
+		\item Data on startups funded by VCs from 1986-2015: about 40,000 startups
+		\item Also includes funding by PEs and IPOs and acquisitions, and business status (e.g. product development, earning revenue, profitable)
+		\item Key feature: \alert{employment biographies} for founders / C-level / board members
+		\item Missing: NAICS codes - some industry info, but not equivalent
+		\begin{itemize}
+			\item This may be solvable using e.g. Manta.com, which has NAICS codes for small businesses (but need name match)
+			\item Partial workaround: identify fraction of employee entrepreneurship which competes using the model by matching relative spinout formation rates in enforcing vs. non-enforcing states
+		\end{itemize}
+		\item Limited sales / revenue / profit / employment information
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Data - merging with Compustat and patent data}
+\begin{itemize}
+	\item Merge Venture Source with Compustat
+	\begin{itemize}
+		\item Consider President, CEO, Chairman, CTOs and flagged "Founders" at startups
+		\item Parse previous employer from employment biography
+		\item No company identifier: need to match to Compustat by company name
+		\item Difficult due to misspellings, informal names (e.g. acronyms) and subsidiaries
+		\item \alert{Solution:} regular expressions + merchant-mapper tool by AltDG (designed for linking credit card transaction data to firms)
+		\item Merge with Compustat by ticker symbol
+	\end{itemize}
+	\item NBER-USPTO patent data
+	\begin{itemize}
+		\item Data on all USPTO-registered patents and their citations (also data on inventors, associated firms)
+		\item Merge to Compustat using gvkey
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Empirical measures of startup activity}
+\begin{itemize}
+	\item Firm counts
+	\begin{itemize}
+		\item Natural measure
+		\item Misses heterogeneity in "size" of each firm
+		\item This means noise in LHS variable so lower power
+	\end{itemize}
+	\item Ideally would have sales or revenue information
+	\item One alternative: \alert{number of founders}
+	\begin{itemize}
+		\item More founders means a firm with more knowledge capital / product lines
+	\end{itemize}
+	\item Another: \alert{valuation}
+	\begin{itemize}
+		\item Valuation at the first funding event
+		\item Discount to founding year 
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Number of spinouts and non-spinouts}
+\begin{figure}
+	\includegraphics[scale=0.45]{../figures/spinouts_entrants_counts.png}
+	\caption{Total spinout and non-spinout counts by year.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Valuation of spinouts and non-spinouts}
+\begin{figure}
+	\includegraphics[scale=0.45]{../figures/spinouts_entrants_DFFV.png}
+	\caption{Total spinout and non-spinout valuation (at first funding date) by year.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Fraction of startups that are spinouts}
+\begin{figure}
+	\includegraphics[scale=0.45]{../figures/spinouts_entrants_ratio.png}
+	\caption{Fraction of startups that are spinouts, according to the two previous measures of startup activity.}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Data - Spinout counts: firm, industry-year, state-year demeaned}
+\begin{figure}
+	\includegraphics[scale=0.45]{../figures/scatterPlot_RD-Spinouts-1yr-allFE.png}
+	\caption{Relationship between R\&D and raw spinout counts at firm-year level after demeaning by firm, naics4-year, and state-year.}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Data - Spinout counts: firm, industry-year, state-year demeaned}
+\begin{figure}
+	\includegraphics[scale=0.45]{../figures/scatterPlot_RD-SpinoutsFounders-1yr-allFE.png}
+	\caption{Relationship between R\&D and spinout-founder counts at firm-year level after demeaning by firm, naics4-year, and state-year.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Data - Spinout valuation: firm, industry-year, state-year demeaned}
+\begin{figure}
+	\includegraphics[scale=0.45]{../figures/scatterPlot_RD-SpinoutsDFFV-1yr-allFE.png}
+	\caption{Relationship between R\&D and spinout valuation at firm-year level after demeaning by firm, naics4-year, and state-year.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Regression analysis}
+\begin{itemize}
+	\item Hard to find source of exogenous variation in R\&D spending
+	\begin{itemize}
+		\item Instruments based on tax incentives may also affect entrepreneurship directly $\Rightarrow$ fail exclusion restriction
+		\item Recent working paper Babina \& Howell 2019 argues valid, currently looking into this
+	\end{itemize}
+	\item Specification
+	\begin{align*}
+	Y_{ijst} &= RD_{it-1} + X_{it} + \alpha_i + \xi_{i,a(i,t)} +  \gamma_{jt} + \sigma_{st} + \epsilon_{ijst}
+	\end{align*}
+	for firm $i$ in industry $j$, state $s$, and year $t$.
+	\item $RD_{it-1}$ is lagged R\&D spending
+	\item $Y_{ijst}$ is spinout counts, spinout founder counts, or first funding valuation of spinouts
+	\item $X_{it}$ are firm controls
+	\item $\alpha_i$, $\xi_{i,a(i,t)}$, $\gamma_{jt}$, $\sigma_{st}$ are firm, age, industry-year, and state-year fixed effects
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Regression results}
+\begin{figure}
+	\includegraphics[scale=0.25]{./figures/OLSregs2.png}
+	\caption{\scriptsize Results from the regression analysis. Controls not shown are Tobin's Q, Cash, First difference of sales, Asset tangibility (properties plant and equipment divided by total assets), and return on assets (net income divided by total assets). Standard errors are clustered at the state and NAICS 4 level.}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Economic significance}
+\begin{itemize}
+	\item Interpret estimate as causal
+	\begin{itemize}
+		\item Omitted variables at firm-year level such as investment opportunities could bias results 
+		\item Same with variables at disaggregated location-year or industry-year level
+	\end{itemize}
+	\item Observed R\&D causes approximately 30\% of spinout formation
+	\item Spinouts are approximately 30\% of entrants
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Accounting for spinouts}
+\begin{figure}
+	\includegraphics[scale=0.45]{../figures/countsComparison.png}
+	\caption{Predicted creation of spinouts based on total R\&D spending by public firms compared with actual creation of spinouts, by year.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Accounting for spinouts valuation}
+\begin{figure}
+	\includegraphics[scale=0.45]{../figures/DFFVComparison.png}
+	\caption{Same as previous figure, but using discounted first funding valuation as measure of spinout formation.}
+\end{figure}
+\end{frame}
+
+
+\end{document}

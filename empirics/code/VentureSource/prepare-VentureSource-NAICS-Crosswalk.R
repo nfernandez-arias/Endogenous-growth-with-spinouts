@@ -13,7 +13,7 @@
 rm(list = ls())
 
 library(stringr)
-
+  
 data <- fread("data/VentureSource-NAICS-Crosswalk.csv")
 
 data[str_count(NAICS1) == 6, NAICS1_6 := NAICS1]

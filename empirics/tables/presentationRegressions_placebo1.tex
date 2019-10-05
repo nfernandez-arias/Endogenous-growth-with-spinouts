@@ -1,0 +1,35 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{Counts}&\multicolumn{1}{c}{Counts}&\multicolumn{1}{c}{Founder counts}&\multicolumn{1}{c}{Valuation}\\
+\hline
+xrd         &    0.000223\sym{***}&    0.000277\sym{*}  &    0.000407\sym{*}  &      0.0130\sym{**} \\
+            & (0.0000310)         &  (0.000110)         &  (0.000172)         &   (0.00401)         \\
+[1em]
+emp         &    -0.00124\sym{***}&     0.00198\sym{*}  &     0.00342\sym{*}  &     -0.0638         \\
+            &  (0.000226)         &  (0.000854)         &   (0.00148)         &    (0.0934)         \\
+[1em]
+patentcount\_cw\_cumulative&  0.00000570\sym{***}&   0.0000159\sym{***}&   0.0000274\sym{***}&    0.000305\sym{***}\\
+            &(0.00000131)         &(0.00000241)         &(0.00000394)         & (0.0000724)         \\
+[1em]
+c1          &           0         &                     &                     &                     \\
+            &         (.)         &                     &                     &                     \\
+[1em]
+\_cons      &      0.0217\sym{***}&    -0.00961         &     -0.0211         &       0.277         \\
+            &   (0.00116)         &   (0.00667)         &    (0.0110)         &     (0.524)         \\
+[1em]
+Parent Firm FE&          No         &         Yes         &         Yes         &         Yes         \\
+[1em]
+NAICS4-Year FE&          No         &         Yes         &         Yes         &         Yes         \\
+[1em]
+State-Year FE&          No         &         Yes         &         Yes         &         Yes         \\
+\hline
+r2          &       0.144         &       0.474         &       0.474         &       0.222         \\
+r2\_a\_within &                     &       0.122         &       0.130         &      0.0265         \\
+N           &       67060         &       59342         &       59342         &       59342         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

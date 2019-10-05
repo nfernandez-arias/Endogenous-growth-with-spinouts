@@ -37,10 +37,6 @@ EntitiesPrevEmployers[ is.na(joinYear) , joinYear := foundingYear]
 #EntitiesPrevEmployers <- EntitiesPrevEmployers[Founder == 1]
 EntitiesPrevEmployers <- EntitiesPrevEmployers[!is.na(PreviousEmployer) & PreviousEmployer != ""]
 
-# Set weights to take into account multiple founders at same firm - to not overcount spinouts
-# i.e. this way if we aggregate spinout measure across firms, we get the total number of spinouts
-EntitiesPrevEmployers[, Weight := 1 / .N, by = EntityID]
-
 ## Prepare data
 
 compustatFirmsSegments <- compustatFirmsSegments[ , .(gvkey,state,city,cusip,naics,NAICSS1,NAICSS2,dataYear,conml,snms,tic)]
@@ -50,7 +46,8 @@ compustatFirmsSegments <- compustatFirmsSegments[ , conml := gsub("( Inc| Corp| 
 
 #rm(EntitiesPrevEmployers)
 
-EntitiesPrevEmployers <- EntitiesPrevEmployers[, .(Weight,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,FirstName,LastName,joinYear,Title,TitleCode,PreviousEmployer)]
+
+EntitiesPrevEmployers <- EntitiesPrevEmployers[, .(EntityID,founder2,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,FirstName,LastName,joinYear,Title,TitleCode,PreviousEmployer)]
 EntitiesPrevEmployers[ PreviousEmployer == "Cisco", PreviousEmployer := "Cisco Systems"]
 EntitiesPrevEmployers[ PreviousEmployer == "Amazon", PreviousEmployer := "Amazon.com"]
 EntitiesPrevEmployers[ PreviousEmployer == "Yahoo" | PreviousEmployer == "Yahoo!", PreviousEmployer :=  "Verizon"]
@@ -91,7 +88,7 @@ output <- tempSegments[EntitiesPrevEmployers]
 #output <- EntitiesPrevEmployers[segments]
 #outputFuzzy <- PrevEmployers[1:5000] %>% stringdist_inner_join(segments, by = c(PreviousEmployer = "snms"), method = c("lv"), max_dist = 1, distance_col = "distance")
 
-output <- output[ , .(gvkey,cusip,state,city,naics,NAICSS1,NAICSS2,conml,snms,tic,PreviousEmployer,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,Weight,FirstName,LastName,joinYear)]
+output <- output[ , .(gvkey,cusip,state,city,naics,NAICSS1,NAICSS2,conml,snms,tic,PreviousEmployer,founder2,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,FirstName,LastName,joinYear)]
 
 # Analyze output
 #output[, PrevEmployerSpinoutCount := sum(Weight), by = .(snms)]
@@ -101,7 +98,7 @@ firms <- unique(compustatFirmsSegments, by = "gvkey")
 firms[, snms := NA]
 setkey(firms,conml)
 output2 <- firms[EntitiesPrevEmployers]
-output2 <- output2[ , .(gvkey,cusip,state,city,naics,NAICSS1,NAICSS2,conml,snms,tic,PreviousEmployer,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,Weight,FirstName,LastName,joinYear)]
+output2 <- output2[ , .(gvkey,cusip,state,city,naics,NAICSS1,NAICSS2,conml,snms,tic,PreviousEmployer,founder2,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,FirstName,LastName,joinYear)]
 
 output_noNA <- output[!is.na(gvkey)]
 output2_noNA <- output2[!is.na(gvkey)]
@@ -168,7 +165,7 @@ setkey(firmsTickersGvkeys,query)
 
 temp <- EntitiesPrevEmployers[firmsTickersGvkeys, nomatch = 0]
 
-temp <- temp[ , .(gvkey,cusip,state,city,naics,NAICSS1,NAICSS2,conml,snms,tic,PreviousEmployer,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,Weight,FirstName,LastName,joinYear)]
+temp <- temp[ , .(gvkey,cusip,state,city,naics,NAICSS1,NAICSS2,conml,snms,tic,PreviousEmployer,founder2,EntityID,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,FirstName,LastName,joinYear)]
 
 temp <- temp[!is.na(gvkey)]
 
@@ -192,7 +189,7 @@ test_temp <- temp
 ##################################
 # Write output
 ##################################
-
+        
 fwrite(output5,"data/parentsSpinouts.csv")
 
 

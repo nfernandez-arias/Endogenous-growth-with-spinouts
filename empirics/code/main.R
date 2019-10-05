@@ -4,21 +4,20 @@
 # 
 # Author: Nicolas Fernandez-Arias
 #
-# Purpose:d
+# Purpose:
 #
 # This is the main script for the empirical component
 #------------------------------------------------#
 
 library(data.table)
+library(lubridate)
 
 rm(list = ls())
 setwd("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics")
 
-# First, create database of parent-spinout relationships    
-source("code/findSpinouts.R")
-
-# Next, create a database of parent-patent relationships
-source("code/matchPatentsToCompustat.R")
+#--------------------------------
+## Preparing Venture Source data
+#--------------------------------
 
 # Construct database of spinouts and their attributes:
 # e.g. (1) whether they achieve revenue, (2) how much funding they receive, (3) whether they IPO, (4) IPO market capitalization
@@ -27,28 +26,63 @@ source("code/constructSpinoutAttributes.R")
 # Construct VentureSource - NAICS cross-walk
 source("code/VentureSource/prepare-VentureSource-NAICS-Crosswalk.R")
 
+#----------------------------------
+## Preparing compustat + nber uspto patent data
+#----------------------------------
+
+# Extract Compustat firms and link to their subsidiaries
+source("code/compustat/extractCompustatFirms.R") 
+source("code/compustat/matchCompustatFirmsToSubsidiaries.R")
+
+# Next, create a database of parent-patent relationships
+source("code/matchPatentsToCompustat.R")
+
+# Construct instrumental variable for R&D based on 
+# R&D tax credits
+source("code/compustat/constructInstruments.R")
+
+
+
+#--------------------------------
+# Bringing everything together
+#--------------------------------
+
+# First, create database of parent-spinout relationships    
+source("code/findSpinouts.R")
+
 # Construct parentFirm-year spinout counts and spinout indicator 
 # (for now, not considering industry) 
 source("code/constructSpinoutCounts.R") 
-
+  
 # Next, do some basic analyses    
+source("code/successfulExitRatesCalculation.R")
+source("code/compustat/computeEntryRates.R")
+source("code/computeValueOfSpinoutsAndEntrants.R")
 source("code/basicSpinoutAnalysis.R")
 
-# Combine with data on R&D from c ompustat_annual
+# Combine with data on R&D from compustat_annual      
 source("code/mergeRDwithSpinoutCounts.R")
 
-# Match patents with compustat
-source("code/matchPatentsToCompustat.R")
+# Merge with compustat-patent data
+
 source("code/mergePatents_RD-Spinouts.R")
 
-#### Non-competes stuff
+#-------------------------
+## Bring in data on non-compete enforcement and enforcement changes
+#-------------------------
 
 # Add variable encoding whether state has been trated by non-compete enforcement 
-# using Jeffers' court rulings dates
-source("code/addNoncompeteEnforcementChanges.R")
+# using Jeffers' court rulings dates 
+source("code/addNoncompeteEnforcementChanges.R") 
 
 # Add variable encoding state-level strength of non-compete enforcement from Bishara 2011 / Starr 2018
 source("code/addNoncompeteEnforcementIndices.R")
+
+
+#-------------------------
+# Prepare the data for analysis in Stata
+# (because it has better implementations of fixed effect regressions)
+#-------------------------
 
 # Next, prepare the data for panel regressions in Stata
 source("code/prepareDataForStata.R")
@@ -56,8 +90,14 @@ source("code/prepareDataForStata.R")
 # Prepare dataset for event study to see how 
 # much spinout funding affects parent firm stock price
 source("code/prepareEventStudyDataset.R")
-                              
-      
+
+#----------------------------
+# Make some scatter plots
+#----------------------------
+
+source("code/makeScatterPlots.R")
+    
+        
 
 
-
+                

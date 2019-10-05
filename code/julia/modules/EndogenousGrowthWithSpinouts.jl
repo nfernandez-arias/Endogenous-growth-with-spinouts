@@ -9,5 +9,6 @@ module EndogenousGrowthWithSpinouts
     include("scripts/ModelSolverScript.jl")
     include("scripts/ModelStatisticsModuleScript.jl")
     include("scripts/CalibrationModuleScript.jl")
+    include("scripts/ComparativeStaticsModuleScript.jl")
 
 end

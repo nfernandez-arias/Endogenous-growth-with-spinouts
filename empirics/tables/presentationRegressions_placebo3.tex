@@ -1,0 +1,38 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{Counts}&\multicolumn{1}{c}{Counts}&\multicolumn{1}{c}{Founder counts}&\multicolumn{1}{c}{Valuation}\\
+\hline
+xrd         &    0.000292\sym{***}&    0.000199         &    0.000656         &     0.00439         \\
+            & (0.0000257)         &  (0.000132)         &  (0.000355)         &   (0.00309)         \\
+[1em]
+emp\_lag1    &   -0.000439\sym{**} &    -0.00102\sym{*}  &    -0.00329\sym{*}  &     -0.0605         \\
+            &  (0.000141)         &  (0.000514)         &   (0.00140)         &    (0.0326)         \\
+[1em]
+revt        &-0.000000412         & 0.000000243         &-0.000000350         &   0.0000129         \\
+            &(0.000000595)         &(0.00000338)         &(0.00000944)         & (0.0000835)         \\
+[1em]
+act         &  0.00000565\sym{*}  &   0.0000422\sym{**} &    0.000113\sym{***}&     0.00103\sym{***}\\
+            &(0.00000245)         & (0.0000131)         & (0.0000329)         &  (0.000285)         \\
+[1em]
+c1          &           0         &                     &                     &                     \\
+            &         (.)         &                     &                     &                     \\
+[1em]
+\_cons      &     0.00640\sym{***}&    0.000149         &    -0.00426         &       0.185         \\
+            &  (0.000781)         &   (0.00570)         &    (0.0161)         &     (0.199)         \\
+[1em]
+Parent Firm FE&          No         &         Yes         &         Yes         &         Yes         \\
+[1em]
+NAICS4-Year FE&          No         &         Yes         &         Yes         &         Yes         \\
+[1em]
+State-Year FE&          No         &         Yes         &         Yes         &         Yes         \\
+\hline
+r2          &      0.0982         &       0.436         &       0.424         &       0.208         \\
+r2\_a\_within &                     &      0.0801         &      0.0850         &      0.0176         \\
+N           &       54349         &       48262         &       48262         &       48262         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

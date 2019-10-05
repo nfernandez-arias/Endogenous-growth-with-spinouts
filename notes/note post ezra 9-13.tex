@@ -1,0 +1,78 @@
+\documentclass[12pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{Notes post Ezra Meeting 9/13/19}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\begin{itemize}
+	\item Work out stuff re: production functions. There should be an equivalence 
+	\begin{itemize}
+		\item Still confused about this. Changing the exponent on $q_j(t)$ is not just a change of units, because $q_j(t)$ appears in other places. Think about this more, do the exercise in Acemoglu's book (or check the solutions manual, actually, no time for that shit).
+		\item Also isn't there a place in the textbook where Acemoglu literally *says* that making a modification along these lines creates firm size dynamics? I.e., does more than change the step size, even allowing the calibration to vary? Think about this.
+	\end{itemize}
+	\item Ezra agrees about the equivalence of R\&D directly leading to spinouts and the PRODUCTS of R\&D leading to spinouts. Agrees that this is part of why the wage is super low. 
+	\begin{itemize}
+		\item However, still better to have flexibility that spinouts are not related to productivity improvements whatsoever. 
+		\item How to separate these two sources of spinouts? If just look at R\&D regression, miss interpretation of R\&D as a reduced form for the fact that both knowledge inputs and knowledge outputs lead to more spinouts. Could I maybe run the regression using R\&D *and* patents and invert the regression equation to see what fraction of spinouts result from knowledge, and match *this* to the model? 
+		\item Ezra suggested using enforcement changes as an instrument. But doesn't this fail the exclusion restriction because enforcement changes also change the number of spinouts independent of R\&D spending.
+	\end{itemize}
+	\item Agrees re: reinterpretation of model as products not firms. But then need (1) product entry rate, and (2) relative likelihood of spinout and regular entrant products will successfully enter. 
+	\begin{itemize}
+		\item For (1) talk to Steve Redding, he might have some insight
+		\item For (2), compute ratio in likelihood that a regular entering firm and a spinout firm end up getting to "generating revenue" stage or above. (can try similar stuff with IPO, too, but this is a better baseline). This has the implicit assumption that spinouts and entering firms have the same number of employees per attempted product; e.g., if spinouts and entering firms are both the same size and the same number of products. 
+	\end{itemize}
+	\item Agrees re: R\&D reflecting only "own" innovation as well as only money spent on employees, so not as much of a miss. Agrees that this requires the reinterpretation of firms as products.
+	\begin{itemize}
+		\item Can maybe try to roughly proxy the fraction of R\&D spending inside and outside the firm based on the average fraction of a firm's patents which cite mostly patents not owned by the firm. Implicitly assumes that they have the same innovation production function for internal and external innovation, but since I have no way of estimating this directly, it is the most reasonable approach.
+		\item Maybe worth trying to talk to Ufuk about this...although maybe it's too late at this point and looks bad, honestly. But he is the right person to ask. 
+	\end{itemize}
+	\item David Argente of Penn State has a paper on Patents and Products
+	\item Ignacio Cuesta
+	\item Oberfield Buera - do robustness checks, see this for inspiration
+\end{itemize}
+
+
+
+
+\end{document}
+
+
+
+
+
+
+\end{document}

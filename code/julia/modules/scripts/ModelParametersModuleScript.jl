@@ -54,7 +54,11 @@ mutable struct ModelParameters
 
     spinoutsSamePool::Bool
 
+	#ModelParameters() = new()
+
 end
+
+Base.deepcopy(modelPar::ModelParameters) = ModelParameters([ deepcopy(getfield(m, k)) for k = 1:length(fieldnames(typeof(modelPar))) ]...)
 
 mutable struct IncumbentSolution
 
