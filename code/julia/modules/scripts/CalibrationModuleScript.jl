@@ -18,29 +18,29 @@ end
 
 struct CalibrationParameters
 
-    RDintensity::CalibrationTarget
+    #RDintensity::CalibrationTarget
     InternalPatentShare::CalibrationTarget
     SpinoutEntryRate::CalibrationTarget
     SpinoutShare::CalibrationTarget
     g::CalibrationTarget
-    RDLaborAllocation::CalibrationTarget
-    WageRatio::CalibrationTarget
-    WageRatioIncumbents::CalibrationTarget
-    SpinoutsNCShare::CalibrationTarget
+    #RDLaborAllocation::CalibrationTarget
+    #WageRatio::CalibrationTarget
+    #WageRatioIncumbents::CalibrationTarget
+    #SpinoutsNCShare::CalibrationTarget
 
 end
 
 mutable struct ModelMoments
 
-    RDintensity::Float64
+    #RDintensity::Float64
     InternalPatentShare::Float64
     SpinoutEntryRate::Float64
     SpinoutShare::Float64
     g::Float64
-    RDLaborAllocation::Float64
-    WageRatio::Float64
-    WageRatioIncumbents::Float64
-    SpinoutsNCShare::Float64
+    #RDLaborAllocation::Float64
+    #WageRatio::Float64
+    #WageRatioIncumbents::Float64
+    #SpinoutsNCShare::Float64
 
     ModelMoments() = new()
 
@@ -203,15 +203,15 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
     modelMoments = ModelMoments()
 
-    modelMoments.RDintensity  = RDintensity
+    #modelMoments.RDintensity  = RDintensity
     modelMoments.InternalPatentShare = internalPatentShare
     modelMoments.SpinoutEntryRate = allSpinoutsEntry
     modelMoments.SpinoutShare = spinoutShare
     modelMoments.g = g
-    modelMoments.RDLaborAllocation = L_RD
-    modelMoments.WageRatio = WageRatio
-    modelMoments.WageRatioIncumbents = WageRatioIncumbents
-    modelMoments.SpinoutsNCShare = SpinoutsNCShare
+    #modelMoments.RDLaborAllocation = L_RD
+    #modelMoments.WageRatio = WageRatio
+    #modelMoments.WageRatioIncumbents = WageRatioIncumbents
+    #modelMoments.SpinoutsNCShare = SpinoutsNCShare
 
     return modelMoments,results
 
@@ -249,15 +249,15 @@ function computeScore(algoPar::AlgorithmParameters,modelPar::ModelParameters,gue
 
     modelMomentsVec = zeros(length(fieldnames(typeof(modelMoments))),1)
 
-    modelMomentsVec[1] = modelMoments.RDintensity
-    modelMomentsVec[2] = modelMoments.InternalPatentShare
-    modelMomentsVec[3] = modelMoments.SpinoutEntryRate
-    modelMomentsVec[4] = modelMoments.SpinoutShare
-    modelMomentsVec[5] = modelMoments.g
-    modelMomentsVec[6] = modelMoments.RDLaborAllocation
-    modelMomentsVec[7] = modelMoments.WageRatio
-    modelMomentsVec[8] = modelMoments.WageRatioIncumbents
-    modelMomentsVec[9] = modelMoments.SpinoutsNCShare
+    #modelMomentsVec[1] = modelMoments.RDintensity
+    modelMomentsVec[1] = modelMoments.InternalPatentShare
+    modelMomentsVec[2] = modelMoments.SpinoutEntryRate
+    modelMomentsVec[3] = modelMoments.SpinoutShare
+    modelMomentsVec[4] = modelMoments.g
+    #modelMomentsVec[6] = modelMoments.RDLaborAllocation
+    #modelMomentsVec[7] = modelMoments.WageRatio
+    #modelMomentsVec[8] = modelMoments.WageRatioIncumbents
+    #modelMomentsVec[5] = modelMoments.SpinoutsNCShare
 
     # divide error by target moment -- "unit free" errors. Weights can then reflect purely imoportance of the moment.
 
@@ -302,13 +302,13 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
 
         #modelPar.ρ = x[1]
         modelPar.χI = x[1]
-        modelPar.χS = x[2]
-        modelPar.χE = x[3] * x[2]
-        modelPar.λ = x[4]
-        modelPar.ν = x[5]
-        modelPar.ζ = x[6]
-        modelPar.κ = x[7]
-        modelPar.θ = x[8]
+        modelPar.χE = x[2] * x[1]
+        modelPar.χS = (11.4 / 8.7) *  modelPar.χE
+        modelPar.λ = x[3]
+        modelPar.ν = x[4]
+        #modelPar.ζ = x[5]
+        #modelPar.κ = x[5]
+        #modelPar.θ = x[6]
 
         if modelPar.CNC == true
             log_file = open("./figures/CalibrationLog_CNC.txt","a")
@@ -318,7 +318,7 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
             log_file2 = open("./figures/CalibrationLog_noCNC_objectiveValues.txt","a")
         end
 
-        write(log_file,"Iteration: χI = $(x[1]); χS = $(x[2]); χE = $(x[2] * x[3]); λ = $(x[4]); ν = $(x[5]); ζ = $(x[6]); κ = $(x[7]); θ = $(x[8])\n")
+        write(log_file,"Iteration: χI = $(modelPar.χI); χE = $(modelPar.χE); χS = $(modelPar.χS); λ = $(modelPar.λ); ν = $(modelPar.ν)\n")
         close(log_file)
 
         output = computeScore(algoPar,modelPar,guess,calibPar,targets,weights,incumbentSolution)
@@ -349,16 +349,13 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
     # Finally, use Optim.jl to optimize the objective function
 
     initial_x = [ modelPar.χI,
-                  modelPar.χS,
-                  modelPar.χE / modelPar.χS,
+                  modelPar.χE/modelPar.χI,
                   modelPar.λ,
-                  modelPar.ν,
-                  modelPar.ζ,
-                  modelPar.κ,
-                  modelPar.θ ]
+                  modelPar.ν
+                  ]
 
-    lower = [0.5, 0.5, 0.2, 1.01, 0.01, 0.4, 0.15, 0.05]
-    upper = [8, 5, 0.8, 1.10, 0.035, 0.98, 0.9, 0.95]
+    lower = [1, 0.05, 1.01, 0.01]
+    upper = [8, 0.8, 1.10, 0.035]
 
     #inner_optimizer = GradientDescent()
     inner_optimizer = LBFGS()
@@ -374,13 +371,10 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
     # UMake some plots and return
 
     modelPar.χI = x[1]
-    modelPar.χS = x[2]
-    modelPar.χE = x[3] * x[2]
-    modelPar.λ = x[4]
-    modelPar.ν = x[5]
-    modelPar.ζ = x[6]
-    modelPar.κ = x[7]
-    modelPar.θ = x[8]
+    modelPar.χE = x[2] * x[1]
+    modelPar.χS = (11.4 / 8.7) * modelPar.χE
+    modelPar.λ = x[3]
+    modelPar.ν = x[4]
 
     modelSolution,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,guess)
 
