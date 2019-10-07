@@ -298,7 +298,26 @@ allToProfitableRatios[ , ratio := spinout / nonSpinout]
 setkey(allToProfitableRatios,IndustryCodeDesc)
 allToProfitableRatios <- startupCounts[allToProfitableRatios]
 wtd.hist(allToProfitableRatios$ratio , breaks = 100, weight = allToProfitableRatios$N, xlim = c(0,5))
-# Entry rates
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 bdsData <- fread("raw/bds/bds_f_age_release.csv")
 yearStartupsFirms <- bdsData[ , .( allFirms = sum(Firms), startups = Firms[fage4 == "a) 0"]), by = year2]

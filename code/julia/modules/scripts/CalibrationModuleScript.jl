@@ -354,8 +354,8 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
                   modelPar.ν
                   ]
 
-    lower = [1, 0.05, 1.01, 0.01]
-    upper = [8, 0.8, 1.10, 0.035]
+    lower = [1, 0.02, 1.005, 0.005]
+    upper = [8, 0.9, 1.12, 0.05]
 
     #inner_optimizer = GradientDescent()
     inner_optimizer = LBFGS()

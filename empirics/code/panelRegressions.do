@@ -41,6 +41,13 @@ label variable SpinoutsDEV "Spinouts Discounted Exit Value (millions US\$)"
 label variable emp Employment
 label variable patentapplicationcount_cw "Patent Applications (CW)"
 
+gen lxrd = log(xrd)
+gen lsalesfd = log(salesfd)
+gen ltobin_q = log(tobin_q)
+gen lebitda = log(ebitda)
+gen lemp = log(emp)
+gen lpatentcount_cw_cumulative = log(patentcount_cw_cumulative)
+
 *Run regressions
 
 xtset gvkey year
@@ -87,13 +94,10 @@ esttab model* using tables/presentationRegressions_assetNormalized.tex, replace 
 estfe model*, restore
 eststo clear
 
-
-
 * Poisson 
 
 gen lxrd_lag1 = log(xrd_lag1)
-gen lsalesfd = log(salesfd)
-gen lat = log(at)
+
 gen lemp = log(emp)
 
 xtpoisson spinoutCountWeighted lxrd_lag1 tobin_q lsalesfd lat lemp i.age, fe vce(robust)
@@ -106,11 +110,7 @@ eststo clear
 
 * Log regressions (like in Babina and Howell)
 
-gen lxrd = log(xrd)
-gen ltobin_q = log(tobin_q)
-gen lebitda = log(ebitda)
-gen lemp = log(emp)
-gen lpatentcount_cw_cumulative = log(patentcount_cw_cumulative)
+
 
 reghdfe founders_fut4 lxrd, absorb(gvkey naics4#year stateCode#year) cluster(gvkey)
 
@@ -180,6 +180,24 @@ eststo clear
 **********************
 **** Evaluating the efect of Non-compete Agreemtn enforcement policy changes due to court rulings
 **********************
+
+
+* Regression of R&D on firm-specific non-compete enforcement changes
+
+reg lxrd ltobin_q lat fw_pre3 fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3, robust
+
+* Fixed effects and clustering
+
+reghdfe lxrd ltobin_q lat lemp assettang salesgrowth patentcount_cw_cumulative fw_pre3 fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3, absorb(gvkey) cluster(gvkey)
+
+reghdfe lxrd fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3, absorb(gvkey naics4#year) cluster(stateCode)
+
+gen lcapxv = log(capxv)
+gen lcapx = log(capx)
+
+reghdfe lcapxv fw_pre3 fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2, absorb(gvkey naics4#year stateCode#year) cluster(gvkey)
+reghdfe lcapx fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2, absorb(gvkey naics4#year stateCode#year) cluster(gvkey)
+
 
 * My specification
 

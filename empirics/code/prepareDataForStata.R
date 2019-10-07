@@ -7,7 +7,7 @@
 # Purpose:
 #
 # This prepares the data / exports the data for 
-# use in Stata (which is way better for panel data  
+# use in Stata (which is way better for panel data      
 # regressions than R...)
 #------------------------------------------------#  
 
@@ -122,7 +122,7 @@ data <- data[, if(max(na.omit(xrd)) > 0) .SD, by = gvkey]
 #data <- data[, if(max(na.omit(spinoutCount)) >0) .SD, by = gvkey]
 
 data <- data[year >= 1986]
-data <- data[year <= 2015]
+data <- data[year <= 2018]
 
 # Construct 4-digit NAICS codes
 data[, naics6 := substr(naics,1,6)]

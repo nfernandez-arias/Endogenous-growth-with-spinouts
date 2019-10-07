@@ -186,6 +186,9 @@ firmYearStateShares[ , ishare := na.locf(ishare), by = .(gvkey,state)]
 # Any remaining missing values are zeros
 firmYearStateShares[ is.na(ishare) , ishare := 0]
 
+# Export dataset for use elsewhere
+fwrite(firmYearStateShares,"data/compustat/firmYearStateShares.csv")
+
 # Bring in state abbreviations, for merging with RDusercost_2017 dataset
 stateAbbrevs <- data.table(read.dta13("bloom/spillovers_rep/1_data/Raw/stmap.dta"))
 rdUserCost <- unique(fread("data/bsv/RDusercost_2017.csv")[ , .(rho_h,r,fips,year)])

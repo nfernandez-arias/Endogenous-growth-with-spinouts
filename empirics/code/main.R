@@ -16,7 +16,7 @@ rm(list = ls())
 setwd("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics")
 
 #--------------------------------
-## Preparing Venture Source data
+## Preparing Venture Source data  
 #--------------------------------
 
 # Construct database of spinouts and their attributes:
@@ -25,6 +25,8 @@ source("code/constructSpinoutAttributes.R")
 
 # Construct VentureSource - NAICS cross-walk
 source("code/VentureSource/prepare-VentureSource-NAICS-Crosswalk.R")
+
+
 
 #----------------------------------
 ## Preparing compustat + nber uspto patent data
@@ -64,7 +66,6 @@ source("code/basicSpinoutAnalysis.R")
 source("code/mergeRDwithSpinoutCounts.R")
 
 # Merge with compustat-patent data
-
 source("code/mergePatents_RD-Spinouts.R")
 
 #-------------------------
@@ -78,6 +79,8 @@ source("code/addNoncompeteEnforcementChanges.R")
 # Add variable encoding state-level strength of non-compete enforcement from Bishara 2011 / Starr 2018
 source("code/addNoncompeteEnforcementIndices.R")
 
+# Add
+source("code/addFirmSpecificNonCompeteEnforcementChanges.R")
 
 #-------------------------
 # Prepare the data for analysis in Stata
@@ -87,7 +90,7 @@ source("code/addNoncompeteEnforcementIndices.R")
 # Next, prepare the data for panel regressions in Stata
 source("code/prepareDataForStata.R")
 
-# Prepare dataset for event study to see how 
+    # Prepare dataset for event study to see how 
 # much spinout funding affects parent firm stock price
 source("code/prepareEventStudyDataset.R")
 
@@ -96,6 +99,21 @@ source("code/prepareEventStudyDataset.R")
 #----------------------------
 
 source("code/makeScatterPlots.R")
+
+
+
+#----------------------------------
+## Compute statistics from patent data
+# This includes
+#
+# (1) Fraction of innovations that are internal (cite mostly internal patents)
+#
+# (2) Fraction of patents coming from "new" firms (firms which first appeared in the patent data)
+#
+#----------------------------------
+
+
+source("code/statsFromPatentData.R")
     
         
 
