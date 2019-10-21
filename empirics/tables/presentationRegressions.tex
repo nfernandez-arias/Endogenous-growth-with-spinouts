@@ -5,20 +5,20 @@
             &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
             &\multicolumn{1}{c}{Counts}&\multicolumn{1}{c}{Founder counts}&\multicolumn{1}{c}{Valuation}\\
 \hline
-xrd         &       0.431\sym{**} &       0.685\sym{**} &       18.88\sym{**} \\
-            &     (0.166)         &     (0.224)         &     (6.059)         \\
+xrd         &       0.668\sym{**} &       0.990\sym{**} &       32.82\sym{**} \\
+            &     (0.220)         &     (0.322)         &     (11.44)         \\
 [1em]
-tobin\_q\_assets&     0.00916\sym{***}&      0.0142\sym{***}&       0.474\sym{***}\\
-            &   (0.00202)         &   (0.00346)         &     (0.131)         \\
+std\_tobin\_q\_assets&       0.367\sym{***}&       0.583\sym{***}&       14.77\sym{*}  \\
+            &     (0.100)         &     (0.169)         &     (7.200)         \\
 [1em]
-at          &     -0.0115\sym{***}&     -0.0188\sym{***}&      -0.481\sym{***}\\
-            &   (0.00263)         &   (0.00444)         &     (0.139)         \\
+std\_at      &      -0.293\sym{***}&      -0.498\sym{***}&      -9.961         \\
+            &    (0.0841)         &     (0.139)         &     (6.170)         \\
 [1em]
-emp         &    0.000616         &     0.00184         &      -0.759         \\
-            &   (0.00160)         &   (0.00249)         &     (0.527)         \\
+std\_emp     &      0.0264         &      0.0507         &      -22.78\sym{*}  \\
+            &    (0.0468)         &    (0.0789)         &     (10.79)         \\
 [1em]
-patentcount\_cw\_cumulative&  0.00000618         &   0.0000112         &  -0.0000137         \\
-            &(0.00000414)         &(0.00000716)         &  (0.000322)         \\
+std\_patentcount\_cw\_cumulative&      0.0570         &       0.153         &       3.623         \\
+            &    (0.0680)         &     (0.104)         &     (4.055)         \\
 [1em]
 Parent Firm FE&         Yes         &         Yes         &         Yes         \\
 [1em]
@@ -28,9 +28,10 @@ NAICS4-Year FE&         Yes         &         Yes         &         Yes         
 [1em]
 State-Year FE&         Yes         &         Yes         &         Yes         \\
 \hline
-r2\_a        &       0.545         &       0.533         &       0.188         \\
-r2\_a\_within &       0.156         &       0.153         &      0.0285         \\
-N           &       40444         &       40444         &       40444         \\
+clustvar    &       gvkey         &       gvkey         &       gvkey         \\
+r2\_a        &       0.615         &       0.600         &       0.287         \\
+r2\_a\_within &       0.177         &       0.170         &      0.0312         \\
+N           &       40450         &       40450         &       40450         \\
 \hline\hline
 \multicolumn{4}{l}{\footnotesize Standard errors in parentheses}\\
 \multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\

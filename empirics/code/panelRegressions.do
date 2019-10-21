@@ -64,23 +64,53 @@ replace massachusettsIndicator = 0 if massachusettsIndicator == .
 gen xrdMass = xrd * massachusettsIndicator
 
 * Winsorize xrd
-winsor2 xrd, replace cuts(1,99)
+*winsor2 xrd, replace cuts(1,99)
 
 * change units
 
-replace at = at / 1000
-replace tobin_q_assets = tobin_q_assets / 1000
+egen std_at = std(at)
+egen std_tobin_q_assets = std(tobin_q_assets)
+egen std_patentcount_cw_cumulative = std(patentcount_cw_cumulative)
+egen std_emp = std(emp)
 
+gen xrd_fw_pre_4 = xrd * fw_pre4
+gen xrd_fw_pre_3 = xrd * fw_pre3
+gen xrd_fw_pre_2 = xrd * fw_pre2
+gen xrd_fw_pre_1 = xrd * fw_pre1
+gen xrd_fw_post_0 = xrd * fw_post0
+gen xrd_fw_post_1 = xrd * fw_post1
+gen xrd_fw_post_2 = xrd * fw_post2
+gen xrd_fw_post_3 = xrd * fw_post3
+gen xrd_fw_post_4 = xrd * fw_post4
 
 ** Effect of R&D on spinout formation, and effect of non-compete enforcement changes on this relationship
 
 * OLS
 
-eststo model1: reghdfe spinouts_fut2 xrd tobin_q_assets tobin_q at salesfd ch assettang roa emp patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
-eststo model2: reghdfe founders_fut2 xrd tobin_q_assets tobin_q at salesfd ch assettang roa emp patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
-eststo model3: reghdfe spinoutsdffv_fut2 xrd tobin_q_assets at salesfd ch assettang roa emp patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
+gen xrd2 = xrd^2
+
+eststo model1: reg spinouts_fut2 xrd std_tobin_q_assets tobin_q std_at salesfd ch assettang roa std_emp std_patentcount_cw_cumulative, robust
+eststo model2: reg founders_fut2 xrd std_tobin_q_assets tobin_q std_at salesfd ch assettang roa std_emp std_patentcount_cw_cumulative, robust
+eststo model3: reg spinoutsdffv_fut2 xrd std_tobin_q_assets std_at salesfd ch assettang roa std_emp std_patentcount_cw_cumulative, robust
 estfe model*, labels(gvkey "Parent Firm FE" age "Parent Firm Age FE" naics4#year "NAICS4-Year FE" stateCode#year "State-Year FE")
-esttab model* using tables/presentationRegressions.tex, replace se stats(r2_a r2_a_within N)  indicate(`r(indicate_fe)') mtitles("Counts" "Founder counts" "Valuation") keep(xrd tobin_q_assets at emp patentcount_cw_cumulative)
+esttab model* using tables/presentationRegressions_noFE.tex, replace se stats(r2_a r2_a_within N)  indicate(`r(indicate_fe)') mtitles("Counts" "Founder counts" "Valuation") keep(xrd std_tobin_q_assets std_at std_emp std_patentcount_cw_cumulative)
+estfe model*, restore
+eststo clear
+
+eststo model1: reghdfe spinouts_fut2 xrd std_tobin_q_assets tobin_q std_at salesfd ch assettang roa std_emp std_patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
+eststo model2: reghdfe founders_fut2 xrd std_tobin_q_assets tobin_q std_at salesfd ch assettang roa std_emp std_patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
+eststo model3: reghdfe spinoutsdffv_fut2 xrd std_tobin_q_assets std_at salesfd ch assettang roa std_emp std_patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
+estfe model*, labels(gvkey "Parent Firm FE" age "Parent Firm Age FE" naics4#year "NAICS4-Year FE" stateCode#year "State-Year FE")
+esttab model* using tables/presentationRegressions.tex, replace se stats(clustvar r2_a r2_a_within N)  indicate(`r(indicate_fe)') mtitles("Counts" "Founder counts" "Valuation") keep(xrd std_tobin_q_assets std_at std_emp std_patentcount_cw_cumulative)
+estfe model*, restore
+eststo clear
+
+* Estimates for accounting for spinouts
+eststo model1: reghdfe spinouts_fut4 xrd xrd_lag xrd_lag2 xrd_lag3 xrd_lag4 std_tobin_q_assets tobin_q std_at salesfd ch assettang roa std_emp std_patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
+eststo model2: reghdfe founders_fut4 xrd xrd_lag xrd_lag2 xrd_lag3 xrd_lag4 std_tobin_q_assets tobin_q std_at salesfd ch assettang roa std_emp std_patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
+eststo model3: reghdfe spinoutsdffv_fut4 xrd xrd_lag xrd_lag2 xrd_lag3 xrd_lag4 std_tobin_q_assets std_at salesfd ch assettang roa std_emp std_patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
+estfe model*, labels(gvkey "Parent Firm FE" age "Parent Firm Age FE" naics4#year "NAICS4-Year FE" stateCode#year "State-Year FE")
+esttab model* using tables/regs_accounting.tex, replace se stats(clustvar r2_a r2_a_within N)  indicate(`r(indicate_fe)') mtitles("Counts" "Founder counts" "Valuation") keep(xrd xrd_lag xrd_lag2 xrd_lag3 xrd_lag4)
 estfe model*, restore
 eststo clear
 
@@ -134,15 +164,19 @@ eststo clear
 
 * IV regressions (like in Babina and Howell)
 gen firm_dum = lfirm == 0
-reghdfe lxrd lfirm ltobin_q salesgrowth lat ch assettang, absorb(gvkey age stateCode#year naics4#year, savefe) cluster(gvkey) resid
+reghdfe lxrd lfirm firm_dum lstate roa salesgrowth ltobin_q lat ch assettang age, absorb(gvkey stateCode#year naics4#year, savefe) cluster(gvkey) resid
 predict hxrd, xbd
+
+reg lxrd lfirm lstate, robust
+reg lxrd lfirm_bloom lstate_bloom, robust
+reghdfe lxrd lfirm_bloom lstate_bloom, absorb(gvkey) cluster(gvkey)
 
 gen founders_fut4_emp = founders_fut4 / emp
 
-eststo model1: ivreghdfe spinouts_fut4 ltobin_q salesgrowth lat ch assettang ebitda roa emp patentcount_cw_cumulative (lxrd = lfirm), absorb(gvkey age naics4#year stateCode#year) cluster(stateCode)
-eststo model2: ivreghdfe founders_fut4 ltobin_q salesgrowth lat ch assettang ebitda roa emp patentcount_cw_cumulative (lxrd = lfirm), absorb(gvkey age naics4#year stateCode#year) cluster(stateCode)
-eststo model3: ivreghdfe spinoutsdffv_fut4 ltobin_q salesgrowth lat lch assettang emp patentcount_cw_cumulative (lxrd = lfirm), absorb(gvkey age naics4#year stateCode#year) cluster(stateCode)
-estfe model*, labels(gvkey "Parent Firm FE" age "Parent Firm Age FE" naics4#year "NAICS4-Year FE" stateCode#year "State-Year FE")
+eststo model1: ivreghdfe spinouts_fut4 ltobin_q salesgrowth lat lch assettang ebitda roa emp (lxrd = lfirm_bloom lstate_bloom), absorb(gvkey naics3#year stateCode#year) cluster(gvkey)
+eststo model2: ivreghdfe founders_fut4 ltobin_q salesgrowth lat lch assettang ebitda roa emp (lxrd = lfirm_bloom lstate_bloom), absorb(gvkey age naics3#year stateCode#year) cluster(stateCode)
+eststo model3: ivreghdfe spinoutsdffv_fut4 ltobin_q salesgrowth lat lch assettang ebitda roa emp (lxrd = lfirm_bloom lstate_bloom), absorb(gvkey age naics3#year stateCode#year) cluster(stateCode)
+estfe model*, labels(gvkey "Parent Firm FE" age "Parent Firm Age FE" naics3#year "NAICS3-Year FE"  naics4#year "NAICS4-Year FE" stateCode#year "State-Year FE")
 esttab model* using tables/presentationRegressions_logs_IV.tex, replace se stats(r2_a r2_a_within N)  indicate(`r(indicate_fe)') mtitles("Counts" "Founder counts" "Valuation") keep(lxrd lat emp patentcount_cw_cumulative)
 estfe model*, restore
 eststo clear
@@ -181,23 +215,43 @@ eststo clear
 **** Evaluating the efect of Non-compete Agreemtn enforcement policy changes due to court rulings
 **********************
 
-
 * Regression of R&D on firm-specific non-compete enforcement changes
 
 reg lxrd ltobin_q lat fw_pre3 fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3, robust
+coefplot, keep(fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3) vertical
 
 * Fixed effects and clustering
 
-reghdfe lxrd ltobin_q lat lemp assettang salesgrowth patentcount_cw_cumulative fw_pre3 fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3, absorb(gvkey) cluster(gvkey)
+label variable fw_pre4 "-4"
+label variable fw_pre3 "-3"
+label variable fw_pre2 "-2"
+label variable fw_pre1 "-1"
+label variable fw_post0 "0"
+label variable fw_post1 "1"
+label variable fw_post2 "2"
+label variable fw_post3 "3"
+label variable fw_post4 "4"
 
-reghdfe lxrd fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3, absorb(gvkey naics4#year) cluster(stateCode)
+reghdfe lxrd fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3, absorb(gvkey age stateCode#year naics4#year) cluster(stateCode)
+matrix list e(V)
+test (1/2) * (fw_pre1 + fw_pre2) = (1/4) * (fw_post1 + fw_post2 + fw_post3)
+coefplot, keep(fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3) vertical
+graph export "../writings/figures/shiftShareDiffInDiff.png", replace
+
+reghdfe lxrd lat roa assettang lch salesgrowth fw_pre1 fw_post0 fw_post1 fw_post2, absorb(gvkey age naics4#year) cluster(stateCode)
+coefplot, keep(fw_pre1 fw_post0 fw_post1 fw_post2) vertical
+test (1/1) * (fw_pre1 ) = (1/2) * (fw_post1 + fw_post2)
+graph export "../writings/figures/shiftShareDiffInDiff.png", replace
+
+
+reghdfe lxrd tobin_q lat lch assettang roa lemp fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3, absorb(gvkey year) cluster(stateCode)
+coefplot, keep(fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3) vertical
 
 gen lcapxv = log(capxv)
 gen lcapx = log(capx)
 
-reghdfe lcapxv fw_pre3 fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2, absorb(gvkey naics4#year stateCode#year) cluster(gvkey)
+reghdfe lcapxv fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2, absorb(gvkey naics4#year stateCode#year) cluster(gvkey)
 reghdfe lcapx fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2, absorb(gvkey naics4#year stateCode#year) cluster(gvkey)
-
 
 * My specification
 
@@ -206,13 +260,48 @@ gen xrd_tre_post = xrd * (treatedpost0 + treatedpost1 + treatedpost2 + treatedpo
 
 gen xrd_ncc = xrd * ncc_avg
 
-eststo model1: reghdfe spinoutCountWeighted xrd_lag1 xrd_tre_pre_3_l1 xrd_tre_pre_2_l1 xrd_tre_pre_1_l1 xrd_tre_post_0_l1 xrd_tre_post_1_l1 xrd_tre_post_2_l1 xrd_tre_post_3_l1 tobin_q salesfd at emp, absorb(gvkey age stateCode#year naics4#year) cluster(stateCode naics4)
-eststo model2: reghdfe Spinouts xrd_lag1 xrd_tre_pre_3_l1 xrd_tre_pre_2_l1 xrd_tre_pre_1_l1 xrd_tre_post_0_l1 xrd_tre_post_1_l1 xrd_tre_post_2_l1 xrd_tre_post_3_l1 tobin_q salesfd at emp, absorb(gvkey age stateCode#year naics4#year) cluster(stateCode naics4)
-eststo model3: reghdfe SpinoutsDFFV xrd_lag1 xrd_tre_pre_3_l1 xrd_tre_pre_2_l1 xrd_tre_pre_1_l1 xrd_tre_post_0_l1 xrd_tre_post_1_l1 xrd_tre_post_2_l1 xrd_tre_post_3_l1 tobin_q salesfd at emp, absorb(gvkey age stateCode#year naics4#year) cluster(stateCode naics4)
+eststo model1: reghdfe spinouts_fut2 xrd xrd_tre_pre_3 xrd_tre_pre_2 xrd_tre_pre_1 xrd_tre_post_0 xrd_tre_post_1 xrd_tre_post_2 xrd_tre_post_3 tobin_q_assets at salesfd ch assettang roa emp, absorb(gvkey age stateCode#year naics4#year) cluster(stateCode)
+coefplot, keep(xrd_tre_pre_3 xrd_tre_pre_2 xrd_tre_pre_1 xrd_tre_post_0 xrd_tre_post_1 xrd_tre_post_2 xrd_tre_post_3) vertical
+eststo model2: reghdfe founders_fut2 xrd xrd_tre_pre_3 xrd_tre_pre_2 xrd_tre_pre_1 xrd_tre_post_0 xrd_tre_post_1 xrd_tre_post_2 xrd_tre_post_3 tobin_q salesfd at emp, absorb(gvkey age stateCode#year naics4#year) cluster(stateCode naics4)
+eststo model3: reghdfe spinoutsdffv_fut2 xrd xrd_tre_pre_3 xrd_tre_pre_2 xrd_tre_pre_1 xrd_tre_post_0 xrd_tre_post_1 xrd_tre_post_2 xrd_tre_post_3 tobin_q salesfd at emp, absorb(gvkey age stateCode#year naics4#year) cluster(stateCode naics4)
 estfe model*, labels(gvkey "Parent Firm FE" age "Parent Firm Age FE" naics4#year "NAICS4-Year FE" stateCode#year "State-Year FE")
 esttab model* using tables/noncompeteRegressions.tex, replace se stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mtitles("Counts" "Founder counts" "Valuation")
 estfe model*, restore
 eststo clear
+
+label variable xrd_fw_pre_3 "-3"
+label variable xrd_fw_pre_2 "-2"
+label variable xrd_fw_pre_1 "-1"
+label variable xrd_fw_post_0 "0"
+label variable xrd_fw_post_1 "1"
+label variable xrd_fw_post_2 "2"
+label variable xrd_fw_post_3 "3"
+
+gen year2007_2008_2009 = 1 if year == 2007 | year == 2008 | year == 2009
+gen year2010_2011_2012 = 1 if year == 2010 | year == 2011 | year == 2012
+gen year2013_2014_2015 = 1 if year == 2013 | year == 2014 | year == 2015
+
+
+gen xrd2007_2008_2009 = xrd * year2007_2008_2009
+gen xrd2010_2011_2012 = xrd * year2010_2011_2012
+gen xrd2013_2014_2015 = xrd * year2013_2014_2015
+
+
+eststo model1: reghdfe spinouts_fut2 xrd xrd_fw_pre_2 xrd_fw_pre_1 xrd_fw_post_0 xrd_fw_post_1 xrd_fw_post_2 xrd_fw_post_3 tobin_q_assets at salesfd ch assettang roa emp, absorb(gvkey age naics4#year) cluster(stateCode)
+test (1/2) * (xrd_fw_pre_1 + xrd_fw_pre_2) = (1/3) * (xrd_fw_post_1 + xrd_fw_post_2 + xrd_fw_post_3)
+coefplot, keep(xrd_fw_pre_2 xrd_fw_pre_1 xrd_fw_post_0 xrd_fw_post_1 xrd_fw_post_2 xrd_fw_post_3) vertical
+graph export "../writings/figures/shiftShareDiffInDiff_xrdEffect.png", replace
+
+eststo model2: reghdfe founders_fut2 xrd xrd_fw_pre_2 xrd_fw_pre_1 xrd_fw_post_0 xrd_fw_post_1 xrd_fw_post_2 xrd_fw_post_3 tobin_q salesfd at emp, absorb(gvkey age stateCode#year naics4#year) cluster(stateCode naics4)
+coefplot, keep(xrd_fw_pre_2 xrd_fw_pre_1 xrd_fw_post_0 xrd_fw_post_1 xrd_fw_post_2 xrd_fw_post_3) vertical
+test (1/2) * (xrd_fw_pre_1 + xrd_fw_pre_2) = (1/3) * (xrd_fw_post_1 + xrd_fw_post_2 + xrd_fw_post_3)
+
+eststo model3: reghdfe spinoutsdffv_fut2 xrd xrd_fw_pre_3 xrd_fw_pre_2 xrd_fw_pre_1 xrd_fw_post_0 xrd_fw_post_1 xrd_fw_post_2 xrd_fw_post_3 tobin_q salesfd at emp, absorb(gvkey age stateCode#year naics4#year) cluster(stateCode naics4)
+estfe model*, labels(gvkey "Parent Firm FE" age "Parent Firm Age FE" naics4#year "NAICS4-Year FE" stateCode#year "State-Year FE")
+esttab model* using tables/noncompeteRegressions_fw.tex, replace se stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mtitles("Counts" "Founder counts" "Valuation")
+estfe model*, restore
+eststo clear
+
 
 * With Babina and Howell controls...
 
@@ -237,7 +326,7 @@ gen lxrd_tre_post_3 = lxrd * treatedpost3
 gen lxrd_tre_pre = lxrd * (treatedpre3 + treatedpre2 + treatedpre1)
 gen lxrd_tre_post = lxrd * (treatedpost0 + treatedpost1 + treatedpost2 + treatedpost3)
 
-gen lxrd_ncc = xrd * ncc_avg
+gen xrd_ncc = xrd * ncc_avg
 
 reghdfe founders_fut4 lxrd lxrd_ncc ltobin_q salesgrowth lat ch assettang ebitda roa, absorb(gvkey age naics4#year stateCode#year) cluster(gvkey)
 
@@ -266,15 +355,28 @@ eststo clear
 *************
 * WSO vs non WSO regressions
 
-eststo model0: reghdfe spinouts_fut2 xrd tobin_q_assets tobin_q at salesfd ch assettang roa emp patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
-eststo model1: reghdfe spinouts_wso1_fut2 xrd tobin_q_assets tobin_q at salesfd ch assettang roa emp patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
-eststo model2: reghdfe spinouts_wso2_fut2 xrd tobin_q_assets tobin_q at salesfd ch assettang roa emp patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
-eststo model3: reghdfe spinouts_wso3_fut2 xrd tobin_q_assets tobin_q at salesfd ch assettang roa emp patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
-eststo model4: reghdfe spinouts_wso4_fut2 xrd tobin_q_assets tobin_q at salesfd ch assettang roa emp patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
-eststo model5: reghdfe spinouts_wso5_fut2 xrd tobin_q_assets tobin_q at salesfd ch assettang roa emp patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
-eststo model6: reghdfe spinouts_wso6_fut2 xrd tobin_q_assets tobin_q at salesfd ch assettang roa emp patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
+eststo model0: reghdfe spinouts_fut2 xrd std_tobin_q_assets tobin_q std_at salesfd ch assettang roa std_emp std_patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
+eststo model1: reghdfe spinouts_wso1_fut2 xrd std_tobin_q_assets tobin_q std_at salesfd ch assettang roa std_emp std_patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
+eststo model2: reghdfe spinouts_wso2_fut2 xrd std_tobin_q_assets tobin_q std_at salesfd ch assettang roa std_emp std_patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
+eststo model3: reghdfe spinouts_wso3_fut2 xrd std_tobin_q_assets tobin_q std_at salesfd ch assettang roa std_emp std_patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
+eststo model4: reghdfe spinouts_wso4_fut2 xrd std_tobin_q_assets tobin_q std_at salesfd ch assettang roa std_emp std_patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
 estfe model*, labels(gvkey "Parent Firm FE" age "Parent Firm Age FE" naics4#year "NAICS4-Year FE" stateCode#year "State-year FE")
-esttab model* using tables/spinoutCounts_regressions.tex, replace se stats(r2 r2_a_within N)  indicate(`r(indicate_fe)') mtitles("all" "naics1" "naics2" "naics3" "naics4" "naics5" "naics6")
+esttab model* using tables/spinoutCounts_regressions.tex, replace se stats(clustvar r2_a r2_a_within N)  indicate(`r(indicate_fe)') mtitles("all" "naics1" "naics2" "naics3" "naics4") keep(xrd std_tobin_q_assets std_at std_emp std_patentcount_cw_cumulative)
+estfe model*, restore
+eststo clear
+
+
+
+
+** lags for accounting
+
+eststo model0: reghdfe spinouts_fut4 xrd xrd_lag xrd_lag2 xrd_lag3 xrd_lag4 std_tobin_q_assets tobin_q std_at salesfd ch assettang roa std_emp std_patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
+eststo model1: reghdfe spinouts_wso1_fut4 xrd xrd_lag xrd_lag2 xrd_lag3 xrd_lag4 std_tobin_q_assets tobin_q std_at salesfd ch assettang roa std_emp std_patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
+eststo model2: reghdfe spinouts_wso2_fut4 xrd xrd_lag xrd_lag2 xrd_lag3 xrd_lag4 std_tobin_q_assets tobin_q std_at salesfd ch assettang roa std_emp std_patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
+eststo model3: reghdfe spinouts_wso3_fut4 xrd xrd_lag xrd_lag2 xrd_lag3 xrd_lag4 std_tobin_q_assets tobin_q std_at salesfd ch assettang roa std_emp std_patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
+eststo model4: reghdfe spinouts_wso4_fut4 xrd xrd_lag xrd_lag2 xrd_lag3 xrd_lag4 std_tobin_q_assets tobin_q std_at salesfd ch assettang roa std_emp std_patentcount_cw_cumulative, absorb(gvkey age stateCode#year naics4#year) cluster(gvkey)
+estfe model*, labels(gvkey "Parent Firm FE" age "Parent Firm Age FE" naics4#year "NAICS4-Year FE" stateCode#year "State-year FE")
+esttab model* using tables/spinoutCounts_regressions_accounting.tex, replace se stats(clustvar r2_a r2_a_within N)  indicate(`r(indicate_fe)') mtitles("all" "naics1" "naics2" "naics3" "naics4") keep(xrd xrd_lag xrd_lag2 xrd_lag3 xrd_lag4 )
 estfe model*, restore
 eststo clear
 

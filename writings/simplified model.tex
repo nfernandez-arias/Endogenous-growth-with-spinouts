@@ -1,0 +1,182 @@
+\documentclass[11pt,english]{article}
+\usepackage{lmodern}
+\linespread{1.05}
+%\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage{placeins}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+	\title{Endogenous Growth with Creative Destruction by Employee Spinouts}
+	\author{Nicolas Fernandez-Arias}
+	\maketitle
+
+
+
+\subsubsection{Creative destruction}
+
+\paragraph{Entrants} For each $j$, there is free entry by a mass of entrants (normalized to $1$) owned in equal share by the households, indexed by $e \in [0,1]$. Entry occurs upon successfully innovating, for which they pay 
+\begin{align}
+	\tau_E &= \chi_E \phi(z_E + z_S) \label{simplified_entrant_innovation_rate}
+\end{align}
+
+
+\paragraph{Spinouts} If a firm -- incumbent or potential entrant -- innovating on good $j$ hires $z$ units of R\&D labor from a worker, with Poisson intensity $\chi_S z$ the worker gains the technology to produce good $j$ at quality $\lambda q_j$ by paying the fixed cost $C q_j$ in terms of the final good.\footnote{There is no cost to managing the firm, hence no labor-entrepreneurship choice for the employee who has a spinout idea. This abstraction, while omitting an important determinant of entrepreneurship, simplifies the model drastically by ensuring that the value of a firm of quality $q_j$ is proportional to $q_j$, reducing one of the state variables in the agents' decision problems. Without this assumption, because the opportunity cost of no longer being employed as a worker scales with the average level of productivity in the economy $Q_t$, firms with low $q_j/Q_t$ would exit. This is a natural economic assumption - low $q/Q$ firms should exit and be replaced by average $q \approx Q$ entrants. And several models of this type have been studied in the literature (e.g. \cite{acemoglu_innovation_2015}, ), typically yielding a Pareto stationary distribution in $q/Q$, given assumptions generated proportional growth and an (endogenous) lower exit threshold. However, it induces a non-linearity in the incumbent's value function, adding a state variable to the incumbent's optimization problem. In addition, higher moments of the distribution of $q_j$ (i.e., beyond the mean $Q$) would become relevant for aggregation. In the full model discussed later, there is already one continuous state variable to keep track of (as well as its distribution across products), so adding an additional state / distribution would pose a signficant challenge to solve numerically. I leave this for future work.} In equilibrium, provided $C$ is low enough, the R\&D worker does this. This leads to
+\begin{align}
+	\tau_S &= \chi_S z_I \label{simplified_spinout_innovation_rate}
+\end{align}
+
+In the case of a spinout, the worker continues to supply his labor on the labor market. In other words, there is no opportunity cost of forming a spinout from foregone labor earnings. Hence he always forms a spinout. The result is that at a constant rate $\chi_S$ per unit of R\&D effort, an R\&D worker is able to form a spinout, and does so. The model can also be interpreted as the worker selling the spinout for its full value to a competitive fringe of investors owned in equal shares by the household sector. 
+hould be completely tractable. 
+\subsection{Equilibrium}
+
+In this section I describe the equilibrium. While I have not shown this yet, generally this class of models admits one equilibrium which consists of a balanced growth path, i.e. productivity, wages and output grows at a constant rate, interest rates and labor allocations are constant. The equilibrium described below is of this type. 
+
+
+
+
+
+\subsubsection{Equilibrium R\&D decisions}
+
+Due to risk neutrality, the interest rate is constant and equal to the discount factor, $r_t = \rho$. The only individual state variable of a product line $j$ is $q_j$. Given the way the model aggregates, the aggregate state is then $Q_t$. Let $w(q,t)$ denote the wage paid to employees of a firm of quality $q$ at time $t$. Similarly $V(q,t)$ denotes the value of a monopoly position. The dependence on $t$ allows dependence on the aggregate state $Q_t$. 
+
+A worker employed at such a firm gains, in addition to the wage, an expected flow utility of
+\begin{align*}
+\chi_S \Big(V(\lambda q_j,t) - Cq_j \Big)
+\end{align*}
+
+This is due to the prospect of forming a profitable spinout firm that creatively destroys the parent firm, as in \cite{franco_spin-outs:_2006}. In equilibrium, the worker is indifferent between employment as an R\&D worker or employment as a final goods worker. This imposes the indifference condition,
+\begin{align}
+w(q,t) + \Big(\frac{q}{Q_t}\Big)^{-1} \chi_S \Big(V(\lambda q_j,t) - Cq_j \Big) &= \overline{w} \label{simplified_wage_rd}
+\end{align}
+
+Let $\tau(q,t)$ denote the product-specific rate of creative destruction, and let $\tau_E(q,t),\tau_S(q,t)$ denote the rates for entrants and spinouts, respectively, so that $\tau = \tau_E + \tau_S$. The optimality of the incumbent's R\&D decision implies that the value function $V(q,t)$ satisfies a Hamilton-Jacobi-Bellman equation (HJB),
+\begin{align}
+(r_t + \tau_E(q,t)) &V(q,t) = \pi(q,t) + \partial_tV(q,t) \nonumber \\ 
+&+ \max_{z \ge 0} \Bigg\{ \underbrace{\chi_I z\phi(z) \Big[V(\lambda q,t) - V(q,t) \Big]}_{\textrm{Flow value of potential innovation}} - \overbrace{\Big(\frac{q}{Q_t}\Big) z \Big( w(q,t) + \chi_S \Big( \Big(\frac{q}{Q_t}\Big)^{-1} V(q,t) \Big)}^{\textrm{Effective R\&D cost}} \Bigg\}
+\end{align}
+
+The expression $w(q,t) +\Big(\frac{q}{Q_t}\Big)^{-1} \chi_S V(q,t)$ is the effective R\&D cost per unit labor hired, taking into account the harm done to the parent firm from the spinouts formed in the R\&D process.
+
+Free entry implies
+\begin{align}
+\chi_E \Big(\frac{q}{Q_t}\Big)^{-1} \Big[ V(\lambda q,t) - Cq \Big]  &\ge w(q,t)  \nonumber
+\end{align}
+with equality if $\tau_E(q,t) > 0$. Not that the wage paid is the R\&D wage, not the effective R\&D wage. This is because an individual potential entrant is atomistic relative to the market for product $j$, so does not internalize her effect on the rate of innovation.
+
+\paragraph{Balanced growth path}
+
+I conjecture that $V(q_j,Q_t) = q_j V$ for some constant $V > 0$. Consistent with this conjecture, I also conjecture that rates of creative destruction $\tau_E,\tau_S,\tau$ are constant, and that $L_F$ is constant, which by (\ref{profits_eq}) that $\pi(q,t) = \pi q$. Finally, (\ref{simplified_wage_rd}) implies that $w(q,t) = Q_t w_{RD}$. A factor $q$ drops out of the HJB above, yielding
+\begin{align}
+(r + \tau_E) V &= \pi + \max_{z \ge 0} \Big\{  \chi_I z \phi(z) (\lambda -1) V - z (w_{RD} + \chi_S V ) \Big\} \label{simplified_BGP_HJB_I}
+\end{align} 
+
+In this simpler setting, note that the effective R\&D wage is $w_{RD} + \chi_S V$. From now on, I will consider the case of $\phi(z) = z^{-\psi}$. 
+
+The indifference condition (\ref{simplified_wage_rd}) becomes 
+\begin{align}
+w_{RD} + \chi_S (\lambda V - C) = \overline{w} \label{simplified_wage_rd_BGP}
+\end{align}
+
+Plugging (\ref{simplified_wage_rd_BGP}) into the FOC for optimal $z_I$ in (\ref{simplified_BGP_HJB_I}) yields the equilibrium optimal incumbent innovation effort $z_I$ given $V$, 
+\begin{align*}
+z_I &= \Big(  \frac{\bar{w}-(\lambda-1)\nu V + C}{(1-\psi)\chi_I(\lambda-1)V} \Big)^{-1/\psi}	
+\end{align*}
+
+Using (\ref{incumbent_innovation_rate}) and (\ref{simplified_spinout_innovation_rate}) this implies
+\begin{align*}
+\tau_I &= \chi_I z_I^{1-\psi} \\
+\tau_S &= \chi_S z_I
+\end{align*}
+
+The free entry condition becomes
+\begin{align}
+\chi_E \Big( \lambda V -  C \Big) \ge w_{RD} \label{simplified_free_entry}
+\end{align}
+
+With equality if $\tau_E > 0$. In this case, (\ref{simplified_free_entry}) determines the equilibrium value of $V$.\footnote{Otherwise, it is determined by (\ref{simplified_BGP_HJB_I}) with the assumption that $\tau_E = 0$.} The equilibrium value of $\tau_E$ is determined by (\ref{simplified_BGP_HJB_I}).
+
+\subsubsection{Aggregation}
+
+The equilibrium described naturally above does not feature a stationary distribution of product-lines in $q$-space, since the economy will be growing over time. However, it also does not admit a stationary distribution in the normalized $q/Q$-space, which one might expect in model of growth. This is due to (1) proportional growth and (2) no exit by low $q/Q$ firms. The distribution in $q/Q$-space fans out over time. In spite of this, model aggregates can be computed with only knowledge of the average quality level in the economy, $Q$. In particular, in the above equilibrium $Q_t = Q_0 e^{gt}$ where 
+\begin{align}
+g &= (\lambda -1) (\tau_I + \tau_E + \tau_S) \label{simplified_growth_aggregation}
+\end{align} 
+
+Labor allocated to R\&D is given by
+\begin{align} 
+L_{RD} &= z_I + z_E \label{simplified_RDlabor_aggregation}
+\end{align}
+
+
+
+\subsubsection{Transition dynamics}
+
+It can be shown that following a transition the model described above immediately jumps to its new balanced growth path. This results from the fact that (1) there are no individual state variables and (2) the only aggregate state variable is $Q$. This will no longer be true in the full model.
+
+\subsection{Efficiency (in progress)}
+
+\subsubsection{Social planner problem}
+
+The planner maximizes the present discounted value of consumption, subject to the labor resource constraint. Flow consumption is equal to flow final goods output minus expenditures on creative destruction (by spinouts or entrants).  
+
+The planner's problem depends only on the distribution of $\tilde{q} = \frac{q}{Q}$. Furthermore, output of the consumption good depends only on $Q_t$. Hence it is without loss of generality to simply assume that $\tilde{q}_j \equiv Q_t$ in formulating the problem. Finally, the problem has the same solution for every $Q_t$, so it suffices to solve the following maximization problem:
+\begin{align*}
+\max_{L_F,L_I,z_I,z_E} \frac{\frac{1}{1-\beta} L_F^{1-\beta} L_I^{1-\beta} dj - (\chi_S z_I + \chi_E z_E) C}{\rho - (\lambda-1)(\chi_I z_I^{1-\psi} + \chi_E z_E + \chi_S z_I)} 
+\end{align*}
+
+subject to the aggregate labor resource constraint
+\begin{align*}
+L_F + L_I + z_E + z_I \le 1
+\end{align*}
+
+and the non-negativity constraint
+\begin{align*}
+z_E \ge 0
+\end{align*}
+
+The planner will generally depart from the decentralized equilibrium for two reasons.
+
+\paragraph{Monopoly distortion}
+The planner will allocate more labor to production of the intermediate good, which is inefficiently low in the decentralized equilibrium due to the distortion from monopoly power.\footnote{This can be decentralized by a subsidy to intermediate goods firm revenue, although this policy is not tyipcally considered realistic in practice. In any case, this is not the focus of this paper.} 
+
+\paragraph{Innovation externalities}
+
+The planner will deviate from the decentralized equilibrium in her optimal R\&D decisions. This results from two key externalities: 
+\begin{enumerate}
+	\item Limited appropriability of the returns to knowledge investments
+	\item Business-stealing externalities by spinouts and entrants
+\end{enumerate}
+
+Specifically, the planner takes into account the effect of innovations on the productivity of the aggregate economy, hence generally instructs agents to innovate more than in the decentralized model. However, the planner considers a growth rate of $\lambda - 1$ per innovation. That is, the planner takes into account the lost profits from creative destruction. This force reduces the planner's optimal entrant R\&D effort and spinout formation rate (manifest in a lower choice of $z_I$). Hence the planner will generally instruct incumbents to innovate more and entrants to innovate less, provided that $\chi_I > \chi_E$. 
+
+
+
+\end{document}

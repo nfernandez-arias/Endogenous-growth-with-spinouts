@@ -11,7 +11,6 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 #--------------------------------#
 
 #include("testWelfarePlots.jl")
-
 #@timev w_diag,V_diag,noncompete_diag,W_diag,μ_diag,g_diag,L_RD_diag,results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
 #@timev w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,results.finalGuess,results.incumbent)
 
@@ -42,7 +41,7 @@ include("testDiags.jl")
 results1 = results
 results2 = results
 aNC = a
-aNoNC =
+#aNoNC =
 ## Random stuff
 
 p = plot(t, [results1.auxiliary.μ.*ν.*a results2.auxiliary.μ.*ν.*aNC], xlims = (0,35), title = "Stationary distribution", label = ["Baseline" "Noncompetes"], ylabel = "Density", xlabel = "Years since last innovation", linestyle = [:solid :dash])

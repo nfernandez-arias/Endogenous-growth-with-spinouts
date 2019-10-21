@@ -1,0 +1,130 @@
+
+\documentclass[11pt,english]{article}
+\usepackage{lmodern}
+\linespread{1.05}
+%\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage{placeins}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+	\title{JMP To do list: 10-18-2019}
+	\author{Nicolas Fernandez-Arias}
+	\maketitle
+
+\section{Empirics}
+
+\begin{enumerate}
+	\item Babina \& Howell paper - disagrees with me on exclusion restriction confirms my basic results, but .. competition ?
+	\item \textbf{probably invalid} Shift-share stuff -- is it valid? reasonable? how to sell it? who should I talk to?
+	\item Basic results - endogeneity. but my IV estimates aren't working. I'm basing them off of Bloom's code though...I need to look into this and figure it out. I'm getting different results in the first stage than Bloom does.
+	\item Calibrating by looking at spinouts "explained" by R\&D -  equivalently, validating my model assumption
+\end{enumerate}
+
+
+\section{Theory}
+
+\begin{enumerate}
+	\item Need to augment some stuff about noncompetes 
+	\item Sensitivity of results to difficult to identify parameter (cost of creative destruction) -- marketing costs?
+	\begin{itemize}
+		\item Kappa is a cost of entry. So it reduces total effort by spinouts and entrants. As such it reduces the overall level entry. But the margin of adjustment is a reduction in the entry rate of ordinary entrants, provided that $z_E > 0$. 
+		\item Nu, on the other hand, affects the relationship of R\&D to spinout entry. So, ideally, I would have 
+	\end{itemize}
+	\item Lucas critique issues:
+	\begin{itemize}
+		\item Without spinouts, ideas go unused.
+		\item Spinout ideas are not generated through effort. 
+		\item Can I think of this as a reduced form of the idea that, with non-competes, no effort will be put into spinout ideas? 
+	\end{itemize}
+\end{enumerate}
+ 
+	
+\section{Deprecated shift-share stuff} 
+
+
+
+\subsection{Effect of non-compete enforcement on corporate R\&D}
+
+The mechanism in my model by which non-compete enforcement can improve welfare is through its increase on the incentive of incumbent firms to do R\&D. Here I provide some evidence that an increase in non-compete enforcement causes an increase in incumbent R\&D spending. The results of this exercise are statistically significant and consistent with the model's prediction.
+
+I use the data on state-level non-compete enforcement policy changes due to court rulings, compiled by \cite{jeffers_impact_2018}, as well as firm-specific shares of R\&D spending in each state, to consruct a firm-specific policy change treatment, and consider the effect of this treatment on firm-level R\&D spending. Because these policy changes result from court rulings, they can be argued to be plausibly exogenous. See \cite{jeffers_impact_2018} for a fuller justification of this assumption. This yields the specification,
+\begin{align}
+\log RD_{it} &= \alpha + \sum_{m=-2}^{m=3} \beta_m Z_{i,t,m} + \xi X_{it} + \gamma_i + \theta_{j(i)t} + \sigma_{s(i)t} + \epsilon_{it} \label{noncompete_shiftshare_specification} \\
+Z_{i,t,m} &= \sum_s w_{ist} * \textrm{Treated}_{s,t+m} \nonumber \\
+w_{ist} &= \frac{\sum_{k=0}^{\min(9,\textrm{Age}_{it})} \textrm{patent applications}_{is,t-k}}{\sum_{k=0}^{\min(9,\textrm{Age}_{it})} \textrm{patent applications}_{i,t-k}} \nonumber  \\
+\textrm{patent applications}_{i,t-k} &= \sum_s \textrm{patent applications}_{is,t-k} \nonumber
+\end{align}
+
+where $i$ indexes firm, $t$ indexes year, $j(i)$ is the industry of firm $i$, $s(i)$ is the headquarters state of firm $i$, $w_{ist}$ is firm $i$'s patenting weight in state $i$ at time $t$, and $\textrm{Treated}_{st}$ is an variable equal to $0$ except when there is an increase (decrease) in enforcement, in which case it is $1$ ($-1$) for one year. Industry-year and state-year fixed effects are given by $\theta_{j(i)t}$ and $\sigma_{s(i)t}$. $X_{it}$ are firm-year controls, including: log of real assets, return on assets, log of cash holdings and sales growth. I do not include log of Tobin's Q as a regressor because it is a forward-looking variable which mediates the effect of returns to investment on investment and would mask the true causal impact. 
+
+Specification (\ref{noncompete_shiftshare_specification}) is a natural extension of the framework in \cite{jeffers_impact_2018} to a shift-share design. It relies primarily on the assumption that the patenting share $w_{ist}$ is reflective of the of R\&D activities in state $s$ by firm $i$. Then an increase (decrease) in the marginal return to R\&D in state $s$ should increase (decrease) firm $i$'s log R\&D expenditure in proportion to the share $w_{ist}$ of R\&D in that state. This is essentially the same assumption as in \cite{bloom_identifying_2013}.
+
+Figure \ref{shiftShare_results} shows the results of this regression. The confidence intervals are somewhat wide, but the estimates are correlated across samples, so pooling coefficients together increases power. Indeed, the mean of the post- coefficients is statistically significantly higher than the mean of the pre- coefficients at the 5\% level: the p-value of a two-sided F-test is 1.24\%. These results are qualitatively consistent with the hypothesis that increased non-compete enforcement increases the private returns to R\&D. 
+
+From the figure, it is possible that there is a pre-trend, so I plan on conducting some placebo tests, where I use randomly selected states-years, or states in the years considered, as a placebo treatment. 
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[scale=0.8]{figures/shiftShareDiffInDiff.png}
+	\caption{Results of shift-share regression. Clustering is at the level of the state of the headquarters of the firm.}
+	\label{shiftShare_results}
+\end{figure}
+
+
+
+\subsubsection{On R\&D--spinout linkage}
+
+In a recent working paper, \cite{babina_entrepreneurial_2018} argue that there is limited evidence that the relationship between R\&D and employee entrepreneurship is attenuated by a high degree of NCA enforcement. They interpret this as evidence against my main hypothesis, that R\&D-induced spinouts may harm the parent firm.\footnote{My baseline assumption is that this is due to competition in the R\&D race between the spinout and the parent firm. I am working on an extension where, in addition, the idea could in principle be implemented by the firm.}
+
+The authors reach this conclusion by evaluating whether the relationship beteen R\&D and spinout formation is weaker in states that do not enforce non-competes. In other words, they use level differences between states in enforcement policy. Naturally, they are unable to reject the null hypothesis of no difference in coefficients, since many other latent factors vary across states and affect the strength of the relationship in question, reducing the power of their statistical test. In addition, they identify the location of a firm by the location of its headquarters (I think -- they do not report these regressions in their working paper). This may not be an accurate picture of the location of the company's R\&D activities.
+
+Instead, I construct time-varying measures of firm R\&D based on the location of the first inventors on its patents from the last ten years (or the birth of the firm). This yields, for each firm-state-year, a share of patenting activity. I take a sum of the product of each of these $S$ firm-year-state shares with indicator variables equal to $1$ in state $s$, $m$ years after an increase in NCA enforcement (or $-1$ if there is a decrease). This gives me a firm-specific treatment. I then interact R\&D spending with this treatment indicator and add it to the regressions in the previous section.
+
+The estimated treatment effects $m$ years since treatment, for $m = -2,-1,0,1,2,3$ are displayed in Figure \ref{shiftShare_xrdEffect_results}. The difference in the means of the coefficients on $-2,-1$ and $1,2,3$, respectively, is statistically significant at the 5\% level (F-statistic p-value is $2.37\%$). While the statistical significance of this result is somewhat sensitive to details of the specification and construction of dataset, the estimates are consistently in the right direction. However, I am still not convinced and would like to do more placebo tests to control for the possibility that there is an overall trend to weaken this relationship. In particular, I am concerned that the high levels at $-2,-1$ could be due to very high degree of spinout formation during the financial crisis (an interesting result in and of itself, which to me suggests a "flight to safety" in VC investments during the crisis). 
+
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.8]{figures/shiftShareDiffInDiff_xrdEffect.png}
+	\caption{Coefficients on interaction of R\&D and patenting shift-share treatment. Clustering is at the level of the state of the headquarters of the firm (i.e., should include \cite{adao_shift-share_2019} correction.)}
+	\label{shiftShare_xrdEffect_results}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+\end{document}

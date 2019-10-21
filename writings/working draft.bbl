@@ -1,4 +1,4 @@
-\begin{thebibliography}{40}
+\begin{thebibliography}{39}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -23,6 +23,15 @@ Yves Achdou, Jiequn Han, Jean-Michel Lasry, Pierre-Louis Lions, and Benjamin
 \newblock Technical Report w23732, National Bureau of Economic Research,
   Cambridge, MA, August 2017.
 \newblock URL \url{http://www.nber.org/papers/w23732.pdf}.
+
+\bibitem[Adao et~al.(2019)Adao, Kolesár, and Morales]{adao_shift-share_2019}
+Rodrigo Adao, Michal Kolesár, and Eduardo Morales.
+\newblock Shift-{Share} {Designs}: {Theory} and {Inference}.
+\newblock \emph{The Quarterly Journal of Economics}, 134\penalty0 (4):\penalty0
+  1949--2010, November 2019.
+\newblock ISSN 0033-5533.
+\newblock \doi{10.1093/qje/qjz025}.
+\newblock URL \url{https://academic.oup.com/qje/article/134/4/1949/5552146}.
 
 \bibitem[Aghion and Howitt(1992)]{aghion_model_1992}
 Philippe Aghion and Peter Howitt.
@@ -67,20 +76,12 @@ James~J. Anton and Dennis~A. Yao.
 \newblock ISSN 8756-6222.
 \newblock URL \url{https://www.jstor.org/stable/765002}.
 
-\bibitem[Arrow(1962)]{arrow_economic_1962}
-Kenneth Arrow.
-\newblock Economic {Welfare} and the {Allocation} of {Resources} for
-  {Invention}.
-\newblock {NBER} {Chapters}, National Bureau of Economic Research, Inc, 1962.
-\newblock URL \url{https://econpapers.repec.org/bookchap/nbrnberch/2144.htm}.
-
-\bibitem[Asturias et~al.(2019)Asturias, Hur, Kehoe, and
-  Ruhl]{asturias_firm_2019}
-Jose Asturias, Sewon Hur, Timothy~J. Kehoe, and Kim~J. Ruhl.
-\newblock Firm {Entry} and {Exit} and {Aggregate} {Growth}.
-\newblock {SSRN} {Scholarly} {Paper} ID 3328873, Social Science Research
-  Network, Rochester, NY, February 2019.
-\newblock URL \url{https://papers.ssrn.com/abstract=3328873}.
+\bibitem[Babina and Howell(2018)]{babina_entrepreneurial_2018}
+Tania Babina and Sabrina~T Howell.
+\newblock Entrepreneurial {Spillovers} from {Corporate} {R}\&{D}.
+\newblock Working {Paper} 25360, National Bureau of Economic Research, December
+  2018.
+\newblock URL \url{http://www.nber.org/papers/w25360}.
 
 \bibitem[Baslandze(2019)]{baslandze_spinout_2019}
 Salome Baslandze.
@@ -96,18 +97,6 @@ Nicholas Bloom, Mark Schankerman, and John~Van Reenen.
 \newblock ISSN 1468-0262.
 \newblock \doi{10.3982/ECTA9466}.
 \newblock URL \url{https://onlinelibrary.wiley.com/doi/abs/10.3982/ECTA9466}.
-
-\bibitem[Brandt et~al.(2012)Brandt, Van~Biesebroeck, and
-  Zhang]{brandt_creative_2012}
-Loren Brandt, Johannes Van~Biesebroeck, and Yifan Zhang.
-\newblock Creative accounting or creative destruction? {Firm}-level
-  productivity growth in {Chinese} manufacturing.
-\newblock \emph{Journal of Development Economics}, 97\penalty0 (2):\penalty0
-  339--351, March 2012.
-\newblock ISSN 0304-3878.
-\newblock \doi{10.1016/j.jdeveco.2011.02.002}.
-\newblock URL
-  \url{http://www.sciencedirect.com/science/article/pii/S0304387811000216}.
 
 \bibitem[Chatterjee and Rossi-Hansberg(2012)]{chatterjee_spinoffs_2012}
 Satyajit Chatterjee and Esteban Rossi-Hansberg.
@@ -156,14 +145,6 @@ Bruce Fallick, Charles~A. Fleischman, and James~B. Rebitzer.
   the {Microfoundations} of a {High}-{Technology} {Cluster}, October 2006.
 \newblock URL
   \url{https://www.mitpressjournals.org/doix/abs/10.1162/rest.88.3.472}.
-
-\bibitem[Foster et~al.(2001)Foster, Haltiwanger, and
-  Krizan]{foster_aggregate_2001}
-Lucia Foster, John Haltiwanger, and C.~J. Krizan.
-\newblock Aggregate {Productivity} {Growth}: {Lessons} from {Microeconomic}
-  {Evidence}.
-\newblock {NBER} {Chapters}, National Bureau of Economic Research, Inc, 2001.
-\newblock URL \url{https://econpapers.repec.org/bookchap/nbrnberch/10129.htm}.
 
 \bibitem[Franco and Mitchell(2008)]{franco_covenants_2008}
 April~M. Franco and Matthew~F. Mitchell.
@@ -246,6 +227,18 @@ Dale~W. Jorgenson, Mun~S. Ho, and Kevin~J. Stiroh.
 \newblock \doi{10.1257/jep.22.1.3}.
 \newblock URL \url{https://www.aeaweb.org/articles?id=10.1257/jep.22.1.3}.
 
+\bibitem[Kaplan et~al.(2002)Kaplan, Sensoy, and Stromberg]{kaplan_how_2002}
+Steven~N. Kaplan, Berk~M. Sensoy, and Per Stromberg.
+\newblock How well do venture capital databases reflect actual investments?
+\newblock \emph{Working Paper}, September 2002.
+\newblock URL
+  \url{https://faculty.chicagobooth.edu/steven.kaplan/research/kss1.pdf}.
+
+\bibitem[Kaplan(2016)]{kaplan_venture_2016}
+Steven~Neil Kaplan.
+\newblock Venture {Capital} {Data}: {Opportunities} and {Challenges}.
+\newblock \emph{NBER Working Paper}, page~26, 2016.
+
 \bibitem[Klepper and Sleeper(2005)]{klepper_entry_2005}
 Steven Klepper and Sally Sleeper.
 \newblock Entry by {Spinoffs}.
@@ -310,14 +303,6 @@ Jose Parilla and Mark Muro.
   March 2017.
 \newblock URL
   \url{https://www.brookings.edu/research/understanding-us-productivity-trends-from-the-bottom-up/}.
-
-\bibitem[Report(2016)]{the_white_house_technical_report_non-compete_2016}
-The White House~Technical Report.
-\newblock Non-{Compete} {Agreements}: {Analysis} of the {Usage}, {Potential}
-  {Issues}, and {State} {Responses}.
-\newblock Technical {Report}, May 2016.
-\newblock URL
-  \url{https://obamawhitehouse.archives.gov/sites/default/files/non-competes_report_final2.pdf}.
 
 \bibitem[Romer(1986)]{romer_increasing_1986}
 Paul~M. Romer.

@@ -16,7 +16,7 @@ library(lubridate)
 
 compustatFirmsSegments <- fread("data/compustat/firmsSegments.csv")
 compustatFirmsSegments[tic == "IBM", conml := "IBM"]
-compustatFirmsSegments[tic == "GS", conml := "Goldman )Sachs"] 
+compustatFirmsSegments[tic == "GS", conml := "Goldman Sachs"] 
 compustatFirmsSegments[tic == "HPQ", conml := "Hewlett-Packard"]
 compustatFirmsSegments[snms == "HP", snms := ""] 
 
@@ -25,12 +25,6 @@ EntitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")
 EntitiesPrevEmployers[ , joinYear := as.integer(year(ymd(JoinDate)))]
 EntitiesPrevEmployers[ is.na(joinYear) , joinYear := foundingYear]
 #EntitiesPrevEmployers <- EntitiesPrevEmployers[foundingYear <= 1999]
-
-## Select only founders
-####
-# Count CEO-Chairman and CTOs as founders when no founder listed 
-#EntitiesPrevEmployers[, Founder2 := 1 - max(Founder), by = EntityID]
-#EntitiesPrevEmployers[Founder2 == 1 & (TitleCode == "CTO" | TitleCode == "CCEO"), Founder := 1]
 
 # Select founders
 
@@ -70,7 +64,6 @@ EntitiesPrevEmployers[ , PreviousEmployerCLEAN := gsub("^Google.*$","Google",Pre
 # select segments
 segments <- compustatFirmsSegments[snms != ""]
 segments <- segments[ gvkey != 17997 | snms != "AT&T"]
-
 segments[ , dataYear := as.numeric(dataYear)]
   
 #setkey(segments,snms,dataYear)
@@ -80,7 +73,6 @@ segments[ , dataYear := as.numeric(dataYear)]
 tempSegments <- unique(segments, by = "snms")
 setkey(tempSegments,snms)
 setkey(EntitiesPrevEmployers,PreviousEmployerCLEAN)
-
 output <- tempSegments[EntitiesPrevEmployers]
 
 

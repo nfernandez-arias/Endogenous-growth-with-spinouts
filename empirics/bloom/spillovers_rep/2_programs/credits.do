@@ -1,8 +1,15 @@
+clear all
+
+set more off
+
+cd "Z:\home\nico\nfernand@princeton.edu\PhD - Thesis\Research\Endogenous-growth-with-spinouts\empirics"
+
+
 ***************************
 * FEDERAL R&D TAX CREDITS
 ***************************
 * READ IN COMPUSTAT
-use gvkey fyear sale xrd ebit using "$raw_data/compustat_annual", clear
+insheet using "data/compustat/compustat_annual_light.csv", clear
 destring gvkey, replace force
 drop if gvkey==.
 drop if sale==.
@@ -50,7 +57,8 @@ replace base=0.5*xrd if base<0.5*xrd
 * credit amount = 0.5*(xrd-base)
 * MERGE IN federal_credit_rate, fed_tax_rate, r
 preserve
-	use year k_f_e t_f t_f_e t_s_e using "$raw_data/RDusercost_2017", clear
+	insheet using "data/bsv/RDusercost_2017.csv", clear 
+	keep year k_f_e t_f t_f_e t_s_e
 	egen tag=tag(year)
 	keep if tag==1
 	drop tag
@@ -59,9 +67,9 @@ preserve
 	rename t_f_e effective_federal_tax_rate
 	rename t_s_e effective_state_tax_rate
 	tempfile fedrates
-	save `fedrates'
+	save "data/bsv/fedrates", replace
 restore
-merge m:1 year using `fedrates'
+merge m:1 year using "data/bsv/fedrates"
 	keep if _m==3
 	drop _m
 ***** TAX PRICE OF R&D following Hall (1992)
@@ -93,16 +101,16 @@ gen firm=theta/(1-T*fed_tax_rate)
 tab year, su(firm)
 gen lfirm=log(firm)
 keep gvkey year lfirm
-sa "$data/lfirm", replace
+sa "data/compustat/lfirm", replace
 ***************************
 * STATE R&D TAX CREDITS
 ***************************
 * Read in the patents data from the NBER
-u "$raw_data/pat76_06_assg", clear
+insheet using "data/nber uspto/patents_light.csv", clear
 * rename key variables
 gen pat_count=1
 * merge to dynamic assignee match file
-merge m:1 pdpass using "$raw_data/dynass", keepusing(pdpass gvkey1 source)
+merge m:1 pdpass using "data/nber uspto/dynass", keepusing(pdpass gvkey1 source)
 	keep if _m==3
 	drop _m
 rename gvkey1 gvkey
@@ -121,20 +129,20 @@ forv y=1980/2006 {
 	replace ishare=0 if ishare==.
 	gen year=`y'
 	tempfile `y'
-	save ``y''
+	save `y'.dta, replace
 	* fix shares for 2006 through 2015
 	if `y'==2006 {
 		forv z=2007/2015 {
 			replace year=`z'
 			tempfile `z'
-			save ``z''
+			save `z'.dta, replace
 		}
 	}
 	restore
 }
 clear
 forv y=1980/2015 {
-	append using ``y''
+	append using `y'.dta
 }
 drop _fillin
 *  THIS PART MAPS PATENT SHARES FORWARD
@@ -142,12 +150,15 @@ fillin gvkey state year
 sort gvkey state year
 by gvkey state : replace ishare=ishare[_n-1] if ishare==. & _fillin==1
 *
+
+export delimited "data/compustat/firmYearStateShares_bloom.csv"
+
 rename state abbr
-merge m:1 abbr using "$raw_data/stmap"
+merge m:1 abbr using "bloom/spillovers_rep/1_data/Raw/stmap"
 keep if _m==3
 drop _m
 drop state abbr
-merge m:1 fips year using "$raw_data/RDusercost_2017", keepusing(rho_h r)
+merge m:1 fips year using "data/bsv/RDusercost_2017", keepusing(rho_h r)
 	keep if _m==3
 	drop _m
 gen state=ishare*rho_h/(0.3)
@@ -155,4 +166,4 @@ collapse (sum) state, by(gvkey year)
 tab year, su(state)
 gen lstate=log(state)
 keep gvkey year lstate
-sa "$data/lstate", replace
+sa "data/compustat/lstate", replace

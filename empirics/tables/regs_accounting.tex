@@ -1,0 +1,39 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
+            &\multicolumn{1}{c}{Counts}&\multicolumn{1}{c}{Founder counts}&\multicolumn{1}{c}{Valuation}\\
+\hline
+xrd         &       0.687\sym{**} &       1.061\sym{**} &       46.39\sym{*}  \\
+            &     (0.243)         &     (0.384)         &     (22.02)         \\
+[1em]
+xrd\_lag     &       0.533\sym{***}&       0.736\sym{***}&       14.35         \\
+            &     (0.136)         &     (0.153)         &     (13.86)         \\
+[1em]
+xrd\_lag2    &       0.193         &       0.293         &       5.782         \\
+            &     (0.172)         &     (0.238)         &     (7.643)         \\
+[1em]
+xrd\_lag3    &      -0.273         &      -0.400\sym{*}  &      -7.585         \\
+            &     (0.143)         &     (0.182)         &     (10.35)         \\
+[1em]
+xrd\_lag4    &      -0.137         &      -0.316         &      -23.56         \\
+            &     (0.333)         &     (0.437)         &     (46.11)         \\
+[1em]
+Parent Firm FE&         Yes         &         Yes         &         Yes         \\
+[1em]
+Parent Firm Age FE&         Yes         &         Yes         &         Yes         \\
+[1em]
+NAICS4-Year FE&         Yes         &         Yes         &         Yes         \\
+[1em]
+State-Year FE&         Yes         &         Yes         &         Yes         \\
+\hline
+clustvar    &       gvkey         &       gvkey         &       gvkey         \\
+r2\_a        &       0.788         &       0.771         &       0.562         \\
+r2\_a\_within &       0.126         &       0.109         &      0.0430         \\
+N           &       24583         &       24583         &       24583         \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

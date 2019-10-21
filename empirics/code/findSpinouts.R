@@ -23,7 +23,7 @@ source("code/VentureSource/linkEntitiesToIndustries.R")
 # Determine which is the previous firm the employee worked at
 source("code/VentureSource/findLastEmployer.R")
 
-source("code/linkBiosToCompustat.R")
+source("code/linkBiosToCompustat2.R")
 # Extra: link employee bios to other firms in Venture Source
 
 

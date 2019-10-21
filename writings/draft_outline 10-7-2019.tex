@@ -1,0 +1,109 @@
+\documentclass[11pt,english]{article}
+%\usepackage{lmodern}
+\linespread{1.05}
+\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+%\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{Working draft rewrite: outline / to-do list}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\begin{itemize}
+	\item Rewrite abstract / introduction
+	\begin{itemize}
+		\item Use new writings that I had to do to rework it.
+	\end{itemize}
+	\item Describe empirical work with Venture Source / Compustat first
+	\begin{itemize}
+		\item Construction of dataset
+		\item Regressions of spinout formation on R\&D -- why no IVs? Exclusion restriction not satisfied
+		\item Regression of R\&D spending on non-compete enforcement -- find positive effect, but not very significant. Still, it's some evidence in favor of the model, in my opinion.
+	\end{itemize}
+	\item Describe model set up
+	\begin{itemize}
+		\item Decide whether to have simple model first - seems like not worth it at least for now
+		\item Figure out issue with final goods production function - can I clarify this or do I just leave it as is?
+		\item IMPORTANT: implement probabilistic enforceability of noncompetes - to have continuum of non-compete enforceability
+		\item Less important: be explicit about spinouts not founded through R\&D spending (because some of these will be stopped by non-competes)
+		\begin{itemize}
+			\item This is kind of important because it biases the model in favor of noncompetes, since they only prevent those competing startups which disincentivize R\&D
+			\item OTOH, competing spinouts still reduce incumbent value and hence preventing those might improve allocation
+		\end{itemize} 
+		\item Less important, but maybe (ask someone first): how do results depend on the possibility that non-competes prevent non-competitive spinouts? 
+		\item 
+	\end{itemize}
+	\item Calibration and validation
+	\begin{itemize}
+		\item Calibrate to all data? Or calibrate non-enforcement model to data from California and / or other low enforcement states? 
+		\item Statistics from patent data:
+		\begin{itemize}
+			\item Fraction of patents from new firms
+			\item Internal patent share
+		\end{itemize}
+		\item Firm entry rate
+		\item Fraction of entering firms which are spinouts
+		\item Relative likelhood of attaining profitability: spinouts vs non-entrants (assumes that other firms have same technology as regular entrants, but no other way of making this assumption)
+		\begin{itemize}
+			\item Caveat: interpreting entrants in the model as regular entrants + incumbent firms doing external innovations, but only have data on relative outcomes for spinouts vs regular entrants. 
+			\item So I am interpreting the data through this lens, i.e. assuming that regular entrants and external innovation by incumbents have the same technology
+			\item I am also assuming that the average spinout and the average entrant are the same size, also because I have no guidance on this from my data. But I could modify this, using estimates from e.g. Muendler. 
+			\item NOTE: can avoid this with a firm-level interpretation. Then basically use the 10\% patents by new firms to say that there is a 90\% share of innovation to existing firms, and then spinouts are a fraction of that. Entrant innovation is replaced by incumbent innovation. 
+		\end{itemize}
+		\item Using patent data heavily, so maybe it makes sense to put in those two extra "patent parameters" and show that, with them, the model can match the patent citation distribution (side note: this proves identification in AK 2017 is weak, since you only need two parameters really to match the shape of the citation distribution)
+		\item Validate using predictions on difference in R\&D spending -- not too significant, unfortunately- maybe try with just Pre and Post, rather than breaking out into each year, to get more power.
+	\end{itemize}
+	\item Analysis of calibrated model
+	\begin{itemize}
+		\item Growth decompositions -- currently, model assumes that all innovations are same size, so growth decompositions are essentially entry decompositions -- could easily be extended to two sizes, as in AK 2017, and disciplined with patent data (i.e. looking at relative citation rate of entrant vs non-entrant patents, etc.)
+		\item Effect of non-compete enforcement
+		\item Effect of R\&D subsidies on incumbents vs entrants cannot be evaluated with the product-level interpretation
+	\end{itemize}
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

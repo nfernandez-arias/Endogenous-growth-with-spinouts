@@ -1,0 +1,106 @@
+\documentclass[english,usenames,dvipsnames]{beamer}
+\usetheme{default}
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{footline}[frame number]
+\setbeamercolor{alerted text}{fg=blue1}
+%\setbeamercolor{frametitle}{fg=blue2}
+\usepackage[utf8]{inputenc}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{appendixnumberbeamer}
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{bbm}
+\usepackage{amsthm}
+\usepackage{verbatim}
+%\usepackage{palatino}
+\definecolor{red1}{RGB}{255,50,0}
+\definecolor{blue1}{RGB}{80,80,255}
+\definecolor{blue2}{rgb}{0.22,0.37,1}
+\definecolor{green1}{RGB}{34,139,35}
+
+\setbeamertemplate{itemize items}[default]
+
+
+\title{Personal Wealth and Self-Employment}
+\author{Aymeric Bellon \\ Discussant: Nicolas Fernandez-Arias}
+\date{October 12, 2019}
+
+\begin{document}
+	
+\maketitle
+
+\begin{frame}{Summary}
+\begin{itemize}
+	\item Develop dataset of random wealth shocks due to proceeds to landowners from Barnett Shale drilling
+	\item Study effect of wealth shocks of various types on labor-entrepreneurship choice
+	\item Find evidence against financial frictions story, in favor of leisure hypothesis
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What I like about this paper}
+\begin{itemize}
+	\item Very interesting question about the determinants of entrepreneurship
+	\item Impressive dataset drawn from several sources
+	\item Compelling natural experiment
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Financial constraints and entrepreneurship}
+\begin{itemize}
+	\item Run regression with wealth shock interacted with proxies for credit constraints
+	\begin{itemize}
+		\item Credit score, debt-income ratio
+	\end{itemize}
+	\item Coefficient on interaction term is negative
+	\item Endogeneity of credit score and debt / income weakens this interpretation
+	\item Different reasons for credit constraints
+	\begin{itemize}
+		\item Low credit score, subprime, high debt-income: Constrained due to unobserved individual choices and characteristics, constraint signals urgent need for funds
+		\item Constrained due to frictions in market for ideas -- different phenomenon in my view
+	\end{itemize}
+	\item Suggestion
+	\begin{itemize}
+		\item Collecting more individual-level variables to get a more complete picture of people with low credit scores?
+		\item Random judge assignemnt + bankruptcy rulings? But not sure if possible given data available
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{High NPV projects}
+\begin{itemize}
+	\item Rate of entrepreneurship does not increase with education, suggesting these are not high NPV projects
+	\item Larger "large payment" definition in this regression would be nice -- high education high NPV projects potentially require significantly more than \$50k in funding
+	\item Can this be disciplined with data? How much does it cost to start the typical "high npv" business in question? 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Interpreting the results}
+\begin{itemize}
+	\item Most people don't have high NPV ideas
+	\item But most high NPV ideas might be associated with constrained people
+	\item How to interpret / generalize from these results?
+	\begin{itemize}
+		\item As authors say, entrepreneurship is highly varied
+		\item Random wealth shocks tend to create a specific kind of entrepreneur...
+		\item But wealth / financial frictions may still be an important determinant of high NPV entrepreneurship
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Leisure hypothesis}
+\begin{itemize}
+	\item For all sizes of windfalls, recipients tend to go back to work when they run out
+	\item Even for large windfalls of $> $\$ 1 million 
+	\item To me this is pretty compelling evidence that for most people in this sample, wealth is not enabling high NPV entrepreneurship projects
+\end{itemize}
+\end{frame}
+
+
+
+
+
+\end{document}

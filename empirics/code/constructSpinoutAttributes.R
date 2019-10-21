@@ -17,17 +17,25 @@ library(lubridate)
 
 rm(list = ls())
 
-deals <- fread("raw/VentureSource/01Deals.csv")[order(EntityID,RoundNo)][, .(EntityID,EntityName,State,StartDate,CloseDate,RoundNo,RoundID,RoundType,RoundBusinessStatus,RaisedDA,RaisedUSD,PostValueDA,PostValUSD,IndustryCode,SubcodeDesc,IndustryCodeDesc,Competition)]
+deals <- fread("raw/VentureSource/01Deals.csv")[year(ymd(StartDate)) >= 1986][order(EntityID,RoundNo)][, .(EntityID,EntityName,State,StartDate,CloseDate,RoundNo,RoundID,RoundType,RoundBusinessStatus,RaisedDA,RaisedUSD,PostValueDA,PostValUSD,IndustryCode,SubcodeDesc,IndustryCodeDesc,Competition)]
 
 
-dealsAll <- fread("raw/VentureSource/01Deals.csv")
-#revenue <- fread("raw/VentureSource/06CoRevenue.csv")[order(EntityID,CoFiscalYear)]
+# First need to get measure of number of founders of each startup, 
+# to properly deflate figures
 
+entitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")[ year(ymd(JoinDate)) - foundingYear <= 3]
+numFounders <- entitiesPrevEmployers[ , .(numFounders = .N), by = "EntityID"]
+
+fwrite(numFounders,"data/VentureSource/EntitiesNumFounders.csv")
+
+rm(entitiesPrevEmployers)
+
+f
 # Extract deal year - for use later
 deals[,dealYear := year(ymd(CloseDate))]
 deals[,foundingYear := year(ymd(StartDate))]
 
-# Flag rounds as exits or non-exits 
+# Flag rounds as exits or non-exits
 deals[RoundType == "IPO" | RoundType == "ACQ" & !is.na(PostValUSD), exit  := 1]
 
 deals[is.na(exit), exit := 0]
@@ -70,7 +78,7 @@ deals[ , profitable := max(profitable), by = "EntityID"]
 
 # Only consider years in my main sample, 1986 to 2007
 
-temp <- unique(deals[ foundingYear >= 1986 & foundingYear <= 2007 , .(EntityID, IndustryCodeDesc, State, foundingYear, noRevenue, genRevenue, profitable)], by = "EntityID")
+temp <- unique(deals[, .(EntityID, IndustryCodeDesc, State, foundingYear, noRevenue, genRevenue, profitable)], by = "EntityID")
 #temp <- unique(deals[  , .(EntityID, foundingYear, noRevenue, genRevenue, profitable)], by = "EntityID")
 
 fwrite(temp,"data/VentureSource/startupOutcomes.csv")
@@ -94,7 +102,6 @@ firstFundingEvents <- rbind(firstFundingEvents,noFundingData)
 
 
 # Get unique record for each EntityID
-
 exits <- unique(exits, by = "EntityID")[ , .(EntityID,EntityName,maxExit,foundingYear,exitYear,valAtExit,raisedAtExit_USD,RoundType)]
 firstFundingEvents <- unique(firstFundingEvents, by = "EntityID")[ , .(EntityID,EntityName,maxFunding,foundingYear,firstFundingYear,valAtFirstFunding,raisedAtFirstFunding_USD,RoundType)]
 

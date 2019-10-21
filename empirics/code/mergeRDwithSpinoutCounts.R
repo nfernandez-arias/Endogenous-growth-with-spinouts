@@ -10,6 +10,7 @@
 # R&D and parent-firm location data from compustat. 
 #------------------------------------------------#
 
+
 rm(list = ls())
 
 ## First read in compustat and construct some variables
@@ -29,7 +30,7 @@ compustat[ BE > 0 , MtB := ME / BE]
 compustat[ , Tobin_Q := (at + ME - BE) / at]
 
 setnames(compustat,"year","fyear")
-compustat <- compustat[ , .(gvkey,fyear,Tobin_Q,datadate,loc,state,xrd,sale,lfirm,lstate,capx,capxv,sppe,ppent,ebitda,ni,ch,emp,revt,intan,at,sic,naics)]
+compustat <- compustat[ , .(gvkey,fyear,Tobin_Q,datadate,loc,state,xrd,sale,lfirm,lfirm_bloom,lstate,lstate_bloom,capx,capxv,sppe,ppent,ebitda,ni,ch,emp,revt,intan,at,sic,naics)]
 compustat <- compustat[!is.na(fyear)]
 
 # Use 4-digit NAICS codes

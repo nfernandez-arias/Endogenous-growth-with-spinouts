@@ -24,14 +24,16 @@ modelPar = setModelParameters()
 mGrid,Δm = mGridBuild(algoPar.mGrid)
 initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 
+modelPar.CNC = false
+
 #-------------------------------#
 # Enter calibration targets
 #-------------------------------#
 
 #RDintensity = CalibrationTarget(0.041,1)
-InternalPatentShare = CalibrationTarget(0.2,1)
-SpinoutEntryRate = CalibrationTarget(0.01104,1)
-SpinoutShare = CalibrationTarget(0.0138,1)
+InternalPatentShare = CalibrationTarget(0.7,1)
+SpinoutEntryRate = CalibrationTarget(0.025,1)
+SpinoutShare = CalibrationTarget(0.25,1)
 g = CalibrationTarget(0.02,1)
 #RDLaborAllocation = CalibrationTarget(.08,1)
 #WageRatio = CalibrationTarget(0.9,1)

@@ -21,9 +21,11 @@ compustatSpinouts[ , treatedPost0 := 0]
 compustatSpinouts[ , treatedPost1 := 0]
 compustatSpinouts[ , treatedPost2 := 0]
 compustatSpinouts[ , treatedPost3 := 0]
+compustatSpinouts[ , treatedPost4 := 0]
 compustatSpinouts[ , treatedPre1 := 0]
 compustatSpinouts[ , treatedPre2 := 0]
 compustatSpinouts[ , treatedPre3 := 0]
+compustatSpinouts[ , treatedPre4 := 0]
 
 compustatSpinouts[ , placeboPost0 := 0]
 compustatSpinouts[ , placeboPost1 := 0]
@@ -73,6 +75,16 @@ compustatSpinouts[ state == "IL" & year == 2013+3, treatedPost3 := 0]
 compustatSpinouts[ state == "VA" & year == 2013+3, treatedPost3 := 1]
 compustatSpinouts[ state == "GA" & year == 2011+3, treatedPost3 := 1]
 
+compustatSpinouts[ state == "WI" & year == 2009+4, treatedPost4 := 1]
+compustatSpinouts[ state == "SC" & year == 2010+4, treatedPost4 := -1]
+compustatSpinouts[ state == "CO" & year == 2011+4, treatedPost4 := 1]
+compustatSpinouts[ state == "TX" & year == 2011+4, treatedPost4 := 1]
+compustatSpinouts[ state == "MT" & year == 2011+4, treatedPost4 := -1]
+compustatSpinouts[ state == "IL" & year == 2011+4, treatedPost4 := 1]
+compustatSpinouts[ state == "IL" & year == 2013+4, treatedPost4 := 0]
+compustatSpinouts[ state == "VA" & year == 2013+4, treatedPost4 := 1]
+compustatSpinouts[ state == "GA" & year == 2011+4, treatedPost4 := 1]
+
 # Add pre-treatement, to ensure that results are not driven by a 
 # relative weakness in the relationship in these states overall. 
 # But want to use a small enough window to not pick up instead 
@@ -107,6 +119,17 @@ compustatSpinouts[ state == "IL" & year == 2011-3, treatedPre3 := 1]
 compustatSpinouts[ state == "IL" & year == 2013-3, treatedPre3 := 0]
 compustatSpinouts[ state == "VA" & year == 2013-3, treatedPre3 := 1]
 compustatSpinouts[ state == "GA" & year == 2011-3, treatedPre3 := 1]
+
+compustatSpinouts[ state == "WI" & year == 2009-4, treatedPre4 := 1]
+compustatSpinouts[ state == "SC" & year == 2010-4, treatedPre4 := -1]
+compustatSpinouts[ state == "CO" & year == 2011-4, treatedPre4 := 1]
+compustatSpinouts[ state == "TX" & year == 2011-4, treatedPre4 := 1]
+compustatSpinouts[ state == "MT" & year == 2011-4, treatedPre4 := -1]
+compustatSpinouts[ state == "IL" & year == 2011-4, treatedPre4 := 1]
+compustatSpinouts[ state == "IL" & year == 2013-4, treatedPre4 := 0]
+compustatSpinouts[ state == "VA" & year == 2013-4, treatedPre4 := 1]
+compustatSpinouts[ state == "GA" & year == 2011-4, treatedPre4 := 1]
+
 
 compustatSpinouts[ year == 2008, placeboPre3 := 1]
 compustatSpinouts[ year == 2009, placeboPre2 := 1]

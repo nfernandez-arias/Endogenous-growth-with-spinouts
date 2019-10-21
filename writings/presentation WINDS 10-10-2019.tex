@@ -1,0 +1,435 @@
+\documentclass[english,usenames,dvipsnames]{beamer}
+\usetheme{default}
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{footline}[frame number]
+\setbeamercolor{alerted text}{fg=blue1}
+%\setbeamercolor{frametitle}{fg=blue2}
+\usepackage[utf8]{inputenc}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{appendixnumberbeamer}
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{bbm}
+\usepackage{amsthm}
+\usepackage{verbatim}
+%\usepackage{palatino}
+\definecolor{red1}{RGB}{255,50,0}
+\definecolor{blue1}{RGB}{80,80,255}
+\definecolor{blue2}{rgb}{0.22,0.37,1}
+\definecolor{green1}{RGB}{34,139,35}
+
+\setbeamertemplate{itemize items}[default]
+
+
+\title{Creating Creative Destruction: Endogenous Growth with Creative Destruction by Employee Spinouts}
+\author{Nicolas Fernandez-Arias}
+%\date{March 7, 2019}
+
+\begin{document}
+	
+Product Hunt - check out for product level data
+
+Competition and technological proximity measure  - krieger li and papanikolau 2018, cunningham ederer and ma 2019
+
+\maketitle
+
+\section{Introduction}
+
+\begin{frame}{Motivation}
+\begin{itemize}
+	\item Entry contributes significantly to productivity growth
+	\begin{itemize}
+		\item 25\% of labor productivity growth in manufacturing (Baily-Bartelsman-Haltiwanger 1996)
+		\item ~25\% of aggregate productivity growth due to entrants (Akcigit-Kerr 2017)
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Motivation}
+\begin{itemize}
+	\item Knowledge spillovers important in productivity growth: Bloom 2013, others, etc.
+	\item Spinouts: employees found new firms using knowledge developed / learned at previous employer
+	\begin{itemize}
+		\item All Spinouts: more patents / R\&D, sales growth, higher survival rates (Baslandze 2019) 
+		\item Same-industry spinouts: 15\% of entrants; larger, grow faster, higher survival rates (Muendler et al. 2012, Brazilian data)
+		\item Fairchild semiconductor / Silicon Valley; Detroit automakers
+		\item Modern high-profile examples: Tinder $\rightarrow$ Bumble; Ableton $\rightarrow$ Bitwig Studio
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Spinouts of Fairchild Semiconductor}
+\begin{figure}
+	\includegraphics[scale=0.34]{../figures/fairchildren_early.png}
+	\caption{Source: Endeavor Insights}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Motivation}
+\begin{itemize}
+	\item Non-compete agreement (NCA) enforcement policy debate
+	\begin{itemize}
+		\item Silicon Valley often attributed to California non-enforcement
+		\item States passing laws restricting enforcement of noncompetes (Hawaii in 2015, Massachussetts and Maryland in 2019, many others)
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{NCA enforcement policy}
+\begin{figure}
+	\includegraphics[scale=0.32,angle = -90]{./figures/bishara_map.png}
+	\caption{Map of non-compete enforcement policy in 2009, Bishara 2011.}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Theory}
+\label{theory_big_picture}
+\begin{itemize}
+	\item Schumpeter 1942, Arrow 1962, Romer 1986, Grossman-Helpman 1991, etc.: \alert{underinvestment} in knowledge due to \alert{limited excludability}
+	\item Patent literature: dynamic efficiency vs. static monopoly distortion tradeoff
+	\item Creative destruction by spinouts similar tradeoff
+	\begin{itemize}
+		\item Frictions (e.g. information asymmetry) can cause breakdown in market for ideas (Anton \& Yao 1994/1995)
+		\item Employees cannot commit to not engaging in activities that are bilaterally suboptimal
+		\item If R\&D induces this process, this reduces incentive for R\&D
+		\item But lower production possibilities frontier
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+	\item Existing frameworks (e.g., Franco-Filson 2006, Shi 2018, Baslandze 2019) underemphasize creative destruction as disincentive for R\&D
+	\begin{itemize}
+		\item Typically assume knowledge capital of firm is embodied in employee who spins out
+		\item Here assume employee takes non-rivalrous knowledge but which may harm parent firm's monopoly
+	\end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Related literature}
+\begin{itemize}
+	\item Firm dynamics and endogenous growth
+	\begin{itemize}
+		\item Romer 1986, Grossman \& Helpman 1991, Aghion \& Howitt 1992, Klette \& Kortum 2004, Acmemoglu \& Akcigit 2012, Akcigit \& Kerr 2017
+	\end{itemize}
+	\item Models of employee spinouts
+	\begin{itemize}
+		\item Klepper 2002, Klepper \& Sleeper 2005, Anton \& Yao 1994/1995, Franco \& Filson 2006, Franco \& Mitchell 2008, Rauch 2015, Rossi-Hansberg \& Chatterjee 2012
+		\item Baslandze 2019
+	\end{itemize}
+	\item Empirics on employee mobility, spinouts
+	\begin{itemize}
+		\item Spawning of spinouts: Gompers et al. 2005, Garmaise 2011, Baslandze 2019, Babina \& Howell 2019
+		\item Effect on parent firms: Campbell et. al 2012, Wezel et al. 2006
+		\item Effect of non-compete enforcement: Garmaise 2009, Marx et al 2009, Samila-Sorenson 2011, Jeffers 2018, Shi 2018
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Overview and results}
+\begin{itemize}
+	\item Construct new dataset linking Venture Source, Compustat and the NBER USPTO patent database
+	\item Document empirical facts relating corporate R\&D and spinout formation, non-compete enforcement to corporate R\&D
+	\item Develop quality ladders growth model of endogenous growth with employee spinouts
+	\item Calibrate model using estimates and aggregate moments / parameters from literature
+	\item Use model as laboratory to study the effect of NCA policy on growth and welfare
+	\begin{itemize}
+		\item Robustness analysis important due to significance of hard to identify parameters
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Empirics}
+
+\begin{frame}
+	\tableofcontents[currentsection]
+\end{frame}
+
+
+\begin{frame}{Data - Venture Source}
+\begin{itemize}
+	\item Venture Source
+	\begin{itemize}
+		\item Data on startups funded by VCs from 1986-2008: about 40,000 startups
+		\item Also includes funding by PEs and IPOs and acquisitions, and business status (e.g. product development, earning revenue, profitable)
+		\item \alert{Key feature: } employment biographies for founders / C-level / board members \\
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Data - merging with Compustat and patent data}
+\begin{itemize}
+	\item Merge Venture Source with Compustat
+	\begin{itemize}
+		\item Consider President, CEO, Chairman, CTOs and flagged "Founders" at startups
+		\item No company identifier: need to match to Compustat by company name
+		\item Need to handle misspellings, informal names (e.g. acronyms) and subsidiaries
+		\item \alert{Solution:} regular expressions + merchant-mapper tool by AltDG (designed for linking credit card transaction data to firms)
+		\item Merge with Compustat by ticker symbol
+	\end{itemize}
+	\item NBER-USPTO patent data
+	\begin{itemize}
+		\item Data on all USPTO-registered patents and their citations (also data on inventors, associated firms)
+		\item Merge to Compustat using gvkey
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Number of spinouts and non-spinouts}
+\begin{figure}
+	\includegraphics[scale=0.45]{../figures/spinouts_entrants_counts.png}
+	\caption{Total spinout and non-spinout counts by year. Overall, spinouts are roughly 25\% of entrants.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Corporate R\&D and spinout formation}
+\begin{itemize}
+	\item Corporate R\&D may lead to spinout formation through knowledge spillovers
+	\begin{itemize}
+		\item Frictions in market for ideas, e.g. Anton \& Yao 1994/1995
+		\item Disagreements between employee and firm
+	\end{itemize}
+	\item Within-industry spinouts (WSOs) may disincentivize R\&D
+	\item Data speaks to relationship between corporate R\&D and WSO, non-WSO spinout formation
+	\item Instruments for R\&D spending?
+	\begin{itemize}
+		\item Instruments based on tax incentives may also affect entrepreneurship directly $\Rightarrow$ may fail exclusion restriction
+		\item Recent working paper Babina \& Howell 2019 argues valid, but lacking power in my case (Compustat vs LEHD)
+	\end{itemize}
+	\item Proceed with time, age, industry-year and state-year fixed effects, firm-level controls
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Data - Spinout valuation: firm, industry-year, state-year demeaned}
+\begin{figure}
+	\includegraphics[scale=0.45]{../figures/scatterPlot_RD-SpinoutsDFFV-1yr-allFE.png}
+	\caption{Relationship between R\&D and spinout valuation at firm-year level after demeaning by firm, naics4-year, and state-year.}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}{Regression analysis}
+\begin{itemize}
+	\item Specification
+	\begin{align*}
+	Y_{ijs[t+1,t+2]} &= \alpha_0 + RD_{it} + X_{it} + \alpha_i + \xi_{a(i,t)} +  \gamma_{jt} + \sigma_{st} + \epsilon_{ijst}
+	\end{align*}
+	for firm $i$ in industry $j$, state $s$, and year $t$.
+	\item $RD_{it-1}$ is lagged R\&D spending
+	\item $Y_{ijs[t+1,t+2]}$ is spinout counts, spinout founder counts, or first funding valuation of spinouts
+	\item $X_{it}$ are firm controls
+	\item $\alpha_i$, $\xi_{i,a(i,t)}$, $\gamma_{jt}$, $\sigma_{st}$ are firm, age, industry-year, and state-year fixed effects
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Regression results}
+\begin{figure}
+	\includegraphics[scale=0.25]{./figures/mainRegression.png}
+	\caption{\scriptsize R\&D is measured in billions of effective real units of R\&D, as in the scatter plots. All other variables are measured in 2012 US \$. All displayed controls are standardized to have mean 0 and unit standard deviation. Other controls are Tobin's Q, asset tangibility, first difference of real sales, return on assets, and cash holdings. Standard errors are clustered at the firm level.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Regression results: WSOs}
+\begin{figure}
+	\includegraphics[scale=0.3]{./figures/wsoRegression.png}
+	\caption{\scriptsize R\&D is measured in billions of effective real units of R\&D, as in the scatter plots. All other variables are measured in 2012 US \$. All displayed controls are standardized to have mean 0 and unit standard deviation. Same controls and clustering as previous slide.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Regression results: WSOs}
+\begin{figure}
+	\includegraphics[scale=0.3]{./figures/wsoLagRegression.png}
+	\caption{\scriptsize The dependent variable is cumulated over $t+1,t+2,t+3,t+4$ and controls are measured at $t$. Approximately 45\% of R\&D generated spinouts are in the same NAICS4 industry as at least one parent firm.}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}{Economic significance}
+\begin{itemize}
+	\item Observed R\&D estimated to be able to account for on average, close to 100\% of spinout formation
+	\item Caveats with causal interpretation
+	\begin{itemize}
+		\item Omitted variables at firm-year level such as investment opportunities or demand shocks could bias results 
+		\item Same with variables at disaggregated location-year or industry-year level
+	\end{itemize}
+	\item Qualitatively consistent with findings of Babina \& Howell using IV regressions
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Accounting for spinouts}
+\begin{figure}
+	\includegraphics[scale=0.45]{../figures/countsComparison.png}
+	\caption{Predicted creation of spinouts based on total R\&D spending by public firms compared with actual creation of spinouts, by year.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Effect of non-compete enforcement}
+\begin{itemize}
+	\item If R\&D leads to creative destruction by spinouts, higher non-compete enforcement should lead to fewer WSOs per unit of R\&D
+	\item Babina \& Howell find that corporate R\&D - employee spinout link is not sensitive to non-compete enforcement
+	\begin{itemize}
+		\item Using cross-sectional variation in non-compete enforcement across states
+		\item Limited power because states vary in many other ways 
+	\end{itemize}
+	\item I also find no effect (unreported) -- could be for similar reasons
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Non-compete enforcement and R\&D}
+\begin{itemize}
+	\item Related test: under the hypotheses that
+	\begin{enumerate}
+		\item R\&D leads to WSOs
+		\item WSOs can harm parents
+		\item Non-compete agreements can prevent WSOs
+	\end{enumerate}
+	\item Then: increase in NCA enforcement should increase R\&D expenditures by incumbents
+	\item Jeffers 2018 looks at effect on capex, entrepreneurship, but not R\&D
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Map of NCA Enforcement Changes}
+\begin{figure}	
+	\includegraphics[scale=0.2]{./figures/jeffers_map.png}
+	\caption{Map of changes to NCA policy from Jeffers 2018.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{NCA Enforcement Changes}
+\begin{figure}	
+	\includegraphics[scale=0.25]{./figures/jeffers_A1.png}
+	\caption{Changes to NCA policy. Most based on (unpredicted, plausibly exogenous) state supreme court rulings.}
+\end{figure}
+\end{frame}
+
+
+
+
+\begin{frame}{Shift-share diff-in-diff regression}
+\begin{itemize}
+	\item Shift-share regression using patent shares 
+	\small
+	\begin{align}
+	\log RD_{it} &= \alpha + \sum_{m=-2}^{m=3} \beta_m Z_{i,t,m} + \gamma_i + \theta_{j(i)t} + \sigma_{s(i)t} + \epsilon_{it} \nonumber\\
+	Z_{i,t,m} &= \sum_s w_{ist} * \textrm{Treated}_{s,t+m} \nonumber \\
+	w_{ist} &= \frac{\sum_{k=0}^{\min(9,\textrm{Age}_{it})} \textrm{patent applications}_{is,t-k}}{\sum_{k=0}^{\min(9,\textrm{Age}_{it})} \textrm{patent applications}_{i,t-k}} \nonumber  \\
+	\textrm{patent applications}_{i,t-k} &= \sum_s \textrm{patent applications}_{is,t-k} \nonumber
+	\end{align}	
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Results of shift-share diff-in-diff}
+\begin{figure}
+	\includegraphics[scale=0.42]{./figures/shiftShareDiffInDiff.png}
+	\caption{Results of shift-share regression. Clustering is at the level of the state of the headquarters of the firm. F-statistic of equality of means of coefficients pre and post has p-value 9.8\%.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Results of shift-share diff-in-diff}
+\begin{itemize}
+	\item Noisy, far from definitive
+	\item Qualitatively consistent with implication of my model
+	\item Next: try triple-diff (compare treatment effect across different groups of firms within)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Conclusion}
+\begin{itemize}
+	\item Employee spinouts of publicly traded firms are a sizeable fraction of new Venture-funded firms
+	\item R\&D by publicly traded firms predicts future spinout formation across a variety of measures 
+	\item Some evidence that increases in non-compete enforcement policy lead to increases in R\&D spending by incumbent firms
+	\item \textbf{Rest of project: }endogenous growth model with employee spinouts and non-compete agreements, policy counterfactuals
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Innovation}
+\begin{itemize}
+	\item Scaling assumption: one unit of R\&D on quality $q$ requires $(q/Q)$ units of labor in R\&D
+	\item Incumbent ($I$) discovers next innovation with Poisson intensity
+	\begin{align*}
+	\tau^I(z) &= \chi_I z^{1-\psi}
+	\end{align*}
+	where $z$ is units of R\&D, $\chi_I$ is R\&D productivity, and $\psi \in (0,1)$ measures decreasing returns to R\&D 
+	\item Ordinary entrants ($E$) and spinouts ($S$) 
+	\begin{align*}
+	\tau^S(z,\overbrace{z_E+z_S}^{\textrm{aggregate}}) &= \chi_{S} z (z_E + z_S)^{-\psi} \\
+	\tau^E(z,z_E+z_S) &= \chi_{E} z (z_E + z_S)^{-\psi}
+	\end{align*}
+	\item Aggregate DRS: \alert{fishing out} externalities
+	\item Spinouts have \alert{capacity constraint} $z_S^s \le \xi$ (can replace with DRS)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Formation of potential spinouts}
+\begin{itemize}
+\item At rate $(1-\theta)(Q/q_j) \nu$ per year of labor, R\&D worker gets idea for a potential spinout in own line $j$
+\item Idea generated in random line $j' \ne j$ with Poisson probability $\theta \nu$ 
+\begin{itemize}
+	\item Microfoundation: higher quality spinout ideas are more lucrative but more diffiult to generate
+\end{itemize}
+\item Adds to mass $m_j$
+\item Law of motion for mass of potential spinouts: $\dot{m}_j = \dot{m}_j^{\textrm{from $j$}} + \dot{m}_j^{\textrm{from $j' \ne j$}}$ where
+\begin{align*}
+\dot{m}_j^{\textrm{from $j$}}&= (1-\theta) \nu z_{I,j}\\
+\dot{m}_j^{\textrm{from $j' \ne j$}} &= \theta \nu \int_0^1 \frac{q_j}{Q} z_{I,j} dj
+\end{align*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Aggregation}
+\begin{itemize}
+\item $\tau_j(t)$ denotes the Poisson intensity of an innovation arriving at $j$ at time $t$
+\item Growth rate of aggreagte TFP $Q(t)$
+\begin{align*}
+g_t &= (\lambda -1) \int_0^1 \Big(q_{j}(t)/Q(t)\Big) \tau_j(t) dj 
+\end{align*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Balanced growth path}
+\begin{itemize}
+\item Look for BGP equilibrium with $g_t \equiv g, r_t \equiv r, L_{RD}(t) = L_{RD}$ and so on  
+\item Incumbent, potential spinout HJBs
+\item Potential entrants zero profit condition
+\item Worker indifference conditions
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Scaling of value functions}
+\begin{itemize}
+\item Incumbent and spinout value functions $V(q,m,t),W(q,m,t)$
+\item Guess and verify: BGP equilibrium with $V(q,m,t) = qV(m); W(q,m,t) = qW(m)$ and all innovation arrival rates depend on $m$ only
+\item Note: \alert{risk aversion} breaks this
+\begin{itemize}
+\item Relies on the fact that the value of a $(Q/q) \nu (1-\theta)$ intensity of discovering an idea of value $W(m)q$ be \alert{constant in $q$}
+\end{itemize}
+\item Also \alert{worker-entrepreneurship choice} breaks this
+\begin{itemize}
+\item Wage earned as worker proportional to $Q$
+\item Profits earned as entrepreneur proportional to $q$
+\end{itemize}
+\item Model is stylized, but gains significant tractability
+\begin{itemize}
+\item Working on extension to nest Klette-Kortum 2004 (external innovation by incumbents / multi-product firms / firm-size distrribution)
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+
+
+\end{document}

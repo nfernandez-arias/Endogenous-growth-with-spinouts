@@ -15,7 +15,7 @@ function setAlgorithmParameters()
 
     mgrid_numPoints = 1000
     mgrid_minimum = 0.0
-    mgrid_maximum = .02
+    mgrid_maximum = .01
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-10 * mgrid_maximum
 
@@ -159,26 +159,26 @@ function setModelParameters()
     L = 1
 
     # Innovation
-    χI = 1.5
-    χE = 1.008
+    χI = 4.4920308
+    χE = 0.72734
     χS = (11.4 / 8.7) * χE
     ψI = 0.5
     ψSE = 0.5
-    λ = 1.02
+    λ = 1.051349
     #λ = 1.10
 
     # Spinouts
     #ν = 0.0102495
-    ν = 0.035
-    θ = 0.6
-    ξ = 20
+    ν = 0.0204237885 * 20
+    θ = 0.54
+    ξ = 1
     ζ = 0
 
     # Creative destruction cost
-    κ = 0.4
+    κ = 0.9
 
     # CNCs
-    CNC = false
+    CNC = true
 
     # Rate of Spinout formation of spinouts and entrants
 

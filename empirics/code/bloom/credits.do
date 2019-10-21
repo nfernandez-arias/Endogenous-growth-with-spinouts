@@ -150,7 +150,7 @@ drop state abbr
 merge m:1 fips year using "$raw_data/RDusercost_2017", keepusing(rho_h r)
 	keep if _m==3
 	drop _m
-gen state=ishare*rho_h/(0.3)
+gen state=ishare*rho_h/(0.3)_
 collapse (sum) state, by(gvkey year)
 tab year, su(state)
 gen lstate=log(state)

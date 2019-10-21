@@ -41,7 +41,7 @@ rm(temp)
 # Now proceed with the rest of the script  
 parentsSpinouts <- exits[parentsSpinouts]
 parentsSpinouts <- firstFundings[parentsSpinouts]
-parentsSpinouts <- startupOutcomes[parentsSpinouts]
+parentsSpinouts <- startupOutcomes[ , .(EntityID,noRevenue,genRevenue,profitable)][parentsSpinouts]
 
 fwrite(parentsSpinouts,"data/parentsSpinoutsFirstFundingsExitsOutcomes.csv")
 
@@ -59,6 +59,7 @@ setkey(parentsSpinouts,IndustryCodeDesc,SubcodeDesc)
 
 parentsSpinouts <- crosswalk[parentsSpinouts]
 
+
 #parentsSpinouts[ , year := joinYear]
 parentsSpinouts <- parentsSpinouts[!is.na(foundingYear)]
  
@@ -71,11 +72,9 @@ parentsSpinouts <- parentsSpinouts[!is.na(foundingYear)]
 parentsSpinouts[ , yearError := joinYear - foundingYear]
 parentsSpinouts <- parentsSpinouts[yearError <= 3]
 parentsSpinouts[,  year := joinYear]
-parentsSpinouts[, foundingYear := NULL]
+#parentsSpinouts[, foundingYear := NULL]
 parentsSpinouts[, joinYear := NULL]
 parentsSpinouts[, yearError := NULL]
-
-fwrite(parentsSpinouts,"data/parentsSpinoutsExits.csv")
 
 ##########
 # Compute the spinout count -- 
@@ -110,9 +109,9 @@ fwrite(parentsSpinouts_naics3,"data/parentsSpinoutsExits_naics3.csv")
 fwrite(parentsSpinouts_naics2,"data/parentsSpinoutsExits_naics2.csv")
 fwrite(parentsSpinouts_naics1,"data/parentsSpinoutsExits_naics1.csv")
 
-## Here decide which one to use
+## Save main dataset
 
-#parentsSpinouts <- parentsSpinouts_naics1
+fwrite(parentsSpinouts,"data/parentsSpinoutsWSO.csv")
   
 # adding up individual weights; equivalently, unweighted at STARTUP level
 temp <- parentsSpinouts[ , sum(Weight), by = .(gvkey,year)]

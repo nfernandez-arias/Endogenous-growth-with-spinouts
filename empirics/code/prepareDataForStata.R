@@ -190,6 +190,7 @@ data[ , Founders_fut4 := Reduce(`+`,shift(spinoutCountUnweighted,1L:4L,type = "l
 data[ , SpinoutsDFFV_fut4 := Reduce(`+`,shift(spinoutsDiscountedFFValue,1L:4L,type = "lead")), by = gvkey]
 
 
+### 2 -year 
 data[ , spinouts_fut2 := Reduce(`+`,shift(spinoutCount,1L:2L,type = "lead")), by = gvkey]
 data[ , founders_fut2 := Reduce(`+`,shift(spinoutCountUnweighted,1L:2L,type = "lead")), by = gvkey]
 data[ , spinoutsDFFV_fut2 := Reduce(`+`,shift(spinoutsDiscountedFFValue,1L:2L,type = "lead")), by = gvkey]
@@ -218,6 +219,34 @@ data[ , spinouts_wso6_fut2 := Reduce(`+`,shift(spinouts_wso6,1L:2L,type = "lead"
 data[ , founders_wso6_fut2 := Reduce(`+`,shift(spinoutsUnweighted_wso6,1L:2L,type = "lead")), by = gvkey]
 data[ , spinoutsDFFV_wso6_fut2 := Reduce(`+`,shift(spinoutsDFFV_wso6,1L:2L,type = "lead")), by = gvkey]
 
+### 4-year
+
+data[ , spinouts_wso1_fut4 := Reduce(`+`,shift(spinouts_wso1,1L:4L,type = "lead")), by = gvkey]
+data[ , founders_wso1_fut4 := Reduce(`+`,shift(spinoutsUnweighted_wso1,1L:4L,type = "lead")), by = gvkey]
+data[ , spinoutsDFFV_wso1_fut4 := Reduce(`+`,shift(spinoutsDFFV_wso1,1L:4L,type = "lead")), by = gvkey]
+
+data[ , spinouts_wso2_fut4 := Reduce(`+`,shift(spinouts_wso2,1L:4L,type = "lead")), by = gvkey]
+data[ , founders_wso2_fut4 := Reduce(`+`,shift(spinoutsUnweighted_wso2,1L:4L,type = "lead")), by = gvkey]
+data[ , spinoutsDFFV_wso2_fut4 := Reduce(`+`,shift(spinoutsDFFV_wso2,1L:4L,type = "lead")), by = gvkey]
+
+data[ , spinouts_wso3_fut4 := Reduce(`+`,shift(spinouts_wso3,1L:4L,type = "lead")), by = gvkey]
+data[ , founders_wso3_fut4 := Reduce(`+`,shift(spinoutsUnweighted_wso3,1L:4L,type = "lead")), by = gvkey]
+data[ , spinoutsDFFV_wso3_fut4 := Reduce(`+`,shift(spinoutsDFFV_wso3,1L:4L,type = "lead")), by = gvkey]
+
+data[ , spinouts_wso4_fut4 := Reduce(`+`,shift(spinouts_wso4,1L:4L,type = "lead")), by = gvkey]
+data[ , founders_wso4_fut4 := Reduce(`+`,shift(spinoutsUnweighted_wso4,1L:4L,type = "lead")), by = gvkey]
+data[ , spinoutsDFFV_wso4_fut4 := Reduce(`+`,shift(spinoutsDFFV_wso4,1L:4L,type = "lead")), by = gvkey]
+
+
+
+data[ , xrd_lag := shift(xrd,1L,type="lag"), by = gvkey]
+data[ , xrd_lag2 := shift(xrd,2L,type="lag"), by = gvkey]
+data[ , xrd_lag3 := shift(xrd,3L,type="lag"), by = gvkey]
+data[ , xrd_lag4 := shift(xrd,4L,type="lag"), by = gvkey]
+data[ , xrd_lead := shift(xrd,1L,type = "lead"), by = gvkey]
+data[ , xrd_lead2 := shift(xrd,2L,type = "lead"), by = gvkey]
+
+
 
 # Construct variables normalized by asset holdings, so that fixed effects are effectively
 # multiplied by asset holdings. Should be a better specification, more able to control for the effects of 
@@ -226,18 +255,18 @@ data[ , spinoutsDFFV_wso6_fut2 := Reduce(`+`,shift(spinoutsDFFV_wso6,1L:2L,type 
 
 data[ , at_ma5 := (1/5) * Reduce(`+`, shift(at,0L:4L,type="lag")), by = gvkey]
 
-data[ , Spinouts_fut4_at := Spinouts_fut4 / at_ma5]
-data[ , Founders_fut4_at := Founders_fut4 / at_ma5]
-data[ , SpinoutsDFFV_fut4_at := SpinoutsDFFV_fut4 / at_ma5]
-data[ , xrd_at := xrd / at_ma5]
-data[ , ch_at := ch / at_ma5]
-data[ , patentCount_CW_cumulative_at := patentCount_CW_cumulative / at_ma5]
-data[ , emp_at := emp / at_ma5]
+#data[ , Spinouts_fut4_at := Spinouts_fut4 / at_ma5]
+#data[ , Founders_fut4_at := Founders_fut4 / at_ma5]
+#data[ , SpinoutsDFFV_fut4_at := SpinoutsDFFV_fut4 / at_ma5]
+#data[ , xrd_at := xrd / at_ma5]
+#data[ , ch_at := ch / at_ma5]
+#data[ , patentCount_CW_cumulative_at := patentCount_CW_cumulative / at_ma5]
+#data[ , emp_at := emp / at_ma5]
 
 data[ , Tobin_Q_assets := Tobin_Q * at]
           
 fwrite(data,"data/compustat-spinouts_Stata.csv")
-                                  
+                                          
 
 
 

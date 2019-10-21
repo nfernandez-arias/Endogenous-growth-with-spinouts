@@ -6,7 +6,7 @@
 #
 #
 
-
+rm(list = ls())
 
 
 patents <- fread("data/nber uspto/pat76_06_assg.csv")
@@ -36,7 +36,7 @@ ggplot(data = yearRatiosLong, aes(x = appyear, y = ratio, group = type, color = 
   theme(text = element_text(size=16)) +
   #theme(legend.position = "none") +
   ggtitle("Fraction of patents from new firms") +
-  #ggtitle("Unadjusted") + 
+  #ggtitl   e("Unadjusted") + 
   xlim(1986,2005) +
   ylim(0,0.3) +
   ylab("Fraction") +

@@ -7,9 +7,9 @@
 
 rm( list = ls())
 
-source("code/constructFirmSpecificNCchanges.R")
+# Only run first time, because it takes a while
 
-source("code/mergeFirmNCchangesToMasterData.R")
+
 
 
 

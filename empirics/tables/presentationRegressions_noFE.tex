@@ -1,0 +1,30 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
+            &\multicolumn{1}{c}{Counts}&\multicolumn{1}{c}{Founder counts}&\multicolumn{1}{c}{Valuation}\\
+\hline
+xrd         &       0.467\sym{***}&       0.711\sym{***}&       21.66\sym{***}\\
+            &    (0.0811)         &     (0.125)         &     (5.803)         \\
+[1em]
+std\_tobin\_q\_assets&       0.671\sym{***}&       1.001\sym{***}&       34.76\sym{***}\\
+            &    (0.0768)         &     (0.122)         &     (5.810)         \\
+[1em]
+std\_at      &      -0.597\sym{***}&      -0.888\sym{***}&      -29.61\sym{***}\\
+            &    (0.0598)         &    (0.0928)         &     (5.156)         \\
+[1em]
+std\_emp     &     -0.0418         &     -0.0678\sym{*}  &       0.166         \\
+            &    (0.0223)         &    (0.0341)         &     (2.519)         \\
+[1em]
+std\_patentcount\_cw\_cumulative&     -0.0445         &     -0.0429         &      -3.610         \\
+            &    (0.0238)         &    (0.0398)         &     (1.914)         \\
+\hline
+r2\_a        &       0.309         &       0.293         &       0.115         \\
+r2\_a\_within &                     &                     &                     \\
+N           &       42052         &       42052         &       42052         \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

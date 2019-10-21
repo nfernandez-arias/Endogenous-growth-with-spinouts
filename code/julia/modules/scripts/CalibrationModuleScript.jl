@@ -247,7 +247,8 @@ function computeScore(algoPar::AlgorithmParameters,modelPar::ModelParameters,gue
     # Compute score
     #--------------------------------#
 
-    modelMomentsVec = zeros(length(fieldnames(typeof(modelMoments))),1)
+    #modelMomentsVec = zeros(length(fieldnames(typeof(modelMoments))),1)
+    modelMomentsVec = zeros(4,1)
 
     #modelMomentsVec[1] = modelMoments.RDintensity
     modelMomentsVec[1] = modelMoments.InternalPatentShare

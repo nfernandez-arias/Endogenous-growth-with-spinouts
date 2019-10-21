@@ -54,22 +54,5 @@ BDVI[ , c("Job1","Job2","Job3","Job4","Job5","Job6","Job7","Job8","Job9","Job10"
 
 #BDVI[ , c("Job1","Job2","Job3","Job4","Job5") := NULL]
 
-temp <- fread("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics/raw/VentureSource/PrincetonContactRevised.csv")
-temp <- temp[ , .(EntityID,EntityName)]
-names <- unique(temp)
-
-fwrite(names,"~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics/data/VentureSource/EntityNames.csv")
-
-rm(temp)
-
-setkey(names,EntityID)
-setkey(BDVI,EntityID)
-
-BDVI = BDVI[names]
-
-data <- BDVI[ ,.(EntityID,EntityName,InvestorID,InvestingFirmName,InputDate,JoinDate,StartDate,Founder,Title,TitleCode,FirstName,LastName,Prefix1,Position1,Company1,Position2,Company2,Position3,Company3,Position4,Company4,Position5,Company5)]
-
-rm(BDVI,names)
-
-fwrite(data,"~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics/data/VentureSource/EntitiesBios.csv")
+fwrite(BDVI,"~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics/data/VentureSource/EntitiesBios.csv")
 

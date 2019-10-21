@@ -1,7 +1,7 @@
 #
 #
-# computeValueOfSpinoutsAndEntrants.R
-#
+## computeValueOfSpinoutsAndEntrants.R
+
 #
 #  Here I compute the total first funding value of spinouts and entrants
 #
@@ -10,12 +10,19 @@
 
 rm(list = ls())
 
+parentsSpinouts <- fread("data/parentsSpinoutsWSO.csv")
+# Compute number of founders who are from parent firms in data set
+parentsSpinouts[ , numSpinoutFounders := .N, by = "EntityID"]
+
+# Extract dataset on first funding valuation and founding year for each spinout
 firstFundings <- fread("data/VentureSource/firstFundingEvents.csv")[ , .(EntityID,discountedFFValue,foundingYear)]
-parentsSpinouts <- fread("data/parentsSpinouts.csv")
+
+EntitiesNumFounders <- fread("data/VentureSource/EntitiesNumFounders.csv")
 
 # Only take one record pe r EntityID - just need to be able to flag that
 # it is a spinout in the later calculations
-parentsSpinouts <- unique(parentsSpinouts, by = "EntityID")[, .(gvkey,EntityID)]
+parentsSpinouts <- unique(parentsSpinouts, by = "EntityID")[, .(gvkey,EntityID,numSpinoutFounders,wso1,wso2,wso3,wso4)]
+#parentsSpinouts <- melt(parentsSpinouts,id.vars = c("gvkey","EntityID","numSpinoutFounders"),  measure.vars = c("wso1","wso2","wso3","wso4")) 
 #temp <- unique(temp, by = "EntityID")
 
 # Merge funding information with parent firm - spinout link
@@ -34,67 +41,185 @@ parentsSpinoutsFF[ is.na(discountedFFValue), discountedFFValue := 0]
 
 ## Compute first funding value of spinouts vs regular entrants
 
-year_spinoutsEntrantsFFValue <- parentsSpinoutsFF[ , sum(discountedFFValue), by = c("foundingYear","isSpinout")]
+# First, flag entities as spinouts or non-spinouts
+parentsSpinoutsFF[ wso1 + wso2 + wso3 + wso4 == 0 & isSpinout == 1, nonwsoSpinout := 1]
+parentsSpinoutsFF[ is.na(nonwsoSpinout), nonwsoSpinout := 0]
+parentsSpinoutsFF[ wso4 == 0 & isSpinout == 1, nonwso4Spinout := 1]
+parentsSpinoutsFF[ is.na(nonwso4Spinout) , nonwso4Spinout := 0]
+parentsSpinoutsFF[ isSpinout == 0, nonSpinout := 1]
+parentsSpinoutsFF[ is.na(nonSpinout) , nonSpinout := 0] 
 
-year_spinoutsEntrantsFFValue <- year_spinoutsEntrantsFFValue[order(foundingYear,isSpinout)]
+## Merge with information on number of founders at each startup (founder meaning CTO,CEO,President,Chairman,or "Founder")
 
-## Make a plot
+setkey(parentsSpinoutsFF,EntityID)
+setkey(EntitiesNumFounders,EntityID)
+
+parentsSpinoutsFF <- EntitiesNumFounders[parentsSpinoutsFF]
+parentsSpinoutsFF[ , fracSpinoutFounders := numSpinoutFounders / numFounders]
+
+parentsSpinoutsFF[ nonSpinout == 1, `:=` (wso1 = 0, wso2 = 0, wso3 = 0, wso4 = 0, nonwso4Spinout = 0, nonwsoSpinout = 0)]
+
+## Construct counts
+
+# First do founder weighted measures
+
+spinoutCounts <- parentsSpinoutsFF[ , .(wso1 = sum(na.omit(fracSpinoutFounders * wso1)) , wso2 = sum(na.omit(fracSpinoutFounders * wso2)) ,
+                                        wso3 = sum(na.omit(fracSpinoutFounders * wso3)) , wso4 = sum(na.omit(fracSpinoutFounders * wso4)) , 
+                                        nonwso = sum(na.omit(fracSpinoutFounders * nonwsoSpinout)), nonwso4 = sum(na.omit(fracSpinoutFounders *nonwso4Spinout)), 
+                                        nonspinout = .N - sum(na.omit(fracSpinoutFounders * wso1)) - sum(na.omit(fracSpinoutFounders * nonwsoSpinout))) , by = "foundingYear" ]
+
+
+founderCounts <- parentsSpinoutsFF[ , .(wso1 = sum(na.omit(numSpinoutFounders * wso1)) , wso2 = sum(na.omit(numSpinoutFounders * wso2)) ,
+                                        wso3 = sum(na.omit(numSpinoutFounders * wso3)) , wso4 = sum(na.omit(numSpinoutFounders * wso4)) , 
+                                        nonwso = sum(na.omit(numSpinoutFounders * nonwsoSpinout)), nonwso4 = sum(na.omit(numSpinoutFounders * nonwso4Spinout)), 
+                                        allspinout = sum(na.omit(numSpinoutFounders * wso1)) + sum(na.omit(numSpinoutFounders * nonwsoSpinout)),
+                                        nonspinout = sum(na.omit(numFounders)) - sum(na.omit(numSpinoutFounders * wso1)) - sum(na.omit(numSpinoutFounders * nonwsoSpinout)) ) , by = "foundingYear" ]
+
+
+dffv <- parentsSpinoutsFF[ , .(wso1 = sum(na.omit(fracSpinoutFounders * discountedFFValue * wso1)) , wso2 = sum(na.omit(fracSpinoutFounders * discountedFFValue * wso2)) ,
+                               wso3 = sum(na.omit(fracSpinoutFounders * discountedFFValue * wso3)) , wso4 = sum(na.omit(fracSpinoutFounders * discountedFFValue * wso4)) , 
+                               nonwso = sum(na.omit(fracSpinoutFounders * discountedFFValue * nonwsoSpinout)),  nonwso4 = sum(na.omit(fracSpinoutFounders * discountedFFValue * nonwso4Spinout)), 
+                               nonspinout = sum(na.omit(discountedFFValue)) - sum(na.omit(fracSpinoutFounders * discountedFFValue * wso1)) - sum(na.omit(fracSpinoutFounders * discountedFFValue * nonwsoSpinout))) , by = "foundingYear" ]
+
+
+# Now do measures that are not founder-weighted
+
+spinoutCounts_unweighted <- parentsSpinoutsFF[ , .(wso1 = sum(na.omit(wso1)) , wso2 = sum(na.omit(wso2)) ,
+                       wso3 = sum(na.omit(wso3)) , wso4 = sum(na.omit(wso4)) , 
+                       nonwso = sum(na.omit(nonwsoSpinout)), nonwso4 = sum(na.omit(nonwso4Spinout)), 
+                       allspinout = sum(na.omit(wso1)) + sum(na.omit(nonwsoSpinout)),
+                       nonspinout = .N - sum(na.omit(wso1)) - sum(na.omit(nonwsoSpinout))) , by = "foundingYear" ]
+
+dffv_unweighted <- parentsSpinoutsFF[ , .(wso1 = sum(na.omit(discountedFFValue * wso1)) , wso2 = sum(na.omit(discountedFFValue * wso2)) ,
+                               wso3 = sum(na.omit(discountedFFValue * wso3)) , wso4 = sum(na.omit(discountedFFValue * wso4)) , 
+                               nonwso = sum(na.omit(discountedFFValue * nonwsoSpinout)), nonwso4 = sum(na.omit(discountedFFValue * nonwso4Spinout)), 
+                               nonspinout = sum(na.omit(discountedFFValue * (1 - wso1 - nonwsoSpinout)))) , by = "foundingYear" ]
+
+
+
+### FIrst compute some statistics (easier in wide format)
+
+avg_countRatio_weighted <- spinoutCounts[ , mean((wso1 + nonwso) / nonspinout) ]
+avg_countRatio_unweighted <- spinoutCounts_unweighted[ , mean((wso1 + nonwso) / nonspinout) ]
+avg_countRatio_wso4_weighted <- spinoutCounts[ , mean((wso4) / nonspinout) ]
+avg_countRatio_wso4_unweighted <- spinoutCounts_unweighted[ , mean((wso4) / nonspinout) ]
+    
+avg_founderRatio <- founderCounts[ , mean( (wso1 + nonwso) / nonspinout)]
+
+avg_dffvRatio_weighted <- dffv[ , mean((wso1 + nonwso) / nonspinout)]
+avg_dffvRatio_unweighted <- dffv_unweighted[ , mean((wso1 + nonwso) / nonspinout)]
+
+# Also compute ratio of sums
+
+allCounts_ratio_weighted <- spinoutCounts[ , sum(na.omit(wso1 + nonwso)) / sum(na.omit(nonspinout))]
+allCounts_ratio_unweighted <- spinoutCounts_unweighted[ , sum(na.omit(wso1 + nonwso)) / sum(na.omit(nonspinout))]
+allCounts_ratio_wso4_weighted <- spinoutCounts[ , sum(na.omit(wso4)) / sum(na.omit(nonspinout))]
+allCounts_ratio_wso4_unweighted <- spinoutCounts_unweighted[ , sum(na.omit(wso4)) / sum(na.omit(nonspinout))]
+allCounts_ratio_wso3_weighted <- spinoutCounts[ , sum(na.omit(wso3)) / sum(na.omit(nonspinout))]
+allCounts_ratio_wso3_unweighted <- spinoutCounts_unweighted[ , sum(na.omit(wso3)) / sum(na.omit(nonspinout))]
+allCounts_ratio_wso2_weighted <- spinoutCounts[ , sum(na.omit(wso2)) / sum(na.omit(nonspinout))]
+allCounts_ratio_wso2_unweighted <- spinoutCounts_unweighted[ , sum(na.omit(wso2)) / sum(na.omit(nonspinout))]
+allCounts_ratio_wso1_weighted <- spinoutCounts[ , sum(na.omit(wso1)) / sum(na.omit(nonspinout))]
+allCounts_ratio_wso1_unweighted <- spinoutCounts_unweighted[ , sum(na.omit(wso1)) / sum(na.omit(nonspinout))]
+
+allCounts_ratio_weighted <- spinoutCounts[ foundingYear >= 1986 & foundingYear <= 2008, sum(na.omit(wso1 + nonwso)) / sum(na.omit(nonspinout))]
+allCounts_ratio_unweighted <- spinoutCounts_unweighted[ foundingYear >= 1986 & foundingYear <= 2008, sum(na.omit(wso1 + nonwso)) / sum(na.omit(nonspinout))]
+allCounts_ratio_wso4_weighted <- spinoutCounts[ foundingYear >= 1986 & foundingYear <= 2008, sum(na.omit(wso4)) / sum(na.omit(nonspinout))]
+allCounts_ratio_wso4_unweighted <- spinoutCounts_unweighted[ foundingYear >= 1986 & foundingYear <= 2008, sum(na.omit(wso4)) / sum(na.omit(nonspinout))]
+allCounts_ratio_wso3_weighted <- spinoutCounts[ foundingYear >= 1986 & foundingYear <= 2008, sum(na.omit(wso3)) / sum(na.omit(nonspinout))]
+allCounts_ratio_wso3_unweighted <- spinoutCounts_unweighted[ foundingYear >= 1986 & foundingYear <= 2008, sum(na.omit(wso3)) / sum(na.omit(nonspinout))]
+allCounts_ratio_wso2_weighted <- spinoutCounts[ foundingYear >= 1986 & foundingYear <= 2008, sum(na.omit(wso2)) / sum(na.omit(nonspinout))]
+allCounts_ratio_wso2_unweighted <- spinoutCounts_unweighted[foundingYear >= 1986 & foundingYear <= 2008 , sum(na.omit(wso2)) / sum(na.omit(nonspinout))]
+allCounts_ratio_wso1_weighted <- spinoutCounts[ foundingYear >= 1986 & foundingYear <= 2008, sum(na.omit(wso1)) / sum(na.omit(nonspinout))]
+allCounts_ratio_wso1_unweighted <- spinoutCounts_unweighted[ foundingYear >= 1986 & foundingYear <= 2008, sum(na.omit(wso1)) / sum(na.omit(nonspinout))]
+
+allFounders_ratio <- founderCounts[ , sum(na.omit(wso1 + nonwso)) / sum(na.omit(nonspinout))]
+
+allDFFV_ratio <- dffv[ , sum(na.omit(wso1 + nonwso)) / sum(na.omit(nonspinout))]
+allDFFV_ratio_unweighted <- dffv_unweighted[ , sum(na.omit(wso1 + nonwso)) / sum(na.omit(nonspinout))]
+
+###  Melt datasets to long form for plotting with ggplot
+
+spinoutCounts <- melt(spinoutCounts, id.vars = "foundingYear", measure.vars = c("wso1","wso2","wso3","wso4","nonwso","nonwso4","nonspinout"))
+founderCounts <- melt(founderCounts, id.vars = "foundingYear", measure.vars = c("wso1","wso2","wso3","wso4","nonwso","nonwso4","allspinout","nonspinout"))
+dffv <- melt(dffv, id.vars = "foundingYear", measure.vars = c("wso1","wso2","wso3","wso4","nonwso","nonwso4","nonspinout"))
+spinoutCounts_unweighted <- melt(spinoutCounts_unweighted, id.vars = "foundingYear", measure.vars = c("wso1","wso2","wso3","wso4","nonwso","nonwso4","allspinout","nonspinout"))
+dffv_unweighted <- melt(dffv_unweighted, id.vars = "foundingYear", measure.vars = c("wso1","wso2","wso3","wso4","nonwso","nonwso4","nonspinout"))
+## Make plots
 
 library(ggplot2)
+library(RColorBrewer)
 
-year_spinoutsEntrantsFFValue[ isSpinout == 1, type := "Spinout"]
-year_spinoutsEntrantsFFValue[ isSpinout == 0, type := "Non-spinout"]
+my_palette <- brewer.pal(name="Blues",n=8)[4:9]
 
-ggplot(data = year_spinoutsEntrantsFFValue, aes(x = foundingYear, y = V1, group = type, color = type)) + 
-  geom_line() +
+# First make plot of counts of spinouts, unweighted, wso1, nonwso, and nonspinouts, stacked up
+
+ggplot(data = spinoutCounts_unweighted[ variable == "nonspinout" | variable == "wso4" | variable == "nonwso4"], aes(x = foundingYear, y = value, fill = variable)) + 
+  geom_area(position = "stack") +
+  scale_fill_manual(values = my_palette) + 
   theme(text = element_text(size=16)) +
   #theme(legend.position = "none") +
-  ggtitle("Valuation of spinouts and non-spinouts") +
+  ggtitle("Firm counts") +
   #ggtitle("Unadjusted") + 
-  xlim(1986,2009) + 
-  ylab("Valuation (millions $)") +
-  xlab("Year")
-
-ggsave("../figures/spinouts_entrants_DFFV.png", plot = last_plot())
-
-year_spinoutsEntrantsCounts <- parentsSpinoutsFF[ , .N, by = c("foundingYear","isSpinout")]
-year_spinoutsEntrantsCounts[ isSpinout == 1, type := "Spinout"]
-year_spinoutsEntrantsCounts[ isSpinout == 0, type := "NonSpinout"]
-
-ggplot(data = year_spinoutsEntrantsCounts, aes(x = foundingYear, y = N, group = type, color = type)) + 
-  geom_line() +
-  theme(text = element_text(size=16)) +
-  #theme(legend.position = "none") +
-  ggtitle("Number of spinouts and non-spinouts") +
-  #ggtitle("Unadjusted") + 
-  xlim(1986,2009) + 
+  xlim(1986,2015) + 
   ylab("Number of firms") +
-  xlab("Year")
+  xlab("Founding Year")
 
 ggsave("../figures/spinouts_entrants_counts.png", plot = last_plot())
 
-setkey(year_spinoutsEntrantsFFValue,foundingYear,isSpinout)
-setkey(year_spinoutsEntrantsCounts,foundingYear,isSpinout)
+# Next make plot of founders
 
-year_spinoutsEntrantsFFValueAndCounts <- year_spinoutsEntrantsFFValue[year_spinoutsEntrantsCounts]
+ggplot(data = founderCounts[ variable == "nonspinout" | variable == "wso4" | variable == "nonwso4"], aes(x = foundingYear, y = value, fill = variable)) + 
+  geom_area(position = "stack") +
+  scale_fill_manual(values = my_palette) + 
+  theme(text = element_text(size=16)) +
+  #theme(legend.position = "none") +
+  ggtitle("Founder counts") +
+  #ggtitle("Unadjusted") + 
+  xlim(1986,2015) + 
+  ylab("Number of founders") +
+  xlab("Founding Year")
 
-year_spinoutsEntrantsCounts <- dcast(year_spinoutsEntrantsFFValueAndCounts, foundingYear ~ isSpinout, value.var = "N")
-year_spinoutsEntrantsFFValue <- dcast(year_spinoutsEntrantsFFValueAndCounts, foundingYear ~ isSpinout, value.var = "V1")
+ggsave("../figures/spinout_entrant_founderCounts.png", plot = last_plot())
 
-setnames(year_spinoutsEntrantsCounts,"0","nonSpinout")
-setnames(year_spinoutsEntrantsCounts,"1","Spinout")
+# Next make plot of founder-weighted spinouts
 
-setnames(year_spinoutsEntrantsFFValue,"0","nonSpinout")
-setnames(year_spinoutsEntrantsFFValue,"1","Spinout")
+ggplot(data = spinoutCounts[ variable == "nonspinout" | variable == "wso4" | variable == "nonwso4"], aes(x = foundingYear, y = value, fill = variable)) + 
+  geom_area(position = "stack") +
+  scale_fill_manual(values = my_palette) + 
+  theme(text = element_text(size=16)) +
+  #theme(legend.position = "none") +
+  ggtitle("Firm counts (weighted)") +
+  #ggtitle("Unadjusted") + 
+  xlim(1986,2008) + 
+  ylab("Number of firms") +
+  xlab("Founding Year")
 
-year_spinoutsEntrantsCounts[ , countRatio := Spinout / nonSpinout]
-year_spinoutsEntrantsFFValue[ , FFValueRatio := Spinout / nonSpinout]
+ggsave("../figures/spinouts_entrants_weightedcounts.png", plot = last_plot())
+
+
+
+
+  
+
+ggplot(data = dffv[variable == "nonspinout" | variable == "wso4" | variable == "nonwso4"], aes(x = foundingYear, y = value, fill = variable)) + 
+  geom_area(position = "stack") +
+  scale_fill_manual(values = my_palette) + 
+  theme(text = element_text(size=16)) +
+  #theme(legend.position = "none") +
+  ggtitle("DFFV (weighted)") +
+  #ggtitle("Unadjusted") + 
+  xlim(1986,2015) + 
+  ylab("DFFV") +
+  xlab("Founding Year")
+
+ggsave("../figures/spinouts_entrants_DFFV.png", plot = last_plot())
 
 
 # Compute ratio of spinouts to non-spinouts in sample
 
-spinoutsNonSpinoutsRatio <- year_spinoutsEntrantsCounts[foundingYear >= 1986 & foundingYear <= 2009][ , sum(Spinout) / sum(nonSpinout)]
-spinoutsNonSpinoutDFFVsRatio <- year_spinoutsEntrantsFFValue[foundingYear >= 1986 & foundingYear <= 2009][ , sum(Spinout) / sum(nonSpinout)]
+spinoutsNonSpinoutsRatio <- year_spinoutsEntrantsCounts[foundingYear >= 1986 & foundingYear <= 2008][ , sum(Spinout) / sum(nonSpinout)]
+                spinoutsNonSpinoutDFFVsRatio <- year_spinoutsEntrantsFFValue[foundingYear >= 1986 & foundingYear <= 2008][ , sum(Spinout) / sum(nonSpinout)]
 
 setkey(year_spinoutsEntrantsCounts,foundingYear)
 setkey(year_spinoutsEntrantsFFValue,foundingYear)
@@ -103,8 +228,8 @@ out <- year_spinoutsEntrantsCounts[ , .(foundingYear,countRatio)][year_spinoutsE
 
 ## Compute avearage ratios of spinouts to non-spinouts
 
-averageCountRatio <- out[ foundingYear >= 1986 & foundingYear <= 2009, mean(na.omit(countRatio))]
-averageFFValueRatio <- out[ foundingYear >= 1986 & foundingYear <= 2009, mean(na.omit(FFValueRatio))]
+averageCountRatio <- out[ foundingYear >= 1986 & foundingYear <= 2008, mean(na.omit(countRatio))]
+averageFFValueRatio <- out[ foundingYear >= 1986 & foundingYear <= 2008, mean(na.omit(FFValueRatio))]
 
 out <- melt(out, id.vars = c("foundingYear"), measure.vars = c("countRatio","FFValueRatio"))
 
@@ -114,7 +239,7 @@ ggplot(data = out, aes(x = foundingYear, y = value, group = variable, color = as
   #theme(legend.position = "none") +
   ggtitle("Ratio of spinouts to non-spinouts") +
   #ggtitle("Unadjusted") +
-  xlim(1986,2009) + 
+  xlim(1986,2008) + 
   ylim(0,2) + 
   ylab("Ratio (FFValue or Counts)") +
   xlab("Year")
@@ -155,20 +280,23 @@ cpi <- fread("raw/cpi.csv")
 setnames(cpi,"Year","year")
 cpi[ , cpiInflation := Annual / Annual[year == 2012]]
 cpi[ , Annual := NULL]
-setkey(cpi,year)
-year_spinoutsEntrantsFFValue <- cpi[year_spinoutsEntrantsFFValue]
 
-year_spinoutsEntrantsFFValue[ , `:=` (nonSpinout = nonSpinout / cpiInflation, Spinout = Spinout / cpiInflation)]
+setkey(cpi,year)
+dffv <- cpi[dffv]
+dffv_unweighted <- cpi[dffv_unweighted]
+
+dffv[ , value := value / cpiInflation]
+dffv_unweighted[ , value := value / cpiInflation]
 
 
 # For now hard coded from OLS regression results
 
-xrdGeneratedSpinouts[ , spinoutsGenerated := 0.0002155 * xrd]
-xrdGeneratedSpinouts[ , spinoutsGenerated_low := (0.0002155 + 0.000083) * xrd]
-xrdGeneratedSpinouts[ , spinoutsGenerated_high := (0.0002155 - 0.000083) * xrd]
-xrdGeneratedSpinouts[ , spinoutsFFValueGenerated := 0.00944 * xrd]
-xrdGeneratedSpinouts[ , spinoutsFFValueGenerated_low := (0.00944 + 0.00303) * xrd]
-xrdGeneratedSpinouts[ , spinoutsFFValueGenerated_high := (0.00944 - 0.00303) * xrd]
+xrdGeneratedSpinouts[ , spinoutsGenerated := 0.000687 * xrd]
+xrdGeneratedSpinouts[ , spinoutsGenerated_low := (0.000687 + 0.000243) * xrd]
+xrdGeneratedSpinouts[ , spinoutsGenerated_high := (0.000687 - 0.000243) * xrd]
+xrdGeneratedSpinouts[ , foundersGenerated := 0.001061 * xrd]
+xrdGeneratedSpinouts[ , foundersGenerated_low := (0.001061 + 0.000384) * xrd]
+xrdGeneratedSpinouts[ , foundersGenerated_high := (0.001061 - 0.000384) * xrd]
 
 setkey(xrdGeneratedSpinouts,Year)
 
@@ -176,57 +304,60 @@ setkey(xrdGeneratedSpinouts,Year)
 
 ###  Construct graph showing fraction of spnouts due to R&D suggested by the micro estimates
 
-setkey(year_spinoutsEntrantsCounts,foundingYear)
+# First need to reshape to wide
+spinoutCounts_unweighted <- dcast(spinoutCounts_unweighted, foundingYear ~ variable, value.var = "value")
+founderCounts <- dcast(founderCounts, foundingYear ~ variable, value.var = "value")
 
-countsComparison <- xrdGeneratedSpinouts[year_spinoutsEntrantsCounts][ , .(Year,spinoutsGenerated,spinoutsGenerated_low, spinoutsGenerated_high,Spinout)]
-FFValueComparison <- xrdGeneratedSpinouts[year_spinoutsEntrantsFFValue][ , .(Year,spinoutsFFValueGenerated,spinoutsFFValueGenerated_low,spinoutsFFValueGenerated_high,Spinout)]
+setkey(spinoutCounts_unweighted,foundingYear)
+setkey(founderCounts,foundingYear)
+
+countsComparison <- xrdGeneratedSpinouts[spinoutCounts_unweighted][ , .(Year,spinoutsGenerated,spinoutsGenerated_low,spinoutsGenerated_high,allspinout)]
+foundersComparison <- xrdGeneratedSpinouts[founderCounts][ , .(Year,foundersGenerated,foundersGenerated_low,foundersGenerated_high,allspinout)]
 
 ## Compute statistics for calibration
 
-rd_averageCountRatio <- countsComparison[ Year >= 1986 & Year <= 2009 , mean(na.omit(spinoutsGenerated / Spinout))]
-rd_ratioAverageCounts <- countsComparison[ Year >= 1986 & Year <= 2009 , sum(spinoutsGenerated) / sum(Spinout)]
+rd_ratioAverageCounts <- countsComparison[ Year >= 1986 & Year <= 2008 , sum(spinoutsGenerated) / sum(allspinout)]
 
-rd_averageValueRatio <- FFValueComparison[ Year >= 1986 & Year <= 2009, mean(na.omit(spinoutsFFValueGenerated / Spinout))]
-rd_ratioAverageValues <- FFValueComparison[ Year >= 1986 & Year <= 2009, sum(spinoutsFFValueGenerated) / sum(Spinout)]
-
+rd_ratioAverageFounders <- foundersComparison[ Year >= 1986 & Year <= 2008, sum(foundersGenerated) / sum(allspinout)]
 
 # Reshape wide to long for plotting with ggplot
 
-setnames(countsComparison,"Spinout","allSpinoutsCount")
-setnames(FFValueComparison,"Spinout","allSpinoutsFFValue")
+countsComparison <- melt(countsComparison, id.vars = "Year", measure.vars = c("spinoutsGenerated","spinoutsGenerated_low","spinoutsGenerated_high","allspinout"))
+foundersComparison <- melt(foundersComparison, id.vars = "Year", measure.vars = c("foundersGenerated","foundersGenerated_low","foundersGenerated_high","allspinout"))
 
-countsComparison <- melt(countsComparison, id.vars = "Year", measure.vars = c("spinoutsGenerated","spinoutsGenerated_low","spinoutsGenerated_high","allSpinoutsCount"))
-FFValueComparison <- melt(FFValueComparison, id.vars = "Year", measure.vars = c("spinoutsFFValueGenerated","spinoutsFFValueGenerated_low","spinoutsFFValueGenerated_high","allSpinoutsFFValue"))
+s## Make plotss
 
-## Make plotss
+my_palette2 <- brewer.pal(name="Blues",n=8)[4:9]
 
-ggplot(data = FFValueComparison, aes(x = Year, y = value, group = variable, color = variable)) + 
-  geom_line() +
+ggplot(data = foundersComparison, aes(x = Year, y = value, group = variable, color = variable)) + 
+  geom_line(size = 2) +
+  scale_color_manual(values = my_palette2) +
   theme(text = element_text(size=14)) +
   #theme(legend.position = "none") +
-  ggtitle("Valuation of spinouts: generated by R&D and total") +
+  ggtitle("Founders (actual vs. regression prediction)") +
   #ggtitle("Unadjusted") + 
   xlim(1986,2009) + 
-  ylab("Valuation (millions $)") +
+  ylab("Number of founders") +
   xlab("Year")
 
-ggsave("../figures/DFFVComparison.png", plot = last_plot())
+ggsave("../figures/foundersComparison.png", plot = last_plot())
   
 ggplot(data = countsComparison, aes(x = Year, y = value, group = variable, color = variable)) + 
-  geom_line() +
+  geom_line(size = 2) +
+  scale_color_manual(values = my_palette2) +
   theme(text = element_text(size=14)) +
   #theme(legend.position = "none") +
-  ggtitle("Number of spinouts: generated by R&D and total") +
+  ggtitle("Number of spinouts (actual vs. regression prediction)") +
   #ggtitle("Unadjusted") + 
   xlim(1986,2009) + 
   ylab("# of Spinouts") +
   xlab("Year")
 
-  ggsave("../figures/countsComparison.png", plot = last_plot())
+ggsave("../figures/countsComparison.png", plot = last_plot())
   
   
   
-### Compute relative outcomes of spinouts and entrants
+  ### Compute relative outcomes of spinouts and entrants
 
 # Load weighted histogram function from Weights package
   
@@ -324,7 +455,7 @@ yearStartupsFirms <- bdsData[ , .( allFirms = sum(Firms), startups = Firms[fage4
 
 yearStartupsFirms[ , entryRate := startups / allFirms]
 
-averageEntryRate <- yearStartupsFirms[ year2 >= 1986 & year2 <= 2009, mean(entryRate)]
+averageEntryRate <- yearStartupsFirms[ year2 >= 1986 & year2 <= 2008, mean(entryRate)]
 
 
 

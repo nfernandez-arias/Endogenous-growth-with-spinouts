@@ -161,7 +161,23 @@ fwrite(compustat[ , .(gvkey,year,lfirm)],"data/compustat/lfirm.csv")
 
 rm(list = ls())
 
-patentAppsGvkeys <- fread("data/patentsAppyearGvkeys.csv")[country == "US"]
+patentAppsGvkeys <- fread("data/patentsAppyearGvkeys.csv")[!is.na(gvkey) &  country == "US"]
+
+## Merge with inventor data
+#inventorsPatents <- fread("data/patentsview/inventorsPatents.csv")[!is.na(state) & state != ""][ , .(name_first,name_last,patent_id,state,country)]
+
+#inventorsPatents[ , patent_id := as.integer(patent_id)]
+#inventorsPatents <- inventorsPatents[ !is.na(patent_id)]
+
+#setnames(inventorsPatents,"state","inventorState")
+#setnames(inventorsPatents,"country","inventorCountry")
+
+#setkey(inventorsPatents,patent_id)
+#setkey(patentAppsGvkeys,patent)
+
+#patentAppsGvkeys <- inventorsPatents[patentAppsGvkeys]
+
+
 firmStateYearPatentCounts <- patentAppsGvkeys[ , .N, by = .(gvkey,year,state)] 
 firmStateYearPatentCounts[, patentCount9 := rollapply(N, width = 10, FUN = sum, align = "right", partial = TRUE), by = .(gvkey,state)]
 firmStateYearPatentCounts[, isum := sum(patentCount9), by = .(gvkey,year)]
@@ -178,19 +194,26 @@ complete <- tidyr::complete
 
 firmYearStateShares <- fread("data/compustatStatePatentCounts.csv")[, .(gvkey,year,state,ishare)]
 
+firmYearStateShares <- data.table(complete(firmYearStateShares,gvkey,state,year = 1986:2006))
+
+# if ishare is NA and year is <= 2006, then ishare should be zero 
+firmYearStateShares[is.na(ishare) , ishare := 0]
+
+# Now complete to 2015
 firmYearStateShares <- data.table(complete(firmYearStateShares,gvkey,state,year = 1986:2015))
 
 # When missing, extrapolate previous non-missing value
 firmYearStateShares[ , ishare := na.locf(ishare), by = .(gvkey,state)]
 
-# Any remaining missing values are zeros
-firmYearStateShares[ is.na(ishare) , ishare := 0]
+# Exclude observtions with no state...
+
+firmYearStateShares <- firmYearStateShares[state != "" & !is.na(state)]
 
 # Export dataset for use elsewhere
 fwrite(firmYearStateShares,"data/compustat/firmYearStateShares.csv")
 
 # Bring in state abbreviations, for merging with RDusercost_2017 dataset
-stateAbbrevs <- data.table(read.dta13("bloom/spillovers_rep/1_data/Raw/stmap.dta"))
+stateAbbrevs <- fread("bloom/spillovers_rep/1_data/Raw/stmap.csv")
 rdUserCost <- unique(fread("data/bsv/RDusercost_2017.csv")[ , .(rho_h,r,fips,year)])
 
 setkey(stateAbbrevs,fips)
@@ -225,8 +248,8 @@ rm(list = ls())
 
 lstate <- fread("data/compustat/lstate.csv")
 lfirm <- fread("data/compustat/lfirm.csv")
-compustat <- fread("raw/compustat/compustat_annual.csv")
-compustat <- compustat[indfmt=="INDL" & datafmt=="STD" & popsrc=="D" & consol=="C" & loc == "USA"]
+compustat <- fread("data/compustat/compustat_for_bloom_instruments.csv")
+
 
 setkey(compustat,gvkey,fyear)
 setkey(lstate,gvkey,year)
@@ -237,7 +260,22 @@ setkey(lfirm,gvkey,year)
 
 compustat <- lfirm[compustat]
 
-fwrite(compustat,"data/compustat/compustat_withBloomInstruments.csv")
+
+## Upload datasets constructed using Bloom Stat code, for comparison...
+lfirm_bloom <- data.table(read.dta13("data/compustat/lfirm.dta"))
+lstate_bloom <- data.table(read.dta13("data/compustat/lstate.dta"))
+
+setnames(lfirm_bloom,"lfirm","lfirm_bloom")
+setnames(lstate_bloom,"lstate","lstate_bloom")
+
+setkey(lfirm_bloom,gvkey,year)
+setkey(lstate_bloom,gvkey,year)
+
+compustat <- lfirm_bloom[compustat]
+compustat <- lstate_bloom[compustat]
+
+fwrite(compustat,"data/compustat/compustat_withBloomInstruments.csv") 
+
 
 
 

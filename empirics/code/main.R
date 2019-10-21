@@ -4,7 +4,7 @@
 # 
 # Author: Nicolas Fernandez-Arias
 #
-# Purpose:
+# Purpose:    
 #
 # This is the main script for the empirical component
 #------------------------------------------------#
@@ -19,20 +19,15 @@ setwd("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spi
 ## Preparing Venture Source data  
 #--------------------------------
 
-# Construct database of spinouts and their attributes:
-# e.g. (1) whether they achieve revenue, (2) how much funding they receive, (3) whether they IPO, (4) IPO market capitalization
-source("code/constructSpinoutAttributes.R")
-
 # Construct VentureSource - NAICS cross-walk
 source("code/VentureSource/prepare-VentureSource-NAICS-Crosswalk.R")
-
-
 
 #----------------------------------
 ## Preparing compustat + nber uspto patent data
 #----------------------------------
 
 # Extract Compustat firms and link to their subsidiaries
+source("code/compustat/clean.R")
 source("code/compustat/extractCompustatFirms.R") 
 source("code/compustat/matchCompustatFirmsToSubsidiaries.R")
 
@@ -43,8 +38,6 @@ source("code/matchPatentsToCompustat.R")
 # R&D tax credits
 source("code/compustat/constructInstruments.R")
 
-
-
 #--------------------------------
 # Bringing everything together
 #--------------------------------
@@ -52,8 +45,13 @@ source("code/compustat/constructInstruments.R")
 # First, create database of parent-spinout relationships    
 source("code/findSpinouts.R")
 
+# Construct database of spinouts and their attributes:
+# e.g. (1) whether they achieve revenue, (2) how much funding they receive, (3) whether they IPO, (4) IPO market capitalization
+source("code/constructSpinoutAttributes.R")
+
 # Construct parentFirm-year spinout counts and spinout indicator 
-# (for now, not considering industry) 
+# (for now, not considering industry)             
+
 source("code/constructSpinoutCounts.R") 
   
 # Next, do some basic analyses    
@@ -79,21 +77,25 @@ source("code/addNoncompeteEnforcementChanges.R")
 # Add variable encoding state-level strength of non-compete enforcement from Bishara 2011 / Starr 2018
 source("code/addNoncompeteEnforcementIndices.R")
 
-# Add
-source("code/addFirmSpecificNonCompeteEnforcementChanges.R")
+# Add firm-specific NC enforcement changes
+
+# Only run the first time, because it takes a while
+source("code/constructFirmSpecificNCchanges.R")
+
+source("code/mergeFirmNCchangesToMasterData.R")
 
 #-------------------------
 # Prepare the data for analysis in Stata
 # (because it has better implementations of fixed effect regressions)
 #-------------------------
-
-# Next, prepare the data for panel regressions in Stata
+  
+# Next, prepare the data for panel regressions in Stata   
 source("code/prepareDataForStata.R")
 
-    # Prepare dataset for event study to see how 
-# much spinout funding affects parent firm stock price
+  # Prepare dataset for event study to see how    
+# much spinout funding affects parent f irm stock price
 source("code/prepareEventStudyDataset.R")
-
+        
 #----------------------------
 # Make some scatter plots
 #----------------------------
@@ -104,7 +106,7 @@ source("code/makeScatterPlots.R")
 
 #----------------------------------
 ## Compute statistics from patent data
-# This includes
+# This includeswe have to be stewards of our cultural we have to be stewards of our cultural we have to be stewards of our cultural 
 #
 # (1) Fraction of innovations that are internal (cite mostly internal patents)
 #
