@@ -1,0 +1,85 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\linespread{1.05}
+%\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage{placeins}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{booktabs}
+%\renewcommand{\arraystretch}{1.2}
+\usepackage{multirow}
+
+%\usepackage{caption}
+%\captionsetup{justification=raggedright,singlelinecheck=false}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{Identifying $\kappa$}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\paragraph{Role of $\kappa$ in baseline model}
+
+In the baseline model, the effect of $\kappa$ is mainly to reduce the rate of entry by ordinary entrants, since it appears directly in the free entry condition, reducing the value of entry. Spinouts are less affected, because spinouts are usually earning knowledge rents from entry, so they are not the marginal entrants. Therefore, it tends to increase spinout entry relative to ordinary entrant entry. 
+
+However, this is also determined by $\chi_S / \chi_E$, which determines relative efficiency of entry for spinouts and entrants, and by $\nu$, which determines the rate at which spinout ideas are generated. 
+
+I see three ways to identify $\kappa$ in this setting:
+
+\begin{enumerate}
+	\item Find direct counterpart to $\chi_S / \chi_E$ in data, identify $\nu$ indirectly using spinout entry rate, and then calibrate "weighted average" $\chi_E,\chi_S,\chi_E$ using economy-wide R\&D / sales ratio, calibrate $\chi_I$ using incumbent innovation share, and finally calibrate $\kappa$ using entry / creative destruction rate (depending on preferred interpretation of the model). 
+	\item Find direct counterparts to $\chi_S / \chi_E$ and $\nu$ in the data, so that $\kappa$ can be measured as a residual using the spinout entry rate
+	\begin{itemize}
+		\item Already have direct counterpart to $\chi_S / \chi_E$, more or less: spinouts vs. entrants relative likelihood of reaching profitability, conditional on being founded. However, I need to correct this for spinouts being typically larger than entrants, since this is an efficiency parameter.
+		\item However, directly measuring $\nu$ is tricky, because I need a measure of the size of each spinout. Venture Source does not provide historical employment numbers for startups in the dataset. One solution would be to simply measure the typical employment size of startups vs. entrants using the most recent year, so that employment numbers are the founding employment numbers. Could then compare to numbers from Muendler, etc. 
+	\end{itemize}
+	\item Find direct counterpart to $\chi_s / \chi_E$, estimate $\nu$ using spinout entry rate, and estimate $\kappa$ using wages when bound by non-compete / not bound by non-compete 
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

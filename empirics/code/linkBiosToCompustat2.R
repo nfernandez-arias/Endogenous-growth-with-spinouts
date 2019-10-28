@@ -124,10 +124,16 @@ matchedDist <- matchedDist[order(-globCount,name,joinYear)]
 
 
 ### Make some ad-hoc corrections for major M&A
+## Basically AltDG tells me if something is currently a subsidiary,
+# which is helpful for understanding entire history of ownership, but 
+# really I need to go back and manually ensure that the data is correct.
+# Still, this is MUCH easier than just going with the initial list of names.
+
 
 # Still need to figure out wtf is going on with AOL / Time Warner/ Verizon / Netscape
 
-# Merill-Lynch
+
+
 
 matched[ name == "merrill lynch" & joinYear <= 2012, `:=` (gvkey = 7267, tic = "BAC2", conml = "Merrill Lynch & Co Inc", naics = 523110, state = "NY", city = "New York", cusip = "59098Z002")]
 
@@ -187,6 +193,38 @@ matched[ name == "accelops" & joinYear <= 2018, gvkey := NA]  # Private
 
 matched[ name == "airclic" & joinYear <= 2016, gvkey := NA] # Private
 
+matched[ name == "apollo group" & joinYear <= 2017, gvkey := 31122]  # Apollo Education Group before being acuqired by Apollo Group
+
+matched[ name == "arbor networks" & joinYear <= 2011, gvkey := NA] # Private
+matched[ name == "arbor networks" & joinYear > 2011 & joinYear <= 2016, gvkey := 3735]  # Owned by Danaher Corporation
+
+matched[ name == "aster data systems" & joinYear <= 2012, gvkey := NA]  #Private before acquisition
+
+matched[ name == "bleacher report" & joinYear <= 2013, gvkey := NA]  #Private before acquisition
+
+matched[ name == "business objects" & joinYear <= 2008, gvkey := NA]  #Private before acquisition
+
+matched[ name == "emptoris" & joinYear <= 2013, gvkey := NA]  #Private before acquisition
+
+matched[ name == "goldengate software" & joinYear <= 2010, gvkey := NA]  #Private before acquisition
+
+matched[ name == "hulu" & joinYear <= 2018, gvkey := NA] #private before disney
+matched[ name == "hulu" & joinYear > 2018, gvkey := 3980]  # Then disney
+
+matched[ name == "ims health" & joinYear <= 2016 , gvkey := 63800]   # IMS health before IQVIA merger
+
+matched[ name == "janrain" & joinYear <= 2019, gvkey := NA]  # Private before acquisition by Akamai
+
+matched[ name == "livingsocial" & joinYear <= 2017, gkvey := NA]  # Private before acquisition by Groupon
+
+matched[ ]  
+
+
+
+
+
+
+
 matched[ , count := NULL]
 matched[ , globCount := NULL]
 
@@ -198,9 +236,9 @@ parentsSpinouts <- matched[EntitiesPrevEmployers]
 
 parentsSpinouts <- parentsSpinouts[!is.na(gvkey)]
 
-#temp <- parentsSpinouts[globCount >= 10]
+temp <- parentsSpinouts[globCount >= 8]
 
-temp <- parentsSpinouts
+#temp <- parentsSpinouts
 
 fwrite(temp,"data/parentsSpinouts.csv")
 

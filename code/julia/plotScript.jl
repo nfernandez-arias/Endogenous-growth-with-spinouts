@@ -54,7 +54,7 @@ png("figures/plotsGR/innovation_rates_m")
 if modelPar.CNC == true
     plot(t,[τI[:] τS[:] τE[:] τ[:]], layout = (1), xlims = (0,35), xlabel = "Years since last innovation", ylabel = "Yearly hazard rate of innovation", title = "Noncompetes", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
 else
-    plot(t,[τI[:] τS[:] τE[:] τ[:]], layout = (1), xlims = (0,35), xlabel = "Years since last innovation", ylabel = "Yearly hazard rate of innovation", title = "Baseline", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
+    plot(t,[τI[:] τS[:] τE[:] τ[:]], layout = (1), xlims = (0,35), xlabel = "Years since last innovation", ylabel = "Yearly hazard rate of innovation", title = "Innovation hazard rates", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
 end
 png("figures/plotsGR/innovation_rates_t")
 
@@ -158,7 +158,7 @@ png("figures/plotsGR/mu_vs_t_plots.png")
 # i.e. plot w(m), V'(m) and w(m) - V'(m)
 #-----------------------------------------#
 
-p = plot(mGrid, [(1-θ) * ν*V1prime (1-θ) * ν*(1-ζ) * (1-κ) * W (1-θ) * ν*(V1prime .+ (1-ζ) * (1-κ) *W)], label = ["Firm" "R&D employee" "Net"], title = "Flow value of knowledge transfer", xlabel = "Mass of spinouts", ylabel = "Value", legend = :bottomright)
+p = plot(mGrid, [(1-θ) * ν*V1prime (1-θ) * ν*(1-ζ) *  W (1-θ) * ν*(V1prime .+ (1-ζ) *W)], label = ["Firm" "R&D employee" "Net"], title = "Flow value of knowledge transfer", xlabel = "Mass of spinouts", ylabel = "Value", legend = :bottomright)
 png("figures/plotsGR/effectiveRDWage_vs_m.png")
 
 #-----------------------------------------#
@@ -166,7 +166,7 @@ png("figures/plotsGR/effectiveRDWage_vs_m.png")
 # i.e. plot w(m), V'(m) and w(m) - V'(m)
 #-----------------------------------------#
 
-p = plot(t, [(1-θ) * ν*V1prime (1-θ) * ν*(1-ζ) * (1-κ) * W (1-θ) * ν*(V1prime .+ (1-ζ) * (1-κ) *W)], label = ["Firm" "R&D employee" "Net"], title = "Flow value of knowledge transfer", xlabel = "Years since last innovation", ylabel = "Value", legend = :bottomright)
+p = plot(t, [(1-θ) * ν*V1prime (1-θ) * ν*(1-ζ) *  W (1-θ) * ν*(V1prime .+ (1-ζ) *W)], label = ["Firm" "Employee" "Net"], title = "Knowledge spillover", xlabel = "Years since last innovation", ylabel = "Value", legend = :bottomright)
 png("figures/plotsGR/effectiveRDWage_vs_t.png")
 
 #-----------------------------------------#

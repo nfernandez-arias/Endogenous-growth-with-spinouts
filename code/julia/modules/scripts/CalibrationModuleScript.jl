@@ -18,12 +18,12 @@ end
 
 struct CalibrationParameters
 
-    #RDintensity::CalibrationTarget
+    RDintensity::CalibrationTarget
     InternalPatentShare::CalibrationTarget
     SpinoutEntryRate::CalibrationTarget
     SpinoutShare::CalibrationTarget
     g::CalibrationTarget
-    #RDLaborAllocation::CalibrationTarget
+    RDLaborAllocation::CalibrationTarget
     #WageRatio::CalibrationTarget
     #WageRatioIncumbents::CalibrationTarget
     #SpinoutsNCShare::CalibrationTarget
@@ -32,12 +32,12 @@ end
 
 mutable struct ModelMoments
 
-    #RDintensity::Float64
+    RDintensity::Float64
     InternalPatentShare::Float64
     SpinoutEntryRate::Float64
     SpinoutShare::Float64
     g::Float64
-    #RDLaborAllocation::Float64
+    RDLaborAllocation::Float64
     #WageRatio::Float64
     #WageRatioIncumbents::Float64
     #SpinoutsNCShare::Float64
@@ -186,7 +186,7 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
     aggregateRDSpending = aggregateRDSpendingByIncumbents + aggregateRDSpendingBySpinouts + aggregateRDSpendingByEntrants
 
-    RDintensity = aggregateRDSpendingByIncumbents / aggregateSales
+    RDintensity = aggregateRDSpending / aggregateSales
 
     # Average wage of RD employee / average wage of production employee (of same human capital)
     WageRatio = (aggregateRDSpending / L_RD)  / wbar
@@ -203,12 +203,12 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
     modelMoments = ModelMoments()
 
-    #modelMoments.RDintensity  = RDintensity
+    modelMoments.RDintensity  = RDintensity
     modelMoments.InternalPatentShare = internalPatentShare
     modelMoments.SpinoutEntryRate = allSpinoutsEntry
     modelMoments.SpinoutShare = spinoutShare
     modelMoments.g = g
-    #modelMoments.RDLaborAllocation = L_RD
+    modelMoments.RDLaborAllocation = L_RD
     #modelMoments.WageRatio = WageRatio
     #modelMoments.WageRatioIncumbents = WageRatioIncumbents
     #modelMoments.SpinoutsNCShare = SpinoutsNCShare
@@ -248,14 +248,14 @@ function computeScore(algoPar::AlgorithmParameters,modelPar::ModelParameters,gue
     #--------------------------------#
 
     #modelMomentsVec = zeros(length(fieldnames(typeof(modelMoments))),1)
-    modelMomentsVec = zeros(4,1)
+    modelMomentsVec = zeros(6,1)
 
-    #modelMomentsVec[1] = modelMoments.RDintensity
-    modelMomentsVec[1] = modelMoments.InternalPatentShare
-    modelMomentsVec[2] = modelMoments.SpinoutEntryRate
-    modelMomentsVec[3] = modelMoments.SpinoutShare
-    modelMomentsVec[4] = modelMoments.g
-    #modelMomentsVec[6] = modelMoments.RDLaborAllocation
+    modelMomentsVec[1] = modelMoments.RDintensity
+    modelMomentsVec[2] = modelMoments.InternalPatentShare
+    modelMomentsVec[3] = modelMoments.SpinoutEntryRate
+    modelMomentsVec[4] = modelMoments.SpinoutShare
+    modelMomentsVec[5] = modelMoments.g
+    modelMomentsVec[6] = modelMoments.RDLaborAllocation
     #modelMomentsVec[7] = modelMoments.WageRatio
     #modelMomentsVec[8] = modelMoments.WageRatioIncumbents
     #modelMomentsVec[5] = modelMoments.SpinoutsNCShare
@@ -308,7 +308,7 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
         modelPar.λ = x[3]
         modelPar.ν = x[4]
         #modelPar.ζ = x[5]
-        #modelPar.κ = x[5]
+        modelPar.κ = x[5]
         #modelPar.θ = x[6]
 
         if modelPar.CNC == true
@@ -352,11 +352,12 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
     initial_x = [ modelPar.χI,
                   modelPar.χE/modelPar.χI,
                   modelPar.λ,
-                  modelPar.ν
+                  modelPar.ν,
+                  modelPar.κ
                   ]
 
-    lower = [1, 0.02, 1.005, 0.005]
-    upper = [8, 0.9, 1.12, 0.05]
+    lower = [1, 0.02, 1.005, 0.05, 0]
+    upper = [8, 0.9, 1.12, 2, 0.95]
 
     #inner_optimizer = GradientDescent()
     inner_optimizer = LBFGS()
@@ -373,9 +374,10 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
 
     modelPar.χI = x[1]
     modelPar.χE = x[2] * x[1]
-    modelPar.χS = (11.4 / 8.7) * modelPar.χE
+    modelPar.χS = 1.25 * modelPar.χE
     modelPar.λ = x[3]
     modelPar.ν = x[4]
+    modelPar.κ = x[5]
 
     modelSolution,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,guess)
 

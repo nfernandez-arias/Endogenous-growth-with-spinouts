@@ -96,7 +96,7 @@ ggplot(data = data, aes(x = xrd_d, y = spinoutCount_d)) +
 
 ggsave("../figures/scatterPlot_RD-Spinouts-1yr-allFE.png", plot = last_plot())
 
-ggplot(data = data, aes(x = xrd_d, y = spinoutCountUnweighted_d)) + 
+    ggplot(data = data, aes(x = xrd_d, y = spinoutCountUnweighted_d)) + 
   geom_point(size = 0.1) +
   geom_smooth(method = "lm", se = TRUE, size = 0.6) + 
   theme(text = element_text(size=16)) + 

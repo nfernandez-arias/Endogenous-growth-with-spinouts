@@ -1,0 +1,39 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
+            &\multicolumn{1}{c}{Counts}&\multicolumn{1}{c}{Founder counts}&\multicolumn{1}{c}{Valuation}\\
+\hline
+xrd         &       1.277\sym{**} &       1.773\sym{**} &       37.05         \\
+            &     (0.420)         &     (0.552)         &     (35.79)         \\
+[1em]
+std\_tobin\_q\_assets&       0.348\sym{**} &       0.391\sym{*}  &      -3.038         \\
+            &     (0.132)         &     (0.183)         &     (7.236)         \\
+[1em]
+std\_at      &      -0.111         &      -0.179         &       19.43\sym{*}  \\
+            &     (0.114)         &     (0.158)         &     (8.774)         \\
+[1em]
+std\_emp     &     0.00665         &     0.00314         &      -11.11         \\
+            &    (0.0758)         &     (0.109)         &     (8.687)         \\
+[1em]
+std\_patentcount\_cw\_cumulative&       0.156         &       0.369\sym{*}  &       0.458         \\
+            &     (0.133)         &     (0.155)         &     (12.42)         \\
+[1em]
+Parent Firm FE&         Yes         &         Yes         &         Yes         \\
+[1em]
+Parent Firm Age FE&         Yes         &         Yes         &         Yes         \\
+[1em]
+NAICS4-Year FE&         Yes         &         Yes         &         Yes         \\
+[1em]
+State-Year FE&         Yes         &         Yes         &         Yes         \\
+\hline
+clustvar    &       gvkey         &       gvkey         &       gvkey         \\
+r2\_a        &       0.783         &       0.773         &       0.602         \\
+r2\_a\_within &       0.162         &       0.158         &      0.0168         \\
+N           &       31883         &       31883         &       31883         \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

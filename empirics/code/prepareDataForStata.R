@@ -189,6 +189,11 @@ data[ , Spinouts_fut4 := Reduce(`+`,shift(spinoutCount,1L:4L,type = "lead")), by
 data[ , Founders_fut4 := Reduce(`+`,shift(spinoutCountUnweighted,1L:4L,type = "lead")), by = gvkey]
 data[ , SpinoutsDFFV_fut4 := Reduce(`+`,shift(spinoutsDiscountedFFValue,1L:4L,type = "lead")), by = gvkey]
 
+data[ , Spinouts_fut5 := Reduce(`+`,shift(spinoutCount,1L:5L,type = "lead")), by = gvkey]
+data[ , Founders_fut5 := Reduce(`+`,shift(spinoutCountUnweighted,1L:5L,type = "lead")), by = gvkey]
+data[ , SpinoutsDFFV_fut5 := Reduce(`+`,shift(spinoutsDiscountedFFValue,1L:5L,type = "lead")), by = gvkey]
+
+data[ , xrd_pas5 := Reduce(`+`, shift(xrd,0L:4L,type = "lag")), by = gvkey]
 
 ### 2 -year 
 data[ , spinouts_fut2 := Reduce(`+`,shift(spinoutCount,1L:2L,type = "lead")), by = gvkey]
@@ -266,7 +271,7 @@ data[ , at_ma5 := (1/5) * Reduce(`+`, shift(at,0L:4L,type="lag")), by = gvkey]
 data[ , Tobin_Q_assets := Tobin_Q * at]
           
 fwrite(data,"data/compustat-spinouts_Stata.csv")
-                                          
+                                                        
 
 
 

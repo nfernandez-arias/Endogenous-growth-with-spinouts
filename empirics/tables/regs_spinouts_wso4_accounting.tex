@@ -1,0 +1,18 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{7}{c}}
+\hline\hline
+            &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}&\multicolumn{1}{c}{(7)}\\
+            &\multicolumn{1}{c}{t+1}&\multicolumn{1}{c}{t+2}&\multicolumn{1}{c}{t+3}&\multicolumn{1}{c}{t+4}&\multicolumn{1}{c}{t+5}&\multicolumn{1}{c}{t+6}&\multicolumn{1}{c}{t+7}\\
+\hline
+R\&D$_t$         &       0.123\sym{***}&       0.148\sym{***}&      0.0957         &      0.0879\sym{*}  &       0.126\sym{**} &      0.0438         &      0.0206         \\
+            &    (0.0290)         &    (0.0362)         &    (0.0513)         &    (0.0399)         &    (0.0480)         &    (0.0733)         &    (0.0826)         \\
+\hline
+$R^2_{adj}$        &       0.324         &       0.333         &       0.331         &       0.332         &       0.367         &       0.420         &       0.463         \\
+$R^2_{adj,within}$ &      0.0818         &      0.0593         &      0.0386         &      0.0177         &      0.0273         &     0.00742         &     0.00313         \\
+N           &       42743         &       39222         &       36143         &       33347         &       30933         &       28714         &       26627         \\
+\hline\hline
+\multicolumn{8}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{8}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

@@ -30,7 +30,7 @@ fwrite(numFounders,"data/VentureSource/EntitiesNumFounders.csv")
 
 rm(entitiesPrevEmployers)
 
-f
+
 # Extract deal year - for use later
 deals[,dealYear := year(ymd(CloseDate))]
 deals[,foundingYear := year(ymd(StartDate))]
@@ -78,7 +78,7 @@ deals[ , profitable := max(profitable), by = "EntityID"]
 
 # Only consider years in my main sample, 1986 to 2007
 
-temp <- unique(deals[, .(EntityID, IndustryCodeDesc, State, foundingYear, noRevenue, genRevenue, profitable)], by = "EntityID")
+temp <- unique(deals[, .(EntityID, IndustryCodeDesc, State, foundingYear, noRevenue, genRevenue, profitable, maxExit)], by = "EntityID")
 #temp <- unique(deals[  , .(EntityID, foundingYear, noRevenue, genRevenue, profitable)], by = "EntityID")
 
 fwrite(temp,"data/VentureSource/startupOutcomes.csv")

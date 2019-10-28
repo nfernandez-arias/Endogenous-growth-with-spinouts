@@ -80,7 +80,7 @@ source("code/addNoncompeteEnforcementIndices.R")
 # Add firm-specific NC enforcement changes
 
 # Only run the first time, because it takes a while
-source("code/constructFirmSpecificNCchanges.R")
+#source("code/constructFirmSpecificNCchanges.R")
 
 source("code/mergeFirmNCchangesToMasterData.R")
 
@@ -92,7 +92,7 @@ source("code/mergeFirmNCchangesToMasterData.R")
 # Next, prepare the data for panel regressions in Stata   
 source("code/prepareDataForStata.R")
 
-  # Prepare dataset for event study to see how    
+              # Prepare dataset for event study to see how    
 # much spinout funding affects parent f irm stock price
 source("code/prepareEventStudyDataset.R")
         

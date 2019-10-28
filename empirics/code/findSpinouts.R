@@ -7,7 +7,7 @@
 # Purpose:
 #
 # This is the main script for identifying spinouts
-# of Compustat firms by name matching to employee bios 
+# of Compustat firms by name matching to employee bios deals <- fread(
 # in Venture Source.  
 #------------------------------------------------#
 

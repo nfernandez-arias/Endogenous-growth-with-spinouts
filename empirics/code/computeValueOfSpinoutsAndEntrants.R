@@ -1,4 +1,4 @@
-#
+  #
 #
 ## computeValueOfSpinoutsAndEntrants.R
 
@@ -18,6 +18,14 @@ parentsSpinouts[ , numSpinoutFounders := .N, by = "EntityID"]
 firstFundings <- fread("data/VentureSource/firstFundingEvents.csv")[ , .(EntityID,discountedFFValue,foundingYear)]
 
 EntitiesNumFounders <- fread("data/VentureSource/EntitiesNumFounders.csv")
+
+parentsSpinouts[ , wso1 := max(wso1), by = EntityID]
+parentsSpinouts[ , wso2 := max(wso2), by = EntityID]
+parentsSpinouts[ , wso3 := max(wso3), by = EntityID]
+parentsSpinouts[ , wso4 := max(wso4), by = EntityID]
+parentsSpinouts[ , wso5 := max(wso5), by = EntityID]
+parentsSpinouts[ , wso6 := max(wso6), by = EntityID]
+
 
 # Only take one record pe r EntityID - just need to be able to flag that
 # it is a spinout in the later calculations
@@ -134,7 +142,7 @@ allCounts_ratio_wso1_weighted <- spinoutCounts[ foundingYear >= 1986 & foundingY
 allCounts_ratio_wso1_unweighted <- spinoutCounts_unweighted[ foundingYear >= 1986 & foundingYear <= 2008, sum(na.omit(wso1)) / sum(na.omit(nonspinout))]
 
 allFounders_ratio <- founderCounts[ , sum(na.omit(wso1 + nonwso)) / sum(na.omit(nonspinout))]
-
+  
 allDFFV_ratio <- dffv[ , sum(na.omit(wso1 + nonwso)) / sum(na.omit(nonspinout))]
 allDFFV_ratio_unweighted <- dffv_unweighted[ , sum(na.omit(wso1 + nonwso)) / sum(na.omit(nonspinout))]
 
@@ -156,7 +164,7 @@ my_palette <- brewer.pal(name="Blues",n=8)[4:9]
 
 ggplot(data = spinoutCounts_unweighted[ variable == "nonspinout" | variable == "wso4" | variable == "nonwso4"], aes(x = foundingYear, y = value, fill = variable)) + 
   geom_area(position = "stack") +
-  scale_fill_manual(values = my_palette) + 
+  #scale_fill_manual(values = my_palette) + 
   theme(text = element_text(size=16)) +
   #theme(legend.position = "none") +
   ggtitle("Firm counts") +
@@ -198,10 +206,6 @@ ggplot(data = spinoutCounts[ variable == "nonspinout" | variable == "wso4" | var
 ggsave("../figures/spinouts_entrants_weightedcounts.png", plot = last_plot())
 
 
-
-
-  
-
 ggplot(data = dffv[variable == "nonspinout" | variable == "wso4" | variable == "nonwso4"], aes(x = foundingYear, y = value, fill = variable)) + 
   geom_area(position = "stack") +
   scale_fill_manual(values = my_palette) + 
@@ -219,7 +223,7 @@ ggsave("../figures/spinouts_entrants_DFFV.png", plot = last_plot())
 # Compute ratio of spinouts to non-spinouts in sample
 
 spinoutsNonSpinoutsRatio <- year_spinoutsEntrantsCounts[foundingYear >= 1986 & foundingYear <= 2008][ , sum(Spinout) / sum(nonSpinout)]
-                spinoutsNonSpinoutDFFVsRatio <- year_spinoutsEntrantsFFValue[foundingYear >= 1986 & foundingYear <= 2008][ , sum(Spinout) / sum(nonSpinout)]
+spinoutsNonSpinoutDFFVsRatio <- year_spinoutsEntrantsFFValue[foundingYear >= 1986 & foundingYear <= 2008][ , sum(Spinout) / sum(nonSpinout)]
 
 setkey(year_spinoutsEntrantsCounts,foundingYear)
 setkey(year_spinoutsEntrantsFFValue,foundingYear)
@@ -291,12 +295,15 @@ dffv_unweighted[ , value := value / cpiInflation]
 
 # For now hard coded from OLS regression results
 
-xrdGeneratedSpinouts[ , spinoutsGenerated := 0.000687 * xrd]
-xrdGeneratedSpinouts[ , spinoutsGenerated_low := (0.000687 + 0.000243) * xrd]
-xrdGeneratedSpinouts[ , spinoutsGenerated_high := (0.000687 - 0.000243) * xrd]
-xrdGeneratedSpinouts[ , foundersGenerated := 0.001061 * xrd]
-xrdGeneratedSpinouts[ , foundersGenerated_low := (0.001061 + 0.000384) * xrd]
-xrdGeneratedSpinouts[ , foundersGenerated_high := (0.001061 - 0.000384) * xrd]
+xrdGeneratedSpinouts[ , spinoutsGenerated := 0.000302 * xrd]
+xrdGeneratedSpinouts[ , spinoutsGenerated_low := (0.000302 + 0.000099) * xrd]
+xrdGeneratedSpinouts[ , spinoutsGenerated_high := (0.000302 - 0.000099) * xrd] 
+xrdGeneratedSpinouts[ , spinoutwsosGenerated := 0.000123 * xrd]
+xrdGeneratedSpinouts[ , spinoutwsosGenerated_low := (0.000123 + 0.000029) * xrd]
+xrdGeneratedSpinouts[ , spinoutwsosGenerated_high := (0.000123 - 0.000029) * xrd] 
+#xrdGeneratedSpinouts[ , foundersGenerated := 0.001061 * xrd]
+#xrdGeneratedSpinouts[ , foundersGenerated_low := (0.001061 + 0.000384) * xrd]
+#xrdGeneratedSpinouts[ , foundersGenerated_high := (0.001061 - 0.000384) * xrd]
 
 setkey(xrdGeneratedSpinouts,Year)
 
@@ -312,7 +319,8 @@ setkey(spinoutCounts_unweighted,foundingYear)
 setkey(founderCounts,foundingYear)
 
 countsComparison <- xrdGeneratedSpinouts[spinoutCounts_unweighted][ , .(Year,spinoutsGenerated,spinoutsGenerated_low,spinoutsGenerated_high,allspinout)]
-foundersComparison <- xrdGeneratedSpinouts[founderCounts][ , .(Year,foundersGenerated,foundersGenerated_low,foundersGenerated_high,allspinout)]
+countsWSOComparison <- xrdGeneratedSpinouts[spinoutCounts_unweighted][ , .(Year,spinoutwsosGenerated,spinoutwsosGenerated_low,spinoutwsosGenerated_high,wso4)]
+#foundersComparison <- xrdGeneratedSpinouts[founderCounts][ , .(Year,foundersGenerated,foundersGenerated_low,foundersGenerated_high,allspinout)]
 
 ## Compute statistics for calibration
 
@@ -323,9 +331,11 @@ rd_ratioAverageFounders <- foundersComparison[ Year >= 1986 & Year <= 2008, sum(
 # Reshape wide to long for plotting with ggplot
 
 countsComparison <- melt(countsComparison, id.vars = "Year", measure.vars = c("spinoutsGenerated","spinoutsGenerated_low","spinoutsGenerated_high","allspinout"))
+countsWSOComparison <- melt(countsWSOComparison, id.vars = "Year", measure.vars = c("spinoutwsosGenerated","spinoutwsosGenerated_low","spinoutwsosGenerated_high","wso4"))
 foundersComparison <- melt(foundersComparison, id.vars = "Year", measure.vars = c("foundersGenerated","foundersGenerated_low","foundersGenerated_high","allspinout"))
 
-s## Make plotss
+
+## Make plotss
 
 my_palette2 <- brewer.pal(name="Blues",n=8)[4:9]
 
@@ -354,10 +364,23 @@ ggplot(data = countsComparison, aes(x = Year, y = value, group = variable, color
   xlab("Year")
 
 ggsave("../figures/countsComparison.png", plot = last_plot())
+
+ggplot(data = countsWSOComparison, aes(x = Year, y = value, group = variable, color = variable)) + 
+  geom_line(size = 2) +
+  scale_color_manual(values = my_palette2) +
+  theme(text = element_text(size=14)) +
+  #theme(legend.position = "none") +
+  ggtitle("Number of WSOs (actual vs. regression prediction)") +
+  #ggtitle("Unadjusted") + 
+  xlim(1986,2009) + 
+  ylab("# of Spinouts") +
+  xlab("Year")
+
+ggsave("../figures/countsWSOComparison.png", plot = last_plot())
   
   
   
-  ### Compute relative outcomes of spinouts and entrants
+    ### Compute relative outcomes of spinouts and entrants
 
 # Load weighted histogram function from Weights package
   
@@ -369,7 +392,9 @@ wtd.hist <- weights::wtd.hist
 StartupStats <- fread("data/VentureSource/startupOutcomes.csv")
 setnames(StartupStats,"State","startupState")
 
-parentsSpinouts <- fread("data/parentsSpinouts.csv")[,.(gvkey,state,EntityID)]
+parentsSpinouts <- fread("data/parentsSpinoutsWSO.csv")[,.(gvkey,state,EntityID,wso4)]
+
+parentsSpinouts[ , wso4 := max(wso4), by = EntityID]
 
 # Construct flag for spinouts
 parentsSpinouts[ , isSpinout := 1]
@@ -388,16 +413,21 @@ setkey(startupCounts,IndustryCodeDesc)
 
 ## Compute fraction of spinouts and non-spinouts that go from non-revenue generating to revenue generating
 
+startupToRevenue_all <- StartupStats[ , sum(genRevenue) / .N , by = .(isSpinout,wso4,noRevenue)][ noRevenue == 1]
+startupToProfitable_all <- StartupStats[ , sum(profitable) / .N , by = .(isSpinout,wso4,noRevenue)][ noRevenue == 1]
+startupToExit_all <- StartupStats[ , sum(maxExit) / .N , by = .(isSpinout,wso4,noRevenue)][ noRevenue == 1]
+revenueToProfitable_all <- StartupStats[ , sum(profitable) / .N , by = .(isSpinout,wso4,genRevenue)][ genRevenue == 1]
+
 startupToRevenue <- StartupStats[ , sum(genRevenue) / .N , by = .(IndustryCodeDesc,isSpinout,noRevenue)][ noRevenue == 1][order(IndustryCodeDesc,isSpinout)]
+#startupToRevenue <- StartupStats[ , sum(genRevenue) / .N , by = .(isSpinout,noRevenue)][ noRevenue == 1][order(isSpinout)]
 startupToRevenue[ isSpinout == 1, type := "spinout"]
 startupToRevenue[ isSpinout == 0, type := "nonSpinout"]
 startupToRevenueRatios <- dcast(startupToRevenue, IndustryCodeDesc ~ type, value.var = "V1")
-startupToRevenueRatios[ , ratio := spinout / nonSpinout]
+startupToRevenueRatios[ , ratio := spinout / nonSpinout] 
 setkey(startupToRevenueRatios,IndustryCodeDesc)
 startupToRevenueRatios <- startupCounts[startupToRevenueRatios]
 wtd.hist(startupToRevenueRatios$ratio , breaks = 100,weight = startupToRevenueRatios$N, xlim = c(0,3))
 
-startupToRevenue_all <- StartupStats[ , sum(genRevenue) / .N , by = .(isSpinout,noRevenue)][ noRevenue == 1]
 
   
 startupToProfitable <- StartupStats[ , sum(profitable) / .N , by = .(IndustryCodeDesc,isSpinout,noRevenue)][ noRevenue == 1][order(IndustryCodeDesc,isSpinout)]
@@ -409,7 +439,9 @@ setkey(startupToProfitableRatios,IndustryCodeDesc)
 startupToProfitableRatios <- startupCounts[startupToProfitableRatios]
 wtd.hist(startupToProfitableRatios$ratio , breaks = 100, weight = startupToProfitableRatios$N , xlim = c(0,5))
 
-startupToProfitable_all <- StartupStats[ , sum(profitable) / .N , by = .(isSpinout,noRevenue)][ noRevenue == 1]
+
+
+
 
 revenueToProfitable <- StartupStats[ , sum(profitable) / .N, by = .(IndustryCodeDesc,isSpinout,genRevenue)][ genRevenue == 1][order(IndustryCodeDesc,isSpinout)]
 revenueToProfitable[ isSpinout == 1, type := "spinout"]
@@ -419,6 +451,7 @@ revenueToProfitableRatios[ , ratio := spinout / nonSpinout]
 setkey(revenueToProfitableRatios,IndustryCodeDesc)
 revenueToProfitableRatios <- startupCounts[revenueToProfitableRatios]
 wtd.hist(revenueToProfitableRatios$ratio , breaks = 100, weight = revenueToProfitableRatios$N, xlim = c(0,5))
+
 
 
 allToProfitable <- StartupStats[ , sum(profitable) / .N, by = .(IndustryCodeDesc,isSpinout)]
@@ -450,8 +483,9 @@ wtd.hist(allToProfitableRatios$ratio , breaks = 100, weight = allToProfitableRat
 
 
 
+
 bdsData <- fread("raw/bds/bds_f_age_release.csv")
-yearStartupsFirms <- bdsData[ , .( allFirms = sum(Firms), startups = Firms[fage4 == "a) 0"]), by = year2]
+yearStartupsFirms <- bdsData[ , .( allFirms = sum(Firms), startups = Firms[fage4 == ") 0"]), by = year2]
 
 yearStartupsFirms[ , entryRate := startups / allFirms]
 

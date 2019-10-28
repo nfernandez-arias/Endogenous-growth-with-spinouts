@@ -24,15 +24,6 @@ Yves Achdou, Jiequn Han, Jean-Michel Lasry, Pierre-Louis Lions, and Benjamin
   Cambridge, MA, August 2017.
 \newblock URL \url{http://www.nber.org/papers/w23732.pdf}.
 
-\bibitem[Adao et~al.(2019)Adao, Kolesár, and Morales]{adao_shift-share_2019}
-Rodrigo Adao, Michal Kolesár, and Eduardo Morales.
-\newblock Shift-{Share} {Designs}: {Theory} and {Inference}.
-\newblock \emph{The Quarterly Journal of Economics}, 134\penalty0 (4):\penalty0
-  1949--2010, November 2019.
-\newblock ISSN 0033-5533.
-\newblock \doi{10.1093/qje/qjz025}.
-\newblock URL \url{https://academic.oup.com/qje/article/134/4/1949/5552146}.
-
 \bibitem[Aghion and Howitt(1992)]{aghion_model_1992}
 Philippe Aghion and Peter Howitt.
 \newblock A {Model} of {Growth} {Through} {Creative} {Destruction}.
@@ -335,6 +326,14 @@ Liyan Shi.
 \newblock Restrictions on {Executive} {Mobility} and {Reallocation}: {The}
   {Aggregate} {Effect} of {Non}-{Competition} {Contracts}.
 \newblock \emph{Working Paper}, January 2018.
+
+\bibitem[Starr(2018)]{starr_consider_2018}
+Evan Starr.
+\newblock Consider {This}: {Training}, {Wages}, and the {Enforceability} of
+  {Covenants} {Not} to {Compete}.
+\newblock {SSRN} {Scholarly} {Paper} ID 2556669, Social Science Research
+  Network, Rochester, NY, May 2018.
+\newblock URL \url{https://papers.ssrn.com/abstract=2556669}.
 
 \bibitem[Starr et~al.(2019)Starr, Prescott, and
   Bishara]{starr_noncompetes_2019}
