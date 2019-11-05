@@ -21,6 +21,7 @@
 *cbp16co.txt
 *.html
 *.gif
+*.dat
 manta_crawler/
 empirics/code/company_list*.txt
 
