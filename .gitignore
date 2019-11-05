@@ -22,6 +22,9 @@
 *.html
 *.gif
 *.dat
+*.RDataTmp
+*.jld
+*.jld2
 manta_crawler/
 empirics/code/company_list*.txt
 
