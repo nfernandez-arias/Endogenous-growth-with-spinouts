@@ -178,11 +178,15 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
     aggregateSales = finalGoodsLabor
 
+    aggregateOutput = (((1-β) * wbar^(-1) )^(1-β))/(1-β) * finalGoodsLabor
+
     aggregateRDSpendingByIncumbents = sum(((1 .- noncompete) .* w + noncompete .* wNC).* zI .* γ .* μ .* Δm)
     aggregateRDSpendingBySpinouts = sum(wageSpinouts .* zS .* γ .* μ .* Δm)
     aggregateRDSpendingByEntrants = sum(wageEntrants .* zE .* γ .* μ .* Δm)
 
     aggregateRDLaborByIncumbents = sum( zI .* γ .* μ .* Δm)
+
+
 
     aggregateRDSpending = aggregateRDSpendingByIncumbents + aggregateRDSpendingBySpinouts + aggregateRDSpendingByEntrants
 

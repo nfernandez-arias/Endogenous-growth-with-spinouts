@@ -1,4 +1,4 @@
-\documentclass[11pt,english]{article}
+\documentclass[12pt,english]{article}
 \usepackage{lmodern}
 \linespread{1.05}
 %\usepackage{mathpazo}
@@ -306,17 +306,53 @@ where $\chi_I > 0$ governs the overall productivity of internal incumbent R\&D a
 
 \subsubsection{External innovation by incumbents}
 
-A firm $f$ with $n_f$ products and average quality $\bar{q}_f = \frac{1}{n_f}\sum_{j \in \mathcal{J}_f} q_{j}$ can hire $\frac{Q}{\bar{q}_f} z_I^{ext}$ units of R\&D labor in exchange for a Poisson arrival rate of innovating on a random good $j'$ of 
+\paragraph{Problem with external innovation}
+
+In order for the value of incumbency to scale linearly with $q$, I need to make the value of external innovation scale with $q$. But then internal innovation increases the value of external innovation, so the value function is not separable. I can't break it down into the value of each individual line anymore. 
+
+My hope would be that I would have something like this 
+\begin{align*}
+	V(\{q_i\},\{m_i\}) = \sum_i q_i V(m_i)
+\end{align*}
+
+but I can't derive an equation for $V(m)$ because the optimization of external innovation is affected by $q_i$ for each $i$, so it has to be solved together. I can't separate terms by $q_i$ and solve an equation for each $q_i$, because $y$ changing for each $q_i$, so I don't have an equation like that. 
+
+Maybe it's possible to show by induction that it would have this form. And for one product, I immediately get the equation don't I? 
+
+Then for two products, the question is whether the value is equal to the sum of the values of the two products. Given that the optimal policy is to choose a constant $y/n$ and $z_I$, and that the per-product productivity of external research overall is proportional to the mean of their qualities.
+
+
+
+\paragraph{Setup}
+
+A firm with $n$ products and average quality $\bar{q} = \frac{1}{n}\sum_{j \in \mathcal{J}} q_{j}$ can hire $\frac{\bar{q}}{Q} z_I^{ext}$ units of R\&D labor in exchange for a Poisson arrival rate of innovating on a random good $j'$ of 
 \begin{align}
-	\tau_I^{ext} &= G(z_I^{ext},n_f)
+	\tau_I^{ext} &= G(z_I^{ext},n,\frac{\bar{q}}{Q})
 \end{align}
 
-where, as in \cite{klette_innovating_2004}, $G$ is (i) strictly increasing in $z_I^{ext}$, (ii) strictly concave in $z_I^{ext}$, (ii) strictly increasing in $n_f$, and (iv) homogeneous of degree one in $z_I^{ext}$ and $n_f$. In the quantitative analysis, I use the convenient form
+where, as in \cite{klette_innovating_2004}, $G$ is (i) strictly increasing in $z_I^{ext}$, (ii) strictly concave in $z_I^{ext}$, (ii) strictly increasing in $n_f$, and (iv) homogeneous of degree one in $z_I^{ext}$ and $n_f$. In contrast with \cite{klette_innovating_2004}, there is an additional \textit{linear} dependence on $\frac{\bar{q}}{Q}$ so that the value of incumbency in a product line \textit{including the added franchise value of external innovation} is linear in the quality of that product line. In the quantitative analysis, I use the functional form 
 \begin{align}
-	G(z_I^{ext},n_f) &= \chi_I^{ext} z_I^{1-\psi_I^{ext}} n_f^{\psi_I^{ext}} 
+	G(z_I^{ext},n,\frac{\bar{q}}{Q}) &= \frac{\bar{q}}{Q} \chi_I^{ext} z_I^{1-\psi_I^{ext}} n^{\psi_I^{ext}} 
 \end{align}
 
-As with internal innovation, $\chi_I^{ext} > 0$ is a productivity parameter and $\psi_I^{ext} \in (0,1)$ measures the degree of decreasing returns. Finally, $n_f$ is raised to the exponent $\psi_I^{ext}$ so that $G(\cdot,\cdot)$ is homogeneous of degree 1. This is important in order to ensure that the firm's optimization problem can be separated into optimization over each product. This reduces the dimensionality of the problem and obviates the need to compute the firm-size distribution while solving the model, as it does not affect decisions or allocations.\footnote{While this implies the counterfactual Gibrat's law of constant firm growth as size increases (see \cite{akcigit_growth_2018}), the additional innovative technology directed at creative destruction generates a strong incentive for incumbent R\&D. Without it, the "business stealing" effect prevents incumbents from spending a significant amount on R\&D. While the model can match incumbents' contribution to growth, it only does so by assuming an extremely high incumbent R\&D efficiency. Entrants are inferred to spend the majority of aggregate expenditures on R\&D. In reality, more than 60\% of R\&D spending is by publicly listed firms, and new firms apply for only 10\% of patents each year. In other words, the model would miss entrant R\&D expenditures badly. Because separating $\kappa$ (the cost of creative destruction) from $\chi_E$ (the efficiency of R\&D) requires a measure of entrants' R\&D efficiency (for example, R\&D spending to entry rate ratio), it is important for the model to be capable of producing a realistic number for this quantity. Otherwise, it is nonsensical to use the moment for calibration.}
+As with internal innovation, $\chi_I^{ext} > 0$ is a productivity parameter and $\psi_I^{ext} \in (0,1)$ measures the degree of decreasing returns. Finally, $n$ is raised to the exponent $\psi_I^{ext}$, ensuring first-degree homogeneity of $G$, which in turn implies that external innovation effort per line $y/n$ is constant in $n$. This reduces the dimensionality of the problem and obviates the need to compute the firm-size distribution while solving the model, as it does not affect decisions or allocations. Still, the assumption that innovative output per effective unit scales linearly in $\frac{\bar{q}}{Q}$ does imply that firms with relatively high $\frac{\bar{q}}{Q}$ will tend to accumulate more products more quickly. These firms also tend to be larger: per-product employment, sales and profit scales linearly with $\frac{\bar{q}}{Q}$ and, as described before, high-$\frac{\bar{q}}{Q}$ firms accumulate products relatively quickly. Hence, the model implies that large firms grow faster than small firms, which is at odds with the data; in particular, it directly contradicts the motivating departure from Gibrat's law cited in \cite{akcigit_growth_2018}. 
+
+On balance, this assumption is the appropriate one for this setting. It is natural to suppose that firms with more frontier technology should be capable of innovating more effectively in other areas. The mere fact that, on its own, this generates counterfactual growth dynamics for firms, does not compel one to reject such a reasonable hypothesis if it helps the model match other features of the data, because there are many other (unmodeled) forces potentially slowing the growth of large firms (e.g., human death).  Moreover, the firm-size distribution does not affect aggregation. As discussed above, the homogeneity assumption on $G(\cdot,\cdot,\frac{\bar{q}}{Q})$ ensures that for a given firm, the per-product effective R\&D allocation is constant, and the per-product rate of external innovation depends linearly on $\frac{\bar{q}}{Q}$. This means that the per-product rate of external innovation for products in state $m$ is linear in $\gamma(m)$ and thus the aggregate growth rate can still be computed without the firm-size distribution: 
+\begin{align*}
+	g &= (\lambda -1) \int_0^{\infty} \tau(m) \gamma(m) \mu(m) dm \\
+	\tau(m) &= \tau^{int} (m) + \tau^{ext} \\
+	\tau^{ext} &= \int_0^{\infty} z_I^{ext} (m) \gamma(m) \mu(m) dm
+\end{align*}
+
+where the last equation is the result of computing the rate of external innovation by aggregating from product state ($m$) level rather than firm-level variables (which would require tracking the non-stationary firm-size distribution). R\&D labor demand can also be computed in an analogous way,
+\begin{align*}
+	L_{RD} &= \int_0^{\infty} \Big( z_I^{int}(m) + z_{SE}(m) + z_I^{ext}(m) \Big) \gamma(m) \mu(m) dm
+\end{align*}
+
+On balance, I believe that the model's counterfactual implications for firm lifecycles are as much of a problem as the firm's counterfactual implications for the human life-cycle: i.e., infinitely lived agents imply pretty unrealistic dynamics for individual wealth accumulation, but this is not a problem for the model. 
+
+A bigger issue is an asymmetry that appears necessary for tractability. I assumed previously that high quality firms do not spawn non-WSOs at a faster rate per unit of R\&D labor. This is somewhat inconsistent with the assumption above that higher-quality firms are more efficient at external R\&D. However, this asymmetry is necessary in order that the value of knowledge gained at a firm does not depend on the quality of its product, which is essential for the tractability of the model. Without this, the cost of R\&D would be lower for more productive firms, destroying any hope of eliminating a state variable. This is the cost of including the state variable $m$. The only alternatives are (1) to write a model with two state variables, or (2) to get rid of the state variable $m$, and instead write a model with a stationary $\frac{q}{Q_t}$-distribution. Food for thought.
+
 
 \subsection{Entry} 
 
@@ -433,13 +469,11 @@ and substituting (\ref{intermediate_goods_labor}) into the labor resource constr
 
 The value of $L_{RD}$ is determined by the R\&D side of the model, described below.
 
-\subsubsection{Individual dynamic optimization}
+\subsubsection{Dynamic optimization}
 
-The state variable of a product $j$ is $(q,m,t)$, where $q$ is the currently available highest quality, $m$ is the mass of spinouts capable of attempting entry and $t$ allows dependence on the aggregate distribution $d\mu(q,m,t)$ of lines in $(q,m)$-space at time $t$, such as average quality $Q = \int_{q,m} q  \cdot d\mu(q,m,t)$. 
+The state variable of a product $j$ is $(q,m,t)$, where $q$ is the currently available highest quality, $m$ is the mass of spinouts capable of attempting entry and $t$ allows dependence on the aggregate distribution $d\mu(q,m,t)$ of lines in $(q,m)$-space at time $t$, such as average quality $Q = \int_{q,m} q  \cdot d\mu(q,m,t)$. Let $W(q,m,t)$ denote value per spinout idea in state $(q,m)$ at time $t$. 
 
-Let $V(q,m,t)$ denotes the value of one product in state $(q,m,t)$. Because the technology for external innovation (described below) improves in efficiency as the product portfolio grows, $V$ includes the contribution to this technology from  let $W(q,m,t)$ denote the density of value per spinout idea. That is, the value of all spinout ideas in a line in state $(q,m,t)$ is $\int_0^m W(q,m',t) dm'$. 
-
-Next, notice that, in equilibrium, the wage paid to R\&D workers in principle can depend on the individual state of the product, as this affects the value of the spinouts ideas generated by the R\&D worker. Let $w^{NCA}(q,m,t),w(q,m,t)$ denote the equilibrium wages required by R\&D employees bound (not bound) by an NCA at a firm of quality $q$ with mass $m$ of spinouts at time $t$.
+The equilibrium wage paid to R\&D workers not bound by non-competes will depend on the individual state of the product, as this affects the value of the spinouts ideas generated by the R\&D worker. Let $w^{NCA}(q,m,t),w(q,m,t)$ denote the equilibrium wages required by R\&D employees bound (not bound) by an NCA.
 
 \paragraph{Households}
 
@@ -471,31 +505,92 @@ and when $x(q,m,t) = 0$,
 
 \paragraph{Incumbents}
 
-At each time $t$, each product line $j$ is associated with a firm $f$. Let $\mathcal{J}_f$ denote the set of $f$'s products and let $n_f$ denote the cardinality of $\mathcal{J}_f$. As in \cite{klette_innovating_2004}, a firm $f$ can invest in undirected R\&D in exchange for a Poisson intensity of innovating on a random product line $j' \notin \mathcal{J}_f$. The efficiency of this R\&D is assumed to be proportional to $n_f$, so that a firm twice as large innovates twice as fast by spending twice as much on R\&D. Moreover, the problem of the firm can be analyzed product-by-product: optimal external R\&D investment per product does not depend on $n_f$. Therefore, external innovation does not introduce a state-variable to the problem.
+For a product line in state $(q,m)$ at time $t$, let $\pi(q,m,t) = \pi q$ denote flow profits from sales of the intermediate good and let $\tau(q,m,t) = \tau_E(q,m,t) + \tau_S(q,m,t) + \tau^{ext}$ denote the arrival rate of creative destruction by entrants, spinouts and other incumbents, respectively. 
 
-For a product line in state $(q,m,t)$, let $\pi(q,m,t)$ denote flow profits from producing the intermediate good and let $\tau(q,m,t) = \tau_E(q,m,t) + \tau_S(q,m,t)$ denote the Poisson intensity of creative destruction by entrants and spinouts. Similarly let $z_E(q,m,t),z_S(q,m,t)$ denote total entrant and spinout R\&D efforts per line in state $(q,m,t)$; that is, the R\&D labor demanded is $\frac{q}{Q_t}z_E(q,m,t), \frac{q}{Q_t}z_S(q,m,t)$ per line. The optimality of the incumbent's R\&D decision implies that the value function $V(q,m,t)$ satisfies an HJB, (omitting dependence of $\tau_E,\tau_S,z_E,z_S$ on $(q,m,t)$ for notational simplicity)
+The state of a firm is the state of of its product portfolio: the qualities $q_i$ and masses of potential competitors $m_i$ for each product, and the total number of products $n$. Mathematically this can be captured by the notion of a multi-set: a collection of ordered pairs $(q_i,m_i)$ which can contain duplicates. With some (evocative) abuse of notation, denote the multi-set of products of firm $j$ by $(\mathbf{q},\mathbf{m})$. Denote the value of such a firm by $V((\mathbf{q},\mathbf{m}),t)$. This value satisfies the HJB equation (omitting arguments of $V$ when evaluated at $(\mathbf{(q,m)},t)$)
+
+\small
 \begin{align}
-(\rho + \tau_E& + \tau_S) V(q,m,t) = \pi(q,m,t) + V_t(q,m,t) + \overbrace{\bar{\sigma}V_m(q,m,t)}^{\textrm{Spinouts from $j'$}}  \nonumber \\ 
-&+ \max_{z \ge 0, y \ge 0, x\in \{0,1\}} \Big\{ \underbrace{\chi_I z^{1-\psi_I} \Big[V(\lambda q,0,t) - V(q,m,t) \Big]}_{\textrm{EV of internal innovation}} + \chi_I^{ext} y^{1-\psi_I^{ext}} \int_{q,m} V(\lambda q, 0 ,t) d\mu(q,m,t) \\
-&-(1-x) z \underbrace{\Big(\frac{q}{Q_t}\Big) \Big(  w(q,m,t) + \Big(\frac{q}{Q_t}\Big)^{-1} \theta \nu V_m(q,m,t) \Big)}_{\textrm{Eff. cost of R\&D w/o NCA}} - xz \underbrace{\Big( \frac{q}{Q_t} \Big) w^{NCA}(q,m,t)}_{\textrm{Cost of R\&D w/ NCA}} \Big\} \label{HJB_I}
+	\rho V &= \partial_t V + \sum_{i=1}^n \pi q_i + \overbrace{\bar{\sigma} \partial_{m_i} V}^{\textrm{Non-WSOs}} + \overbrace{\tau(q_i,m_i,t) \Bigg[ V\Big(\mathbf{(q,m)} \backslash . \{(q_i,m_i)\},t \Big) -V  \Bigg]}^{\textrm{Creative destruction}} \nonumber \\
+	  + \max_{y \ge 0, \{z_{i}\} \ge 0, \{x_{i}\} \in \{0,1\}}& \Bigg\{ \frac{\bar{q}}{Q} \chi_I^{ext} y^{1-\psi_I^{ext}} n^{\psi_I^{ext}} \overbrace{\Bigg[ \int_{q,m} \Bigg( V\Big(\mathbf{(q,m)} \cup_+ \{(\lambda q,0)\},t \Big) - \kappa q  \Bigg) d\mu(q,m,t) - V   \Bigg]}^{\textrm{Value per external innov.}}- \frac{\bar{q}}{Q}y \bar{w}(t)   \nonumber \\
+	  + \sum_{i=1}^n \chi_I^{int} z_{i}^{1-\psi_I} &\overbrace{\Bigg[ V\Big(\mathbf{(q,m)} \backslash . \{(q_i,m_i)\} \cup_+ \{(\lambda q_i,0) \},t\Big) - V \Bigg]}^{\textrm{Value per internal innov.}}  \nonumber \\ 
+	  &- \underbrace{\frac{q_i}{Q} z_{i} \Bigg[ x_i w^{NCA}(t) + (1-x_i) \Big( w(q_i,m_i,t) - \overbrace{ \frac{Q}{q_i} \theta \nu \partial_{m_i}V}^{\textrm{WSOs}}\Big) \Bigg]}_{\textrm{Effective cost of internal R\&D}}\Bigg\} \label{HJB_I_general}
+\end{align}
+\normalsize
+where $x_i = 1$ ($x_i = 0$) indicates that a non-compete is used (not used) for product $i$, and where a partial derivative with respect to $m_i$ refers to the limit
+\begin{align*}
+	\lim_{h \to 0} \frac{V\Big( (\mathbf{q},\mathbf{m} ) \backslash . \{ (q_i,m_i)\} \cup_+ \{q_i,m_i + h\},t) \Big) - V\Big((\mathbf{q},\mathbf{m}) , t\Big)}{h}
+\end{align*}
+
+I conjecture that on the BGP the solution is of the form (abusing notation)
+\begin{align}
+V(\mathbf{(q,m)},t) &= \sum_{i=1}^n V(q_i,m_i) \label{incumbent_guess_verify_1} \\
+V(q_i,m_i) &= q_i V(m_i) \label{incumbent_guess_verify_2}
 \end{align}
 
-where $x = 1$ if and only if a non-compete is used. 
+The first claim amounts to a claim that the value of a given product does not depend on the other products in the firm. The second claim is a claim that the value of a single product scales linearly in its quality. 
 
-Define the effective cost of R\&D for the incumbent with and without an NCA,
+The proof proceeds in two steps. Substituting (\ref{incumbent_guess_verify_1}),(\ref{incumbent_guess_verify_2}) into (\ref{HJB_I_general}) yields
+\small
 \begin{align}
-	\tilde{w}^{NCA}(q,m,t) &= w^{NCA}(q,m,t) + \Big(\frac{q}{Q_t}\Big)^{-1} \theta \nu V_m(q,m,t) \label{incumbent_effective_wage_NCA} \\
-	\tilde{w}(q,m,t) &= w(q,m,t)  \label{incumbent_effective_wage}
+\rho \sum_{i=1}^n q_i V(m_i) &= \sum_{i=1}^n \pi q_i + \bar{\sigma} q_i V'(m_i)  - \tau(q_i,m_i) q_i V(m_i) \nonumber \\ 
+& + \max_{\{z_i\} \ge 0, y \ge 0, \{x_i\}\in \{0,1\}} \Bigg\{ \frac{\bar{q}}{Q}\chi_I^{ext} y^{1-\psi_I^{ext}} n^{\psi_I^{ext}} \int_{q,m} \Big(\lambda q V(0) - \kappa q \Big) d\mu(q,m,t) - \frac{\bar{q}}{Q} y \bar{w}(t) \nonumber \\
++ \sum_{i=1}^n \chi_I^{int} z_{i}^{1-\psi_I} &\Bigg[ \lambda q_i V(0) - q_i V(m_i) \Bigg] - \frac{q_i}{Q} z_{i} \Bigg[ x_i w^{NCA}(t) + (1-x_i) \Big( w(q_i,m_i,t) - \frac{Q}{q_i}\theta \nu q_i V'(m_i) \Big) \Bigg]\Bigg\} \label{HJB_I_guessAndVerify_1}
+\end{align}
+\normalsize 
+
+Further, under the assumption that the solution is of the desired form, it follows from static optimization and worker indifference conditions (\ref{wage_rd_NCA}) and (\ref{wage_rd}) that $w^{NCA}(t) = Q_t w^{NCA}$, $\bar{w}(t) = Q_t \bar{w}$, and $w(q,m,t) = Q_t w(m)$. Substituting in these equilibrium relationships yields
+\small
+\begin{align}
+\rho \sum_{i=1}^n q_i V(m_i) &= \sum_{i=1}^n \pi q_i + \bar{\sigma} q_i V'(m_i)  - \tau(q_i,m_i) q_i V(m_i) \nonumber \\ 
+& + \max_{\{z_i\} \ge 0, y \ge 0, \{x_i\} \in \{0,1\}} \Bigg\{ \bar{q} \chi_I^{ext} y^{1-\psi_I^{ext}} n^{\psi_I^{ext}} \Big( \lambda V(0) - \kappa \Big) - \bar{q} y \bar{w} \nonumber \\
++ \sum_{i=1}^n \chi_I^{int} z_{i}^{1-\psi_I} &\Bigg[ \lambda q_i V(0) - q_i V(m_i) \Bigg] - q_i z_{i} \Bigg[ x_i w^{NCA} + (1-x_i) \Big( w(m_i) - \theta \nu V'(m_i)\Big) \Bigg] \Bigg\} \label{HJB_I_guessAndVerify_2}
+\end{align}
+\normalsize 
+ 
+Note that the flow profits from a product in state $(q,m)$ are simply $\pi q$ regardless of the firm or aggregate economy. Next, optimizing with respect to $x$ and taking first-order conditions with respect to $z_i,y$ it follows that $z_i$ depends only on $m_i$ while $y / n$ is a constant across firms (I postpone the discussion of optimal non-compete policy to after this derivation). Furthermore, the fact that $z_i$ is constant implies that the law of motion for a product in $(q,m)$-space is also firm-invariant.
+
+Turning to external innovation, the total rate of external innovation of a firm $f$ with an $n$-product portfolio of average quality $\bar{q}$ is given by
+\begin{align}
+	\tau_{I,f}^{ext} &= \frac{\bar{q}}{Q} \chi_I^{ext} n \Big(\frac{y}{n}\Big)^{1-\psi_I^{ext}}   
 \end{align}
 
-It is immediate that the incumbent's optimal non-compete policy is to impose a non-compete if and only if $\tilde{w}(q,m,t) > \tilde{w}^{NCA}(q,m,t)$. 
-
-When does this occur? Note that, with an NCA, the effective wage paid by the incumbent is the same as the nominal wage. Without an NCA, the effective R\&D wage exceeds the nominal R\&D wage due to the effect of R\&D on competing spinout formation. If the nominal R\&D wages were the same, it would always be optimal to use a non-compete. However, a higher wage is required to attract labor when a non-compete is imposed, since it eliminates the option value of the employee's future WSOs. The gap in wages required to attract labor is equal to the expected discounted present value of WSO formation to the worker. Using (\ref{worker_effective_wage}), (\ref{incumbent_effective_wage_NCA}), and (\ref{incumbent_effective_wage}), and the indifference condition (\ref{wage_rd}), it follows that
+which can be written as
 \begin{align}
-	\tilde{w}^{NCA}(q,m,t) &= \tilde{w}(q,m,t) + \underbrace{\frac{Q_t}{q} \theta \nu V_m(q,m,t)}_{\textrm{Expected cost to incumbent}} - \overbrace{\nu \theta \frac{Q_t}{q} W(\lambda q,0,t)}^{\textrm{Expected value to worker}}
+	\tau_{I,f}^{ext} &=  \sum_{i = 1}^n \frac{q_i}{n} Q^{-1} \chi_I^{ext} n \Big(\frac{y}{n}\Big)^{1-\psi_I^{ext}}  \\
+	&= \sum_{i = 1}^n \frac{q_i}{Q} \chi_I^{ext} \Big(\frac{y}{n}\Big)^{1-\psi_I^{ext}}  
+\end{align}
+
+In words, the rate of external innovation is the sum of what the rates would be for single-product firms selling each of $f$'s products. Together with the fact that the flow profits and dynamics of the products discovered through external R\&D do not depend on the other products at the firm, this confirms the form described in (\ref{incumbent_guess_verify_1}): the value of a product does not depend on the firm structure. Given this, we can solve for the exact policy functions, which, together with equilibrium, confirms the guess (\ref{incumbent_guess_verify_2}). Then we can obtain an HJB defining $V(m)$ by considering the case of a single product firm, i.e. $n = 1$. 
+\begin{align}
+	\rho q V(m) &= \pi q + \bar{\sigma} q V'(m)  - \tau(q,m) q V(m) \nonumber \\ 
+	& + \max_{z \ge 0, y \ge 0, x \in \{0,1\}} \Bigg\{ q \chi_I^{ext} y^{1-\psi_I^{ext}} \Big( \lambda V(0) - \kappa \Big) - q y \bar{w} \nonumber \\
+	+  \chi_I^{int} z^{1-\psi_I} &\Bigg[ \lambda q V(0) - q V(m_i) \Bigg] - q \Bigg[ x w^{NCA} + (1-x) \Big( w(m_i) - \theta \nu V'(m)\Big) \Bigg] \Bigg\} \label{HJB_I_singleProductFirm_1}
+\end{align}
+
+The factor $q$ cancels out, 
+\begin{align}
+		\rho V(m) &= \pi + \bar{\sigma} V'(m)  - \tau(m) V(m) \nonumber \\ 
+	& + \max_{z \ge 0, y \ge 0, x \in \{0,1\}} \Bigg\{ \chi_I^{ext} y^{1-\psi_I^{ext}} \Big( \lambda V(0) - \kappa \Big) - y \bar{w} \nonumber \\
+	+  \chi_I^{int} z^{1-\psi_I} &\Bigg[ \lambda V(0) - V(m_i) \Bigg] - \Bigg[ x w^{NCA} + (1-x) \Big( w(m_i) - \theta \nu V'(m)\Big) \Bigg] \Bigg\} \label{HJB_I_singleProductFirm_2}
+\end{align}
+
+With a solution to (\ref{HJB_I_singleProductFirm_2}), I can reconstruct $V(\mathbf{(q,m)})$ using (\ref{incumbent_guess_verify_1}) and (\ref{incumbent_guess_verify_2}). All guesses are confirmed. 
+
+Finally, turning to the optimal non-compete policy, define the effective cost of R\&D for the incumbent with and without an NCA,
+\begin{align}
+	\tilde{w}^{NCA} &= w^{NCA}  \label{incumbent_effective_wage_NCA} \\
+	\tilde{w}(m) &= w(m) - \theta \nu V'(m)  \label{incumbent_effective_wage}
+\end{align}
+
+It follows that the incumbent's optimal non-compete policy is to impose a non-compete if and only if $\tilde{w}(m) > \tilde{w}^{NCA}$. 
+
+When does this occur? Without an NCA, the effective R\&D wage exceeds the nominal R\&D wage due to the effect of R\&D on competing spinout formation. A higher wage is required to attract labor when a non-compete is imposed, since it eliminates the option value of the employee's future WSOs. The gap in wages required to attract labor is equal to the expected discounted present value of WSO formation to the worker. Using (\ref{worker_effective_wage}), (\ref{incumbent_effective_wage_NCA}), and (\ref{incumbent_effective_wage}), and the indifference condition (\ref{wage_rd}), it follows that
+\begin{align}
+	\tilde{w}^{NCA} &= \tilde{w}(m) + \underbrace{\theta \nu V'(m)}_{\textrm{Expected cost to incumbent}} + \overbrace{\nu \theta W(m) }^{\textrm{Expected value to worker}}
 \end{align} 
 
-That is, the incumbent's effective R\&D wage under a non-compete is lower whenever the expected cost to the incumbent from competing spinouts exceeds the expected benefit to employees of competing spinouts. That is, bargaining in this context achieves the bilateral optimum contract (given the contracting space available). The question for the purpose of efficiency is whether this bilaterally optimal contract maximizes overall social welfare.
+That is, the incumbent uses a non-compete whenever the ex-ante bilateral value of knowledge spillovers from the incumbent to the R\&D employee is positive. Equilibrium thus achieves the bilaterally optimal contract (given the contracting space, of course). Negative social consequences of non-competes in this model therefore arise from general equilibrium effects rather than direct harm to those so bound.\footnote{This is also the case in the models developed in \cite{baslandze_spinout_2019} and \cite{shi_restrictions_2018}. However, there is empirical evidence that non-compete contracts can be damaging to workers themselves. Essentially, in some cases a non-compete can be used as a way to extract more rent from the worker after a job has already been accepted. It appears that additional compensation is received under non-competition agreements only in states in which such practices are prevented by "Consideration" requirements for new non-compete contracts. See the discussion in \cite{starr_consider_2018}.}
 
 \paragraph{Spinouts}
 
@@ -756,7 +851,7 @@ In the current formulation of the model, each product $j$ is associated with a f
 
 It is relatively easy to include in the model external innovation by incumbent firms, as in \cite{klette_innovating_2004}. While this introduces a firm-size distribution, firm-size does not affect how a firm operates its various product lines, so there is no additional complexity to the solution algorithm. This does generate two new parameters: a productivity of external R\&D and an elasticity of innovations to external R\&D. Typically the literature will calibrate the elasticity using micro estimate, and estimate the productivity using the fraction of patents that cite mostly patents from different firms, as in \cite{akcigit_growth_2018}.
 
-The utility of this extension is that it renders the R\&D intensity in the data to be informative about the overall productivity of incumbent R\&D in the model, as in \cite{akcigit_growth_2018}. This particularly important in light of the fact that I need to use the entry rate to inform $\kappa$, so it would be useful to have another, independent moment to use.  
+The utility of this extension is that it allows the R\&D intensity in the data to be informative about the overall productivity of incumbent R\&D in the model, as in \cite{akcigit_growth_2018}. This particularly important in light of the fact that I need to use the entry rate to inform $\kappa$, so it would be useful to have another, independent moment to use.  
 
 \subsection{Endogenous rate of spinout idea generation}
 

@@ -159,26 +159,26 @@ function setModelParameters()
     L = 1
 
     # Innovation
-    χI = 2.1781
-    χE = 0.6539
+    χI = 2.1973
+    χE = 0.6923
     χS = 1.25 * χE
     ψI = 0.5
     ψSE = 0.5
-    λ = 1.0878
+    λ = 1.07998
     #λ = 1.10
 
     # Spinouts
     #ν = 0.0102495
-    ν = 0.4085
+    ν = 0.255
     θ = 0.55
     ξ = 1
     ζ = 0
 
     # Creative destruction cost
-    κ = 0.43
+    κ = 0.631
 
     # CNCs
-    CNC = false
+    CNC = true
 
     # Rate of Spinout formation of spinouts and entrants
 

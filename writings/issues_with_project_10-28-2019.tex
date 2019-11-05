@@ -1,0 +1,110 @@
+\documentclass[11pt,english]{article}
+\usepackage{lmodern}
+\linespread{1.05}
+%\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage{placeins}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{blindtext}
+%\renewcommand{\arraystretch}{1.2}
+\usepackage{multirow}
+
+%\usepackage{caption}
+%\captionsetup{justification=raggedright,singlelinecheck=false}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{Issues with the Project}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\section*{R\&D spending by incumbents vs entrants}
+
+\subsection*{Problem}
+
+\begin{itemize}
+	\item Model cannot generate realistic R\&D spending by incumbents.
+	\item In order to increase R\&D spending by incumbents, model increases $\chi_I$ or $\lambda$. However, $\chi_I,\lambda$ cannot be too high if the model is to be consistent with the growth rate. 
+\end{itemize}
+
+\subsection*{Proposed solution}
+
+\begin{itemize}
+	\item The reason that incumbents don't do R\&D is that they cannibalize their profits, and are not motivated by business stealing
+	\item However, it is not possible to implement this in my framework without massively sacrificing tractability
+	\item This is because 
+	\begin{itemize}
+		\item The value of innovating on a random product line scales with $Q_t$, not $q$, interfering with linear scaling
+		\item One solution that won't work is to assume that the rate of new product innovation scales with $q/Q_t$, so that the value from external innovation scales with $q$ instead of $Q_t$. The problem is that this means the external innovation rate depends on firm quality. 
+		\item Another idea that doesn't work is to assume that high quality firms replace a random line with a quality proportional to their own quality. This doesn't make sense, since low quality firms would be replacing high-quality products with low-quality products.
+		\item At the end of the day, linking firms to the average economy through external innovation makes it impossible to ignore the fact that some products are very high quality relative to the economy average and some are very low-quality relative to the economy average
+	\end{itemize}
+	\item Is this a big deal? I have time now. Do I see if it's possible to augment the model to two state variables, based on Acemoglu \& Cao 2015, so that it can handle this? As a bonus, I could endogenize the exit barrier using labor-entrepreneurship choice. 
+\end{itemize}
+
+\section*{Economics of non-competes in my model}
+
+\begin{itemize}
+	\item In my model, non-competes are useful to the firm-employee pair because the fixed cost of entry reduces the value of spinout entry to the employee, but does not affect entry by much because spinouts earn knowledge rents, so it does not reduce the cost to the firm of subsequent spinout entry.
+	\item This means that spinout entry is no longer bilaterally efficient, and the firm-employee pair would like a way to commit to not doing it.
+	\item In my model, when spinouts are bilaterally efficient, the wage will be driven down in equilibrium to the point where the firm will not desire a non-compete.
+	\item However, I believe there is another layer that is equally quantitatively important, that works in the same direction, but is completely absent from my model: even if non-competes are ex-post bilaterally efficient to implement, they may not be before uncertainty is realized.
+	\item Example 1: Each worker does not know if he will be the one to discover the spinout idea, but firms know that a certain fraction of workers will discover ideas with more certainty. Even with same risk aversion, firms will act risk-neutral w.r.t the liability of future spinout formation, and workers would act more risk-averse.
+	\item Example 2: Given that there are multiple spinouts vying for entry, each spinout faces idiosyncratic uncertainty. But from the perspective of the parent firm, this idiosyncratic uncertainty washes out. 
+	\item The entry cost in my model is identified by the discrepancy between entrant R\&D efficiency (in terms of innovations per R\&D effort) and overall entry rates. Does this make sense?
+\end{itemize}
+
+
+\section*{Model validation}
+
+\begin{itemize}
+	\item I construct the model to be consistent with the facts that
+	\begin{itemize}
+		\item R\&D leads to spinouts
+		\item Some of these spinouts are in the same industry as the parent firm
+	\end{itemize} 
+	\item Validating the model using macro moments, e.g. effect of increase in NCA enforcement on R\&D spending by Compustat firms in that state, seems dumb -- if it were possible to do so, then why do the model?
+	\item Thus, the validation of the model should be done at the micro level
+	\item The classic example of a micro-level validation exercise that lends credence to the macro model as a whole would be to study the properties of the joint distribution of $m$ and $R\&D$ spending by the incumbent. However, I do not observe $m$ directly, and I don't have a clear proxy of $m$. This is because I do not observe incumbent innovation events. If I did, I could look at whether R\&D declines after a successful innovation, e.g. after receiving a lot of patents, for example. But need to be careful about ensuring that I am measuring things properly, e.g., look at the effect of receiving patents, conditional on Tobin's Q. Tobin's Q is a forward looking indicator of profitability, so we are looking now at only the effect of receiving patents on the knowledge gap re: competitors.
+	\item There is another "class" of predictions that are neither micro nor macro predictions. They are predictions in an \textit{augmented model} that allows for dimensions of heterogeneity that are not explicitly modeled (e.g., because it would make the model intractable). E.g., different industries have different parameters, model predicts things (kind of thinking of each industry as "on its own BGP", so taking an industry level interpretation of the model economy, I guess).
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+\end{document}

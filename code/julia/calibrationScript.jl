@@ -30,12 +30,12 @@ modelPar.CNC = false
 # Enter calibration targets
 #-------------------------------#
 
-RDintensity = CalibrationTarget(0.041,1)
-InternalPatentShare = CalibrationTarget(0.9,1)
+RDintensity = CalibrationTarget(0.025,1)
+InternalPatentShare = CalibrationTarget(0.85,1)
 SpinoutEntryRate = CalibrationTarget(0.025,1)
 SpinoutShare = CalibrationTarget(0.17,1)
-g = CalibrationTarget(0.02,1)
-RDLaborAllocation = CalibrationTarget(.05,1)
+g = CalibrationTarget(0.015,1)
+RDLaborAllocation = CalibrationTarget(.05,0)
 #WageRatio = CalibrationTarget(0.9,1)
 #WageRatioIncumbents = CalibrationTarget(0.7,0)
 #SpinoutsNCShare = CalibrationTarget(0.5,1)

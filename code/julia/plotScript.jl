@@ -52,9 +52,9 @@ png("figures/plotsGR/innovation_rates_m")
 
 
 if modelPar.CNC == true
-    plot(t,[τI[:] τS[:] τE[:] τ[:]], layout = (1), xlims = (0,35), xlabel = "Years since last innovation", ylabel = "Yearly hazard rate of innovation", title = "Noncompetes", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
+    plot(t,[τI[:] τS[:] τE[:] τ[:]], layout = (1), xlabel = "Years since last innovation", ylabel = "Yearly hazard rate of innovation", title = "Noncompetes", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
 else
-    plot(t,[τI[:] τS[:] τE[:] τ[:]], layout = (1), xlims = (0,35), xlabel = "Years since last innovation", ylabel = "Yearly hazard rate of innovation", title = "Innovation hazard rates", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
+    plot(t,[τI[:] τS[:] τE[:] τ[:]], layout = (1), xlabel = "Years since last innovation", ylabel = "Yearly hazard rate of innovation", title = "Innovation hazard rates", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
 end
 png("figures/plotsGR/innovation_rates_t")
 

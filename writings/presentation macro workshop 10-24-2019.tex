@@ -42,6 +42,7 @@
 	\item Tell a clearer story of what frictions lead to these spinouts
 	\item How good of a measure of competition is "same-industry spinouts" -- maybe a lot of measurement error
 	\item Do lag regressions for accounting
+	\item Be more clear about efficiency - -- planner wants spinouts and incumbents to do R\&D
 \end{itemize}
 \end{frame}
 
@@ -346,9 +347,9 @@ where $z$ is units of R\&D, $\chi_I$ is R\&D productivity, and $\psi \in (0,1)$ 
 
 \begin{frame}{Solving and closing the model}\label{closing_the_model}
 \begin{itemize}
-	\item Individual state of product is $(q,m)$, aggregate state $d\mu(q,m,t)$ time-varying in general
+	\item Individual state of product is $(q,m)$, aggregate state $d\mu(q,m,t)$ time-varying in general 
+	\item Incumbent, spinout and household HJBs \hyperlink{HJB_incumbent}{\beamergotobutton{incumbents}} \hyperlink{HJB_spinout}{\beamergotobutton{spinouts}} \hyperlink{HJB_household}{\beamergotobutton{households}}
 	\item Guess and verify $V(q,m,t) = qV(m,t)$ and wages scaling with $Q_t$ to reduce complexity, and look for BGP \hyperlink{scaling_of_value_functions}{\beamergotobutton{more}}
-	\item Dynamic optimization (next few slides)
 	\item Static equilibrium conditions \hyperlink{static_eq_conditions}{\beamergotobutton{details}}
 	\item Aggregation 
 	\begin{itemize}
@@ -570,6 +571,33 @@ where $z$ is units of R\&D, $\chi_I$ is R\&D productivity, and $\psi \in (0,1)$ 
 	\begin{itemize}
 		\item 15\% of entrants; larger at entry, grow faster, higher survival rates (Muendler et al. 2012, Brazilian data)
 	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Incumbent HJB}\label{HJB_incumbent}
+\hyperlink{closing_the_model}{\beamergotobutton{back}}
+\begin{itemize}
+	\item Incumbent value $V(q,m,t)$ satisfies
+	\tiny
+	\begin{align*}
+	(\rho + \tau_E& + \tau_S) V(q,m,t) = \pi(q,m,t) + V_t(q,m,t) + \overbrace{\bar{\sigma}V_m(q,m,t)}^{\textrm{Spinouts from $j'$}}  \nonumber \\ 
+	&+ \max_{z \ge 0, x\in \{0,1\}} \Big\{ \underbrace{\chi_I z^{1-\psi_I} \Big[V(\lambda q,0,t) - V(q,m,t) \Big]}_{\textrm{EV of innovation}} \\
+	&-(1-x) z \underbrace{\Big(\frac{q}{Q_t}\Big) \Big(  w(q,m,t) + \Big(\frac{q}{Q_t}\Big)^{-1} \theta \nu V_m(q,m,t) \Big)}_{\textrm{Eff. cost of R\&D w/o NCA}} - xz \underbrace{\Big( \frac{q}{Q_t} \Big) w^{NCA}(q,m,t)}_{\textrm{Cost of R\&D w/ NCA}} \Big\} 
+	\end{align*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Spinout HJB}\label{HJB_spinout}
+\hyperlink{closing_the_model}{\beamergotobutton{back}}
+\begin{itemize}
+	\item Spinout value $W(q,m,t)$ satisfies
+	\footnotesize
+	\begin{align*}
+	(\rho  + \tau_E + \tau_S& + \tau_I)W(q,m,t) = W_t(q,m,t) + \bar{\sigma}W_m(q,m,t) \nonumber \\
+	+& \max_{0 \le z \le 1} \Big\{ \underbrace{\chi_S z (z_E + z_S)^{-\psi_{SE}} (1-\kappa) V(\lambda q,0,t)}_{\textrm{Flow value of potential innovation}} - \underbrace{\Big(\frac{q}{Q_t}\Big) z w^{NCA}(q,m,t)}_{\textrm{R\&D cost}} \Big\} 
+	\end{align*}
 \end{itemize}
 \end{frame}
 
