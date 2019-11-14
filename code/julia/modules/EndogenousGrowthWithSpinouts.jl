@@ -3,6 +3,7 @@ module EndogenousGrowthWithSpinouts
     include("scripts/AlgorithmParametersModuleScript.jl")
     include("scripts/ModelParametersModuleScript.jl")
     include("scripts/GuessModuleScript.jl")
+    include("scripts/AuxiliaryDataStructures.jl")
     include("scripts/AuxiliaryModuleScript.jl")
     include("scripts/InitializationModuleScript.jl")
     include("scripts/HJBModuleScript.jl")

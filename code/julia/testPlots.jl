@@ -183,8 +183,8 @@ println("$growthShare_spinouts (Growth share: spinouts)\n")
 flowOutput = (((1-β) * wbar^(-1) )^(1-β))/(1-β) * L_F
 
 
-CreativeDestructionCost = modelPar.κ * sum(τSE .* γ .* μ .* Δm) * λ * V[1]
-
+#CreativeDestructionCost = modelPar.κ * sum(τSE .* γ .* μ .* Δm) * λ * V[1]
+CreativeDestructionCost = modelPar.κ * sum(τSE .* γ .* μ .* Δm)
 
 welfare = (flowOutput - CreativeDestructionCost) / (ρ - g)
 welfare2 = flowOutput / (ρ - g)
@@ -214,7 +214,10 @@ VPrime2 = (V[3] - V[2]) / Δm[2]
 κ = modelPar.κ
 relativeProductivity = χE / χI
 businessStealing = λ / (λ - 1)
-creativeDestructionCost = (1-κ)
+
+# NEED TO FIX -- no longer correct after kappa modification
+
+creativeDestructionCost = (V[1] - κ) / V[1]
 DRS = (1 / (1-modelPar.ψI))
 wageDifference = w[1]  / wageEntrants[1]
 cannibalizationBySpinouts = (w[1] - (1-θ) * ν * VPrime2) / w[1]

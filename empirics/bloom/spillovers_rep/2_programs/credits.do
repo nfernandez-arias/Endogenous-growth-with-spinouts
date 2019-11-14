@@ -57,7 +57,7 @@ replace base=0.5*xrd if base<0.5*xrd
 * credit amount = 0.5*(xrd-base)
 * MERGE IN federal_credit_rate, fed_tax_rate, r
 preserve
-	insheet using "data/bsv/RDusercost_2017.csv", clear 
+	insheet using "data/bsv/RDusercost_2017.csv", clear
 	keep year k_f_e t_f t_f_e t_s_e
 	egen tag=tag(year)
 	keep if tag==1

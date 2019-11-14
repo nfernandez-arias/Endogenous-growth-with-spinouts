@@ -13,8 +13,8 @@ L: 1.0
 θ: 0.55 
 ξ: 1.0 
 ζ: 0.0 
-κ: 0.631 
-CNC: true 
+κ: 0.0 
+CNC: false 
 spinoutsFromSpinouts: 0.0 
 spinoutsFromEntrants: 1.0e-9 
 spinoutsSamePool: false 

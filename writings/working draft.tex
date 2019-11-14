@@ -300,42 +300,23 @@ An innovation on a good of quality $q$ grants a temporary monopoly in producing 
 
 The incumbent of a good $j$ of quality $q_j$ can hire $\big(\frac{q}{Q}\big)z_I$ units of R\&D labor in exchange for a Poisson arrival rate of innovating on good $j$ of
 \begin{align}
-\tau_I &= \chi_I z_I^{1-\psi_I}  \label{incumbent_innovation_rate}
+\tau_{I} &= \chi_{I} z_{I}^{1-\psi_I}  \label{incumbent_innovation_rate}
 \end{align}
 where $\chi_I > 0$ governs the overall productivity of internal incumbent R\&D and $\psi_I \in (0,1)$ governs the rate of decreasing returns. The assumption that innovations on goods of higher relative quality $q/Q$ are more costly is standard. In lab-goods models of innovation, the inputs required scale with $q$. Here, the specification is with $q/Q$ to account for the fact that labor is a factor that is not growing with the size of the economy. The linear specification adds significant tractability, as it means the value of an incumbent firm is linear in $q$, effectively eliminating a state variable. In equilibrium, this leads to a growth rate independent of $q$. 
 
 \subsubsection{External innovation by incumbents}
 
-\paragraph{Problem with external innovation}
-
-In order for the value of incumbency to scale linearly with $q$, I need to make the value of external innovation scale with $q$. But then internal innovation increases the value of external innovation, so the value function is not separable. I can't break it down into the value of each individual line anymore. 
-
-My hope would be that I would have something like this 
-\begin{align*}
-	V(\{q_i\},\{m_i\}) = \sum_i q_i V(m_i)
-\end{align*}
-
-but I can't derive an equation for $V(m)$ because the optimization of external innovation is affected by $q_i$ for each $i$, so it has to be solved together. I can't separate terms by $q_i$ and solve an equation for each $q_i$, because $y$ changing for each $q_i$, so I don't have an equation like that. 
-
-Maybe it's possible to show by induction that it would have this form. And for one product, I immediately get the equation don't I? 
-
-Then for two products, the question is whether the value is equal to the sum of the values of the two products. Given that the optimal policy is to choose a constant $y/n$ and $z_I$, and that the per-product productivity of external research overall is proportional to the mean of their qualities.
-
-
-
-\paragraph{Setup}
-
-A firm with $n$ products and average quality $\bar{q} = \frac{1}{n}\sum_{j \in \mathcal{J}} q_{j}$ can hire $\frac{\bar{q}}{Q} z_I^{ext}$ units of R\&D labor in exchange for a Poisson arrival rate of innovating on a random good $j'$ of 
+A firm with $n$ products and average quality $\bar{q} = \frac{1}{n}\sum_{j \in \mathcal{J}} q_{j}$ can hire $\frac{\bar{q}}{Q} y_I$ units of R\&D labor in exchange for a Poisson arrival rate of innovating on a random good $j'$ of 
 \begin{align}
-	\tau_I^{ext} &= G(z_I^{ext},n,\frac{\bar{q}}{Q})
+	\hat{\tau}_I &= G(y_I,n,\frac{\bar{q}}{Q})
 \end{align}
 
-where, as in \cite{klette_innovating_2004}, $G$ is (i) strictly increasing in $z_I^{ext}$, (ii) strictly concave in $z_I^{ext}$, (ii) strictly increasing in $n_f$, and (iv) homogeneous of degree one in $z_I^{ext}$ and $n_f$. In contrast with \cite{klette_innovating_2004}, there is an additional \textit{linear} dependence on $\frac{\bar{q}}{Q}$ so that the value of incumbency in a product line \textit{including the added franchise value of external innovation} is linear in the quality of that product line. In the quantitative analysis, I use the functional form 
+where, as in \cite{klette_innovating_2004}, $G$ is (i) strictly increasing in $y_I$, (ii) strictly concave in $y_I$, (ii) strictly increasing in $n$, and (iv) homogeneous of degree one in $(y_I,n)$. In contrast with \cite{klette_innovating_2004}, there is an additional \textit{linear} dependence of $\hat{\tau}_I$ on $\frac{\bar{q}}{Q}$. This ensures that the value of incumbency in a product line -- \textit{including the added franchise value of external innovation} -- is linear in the quality of that product line. This will be more clear in the section on dynamic optimization. In the quantitative analysis, I will use the functional form 
 \begin{align}
-	G(z_I^{ext},n,\frac{\bar{q}}{Q}) &= \frac{\bar{q}}{Q} \chi_I^{ext} z_I^{1-\psi_I^{ext}} n^{\psi_I^{ext}} 
+	G(y,n,\frac{\bar{q}}{Q}) &= \frac{\bar{q}}{Q} \hat{\chi}_I \hat{z}_I^{1-\hat{\psi}_I} n^{\hat{\psi}_I} 
 \end{align}
 
-As with internal innovation, $\chi_I^{ext} > 0$ is a productivity parameter and $\psi_I^{ext} \in (0,1)$ measures the degree of decreasing returns. Finally, $n$ is raised to the exponent $\psi_I^{ext}$, ensuring first-degree homogeneity of $G$, which in turn implies that external innovation effort per line $y/n$ is constant in $n$. This reduces the dimensionality of the problem and obviates the need to compute the firm-size distribution while solving the model, as it does not affect decisions or allocations. Still, the assumption that innovative output per effective unit scales linearly in $\frac{\bar{q}}{Q}$ does imply that firms with relatively high $\frac{\bar{q}}{Q}$ will tend to accumulate more products more quickly. These firms also tend to be larger: per-product employment, sales and profit scales linearly with $\frac{\bar{q}}{Q}$ and, as described before, high-$\frac{\bar{q}}{Q}$ firms accumulate products relatively quickly. Hence, the model implies that large firms grow faster than small firms, which is at odds with the data; in particular, it directly contradicts the motivating departure from Gibrat's law cited in \cite{akcigit_growth_2018}. 
+As with internal innovation, $\chi_I^{ext} > 0$ is a productivity parameter and $\psi_I^{ext} \in (0,1)$ measures the degree of decreasing returns. Finally, $n$ is raised to the exponent $\psi_I^{ext}$, ensuring first-degree homogeneity of $G$, which in turn will imply that external innovation effort per line $y/n$ is constant in $n$. This reduces the dimensionality of the problem and obviates the need to compute the firm-size distribution while solving the model, as it does not affect decisions or allocations. Still, the assumption that innovative output per effective unit scales linearly in $\frac{\bar{q}}{Q}$ does imply that firms with relatively high $\frac{\bar{q}}{Q}$ will tend to accumulate more products more quickly. These firms also tend to be larger: per-product employment, sales and profit scales linearly with $\frac{\bar{q}}{Q}$ and, as described before, high-$\frac{\bar{q}}{Q}$ firms accumulate products relatively quickly. Hence, the model implies that large firms grow faster than small firms, which is at odds with the data; in particular, it directly contradicts the motivating departure from Gibrat's law cited in \cite{akcigit_growth_2018}. 
 
 On balance, this assumption is the appropriate one for this setting. It is natural to suppose that firms with more frontier technology should be capable of innovating more effectively in other areas. The mere fact that, on its own, this generates counterfactual growth dynamics for firms, does not compel one to reject such a reasonable hypothesis if it helps the model match other features of the data, because there are many other (unmodeled) forces potentially slowing the growth of large firms (e.g., human death).  Moreover, the firm-size distribution does not affect aggregation. As discussed above, the homogeneity assumption on $G(\cdot,\cdot,\frac{\bar{q}}{Q})$ ensures that for a given firm, the per-product effective R\&D allocation is constant, and the per-product rate of external innovation depends linearly on $\frac{\bar{q}}{Q}$. This means that the per-product rate of external innovation for products in state $m$ is linear in $\gamma(m)$ and thus the aggregate growth rate can still be computed without the firm-size distribution: 
 \begin{align*}
@@ -392,9 +373,11 @@ As discussed in the empirical section, I find support for the former assumption 
 
 Returning to the model, consider the situation at time $t$ of individual $i$, supplying a flow of $l_{ij}$ units of R\&D labor to the firm $j$. In the next instant $dt$, individual $i$ acquires a mass $(\frac{Q}{q_j}) \theta \nu l_{ij} dt$ of ideas in line $j$ and a density $(1-\theta)\nu l_{ij} dj' dt$ of ideas in each line $j' \ne j$, with total mass $(1-\theta) \nu l_{ij} dt$. With a mass $m_j$ of ideas in line $j$, an individual can hire $\frac{q_j}{Q}m_jdj$ units of R\&D labor dedicated to improving good $j$.  
 
-Two further assumptions merit some discussion. First, I have assumed that non-WSOs in a line $j' \ne j$ are generated at a rate independent of the quality gap between $j'$ and $j$. Second, I assume that the rate of spinout formation in line $j$ is lower the higher is the quality gap relative to the economy-wide average, $q_j/Q$. 
+Two further assumptions merit some discussion. First, I have assumed that non-WSOs in a line $j' \ne j$ are generated at a rate independent of the quality gap between $j'$ and $j$, and at rate constant in $j$. Second, I assume that the rate of spinout formation in the parent's line $j$ is lower the higher is $q_j/Q$, the quality gap relative to the economy-wide average. 
 
-These assumptions contribute greatly to the tractability of the model. Without the former, the dynamics of $m_j$ depend on $q_j$. which adds a state variable to the problem of incumbents and spinouts. The model could be extended in this direction (e.g. as in \cite{acemoglu_innovation_2015}), but this is outside the scope of this paper. Economically speaking, these assumptions are justified to the extent that non-WSO ideas are truly random, accidental byproducts of R\&D projects. If so, it is plausible to suppose that (1) attempting to improve a higher quality product would not lead to more ideas than endeavoring to improve a lower quality product and (2) these ideas are equally likely to improve on high or low-quality products.\footnote{If one is unsatisfied with (2), the assumption can be microfounded by assuming that (1) R\&D employees have a fixed endowment of local "time" to invest in non-WSO ideas, (2) to achieve a given intensity of idea generation requires a local time investment proportional to $q/Q$, and finally (3) there are decreasing returns to scale in any given line $j$. The individual will choose a local time allocation generating arrivals independent of $q_j$ (variation in innovation rewards due to $q_j$ is offset by variation in costs due to $q_j$). On the other hand, the local time allocation will depend on the equilibrium object $W(q,m,t)$ because more effort will be dedicated to non-WSOs in lines $j$ with higher $W(q_j,m_j,t)$ holding $q$ constant -- that is, lower $m_j$ (hence the DRS assumption, otherwise all effort goes to $m = 0$ lines). Derivation is in the appendix (in progress). For now, I proceed with the baseline assumption.}
+This can be microfounded with the following setup. Assume that workers generate "expertise" in line $j$ at rate $\frac{Q}{q_j} \nu$ per unit of labor supplied. Each unit of expertise endows them with two units of "local time". The first unit of local time can be used to generate $\theta$ units of WSO ideas. The second unit of local time can be used to generate $\frac{q_j}{Q}(1-\theta)$ units of non-WSO ideas uniformly distributed over the unit interval. The interpretation is that expertise in a higher quality line is more valuable, but more difficult to achieve.\footnote{While the assumption of "undirected" non-WSO ideas is typcal and usually not microfounded, it in fact can be microfounded quite nicely. Suppose that in order to achieve a given intensity of non-WSO generation in line $j'$ requires a local time investment proportional to $\frac{q_j}{Q}$. Further, suppose that there are decreasing returns to scale in investment in non-WSO idea generation for any particular line $j'$. Then the individual will choose a local time allocation that generates arrivals independent of $q_j$, as higher rewards are offset by costs. The decreasing returns are needed so that not all non-WSO formation is directed at products with $m = 0$. Derivation in appendix (in progress).}
+
+These assumptions contribute greatly to the tractability of the model. Without the former, the dynamics of $m_j$ depend on $q_j$. which adds a state variable to the problem of incumbents and spinouts. The model could be extended in this direction (e.g. as in \cite{acemoglu_innovation_2015}), but this is outside the scope of this paper. 
 
 Without the latter, 
 
@@ -565,14 +548,14 @@ In words, the rate of external innovation is the sum of what the rates would be 
 \begin{align}
 	\rho q V(m) &= \pi q + \bar{\sigma} q V'(m)  - \tau(q,m) q V(m) \nonumber \\ 
 	& + \max_{z \ge 0, y \ge 0, x \in \{0,1\}} \Bigg\{ q \chi_I^{ext} y^{1-\psi_I^{ext}} \Big( \lambda V(0) - \kappa \Big) - q y \bar{w} \nonumber \\
-	+  \chi_I^{int} z^{1-\psi_I} &\Bigg[ \lambda q V(0) - q V(m_i) \Bigg] - q \Bigg[ x w^{NCA} + (1-x) \Big( w(m_i) - \theta \nu V'(m)\Big) \Bigg] \Bigg\} \label{HJB_I_singleProductFirm_1}
+	+  \chi_I^{int} z^{1-\psi_I} &\Bigg[ \lambda q V(0) - q V(m_i) \Bigg] - qz \Bigg[ x w^{NCA} + (1-x) \Big( w(m_i) - \theta \nu V'(m)\Big) \Bigg] \Bigg\} \label{HJB_I_singleProductFirm_1}
 \end{align}
 
 The factor $q$ cancels out, 
 \begin{align}
 		\rho V(m) &= \pi + \bar{\sigma} V'(m)  - \tau(m) V(m) \nonumber \\ 
 	& + \max_{z \ge 0, y \ge 0, x \in \{0,1\}} \Bigg\{ \chi_I^{ext} y^{1-\psi_I^{ext}} \Big( \lambda V(0) - \kappa \Big) - y \bar{w} \nonumber \\
-	+  \chi_I^{int} z^{1-\psi_I} &\Bigg[ \lambda V(0) - V(m_i) \Bigg] - \Bigg[ x w^{NCA} + (1-x) \Big( w(m_i) - \theta \nu V'(m)\Big) \Bigg] \Bigg\} \label{HJB_I_singleProductFirm_2}
+	+  \chi_I^{int} z^{1-\psi_I} &\Bigg[ \lambda V(0) - V(m_i) \Bigg] - z \Bigg[ x w^{NCA} + (1-x) \Big( w(m_i) - \theta \nu V'(m)\Big) \Bigg] \Bigg\} \label{HJB_I_singleProductFirm_2}
 \end{align}
 
 With a solution to (\ref{HJB_I_singleProductFirm_2}), I can reconstruct $V(\mathbf{(q,m)})$ using (\ref{incumbent_guess_verify_1}) and (\ref{incumbent_guess_verify_2}). All guesses are confirmed. 
@@ -886,11 +869,103 @@ The utility of such an extension is that it allows the model to more accurately 
 
 \break
 \appendix
-\renewcommand\thefigure{\thesection.\arabic{figure}}  
-\setcounter{figure}{0}
+
+
+\section{Computational Algorithm}
+
+\subsection{Solving the Incumbent HJB}
+
+In this section, I describe my algorithm for computing the solution to (\ref{HJB_I_singleProductFirm_2}). For convenience, I restate the equation here: 
+\begin{align}
+\rho V(m) &= \pi + \bar{\sigma} V'(m)  - \tau(m) V(m) \nonumber \\ 
+& + \max_{z \ge 0, y \ge 0, x \in \{0,1\}} \Bigg\{ \chi_I^{ext} y^{1-\psi_I^{ext}} \Big( \lambda V(0) - \kappa \Big) - y \bar{w} \nonumber \\
++  \chi_I^{int} z^{1-\psi_I} &\Bigg[ \lambda V(0) - V(m) \Bigg] - z \Bigg[ x w^{NCA} + (1-x) \Big( w(m) - \theta \nu V'(m)\Big) \Bigg] \Bigg\} \label{HJB_I_singleProductFirm_2_appendix}
+\end{align}
+
+This equation poses a substantial difficulty because the policy $z^*(m)$ driving the PDE depends on the value of $V$ at zero, not just $m$ or locally near $m$. An iterative algorithm must therefore be used.
+
+\paragraph{Augmenting the HJB}
+
+In order to solve the HJB, I first augment the HJB with a time dimension, 
+\begin{align}
+\rho V(m,t) &= \pi + V_t(m,t) + \bar{\sigma} V_m(m,t)  - \tau(m) V(m,t) \nonumber \\ 
+& + \max_{z \ge 0, y \ge 0, x \in \{0,1\}} \Bigg\{ \chi_I^{ext} y^{1-\psi_I^{ext}} \Big( \lambda V(0,t) - \kappa \Big) - y \bar{w} \nonumber \\
++  \chi_I^{int} z^{1-\psi_I} &\Bigg[ \lambda V(0,t) - V(m,t) \Bigg] - z \Bigg[ x w^{NCA} + (1-x) \Big( w(m) - \theta \nu V_m(m,t)\Big) \Bigg] \Bigg\}  \label{HJB_I_augmented}
+\end{align}
+
+\paragraph{Run time backwards}
+Next I make the change of variables $t \to T - t$ so that time runs backwards; i.e., $V(\cdot,0)$ is a terminal condition. The only difference relative to (\ref{HJB_I_augmented}) is that the sign on $V_t$ flips: 
+\begin{align}
+V_t(m,t) + \rho V(m,t) &= \pi + \bar{\sigma} V_m(m,t)  - \tau(m) V(m,t) \nonumber \\ 
+& + \max_{z \ge 0, y \ge 0, x \in \{0,1\}} \Bigg\{ \chi_I^{ext} y^{1-\psi_I^{ext}} \Big( \lambda V(0,t) - \kappa \Big) - y \bar{w} \nonumber \\
++  \chi_I^{int} z^{1-\psi_I} &\Bigg[ \lambda V(0,t) - V(m,t) \Bigg] - z \Bigg[ x w^{NCA} + (1-x) \Big( w(m) - \theta \nu V_m(m,t)\Big) \Bigg] \Bigg\}  \label{HJB_I_augmented_backwards}
+\end{align}
+
+\paragraph{Algorithm}
+
+To solve the original ODE, I solve (\ref{HJB_I_augmented_backwards}) with some guess $V(\cdot,0)$, and consider the limit of the solution as $t \to \infty$. If the limit exists, it must solve (\ref{HJB_I_singleProductFirm_2_appendix}). Further, the limit will exist because all driving functions do not depend on $t$ (e.g. $\tau(m),w(m)$ and the incumbent's policy $z(m)$), so that $V(\cdot,t)$ is the value of an agent in a stationary environment with arbitrary termination value $V(\cdot,0)$ in $t$ units of time. In the infinite past, the arbitrary choice of terminal value does not matter, and the value $V(\cdot,t)$ converges to the stationary value $V(\cdot)$ solving (\ref{HJB_I_singleProductFirm_2_appendix}).  
+
+\subsubsection{Viscosity solutions}
+
+\textbf{[Need to go over this paragraph]} There is generally no guarantee that (\ref{HJB_I_augmented_backwards}) admits a classical solution. However, we can reinterpret the equation using the theory of \textit{viscosity solutions}, which are guaranteed existence and uniqueness.. Such solutions generally exhibit some points of non-differentiability. If such a solution exists for an HJB, it corresponds to the value. 
+
+\subsubsection{Implicit vs explicit scheme}
+I use a finite difference scheme. A finite difference scheme can be explciit or implicit. Implicit schemes more stably converge to the viscosity solution of the differential equation in question. See the discussion in \cite{achdou_income_2017} and the references therein, in particular \cite{tourin_introduction_2013}. 
+
+Note that \cite{achdou_income_2017} uses a semi-implicit scheme, as the optimal policy at the $n+1$ update step is computed \textit{explicitly} using the value function from the $n$th step. In my case, such a scheme is unstable, sometimes returning solutions that contain large errors for large $m$, and occasionally resulting in a singular matrix, halting the numerical algorithm. Therefore, I use the fully implicit scheme + Howard's algorithm, described in \cite{tourin_introduction_2013}. In the fully implicit scheme, the differential equation is solved in between each policy function iteration; by contrast, in the semi-implicit scheme of \cite{achdou_income_2017}, the policy guess is updated each time step of the algorithm.\footnote{I believe that this is what is leading to the instabilities in my algorithm. In particular, it explains my paradoxical result that larger time-steps can \textit{reduce} instability: a larger time-step brings one closer to the fully-implicit Howard algorithm scheme, which solves the equation in between each policy guess, because such a scheme is guaranteed convergence for arbitrary time-steps (by Barles-Souganidis).}
+
+Consider a grid in $m$-space with grid points $m_i$ for $i \in \{ 1, 2, \ldots, I\}$. Let $\Delta_{mi} = m_{i+1} - m_i$ (i.e., I do not assume equally spaced grid points). Similarly consider a grid in $t$-space with points $t_n$ for $n \in \{1, 2, \ldots, N\}$, and let $\Delta_t = t_{n+1} - t_n$ (equally spaced is fine here). 
+
+\paragraph{Implicit scheme}
+
+Conditional on a discretized optimal policy $(z_i,x_i,y)$, the implicit scheme is given by  
+\begin{align}
+	\frac{V_i^{n+1} - V_i^{n}}{\Delta_t} + \rho V_i^{n+1} &= \pi + \bar{\sigma} \frac{V_{i+1}^{n+1} - V_i^{n+1}}{\Delta_{mi}} - \tau_i V_i^{n+1}  \nonumber \\
+	&+ \chi_I^{ext} y^{1-\psi_I^{ext}} \Big( \lambda V_1^{n+1} - \kappa \Big) - y \bar{w} \nonumber \\
+	&+ \chi_I^{int} z_i^{1-\psi_I^{int}} \Big( \lambda V_1^{n+1} - V_i^{n+1} \Big) - z_i \Big[ x_i w^{NCA} + (1-x_i) \Big( w_i - \theta \nu \frac{V_{i+1}^{n+1} - V_i^{n+1}}{\Delta_{mi}} \Big) \Big]
+\end{align}
+
+Using the notation of \cite{tourin_introduction_2013}, we can write the scheme as
+\begin{align}
+	0 &= S\Big(\Delta_t, \Delta_{mi}, (n+1)\Delta_t , \sum_{j=1}^i \Delta_{mi}, V_i^{n+1}, \big[V_i^n, V_{i+1}^{n+1}, V_1^{n+1}\big]\Big)
+\end{align}
+
+Using the notation of \cite{achdou_income_2017}, the scheme can be written in matrix form using the matrices $A,B$ and vector $u$, defined by 
+\begin{align*}
+	A_{i,1} &= \chi_I^{int} z_i^{1-\psi_I^{int}} \lambda \\
+	A_{i,i+1} &= \frac{\bar{\sigma} + \sigma_i}{\Delta_{mi}}  \\
+	A_{i,i} &= -\frac{\bar{\sigma} +z_i (1-x_i) \theta \nu }{\Delta_{mi}} - \chi_I^{int} z_i^{1-\psi_I^{int}} - \tau_i \\
+	B &= \Big( \frac{1}{\Delta_t} + \rho \Big) I - A  \\
+	u_i &= \pi - z_i \Big( x_i w^{NCA} + (1-x_i) w_i\Big)
+\end{align*}
+
+The scheme is written
+\begin{align}
+	B V^{n+1} &= u + \frac{1}{\Delta_t} V^n \nonumber \\ 
+	\Rightarrow V^{n+1} &= B^{-1} \Big( u + \frac{1}{\Delta_t} V^n \Big) \label{barles_souganidis_update_matrix}
+\end{align}
+
+To prove that this scheme converges as $\sup_{i \in I} \{\Delta_{mi} \}, \Delta_t \to 0$, it suffices to show that it is consistent, stable, and monotone. 
+
+\textbf{Consistency} is essentially the requirement that the scheme indeed represents the ODE to be solved. Practically, verifying consistency amounts to verifying that the truncation errors in the finite difference derivative approxiations are $O(\sup_{i \in I}\{\Delta_{mi}^2 \})$. This is immediate in this case, since there are no second-order derivatives: taking a first-order Taylor expansion shows that the truncation errors of approximations for first-derivatives are second-order.
+
+\textbf{Stability} is the joint requirement that (1) the scheme has a solution $V_h$ for any grid $h$, and (2) there is a uniform bound $B \ge 0$ bounding the solution $V_h$ for any given grid $h$. Effectively this amounts to checking that the matrix $B$ in equation (\ref{barles_souganidis_update_matrix}) is invertible and the resulting solution uniformly bounded for all grids. 
+
+\textbf{Monotonicity} is the requirement that the function $S$ defining the scheme be \textbf{decreasing} in $\big[V_i^n, V_{i+1}^{n+1}, V_1^{n+1}\big]$. This is obtained by using an \textbf{implicit}, \textbf{upwind} scheme. 
+
+If the Barles-Souganidis conditions are satisfied, the scheme converges to the unique viscosity solution of the ODE it represents (i.e., the ODE used in the definition of consistency). 
+
+
+
+
+
 
 
 \section{Appendix of figures}\renewcommand{\thetable}{A\arabic{table}}
+
+\renewcommand\thefigure{\thesection.\arabic{figure}}  
+\setcounter{figure}{0}
+
 
 \begin{figure}	\phantomsection
 	\center
@@ -1027,6 +1102,7 @@ The utility of such an extension is that it allows the model to more accurately 
 	\caption{\small The dependent variable is 4-digit NAICS WSO formation in the listed year. Independent variables are measured at time $t$. R\&D spending is measured in units of effective R\&D: nominal R\&D spending, deflated by product of R\&D price index and cumulative productivity growth. Controls are Tobin's Q $\times$ total assets, Tobin's Q, total assets, first difference of sales, cash holdings, asset tangibility, employment, and cumulative citation-weighted patent stock. All displayed controls have been normalized to have zero mean and unit variance at the population level. All regressions have parent firm, parent firm age, naics4-year and parent firm state-year fixed effects. Clustering is at the parent firm level.}
 	\label{regs_spinouts_wso4_accounting}
 \end{figure}
+
 
 
 

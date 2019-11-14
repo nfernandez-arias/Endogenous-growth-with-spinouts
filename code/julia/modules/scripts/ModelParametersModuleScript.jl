@@ -59,11 +59,3 @@ mutable struct ModelParameters
 end
 
 Base.deepcopy(modelPar::ModelParameters) = ModelParameters([ deepcopy(getfield(m, k)) for k = 1:length(fieldnames(typeof(modelPar))) ]...)
-
-mutable struct IncumbentSolution
-
-    V::Array{Float64}
-    zI::Array{Float64}
-	noncompete::Array{Int64}
-
-end

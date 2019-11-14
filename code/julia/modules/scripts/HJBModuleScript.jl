@@ -14,7 +14,7 @@
 #
 # incumbentSolution
 
-using Optim, LinearAlgebra, SparseArrays
+using Optim, LinearAlgebra, SparseArrays, Plots
 import UnicodePlots
 
 export solveIncumbentHJB, solveSpinoutHJB
@@ -72,36 +72,29 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
     ## Construct mGrid and Delta_m vectors
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
-	zS_density = zeros(size(zS))
-
 	# Construct individual zS policy for computing W
+	zS_density = zeros(size(zS))
 	zS_density[2:end] = (zS ./ mGrid)[2:end]
 	zS_density[1] = ξ
+
+	#  Define spinout wage
+	wS = (sFromS * w .+ (1-sFromS) * wbar)
+
+	modelPar.χS * ϕSE(ξ*mGrid) * (modelPar.λ *  V[1] - modelPar.κ)  - wS
+
 
 	# Spinout flow construction
 	spinoutFlow = zeros(size(zS))
 
-
-
-	if modelPar.spinoutsSamePool == true
-
-		#spinoutFlow = χS .* ϕI(zS + zI + zE) .* (λ * (1-ζ) * V[1] ) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
-		spinoutFlow = χS .* ϕI(zS + zI + zE) .* (λ * (1- modelPar.κ) *  V[1] ) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
-
-	else
-
-		#spinoutFlow = χS .* ϕSE(zS .+ zE) .* (λ * (1-ζ) * V[1]) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
-		spinoutFlow = χS .* ϕSE(zS .+ zE) .* (λ * (1- modelPar.κ) * V[1]) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
-
-	end
-
-	Imax = length(mGrid)
+	#spinoutFlow = χS .* ϕSE(zS .+ zE) .* (λ * (1-ζ) * V[1]) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
+	#spinoutFlow = χS .* ϕSE(zS .+ zE) .* (λ * (1- modelPar.κ) * V[1]) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
+	spinoutFlow = max.(χS .* ϕSE(zS .+ zE) .* (λ * V[1] - modelPar.κ) - wS , 0)  # If negative due to no spinout entry, spinoutFlow should be zero.
 
 	W = zeros(size(V))
 
-	for i = 1:Imax-1
+	for i = 1:length(mGrid)-1
 
-		j = Imax - i
+		j = length(mGrid) - i
 
 		W[j] = ((drift[j] / Δm[j]) * W[j+1] + zS_density[j] * ( spinoutFlow[j] )) / (ρ + τ[j] + drift[j] / Δm[j])
 
@@ -111,49 +104,117 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
 end
 
-function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, zI::Array{Float64}, noncompete::Array{Float64}, A::SparseMatrixCSC{Float64,Int64},zS::Array{Float64},zE::Array{Float64})
+function computeOptimalIncumbentPolicy(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, V0::Array{Float64})
 
-    ## Unpack model parameters
-    ##########################
+	## Unpack relevant model parameters
 
-    λ = modelPar.λ
-
-    # Spinouts
-    ν = modelPar.ν
 	θ = modelPar.θ
+	ν = modelPar.ν
+	λ = modelPar.λ
+	χI = modelPar.χI
+	ψI = modelPar.ψI
+	CNC = modelPar.CNC
 
-	sFromS = modelPar.spinoutsFromSpinouts
-	sFromE = modelPar.spinoutsFromEntrants
-
-    ## Unpack guess
-    ###################################################
-
+	## Unpack guesses
+	w = guess.w
+	wNC = guess.wNC
+	wE = guess.wE
 	idxM = guess.idxM
 	driftNC = guess.driftNC
 
-    # Construct mGrid
+	mGrid,Δm = mGridBuild(algoPar.mGrid)
+
+	zI = zeros(size(mGrid))
+	noncompete = zeros(size(mGrid))
+
+	#---------------------------#
+	# Calculate optimal non-compete and optimal zI given non-compete
+	# and given no non-compete.
+	#---------------------------#
+
+	#Vprime2 = (V0[3] - V0[2]) / Δm[2]    # This really should not be necessary anymore...
+
+	for i = reverse(1:length(mGrid)-1)
+		Vprime = (V0[i+1] - V0[i]) / Δm[i]
+
+		#if i == 1
+		#	Vprime = Vprime2
+		#end
+
+		#if i >= idxM
+		#	Vprime = 0
+		#end
+
+		numerator = w[i] - (1-θ) * ν * Vprime
+		denominator = (1- ψI) * χI * ( λ * V0[1] - V0[i])
+		ratio = numerator / denominator
+
+		#print("$(numerator - wbar)")
+
+		if ratio > 0
+
+			if CNC == false || numerator <= wNC[i]
+
+				noncompete[i] = 0
+				zI[i] = ratio^(-1/ψI)
+
+			else
+
+				noncompete[i] = 1
+				ratio_CNC = wNC[i] / denominator
+				zI[i] = ratio_CNC^(-1/ψI)
+
+			end
+
+		else
+
+			noncompete[i] = 0
+			zI[i] = 0.01 # not realy used...but haven't deleted just in case..
+
+		end
+
+	end
+
+	# Some hacks to keep stability - these guesses are
+	# approximately (within tolernace) TRUE IN EQUILIBRIUM
+	# so innocuous to impose as assumptions.
+
+	zI[1] = zI[2]
+	zI[idxM+1:end] .= zI[idxM] * ones(size(zI[idxM+1:end]))
+	zI[end] = zI[end-1]
+
+	## This should be deletable - but for now keeping it in just in case
+
+	#if CNC == false
+	#	noncompete[:] .= 0
+	#end
+
+
+
+	return zI,noncompete
+
+end
+
+function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, A::SparseMatrixCSC{Float64,Int64}, drift::Array{Float64}, τI::Array{Float64}, τSE::Array{Float64})
+
+	# Unpack
+	λ = modelPar.λ
+
+	# Make grid
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
-    ## Compute A Matrix
-    ##############################################
-
-	τI = τIFunc(modelPar,zI,zS,zE)
-	τSE = τSEFunc(modelPar,zI,zS,zE)
-
-	drift = driftNC * ones(size(mGrid)) + (1-θ) * ν * (((1 .- noncompete) .* zI) + (sFromS * zS) + (sFromE * zE))
-
+    # Update A Matrix
     for i = 1:length(mGrid)-1
 
-		A[i,1] = τI[i] * λ
-		#A[i,1] = τI[i]  # no λ term -- Moll's idea
+		#A[i,1] = τI[i] * λ
+		A[i,1] = τI[i]  # no λ term -- Moll's idea
 		A[i,i+1] = drift[i] / Δm[i]
 		A[i,i] = - drift[i] / Δm[i] - τI[i] - τSE[i]
-		#A[i,i] = - ν * (zI[i] + aSE[i]) / Δm[i]
 
     end
 
-	A[end,1] = τI[end] * λ
-	#A[end,1] = τI[end]  # no λ term -- Moll's idea
+	#A[end,1] = τI[end] * λ
+	A[end,1] = τI[end]  # no λ term -- Moll's idea
 	A[end,end] = - τI[end] - τSE[end]
 
 end
@@ -162,7 +223,7 @@ function updateV_implicit(algoPar::AlgorithmParameters, modelPar::ModelParameter
 
 	# Unpack
 
-	timeStep = algoPar.incumbentHJB.timeStep
+	timeStep = algoPar.incumbentHJB_inner.timeStep
 	ρ = modelPar.ρ
 	V1 = zeros(size(u))
 
@@ -214,6 +275,9 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 	θ = modelPar.θ
     ξ = modelPar.ξ
 
+	sFromE = modelPar.spinoutsFromEntrants
+	sFromS = modelPar.spinoutsFromSpinouts
+
 	# CNCs
 	CNC = modelPar.CNC
 
@@ -226,12 +290,24 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
     ## Unpack algorithm parameters
     ######################################
-    timeStep = algoPar.incumbentHJB.timeStep
-    tolerance = algoPar.incumbentHJB.tolerance
-    maxIter = algoPar.incumbentHJB.maxIter
 
-	verbose = algoPar.incumbentHJB_Log.verbose
-	print_skip = algoPar.incumbentHJB_Log.print_skip
+	# Outer iteration -- policy functions
+
+	tolerance_outer = algoPar.incumbentHJB_outer.tolerance
+	maxIter_outer = algoPar.incumbentHJB_outer.maxIter
+	updateRate_outer = algoPar.incumbentHJB_outer.updateRate
+	updateRateExponent_outer = algoPar.incumbentHJB_outer.updateRateExponent
+
+	# Inner iteration -- solve ODE given policy function, using
+	# fully implicit scheme
+
+    timeStep = algoPar.incumbentHJB_inner.timeStep
+    tolerance_inner = algoPar.incumbentHJB_inner.tolerance
+    maxIter_inner = algoPar.incumbentHJB_inner.maxIter
+	verbose = algoPar.incumbentHJB_inner_Log.verbose
+	print_skip = algoPar.incumbentHJB_inner_Log.print_skip
+
+
 
     ## Unpack guess
     ###################################################
@@ -249,268 +325,92 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
     # based on L_RD guess and profit function
 
     #V0 = initialGuessIncumbentHJB(algoPar,modelPar,guess)
-	V0 = incumbentHJBSolution.V
 	#plot(mGrid,V0, label = "Incumbent Value", xlabel = "Mass of spinouts")
 	#png("figures/plotsGR/diagnostic_V.png")
 
 	# Load in incumbent solution from previous iteration, as basis
-	# for computing zS and zE.
+	# for computing zE given zS.
 
 	V_store = incumbentHJBSolution.V
 	zI_store = incumbentHJBSolution.zI
 	zS = zSFunc(algoPar,modelPar,idxM)
 	zE = zEFunc(modelPar,incumbentHJBSolution,w,wE,zS)
+	τSE = τSEFunc(modelPar,zI_store,zS,zE)
 
 	# Initialize incumbent policies
-	noncompete = zeros(size(V0))
-    zI = zeros(size(V0))
-
-	# Some diagnostics
-	#plot(mGrid,w, label = "R&D wage", xlabel = "Mass of spinouts")
-	#png("figures/plotsGR/diagnostic_w.png")
-
-	#plot(mGrid,[zS zE], label = ["zS" "zE"], xlabel = "Mass of spinouts")
-	#png("figures/plotsGR/diagnostic_zSzE.png")
-
+	noncompete = zeros(size(V_store))
+    zI = zeros(size(V_store))
 
     ## Construct mGrid and Delta_m vectors
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
     # Finally calculate flow profit
-	Π = profit(guess.L_RD,modelPar) .* ones(size(mGrid));
+	Π = profit(guess.L_RD,modelPar) .* ones(size(mGrid))
 
 	# Initialize transition matrix
 	A = spzeros(length(mGrid),length(mGrid))
 
-    iterate = 1
-    error = 1
+    iterate_outer = 1
+    error_outer = 1
 
 	#diagNumPoints = 20
 	#V_diag = zeros(length(mGrid),diagNumPoints)
 	#zI_diag = zeros(length(mGrid),diagNumPoints)
 	#noncompete_diag = zeros(length(mGrid),diagNumPoints)
 
-	#incumbentObjective(x) = 0
 
-    while iterate < maxIter && error > tolerance
+	## NEED TO MAKE SURE USING THE RIGHT THING HERE
 
-		#print("iterate: $iterate \n")
+	# Load for first iteration
+	sol = incumbentHJBSolution
 
-		#---------------------------#
-		# Calculate optimal non-compete and optimal zI given non-compete
-		# and given no non-compete.
-		#---------------------------#
+	V0 = incumbentHJBSolution.V
+	zI0 = incumbentHJBSolution.zI
+	noncompete0 = incumbentHJBSolution.noncompete
 
-		Vprime2 = (V0[3] - V0[2]) / Δm[2]
 
-		#zS = zS(algoPar,modelPar,idxM)
-		#zE = zE(modelPar,V0[1],zI,w,zS)updateV_implicit
+    while iterate_outer < maxIter_outer && error_outer > tolerance_outer
 
-		#print(Vprime2)
+		# Update drift given
+		τI = τIFunc(modelPar,zI0,zS,zE)
+		drift = driftNC * ones(size(mGrid)) + (1-θ) * ν * (((1 .- noncompete0) .* zI0) + (sFromS * zS) + (sFromE * zE))
 
-		if modelPar.spinoutsSamePool == true
+		# Compute flow payoff
+		#u = Π .- zI0 .* ((1 .- noncompete0) .* w + noncompete0 .* wNC)
+		u = Π .+ τI .* (λ-1) .* V0[1]  .- zI0 .* ((1 .- noncompete0) .* w + noncompete0 .* wNC)  # Moll's idea -- here add (λ-1) * τI * V0[1] term
 
-			for i = reverse(1:length(mGrid)-1)
-			    Vprime = (V0[i+1] - V0[i]) / Δm[i]
+		## Implicit method
 
-				if i == 1
-					Vprime = Vprime2
-				end
+		iterate_inner = 1
+		error_inner = 1
 
-				objective1(z) = -(z * χI * ϕI(z + zS[i] + zE[i])  * ( λ * V0[1] - V0[i] ) - z * ( w[i] - ν * Vprime))
-				objective2(z) = -(z * χI * ϕI(z + zS[i] + zE[i])  * ( λ * V0[1] - V0[i] ) - z * wbar)
-
-				if CNC == false || w[i] - ν * Vprime <= wbar
-
-					#print("Branch 1: \n")
-
-					#incumbentObjective(z) = -(z * χI * ϕI(z + zS[i] + zE[i])  * ( λ * V0[1] - V0[i] ) - z * ( w[i] - ν * Vprime))
-
-					#incumbentObjective(z::Float64) = 0
-
-					#plot(0:0.01:1,objective1, label = "Incumbent Objective", xlabel = "R&D effort zI", ylabel = "Flow + continuation payoff")
-					#png("figures/plotsGR/diagnostic_incumbentObjective.png")
-
-					lower = 0
-					upper = 10
-
-					#print("zS[$i] = $(zS[i])\n")
-					#print("zE[$i] = $(zE[i])\n")
-					#print("λ = $λ\n")
-					#print("χI = $χI\n")
-					#print("V0[1] = $(V0[1])\n")
-					#print("V0[$i] = $(V0[i])\n")
-					#print("w[$i] = $(w[i])\n")
-
-					#print("objective1(0.01) = $(objective1(0.01))\n")
-					#print("objective1(1) = $(objective1(1))\n")
-
-					#plot(0:0.01:1,objective1,title = "objective1", label = "incumbent objective", xlabel = "z")
-					#png("figures/plotsGR/diagnostic_incumbentObjective.png")
-
-
-					#print("incumbentObjective at z = 0: $(incumbentObjective(0)) \n")
-					#print("incumbentOjbective at z = 1: $(incumbentObjective(1)) \n")
-
-					result = optimize(objective1,lower,upper)
-
-					#print("result = $result\n")
-
-					zI[i] = Optim.minimizer(result)
-
-					#print("zI[$i] = $(zI[i]) \n\n")
-
-				else
-
-					noncompete[i] = 1
-
-					#incumbentObjective(z) = -(z * χI * ϕI(z + zS[i] + zE[i])  * ( λ * V0[1] - V0[i] ) - z * wbar)
-
-					lower = 0
-					upper = 10
-
-					result = optimize(objective2,lower,upper)
-
-					zI[i] = Optim.minimizer(result)
-
-				end
-
-
-
-			end
-
-		else
-
-			for i = reverse(1:length(mGrid)-1)
-				Vprime = (V0[i+1] - V0[i]) / Δm[i]
-
-				if i == 1
-					Vprime = Vprime2
-				end
-
-				#if i >= idxM
-				#	Vprime = 0
-				#end
-
-				numerator = w[i] - (1-θ) * ν * Vprime
-				denominator = (1- ψI) * χI * ( λ * V0[1] - V0[i])
-				ratio = numerator / denominator
-
-				#print("$(numerator - wbar)")
-
-				if ratio > 0
-
-					if CNC == false || numerator <= wNC[i]
-
-						noncompete[i] = 0
-						zI[i] = ratio^(-1/ψI)
-
-					else
-
-						noncompete[i] = 1
-						ratio_CNC = wNC[i] / denominator
-						zI[i] = ratio_CNC^(-1/ψI)
-
-					end
-
-				else
-
-					noncompete[i] = 0
-					zI[i] = 0.01 # not realy used...but haven't deleted just in case..
-
-				end
-
-			end
-
-		end
-
-		# Hack - "guess and verify", true in eq by continuity
-
-		zI[end] = zI[end-1]
-
-		#zI[1] = zI[2] #- no need for hack with Moll's method
-		#noncompete[1] = noncompete[2]
-
-		# Try this stability method
-		#zI[idxM+1:end] = zI[idxM] * ones(size(zI[idxM+1:end]))
-		#noncompete[idxM+1:end] = noncompete[idxM] * ones(size(zI[idxM+1:end]))
-
-		#gr()
-		#plot(mGrid,zI)
-		#png("figures/plotsGR/diagnostic_zI.png")
-		#print(zI)
-
-		#plot(0:0.01:1,ϕI)
-		#png("figures/plotsGR/diagnostic_ϕI.png")
-
-
-		# Stability hack
-		#zI[idxM+1:end] .= zI[idxM]
-
-
-		## This should be deletable - but for now keeping it in just in case
-
-		if CNC == false
-			noncompete[:] .= 0
-		end
-
-		## Unpack z and tau functions
-		#######################################
-
-		#zS = zSFunc(algoPar,modelPar,idxM)[:]
-		#zE = zEFunc(modelPar,V0[1],zI,w,zS)[:]
-
-		τI = τIFunc(modelPar,zI)
-		#τI = τI(modelPar,zI,zS,zE)[:]
-		#τSE = τSE(modelPar,zI,zS,zE)[:]
-
-		if implicit == true
-
-			## Implicit method
-
-			# Compute flow payoff
-		    u = Π .- zI .* ((1 .- noncompete) .* w + noncompete .* wNC)
-			#u = Π .+ τI .* (λ-1) .* V0[1]  .- zI .* ((1 .- noncompete) .* w + noncompete .* wbarFunc(modelPar.β))  # Moll's idea -- here add (λ-1) * τI * V0[1] term
+		while iterate_inner < maxIter_inner && error_inner > tolerance_inner
 
 			# Update "transition" matrix A
-			updateMatrixA(algoPar,modelPar,guess,zI,noncompete,A,zS,zE)
-
-			#print("Type of A: $(typeof(A))\n")
-			#print(A)
-			#print(UnicodePlots.spy(A))
-			#png("spyA.png")
+			updateMatrixA(algoPar,modelPar,guess,A,drift,τI,τSE)
 
 			# Implicit update step to compute V1 and error
-			try
-				V1,error = updateV_implicit(algoPar,modelPar,A,u,V0)
+			V1,error_inner = updateV_implicit(algoPar,modelPar,A,u,V0)
 
-			catch caughtError
-
-				#print(caughtError)
-				#V1,error = updateV_explicit(algoPar,modelPar,A,u,V0)
-
+			if verbose == 2
+				if iterate_inner % print_skip == 0
+					println("solveIncumbentHJB_inner: Compute iterate $iterate_inner with error $error_inner")
+				end
 			end
 
-			# Hack to avoid instabiities - will be true in equilibrium
-			V1[idxM+1:end] .= V1[idxM]
+			# Increment
+			iterate_inner += 1
 
-			# Normalize error by timeStep because
-			# it will always be smaller if timeStep is smaller
-			error = sum(abs.(V1-V0)) ./ timeStep
-
-		else
-
-			## Explicit method
-
-			V1,error = updateV_explicit(algoPar,modelPar,guess,V0)
+			# Update solution for next computation of optimal policy
+			V0 = V1
 
 		end
 
-
-
-		if verbose == 2
-			if iterate % print_skip == 0
-				println("solveIncumbentHJB: Compute iterate $iterate with error $error")
+		if verbose >= 1
+			if error_inner > tolerance_inner
+				@warn("solveIncumbentHJB_inner: maxIter ($iterate_inner) attained with error $error_inner")
+			elseif verbose == 2
+				println("solveIncumbentHJB_inner: Converged in $iterate_inner steps")
 			end
 		end
 
@@ -518,100 +418,33 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		#zI_diag[:,iterate] = zI
 		#noncompete_diag[:,iterate] = noncompete
 
-		V0 = V1
 
-		iterate += 1
+		# Compute policy given new value V0 computed above using implicit finite difference scheme
+		zI1,noncompete1 = computeOptimalIncumbentPolicy(algoPar,modelPar,guess,V0)
+
+		# Compute error
+		error_outer = sum(abs.(zI1-zI0)) + sum(abs.(noncompete1 - noncompete0))
+
+		# Print status output
+		println("solveIncumbentHJB_outer: Compute iterate $iterate_outer with error $error_outer")
+
+		# Increment
+		iterate_outer += 1
+
+		# Update guesses
+		zI0 = algoPar.incumbentHJB_outer.updateRate * zI1 + (1 - algoPar.incumbentHJB_outer.updateRate) * zI0
+		noncompete0 = algoPar.incumbentHJB_outer.updateRate * noncompete1 + (1 - algoPar.incumbentHJB_outer.updateRate) * noncompete0
 
 	end
 
-	if verbose >= 1
-		if error > tolerance
-			@warn("solveIncumbentHJB: maxIter attained")
-		elseif verbose == 2
-			println("solveIncumbentHJB: Converged in $iterate steps")
-		end
+	if error_outer > tolerance_outer
+		@warn("solveIncumbentHJB_outer: maxIter ($iterate_outer) attained with error $error_outer")
+	else
+		println("solveIncumbentHJB_outer: Converged in $iterate_outer steps with error $error_outer")
 	end
 
     # Output
     #return V_diag,zI_diag,noncompete_diag,IncumbentSolution(V0,zI,noncompete)
-	return IncumbentSolution(V0,zI,noncompete)
-
-end
-
-function solveIncumbentHJB_explicitMethod(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, verbose = 2, print_skip = 10)
-
-	## Unpack model parameters
-	##########################
-
-	# General
-	ρ = modelPar.ρ
-	β = modelPar.β
-	L = modelPar.L
-
-	# Innovation
-	χI = modelPar.χI
-	χS = modelPar.χS
-	χE = modelPar.χE
-	ψI = modelPar.ψI
-	ψSE = modelPar.ψSE
-	λ = modelPar.λ
-
-	# Spinouts
-	ν = modelPar.ν
-	ξ = modelPar.ξ
-
-	# CNCs
-	CNC = modelPar.CNC
-
-	# Wage
-	wbar = wbarFunc(modelPar.β)
-
-	# Define some auxiliary functions
-	ϕI(z) = z .^(-ψI)
-	ϕSE(z) = z .^(-ψSE)
-
-	## Unpack algorithm parameters
-	######################################
-	timeStep = algoPar.incumbentHJB.timeStep
-	tolerance = algoPar.incumbentHJB.tolerance
-	maxIter = algoPar.incumbentHJB.maxIter
-
-	verbose = algoPar.incumbentHJB_Log.verbose
-	print_skip = algoPar.incumbentHJB_Log.print_skip
-
-	## Unpack guess
-	###################################################
-	w = guess.w;
-	#zS = guess.zS;
-	#zE = guess.zE;
-	idxM = guess.idxM
-
-	# Compute initial guess for V, "value of staying put"
-	# based on L_RD guess and profit function
-	V0 = initialGuessIncumbentHJB(algoPar,modelPar,guess)
-	noncompete = zeros(size(V0))
-	zI = zeros(size(V0))
-
-	## Construct mGrid and Delta_m vectors
-	mGrid,Δm = mGridBuild(algoPar.mGrid)
-
-	# Finally calculate flow profit
-	Π = profit(guess.L_RD,modelPar) .* ones(size(mGrid));
-
-	iterate = 1
-	error = 1
-
-
-	while iterate < maxIter && error > tolerance
-
-
-		Vprime2 = (V0[3] - V0[2]) / Δm[2]
-
-
-
-
-	end
-
-
+	return IncumbentSolution(V0,zI0,noncompete0)
 
 end

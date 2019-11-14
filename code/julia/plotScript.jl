@@ -1,6 +1,7 @@
 #---------------------------#
 # Plot V,W,zI,zS/m
 #---------------------------#
+
 Plots.scalefontsizes(0.9)
 p = plot(mGrid,[V[:] W[:] zI[:] zS[:]], legend = :bottomright, title = ["Incumbent and Aggregate Spinout value" "Spinout value" "Incumbent policy" "Aggregated spinout policy"], xlabel = "Mass of spinouts", label = ["V(m)" "W(m)" "z_I(m)" "z_S(m)"], layout = (2,2))
 png("figures/plotsGR/HJB_solutions_plot.png")
@@ -64,15 +65,15 @@ png("figures/plotsGR/innovation_rates_t")
 
 
 wbars = ones(size(mGrid)) * EndogenousGrowthWithSpinouts.Cβ(β)
-p = plot(mGrid, [w wageSpinouts wageEntrants (wNC - (1-θ) * (1-modelPar.ζ)*ν*W) wbars], title = "Wages", legend = :bottomright, linestyle = [:dash :dash :dash :solid :solid], label = ["R&D wage (incumbents)" "R&D wage (spinouts)" "R&D wage (entrants)" "Production wage minus employee flow value of knowledge" "Production wage"], xlabel = "Mass of spinouts", ylabel = "Units of final consumption")
+p = plot(mGrid, [w wageSpinouts wageEntrants (wNC - (1-θ) * (1-modelPar.ζ)*ν*W) wbars], title = "Wages", legend = :topright, linestyle = [:dash :dash :dash :solid :solid], label = ["R&D wage (incumbents)" "R&D wage (spinouts)" "R&D wage (entrants)" "Production wage minus employee flow value of knowledge" "Production wage"], xlabel = "Mass of spinouts", ylabel = "Units of final consumption")
 png("figures/plotsGR/wages_m.png")
 
 
 
 if modelPar.CNC == true
-    p = plot(t, [w wageSpinouts wageEntrants (wNC - (1-θ) * (1-modelPar.ζ)*ν*W) wbars], title = "Noncompetes", linestyle = [:dash :dash :dash :solid :solid], legend = :bottomright, label = ["R&D wage (incumbents)" "R&D wage (spinouts)" "R&D wage (entrants)" "Production wage minus employee flow value of knowledge" "Production wage"], xlabel = "Years since last innovation", ylabel = "Units of final consumption")
+    p = plot(t, [w wageSpinouts wageEntrants (wNC - (1-θ) * (1-modelPar.ζ)*ν*W) wbars], title = "Noncompetes", linestyle = [:dash :dash :dash :solid :solid], legend = :topright, label = ["R&D wage (incumbents)" "R&D wage (spinouts)" "R&D wage (entrants)" "Production wage minus employee flow value of knowledge" "Production wage"], xlabel = "Years since last innovation", ylabel = "Units of final consumption")
 else
-    p = plot(t, [w wageSpinouts wageEntrants (wNC - (1-θ) * (1-modelPar.ζ)*ν*W) wbars], title = "Baseline", linestyle = [:dash :dash :dash :solid :solid], legend = :bottomright, label = ["R&D wage (incumbents)" "R&D wage (spinouts)" "R&D wage (entrants)" "Production wage minus employee flow value of knowledge" "Production wage"], xlabel = "Years since last innovation", ylabel = "Units of final consumption")
+    p = plot(t, [w wageSpinouts wageEntrants (wNC - (1-θ) * (1-modelPar.ζ)*ν*W) wbars], title = "Baseline", linestyle = [:dash :dash :dash :solid :solid], legend = :topright, label = ["R&D wage (incumbents)" "R&D wage (spinouts)" "R&D wage (entrants)" "Production wage minus employee flow value of knowledge" "Production wage"], xlabel = "Years since last innovation", ylabel = "Units of final consumption")
 end
 png("figures/plotsGR/wages_t.png")
 

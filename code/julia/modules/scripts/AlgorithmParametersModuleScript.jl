@@ -65,7 +65,7 @@ Base.deepcopy(m::HJBellmanParameters) = HJBellmanParameters([ deepcopy(getfield(
 mutable struct IterationParameters
 
     tolerance::Float64
-    maxIter::Float64
+    maxIter::Int64
     updateRate::Float64
     updateRateExponent::Float64
 
@@ -85,7 +85,8 @@ Base.deepcopy(m::LogParameters) = LogParameters(m.verbose,m.print_skip)
 mutable struct AlgorithmParameters
 
     mGrid::mGridParameters
-    incumbentHJB::HJBellmanParameters
+    incumbentHJB_outer::IterationParameters
+    incumbentHJB_inner::HJBellmanParameters
     spinoutHJB::HJBellmanParameters
     g::IterationParameters
     L_RD::IterationParameters
@@ -93,7 +94,8 @@ mutable struct AlgorithmParameters
     idxM::IterationParameters
     g_L_RD_w_Log::LogParameters
     idxM_Log::LogParameters
-    incumbentHJB_Log::LogParameters
+    incumbentHJB_outer_Log::LogParameters
+    incumbentHJB_inner_Log::LogParameters
 
 end
 

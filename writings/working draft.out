@@ -32,5 +32,9 @@
 \BOOKMARK [2][-]{subsection.5.2}{Endogenous rate of spinout idea generation}{section.5}% 32
 \BOOKMARK [2][-]{subsection.5.3}{Heterogeneous innovation sizes}{section.5}% 33
 \BOOKMARK [1][-]{section.6}{Conclusion}{}% 34
-\BOOKMARK [1][-]{appendix.A}{Appendix of figures}{}% 35
-\BOOKMARK [1][-]{appendix.B}{Appendix of tables}{}% 36
+\BOOKMARK [1][-]{appendix.A}{Computational Algorithm}{}% 35
+\BOOKMARK [2][-]{subsection.A.1}{Solving the Incumbent HJB}{appendix.A}% 36
+\BOOKMARK [3][-]{subsubsection.A.1.1}{Viscosity solutions}{subsection.A.1}% 37
+\BOOKMARK [3][-]{subsubsection.A.1.2}{Implicit vs explicit scheme}{subsection.A.1}% 38
+\BOOKMARK [1][-]{appendix.B}{Appendix of figures}{}% 39
+\BOOKMARK [1][-]{appendix.C}{Appendix of tables}{}% 40

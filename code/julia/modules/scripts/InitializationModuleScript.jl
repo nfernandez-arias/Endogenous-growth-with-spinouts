@@ -9,15 +9,15 @@ export setAlgorithmParameters, setModelParameters, setInitialGuess
 
 function setAlgorithmParameters()
 
-    outerLoopMax = 100
+    outerLoopMax = 2
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 1000
+    mgrid_numPoints = 6000
     mgrid_minimum = 0.0
-    mgrid_maximum = 0.2
+    mgrid_maximum = 0.1
     mgrid_logSpacing = true
-    mgrid_logSpacingMinimum = 1e-10 * mgrid_maximum
+    mgrid_logSpacingMinimum = 1e-8 * mgrid_maximum
 
     mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum)
 
@@ -28,15 +28,17 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_timeStep = 100
-    incumbentHJB_tolerance = 1e-8
-    incumbentHJB_maxIter = 20
+    # Set parameters for inner loop - solving PDE using implicit scheme GIVEN policy function
 
-    incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter)
+    incumbentHJB_inner_timeStep = 1000
+    incumbentHJB_inner_tolerance = 1e-8
+    incumbentHJB_inner_maxIter = 30
+
+    incumbentHJB_inner = HJBellmanParameters(incumbentHJB_inner_timeStep,incumbentHJB_inner_tolerance,incumbentHJB_inner_maxIter)
 
     write(f, "Incumbent HJB Parameters \n---------------\n")
     for n in fieldnames(HJBellmanParameters)
-        temp = getfield(incumbentHJB,n)
+        temp = getfield(incumbentHJB_inner,n)
         write(f,"$n: $temp \n")false
     end
     write(f, "\n\n")
@@ -50,6 +52,20 @@ function setAlgorithmParameters()
     write(f, "Spinout HJB Parameters \n---------------\n")
     for n in fieldnames(HJBellmanParameters)
         temp = getfield(spinoutHJB,n)
+        write(f,"$n: $temp \n")
+    end
+    write(f, "\n\n")
+
+    incumbentHJB_outer_tolerance = 1e-5
+    incumbentHJB_outer_maxIter = 15
+    incumbentHJB_outer_updateRate = 0.7
+    incumbentHJB_outer_updateRateExponent = 1
+
+    incumbentHJB_outer = IterationParameters(incumbentHJB_outer_tolerance,incumbentHJB_outer_maxIter,incumbentHJB_outer_updateRate,incumbentHJB_outer_updateRateExponent)
+
+    write(f, "g Iteration Parameters \n---------------\n")
+    for n in fieldnames(IterationParameters)
+        temp = getfield(incumbentHJB_outer,n)
         write(f,"$n: $temp \n")
     end
     write(f, "\n\n")
@@ -97,8 +113,8 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     idxM_tolerance = 1e-7
-    idxM_maxIter = 50
-    idxM_updateRate = 0.8
+    idxM_maxIter = 10
+    idxM_updateRate = 0.6
     idxM_updateRateExponent = 1
 
     idxM = IterationParameters(idxM_tolerance,idxM_maxIter,idxM_updateRate,idxM_updateRateExponent)
@@ -134,20 +150,31 @@ function setAlgorithmParameters()
     end
     write(f, "\n\n")
 
-    incumbentHJB_Log_verbose = 2
-    incumbentHJB_Log_print_skip = 2
-    incumbentHJB_Log = LogParameters(incumbentHJB_Log_verbose,incumbentHJB_Log_print_skip)
+    incumbentHJB_outer_Log_verbose = 2
+    incumbentHJB_outer_Log_print_skip = 2
+    incumbentHJB_outer_Log = LogParameters(incumbentHJB_outer_Log_verbose,incumbentHJB_outer_Log_print_skip)
 
-    write(f, "incumbent HJB Logging Parameters \n---------------\n")
+    write(f, "incumbent HJB Outer Logging Parameters \n---------------\n")
     for n in fieldnames(LogParameters)
-        temp = getfield(incumbentHJB_Log,n)
+        temp = getfield(incumbentHJB_outer_Log,n)
+        write(f,"$n: $temp \n")
+    end
+    write(f, "\n\n")
+
+    incumbentHJB_inner_Log_verbose = 2
+    incumbentHJB_inner_Log_print_skip = 2
+    incumbentHJB_inner_Log = LogParameters(incumbentHJB_inner_Log_verbose,incumbentHJB_inner_Log_print_skip)
+
+    write(f, "incumbent HJB Inner Logging Parameters \n---------------\n")
+    for n in fieldnames(LogParameters)
+        temp = getfield(incumbentHJB_inner_Log,n)
         write(f,"$n: $temp \n")
     end
     write(f, "\n\n")
 
     close(f)
 
-    return AlgorithmParameters(mGrid, incumbentHJB, spinoutHJB, g, L_RD, w, idxM, g_L_RD_w_Log, idxM_Log, incumbentHJB_Log)
+    return AlgorithmParameters(mGrid, incumbentHJB_outer, incumbentHJB_inner, spinoutHJB, g, L_RD, w, idxM, g_L_RD_w_Log, idxM_Log, incumbentHJB_outer_Log, incumbentHJB_inner_Log)
 
 end
 
@@ -175,10 +202,10 @@ function setModelParameters()
     ζ = 0
 
     # Creative destruction cost
-    κ = 0.631
+    κ = 0
 
     # CNCs
-    CNC = true
+    CNC = false
 
     # Rate of Spinout formation of spinouts and entrants
 
@@ -216,10 +243,11 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
     wbar = wbarFunc(β)
     w = 0.5 * wbar * ones(size(mGrid))
 
-    wNC = w
-    wE = w
+    wNC = wbar * ones(size(mGrid))
+    wE = wbar * ones(size(mGrid))
 
-    idxM = ceil(pa.mGrid.numPoints / 2)
+    idxM = ceil(pa.mGrid.numPoints * 0.5)
+    #idxM = 1
 
     driftNC = 0.1
 

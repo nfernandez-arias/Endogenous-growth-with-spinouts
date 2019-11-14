@@ -19,23 +19,6 @@ import Base.deepcopy
 
 export solveModel,ModelSolution,AuxiliaryEquilibriumVariables
 
-struct AuxiliaryEquilibriumVariables
-
-    μ::Array{Float64}
-    γ::Array{Float64}
-    t::Array{Float64}
-
-end
-
-struct ModelSolution
-
-    finalGuess::Guess
-    incumbent::IncumbentSolution
-    spinoutValue::Array{Float64}
-    auxiliary::AuxiliaryEquilibriumVariables
-
-end
-
 function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, guess::Guess, incumbentHJBSolution::IncumbentSolution)
 
     ## Build grid
@@ -73,33 +56,20 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     ## Unpack guesses
 
     old_idxM = guess.idxM
-    #println("old_idxM = $old_idxM")
+
     w = guess.w
-    #wE = guess.wE
+
     wbar = wbarFunc(modelPar.β) * ones(size(w))
-
-    #println("V[1] = $(V[1])")
-
-    # Compute implied zS, zE
-    #old_zS = zSFunc(algoPar,modelPar,old_idxM)
-    #old_zE = zEFunc(modelPar,incumbentHJBSolution,wE,old_zS)
 
     #########
     ## Compute new guesses
 
-    wS = (sFromS * w .+ (1-sFromS) * wbar)
+    #wS = (sFromS * w .+ (1-sFromS) * wbar)
+    wS = wbar
 
-    if modelPar.spinoutsSamePool == true
-
-        #temp = modelPar.χS * ϕI(zI + ξ*mGrid) * (modelPar.λ * (1-modelPar.ζ) * V[1]) - wS
-        temp = modelPar.χS * ϕI(zI + ξ*mGrid) * (modelPar.λ * (1-modelPar.κ) * V[1]) - wS
-
-    else
-
-        #temp = modelPar.χS * ϕSE(ξ*mGrid) * (modelPar.λ * (1 - modelPar.ζ) * V[1]) - wS
-        temp = modelPar.χS * ϕSE(ξ*mGrid) * (modelPar.λ * (1-modelPar.κ)  *  V[1]) - wS
-
-    end
+    #temp = modelPar.χS * ϕSE(ξ*mGrid) * (modelPar.λ * (1 - modelPar.ζ) * V[1]) - wS
+    #temp = modelPar.χS * ϕSE(ξ*mGrid) * (modelPar.λ * (1-modelPar.κ)  *  V[1]) - wS
+    temp = modelPar.χS * ϕSE(ξ*mGrid) * (modelPar.λ *  V[1] - modelPar.κ)  .- wS
 
     # Now allowing
 
@@ -109,17 +79,17 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
         idxM = 1   # if spinouts should simply not be entering, set idxM = 0
     end
 
-    #factor_zS = χS .* ϕSE(old_zS + old_zE) .* λ .* V[1] ./ wS
-    #factor_zE = χE .* ϕSE(old_zS + old_zE) .* λ .* V[1] ./ wS
+    idxM = floor(Int64,algoPar.idxM.updateRate * idxM + (1 - algoPar.idxM.updateRate) * old_idxM)
 
-    idxM = ceil(Int64,algoPar.idxM.updateRate * idxM + (1 - algoPar.idxM.updateRate) * old_idxM)
-
-    #return idxM,factor_zS,factor_zE
     return idxM
 
 end
 
-function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess,incumbentHJBSolution::IncumbentSolution)
+function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess,incumbentHJBSalgoPar = setAlgorithmParameters()
+modelPar = setModelParameters()
+mGrid,Δm = mGridBuild(algoPar.mGrid)
+initGuess = setInitialGuess(algoPar,modelPar,mGrid)
+olution::IncumbentSolution)
 
     ## Build grid
     mGrid,Δm = mGridBuild(algoPar.mGrid);
@@ -233,8 +203,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
     V = initialGuessIncumbentHJB(algoPar,modelPar,initGuess)
-    zI = zeros(size(mGrid))
-    noncompete = zeros(size(mGrid))
+    zI,noncompete = computeOptimalIncumbentPolicy(algoPar,modelPar,initGuess,V)
 
     incumbentSolution = IncumbentSolution(V,zI,noncompete)
 
@@ -323,21 +292,25 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     tempAlgoPar = Base.deepcopy(algoPar)
 
-    tempAlgoPar.incumbentHJB.timeStep = 5
-    tempAlgoPar.incumbentHJB.maxIter = 500
+    tempAlgoPar.incumbentHJB_inner.timeStep = 5
+    tempAlgoPar.incumbentHJB_inner.maxIter = 500
 
     # Diagnostics
 
-    #diagStoreNumPoints = 100
+    diagStoreNumPoints = 200
 
-    #w_diag = zeros(length(mGrid),diagStoreNumPoints)
-    #V_diag = zeros(length(mGrid),diagStoreNumPoints)
-    #noncompete_diag = zeros(length(mGrid),diagStoreNumPoints)
-    #W_diag = zeros(length(mGrid),diagStoreNumPoints)
-    #μ_diag = zeros(length(mGrid),diagStoreNumPoints)
+    innerDiagStoreNumPoints = algoPar.idxM.maxIter
 
-    #g_diag = zeros(1,diagStoreNumPoints)
-    #L_RD_diag = zeros(1,diagStoreNumPoints)
+    w_diag = zeros(length(mGrid),diagStoreNumPoints)
+    V_diag = zeros(length(mGrid),diagStoreNumPoints)
+    V_diag_inner = zeros(length(mGrid),innerDiagStoreNumPoints)
+    noncompete_diag = zeros(length(mGrid),diagStoreNumPoints)
+    W_diag = zeros(length(mGrid),diagStoreNumPoints)
+    idxM_diag_inner = zeros(1,innerDiagStoreNumPoints)
+    μ_diag = zeros(length(mGrid),diagStoreNumPoints)
+
+    g_diag = zeros(1,diagStoreNumPoints)
+    L_RD_diag = zeros(1,diagStoreNumPoints)
 
 
     while (iterate_g_L_RD_w < algoPar.g.maxIter && error_g > algoPar.g.tolerance) || (iterate_g_L_RD_w < algoPar.L_RD.maxIter && error_L_RD > algoPar.L_RD.tolerance) || (iterate_g_L_RD_w < algoPar.w.maxIter && error_w > algoPar.w.tolerance)
@@ -384,8 +357,6 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
                 # Record initial values
                 old_idxM = guess.idxM
-                zS = zSFunc(algoPar,modelPar,old_idxM)
-                zE = zEFunc(modelPar,sol,w,wE,zS)
 
                 # Update guess object (faster than making new one)
                 guess.idxM = update_idxM(algoPar,modelPar,guess,sol1)
@@ -399,11 +370,15 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
                     end
                 end
 
+                # Record diagnostics
+                V_diag_inner[:,iterate_idxM ] = sol1.V
+                idxM_diag_inner[iterate_idxM ] = guess.idxM
+
                 # Increase iterator
                 iterate_idxM += 1
 
+                # Update solution
                 sol = sol1
-
             end
 
         end
@@ -431,6 +406,9 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         # Solve spinout HJB using incumbent HJB
         W,spinoutFlow = solveSpinoutHJB(algoPar,modelPar,guess,sol)
 
+        plot(mGrid,W)
+        png("figures/plotsGR/diagnostics/Wdiag.png")
+
         ## Updating g,L_RD
         temp_g,temp_L_RD,μ,γ,t,driftNC = update_g_L_RD(algoPar,modelPar,guess,sol)
 
@@ -440,7 +418,8 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         Wcal = WcalFunc(algoPar,modelPar,guess,W,μ,γ)
 
         # Calculate non-compete wage
-        temp_wE = (ones(size(mGrid)) .* wbar) .- (1- θ) * (sFromE * (1-ζ) * ν) * W
+        #temp_wE = (ones(size(mGrid)) .* wbar) .- (1- θ) * (sFromE * (1-ζ) * ν) * W
+        temp_wE = ones(size(mGrid)) .* wbar
         temp_wNC = ones(size(mGrid)) .* (wbar - θ * (1-ζ) * ν * Wcal)
         temp_w = temp_wNC .- (1-θ) * (1-ζ) *  ν .* W
 
@@ -485,14 +464,14 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         guess.wE = wE
         guess.driftNC = driftNC
 
-        #g_diag[1,iterate_g_L_RD_w - 1] = g
-        #L_RD_diag[1,iterate_g_L_RD_w - 1] = L_RD
+        g_diag[1,iterate_g_L_RD_w - 1] = g
+        L_RD_diag[1,iterate_g_L_RD_w - 1] = L_RD
 
-        #w_diag[:,iterate_g_L_RD_w - 1] = w
-        #V_diag[:,iterate_g_L_RD_w - 1] = V
-        #noncompete_diag[:,iterate_g_L_RD_w - 1] = noncompete
-        #W_diag[:,iterate_g_L_RD_w - 1] = W
-        #μ_diag[:,iterate_g_L_RD_w - 1] = μ
+        w_diag[:,iterate_g_L_RD_w - 1] = w
+        V_diag[:,iterate_g_L_RD_w - 1] = V
+        noncompete_diag[:,iterate_g_L_RD_w - 1] = noncompete
+        W_diag[:,iterate_g_L_RD_w - 1] = W
+        μ_diag[:,iterate_g_L_RD_w - 1] = μ
 
     end
 
@@ -520,8 +499,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         end
     end
 
-    #return w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
-    #return w_diag,V_diag,noncompete_diag,W_diag,μ_diag,g_diag,L_RD_diag,ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
-    return ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
+    #return ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
+    return w_diag,V_diag,V_diag_inner,noncompete_diag,W_diag,idxM_diag_inner,μ_diag,g_diag,L_RD_diag,ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
 
 end

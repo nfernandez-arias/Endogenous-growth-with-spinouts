@@ -1,0 +1,75 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\linespread{1.05}
+%\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage{placeins}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{blindtext}
+%\renewcommand{\arraystretch}{1.2}
+\usepackage{multirow}
+
+%\usepackage{caption}
+%\captionsetup{justification=raggedright,singlelinecheck=false}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{Implementing External Innovation by Incumbents}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+
+\begin{enumerate}
+	\item Need to allow for equilibrium with no entry due to too high creative destruction cost -- it's still perfectly well-defined, just need to modify how I'm computing $z_E$ and $z_S$ and $W$ to allow for them to be all zero. This then allows me to use $\kappa$. 
+	\item Update solveIncumbentHJB
+	\begin{itemize}
+		\item One more FOC to compute optimal external innovation (doesn't depend on $m$)
+		\item Then need to fix updateA etc.
+	\end{itemize}
+	\item Update aggregation 
+	\begin{itemize}
+		\item Computation of $g$ has to change
+		\item Computation of $\mu$ has to change, because it has creative destruction term
+		\item Computation of $L_{RD}$ has to change, because it has external innovation term now
+		\item Update computation of welfare -- treatment of creative destruction cost has to change
+	\end{itemize}
+	\item Add new guess to outer loop
+	\begin{itemize}
+		\item Previously needed $M$ guess in order to solve incumbent HJB
+		\item Now, in addition, really need $\hat{\tau}$ guess, rate of creative destruction by incumbents. 
+	\end{itemize}
+\end{enumerate}
+
+
+
+
+\end{document}

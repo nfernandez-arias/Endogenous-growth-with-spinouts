@@ -67,13 +67,6 @@ James~J. Anton and Dennis~A. Yao.
 \newblock ISSN 8756-6222.
 \newblock URL \url{https://www.jstor.org/stable/765002}.
 
-\bibitem[Babina and Howell(2018)]{babina_entrepreneurial_2018}
-Tania Babina and Sabrina~T Howell.
-\newblock Entrepreneurial {Spillovers} from {Corporate} {R}\&{D}.
-\newblock Working {Paper} 25360, National Bureau of Economic Research, December
-  2018.
-\newblock URL \url{http://www.nber.org/papers/w25360}.
-
 \bibitem[Baslandze(2019)]{baslandze_spinout_2019}
 Salome Baslandze.
 \newblock Spinout {Entry}, {Innovation}, and {Growth}.
@@ -352,5 +345,15 @@ Toby~E. Stuart and Olav Sorenson.
 \newblock ISSN 0001-8392.
 \newblock \doi{10.2307/3556656}.
 \newblock URL \url{https://www.jstor.org/stable/3556656}.
+
+\bibitem[Tourin(2013)]{tourin_introduction_2013}
+Agnès Tourin.
+\newblock Introduction to {Finite} {Differences} {Methods}.
+\newblock In Nizar Touzi, editor, \emph{Optimal {Stochastic} {Control},
+  {Stochastic} {Target} {Problems}, and {Backward} {SDE}}, Fields {Institute}
+  {Monographs}, pages 201--212. Springer, New York, NY, 2013.
+\newblock ISBN 978-1-4614-4286-8.
+\newblock \doi{10.1007/978-1-4614-4286-8_13}.
+\newblock URL \url{https://doi.org/10.1007/978-1-4614-4286-8_13}.
 
 \end{thebibliography}
