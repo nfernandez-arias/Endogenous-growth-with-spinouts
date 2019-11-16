@@ -74,7 +74,7 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
     # Now allowing
 
     if maximum(temp) >= 0
-        idxM = findlast( (temp .>= 0)[:] )
+        idxM = findlast( (temp .> 0)[:] )
     else
         idxM = 1   # if spinouts should simply not be entering, set idxM = 0
     end
@@ -85,11 +85,8 @@ function update_idxM(algoPar::AlgorithmParameters, modelPar::ModelParameters, gu
 
 end
 
-function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess,incumbentHJBSalgoPar = setAlgorithmParameters()
-modelPar = setModelParameters()
-mGrid,Δm = mGridBuild(algoPar.mGrid)
-initGuess = setInitialGuess(algoPar,modelPar,mGrid)
-olution::IncumbentSolution)
+function update_g_L_RD(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess,incumbentHJBSolution::IncumbentSolution)
+
 
     ## Build grid
     mGrid,Δm = mGridBuild(algoPar.mGrid);

@@ -4,7 +4,7 @@ Model Parameters
 β: 0.106 
 L: 1.0 
 χI: 2.1973 
-χS: 0.865375 
+χS: 1.03845 
 χE: 0.6923 
 ψI: 0.5 
 ψSE: 0.5 
@@ -14,7 +14,7 @@ L: 1.0
 ξ: 1.0 
 ζ: 0.0 
 κ: 0.0 
-CNC: false 
+CNC: true 
 spinoutsFromSpinouts: 0.0 
 spinoutsFromEntrants: 1.0e-9 
 spinoutsSamePool: false 

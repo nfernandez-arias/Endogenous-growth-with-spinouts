@@ -128,12 +128,9 @@ matchedDist <- matchedDist[order(-globCount,name,joinYear)]
 # which is helpful for understanding entire history of ownership, but 
 # really I need to go back and manually ensure that the data is correct.
 # Still, this is MUCH easier than just going with the initial list of names.
-
+  
 
 # Still need to figure out wtf is going on with AOL / Time Warner/ Verizon / Netscape
-
-
-
 
 matched[ name == "merrill lynch" & joinYear <= 2012, `:=` (gvkey = 7267, tic = "BAC2", conml = "Merrill Lynch & Co Inc", naics = 523110, state = "NY", city = "New York", cusip = "59098Z002")]
 
@@ -217,7 +214,7 @@ matched[ name == "janrain" & joinYear <= 2019, gvkey := NA]  # Private before ac
 
 matched[ name == "livingsocial" & joinYear <= 2017, gkvey := NA]  # Private before acquisition by Groupon
 
-matched[ ]  
+#matched[ ]  
 
 
 

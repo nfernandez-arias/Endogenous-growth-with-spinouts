@@ -9,13 +9,13 @@ export setAlgorithmParameters, setModelParameters, setInitialGuess
 
 function setAlgorithmParameters()
 
-    outerLoopMax = 2
+    outerLoopMax = 200
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 6000
+    mgrid_numPoints = 2000
     mgrid_minimum = 0.0
-    mgrid_maximum = 0.1
+    mgrid_maximum = 0.2
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-8 * mgrid_maximum
 
@@ -58,7 +58,7 @@ function setAlgorithmParameters()
 
     incumbentHJB_outer_tolerance = 1e-5
     incumbentHJB_outer_maxIter = 15
-    incumbentHJB_outer_updateRate = 0.7
+    incumbentHJB_outer_updateRate = 0.1
     incumbentHJB_outer_updateRateExponent = 1
 
     incumbentHJB_outer = IterationParameters(incumbentHJB_outer_tolerance,incumbentHJB_outer_maxIter,incumbentHJB_outer_updateRate,incumbentHJB_outer_updateRateExponent)
@@ -113,7 +113,7 @@ function setAlgorithmParameters()
     write(f, "\n\n")
 
     idxM_tolerance = 1e-7
-    idxM_maxIter = 10
+    idxM_maxIter = 50
     idxM_updateRate = 0.6
     idxM_updateRateExponent = 1
 
@@ -188,7 +188,7 @@ function setModelParameters()
     # Innovation
     χI = 2.1973
     χE = 0.6923
-    χS = 1.25 * χE
+    χS = 1.5 * χE
     ψI = 0.5
     ψSE = 0.5
     λ = 1.07998
@@ -196,7 +196,7 @@ function setModelParameters()
 
     # Spinouts
     #ν = 0.0102495
-    ν = 0.255
+    ν = .255
     θ = 0.55
     ξ = 1
     ζ = 0
@@ -205,7 +205,7 @@ function setModelParameters()
     κ = 0
 
     # CNCs
-    CNC = false
+    CNC = true
 
     # Rate of Spinout formation of spinouts and entrants
 
