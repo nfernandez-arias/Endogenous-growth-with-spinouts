@@ -1,0 +1,108 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\linespread{1.05}
+%\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage{placeins}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{blindtext}
+%\renewcommand{\arraystretch}{1.2}
+\usepackage{multirow}
+
+%\usepackage{caption}
+%\captionsetup{justification=raggedright,singlelinecheck=false}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{Chatterjee \& Rossi-Hansberg in my model}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\begin{remark}
+	Everything below is valid if we assume that the only friction leading to the implementation of these ideas outside the firm is asymmetry of information regarding the quality for ideas. If, in addition, the worker simply cannot commit not implement an idea once it is discovered (even if it is "sold" to his employer), then the $V'(m)$ terms drop out of the equations below. If $W^I(m) = 0$ as in my model, then the market for ideas shuts down entirely. In fact, this is the case provided that $W^I(m) < W^S(m)$. With $\kappa > 0$, $W^S(m)$ is reduced relative to $W^I(m)$ and the considerations below again become relevant. In the range where $W^S(m) > W^I(m)$, the stuff below does not apply and the effect of $\kappa$ is exactly as in my model. Due to the business-stealing effect, the spinout values the idea more than the incumbent all else equal (in my model it is stronger than the escape-competition effect). All of this implies that the microfoundation for my setup is a model in which:
+	\begin{enumerate}
+		\item Employees cannot commit to not implementing ideas -- even those "sold" to their employers
+		\item Employees are similarly efficient at implementing ideas as their employers (not much less or the market for ideas is revived; not much more or it is bilaterally efficient for spinouts to occur)
+	\end{enumerate}
+	It is no longer particularly relevant that the employees have private information about the quality of their ideas, since I am avoiding the region where the market operates at all by assuming that employees always value their ideas more. In reality, there might be some variation in the relative productivity of incumbent vs. employee for different ideas. This would revive the market for ideas unless some asymmetry of information is introduced.
+\end{remark}
+
+\section{"Spinouts and the market for ideas" in my model}
+
+As in the baseline model, suppose that an R\&D worker employed at a firm in state $(q,m)$ generates ideas in the same line at rate $\theta \nu \frac{Q}{q}$ and in other lines at rate $(1-\theta) \nu$. In addition, suppose each of these ideas is of a certain size $\xi$. An idea of size $\xi$ implies a capacity constraint $\xi$ in the operation of the spinout and entrant R\&D technology. Upon discovery of the idea, it is known whether it is in or outside of the parent firm industry. However, only its mean size $\bar{\xi}$ is known, and this only by the employee. Its realized quality $\xi$ is revealed the instant the idea is implemented by either the firm or employee, as in the Chatterjee \& Rossi-Hansberg paper (henceforth CR). Contracts cannot be conditioned on this or on future contingencies. There are some justifications for this in CR.
+
+Because $\bar{\xi}$ cannot be verified prior the sale of the idea, the equilibrium price cannot depend on $\bar{\xi}$. Because the value of an idea of a given size depends on the state $(q,m)$, the equilibrium price of ideas will be a function $P(q,m)$. However, with the right scaling assumptions, this can be reduced to $qP(m)$. Hereafter I will discuss the normalized model, i.e. $P = P(m)$. 
+
+Finally, there will be two prices, depending on whether the idea competes directly or not with the parent firm. This results from the assumption that the incumbent in the new line cannot be sold the idea.
+
+First, I discuss the case of competing ideas.
+
+For a given price $P(m)$, ideas with expected quality $\bar{\xi} < \bar{\xi}_H(m)$ in a line in state $m$ will be sold, where
+\begin{align}
+	P(m) &= \bar{\xi}_H(m) W^S(m)
+\end{align} 
+
+where $W^S(m)$ is the value of an idea of size $1$ for the spinout (this scaling comes from the assumption that the operation of ideas is individually CRS).
+
+This implies that ideas for sale in the market have (by the law of iterated expectations) average quality $\bar{\xi}_*(m) = \mathbb{E}\Big[ \bar{\xi} \textrm{ } \Big| \textrm{ }  \bar{\xi} < \bar{\xi}^H(m) \Big]$. The firm will therefore buy the idea from the employee provided that
+\begin{align}
+	P(m) < \bar{\xi}_*(m) \Big( W^I(m) - V'(m) \Big)
+\end{align}
+
+where $W^I(m)$ is the value of an idea of size $1$ to the incumbent, and $V'(m)$ is the marginal loss of value to the incumbent in case the idea is implemented by the worker.
+
+It follows from the above discussion that the market for ideas does not unravel provided that there exists some $\bar{\xi}_H(m)$ such that 
+\begin{align}
+	\bar{\xi}_H(m) W^S(m) &\le \bar{\xi}_*(m) \Big( W^I(m) - V'(m) \Big)
+\end{align}
+
+Let me analyze this inequality term by term. 
+
+First, suppose that spinouts can operate the idea as efficiently as the parent firm. Then $W^S(m)$ will be larger than $W^I(m)$ because the worker does not internalize his business-stealing externality. In fact I conjecture (with confidence) that $W^S(m) - W^I(m) = -V'(m)$. The above becomes 
+\begin{align*}
+	\bar{\xi}_H(m) W^S(m) &\le \bar{\xi}_*(m) \Big( W^S(m) \Big)
+\end{align*}
+
+which cannot hold. As in CR, the market only survives when the worker cannot implement the idea as efficiently as the firm. In their model, this comes from the fact that the entrepreneur running the firm does not need to sacrifice as many labor market hours as the worker. In my model, this comes from two forces: (1) employees of spinouts do not learn as much as employees of incumbents, so spinouts must pay higher wages (although, they also do not create their own spinouts), and (2) spinouts must pay an additional fixed cost. Ernest Liu has suggested a third possibility: creative destruction by spinouts leads to a period of tougher competition, reducing profits. These have different implications for overall efficiency, but the same effect on R\&D and non-compete contracting incentives. 
+
+In such a setting, we have $W^S(m) - W^I(m) < -V'(m)$ and therefore there is the possibility of a market for ideas. In this model, if the cost of creative destruction rises, the gap in value of the idea for parent / spinout rises. Ideas that were previously sold to the incumbent generate higher returns for the employee. Furthermore, ideas that were previously not sold to the incumbent are now sold to the incumbent. On the other hand, 
+
+In what circumstances will the employer-employee pair decide on a non-compete contract? Suppose that, while under an NCA, the employee continues to generate ideas, but simply cannot implement them. This implies $W^S(m) = 0$ and a price $P(m) = 0$ clears the market. 
+
+
+
+
+
+
+
+
+\end{document}
