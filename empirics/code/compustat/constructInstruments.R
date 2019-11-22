@@ -23,12 +23,7 @@ rm(list = ls())
 #
 ##########################################
 
-compustat <- fread("raw/compustat/compustat_annual.csv")
-compustat <- compustat[indfmt=="INDL" & datafmt=="STD" & popsrc=="D" & consol=="C" & loc == "USA"]
-
-compustat <- compustat[ , .(gvkey,fyear,sale,xrd,ebit)]
-
-fwrite(compustat,"data/compustat/compustat_annual_light.csv")
+compustat <- fread("data/compustat/compustat_for_bloom_instruments.csv")
 
 compustat <- compustat[ !is.na(gvkey)]
 compustat <- compustat[ !is.na(sale)]
@@ -82,7 +77,7 @@ compustat[, L5_xrd := shift(xrd, 5L, type = "lag"), by = gvkey]
 compustat[ , credityear := Ixrd  * (fyear > 1993)]
 compustat[ , credityear := cumsum(credityear), by = gvkey]
 
-# 0.03 through first 5 years after 1993, then converges to actual %
+# 0.03 through first 5 years aft  er 1993, then converges to actual %
 compustat[ is.na(fbp) & fyear <= 1993, fbp := 0.03 ]
 compustat[ is.na(fbp) & credityear <= 5, fbp := 0.03]
 compustat[ is.na(fbp) & credityear == 6, fbp := (1/6)*(L2_xrd+L1_xrd)/(L2_sale+L1_sale)]
@@ -96,13 +91,15 @@ compustat[ is.na(fbp) & credityear >= 10, fbp := shift(fbp, 1L, type = "lag")]
 compustat[ fbp > 0.16 , fbp := 0.16]
 
 # Generate base amount : max( fbp * 4 years avg receipts) , 0.5 * r&D)
-compustat[ , base := pmax(0.5 * xrd , fbp * (1/4) * (sale + L1_sale + L2_sale + L3_sale))]
+compustat[ , base := pmax(0.5 * xrd , fbp * rowMeans(cbind(sale,L1_sale,L2_sale,L3_sale),na.rm = TRUE))]
 
-rdUserCost <- unique(fread("data/bsv/RDusercost_2017.csv")[ , .(year, k_f, t_f)])
-
+rdUserCost <- unique(fread("data/bsv/RDusercost_2017.csv")[state == "Alabama"][ , .(year, k_f_e, t_f)] , by = c("year"))
+  
 setkey(rdUserCost,year)
 setkey(compustat,fyear)
 compustat <- rdUserCost[compustat]
+
+compustat <- compustat[order(gvkey,year)]
 
 ## Tax price of R&D following Hall 1992
 
@@ -117,29 +114,28 @@ compustat[ , Zlead1 := shift(Z,1L,type = "lead"), by = gvkey]
 compustat[ , Zlead2 := shift(Z,2L,type = "lead"), by = gvkey]
 compustat[ , Zlead3 := shift(Z,3L,type = "lead"), by = gvkey]
 
-
 # Share of R&D qualifying for credit
 compustat[ , eta := (xrd - base) / xrd]
 compustat[ eta < 0 , eta := 0]
 compustat[ xrd <= 0, eta := 0]
 
 # Effective credit rate
-
+  
 R = 1.1
 
-compustat[ , ERC := k_f * (Z - (1/3) * (R^(-1)*(Zlead1 > 0.5) + R^(-2) * (Zlead2 > 0.5) + R^(-3) * (Zlead3 > 0.5)))]
-compustat[ year == 1981, ERC := k_f * (Z - (1/2) * (R^(-1)*(Zlead1 > 0.5) + R^(-2) * (Zlead2 > 0.5) + R^(-3) * (Zlead3 > 0.5)))]
-compustat[ is.na(Zlead3), ERC := k_f * (Z - (1/3) * (R^(-1)*(Zlead1 > 0.5) + R^(-2) * (Zlead2 > 0.5)))]
-compustat[ year == 1981 & is.na(Zlead3), ERC := k_f * (Z - (1/2) * (R^(-1)*(Zlead1 > 0.5) + R^(-2) * (Zlead2 > 0.5)))]
-compustat[ is.na(Zlead2), ERC := k_f * (Z - (1/3) * R^(-1) * (Zlead1 > 0.5))]
-compustat[ year == 1981 & is.na(Zlead2), ERC := k_f * (Z - (1/2) * R^(-1) * (Zlead1 > 0.5))]
-compustat[ is.na(Zlead1), ERC := k_f * Z]
+compustat[ , ERC := k_f_e * (Z - (1/3) * (R^(-1)*(Zlead1 > 0.5) + R^(-2) * (Zlead2 > 0.5) + R^(-3) * (Zlead3 > 0.5)))]
+compustat[ year == 1981, ERC := k_f_e * (Z - (1/2) * (R^(-1)*(Zlead1 > 0.5) + R^(-2) * (Zlead2 > 0.5) + R^(-3) * (Zlead3 > 0.5)))]
+compustat[ is.na(Zlead3), ERC := k_f_e * (Z - (1/3) * (R^(-1)*(Zlead1 > 0.5) + R^(-2) * (Zlead2 > 0.5)))]
+compustat[ year == 1981 & is.na(Zlead3), ERC := k_f_e * (Z - (1/2) * (R^(-1)*(Zlead1 > 0.5) + R^(-2) * (Zlead2 > 0.5)))]
+compustat[ is.na(Zlead2), ERC := k_f_e * (Z - (1/3) * R^(-1) * (Zlead1 > 0.5))]
+compustat[ year == 1981 & is.na(Zlead2), ERC := k_f_e * (Z - (1/2) * R^(-1) * (Zlead1 > 0.5))]
+compustat[ is.na(Zlead1), ERC := k_f_e * Z]
 
 # 1989
 compustat[ year == 1989 , ERC := ERC * (1 - 0.5 * t_f)]
 
 # 1990+ (there'sa typo in Bloom...does for year >= 1989, negating previous line!)
-compustat[ year >= 1990 , ERC := k_f * (1 - t_f) * Z]
+compustat[ year >= 1990 , ERC := k_f_e * (1 - t_f) * Z]
 compustat[ year < 1981, ERC := 0]
 
 # Tax price
@@ -161,53 +157,45 @@ fwrite(compustat[ , .(gvkey,year,lfirm)],"data/compustat/lfirm.csv")
 
 rm(list = ls())
 
-patentAppsGvkeys <- fread("data/patentsAppyearGvkeys.csv")[!is.na(gvkey) &  country == "US"]
+patentAppsGvkeys <- fread("data/patentsAppyearGvkeys.csv")[!is.na(gvkey)]
 
-## Merge with inventor data
-#inventorsPatents <- fread("data/patentsview/inventorsPatents.csv")[!is.na(state) & state != ""][ , .(name_first,name_last,patent_id,state,country)]
+# Merge with patent information 
 
-#inventorsPatents[ , patent_id := as.integer(patent_id)]
-#inventorsPatents <- inventorsPatents[ !is.na(patent_id)]
+patentsStates <- fread("data/nber uspto/pat76_06_assg.csv")[ , .(patent,state)]
 
-#setnames(inventorsPatents,"state","inventorState")
-#setnames(inventorsPatents,"country","inventorCountry")
+setkey(patentsStates,patent)
+setkey(patentAppsGvkeys,patent)
 
-#setkey(inventorsPatents,patent_id)
-#setkey(patentAppsGvkeys,patent)
+patentAppsGvkeys <- patentsStates[patentAppsGvkeys]
 
-#patentAppsGvkeys <- inventorsPatents[patentAppsGvkeys]
-
+## Construct counts
 
 firmStateYearPatentCounts <- patentAppsGvkeys[ , .N, by = .(gvkey,year,state)] 
+
+# Load in Complete
+complete <- tidyr::complete
+
+
+firmStateYearPatentCounts <- data.table(complete(firmStateYearPatentCounts,gvkey,state,year = 1980:2006))[!is.na(state) &  state != ""]
+
+# Replace missing with 0
+firmStateYearPatentCounts[ is.na(N), N := 0]
+
+# Order by gvkey, state, year
+firmStateYearPatentCounts <- firmStateYearPatentCounts[order(gvkey,state,year)]
+
 firmStateYearPatentCounts[, patentCount9 := rollapply(N, width = 10, FUN = sum, align = "right", partial = TRUE), by = .(gvkey,state)]
 firmStateYearPatentCounts[, isum := sum(patentCount9), by = .(gvkey,year)]
 firmStateYearPatentCounts[, ishare := patentCount9 / isum]
+firmStateYearPatentCounts[ is.na(ishare), ishare := 0]
 
 fwrite(firmStateYearPatentCounts,"data/compustatStatePatentCounts.csv")
 
-# Now combine data into one dataset, merging by gvkey-year
-
-rm(list = ls())
-
-# Load complete function from tidyr, equivalent to fill function in Stata
-complete <- tidyr::complete
-
-firmYearStateShares <- fread("data/compustatStatePatentCounts.csv")[, .(gvkey,year,state,ishare)]
-
-firmYearStateShares <- data.table(complete(firmYearStateShares,gvkey,state,year = 1986:2006))
-
-# if ishare is NA and year is <= 2006, then ishare should be zero 
-firmYearStateShares[is.na(ishare) , ishare := 0]
-
 # Now complete to 2015
-firmYearStateShares <- data.table(complete(firmYearStateShares,gvkey,state,year = 1986:2015))
+firmYearStateShares <- data.table(complete(firmStateYearPatentCounts,gvkey,state,year = 1980:2015))
 
 # When missing, extrapolate previous non-missing value
 firmYearStateShares[ , ishare := na.locf(ishare), by = .(gvkey,state)]
-
-# Exclude observtions with no state...
-
-firmYearStateShares <- firmYearStateShares[state != "" & !is.na(state)]
 
 # Export dataset for use elsewhere
 fwrite(firmYearStateShares,"data/compustat/firmYearStateShares.csv")
@@ -230,11 +218,13 @@ setkey(firmYearStateShares,state,year)
 
 firmYearStateShares <- rdUserCost[firmYearStateShares]
 
-firmYearStateShares[ , lstate := log(sum(na.omit((ishare * rho_h / 0.3)))), by = .(gvkey,year)]
+firmYearStateShares <- firmYearStateShares[ !is.na(fips)]
+
+firmYearStateShares[ , lstate := log(sum((ishare * rho_h / 0.3))), by = .(gvkey,year)]
+
+firmYearStateShares[ lstate == -Inf, lstate := NA]
 
 lstate <- unique(firmYearStateShares[ , .(gvkey,year,lstate)])
-
-lstate[ lstate == -Inf, lstate := NA]
 
 lstate <- lstate[!is.na(lstate)]
 

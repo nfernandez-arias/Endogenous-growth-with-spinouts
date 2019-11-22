@@ -17,11 +17,20 @@ patentsGrantedyearGvkeys <- fread("data/patentsGrantedyearGvkeys.csv")
 appCounts <- patentsAppyearGvkeys[!is.na(gvkey)][ , .N, by = c("gvkey","year")]
 grantedCounts <- patentsGrantedyearGvkeys[!is.na(gvkey)][ , .N, by = c("gvkey","year")]
 
-appCitationCounts <- patentsAppyearGvkeys[!is.na(gvkey)][ , sum(allcites), by = c("gvkey","year")]
-grantedCitationCounts <- patentsGrantedyearGvkeys[!is.na(gvkey)][ , sum(allcites), by = c("gvkey","year")]
+patentsCitations <- fread("data/nber uspto/pat76_06_assg.csv")[ , .(patent,allcites)]
+
+setkey(patentsCitations,patent)
+setkey(patentsAppyearGvkeys,patent)
+setkey(patentsGrantedyearGvkeys,patent)
+
+patentsCitationsAppyearGvkeys <- patentsAppyearGvkeys[patentsCitations]
+patentsCitationsGrantedyearGvkeys <- patentsGrantedyearGvkeys[patentsCitations]
+
+appCitationCounts <- patentsCitationsAppyearGvkeys[!is.na(gvkey)][ , sum(allcites), by = c("gvkey","year")]
+grantedCitationCounts <- patentsCitationsGrantedyearGvkeys[!is.na(gvkey)][ , sum(allcites), by = c("gvkey","year")]
 
 fwrite(appCounts,"data/patentApplicationCounts.csv")
 fwrite(grantedCounts,"data/patentGrantCounts.csv")
 fwrite(appCitationCounts,"data/patentApplicationCitationCounts.csv")
 fwrite(grantedCitationCounts,"data/patentGrantCitationCounts.csv")
-
+  

@@ -3,27 +3,36 @@ rm(list = ls())
 
 data <- fread("data/compustat-spinouts_Stata.csv")
 
+data[ , xrd := log(xrd)]
+data[ , Spinouts_fut4 := log(Spinouts_fut4)]
+data[ Spinouts_fut4 == -Inf, Spinouts_fut4 := NA]
+data[ xrd == -Inf, xrd := NA]
+
 data[ , spinoutCount := Reduce(`+`,shift(spinoutCount,1L:2L,type="lead")), by = "gvkey"]
 data[ , spinoutCountUnweighted := Reduce(`+`,shift(spinoutCountUnweighted,1L:2L,type="lead")), by = "gvkey"]
 data[ , spinoutsDiscountedFFValue := Reduce(`+`,shift(spinoutsDiscountedFFValue,1L:2L,type="lead")), by = "gvkey"]
 
 
 data[ , xrd_d := xrd - mean(na.omit(xrd)), by = "gvkey"]
+data[ , Spinouts_fut4_d := Spinouts_fut4 - mean(na.omit(Spinouts_fut4)), by = "gvkey"]
 data[ , spinoutCount_d := spinoutCount - mean(na.omit(spinoutCount)), by = "gvkey"]
 data[ , spinoutCountUnweighted_d := spinoutCountUnweighted - mean(na.omit(spinoutCountUnweighted)), by = "gvkey"]
 data[ , spinoutsDiscountedFFValue_d := spinoutsDiscountedFFValue - mean(na.omit(spinoutsDiscountedFFValue)), by = "gvkey"]
 
 data[ , xrd_d := xrd_d - mean(na.omit(xrd_d)), by = c("naics4","year")]
+data[ , Spinouts_fut4_d := Spinouts_fut4_d - mean(na.omit(Spinouts_fut4)), by = c("naics4","year")]
 data[ , spinoutCount_d := spinoutCount_d - mean(na.omit(spinoutCount_d)), by = c("naics4","year")]
 data[ , spinoutCountUnweighted_d := spinoutCountUnweighted_d - mean(na.omit(spinoutCountUnweighted_d)), by = c("naics4","year")]
 data[ , spinoutsDiscountedFFValue_d := spinoutsDiscountedFFValue_d - mean(na.omit(spinoutsDiscountedFFValue_d)), by = c("naics4","year")]
 
 data[ , xrd_d := xrd_d - mean(na.omit(xrd_d)), by = c("State","year")]
+data[ , Spinouts_fut4_d := Spinouts_fut4_d - mean(na.omit(Spinouts_fut4)), by = c("State","year")]
 data[ , spinoutCount_d := spinoutCount_d - mean(na.omit(spinoutCount_d)), by = c("State","year")]
 data[ , spinoutCountUnweighted_d := spinoutCountUnweighted_d - mean(na.omit(spinoutCountUnweighted_d)), by = c("State","year")]
 data[ , spinoutsDiscountedFFValue_d := spinoutsDiscountedFFValue_d - mean(na.omit(spinoutsDiscountedFFValue_d)), by = c("State","year")]
 
 data[ , xrd_d := xrd_d - mean(na.omit(xrd_d)), by = "firmAge"]
+data[ , Spinouts_fut4_d := Spinouts_fut4_d - mean(na.omit(Spinouts_fut4)), by = "firmAge"]
 data[ , spinoutCount_d := spinoutCount_d - mean(na.omit(spinoutCount_d)), by = "firmAge"]
 data[ , spinoutCountUnweighted_d := spinoutCountUnweighted_d - mean(na.omit(spinoutCountUnweighted_d)), by = "firmAge"]
 data[ , spinoutsDiscountedFFValue_d := spinoutsDiscountedFFValue_d - mean(na.omit(spinoutsDiscountedFFValue_d)), by = "firmAge"]
@@ -51,6 +60,20 @@ ggplot(data = data, aes(x = xrd, y = spinoutCount)) +
   xlab("Effective real R&D spending")
 
 ggsave("../figures/scatterPlot_RD-Spinouts-1yr-raw.png", plot = last_plot())
+
+ggplot(data = data, aes(x = xrd, y = Spinouts_fut4)) + 
+  geom_point(size = 0.1) +
+  geom_smooth(method = "lm", se = TRUE, size = 0.6) + 
+  scale_color_manual(values = my_palette) + 
+  theme(text = element_text(size=16)) + 
+  #theme(legend.position = "none") +
+  ggtitle("log R&D spending and log spinout counts") +
+  #ggtitle("Unadjusted") + 
+  #ylim(0,1500) + 
+  ylab("log # of Spinouts") +
+  xlab("log Effective real R&D spending")
+
+ggsave("../figures/scatterPlot_logRD-logSpinoutsFut4-raw.png", plot = last_plot())
 
 ggplot(data = data, aes(x = xrd, y = spinoutCountUnweighted)) + 
   geom_point(size = 0.1) +
@@ -96,7 +119,20 @@ ggplot(data = data, aes(x = xrd_d, y = spinoutCount_d)) +
 
 ggsave("../figures/scatterPlot_RD-Spinouts-1yr-allFE.png", plot = last_plot())
 
-    ggplot(data = data, aes(x = xrd_d, y = spinoutCountUnweighted_d)) + 
+ggplot(data = data, aes(x = xrd_d, y = Spinouts_fut4_d)) + 
+  geom_point(size = 0.1) +
+  geom_smooth(method = "lm", se = TRUE, size = 0.6) + 
+  theme(text = element_text(size=16)) + 
+  #theme(legend.position = "none") +
+  ggtitle("R&D spending and spinout counts (fut4, demeaned)") +
+  #ggtitle("Unadjusted") + 
+  #ylim(0,1500) + 
+  ylab("# of Spinouts") +
+  xlab("Effective real R&D spending")
+
+  ggsave("../figures/scatterPlot_RD-SpinoutsFut4-allFE.png", plot = last_plot())
+
+ggplot(data = data, aes(x = xrd_d, y = spinoutCountUnweighted_d)) + 
   geom_point(size = 0.1) +
   geom_smooth(method = "lm", se = TRUE, size = 0.6) + 
   theme(text = element_text(size=16)) + 
@@ -104,7 +140,7 @@ ggsave("../figures/scatterPlot_RD-Spinouts-1yr-allFE.png", plot = last_plot())
   ggtitle("R&D spending and founder counts (demeaned)") +
   #ggtitle("Unadjusted") + 
   #ylim(0,1500) + 
-  ylab("# of Founders") +
+  ylab("# of Founders") +than the alternative, which is that it's somehow not set
   xlab("Effective R&D spending")
     
 ggsave("../figures/scatterPlot_RD-SpinoutsFounders-1yr-allFE.png", plot = last_plot())

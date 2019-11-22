@@ -133,8 +133,6 @@ matchedDist <- matchedDist[order(-globCount,name,joinYear)]
 # Still need to figure out wtf is going on with AOL / Time Warner/ Verizon / Netscape
 
 
-
-
 matched[ name == "merrill lynch" & joinYear <= 2012, `:=` (gvkey = 7267, tic = "BAC2", conml = "Merrill Lynch & Co Inc", naics = 523110, state = "NY", city = "New York", cusip = "59098Z002")]
 
 matched[ name == "ca technologies" & joinYear <= 2018, `:=` (gvkey = 3310, tic = "CA", conml = "CA Inc", naics = 511210, state = "NY", city = "New York", cusip = "12673P105")]
@@ -217,7 +215,16 @@ matched[ name == "janrain" & joinYear <= 2019, gvkey := NA]  # Private before ac
 
 matched[ name == "livingsocial" & joinYear <= 2017, gkvey := NA]  # Private before acquisition by Groupon
 
-matched[ ]  
+matched[ name == "redbeacon" & joinYear <= 2012, gkvey := NA]  # Private before acquisition by Home Depot
+
+matched[ name == "skype" & joinYear <= 2011, gkvey := NA]  # Private before acquisition by Microsoft
+
+matched[ name == "upromise" & joinYear <= 2006, gkvey := NA]  # Private before acquisition by Sallie Mae
+
+matched[ name == "veritas" & joinYear <= 2008, gkvey := NA]  # Private before acquisition by Pepperball
+
+matched[ name == "zulily" & joinYear <= 2008, gkvey := NA]  # Private before acquisition by Pepperball
+
 
 
 
@@ -236,13 +243,27 @@ parentsSpinouts <- matched[EntitiesPrevEmployers]
 
 parentsSpinouts <- parentsSpinouts[!is.na(gvkey)]
 
-temp <- parentsSpinouts[globCount >= 8]
+temp <- parentsSpinouts[globCount >= 10]
 
 #temp <- parentsSpinouts
 
 fwrite(temp,"data/parentsSpinouts.csv")
 
+rm(list = ls())
 
+temp <- fread("data/parentsSpinouts.csv")
+
+
+parentsSpinoutsLinks <- unique(temp,by = c("gvkey","EntityID"))
+
+parentsSpinoutsLinks <- parentsSpinoutsLinks[ , .(conml,gvkey,EntityID,EntityName,foundingYear,globCount)]
+
+EntityInfo <- unique(fread("raw/VentureSource/01Deals.csv")[ , .(EntityID,BriefDescription,FullDesc,WebURL,Competition,State)], by = "EntityID")
+
+setkey(EntityInfo,EntityID)
+setkey(parentsSpinoutsLinks,EntityID)
+
+parentsSpinoutsLinks <- EntityInfo[parentsSpinoutsLinks]
 
 
 

@@ -80,7 +80,7 @@ source("code/addNoncompeteEnforcementIndices.R")
 # Add firm-specific NC enforcement changes
 
 # Only run the first time, because it takes a while
-#source("code/constructFirmSpecificNCchanges.R")
+source("code/constructFirmSpecificNCchanges.R")
 
 source("code/mergeFirmNCchangesToMasterData.R")
 
@@ -99,7 +99,7 @@ source("code/prepareEventStudyDataset.R")
 #----------------------------
 # Make some scatter plots
 #----------------------------
-
+          
 source("code/makeScatterPlots.R")
 
 

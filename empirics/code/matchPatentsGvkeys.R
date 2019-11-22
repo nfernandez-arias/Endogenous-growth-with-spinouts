@@ -14,7 +14,7 @@ rm(list = ls())
 
 dynass_reshaped <- fread("data/nber uspto/dynass_reshaped.csv")
 
-patents <- fread("data/nber uspto/pat76_06_assg.csv")
+patents <- fread("data/nber uspto/pat76_06_assg.csv")[ , .(pdpass,patent,appyear,gyear)]
 
 setkey(dynass_reshaped,pdpass,year)
 
