@@ -30,7 +30,6 @@ fwrite(numFounders,"data/VentureSource/EntitiesNumFounders.csv")
 
 rm(entitiesPrevEmployers)
 
-
 # Extract deal year - for use later
 deals[,dealYear := year(ymd(CloseDate))]
 deals[,foundingYear := year(ymd(StartDate))]

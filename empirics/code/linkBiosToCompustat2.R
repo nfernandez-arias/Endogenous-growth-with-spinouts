@@ -206,7 +206,7 @@ matched[ name == "emptoris" & joinYear <= 2013, gvkey := NA]  #Private before ac
 
 matched[ name == "goldengate software" & joinYear <= 2010, gvkey := NA]  #Private before acquisition
 
-matched[ name == "hulu" & joinYear <= 2018, gvkey := NA] #private before disney
+matched[ name == "hulu" & joinYear <= 2018, gvkey := NA] # private before disney
 matched[ name == "hulu" & joinYear > 2018, gvkey := 3980]  # Then disney
 
 matched[ name == "ims health" & joinYear <= 2016 , gvkey := 63800]   # IMS health before IQVIA merger

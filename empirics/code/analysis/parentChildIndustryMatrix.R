@@ -82,11 +82,11 @@ library(RColorBrewer)
 pal <- colorRampPalette( brewer.pal(name="RdYlGn",n=9))(100)
 
 pdf("code/plots/industry_column_heatmap.pdf")
-heatmap3(dataCounts, na.rm = TRUE, Rowv = NA, symm = TRUE, scale = "column", col = pal)
+heatmap3(dataCounts, na.rm = TRUE, Rowv = NA, symm = TRUE, scale = "column", col = pal, cexRow = 0.4, cexCol = 0.4)
 dev.off()
 
 pdf("code/plots/industry_row_heatmap.pdf")
-heatmap3(dataCounts, na.rm = TRUE, Rowv = NA, symm = TRUE, scale = "row", col = pal)
+heatmap3(dataCounts, na.rm = TRUE, Rowv = NA, symm = TRUE, scale = "row", col = pal, cexRow = 0.4, cexCol = 0.4)
 dev.off()
 
 
