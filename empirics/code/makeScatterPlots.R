@@ -140,7 +140,7 @@ ggplot(data = data, aes(x = xrd_d, y = spinoutCountUnweighted_d)) +
   ggtitle("R&D spending and founder counts (demeaned)") +
   #ggtitle("Unadjusted") + 
   #ylim(0,1500) + 
-  ylab("# of Founders") +than the alternative, which is that it's somehow not set
+  ylab("# of Founders") +
   xlab("Effective R&D spending")
     
 ggsave("../figures/scatterPlot_RD-SpinoutsFounders-1yr-allFE.png", plot = last_plot())

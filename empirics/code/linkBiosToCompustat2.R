@@ -249,47 +249,6 @@ temp <- parentsSpinouts[globCount >= 10]
 
 fwrite(temp,"data/parentsSpinouts.csv")
 
-rm(list = ls())
-
-temp <- fread("data/parentsSpinouts.csv")
-
-
-parentsSpinoutsLinks <- unique(temp,by = c("gvkey","EntityID"))
-
-parentsSpinoutsLinks <- parentsSpinoutsLinks[ , .(conml,gvkey,EntityID,EntityName,foundingYear,globCount)]
-
-EntityInfo <- unique(fread("raw/VentureSource/01Deals.csv")[ , .(EntityID,BriefDescription,FullDesc,WebURL,Competition,State)], by = "EntityID")
-
-setkey(EntityInfo,EntityID)
-setkey(parentsSpinoutsLinks,EntityID)
-
-parentsSpinoutsLinks <- EntityInfo[parentsSpinoutsLinks]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,4 +1,4 @@
-\begin{thebibliography}{39}
+\begin{thebibliography}{38}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -66,13 +66,6 @@ James~J. Anton and Dennis~A. Yao.
   (2):\penalty0 362--378, 1995.
 \newblock ISSN 8756-6222.
 \newblock URL \url{https://www.jstor.org/stable/765002}.
-
-\bibitem[Babina and Howell(2018)]{babina_entrepreneurial_2018}
-Tania Babina and Sabrina~T Howell.
-\newblock Entrepreneurial {Spillovers} from {Corporate} {R}\&{D}.
-\newblock Working {Paper} 25360, National Bureau of Economic Research, December
-  2018.
-\newblock URL \url{http://www.nber.org/papers/w25360}.
 
 \bibitem[Baslandze(2019)]{baslandze_spinout_2019}
 Salome Baslandze.

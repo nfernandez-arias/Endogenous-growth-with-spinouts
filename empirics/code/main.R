@@ -103,6 +103,13 @@ source("code/prepareEventStudyDataset.R")
 source("code/makeScatterPlots.R")
 
 
+#----------------------------
+# Make parent child heatmaps: state, industry
+#----------------------------
+
+source("code/analysis/parentChildStateMatrix.R")
+source("code/analysis/parentChildIndustryMatrix.R")
+
 
 #----------------------------------
 ## Compute statistics from patent data
