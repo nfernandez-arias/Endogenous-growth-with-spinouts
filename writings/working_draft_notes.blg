@@ -4,10 +4,37 @@ The top-level auxiliary file: working_draft_notes.aux
 The style file: plainnat.bst
 I found no \bibdata command---while reading file working_draft_notes.aux
 Warning--I didn't find a database entry for "bloom_identifying_2013"
+Warning--I didn't find a database entry for "parilla_understanding_2017"
+Warning--I didn't find a database entry for "jorgenson_retrospective_2008"
+Warning--I didn't find a database entry for "saxenian_regional_1994"
+Warning--I didn't find a database entry for "gilson_legal_1999"
+Warning--I didn't find a database entry for "fallick_job-hopping_2006"
+Warning--I didn't find a database entry for "franco_covenants_2008"
+Warning--I didn't find a database entry for "foster_aggregate_2001"
+Warning--I didn't find a database entry for "brandt_creative_2012"
+Warning--I didn't find a database entry for "asturias_firm_2019"
 Warning--I didn't find a database entry for "akcigit_growth_2018"
+Warning--I didn't find a database entry for "baslandze_spinout_2019"
+Warning--I didn't find a database entry for "muendler_employee_2012"
+Warning--I didn't find a database entry for "klepper_entry_2005"
+Warning--I didn't find a database entry for "gompers_entrepreneurial_2005"
+Warning--I didn't find a database entry for "arrow_economic_1962"
+Warning--I didn't find a database entry for "romer_increasing_1986"
+Warning--I didn't find a database entry for "franco_spin-outs:_2006"
+Warning--I didn't find a database entry for "grossman_quality_1991"
+Warning--I didn't find a database entry for "the_white_house_technical_report_non-compete_2016"
+Warning--I didn't find a database entry for "marx_mobility_2009"
+Warning--I didn't find a database entry for "marx_regional_2015"
+Warning--I didn't find a database entry for "jeffers_impact_2018"
+Warning--I didn't find a database entry for "stuart_liquidity_2003"
+Warning--I didn't find a database entry for "samila_venture_2010"
+Warning--I didn't find a database entry for "garmaise_ties_2011"
+Warning--I didn't find a database entry for "conti_non-competition_2014"
+Warning--I didn't find a database entry for "colombo_does_2013"
+Warning--I didn't find a database entry for "shi_restrictions_2018"
 You've used 0 entries,
             2773 wiz_defined-function locations,
-            593 strings with 4891 characters,
+            620 strings with 5487 characters,
 and the built_in function-call counts, 33 in all, are:
 = -- 0
 > -- 0
