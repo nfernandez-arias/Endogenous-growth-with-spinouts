@@ -1,0 +1,96 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\linespread{1.05}
+%\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage{placeins}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{blindtext}
+%\renewcommand{\arraystretch}{1.2}
+\usepackage{multirow}
+
+%\usepackage{caption}
+%\captionsetup{justification=raggedright,singlelinecheck=false}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{Questions for Mark Aguiar}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+\begin{enumerate}
+	\item Modeling: can I abstract from "stock" of spinouts $m$ to get a more tractable model? 
+	\begin{itemize}
+		\item Loses significant tractability
+		\item Adds "escape competition" effect; seems reasonable to have this in there in a model about effects of increased competition on incumbent behavior...
+		\item Can't measure $m$ directly, because industrial classification too broad / noisy in the data, so cannot test models prediction for joint distribution of $m$ and R\&D effort...
+		\item Moreover, this "escape competition" effect is still much too weak to generate reasonable predictions for incumbent R\&D spending
+		\item Finally, if I get rid of this, I can introduce heterogeneity in R\&D spending / sales, and test whether the model matches well the cross-sectional relationship between R\&D spending and spinout formation, look at the firm-size distribution, etc.
+	\end{itemize}
+	\item Identifying key economic parameters:
+	\begin{itemize}
+		\item Key parameters governing relevance of non-competes:
+		\begin{itemize}
+			\item Productivity gap spinouts vs ordinary entrants
+			\begin{itemize}
+				\item Typically identified based on relative entry rates / R\&D expenditures, but I don't observe R\&D expenditures for spinouts
+				\item Absent R\&D expenditures, 
+			\end{itemize}
+			\item Gap between value to spinouts and harm to incumbents (e.g., due to increased competition, or simply deadweight loss of inefficient replication of complementary assets)
+			\begin{itemize}
+				\item Liu suggests modelling could get this -- just assume that upon spinout formation a duopoly is formed where no profits are earned until someone obtains a lead, after which they become the leader as before. I.e. abstract from follower once he loses. This is a middle-ground, keeps the model tractable, but imposes a competition penalty when spinouts enter. 
+			\end{itemize}
+			\item Fraction (innovtion-size weighted) of knowledge spillovers from R\&D that do not compete with parent firm (i.e. are not preventedby non-competes)
+		\end{itemize}
+	\end{itemize}
+	\item Model validation
+	\begin{itemize}
+		\item Exogenous increase in NCA enforcement should raise R\&D spending
+		\item Exogenous increase in NCA enforcement should attenuate relationship between corporate R\&D and WSO formation (but not formation of non-competing spinouts)
+	\end{itemize}
+	\item Empirical work
+	\begin{itemize}
+		\item How rigorous does it really need to be? E.g., causal estimates of effect of R\&D to spinout formation? Or can I just look at the relationship in the data and interpret it through the lens in the model?
+		\item How to relate estimate to parameters in the model? 
+	\end{itemize}
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+\end{document}
