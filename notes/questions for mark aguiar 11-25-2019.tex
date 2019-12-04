@@ -43,12 +43,33 @@
 \newtheorem{remark}{Remark}
 \begin{document}
 	
-\title{Questions for Mark Aguiar}
+\title{Questions for Project}
 \author{Nicolas Fernandez-Arias}
 \maketitle
 
 \begin{enumerate}
-	\item Modeling: can I abstract from "stock" of spinouts $m$ to get a more tractable model? 
+	\item Basic economic contribution:
+	\begin{itemize}
+		\item Existing analyses tend to underplay both general equilibrium considerations (i.e., the value of knowledge is not determined by profits generated in a market based on that knowledge) and creative destruction considerations
+		\item There is microeconomic evidence that R\&D can lead to spinouts which creatively destroy products of (1) the firm doing the R\&D and /or (2) other firms in different product markets.
+		\item The fact of R\&D leading to creative destruction in other products reduces the overall rents of all products -- both pre- and post-innovation. In fact, at least in a model with $m$, it tends to increase mostly the pre-innovation rents (since it pushes more firms further up in $m$-space).
+		\item However, the fact of R\&D leading to creative destruction in the own product has an additional effect of effectively taxing R\&D. Put another way, this is equivalent to reducing the post-innovation rents relative to the pre-innovation rents.
+		\item To the extent that knowledge spillovers to other industries are economically important -- i.e., are of sufficient magnitude and / or arrive with sufficient frequency -- relative to knowledge spillovers to the parent's industry, it can be optimal to give up own-knowledge spillovers, which have a particularly damaging effect to innovation incentives relative to other kinds of knowledge spillovers.
+		\item Additionally, this crucially depends on :
+		\begin{itemize}
+			\item The knowledge transfer from parent to spinout firms in the same industry being "leaky". This holds if there is a cost of creative destruction or if it leads to lower markups for a period of time.
+			\begin{itemize}
+				\item Want empirical validation. If simply deadweight loss, R\&D efficiency could be used, but don't have data on it. So maybe model as competition, and impose some symmetry to get around the fact that I don't observe spinouts compete with parents (don't observe product markets on their own)
+			\end{itemize}
+			\item Problems of commitment not to compete upon "selling" the idea to the parent and / or very expensive to hire employee to "do nothing.
+			\begin{itemize}
+				\item I have simply assumed that the parent cannot do this.
+			\end{itemize}
+			\item Finally, it also helps to the extent that the rate of spinout formation does not depend sensitively on how "leaky" the bucket is. This holds if few spinout ideas are on the margin between implementation and non-implementation. In my model, none are at this margin.
+		\end{itemize}
+		\item \textbf{High level:} do I think this is a reasonable description of the world? Yes. Can I justify all of these assumptions based on data? No. Which ones make the most sense to justify?
+	\end{itemize}
+	\item Modeling: maybe should abstract from $m$ as in Baslandze 
 	\begin{itemize}
 		\item Loses significant tractability
 		\item Adds "escape competition" effect; seems reasonable to have this in there in a model about effects of increased competition on incumbent behavior...
@@ -56,7 +77,7 @@
 		\item Moreover, this "escape competition" effect is still much too weak to generate reasonable predictions for incumbent R\&D spending
 		\item Finally, if I get rid of this, I can introduce heterogeneity in R\&D spending / sales, and test whether the model matches well the cross-sectional relationship between R\&D spending and spinout formation, look at the firm-size distribution, etc.
 	\end{itemize}
-	\item Identifying key economic parameters:
+	\item Identification
 	\begin{itemize}
 		\item Key parameters governing relevance of non-competes:
 		\begin{itemize}
@@ -76,6 +97,8 @@
 	\begin{itemize}
 		\item Exogenous increase in NCA enforcement should raise R\&D spending
 		\item Exogenous increase in NCA enforcement should attenuate relationship between corporate R\&D and WSO formation (but not formation of non-competing spinouts)
+		\item At the same time, I don't expect there to be much power here
+		\item I also don't expect cross sectional variation in non-compete enforcement should predict much either because there are so many other differences between states. And, the fact that you can't just look at this correlation is kind of the motivation for my entire methodology of modeling the process.
 	\end{itemize}
 	\item Empirical work
 	\begin{itemize}

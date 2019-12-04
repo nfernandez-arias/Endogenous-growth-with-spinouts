@@ -1,0 +1,306 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\linespread{1.05}
+%\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage{placeins}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{blindtext}
+%\renewcommand{\arraystretch}{1.2}
+\usepackage{multirow}
+
+%\usepackage{caption}
+%\captionsetup{justification=raggedright,singlelinecheck=false}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{Simplified model with microfounded spinout formation}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+Time $t \ge 0$ is continuous. Households are value consumption of the final good and are risk neutral with discount rate $\rho > 0$. Households have a unit endowment of labor per instant which can be supplied the production of intermediate goods or to R\&D. The final good is produced competitively by a representative firm with production function 
+\begin{align}
+	Y = F(\{y_j\}_{j \in [0,1]}) &= \int_0^1 \log y_j dj
+\end{align}
+
+where $y_j$ is the amount of intermediate $j$ used in production of the final good. 
+
+Intermediate good $j$ is produced using technology
+\begin{align}
+	y_j &= q_j l_j 
+\end{align}
+
+For all $j$ and $t \ge 0$, there is a leader producing with frontier quality $q_j$ and a competitive fringe (follower) which can produce with quality $q_{-j} < q_j$. Their outputs are perfect substitutes and they compete in Bertrand competition. Limit pricing then implies that only the leader produces in equilibrium. Given the Cobb-Douglas assumption on final goods demand, he charges a markup based on the ratio $\frac{q_j}{q_{-j}}$ and has flow profits equal to 
+\begin{align}
+	\pi_j &= \Big( 1 - \frac{q_{-j}}{q_j} \Big) Y
+\end{align}
+
+Innovations proceed on a quality ladder of minimum step size $\lambda > 1$. Given this, $\frac{q_{-j}}{q_j} = \lambda^{-n}$ where $n$ is the number of steps by which the leader leads the competitive fringe (follower). 
+
+\section{Households}
+
+Each household can supply its unit endowment of labor in competitive markets for labor in production of intermediate goods or in production of R\&D. In equilibrium, households will be indifferent between these two uses of time. Also, in equilibrium households will be indifferent between all uses of time, so it is without loss of generality to assume that each household $i$ supplies a density $l_{i}^{RD}(j),l_{i}^I(j)$ of labor across lines $j$. 
+
+\section{Innovation and formation of spinouts}
+
+For now, assume that only the leading firm can conduct R\&D. This can be relaxed to allow the follower to do R\&D, at some computation cost. But, "previous followers" cannot be allowed to conduct R\&D, lest there be a proliferation of the state space. 
+
+If the firm hires $l_j^{RD}$ flow units of R\&D, it leads to a quality improvement of size $\lambda^{N_I}$, for exogenous $N_I \in \mathbb{N}$,  with Poisson intensity
+\begin{align*}
+	\tau_I &= l_j^{RD} \phi^I(l_j^{RD})
+\end{align*}
+
+for decreasing function $\phi^I(\cdot)$, capturing decreasing returns to R\&D. Upon the realization of this event, the technological lead of the leader increases by $N_I$.  
+
+At the same time, there is a Poisson intensity  
+\begin{align*}
+	l_j^{RD} \phi^S(l_j^{RD})
+\end{align*}
+
+that a spinout idea will occur to one of the firm's R\&D employees. This idea improves upon the incumbent's technology by a random $n_s$ steps, where $n_s$ is drawn from a distribution with cdf $F(n_s)$, with support contained in $\mathbb{N}_+$. \footnote{This is not essential and indeed it might be natural to relax this assumption later (e.g., allowing for spinout ideas which threaten to reduce monopoly markups but do not improve the product whatsoever.) Imagine that there is an $\epsilon > 0$ fixed cost to starting a spinout, ruling out such ideas, which can never be profitable. However, if followers can innovate, such ideas may be profitable, and it may be reasonable at that point to bring in that feature.} 
+
+\paragraph{The market for ideas and the boundary of the firm}
+
+The incumbent is able to buy the spinout idea from the employee and implement inside the firm (while also receiving the guarantee that it will not be simultaneously implemented outside the firm). If the spinout idea of size $n_s$ is implemented inside the firm, it leads to a technological lead of $n_I + n_s$ for the incumbent. If it is implemented unilaterally by the employee, the employee replaces the incumbent, but now with a quality gap of $n_s$. From a bilateral optimality standpoint, then, the incumbent-employee pair would always like to implement the idea inside the firm. If the quality of the spinout idea were known by both the firm and the employee, they would ex-post settle on the efficient contract. While this would entail the firm making transfers to the employee upon idea discovery, ex-ante this would be compensated by a lower wage. Overall, the outcome would be the same as though the firm used a non-compete: bilateral efficiency and no disincentives to R\&D from spinout behavior. 
+
+To generate a need for non-competes, suppose that the specific realization of $n$ is private information to the employee who has the spinout idea. Asymmetric information then interferes in the ex-post market for ideas, generating the possibility of bilaterally suboptimal competing spinout entry. However, the very fact that spinout profits in part come from business stealing means that incumbents will, for any given idea, be willing to pay more than the spinout values the idea (indeed, this is why efficiency obtains when idea quality is known by both parties). The market thus does not entirely unravel. In fact, as in Chatterjee \& Rossi-Hansberg 2009, there will be an endogenous threshold improvement $n_s^*(n_I)$ which is \textit{increasing} in the pre-spinout incumbent quality gap: an incumbent with a higher quality gap $n_I$ is willing to pay more for an idea of given quality $n_s$, since her loss of profits upon unilateral spinout entry is larger.
+
+\paragraph{Spinouts in other product lines}
+
+To this baseline model, I will then add the possibility that spinout ideas occur in other product lines besides the parent firm. For the sake of symmetry, it is natural to suppose that the incumbent in the target product line can also offer to buy the idea, again given that the seller knows the idea quality. In equilibrium, the price offered for a spinout idea by an incumbent with gap $n_I$ will not depend on whether the idea was generated by its own employee or an employee of a firm it does not compete with, because all that matters is that the idea competes with the firm, and the losses from competition are exactly summarized by $n_I$. 
+
+\paragraph{External innovation by incumbents}
+
+I don't think I need to implement this here.
+
+\section{Discussion}
+
+I believe this model is an improvement on my previous framework for the following reasons:
+
+\begin{enumerate}
+	\item Firms can implement spinout ideas / buy ideas from employees and choose not to implement them $\Rightarrow$ more realistic predictions on implementation of ideas with / without non-competes. I.e. not assuming that ideas can *only* be implemented by new firms, and not assuming that they *will* be implemented as long as they occur. 
+	\item Cost to bilateral pair from spinout behavior is no longer reduced form "inefficiency of entry vs. firm expansion" but rather due to bilateral harm from loss of monopoly profits. More natural assumption.
+	\begin{itemize}
+		\item Added benefit that I don't need to worry about 
+	\end{itemize}
+	\item Easier to match incumbent R\&D spending
+	\begin{itemize}
+		\item According to Liu, can get realistic incumbent R\&D spending in a model with this kind of competition between two producers
+		\item Also, less important to do so, because the whole point of that was to be able to get a better estimate of $\kappa$, which now I don't need.
+	\end{itemize}
+	\item General equilibrium economic tradeoffs:
+	\begin{enumerate}
+		\item Planner does not care whether incumbent or spinout implements the idea
+		\item If spinouts implement ideas, monopoly markups are lower (good for efficiency) but lower incentive for innovation (potentially bad for efficiency)
+		\item Spinouts in other lines have relatively limited effect on innovation incentives, because they reduce pre- and post-innovation rents $\Rightarrow$ "cheap" way to reduce monopoly markups. Also, it creates more "neck and neck" industries, which have higher incentives for innovation. 
+		\item Spinouts in own line \textit{effectively} reduces (mathematically equivalent to) post-innovation rents (since it is a potential output of the input to own innovation) $\Rightarrow$ expensive way to reduce monopoly markups
+		\item Non-competes: all WSO ideas are implemented in the firm, raising markups. However, more R\&D occurs, so more non-WSO ideas, lowering markups across the board. Net effect not clear. And, the effect on innvation may be positive. 
+	\end{enumerate}
+	\item Predictions:
+	\begin{itemize}
+		\item Within-industry spinouts from high-markup firms will have higher profits, simply due to selection (higher profit firms more willing to buy employee ideas of unknown quality)
+		\item If non-WSOs cannot be bought by incumbents in other lines, or if there is some friction in the way making this more costly (e.g., a search cost or something), then non-WSOs will on average be less profitable than WSOs
+		\item The lead of the parent firm does not predict the lead of non-WSO spinouts. This is only predicted by the lead of the firm currently at the top. 
+	\end{itemize}
+\end{enumerate}
+
+\section{Empirics}
+
+The parameters that need to be identified are:
+
+\begin{itemize}
+	\item The productivity levels of innovation for incumbnets, employees
+	\item 
+\end{itemize}
+
+\paragraph{Challenge relating model to data}
+
+\begin{itemize}
+	\item 
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+\section{Outline}
+
+\begin{itemize}
+	\item Need to figure out how to model workers - easiest way seems to be to borrow Baslandze's model -- might as well e-mail her about the risk aversion thing...and talking to her...ask Esteban though
+	\item When a worker has a spinout idea, it is either in the own industry or different industry. Assume that the firm can observe this.
+	\begin{itemize}
+		\item When it comes to non-competes, can assume that they only target competing firms, because they will only be enforced for such firms
+		\item When thinking about ordinary ideas without non-competes, the idea must be understood before it is implemented. So this assumption is less valid in those cases
+		\item In principle this can be worked into the analysis...
+		\item However, the market for ideas will not be competitive, so maybe need to enrich firm optimization problem. I.e. the firm does not take the price of ideas as given but rather sets a price
+	\end{itemize} 
+	\item However, the worker has private information concerning how many steps the idea takes. As a result, the firm cannot simply buy the idea from the worker and ex-post simulate a non-compete contract. There is adverse selection.
+	\begin{itemize}
+		\item Of course it is possible for the firm to presumably include some kind of performance pay thing, where the worker gets equity if the idea does well.
+		\item I abstract from this, noting that there may be other frictions in the way: e.g., it is hard to tell how much a given project in a firm is contributing to profits. Definitely worth thinking about whether this weakens my results though.
+		\item I am also abstracting from other things that might make the worker less well-suited to implementing the idea. The worker is assumed to be able to implement the idea just as well, 
+	\end{itemize}
+	\item The market for ideas however does not completely unravel, because for each competing idea, the firm's gain from implementing the idea vs. the worker implementing it is larger than the worker's gain from implementing the idea vs the firm implementing it, due to leaky business stealing.
+	\item Business stealing is leaky provided that the improvement the spinout has is smaller than the incumbnet's current productivity lead over his next competitor, as this reduces joint profits (profits in this model are increasing in the size of this gap, rising overall with the productivity level of the aggregate economy)
+	\item Important, testable predictions:
+	\begin{itemize}
+		\item non-WSOs have lower gaps than WSOs
+		\item WSOs from higher gap parents have higher gaps 
+	\end{itemize}
+	\item What the model does not predict:
+	\begin{itemize}
+		\item non-WSOs from higher gap parents have higher gaps
+	\end{itemize}
+\end{itemize}
+
+The beautiful thing about framing this this way is that it's 
+\begin{enumerate}
+	\item Much more rigorous theoretically -- \textbf{strong} Lucas critique of "what happens to unimplemented ideas?" addresed.
+	\item Story is \textit{explicitly} about the interactions between different industries $\Rightarrow$ \textbf{necessitates} a macro, general equilibrium approach
+	\item Integrates insights from contracting and spinouts literature, endogenous growth literature, firm growth / dynamics literature, as well as competition and innovation literature
+\end{enumerate}
+
+
+\section{CR "Market for ideas" in this model -- analytical expressions?}
+
+Incumbent chooses a price for WSO ideas $\tilde{P}_t = P_t Q_t$ in terms of the final good, where $Q_t$ is the average level of productivity in the economy. 
+
+Have an HJB for the incumbent with one discrete state variable: the gap relative to his closest competitor (can think about extending to multi-product firms later...)
+
+\begin{align*}
+	r V(n) &= \pi (n) - \overbrace{\bar{\sigma}  V(n)}^{\textrm{non-WSO creative destruction}}\\
+	       &+ \max_{z,x,p} \Big\{  \overbrace{\phi(z) \Big[ V(n+1) - V(n) \Big]}^{\textrm{Own-innovation increases tech. lead}} - \overbrace{x}^{\textrm{NCA}}\underbrace{w^{NCA}(n)}_{\textrm{R\&D wage given NCA}}   \\
+	       &- \overbrace{(1-x)}^{\textrm{No NCA}}\Bigg( w(n) + (1 - \psi(p,n) )V(n)  \\
+	       & -  \underbrace{\sigma(p)}_{\textrm{WSO formation given $p$, no NCA}} \underbrace{\psi(p,n)}_{\textrm{Prob. incumbent buys WSO}} \big( \mathbb{E}_{n'}[V(n + n') | \textrm{Idea bought}, p] - p \big) \Bigg) \Bigg\}
+\end{align*}
+
+where $n'$ denotes the step size increment of the spinout's idea. Note that the incumbent takes the equilibrium objects $\sigma(p,n)$ and $\psi(p,n)$ as given. This is important to keep in mind, otherwise the model incoherently has the incumbent's policy choices affecting V, which affect $\sigma(p,n), \psi(p,n)$; but this is wrong, because the incumbent cannot change the spinout's subsequent behavior through his policy choices. The incumbent is therefore playing a game with the entrants: he chooses an idea price, which induces a particular spinout effort and a particular selection of spinouts that will end up being sold to the firm / spun out.
+
+In equilibrium, I confidently conjecture that there will be a threshold $\underline{n}(n,p)$ such that the idea is spun out if and only if $n' > \underline{n} (n,p)$.
+
+Can we calculate $\psi(p,n)$ and the expectation? Yes, given $V(n)$: a worker with idea which improves by $n$ steps sells the idea as long as $p > V(n)$. Hence, 
+\begin{align}
+	\psi(p,n) &= \mathrm{Pr}_n\Big( p > V(n)\Big) \\
+	\mathbb{E}_{n'}[V(n + n') | \textrm{Idea bought}, p]  &= \mathbb{E}_{n'} \Big[ V(n + n') | V(n') < p\Big]
+\end{align}
+
+If the formation of spinout ideas did not depend on the effort choices of the R\&D employee, the incumbent would simply choose $p = V(n'')$ for some $n''$ -- any additional payment is wasted. However, given that employees must be given an incentive to produce spinout ideas, in general $p$ will be higher than this value, as the firm may find it optimal to commit to overpaying for ideas. One way around this is to simply assume that the firm does not have this commitment power -- when the time comes, the firm will not be willing to pay a higher price than is necessary. Let's go with that for now, and try the other thing later. This means, essentially, that there is a two-stage game, where the firm sets a price in the first stage that influences decisions, but it must be credible. The firm knows that its price in the second stage will be $p = V(n)$ but, given this, still takes into account the effect of $p$ on $\sigma(p,n)$. The problem is simply reduced to a discrete choice problem, but it's monotonic, i.e. higher $n$ will choose higher $p$ (less of a gain from given idea, due to concavity of $V$, and more of a loss, due to higher pre-spinout markup).
+
+\section{Overall set up}
+
+\begin{enumerate}
+	\item For each line $j$ and time $t$, there is an incumbent who is $n_{jt}$ steps ahead of the follower, competing Bertrand with him. CRS $\rightarrow$ limit pricing, markup increasing function of $n_{jt}$. 
+	\item Incumbents must hire a researcher and use units of the final good to implement R\&D
+	\item R\&D spending by incumbents leads to an innovation of $m$ steps, leading to $n_{j,t+\Delta} = n_{jt} + m$. 
+	\item Researchers can use final goods on their own to generate spinout ideas, in parent industry or in a random other industry
+	\item A successful spinout idea generated is an $m$-step improvement with probabiltiy $f(m)$. The number of steps of the improvement is private information on the part of the employee, creating adverse selection.
+	\begin{itemize}
+		\item Employee knows: number of steps, whether it competes
+		\item Firm knows: whether it competes
+		\item What happens if firm doesn't know whether it competes? At a given price, it knows that it will be picking up many that do not compete as well. This strengthens my results, because it weakens the market for ideas -- low-value ideas (to the firm) are lumped in with the high-value ones (to the firm), so the firm will be willing to pay less for a randomly drawn idea.  
+		\item At the same time, if we think about this, need to allow the parent firm to buy the idea from the spinout and thereby expand into other lines. 
+		\item But in this case, you'd have a situation where buyers are trying to screen products as competing or not-competing, etc.
+		\item At the same time, cannot accurately predict the extent to which spinouts in other lines disrupt them if I \textbf{don't} model the M\&A process...
+		\item A question to ask Esteban / Liue
+		\item For now, imagine a model where the only possibility for non-WSO ideas is to creative destroy an incumbent rather than be acquired
+	\end{itemize}
+	\item If the idea is in the parent firm's line $j$, the parent firm can offer to to purchase the idea. Currently, I am modeling this as a take-it-or-leave-it offer by the parent firm, which acts as a monopolist. In general though would need to think about this, since it's not a "competitive market" for innovations. The firm in line $j$ is always willing to pay the most for the product. For now, assume that 
+	\item If a spinout or regular entrant enters with an $m$-step improvement to a product in state $n_{jt}$, they become the new incumbent, with $n_{j,t+\Delta} = m$.
+\end{enumerate}
+
+\section{Illustration with uniform distribution and linear value}
+
+Suppose that value $V(n) = Vn$ and that the distribution of ideas follows a uniform distribution on $[0,N_s]$. 
+
+\section{Proportional growth in this model}
+
+In this setup, if $\sigma(p) \psi(p,n) \mathbb{E}_{n'} \Big[ V(n + n') | V(n') < p\Big]$ and $z$ are not constant in $n$, then we need to track $E[q | n , t]$, and a BGP will only exist if $E[q | n , t] = Q_t E[q | n, 0]$ provided $Q_0 = 1$. Otherwise, a constant policy $z(n), x(n), p(n)$ leads to a non-constant growth rate $g$. 
+
+Generally, with higher $n$, the firm will be willing to pay more for each idea the worker might have, because the firm loses more from the worker spinning out. Thus, I would expect $p^*(n)$ to be rising in $n$, and consequently $\sigma(p^*(n))$ will be rising in $n$ as well, since $\sigma$ will be increasing in $p$. 
+
+Let $\gamma(n,t) = E[q| n,t]$. I will argue that $\gamma(n,t) = Q_t \tilde{\gamma} (n)$. For $n \ge 1$, we can write 
+\begin{align*}
+	\gamma(n,t+\Delta) &= \frac{\sum_{i=1}^{i=n} \mathrm{A}_{in} (\Delta)\mu(i) E_{n'}[ \lambda^{n'} ] \gamma(i,t)}{\mu(n) }
+\end{align*}
+
+where I've used the fact that, one the BGP, $\mu(n,t) = \mu(n,t+\Delta) = \mu(n)$ and where $A_{ij}(\Delta)$ is a first-order approximation of the equilibrium transition probability matrix for a time-step $\Delta$, i.e. $A_{ij}(\Delta) = \tilde{A}_{ij}(\Delta) + O(\Delta^2)$.
+
+For $i < j - 1$, transitions can only occur due to spinouts, and we can write
+\begin{align*}
+	A_{ij}(\Delta) &= x(i)  \mathcal{F}(j-i) \Delta
+\end{align*}
+
+where $x(i)$ is the arrival rate of innovations to a product with lead $i$, and $\mathcal{F}(n)$ is the exogenous probability that an employee's idea makes $n$ steps. 
+
+For $i = j -1$, transitions can occur due to spinouts ideas (which can be of large size) or due to 
+
+\begin{enumerate}
+	\item Need to reformulate a bit: pick a certain step size $\lambda$. Then incumbent innovations / spinout ideas each have their own distribution over number of steps. Can eliminate uncertainty with incumbent innovation as it doesn't add anything. But no reason to *impose* that incumbent innovations are as small as the smallest spinout innovations. The problem with this is that it introduces more states in my discrete state space thing. But there is no way around this -- innovations are jumps. This state space is fundamentally discrete and it should be.
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
