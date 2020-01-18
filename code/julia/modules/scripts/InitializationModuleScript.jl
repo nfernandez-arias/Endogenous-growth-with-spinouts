@@ -13,7 +13,7 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 1000
+    mgrid_numPoints = 700
     mgrid_minimum = 0.0
     mgrid_maximum = 0.2
     mgrid_logSpacing = true
@@ -160,8 +160,8 @@ function setModelParameters()
 
     # Innovation
     χI = 2.1973
-    χE = 0.6923
-    χS = 1.25 * χE
+    χE = 0.5
+    χS = 2 * χE
     ψI = 0.5
     ψSE = 0.5
     λ = 1.07998
@@ -169,16 +169,16 @@ function setModelParameters()
 
     # Spinouts
     #ν = 0.0102495
-    ν = 0.255
-    θ = 0.55
+    ν = 0.2
+    θ = 0.5
     ξ = 1
     ζ = 0
 
     # Creative destruction cost
-    κ = 0.631
+    κ = 0.4
 
     # CNCs
-    CNC = true
+    CNC = false
 
     # Rate of Spinout formation of spinouts and entrants
 

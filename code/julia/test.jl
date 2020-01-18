@@ -19,15 +19,15 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 using Plots
 gr()
 
-using JLD2, FileIO, Optim
-@load "output/calibrationResults_noCNC.jld2" modelMoments modelResults score
-results = modelResults
+#using JLD2, FileIO, Optim
+#@load "output/calibrationResults_noCNC.jld2" modelMoments modelResults score
+#results = modelResults
 
 #--------------------------------#
 # Make plots and compute statistics
 #--------------------------------#
 
-include("testPlots_calibration_noCNC.jl")
+#include("testPlots_calibration_noCNC.jl")
 include("testPlots.jl")
 
 #--------------------------------#
