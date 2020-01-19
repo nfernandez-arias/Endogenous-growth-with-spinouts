@@ -243,7 +243,7 @@ parentsSpinouts <- matched[EntitiesPrevEmployers]
 
 parentsSpinouts <- parentsSpinouts[!is.na(gvkey)]
 
-temp <- parentsSpinouts[globCount >= 10]
+temp <- parentsSpinouts[globCount >= 8]
 
 #temp <- parentsSpinouts
 

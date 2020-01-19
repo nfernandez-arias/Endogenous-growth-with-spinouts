@@ -1,23 +1,28 @@
 #-------------------------#
 # 
-# 
+# filename: compareSpinoutsToEntrants.R
 #
+# This file does calcluations / constructs some plots
+# to get a picture of the data
 #
-#
-
-
 
 rm(list = ls())
 
-parentsSpinouts <- fread("data/parentsSpinoutsWSO.csv")
+parentsSpinouts <- fread("data/parentsSpinoutsWSO.csv")[ , .()]
 
 # Compute number of founders who are from parent firms in data set
 parentsSpinouts[ , numSpinoutFounders := .N, by = "EntityID"]
 
-# Extract dataset on first funding valuation and founding year for each spinout
-firstFundings <- fread("data/VentureSource/firstFundingEvents.csv")[ , .(EntityID,discountedFFValue,foundingYear)]
+# Valuation at first funding event
+# (from code/constructSpinoutAttributes.R)
+#firstFundings <- fread("data/VentureSource/firstFundingEvents.csv")[ , .(EntityID,discountedFFValue,foundingYear)]
 
+# Number of founders for each startup
+# (from code/constructSpinoutAttributes.R)
 EntitiesNumFounders <- fread("data/VentureSource/EntitiesNumFounders.csv")
+
+# Construct a flag for a spinout being within-industry if 
+# at least one founder came from parent in same industry
 
 parentsSpinouts[ , wso1 := max(wso1), by = EntityID]
 parentsSpinouts[ , wso2 := max(wso2), by = EntityID]
@@ -29,9 +34,7 @@ parentsSpinouts[ , wso6 := max(wso6), by = EntityID]
 
 # Only take one record pe r EntityID - just need to be able to flag that
 # it is a spinout in the later calculations
-parentsSpinouts <- unique(parentsSpinouts, by = "EntityID")[, .(gvkey,EntityID,numSpinoutFounders,wso1,wso2,wso3,wso4)]
-#parentsSpinouts <- melt(parentsSpinouts,id.vars = c("gvkey","EntityID","numSpinoutFounders"),  measure.vars = c("wso1","wso2","wso3","wso4")) 
-#temp <- unique(temp, by = "EntityID")
+#parentsSpinouts <- unique(parentsSpinouts, by = "EntityID")[, .(gvkey,EntityID,numSpinoutFounders,wso1,wso2,wso3,wso4)][ foundingYear >= 1986 & foundingYear <= 2018]
 
 # Merge funding information with parent firm - spinout link
 setkey(firstFundings,EntityID)
@@ -47,15 +50,25 @@ parentsSpinoutsFF[is.na(isSpinout), isSpinout := 0]
 # Replace NA values with zero
 parentsSpinoutsFF[ is.na(discountedFFValue), discountedFFValue := 0]
 
-## Compute first funding value of spinouts vs regular entrants
+#--------------------------------#
+#
+# Compute first funding value of spinouts vs regular entrants
+#
+#--------------------------------#
 
-# First, flag entities as spinouts or non-spinouts
-parentsSpinoutsFF[ wso1 + wso2 + wso3 + wso4 == 0 & isSpinout == 1, nonwsoSpinout := 1]
-parentsSpinoutsFF[ is.na(nonwsoSpinout), nonwsoSpinout := 0]
-parentsSpinoutsFF[ wso4 == 0 & isSpinout == 1, nonwso4Spinout := 1]
-parentsSpinoutsFF[ is.na(nonwso4Spinout) , nonwso4Spinout := 0]
+# First, construct indicators wso4 spinouts and wso spinout
+
+# spinout vs non-spinout
 parentsSpinoutsFF[ isSpinout == 0, nonSpinout := 1]
 parentsSpinoutsFF[ is.na(nonSpinout) , nonSpinout := 0] 
+
+# any WSO vs. non-WSO
+parentsSpinoutsFF[ wso1 + wso2 + wso3 + wso4 == 0 & isSpinout == 1, nonwsoSpinout := 1]
+parentsSpinoutsFF[ is.na(nonwsoSpinout), nonwsoSpinout := 0]
+
+# wso4 vs non-wso4
+parentsSpinoutsFF[ wso4 == 0 & isSpinout == 1, nonwso4Spinout := 1]
+parentsSpinoutsFF[ is.na(nonwso4Spinout) , nonwso4Spinout := 0]
 
 ## Merge with information on number of founders at each startup (founder meaning CTO,CEO,President,Chairman,or "Founder")
 
@@ -65,11 +78,11 @@ setkey(EntitiesNumFounders,EntityID)
 parentsSpinoutsFF <- EntitiesNumFounders[parentsSpinoutsFF]
 parentsSpinoutsFF[ , fracSpinoutFounders := numSpinoutFounders / numFounders]
 
-parentsSpinoutsFF[ nonSpinout == 1, `:=` (wso1 = 0, wso2 = 0, wso3 = 0, wso4 = 0, nonwso4Spinout = 0, nonwsoSpinout = 0)]
+#parentsSpinoutsFF[ nonSpinout == 1, `:=` (wso1 = 0, wso2 = 0, wso3 = 0, wso4 = 0, nonwso4Spinout = 0, nonwsoSpinout = 0)]
 
 ## Construct counts
 
-# First do founder weighted measures
+# First do founder weighted measures 
 
 spinoutCounts <- parentsSpinoutsFF[ , .(wso1 = sum(na.omit(fracSpinoutFounders * wso1)) , wso2 = sum(na.omit(fracSpinoutFounders * wso2)) ,
                                         wso3 = sum(na.omit(fracSpinoutFounders * wso3)) , wso4 = sum(na.omit(fracSpinoutFounders * wso4)) , 
@@ -86,7 +99,8 @@ founderCounts <- parentsSpinoutsFF[ , .(wso1 = sum(na.omit(numSpinoutFounders * 
 
 dffv <- parentsSpinoutsFF[ , .(wso1 = sum(na.omit(fracSpinoutFounders * discountedFFValue * wso1)) , wso2 = sum(na.omit(fracSpinoutFounders * discountedFFValue * wso2)) ,
                                wso3 = sum(na.omit(fracSpinoutFounders * discountedFFValue * wso3)) , wso4 = sum(na.omit(fracSpinoutFounders * discountedFFValue * wso4)) , 
-                               nonwso = sum(na.omit(fracSpinoutFounders * discountedFFValue * nonwsoSpinout)),  nonwso4 = sum(na.omit(fracSpinoutFounders * discountedFFValue * nonwso4Spinout)), 
+                               nonwso = sum(na.omit(fracSpinoutFounders * discountedFFValue * nonwsoSpinout)),  nonwso4 = sum(na.omit(fracSpinoutFounders * discountedFFValue * nonwso4Spinout)),
+                               allspinout = sum(na.omit(fracSpinoutFounders * discountedFFValue * wso1)) + sum(na.omit(fracSpinoutFounders * discountedFFValue * nonwsoSpinout)),
                                nonspinout = sum(na.omit(discountedFFValue)) - sum(na.omit(fracSpinoutFounders * discountedFFValue * wso1)) - sum(na.omit(fracSpinoutFounders * discountedFFValue * nonwsoSpinout))) , by = "foundingYear" ]
 
 
@@ -101,13 +115,14 @@ spinoutCounts_unweighted <- parentsSpinoutsFF[ , .(wso1 = sum(na.omit(wso1)) , w
 dffv_unweighted <- parentsSpinoutsFF[ , .(wso1 = sum(na.omit(discountedFFValue * wso1)) , wso2 = sum(na.omit(discountedFFValue * wso2)) ,
                                wso3 = sum(na.omit(discountedFFValue * wso3)) , wso4 = sum(na.omit(discountedFFValue * wso4)) , 
                                nonwso = sum(na.omit(discountedFFValue * nonwsoSpinout)), nonwso4 = sum(na.omit(discountedFFValue * nonwso4Spinout)), 
-                               nonspinout = sum(na.omit(discountedFFValue * (1 - wso1 - nonwsoSpinout)))) , by = "foundingYear" ]
+                               allspinout = sum(na.omit(discountedFFValue * wso1)) + sum(na.omit(discountedFFValue * nonwsoSpinout)),
+                               nonspinout = sum(na.omit(discountedFFValue * nonSpinout))), by = "foundingYear" ]
 
 
 
-### FIrst compute some statistics (easier in wide format)
+### First compute some statistics (easier in wide format)
 
-avg_countRatio_weighted <- spinoutCounts[ , mean((wso1 + nonwso) / nonspinout) ]
+avg_countRatio_weighted <- spinoutCounts[ , mean(na.omit((wso1 + nonwso) / nonspinout)) ]
 avg_countRatio_unweighted <- spinoutCounts_unweighted[ , mean((wso1 + nonwso) / nonspinout) ]
 avg_countRatio_wso4_weighted <- spinoutCounts[ , mean((wso4) / nonspinout) ]
 avg_countRatio_wso4_unweighted <- spinoutCounts_unweighted[ , mean((wso4) / nonspinout) ]

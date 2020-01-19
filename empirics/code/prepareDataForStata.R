@@ -27,6 +27,18 @@ data[is.na(sppe), sppe := 0]
 # Change units
 data[ , xrd := xrd / 1000]
 
+
+#-------------------------------#
+#
+# APPLY PRICE DEFLATORS TO GET REAL UNITS
+#
+# (1) First, convert R&D into real units of R&D, taking into account change in relative price of R&D
+# (2) Second, convert R&D into units of R&D deflated by productivity growth: model hypothesizes that more real units of R&D are required to generate 
+# innovations as productivity increases
+# (3) Third, deflate the funding valuations of spinouts by the CPI, to arrive at real funding valuations
+#
+#-------------------------------#
+
 # Apply R&D price index
 
 xrdPriceIndex <- fread("raw/rdPriceIndex.csv")
@@ -65,8 +77,8 @@ data[ , `:=` (capx = capx / (cpiInflation * growthFactor), at = at / (cpiInflati
 
 data[ , spinoutsDiscountedFFValue := spinoutsDiscountedFFValue / (cpiInflation * growthFactor)]
 
-# Decide whether to use normalized variable or not -- 
-# if not, COMMENT OUT these lines
+# Code for normalizing variables
+# if not normalizing, COMMENT OUT these lines
 
 #data[, xrd := (xrd - mean(xrd)) / sd(xrd)]
 #data[, patentApplicationCount := (patentApplicationCount - mean(patentApplicationCount)) / sd(patentApplicationCount)]
@@ -80,6 +92,14 @@ data[ , spinoutsDiscountedFFValue := spinoutsDiscountedFFValue / (cpiInflation *
 #data[, spinoutCountUnweighted := (spinoutCountUnweighted - mean(spinoutCountUnweighted,na.rm = TRUE)) / sd(spinoutCountUnweighted, na.rm = TRUE)]
 #data[, spinoutCountUnweighted_onlyExits := (spinoutCountUnweighted_onlyExits - mean(spinoutCountUnweighted_onlyExits,na.rm = TRUE)) / sd(spinoutCountUnweighted_onlyExits, na.rm = TRUE)]
 #data[, emp := (emp - mean(emp,na.rm = TRUE)) / sd(emp, na.rm = TRUE)]
+
+
+#----------------------#
+#
+# Some messy code computing some data transformations
+# Some of this is deprecated...
+#
+#----------------------#
 
 
 ## Compute moving averages

@@ -23,7 +23,7 @@ rm(list = ls())
 #
 ##########################################
 
-compustat <- fread("data/compustat/compustat_for_bloom_instruments.csv")
+compustat <- fread("raw/compustat/compustat_annual.csv")[indfmt=="INDL" & datafmt=="STD" & popsrc=="D" & consol=="C" & loc == "USA"][ , .(gvkey,fyear,datadate,loc,state,xrd,sale,capx,capxv,sppe,ppent,ebit,ebitda,ni,ch,emp,revt,intan,at,sic,naics,seq,pstkrv,pstkl,pstk,txdb,itcb,prcc_c,csho,re,act)]
 
 compustat <- compustat[ !is.na(gvkey)]
 compustat <- compustat[ !is.na(sale)]
@@ -238,7 +238,9 @@ rm(list = ls())
 
 lstate <- fread("data/compustat/lstate.csv")
 lfirm <- fread("data/compustat/lfirm.csv")
-compustat <- fread("data/compustat/compustat_for_bloom_instruments.csv")
+
+# Reload compustat
+compustat <- fread("raw/compustat/compustat_annual.csv")[indfmt=="INDL" & datafmt=="STD" & popsrc=="D" & consol=="C" & loc == "USA"][ , .(gvkey,fyear,datadate,loc,state,xrd,sale,capx,capxv,sppe,ppent,ebit,ebitda,ni,ch,emp,revt,intan,at,sic,naics,seq,pstkrv,pstkl,pstk,txdb,itcb,prcc_c,csho,re,act)]
 
 
 setkey(compustat,gvkey,fyear)

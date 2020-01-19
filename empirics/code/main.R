@@ -27,7 +27,7 @@ source("code/VentureSource/prepare-VentureSource-NAICS-Crosswalk.R")
 #----------------------------------
 
 # Extract Compustat firms and link to their subsidiaries
-source("code/compustat/clean.R")
+#source("code/compustat/clean.R")
 source("code/compustat/extractCompustatFirms.R") 
 source("code/compustat/matchCompustatFirmsToSubsidiaries.R")
 
@@ -45,20 +45,13 @@ source("code/compustat/constructInstruments.R")
 # First, create database of parent-spinout relationships    
 source("code/findSpinouts.R")
 
-# Construct database of spinouts and their attributes:
+# Construct database of spinouts and their attributes, to be used later in the analysis:
 # e.g. (1) whether they achieve revenue, (2) how much funding they receive, (3) whether they IPO, (4) IPO market capitalization
 source("code/constructSpinoutAttributes.R")
 
 # Construct parentFirm-year spinout counts and spinout indicator 
 # (for now, not considering industry)             
-
 source("code/constructSpinoutCounts.R") 
-  
-# Next, do some basic analyses    
-source("code/successfulExitRatesCalculation.R")
-source("code/compustat/computeEntryRates.R")
-source("code/computeValueOfSpinoutsAndEntrants.R")
-source("code/basicSpinoutAnalysis.R")
 
 # Combine with data on R&D from compustat_annual      
 source("code/mergeRDwithSpinoutCounts.R")
@@ -66,9 +59,9 @@ source("code/mergeRDwithSpinoutCounts.R")
 # Merge with compustat-patent data
 source("code/mergePatents_RD-Spinouts.R")
 
-#-------------------------
-## Bring in data on non-compete enforcement and enforcement changes
-#-------------------------
+####
+# BRING IN DATA ON NON-COMPETE ENFORCEMENT CHANGES FROM JEFFERS 2019
+###
 
 # Add variable encoding whether state has been trated by non-compete enforcement 
 # using Jeffers' court rulings dates 
@@ -77,7 +70,7 @@ source("code/addNoncompeteEnforcementChanges.R")
 # Add variable encoding state-level strength of non-compete enforcement from Bishara 2011 / Starr 2018
 source("code/addNoncompeteEnforcementIndices.R")
 
-# Add firm-specific NC enforcement changes
+# Construct firm-specific NC enforcement changes (for shift-share regression)
 
 # Only run the first time, because it takes a while
 source("code/constructFirmSpecificNCchanges.R")
@@ -85,6 +78,7 @@ source("code/constructFirmSpecificNCchanges.R")
 source("code/mergeFirmNCchangesToMasterData.R")
 
 #-------------------------
+# EXPORT TO STATA
 # Prepare the data for analysis in Stata
 # (because it has better implementations of fixed effect regressions)
 #-------------------------
@@ -97,30 +91,28 @@ source("code/prepareDataForStata.R")
 source("code/prepareEventStudyDataset.R")
         
 #----------------------------
-# Make some scatter plots
+# ANALYSIS (other than Stata regressions)
 #----------------------------
           
-source("code/makeScatterPlots.R")
+# Make some scatter plots
+source("code/analysis/makeScatterPlots.R")
 
+# Make some calculations / plots to compare spinouts to regular startups
+# e.g., how many of each kind in each year? 
+source("code/analysis/compareSpinoutsToEntrants.R")
 
-#----------------------------
-# Make parent child heatmaps: state, industry
-#----------------------------
+# Make some parent-child heatmaps: by industry, by state
 
 source("code/analysis/parentChildStateMatrix.R")
 source("code/analysis/parentChildIndustryMatrix.R")
 
 
-#----------------------------------
 ## Compute statistics from patent data
 # This includeswe have to be stewards of our cultural we have to be stewards of our cultural we have to be stewards of our cultural 
 #
 # (1) Fraction of innovations that are internal (cite mostly internal patents)
 #
 # (2) Fraction of patents coming from "new" firms (firms which first appeared in the patent data)
-#
-#----------------------------------
-
 
 source("code/statsFromPatentData.R")
     
