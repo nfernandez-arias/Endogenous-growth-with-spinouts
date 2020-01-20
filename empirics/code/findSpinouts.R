@@ -26,11 +26,7 @@ source("code/VentureSource/findLastEmployer.R")
 # Clean results from AltDG
 source("code/AltDG/cleanAltDGResults.R")
 
-
-#--------------------------#
-# Match everything up: 
-#
-# (1) Merge  
+# Link bios to Compustat
 source("code/linkBiosToCompustat2.R")
 
 

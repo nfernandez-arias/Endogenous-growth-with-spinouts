@@ -22,7 +22,10 @@
 # (4) Merge datasets: 
 #     (a) First, find matches of company names in Compustat to previous employers in Venture Source
 #     (b) Next, find matches of subsidiary names in Compustat to previos employers in Venture Source
-#     (c) Finally, find matches of 
+#     (c) Finally, find matches previous employers in Venture Source using AltDG, and match these entities to Compustat
+#         using their ticker symbol. This last step then requires manual verification, since it usually is matching
+#         subsidiaries, which change company ownership. E.g., it often will match a startup to the firm that acquries it,
+#         but the relevant employee worked at the startup before it was acquired by the firm. 
 #------------------------------------------------#
 
 rm(list = ls())
@@ -57,14 +60,16 @@ EntitiesPrevEmployers[ , PreviousEmployer := gsub("[ ]?[(].*[)]$","",PreviousEmp
 EntitiesPrevEmployers[ , PreviousEmployer := gsub("^Google.*$","Google",PreviousEmployer), by = PreviousEmployer]
 EntitiesPrevEmployers[ , PreviousEmployer := tolower(PreviousEmployer)]
 
+#------------------------------#
 # Initial merge, using standardized firm names
+#------------------------------#
 
 firms <- unique(compustatFirmsSegments,by = "gvkey")[ , .(gvkey,conml,tic,cusip,state,city,naics) ]
 EntitiesPrevEmployers[ , count := .N, by = c("PreviousEmployer","joinYear")]
 EntitiesPrevEmployers[ , globCount := .N, by = PreviousEmployer]
 prevEmployers <- unique(EntitiesPrevEmployers, by = c("PreviousEmployer","joinYear"))[ , .(PreviousEmployer,joinYear,count,globCount)]
 
-#setkey(prevEmployers,PreviousEmployer)
+setkey(prevEmployers,PreviousEmployer)
 setkey(firms,conml)
 
 firmsPrevEmployers <- firms[,.(gvkey,conml)][prevEmployers]
@@ -75,8 +80,11 @@ unmatched <- firmsPrevEmployers[ is.na(gvkey)][ , .(conml,joinYear,count,globCou
 
 matched[ , source := "regex"]
 
+#------------------------------#
 ## Secondary merge using compustat segments data
-segments <- unique(compustatFirmsSegments, by = "snms")[ , .(gvkey,snms)]
+#------------------------------#
+
+segments <- unique(compustatFirmsSegments, by = c("snms"))[ , .(gvkey,snms)]
 
 segments[ , snms := tolower(snms)]
 
@@ -92,6 +100,10 @@ matchedSegments <- unmatched[!is.na(gvkey)]
 unmatched <- unmatched[is.na(gvkey)][ , .(snms,joinYear,count,globCount)]
 
 matchedSegments[ , source := "compustat segments"]
+
+#------------------------------#
+# Final merge using results of AltDG
+#------------------------------#
 
 firmsTickers <- fread("data/firmsTickersAltDG.csv")
 firmsTickers[, query := tolower(query)]

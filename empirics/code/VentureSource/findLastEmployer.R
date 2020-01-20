@@ -36,7 +36,6 @@ positionCounts <- data[variable == "Position1" | variable == "Position2" | varia
 employerCounts <- data[variable == "Company1" | variable == "Company2" | variable == "Company3" | variable == "Company4" | variable == "Company5", .N, by = "value"]
 
 
-
 temp1 <- data[EntityName != value]
 data <- data[EntityNameCLEAN != valueCLEAN]
 

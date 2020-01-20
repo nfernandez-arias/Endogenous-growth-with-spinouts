@@ -1,3 +1,7 @@
+
+
+
+
 rm( list = ls())
 
 Deals <- fread("raw/VentureSource/01Deals.csv")[ , .(EntityID,EntityName,StartDate,IndustryCodeDesc,SubcodeDesc)]
@@ -11,7 +15,8 @@ Deals <- unique(Deals, by = "EntityID")
 setkey(EntitiesBios,EntityID)
 setkey(Deals,EntityID)
 
-merged <- EntitiesBios[Deals]
+merged <- Deals[EntitiesBios]
+#merged <- EntitiesBios[Deals]
 
 # Do some final cleaning: when there is no Subcode, put the Higher level code as the subcode
 merged[SubcodeDesc == "", SubcodeDesc := IndustryCodeDesc]
