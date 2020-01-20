@@ -8,6 +8,21 @@
 #
 # This script links EntityNames to the Compustat database
 # to find parent firms. 
+#
+# It loads in the firmsSegments.csv file constructed in compustat/matchCompustatFirmsToSubsidiaries.R
+#
+# It proceeds as follows:
+#
+# (1) Manually standardize the names of some important companies in Compustat (e.g. IBM, Hewlett-Packard)
+# (2) Use RegEx to standardize names of all companies: removing , Inc. , Corp. , spaces, artefacts from the encoding (probably exists a better way)
+# and finally, moving to lower case.
+#
+# (3) Perform analogous steps on the EntitiesPrevEmployers.csv file constructed in VentureSource/findLastEmployer.R file
+#     (this file )
+# (4) Merge datasets: 
+#     (a) First, find matches of company names in Compustat to previous employers in Venture Source
+#     (b) Next, find matches of subsidiary names in Compustat to previos employers in Venture Source
+#     (c) Finally, find matches of 
 #------------------------------------------------#
 
 rm(list = ls())
@@ -42,7 +57,7 @@ EntitiesPrevEmployers[ , PreviousEmployer := gsub("[ ]?[(].*[)]$","",PreviousEmp
 EntitiesPrevEmployers[ , PreviousEmployer := gsub("^Google.*$","Google",PreviousEmployer), by = PreviousEmployer]
 EntitiesPrevEmployers[ , PreviousEmployer := tolower(PreviousEmployer)]
 
-# Initial merge
+# Initial merge, using standardized firm names
 
 firms <- unique(compustatFirmsSegments,by = "gvkey")[ , .(gvkey,conml,tic,cusip,state,city,naics) ]
 EntitiesPrevEmployers[ , count := .N, by = c("PreviousEmployer","joinYear")]
@@ -54,12 +69,13 @@ setkey(firms,conml)
 
 firmsPrevEmployers <- firms[,.(gvkey,conml)][prevEmployers]
 
+# Construct subsample of matched and unmatched startup-founder observations
 matched <- firmsPrevEmployers[ !is.na(gvkey)][ , .(gvkey,conml,joinYear,count,globCount)]
 unmatched <- firmsPrevEmployers[ is.na(gvkey)][ , .(conml,joinYear,count,globCount)]
 
 matched[ , source := "regex"]
 
-## Merge using compustat segments data
+## Secondary merge using compustat segments data
 segments <- unique(compustatFirmsSegments, by = "snms")[ , .(gvkey,snms)]
 
 segments[ , snms := tolower(snms)]
@@ -68,6 +84,9 @@ setkey(segments,snms)
 #setkey(unmatched,conml)
 
 unmatched <- segments[unmatched]
+
+# Construct dataset of startup-founder pairs *not* matched to firms, which are matched / not matched to segments of parent firms, 
+# as per the Compustat business segment database
 
 matchedSegments <- unmatched[!is.na(gvkey)]
 unmatched <- unmatched[is.na(gvkey)][ , .(snms,joinYear,count,globCount)]

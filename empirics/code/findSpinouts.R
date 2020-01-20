@@ -23,8 +23,15 @@ source("code/VentureSource/linkEntitiesToIndustries.R")
 # Determine which is the previous firm the employee worked at
 source("code/VentureSource/findLastEmployer.R")
 
+# Clean results from AltDG
+source("code/AltDG/cleanAltDGResults.R")
+
+
+#--------------------------#
+# Match everything up: 
+#
+# (1) Merge  
 source("code/linkBiosToCompustat2.R")
-# Extra: link employee bios to other firms in Venture Source
 
 
 
