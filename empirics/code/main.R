@@ -45,7 +45,7 @@ source("code/compustat/constructInstruments.R")
 # First, create database of parent-spinout relationships    
 source("code/findSpinouts.R")
 
-# Construct database of spinouts and their attributes, to be used later in the analysis:
+# Construct database of startups and their attributes, to be used later in the analysis:
 # e.g. (1) whether they achieve revenue, (2) how much funding they receive, (3) whether they IPO, (4) IPO market capitalization
 source("code/constructSpinoutAttributes.R")
 

@@ -266,15 +266,24 @@ matched[ name == "zulily" & joinYear <= 2008, gkvey := NA]  # Private before acq
 matched[ , count := NULL]
 matched[ , globCount := NULL]
 
+# Merge with founder information using joinYear, because 
+# matches of names to gvkey, in particular using AltDG, 
+# can depend on the joinYear. See above.
+
 setkey(EntitiesPrevEmployers,PreviousEmployer,joinYear)
 setkey(matched,name,joinYear)
-
 
 parentsSpinouts <- matched[EntitiesPrevEmployers]
 
 parentsSpinouts <- parentsSpinouts[!is.na(gvkey)]
 
-temp <- parentsSpinouts[globCount >= 8]
+# Filter: errors are more likely for companies with
+# fewer spinouts (because they are more likely to be 
+#temp <- parentsSpinouts[globCount >= 10]
+
+
+# For now, don't use matches by altdg, since they might have errors... Or can do robustness, whatever.
+temp <- parentsSpinouts[ source != "altdg"]
 
 #temp <- parentsSpinouts
 
