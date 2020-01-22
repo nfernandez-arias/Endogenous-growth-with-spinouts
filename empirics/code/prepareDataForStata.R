@@ -144,7 +144,7 @@ data <- data[, if(max(na.omit(xrd)) > 0) .SD, by = gvkey]
 data <- data[year >= 1986]
 data <- data[year <= 2018]
 
-# Construct 4-digit NAICS codes
+# Construct 1,2,3,4,5,6-digit NAICS codes
 data[, naics6 := substr(naics,1,6)]
 data[, naics5 := substr(naics,1,5)]
 data[, naics4 := substr(naics,1,4)]
@@ -159,6 +159,12 @@ data <- data[order(gvkey,year)]
 data[, firmAge := rowidv(gvkey)]
 
 data[, naics4Year_count := .N, by = .(naics4,year)]
+
+#-------------#
+# Drop naics4-year categories which have fewer than 10 firms in them
+# (not sure if deprecated)
+#-------------#
+
 data[naics4Year_count <= 10, naics4Year_drop := 1]
   
 #data <- data[ sale > 0 ]
@@ -171,25 +177,15 @@ data <- data[State != ""]
 
 ### Define xrd treatment interaction variables
 
-data[ , xrd_tre_post_0 := xrd * treatedPost0]
-data[ , xrd_tre_post_1 := xrd * treatedPost1]
-data[ , xrd_tre_post_2 := xrd * treatedPost2]
-data[ , xrd_tre_post_3 := xrd * treatedPost3]
-data[ , xrd_tre_pre_1 := xrd * treatedPre1]
-data[ , xrd_tre_pre_2 := xrd * treatedPre2]
-data[ , xrd_tre_pre_3 := xrd * treatedPre3]
-
-data[ , xrd_plac_post_0 := xrd * placeboPost1]
-data[ , xrd_plac_post_1 := xrd * placeboPost1]
-data[ , xrd_plac_post_2 := xrd * placeboPost2]
-data[ , xrd_plac_post_3 := xrd * placeboPost3]
-data[ , xrd_plac_pre_1 := xrd * placeboPre1]
-data[ , xrd_plac_pre_2 := xrd * placeboPre2]
-data[ , xrd_plac_pre_3 := xrd * placeboPre3]
-
-
-#sdata <- data[ !is.na(xrdIntensity) & !is.na(xrdIntensity1)]
-
+for (str in c("Pre3","Pre2","Pre1","Post0","Post1","Post2","Post3"))
+{
+  xrdTreatedString <- paste("xrd_tre",str,sep = "_")
+  xrdPlaceboString <- paste("xrd_plac",str,sep = "_")
+  treatedString <- paste("treated",str,sep = "")
+  placeboString <- paste("placebo",str, sep = "")
+  data[ , (xrdTreatedString) := xrd * get(treatedString)]
+  data[ , (xrdPlaceboString) := xrd * get(placeboString)]
+}
 
 ## Construct variables to attempt to 
 # do OLS regressions from Babina & Howell 2019          
@@ -219,49 +215,6 @@ data[ , xrd_pas5 := Reduce(`+`, shift(xrd,0L:4L,type = "lag")), by = gvkey]
 data[ , spinouts_fut2 := Reduce(`+`,shift(spinoutCount,1L:2L,type = "lead")), by = gvkey]
 data[ , founders_fut2 := Reduce(`+`,shift(spinoutCountUnweighted,1L:2L,type = "lead")), by = gvkey]
 data[ , spinoutsDFFV_fut2 := Reduce(`+`,shift(spinoutsDiscountedFFValue,1L:2L,type = "lead")), by = gvkey]
-
-data[ , spinouts_wso1_fut2 := Reduce(`+`,shift(spinouts_wso1,1L:2L,type = "lead")), by = gvkey]
-data[ , founders_wso1_fut2 := Reduce(`+`,shift(spinoutsUnweighted_wso1,1L:2L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso1_fut2 := Reduce(`+`,shift(spinoutsDFFV_wso1,1L:2L,type = "lead")), by = gvkey]
-
-data[ , spinouts_wso2_fut2 := Reduce(`+`,shift(spinouts_wso2,1L:2L,type = "lead")), by = gvkey]
-data[ , founders_wso2_fut2 := Reduce(`+`,shift(spinoutsUnweighted_wso2,1L:2L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso2_fut2 := Reduce(`+`,shift(spinoutsDFFV_wso2,1L:2L,type = "lead")), by = gvkey]
-
-data[ , spinouts_wso3_fut2 := Reduce(`+`,shift(spinouts_wso3,1L:2L,type = "lead")), by = gvkey]
-data[ , founders_wso3_fut2 := Reduce(`+`,shift(spinoutsUnweighted_wso3,1L:2L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso3_fut2 := Reduce(`+`,shift(spinoutsDFFV_wso3,1L:2L,type = "lead")), by = gvkey]
-
-data[ , spinouts_wso4_fut2 := Reduce(`+`,shift(spinouts_wso4,1L:2L,type = "lead")), by = gvkey]
-data[ , founders_wso4_fut2 := Reduce(`+`,shift(spinoutsUnweighted_wso4,1L:2L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso4_fut2 := Reduce(`+`,shift(spinoutsDFFV_wso4,1L:2L,type = "lead")), by = gvkey]
-
-data[ , spinouts_wso5_fut2 := Reduce(`+`,shift(spinouts_wso5,1L:2L,type = "lead")), by = gvkey]
-data[ , founders_wso5_fut2 := Reduce(`+`,shift(spinoutsUnweighted_wso5,1L:2L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso5_fut2 := Reduce(`+`,shift(spinoutsDFFV_wso5,1L:2L,type = "lead")), by = gvkey]
-
-data[ , spinouts_wso6_fut2 := Reduce(`+`,shift(spinouts_wso6,1L:2L,type = "lead")), by = gvkey]
-data[ , founders_wso6_fut2 := Reduce(`+`,shift(spinoutsUnweighted_wso6,1L:2L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso6_fut2 := Reduce(`+`,shift(spinoutsDFFV_wso6,1L:2L,type = "lead")), by = gvkey]
-
-### 4-year
-
-data[ , spinouts_wso1_fut4 := Reduce(`+`,shift(spinouts_wso1,1L:4L,type = "lead")), by = gvkey]
-data[ , founders_wso1_fut4 := Reduce(`+`,shift(spinoutsUnweighted_wso1,1L:4L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso1_fut4 := Reduce(`+`,shift(spinoutsDFFV_wso1,1L:4L,type = "lead")), by = gvkey]
-
-data[ , spinouts_wso2_fut4 := Reduce(`+`,shift(spinouts_wso2,1L:4L,type = "lead")), by = gvkey]
-data[ , founders_wso2_fut4 := Reduce(`+`,shift(spinoutsUnweighted_wso2,1L:4L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso2_fut4 := Reduce(`+`,shift(spinoutsDFFV_wso2,1L:4L,type = "lead")), by = gvkey]
-
-data[ , spinouts_wso3_fut4 := Reduce(`+`,shift(spinouts_wso3,1L:4L,type = "lead")), by = gvkey]
-data[ , founders_wso3_fut4 := Reduce(`+`,shift(spinoutsUnweighted_wso3,1L:4L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso3_fut4 := Reduce(`+`,shift(spinoutsDFFV_wso3,1L:4L,type = "lead")), by = gvkey]
-
-data[ , spinouts_wso4_fut4 := Reduce(`+`,shift(spinouts_wso4,1L:4L,type = "lead")), by = gvkey]
-data[ , founders_wso4_fut4 := Reduce(`+`,shift(spinoutsUnweighted_wso4,1L:4L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso4_fut4 := Reduce(`+`,shift(spinoutsDFFV_wso4,1L:4L,type = "lead")), by = gvkey]
-
 
 
 data[ , xrd_lag := shift(xrd,1L,type="lag"), by = gvkey]

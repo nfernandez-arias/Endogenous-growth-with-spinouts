@@ -12,7 +12,7 @@
 
 rm(list = ls())
 
-enforcementIndex <- fread("data/NCCEnforcementIndices.csv")
+enforcementIndex <- fread("raw/NCCEnforcementIndices.csv")
 
 compustatSpinouts <- fread("data/compustat-spinouts.csv")
 

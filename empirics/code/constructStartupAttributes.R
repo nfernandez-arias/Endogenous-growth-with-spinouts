@@ -1,6 +1,6 @@
 #------------------------------------------------#
 #
-# File name: constructSpinoutAttributes.R
+# File name: constructStartupAttributes.R
 # 
 # Author: Nicolas Fernandez-Arias
 #

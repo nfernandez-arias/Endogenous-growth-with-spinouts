@@ -42,7 +42,7 @@ compustatFirmsSegments[ , conml := gsub("[.]$","",conml), by = gvkey]
 compustatFirmsSegments[ , conml := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",conml), by = gvkey]
 compustatFirmsSegments[ , conml := tolower(conml)]
 
-EntitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")[foundingYear >= 1986]
+EntitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")[!is.na(foundingYear)][foundingYear >= 1986]
 #EntitiesPrevEmployers[ , foundingYear := pmin(na.omit(year(ymd(JoinDate))),na.omit(year(ymd(StartDate)))), by = .(EntityID)]
 EntitiesPrevEmployers[ , joinYear := as.integer(year(ymd(JoinDate)))]
 EntitiesPrevEmployers[ is.na(joinYear) , joinYear := foundingYear]

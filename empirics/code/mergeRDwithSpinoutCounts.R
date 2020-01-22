@@ -43,45 +43,47 @@ setkey(parentsSpinoutCounts,gvkey,year)
 
 output <- parentsSpinoutCounts[compustat]
 
+#----------------------------------------#
+# Clean up the resulting dataset
+#----------------------------------------#
+
 output[is.na(spinoutCount) == TRUE, spinoutCount := 0]
 output[is.na(spinoutCountUnweighted) == TRUE, spinoutCountUnweighted := 0]
-output[is.na(spinoutCountUnweighted_onlyExits) == TRUE, spinoutCountUnweighted_onlyExits := 0]
-output[is.na(spinoutsDiscountedExitValue) == TRUE, spinoutsDiscountedExitValue := 0]
-output[is.na(spinoutCountUnweighted_discountedByTimeToExit) == TRUE, spinoutCountUnweighted_discountedByTimeToExit := 0]
 output[is.na(spinoutsDiscountedFFValue) == TRUE, spinoutsDiscountedFFValue := 0]
 
-output[is.na(spinouts_wso1), spinouts_wso1 := 0]
-output[is.na(spinouts_wso2), spinouts_wso2 := 0]
-output[is.na(spinouts_wso3), spinouts_wso3 := 0]
-output[is.na(spinouts_wso4), spinouts_wso4 := 0]
-output[is.na(spinouts_nonwso4), spinouts_nonwso4 := 0]
-output[is.na(spinouts_wso5), spinouts_wso5 := 0]
-output[is.na(spinouts_wso6), spinouts_wso6 := 0]
+for (i in 1:6)
+{
+  wsoFlag <- paste("wso",i,sep = "")
+  spinoutCountVar <- paste("spinoutCount_",wsoFlag,sep = "")
+  spinoutCountUnweightedVar <- paste("spinoutCountUnweighted_",wsoFlag,sep = "")
+  spinoutsDiscountedFFValueVar <- paste("spinoutsDiscountedFFValue_",wsoFlag,sep = "")
+  
+  output[is.na(get(spinoutCountVar)), (spinoutCountVar) := 0]
+  output[is.na(get(spinoutCountUnweightedVar)), (spinoutCountUnweightedVar) := 0]
+  output[is.na(get(spinoutsDiscountedFFValueVar)), (spinoutsDiscountedFFValueVar) := 0]
+}
 
-output[is.na(spinoutsUnweighted_wso1), spinoutsUnweighted_wso1 := 0]
-output[is.na(spinoutsUnweighted_wso2), spinoutsUnweighted_wso2 := 0]
-output[is.na(spinoutsUnweighted_wso3), spinoutsUnweighted_wso3 := 0]
-output[is.na(spinoutsUnweighted_wso4), spinoutsUnweighted_wso4 := 0]
-output[is.na(spinoutsUnweighted_nonwso4), spinoutsUnweighted_nonwso4 := 0]
-output[is.na(spinoutsUnweighted_wso5), spinoutsUnweighted_wso5 := 0]
-output[is.na(spinoutsUnweighted_wso6), spinoutsUnweighted_wso6 := 0]
 
-output[is.na(spinoutsDFFV_wso1), spinoutsDFFV_wso1 := 0]
-output[is.na(spinoutsDFFV_wso2), spinoutsDFFV_wso2 := 0]
-output[is.na(spinoutsDFFV_wso3), spinoutsDFFV_wso3 := 0]
-output[is.na(spinoutsDFFV_wso4), spinoutsDFFV_wso4 := 0]
-output[is.na(spinoutsDFFV_nonwso4), spinoutsDFFV_nonwso4 := 0]
-output[is.na(spinoutsDFFV_wso5), spinoutsDFFV_wso5 := 0]
-output[is.na(spinoutsDFFV_wso6), spinoutsDFFV_wso6 := 0]
+#--------------------------#
+# Compute spinout counts for nonwso1,nonwso2,nonwso3,nonwso4
+# This is just a simple difference of columns
+#--------------------------#
 
-output[spinoutCountUnweighted >= 1 , spinoutIndicator := 1]
-output[spinoutCountUnweighted == 0, spinoutIndicator := 0]
-
-output[spinoutCountUnweighted_onlyExits >= 1 , exitSpinoutIndicator := 1]
-output[spinoutCountUnweighted_onlyExits == 0, exitSpinoutIndicator := 0]
-
-output[spinoutsDiscountedExitValue >= 0.43 , valuableSpinoutIndicator := 1]
-output[spinoutsDiscountedExitValue < 0.43, valuableSpinoutIndicator := 0]
+for (i in 1:4)
+{
+  wsoFlag <- paste("wso",i,sep = "")
+  
+  spinoutCountVar <- paste("spinoutCount_",wsoFlag,sep = "")
+  spinoutCountUnweightedVar <- paste("spinoutCountUnweighted_",wsoFlag,sep = "")
+  spinoutsDiscountedFFValueVar <- paste("spinoutsDiscountedFFValue_",wsoFlag,sep = "")
+  
+  spinoutCountVar_new <- paste("spinoutCount_non",wsoFlag,sep = "")
+  spinoutCountUnweightedVar_new <- paste("spinoutCountUnweighted_non",wsoFlag,sep = "")
+  spinoutsDiscountedFFValueVar_new <- paste("spinoutsDiscountedFFValue_non",wsoFlag,sep = "")  
+  
+  output[ , c(spinoutCountVar_new,spinoutCountUnweightedVar_new,spinoutsDiscountedFFValueVar_new) := list(spinoutCount - get(spinoutCountVar), 
+                                                                                                       spinoutCountUnweighted - get(spinoutCountUnweightedVar), spinoutsDiscountedFFValue - get(spinoutsDiscountedFFValueVar))]
+}
 
 fwrite(output,"data/compustat-spinouts.csv")
 
