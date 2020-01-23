@@ -10,13 +10,7 @@
 # to matching with compustat.
 #------------------------------------------------#
 
-
-rm(list = ls())
-
-library(tidyverse)
-library(zoo)
-
-dynass <- fread("data/nber uspto/dynass.csv")
+dynass <- fread("raw/nber uspto/dynass.csv")
 
 dynass_long <- melt(dynass, id.vars = c("pdpass","source","gvkey1","gvkey2","gvkey3","gvkey4","gvkey5"), 
                     measure.vars = c("begyr1","begyr2","begyr3","begyr4","begyr5"))[order(pdpass,variable)]
@@ -39,4 +33,9 @@ temp <- temp[!is.na(gvkey) & !is.na(year)]
 
 temp <- temp[ , .(pdpass,gvkey,year)]
 
+# Save data
 fwrite(temp,"data/nber uspto/dynass_reshaped.csv")
+
+# Clean up
+rm(dynass,dynass_long,temp)
+

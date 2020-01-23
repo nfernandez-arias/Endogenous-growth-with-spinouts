@@ -25,10 +25,6 @@
 # using various definitions of industry. 
 #------------------------------------------------#
 
-rm(list = ls())
-
-library(lubridate)
-library(tidyr)
 
 
 parentsSpinouts <- fread("data/parentsSpinouts.csv") 
@@ -99,7 +95,7 @@ parentsSpinouts <- crosswalk[parentsSpinouts]
 #------------------------------------#
 
 parentsSpinouts[ , yearError := joinYear - foundingYear]
-parentsSpinouts <- parentsSpinouts[yearError <= 2]
+parentsSpinouts <- parentsSpinouts[yearError <= founderThreshold]
 
 # The "year" of the parent-spinout linkage is the joinYear, not the foundingYear, 
 # in cases where they are distinct.
@@ -162,6 +158,11 @@ for (i in 1:6)
 
 fwrite(out,"data/parentsSpinoutCounts.csv")
 
+# Clean up
+rm(crosswalk,exits,firstFundings,out,
+   parentsSpinouts,startupOutcomes,temp)
+
+rm(spinoutCountUnweightedVar,spinoutCountVar,spinoutsDiscountedFFValueVar,wsoFlag,i)
 
 
 

@@ -17,11 +17,6 @@
 # 
 #------------------------------------------------#
 
-rm(list = ls())
-
-library(data.table)
-library(stringr)
-
 BDVI <- fread("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics/raw/VentureSource/PrincetonBDVI.csv")
 
 #------------------------------#
@@ -72,5 +67,9 @@ for (i in 1:15)
   
 }
 
-fwrite(BDVI,"~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics/data/VentureSource/EntitiesBios.csv")
+fwrite(BDVI,"data/VentureSource/EntitiesBios.csv")
+
+# Clean up
+rm(BDVI)
+rm(company,i,job,position)
 

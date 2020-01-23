@@ -9,7 +9,6 @@
 # This adds NCC enforcement changes to the dataset 
 #------------------------------------------------#
 
-rm(list = ls())
 
 compustatSpinouts <- fread("data/compustat-spinouts.csv")
 
@@ -152,3 +151,6 @@ temp <- temp[ !is.na(state) & state != ""]
 
 fwrite(temp,"data/NCCenforcementChanges.csv")
 
+# Clean up
+
+rm(compustatSpinouts,temp)

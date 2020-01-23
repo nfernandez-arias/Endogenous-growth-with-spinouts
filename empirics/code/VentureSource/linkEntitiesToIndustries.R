@@ -2,8 +2,6 @@
 
 
 
-rm( list = ls())
-
 Deals <- fread("raw/VentureSource/01Deals.csv")[ , .(EntityID,EntityName,StartDate,IndustryCodeDesc,SubcodeDesc)]
 
 setnames(Deals,"StartDate","FoundingDate")
@@ -42,3 +40,6 @@ merged[ , startDateInfoCount := NULL]
 
 fwrite(merged,"data/VentureSource/EntitiesBiosIndustries.csv")
 
+# Clean up
+
+rm(Deals,EntitiesBios,merged)

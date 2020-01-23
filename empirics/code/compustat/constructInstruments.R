@@ -11,10 +11,8 @@
 #------------------------------------------------#
 
 
-library(readstata13)
-library(zoo)
 
-rm(list = ls())
+#library(zoo)
 
 ##########################
 #
@@ -93,7 +91,7 @@ compustat[ fbp > 0.16 , fbp := 0.16]
 # Generate base amount : max( fbp * 4 years avg receipts) , 0.5 * r&D)
 compustat[ , base := pmax(0.5 * xrd , fbp * rowMeans(cbind(sale,L1_sale,L2_sale,L3_sale),na.rm = TRUE))]
 
-rdUserCost <- unique(fread("data/bsv/RDusercost_2017.csv")[state == "Alabama"][ , .(year, k_f_e, t_f)] , by = c("year"))
+rdUserCost <- unique(fread("raw/bsv/RDusercost_2017.csv")[state == "Alabama"][ , .(year, k_f_e, t_f)] , by = c("year"))
   
 setkey(rdUserCost,year)
 setkey(compustat,fyear)
@@ -155,13 +153,13 @@ fwrite(compustat[ , .(gvkey,year,lfirm)],"data/compustat/lfirm.csv")
 
 ## Construt state R&D user cost
 
-rm(list = ls())
+rm(compustat,rdUserCost)
 
 patentAppsGvkeys <- fread("data/patentsAppyearGvkeys.csv")[!is.na(gvkey)]
 
 # Merge with patent information 
 
-patentsStates <- fread("data/nber uspto/pat76_06_assg.csv")[ , .(patent,state)]
+patentsStates <- fread("raw/nber uspto/pat76_06_assg.csv")[ , .(patent,state)]
 
 setkey(patentsStates,patent)
 setkey(patentAppsGvkeys,patent)
@@ -171,10 +169,6 @@ patentAppsGvkeys <- patentsStates[patentAppsGvkeys]
 ## Construct counts
 
 firmStateYearPatentCounts <- patentAppsGvkeys[ , .N, by = .(gvkey,year,state)] 
-
-# Load in Complete
-complete <- tidyr::complete
-
 
 firmStateYearPatentCounts <- data.table(complete(firmStateYearPatentCounts,gvkey,state,year = 1980:2006))[!is.na(state) &  state != ""]
 
@@ -202,7 +196,7 @@ fwrite(firmYearStateShares,"data/compustat/firmYearStateShares.csv")
 
 # Bring in state abbreviations, for merging with RDusercost_2017 dataset
 stateAbbrevs <- fread("bloom/spillovers_rep/1_data/Raw/stmap.csv")
-rdUserCost <- unique(fread("data/bsv/RDusercost_2017.csv")[ , .(rho_h,r,fips,year)])
+rdUserCost <- unique(fread("raw/bsv/RDusercost_2017.csv")[ , .(rho_h,r,fips,year)])
 
 setkey(stateAbbrevs,fips)
 setkey(rdUserCost,fips)
@@ -234,7 +228,8 @@ fwrite(lstate,"data/compustat/lstate.csv")
 
 ### Finally, merge with Compustat
 
-rm(list = ls())
+rm(firmStateYearPatentCounts,firmYearStateShares,lstate,patentAppsGvkeys,
+   patentsStates,rdUserCost,stateAbbrevs)
 
 lstate <- fread("data/compustat/lstate.csv")
 lfirm <- fread("data/compustat/lfirm.csv")
@@ -268,7 +263,10 @@ compustat <- lstate_bloom[compustat]
 
 fwrite(compustat,"data/compustat/compustat_withBloomInstruments.csv") 
 
+# Clean up
+rm(compustat,lfirm,lfirm_bloom,lstate,lstate_bloom)
 
+rm(R)
 
 
 

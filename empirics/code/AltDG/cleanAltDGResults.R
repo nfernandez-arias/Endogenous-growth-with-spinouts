@@ -10,7 +10,6 @@
 # of the Google Scrape
 #------------------------------------------------
 
-rm(list = ls())
 
 #firmsTickers <- fread("code/firmsTickers.csv")
 
@@ -32,3 +31,6 @@ results <- firmsAltDG[Ticker != ""]
 
 ## Keep results (1) trading on US exchanges and (2) that are matched with > 90% confidence.
 fwrite(results[(Exchange == "NYSE" | Exchange == "NASDAQ") & Confidence >= 0.9][ , .(query,companyName,Ticker)],"data/firmsTickersAltDG.csv")
+
+# Clean up
+rm(firmsAltDG,firmsAltDG_1,firmsAltDG_2,firmsAltDG_3,firmsAltDG_4,firmsAltDG_5,firmsAltDG_6,results)

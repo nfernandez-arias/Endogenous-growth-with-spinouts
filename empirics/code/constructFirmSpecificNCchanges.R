@@ -16,9 +16,6 @@
 #
 
 
-rm(list =ls()) 
-
-
 # I think my calculation is more accurate than Bloom's,
 # because he only uses the first gvkey associated with each pdpass...whereas
 # I use dynass to form my matches. Anyway...
@@ -74,6 +71,10 @@ hist(na.omit(firmYearStateShares[ishare != 0 & ishare != 1]$ishare), breaks = 10
     
 fwrite(firmYearNCchanges,"data/firmYearNCchanges.csv")
 
+
+# Clean up
+
+rm(firmYearStateShares,firmYearNCchanges,NCCenforcementChanges)
 
 
 

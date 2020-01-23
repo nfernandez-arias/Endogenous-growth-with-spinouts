@@ -3,10 +3,10 @@ rm(list = ls())
 
 data <- fread("data/compustat-spinouts_Stata.csv")
 
-data[ , xrd := log(xrd)]
-data[ , Spinouts_fut4 := log(Spinouts_fut4)]
-data[ Spinouts_fut4 == -Inf, Spinouts_fut4 := NA]
-data[ xrd == -Inf, xrd := NA]
+#data[ , xrd := log(xrd)]
+#data[ , Spinouts_fut4 := log(Spinouts_fut4)]
+#data[ Spinouts_fut4 == -Inf, Spinouts_fut4 := NA]
+#data[ xrd == -Inf, xrd := NA]
 
 data[ , spinoutCount := Reduce(`+`,shift(spinoutCount,1L:2L,type="lead")), by = "gvkey"]
 data[ , spinoutCountUnweighted := Reduce(`+`,shift(spinoutCountUnweighted,1L:2L,type="lead")), by = "gvkey"]
@@ -53,7 +53,7 @@ ggplot(data = data, aes(x = xrd, y = spinoutCount)) +
   scale_color_manual(values = my_palette) + 
   theme(text = element_text(size=16)) + 
   #theme(legend.position = "none") +
-  ggtitle("R&D spending and spinout counts") +
+  ggtitle("Higher R&D is associated with more employee spinout formation") +
   #ggtitle("Unadjusted") + 
   #ylim(0,1500) + 
   ylab("# of Spinouts") +
@@ -67,13 +67,13 @@ ggplot(data = data, aes(x = xrd, y = Spinouts_fut4)) +
   scale_color_manual(values = my_palette) + 
   theme(text = element_text(size=16)) + 
   #theme(legend.position = "none") +
-  ggtitle("log R&D spending and log spinout counts") +
+  ggtitle("Higher R&D predicts future employee spinout formation") +
   #ggtitle("Unadjusted") + 
   #ylim(0,1500) + 
-  ylab("log # of Spinouts") +
-  xlab("log Effective real R&D spending")
+  ylab("log # of Spinouts from t+1 to t+4") +
+  xlab("Effective real R&D spending at t")
 
-ggsave("../figures/scatterPlot_logRD-logSpinoutsFut4-raw.png", plot = last_plot())
+ggsave("../figures/scatterPlot_RD-SpinoutsFut4-raw.png", plot = last_plot())
 
 ggplot(data = data, aes(x = xrd, y = spinoutCountUnweighted)) + 
   geom_point(size = 0.1) +

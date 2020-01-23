@@ -1,40 +1,46 @@
-#-------------------------#
+#-----------------------------------#
 # 
 # filename: compareSpinoutsToEntrants.R
 #
 # This file does calcluations / constructs some plots
 # to get a picture of the data
 #
+#-----------------------------------#
 
 rm(list = ls())
 
-parentsSpinouts <- fread("data/parentsSpinoutsWSO.csv")[ , .()]
+parentsSpinouts <- fread("data/parentsSpinoutsWSO.csv")
+
+#-------------------------#
+# Preliminaries
+#-------------------------#
 
 # Compute number of founders who are from parent firms in data set
 parentsSpinouts[ , numSpinoutFounders := .N, by = "EntityID"]
 
 # Valuation at first funding event
 # (from code/constructSpinoutAttributes.R)
-#firstFundings <- fread("data/VentureSource/firstFundingEvents.csv")[ , .(EntityID,discountedFFValue,foundingYear)]
+firstFundings <- fread("data/VentureSource/firstFundingEvents.csv")[ , .(EntityID,discountedFFValue,foundingYear)]
 
 # Number of founders for each startup
 # (from code/constructSpinoutAttributes.R)
 EntitiesNumFounders <- fread("data/VentureSource/EntitiesNumFounders.csv")
 
+#-------------------------#
 # Construct a flag for a spinout being within-industry if 
 # at least one founder came from parent in same industry
+#-------------------------#
 
-parentsSpinouts[ , wso1 := max(wso1), by = EntityID]
-parentsSpinouts[ , wso2 := max(wso2), by = EntityID]
-parentsSpinouts[ , wso3 := max(wso3), by = EntityID]
-parentsSpinouts[ , wso4 := max(wso4), by = EntityID]
-parentsSpinouts[ , wso5 := max(wso5), by = EntityID]
-parentsSpinouts[ , wso6 := max(wso6), by = EntityID]
+for (i in 1:6)
+{
+  wsoFlag <- paste("wso",i,sep = "")
+  parentsSpinouts[ , (wsoFlag) := max(get(wsoFlag)), by = EntityID]
+}
 
-
-# Only take one record pe r EntityID - just need to be able to flag that
+# Only take one record per EntityID - 
+# just need to be able to flag that
 # it is a spinout in the later calculations
-#parentsSpinouts <- unique(parentsSpinouts, by = "EntityID")[, .(gvkey,EntityID,numSpinoutFounders,wso1,wso2,wso3,wso4)][ foundingYear >= 1986 & foundingYear <= 2018]
+parentsSpinouts <- unique(parentsSpinouts, by = "EntityID")[, .(gvkey,EntityID,numSpinoutFounders,wso1,wso2,wso3,wso4)][ foundingYear >= 1986 & foundingYear <= 2018]
 
 # Merge funding information with parent firm - spinout link
 setkey(firstFundings,EntityID)

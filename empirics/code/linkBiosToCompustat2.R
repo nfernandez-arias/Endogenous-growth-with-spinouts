@@ -28,9 +28,6 @@
 #         but the relevant employee worked at the startup before it was acquired by the firm. 
 #------------------------------------------------#
 
-rm(list = ls())
-library(data.table)
-library(lubridate)
 
 compustatFirmsSegments <- fread("data/compustat/firmsSegments.csv")
 compustatFirmsSegments[tic == "IBM", conml := "IBM"]
@@ -141,7 +138,6 @@ matched <- firms[matched]
 
 ### Check matches for accuracy
 
-library(stringdist)
 
 # First build matches that are not due to regex
 matchedDist <- matched[stringdist(conml,name) > 0]
@@ -279,15 +275,23 @@ parentsSpinouts <- parentsSpinouts[!is.na(gvkey)]
 
 # Filter: errors are more likely for companies with
 # fewer spinouts (because they are more likely to be 
-#temp <- parentsSpinouts[globCount >= 10]
+#temp <- parentsSpinouts[globCount >= minimumSpinoutsThreshold]
 
 
 # For now, don't use matches by altdg, since they might have errors... Or can do robustness, whatever.
-temp <- parentsSpinouts[ source != "altdg"]
 
-#temp <- parentsSpinouts
+if (excludeAltDG == TRUE) 
+{
+  fwrite(parentsSpinouts[ source != "altdg"],"data/parentsSpinouts.csv")
+} else
+{
+  fwrite(parentsSpinouts,"data/parentsSpinouts.csv")
+}
 
-fwrite(temp,"data/parentsSpinouts.csv")
+# Clean up
+rm(matched,matchedDist,matchedQueries,matchedSegments,parentsSpinouts,
+   prevEmployers,segments,unmatched,compustatFirmsSegments,
+   EntitiesPrevEmployers,firms,firmsPrevEmployers,firmsTickers)
 
 
 

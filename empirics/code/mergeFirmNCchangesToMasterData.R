@@ -4,8 +4,6 @@
 #
 
 
-rm(list = ls())
-
 #----------#
 # Load Firm-year NC changes data
 #----------#
@@ -41,3 +39,6 @@ compustatSpinouts[ is.na(flag), fw_post3 := as.double(treatedPost3)]
 
 
 fwrite(compustatSpinouts,"data/compustat-spinouts.csv")
+
+# Clean up
+rm(compustatSpinouts,firmYearNCchanges)

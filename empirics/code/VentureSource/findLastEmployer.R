@@ -12,8 +12,6 @@
 # 
 #------------------------------------------------#
 
-rm(list = ls())
-
 data <- fread("data/VentureSource/EntitiesBiosIndustries.csv")
 
 data <- melt(data, id.vars = c("EntityID","EntityName","JoinDate","StartDate","foundingYear","Founder","Title","TitleCode","FirstName","LastName","IndustryCodeDesc","SubcodeDesc"), 
@@ -32,6 +30,10 @@ data[variable == "Position1" | variable == "Position2" | variable == "Position3"
 
 data <- data[order(EntityID,FirstName,LastName)]
 
+#-------------#
+# Breakdown of spinout founders by position, previous employer
+# (currently not saving)
+#-------------#
 positionCounts <- data[variable == "Position1" | variable == "Position2" | variable == "Position3" | variable == "Position4" | variable == "Position5", .N, by = "value"]
 employerCounts <- data[variable == "Company1" | variable == "Company2" | variable == "Company3" | variable == "Company4" | variable == "Company5", .N, by = "value"]
 
@@ -51,6 +53,9 @@ temp <- data[data[ , .I[1], by = c("EntityID","Title","FirstName","LastName")]$V
 temp[ , variable := NULL]
 
 fwrite(temp,"data/VentureSource/EntitiesPrevEmployers.csv")
+
+# Clean up
+rm(data,employerCounts,positionCounts,temp,temp1)
 
 
 

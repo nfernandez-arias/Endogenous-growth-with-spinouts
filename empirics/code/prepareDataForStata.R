@@ -12,10 +12,6 @@
 #------------------------------------------------#  
 
 
-rm(list = ls())
-
-library(data.table)
-
 data <- fread("data/compustat-spinouts.csv")
 
 # Set NA xrd values to zero 
@@ -244,7 +240,9 @@ data[ , at_ma5 := (1/5) * Reduce(`+`, shift(at,0L:4L,type="lag")), by = gvkey]
 data[ , Tobin_Q_assets := Tobin_Q * at]
           
 fwrite(data,"data/compustat-spinouts_Stata.csv")
-                                                        
 
+# Clean up
+rm(cpi, data, productivityGrowth, xrdPriceAnnual, xrdPriceIndex)
+rm(placeboString, str, treatedString, xrdPlaceboString, xrdTreatedString)
 
 

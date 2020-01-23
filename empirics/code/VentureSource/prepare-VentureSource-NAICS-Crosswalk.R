@@ -9,10 +9,6 @@
 # This script prepares the crosswalk for use in the analysis
 # Mostly this entails constructing variables for the different it codes
 #------------------------------------------------#
-
-rm(list = ls())
-
-library(stringr)
   
 data <- fread("raw/VentureSource-NAICS-Crosswalk.csv")
 
@@ -45,4 +41,6 @@ data[str_count(NAICS4) >= 2, NAICS4_2 := substr(NAICS4,1,2)]
 data[str_count(NAICS4) >= 1, NAICS4_1 := substr(NAICS4,1,1)]
 
 fwrite(data,"data/VentureSource-NAICS-Crosswalk-final.csv")
+
+rm(data)
 

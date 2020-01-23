@@ -10,11 +10,9 @@
 # rehsaped dynass dataset
 #------------------------------------------------#
 
-rm(list = ls())
-
 dynass_reshaped <- fread("data/nber uspto/dynass_reshaped.csv")
 
-patents <- fread("data/nber uspto/pat76_06_assg.csv")[ , .(pdpass,patent,appyear,gyear)]
+patents <- fread("raw/nber uspto/pat76_06_assg.csv")[ , .(pdpass,patent,appyear,gyear)]
 
 setkey(dynass_reshaped,pdpass,year)
 
@@ -27,6 +25,8 @@ patentsGranted <- dynass_reshaped[patents][order(pdpass,year)]
 
 fwrite(patentsApplied,"data/patentsAppyearGvkeys.csv")
 fwrite(patentsGranted,"data/patentsGrantedyearGvkeys.csv")
+
+rm(dynass_reshaped,patents,patentsApplied,patentsGranted)
 
 
 

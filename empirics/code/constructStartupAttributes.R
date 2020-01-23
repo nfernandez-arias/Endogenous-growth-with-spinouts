@@ -13,17 +13,12 @@
 #
 #------------------------------------------------#
     
-library(lubridate)
 
-rm(list = ls())
-
+# Load funding information about all startups
 deals <- fread("raw/VentureSource/01Deals.csv")[year(ymd(StartDate)) >= 1986][order(EntityID,RoundNo)][, .(EntityID,EntityName,State,StartDate,CloseDate,RoundNo,RoundID,RoundType,RoundBusinessStatus,RaisedDA,RaisedUSD,PostValueDA,PostValUSD,IndustryCode,SubcodeDesc,IndustryCodeDesc,Competition)]
 
-
-# First need to get measure of number of founders of each startup, 
-# to properly deflate figures
-
-entitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")[ year(ymd(JoinDate)) - foundingYear <= 3]
+# Count number of founders of each startup
+entitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")[ year(ymd(JoinDate)) - foundingYear <= founderThreshold]
 numFounders <- entitiesPrevEmployers[ , .(numFounders = .N), by = "EntityID"]
 
 fwrite(numFounders,"data/VentureSource/EntitiesNumFounders.csv")
@@ -116,5 +111,8 @@ firstFundingEvents[ , discountedFFValue := (1.05)^(-timeToFirstFunding) * valAtF
 fwrite(exits,"data/VentureSource/exits.csv")
 fwrite(firstFundingEvents,"data/VentureSource/firstFundingEvents.csv")
 
+# Clean up
+rm(deals,exits,firstFundingEvents,noexits,
+   noFundingData,numFounders,temp)
 
 

@@ -11,9 +11,6 @@
 # in Venture Source.  
 #------------------------------------------------#
 
-rm(list = ls())
-setwd("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics")
-
 # Parse employee biographies
 source("code/VentureSource/parseBiographies.R")
 

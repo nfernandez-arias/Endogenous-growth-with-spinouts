@@ -9,16 +9,32 @@
 # This is the main script for the empirical component
 #------------------------------------------------#
 
+rm(list = ls())
+
+# Load libraries
 library(data.table)
 library(lubridate)
+library(stringr)
+library(zoo)
+library(stringdist)
+library(readstata13)
 
-rm(list = ls())
+# Load specific functions
+complete <- tidyr::complete
+coalesce <- dplyr::coalesce
+
 setwd("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics")
+
+# Setting some parameters:
+founderThreshold <- 2
+minimumSpinoutsThreshold <- 10
+excludeAltDG <- TRUE
+
 
 #--------------------------------
 ## Preparing Venture Source data  
 #--------------------------------
-
+  
 # Construct VentureSource - NAICS cross-walk
 source("code/VentureSource/prepare-VentureSource-NAICS-Crosswalk.R")
 
@@ -32,7 +48,7 @@ source("code/compustat/extractCompustatFirms.R")
 source("code/compustat/matchCompustatFirmsToSubsidiaries.R")
 
 # Next, create a database of parent-patent relationships
-source("code/matchPatentsToCompustat.R")
+source("code/nber uspto/matchPatentsToCompustat.R")
 
 # Construct instrumental variable for R&D based on 
 # R&D tax credits
@@ -114,7 +130,7 @@ source("code/analysis/parentChildIndustryMatrix.R")
 #
 # (2) Fraction of patents coming from "new" firms (firms which first appeared in the patent data)
 
-source("code/statsFromPatentData.R")
+source("code/patents/statsFromPatentData.R")
     
         
 

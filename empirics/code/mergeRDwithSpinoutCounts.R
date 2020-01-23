@@ -10,9 +10,6 @@
 # R&D and parent-firm location data from compustat. 
 #------------------------------------------------#
 
-
-rm(list = ls())
-
 ## First read in compustat and construct some variables
 
 compustat <- fread("data/compustat/compustat_withBloomInstruments.csv")
@@ -20,7 +17,7 @@ compustat <- fread("data/compustat/compustat_withBloomInstruments.csv")
 ## Construct Tobin's Q
 # (following methodology from WRDS)
 compustat <- compustat[ seq > 0]
-coalesce <- dplyr::coalesce
+
 compustat[ , pref := coalesce(pstkrv,pstkl,pstk)]
 compustat[ , BE := seq + txdb + itcb - pref]
 compustat[ , ME := prcc_c * csho]
@@ -87,6 +84,12 @@ for (i in 1:4)
 
 fwrite(output,"data/compustat-spinouts.csv")
 
+# Clean up
+rm(compustat,output,parentsSpinoutCounts)
+
+rm(i,spinoutCountUnweightedVar, spinoutCountUnweightedVar_new, spinoutCountVar,
+   spinoutCountVar_new, spinoutsDiscountedFFValueVar, spinoutsDiscountedFFValueVar_new,
+   wsoFlag)
 
 
 

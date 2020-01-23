@@ -12,7 +12,7 @@ rm(list = ls())
 
 entities <- unique(fread("raw/VentureSource/01Deals.csv"), by = "EntityID")[ , .(EntityID,EntityName)]
 #assignees <- fread("raw/patentsview/assignee.tsv")
-assignees <- fread("data/nber uspto/assignee.csv")
+assignees <- fread("raw/nber uspto/assignee.csv")
 
 
 # Do some regex cleaning of names -- remove Corp, etc. like in other algorithm

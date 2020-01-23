@@ -10,10 +10,6 @@
 # given by business segments.
 #------------------------------------------------#
 
-rm(list = ls())
-
-library(data.table)
-
 segments <- fread("raw/compustat/compustat_segments_annual.csv")
 segments <- segments[ , .(gvkey,srcdate,datadate,snms,stype,NAICSS1,NAICSS2,soptp1,soptp2)]
 segments <- segments[ stype == "BUSSEG"]
@@ -47,4 +43,6 @@ output <- output[order(gvkey,dataYear)]
 
 fwrite(output,"data/compustat/firmsSegments.csv")
 
+# Clean up
+rm(firms,output,segments,segmentsUnique)
 
