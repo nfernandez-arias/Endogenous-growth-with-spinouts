@@ -35,38 +35,41 @@ compustatFirmsSegments[tic == "GS", conml := "Goldman Sachs"]
 compustatFirmsSegments[tic == "HPQ", conml := "Hewlett-Packard"]
 compustatFirmsSegments[snms == "HP", snms := ""] 
 compustatFirmsSegments <- compustatFirmsSegments[ , .(gvkey,state,city,cusip,naics,NAICSS1,NAICSS2,dataYear,conml,snms,tic)]
-compustatFirmsSegments[ , conml := gsub("[.]$","",conml), by = gvkey]
-compustatFirmsSegments[ , conml := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",conml), by = gvkey]
+compustatFirmsSegments[ , conml := gsub("[.]$","",conml)]
+compustatFirmsSegments[ , conml := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",conml)]
 compustatFirmsSegments[ , conml := tolower(conml)]
 
-EntitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")[!is.na(foundingYear)][foundingYear >= 1986]
-#EntitiesPrevEmployers[ , foundingYear := pmin(na.omit(year(ymd(JoinDate))),na.omit(year(ymd(StartDate)))), by = .(EntityID)]
+EntitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")[!is.na(FoundingDate)][year(ymd(FoundingDate)) >= 1986]
+EntitiesPrevEmployers[ , foundingYear := as.integer(year(ymd(FoundingDate)))]
 EntitiesPrevEmployers[ , joinYear := as.integer(year(ymd(JoinDate)))]
-EntitiesPrevEmployers[ is.na(joinYear) , joinYear := foundingYear]
-EntitiesPrevEmployers <- EntitiesPrevEmployers[!is.na(PreviousEmployer) & PreviousEmployer != ""]
+
+# As before, if missing info on joinYear, treat joinYear as foundingYear 
+EntitiesPrevEmployers[ is.na(joinYear) , `:=` (joinYear = foundingYear, joinYearImputed = 1)]
+EntitiesPrevEmployers[ is.na(joinYearImputed), joinYearImputed := 0]
+
 
 ## Prepare data
-EntitiesPrevEmployers <- EntitiesPrevEmployers[, .(EntityID,founder2,EntityName,IndustryCodeDesc,SubcodeDesc,foundingYear,FirstName,LastName,joinYear,Title,TitleCode,PreviousEmployer)]
-EntitiesPrevEmployers[ PreviousEmployer == "Cisco", PreviousEmployer := "Cisco Systems"]
-EntitiesPrevEmployers[ PreviousEmployer == "Amazon", PreviousEmployer := "Amazon.com"]
-EntitiesPrevEmployers[ PreviousEmployer == "Yahoo" | PreviousEmployer == "Yahoo!", PreviousEmployer :=  "Verizon"]
-EntitiesPrevEmployers[ , PreviousEmployer := gsub("( )?(_x000D_)?(\n)?( )?(_x000D_)?(\n)?( )?_x000D_\n$","",PreviousEmployer), by = PreviousEmployer]
-EntitiesPrevEmployers[ , PreviousEmployer := gsub("[.]$","",PreviousEmployer), by = PreviousEmployer]
-EntitiesPrevEmployers[ , PreviousEmployer := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",PreviousEmployer), by = PreviousEmployer]
-EntitiesPrevEmployers[ , PreviousEmployer := gsub("[ ]?[(].*[)]$","",PreviousEmployer), by = PreviousEmployer]
-EntitiesPrevEmployers[ , PreviousEmployer := gsub("^Google.*$","Google",PreviousEmployer), by = PreviousEmployer]
-EntitiesPrevEmployers[ , PreviousEmployer := tolower(PreviousEmployer)]
+EntitiesPrevEmployers <- EntitiesPrevEmployers[, .(EntityID,EntityName,foundingYear,founder2,executive,FirstName,LastName,joinYear,Title,TitleCode,Employer,Position)]
+EntitiesPrevEmployers[ Employer == "Cisco", Employer := "Cisco Systems"]
+EntitiesPrevEmployers[ Employer == "Amazon", Employer := "Amazon.com"]
+EntitiesPrevEmployers[ Employer == "Yahoo" | Employer == "Yahoo!", Employer :=  "Verizon"]
+EntitiesPrevEmployers[ , Employer := gsub("( )?(_x000D_)?(\n)?( )?(_x000D_)?(\n)?( )?_x000D_\n$","",Employer)]
+EntitiesPrevEmployers[ , Employer := gsub("[.]$","",Employer)]
+EntitiesPrevEmployers[ , Employer := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",Employer)]
+EntitiesPrevEmployers[ , Employer := gsub("[ ]?[(].*[)]$","",Employer)]
+EntitiesPrevEmployers[ , Employer := gsub("^Google.*$","Google",Employer)]
+EntitiesPrevEmployers[ , Employer := tolower(Employer)]
 
 #------------------------------#
 # Initial merge, using standardized firm names
 #------------------------------#
 
 firms <- unique(compustatFirmsSegments,by = "gvkey")[ , .(gvkey,conml,tic,cusip,state,city,naics) ]
-EntitiesPrevEmployers[ , count := .N, by = c("PreviousEmployer","joinYear")]
-EntitiesPrevEmployers[ , globCount := .N, by = PreviousEmployer]
-prevEmployers <- unique(EntitiesPrevEmployers, by = c("PreviousEmployer","joinYear"))[ , .(PreviousEmployer,joinYear,count,globCount)]
+EntitiesPrevEmployers[ , count := .N, by = c("Employer","joinYear")]
+EntitiesPrevEmployers[ , globCount := .N, by = Employer]
+prevEmployers <- unique(EntitiesPrevEmployers, by = c("Employer","joinYear"))[ , .(Employer,joinYear,count,globCount)]
 
-setkey(prevEmployers,PreviousEmployer)
+setkey(prevEmployers,Employer)
 setkey(firms,conml)
 
 firmsPrevEmployers <- firms[,.(gvkey,conml)][prevEmployers]
@@ -240,17 +243,17 @@ matched[ name == "ims health" & joinYear <= 2016 , gvkey := 63800]   # IMS healt
 
 matched[ name == "janrain" & joinYear <= 2019, gvkey := NA]  # Private before acquisition by Akamai
 
-matched[ name == "livingsocial" & joinYear <= 2017, gkvey := NA]  # Private before acquisition by Groupon
+matched[ name == "livingsocial" & joinYear <= 2017, gvkey := NA]  # Private before acquisition by Groupon
 
-matched[ name == "redbeacon" & joinYear <= 2012, gkvey := NA]  # Private before acquisition by Home Depot
+matched[ name == "redbeacon" & joinYear <= 2012, gvkey := NA]  # Private before acquisition by Home Depot
 
-matched[ name == "skype" & joinYear <= 2011, gkvey := NA]  # Private before acquisition by Microsoft
+matched[ name == "skype" & joinYear <= 2011, gvkey := NA]  # Private before acquisition by Microsoft
 
-matched[ name == "upromise" & joinYear <= 2006, gkvey := NA]  # Private before acquisition by Sallie Mae
+matched[ name == "upromise" & joinYear <= 2006, gvkey := NA]  # Private before acquisition by Sallie Mae
 
-matched[ name == "veritas" & joinYear <= 2008, gkvey := NA]  # Private before acquisition by Pepperball
+matched[ name == "veritas" & joinYear <= 2008, gvkey := NA]  # Private before acquisition by Pepperball
 
-matched[ name == "zulily" & joinYear <= 2008, gkvey := NA]  # Private before acquisition by Pepperball
+matched[ name == "zulily" & joinYear <= 2008, gvkey := NA]  # Private before acquisition by Pepperball
 
 
 
@@ -266,12 +269,12 @@ matched[ , globCount := NULL]
 # matches of names to gvkey, in particular using AltDG, 
 # can depend on the joinYear. See above.
 
-setkey(EntitiesPrevEmployers,PreviousEmployer,joinYear)
+setkey(EntitiesPrevEmployers,Employer,joinYear)
 setkey(matched,name,joinYear)
 
 parentsSpinouts <- matched[EntitiesPrevEmployers]
 
-parentsSpinouts <- parentsSpinouts[!is.na(gvkey)]
+#parentsSpinouts <- parentsSpinouts[!is.na(gvkey)]
 
 # Filter: errors are more likely for companies with
 # fewer spinouts (because they are more likely to be 
@@ -280,13 +283,7 @@ parentsSpinouts <- parentsSpinouts[!is.na(gvkey)]
 
 # For now, don't use matches by altdg, since they might have errors... Or can do robustness, whatever.
 
-if (excludeAltDG == TRUE) 
-{
-  fwrite(parentsSpinouts[ source != "altdg"],"data/parentsSpinouts.csv")
-} else
-{
-  fwrite(parentsSpinouts,"data/parentsSpinouts.csv")
-}
+fwrite(parentsSpinouts,"data/parentsSpinouts.csv")
 
 # Clean up
 rm(matched,matchedDist,matchedQueries,matchedSegments,parentsSpinouts,

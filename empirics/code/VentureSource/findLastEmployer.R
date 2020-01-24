@@ -6,18 +6,18 @@
 #
 # Purpose:
 #
-# This program analyzes EntitiesBios.csv 
+# This program analyzes EntitiesBiosIndustries.csv 
 # to determine the last employer of each employee.
 # 
 # 
 #------------------------------------------------#
 
-data <- fread("data/VentureSource/EntitiesBiosIndustries.csv")
+data <- fread("data/VentureSource/EntitiesBiosNamesFoundingDates.csv")
 
 positions <- c("Position1","Position2","Position3","Position4","Position5")
 companies <- c("Company1","Company2","Company3","Company4","Company5")
 
-data <- melt(data, id.vars = c("EntityID","EntityName","JoinDate","StartDate","foundingYear","Founder","Title","TitleCode","FirstName","LastName","IndustryCodeDesc","SubcodeDesc",positions), 
+data <- melt(data, id.vars = c("EntityID","EntityName","JoinDate","FoundingDate","Founder","founder2","executive","Title","TitleCode","FirstName","LastName",positions), 
              measure.vars = companies) 
 
 for (i in 1:5)
@@ -36,7 +36,9 @@ for (i in 1:5)
 # and look further back into employment history for those founders
 #------------------------------#
 
-data[ , Employer := gsub("( )?(_x000D_)?(\n)?( )?(_x000D_)?(\n)?( )?_x000D_\n$","",value)]
+setnames(data,"value","Employer")
+
+data[ , Employer := gsub("( )?(_x000D_)?(\n)?( )?(_x000D_)?(\n)?( )?_x000D_\n$","",Employer)]
 data[ , Employer := gsub("[.]$","",Employer)]
 data[ , Employer := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",Employer)]
 data[ , Employer := gsub("[ ]?[(].*[)]$","",Employer)]
@@ -54,42 +56,23 @@ data <- data[order(EntityID,FirstName,LastName)]
 
 data <- data[ mapply(grepl,tolower(Employer),tolower(EntityName), MoreArgs = list(fixed = TRUE)) == FALSE & 
                 mapply(grepl,tolower(EntityName),tolower(Employer), MoreArgs = list(fixed = TRUE)) == FALSE]
-  
-#------------------------------#
-# Which early employees of startup are to be counted as "Founders" for my analysis?
-#
-# Those with certain titles (see main.R) and those who joined the startup within the founderThreshold (also see main.R)
-# 
-# For those observations without information on founder's join date, just include all founders. Better than dropping...
-# Gompers et al. say that they go one by one to get data on this, but this infeasible at this point, given the size of the dataset.
-#------------------------------#
 
-data[ TitleCode %in% founderTitles & (is.na(JoinDate) | year(ymd(JoinDate)) - foundingYear <= founderThreshold), founder2 := 1]
-data[ is.na(founder2), founder2 := 0]
 
+
+# Get the first record for each person-EntityID pair. Given the previous line of code, this should 
+# have info on the most recent job. 
 mostRecentEmployers <- data[data[ , .I[1], by = c("EntityID","Title","FirstName","LastName")]$V1]
 
 mostRecentEmployers[ , variable := NULL]
 
 #------------------------------#
-# Construct some counts, mostly for diagnostic purposes
+# Save data
 #------------------------------#
-
-positionCounts <- mostRecentEmployers[ , .N, by = Position]
-employerCounts <- mostRecentEmployers[ , .N, by = Employer]
-  
-positionCounts_founder2 <- mostRecentEmployers[ founder2 == 1, .N, by = Position]
-employerCounts_founder2 <- mostRecentEmployers[ founder2 == 1, .N, by = Employer]
-
-titleCodeCounts <- mostRecentEmployers[  , .N, by = TitleCode]
-titleCounts <- mostRecentEmployers[ , .N, by = .(Title,TitleCode)]
 
 fwrite(mostRecentEmployers,"data/VentureSource/EntitiesPrevEmployers.csv")
 
 # Clean up
-rm(data,employerCounts,positionCounts,titleCounts,titleCodeCounts,temp,temp1)
-
-
+rm(data,mostRecentEmployers)
 
 
 

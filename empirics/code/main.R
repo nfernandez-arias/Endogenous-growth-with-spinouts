@@ -40,8 +40,10 @@ setwd("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spi
 founderThreshold <- 2
 minimumSpinoutsThreshold <- 10
 excludeAltDG <- TRUE
+fundingDiscountFactor <- 1.1
 
-founderTitles <- c("CEO","CTO","CSO","CCEO","PCEO","PRE","PCOO","PCHM","PCOO","FDR")
+founderTitles <- c("CEO","CTO","CCEO","PCEO","PRE","PCOO","PCHM","PCOO","FDR")
+executiveTitles <- c(founderTitles,"CSO","COO","CIO","CFO","CHF","CHMN","EVP","MDIR","MGR")
 
 #--------------------------------
 ## Preparing Venture Source data  
@@ -70,12 +72,13 @@ source("code/compustat/constructInstruments.R")
 # Constructing data on startups and previous employers
 #--------------------------------
 
-# First, create database of parent-spinout relationships    
-source("code/findSpinouts.R")
-
 # Construct database of startups and their attributes, to be used later in the analysis:
 # e.g. (1) whether they achieve revenue, (2) how much funding they receive, (3) whether they IPO, (4) IPO market capitalization
-source("code/constructStartupAttributes.R")
+# Also, industry information (which will later be matched with NAICS codes using crosswalk) 
+source("code/VentureSource/constructStartupAttributes.R")
+
+# Next, construct database of parent-spinout relationships    
+source("code/findSpinouts.R")
 
 # Construct parentFirm-year spinout counts and spinout indicator 
 # (for now, not considering industry)             

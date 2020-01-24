@@ -17,7 +17,7 @@
 # 
 #------------------------------------------------#
 
-BDVI <- fread("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics/raw/VentureSource/PrincetonBDVI.csv")
+BDVI <- fread("raw/VentureSource/PrincetonBDVI.csv")
 
 #------------------------------#
 # Divide biographies into jobs: separated by ";" character

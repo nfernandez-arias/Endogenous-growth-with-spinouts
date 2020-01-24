@@ -25,8 +25,6 @@
 # using various definitions of industry. 
 #------------------------------------------------#
 
-
-
 parentsSpinouts <- fread("data/parentsSpinouts.csv") 
 
 #------------------------------------#

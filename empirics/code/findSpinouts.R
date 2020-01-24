@@ -14,8 +14,11 @@
 # Parse employee biographies
 source("code/VentureSource/parseBiographies.R")
 
-# Link with industry information
-source("code/VentureSource/linkEntitiesToIndustries.R")
+# Link entities to entityname and founding date
+source("code/VentureSource/linkEntitiesToEntityNamesAndFoundingDates.R")
+
+# Classify entrepreneurs into various classes
+source("code/VentureSource/classifyFounders.R")
 
 # Determine which is the previous firm the employee worked at
 source("code/VentureSource/findLastEmployer.R")
