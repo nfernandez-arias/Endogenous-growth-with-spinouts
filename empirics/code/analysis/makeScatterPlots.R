@@ -1,6 +1,4 @@
 
-rm(list = ls())
-
 data <- fread("data/compustat-spinouts_Stata.csv")
 
 #data[ , xrd := log(xrd)]
@@ -39,19 +37,14 @@ data[ , spinoutsDiscountedFFValue_d := spinoutsDiscountedFFValue_d - mean(na.omi
 
 # Construct scatter plot by state
 
-library(ggplot2)
-
-library(RColorBrewer)
-
-my_palette <- brewer.pal(name="Blues",n=8)[4:9]
 
 ## Raw OLS
 
 ggplot(data = data, aes(x = xrd, y = spinoutCount)) + 
   geom_point(size = 0.1) +
   geom_smooth(method = "lm", se = TRUE, size = 0.6) + 
-  scale_color_manual(values = my_palette) + 
-  theme(text = element_text(size=16)) + 
+  #scale_color_manual(values = my_palette) + 
+  theme(text = element_text(size=14)) + 
   #theme(legend.position = "none") +
   ggtitle("Higher R&D is associated with more employee spinout formation") +
   #ggtitle("Unadjusted") + 
@@ -60,6 +53,83 @@ ggplot(data = data, aes(x = xrd, y = spinoutCount)) +
   xlab("Effective real R&D spending")
 
 ggsave("../figures/scatterPlot_RD-Spinouts-1yr-raw.png", plot = last_plot())
+
+# Raw OLS separated out by parent firm state
+
+ggplot(data = data[State == "CA" | State == "IL" | State == "IN" | State == "MA" | State == "MI" | State == "NY" | State == "TX" | State == "WA"], aes(x = xrd, y = spinoutCount)) + 
+  geom_point(size = 0.1) +
+  geom_smooth(method = "lm", se = TRUE, size = 0.6) + 
+  theme(text = element_text(size=12)) + 
+  #theme(legend.position = "none") +
+  ggtitle("Variation in the R&D - spinouts relationship across innovative states") +
+  #ggtitle("Unadjusted") + 
+  #ylim(0,1500) + 
+  ylab("# of Spinouts") +
+  xlab("Effective real R&D spending") + 
+  facet_wrap(~ State, ncol = 4) 
+
+ggsave("../figures/scatterPlot_RD-Spinouts-1yr-raw_byState.png")
+
+ggplot(data = data, aes(x = xrd, y = spinoutCount)) + 
+  geom_point(size = 0.1) +
+  geom_smooth(method = "lm", se = TRUE, size = 0.6) + 
+  scale_color_manual(values = my_palette) + 
+  theme(text = element_text(size=12)) + 
+  #theme(legend.position = "none") +
+  ggtitle("NAICS codes 3 (incl. manufacturing) and 5 (incl. software publishers) contain most parents") +
+  #ggtitle("Unadjusted") + 
+  #ylim(0,1500) + 
+  ylab("# of Spinouts") +
+  xlab("Effective real R&D spending") + 
+  facet_wrap(~ naics1, ncol = 3) 
+
+ggsave("../figures/scatterPlot_RD-Spinouts-1yr-raw_byNAICS1.png")
+
+ggplot(data = data[naics1 == "3" | naics1 == "5" ], aes(x = xrd, y = spinoutCount)) + 
+  geom_point(size = 0.1) +
+  geom_smooth(method = "lm", se = TRUE, size = 0.6) + 
+  scale_color_manual(values = my_palette) + 
+  theme(text = element_text(size=12)) + 
+  #theme(legend.position = "none") +
+  ggtitle("Relationship driven by NAICS 32, 33, 51 and 54") +
+  #ggtitle("Unadjusted") + 
+  #ylim(0,1500) + 
+  ylab("# of Spinouts") +
+  xlab("Effective real R&D spending") + 
+  facet_wrap(~ naics2, ncol = 3) 
+
+ggsave("../figures/scatterPlot_RD-Spinouts-1yr-raw_byNAICS2.png")
+
+ggplot(data = data[naics2 == "32" | naics2 == "33" | naics2 == "51" | naics2 == "54"], aes(x = xrd, y = spinoutCount)) + 
+  geom_point(size = 0.1) +
+  geom_smooth(method = "lm", se = TRUE, size = 0.6) + 
+  scale_color_manual(values = my_palette) + 
+  theme(text = element_text(size=12)) + 
+  #theme(legend.position = "none") +
+  ggtitle("Relationship driven by 325, 334, 336, 511, 517, 519, and 541") +
+  #ggtitle("Unadjusted") + 
+  #ylim(0,1500) + 
+  ylab("# of Spinouts") +
+  xlab("Effective real R&D spending") + 
+  facet_wrap(~ naics3, ncol = 3) 
+
+ggsave("../figures/scatterPlot_RD-Spinouts-1yr-raw_byNAICS3.png")
+
+ggplot(data = data[naics3 == "325" | naics3 == "334" | naics3 == "336" | naics3 == "511" | naics3 == "517" | naics3 == "519" | naics3 == "541"], aes(x = xrd, y = spinoutCount)) + 
+  geom_point(size = 0.1) +
+  geom_smooth(method = "lm", se = TRUE, size = 0.6) + 
+  scale_color_manual(values = my_palette) + 
+  theme(text = element_text(size=12)) + 
+  #theme(legend.position = "none") +
+  ggtitle("Relationship concentrated in four 3-digit NAICS industries") +
+  #ggtitle("Unadjusted") + 
+  #ylim(0,1500) + 
+  ylab("# of Spinouts") +
+  xlab("Effective real R&D spending") + 
+  facet_wrap(~ naics3, ncol = 3) 
+
+ggsave("../figures/scatterPlot_RD-Spinouts-1yr-raw_byNAICS3_zoomIn.png")
+
 
 ggplot(data = data, aes(x = xrd, y = Spinouts_fut4)) + 
   geom_point(size = 0.1) +
@@ -159,7 +229,7 @@ ggplot(data = data, aes(x = xrd_d, y = spinoutsDiscountedFFValue_d)) +
 ggsave("../figures/scatterPlot_RD-SpinoutsDFFV-1yr-allFE.png", plot = last_plot())
 
 
-        ggplot(data = data[State == "CA" | State == "MA"], aes(x = xrd_allFE, y = spinoutsDFFV_allFE, group = State, color = State)) + 
+ggplot(data = data[State == "CA" | State == "MA"], aes(x = xrd_d, y = spinoutsDiscountedFFValue_d, group = State, color = State)) + 
   geom_point(size = 0.3) +
   geom_smooth(method = "lm", se = TRUE) + 
   theme(text = element_text(size=20)) +
@@ -174,95 +244,8 @@ ggsave("../figures/scatterPlot_RD-SpinoutsDFFV-1yr-allFE_CAandMA.png", plot = la
 
 
 
+# Clean up
 
-
-ggplot(data = data, aes(x = xrd_5, y = spinoutCountUnweighted_5)) + 
-  geom_point(size = 0.3) +
-  geom_smooth(method = "lm") +    
-  #theme(legend.position = "none") +
-  ggtitle("Relationship between R&D spending and spinouts (firm-year observations, 1-year window)") +
-  #ggtitle("Unadjusted") + 
-  #ylim(0,1500) + 
-  ylab("# of Spinouts") +
-  xlab("R&D spending (millions $)")
-
-ggsave("../figures/scatterPlot_RD-Spinouts-5yr-raw.png", plot = last_plot())
-
-
-## Firm fixed effects
-
-
-ggplot(data = data, aes(x = xrd_demeaned, y = spinoutCountUnweighted_demeaned)) + 
-  geom_point() +
-  geom_smooth(method = "lm") + 
-  #theme(legend.position = "none") +
-  ggtitle("Relationship between R&D spending and spinouts by state (1-year window, firm fixed effect)") +
-  #ggtitle("Unadjusted") + 
-  #ylim(0,1500) + 
-  ylab("# of Spinouts") +
-  xlab("R&D spending (millions $)")
-
-
-ggplot(data = data[State == "CA" | State == "NY" | State == "MI" | State == "NJ" | State == "IL" | State == "MA" | State == "WA"], aes(x = xrd5_demeaned, y = spinoutCountUnweighted5_demeaned, color = State)) + 
-  geom_point() +
-  geom_smooth(method = "lm") + 
-  #theme(legend.position = "none") +
-  ggtitle("Relationship between R&D spending and spinouts (5-year window, firm fixed effect)") +
-  #ggtitle("Unadjusted") + 
-  #ylim(0,1500) + 
-  ylab("# of Spinouts") +
-  xlab("R&D spending (millions $)")
-
-
-
-# Firm and 4 digit industry-year fixed effects
-
-ggplot(data = data[State == "CA" | State == "NY" | State == "MI" | State == "NJ" | State == "IL" | State == "MA" | State == "WA"], aes(x = xrd_firm_IndustryYearFE, y = spinoutCountUnweighted_firm_IndustryYearFE, color = State)) + 
-  geom_point() +
-  geom_smooth(method = "lm") + 
-  #theme(legend.position = "none") +
-  ggtitle("Relationship between R&D spending and spinouts (1-year window, firm and naics4-year demeaning)") +
-  #ggtitle("Unadjusted") + 
-  #ylim(0,1500) + 
-  ylab("# of Spinouts") +
-  xlab("R&D spending (millions $)")
-
-
-data[State == "CA", Calif := "CA"]
-data[is.na(Calif), Calif := "Other"]
-
-ggplot(data = data, aes(x = xrd_firm_IndustryYearFE, y = spinoutCountUnweighted_firm_IndustryYearFE, color = Calif)) + 
-  geom_point() +
-  geom_smooth(method = "lm") +  
-  #theme(legend.position = "none") +
-  ggtitle("Relationship between R&D spending and spinouts (1-year window, firm and naics4-year demeaning)") +
-  #ggtitle("Unadjusted") + 
-  #ylim(0,1500) + 
-  ylab("# of Spinouts") +
-  xlab("R&D spending (millions $)")
-
-
-
-## State-year level data
-
-data[,  xrdStateYear := sum(xrd) , by = c("State","year")]
-data[, spinoutsStateYear := sum(spinoutCountUnweighted) , by = c("State","year")]
-
-stateYearLevelData <- unique(data, by = c("State","year"))[ , .(State,year,xrdStateYear,spinoutsStateYear)]
-
-
-
-ggplot(data = stateYearLevelData, aes(x = xrdStateYear, y = spinoutsStateYear)) + 
-  geom_point() +
-  geom_smooth(method = "lm") +  
-  #theme(legend.position = "none") +
-  ggtitle("Relationship between R&D spending and spinouts (1-year window, state-year level regression)") +
-  #ggtitle("Unadjusted") + 
-  #ylim(0,1500) + 
-  ylab("# of Spinouts") +
-  xlab("R&D spending (millions $)")
-
-
-
+rm(data,stateYearLevelData)
 
 

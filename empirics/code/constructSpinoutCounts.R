@@ -118,7 +118,7 @@ for (i in 1:6)
   parentsSpinouts[ is.na(get(wsoFlag)) , (wsoFlag) := 0]
 }
 
-## Save main dataset, so it can be used later (not sure where it is used later...)
+## Save main dataset, so it can be used later (in /analysis/compareSpinoutsToEntrants.R)
 
 fwrite(parentsSpinouts,"data/parentsSpinoutsWSO.csv")
   

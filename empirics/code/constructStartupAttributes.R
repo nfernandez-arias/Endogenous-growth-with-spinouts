@@ -18,7 +18,8 @@
 deals <- fread("raw/VentureSource/01Deals.csv")[year(ymd(StartDate)) >= 1986][order(EntityID,RoundNo)][, .(EntityID,EntityName,State,StartDate,CloseDate,RoundNo,RoundID,RoundType,RoundBusinessStatus,RaisedDA,RaisedUSD,PostValueDA,PostValUSD,IndustryCode,SubcodeDesc,IndustryCodeDesc,Competition)]
 
 # Count number of founders of each startup
-entitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")[ year(ymd(JoinDate)) - foundingYear <= founderThreshold]
+
+entitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")[ is.na(JoinDate) | year(ymd(JoinDate)) - foundingYear <= founderThreshold]
 numFounders <- entitiesPrevEmployers[ , .(numFounders = .N), by = "EntityID"]
 
 fwrite(numFounders,"data/VentureSource/EntitiesNumFounders.csv")

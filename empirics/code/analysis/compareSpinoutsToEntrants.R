@@ -7,8 +7,6 @@
 #
 #-----------------------------------#
 
-rm(list = ls())
-
 parentsSpinouts <- fread("data/parentsSpinoutsWSO.csv")
 
 #-------------------------#
@@ -16,7 +14,7 @@ parentsSpinouts <- fread("data/parentsSpinoutsWSO.csv")
 #-------------------------#
 
 # Compute number of founders who are from parent firms in data set
-parentsSpinouts[ , numSpinoutFounders := .N, by = "EntityID"]
+#parentsSpinouts[ , numSpinoutFounders := .N, by = "EntityID"]
 
 # Valuation at first funding event
 # (from code/constructSpinoutAttributes.R)
@@ -40,7 +38,7 @@ for (i in 1:6)
 # Only take one record per EntityID - 
 # just need to be able to flag that
 # it is a spinout in the later calculations
-parentsSpinouts <- unique(parentsSpinouts, by = "EntityID")[, .(gvkey,EntityID,numSpinoutFounders,wso1,wso2,wso3,wso4)][ foundingYear >= 1986 & foundingYear <= 2018]
+parentsSpinouts <- unique(parentsSpinouts, by = "EntityID")[, .(gvkey,EntityID,foundingYear,numSpinoutFounders,naics,NAICS1,NAICS2,NAICS3,NAICS4,wso1,wso2,wso3,wso4)][ foundingYear >= 1986 & foundingYear <= 2018]
 
 # Merge funding information with parent firm - spinout link
 setkey(firstFundings,EntityID)

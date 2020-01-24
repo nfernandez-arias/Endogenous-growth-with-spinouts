@@ -9,9 +9,14 @@
 # This is the main script for the empirical component
 #------------------------------------------------#
 
+# Clear workspace
 rm(list = ls())
 
-# Load libraries
+#-----------------------#
+# Preparing workspace
+#-----------------------#
+
+# Load data manipulation libraries
 library(data.table)
 library(lubridate)
 library(stringr)
@@ -19,17 +24,24 @@ library(zoo)
 library(stringdist)
 library(readstata13)
 
+# Load and set up plotting libraries
+library(ggplot2)
+library(ggthemr)
+ggthemr("flat") # Set theme -- controls all plots
+
 # Load specific functions
 complete <- tidyr::complete
 coalesce <- dplyr::coalesce
 
+# Set working directory
 setwd("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics")
 
-# Setting some parameters:
+# Set some parameters
 founderThreshold <- 2
 minimumSpinoutsThreshold <- 10
 excludeAltDG <- TRUE
 
+founderTitles <- c("CEO","CTO","CSO","CCEO","PCEO","PRE","PCOO","PCHM","PCOO","FDR")
 
 #--------------------------------
 ## Preparing Venture Source data  
@@ -55,7 +67,7 @@ source("code/nber uspto/matchPatentsToCompustat.R")
 source("code/compustat/constructInstruments.R")
 
 #--------------------------------
-# Bringing everything together
+# Constructing data on startups and previous employers
 #--------------------------------
 
 # First, create database of parent-spinout relationships    
