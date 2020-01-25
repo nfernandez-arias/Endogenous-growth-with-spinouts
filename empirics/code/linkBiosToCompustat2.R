@@ -274,6 +274,8 @@ setkey(matched,name,joinYear)
 
 parentsSpinouts <- matched[EntitiesPrevEmployers]
 
+parentsSpinouts[ is.na(source), source := "unmatched"]
+
 #parentsSpinouts <- parentsSpinouts[!is.na(gvkey)]
 
 # Filter: errors are more likely for companies with

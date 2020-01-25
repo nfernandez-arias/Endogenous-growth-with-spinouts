@@ -28,53 +28,28 @@
 parentsSpinouts <- fread("data/parentsSpinouts.csv") 
 
 #------------------------------------#
+# Load in data on startups, computed in 
+# VentureSource/constructStartupAttributes.R
+#------------------------------------#
+
+startupsData <- fread("data/VentureSource/startupsData.csv")[ , .(EntityID, EntityState = State, IndustryCodeDesc, SubcodeDesc,
+                                                                  discountedExitValue,discountedFFValue)]
+
+setkey(startupsData,EntityID)
+setkey(parentsSpinouts,EntityID)
+
+parentsSpinouts <- startupsData[parentsSpinouts]
+
+#------------------------------------#
 # Construct weight of each founder:  1 / N, where N is number of founders of that startup
 # (this ensures that total number of spinouts equals sum of spinout counts across parent firms)
 # I will also conduct an unweighted analysis
 #------------------------------------#
 
-parentsSpinouts[ , Weight := 1 / .N, by = "EntityID"]
+parentsSpinouts[ , `:=` (allWeight = 1 / .N, founder2Weight = 1 / sum(founder2), executiveWeight = 1 / sum(executive)), by = "EntityID"]
 
-#------------------------------------#
-# Load in data on startups relating to successful IPO or acquisition,
-# first funding events, and outcomes, constructed in 
-# constructStartupAttributes.R
-#------------------------------------#
-
-exits <- fread("data/VentureSource/exits.csv")[ , .(EntityID,maxExit,exitYear,valAtExit,raisedAtExit_USD,RoundType,timeToExit,discountedExitValue)]
-firstFundings <- fread("data/VentureSource/firstFundingEvents.csv")[ , .(EntityID,maxFunding,firstFundingYear,valAtFirstFunding,raisedAtFirstFunding_USD,RoundType,timeToFirstFunding,discountedFFValue)]
-startupOutcomes <- fread("data/VentureSource/startupOutcomes.csv")
-
-#------------------------------------#
-# Slight detour -- I think this is deprecated, but not sure yet.
-#------------------------------------#
-
-setkey(parentsSpinouts,EntityID)
-setkey(exits,EntityID)
-setkey(firstFundings,EntityID)
-setkey(startupOutcomes,EntityID)
-
-# For usage in computing likelihood of eventual exit for spinouts vs entrants
-temp <- parentsSpinouts
-temp[ , isSpinout := 1]
-temp <- temp[exits]
-temp[ is.na(isSpinout), isSpinout := 0]
-temp <- unique(temp, by = "EntityID")
-fwrite(temp,"data/VentureSource/startupsExits.csv")
-
-rm(temp)
-
-
-#------------------------------------#
-# Now proceed with the rest of the script
-# 
-# Bring in information on exits, first fundings and startup outcomes.
-#------------------------------------#
-
-
-parentsSpinouts <- exits[parentsSpinouts]
-parentsSpinouts <- firstFundings[parentsSpinouts]
-parentsSpinouts <- startupOutcomes[ , .(EntityID,noRevenue,genRevenue,profitable)][parentsSpinouts]
+parentsSpinouts[ founder2Weight == Inf, founder2Weight := NA]
+parentsSpinouts[ executiveWeight == Inf, executiveWeight := NA]
 
 fwrite(parentsSpinouts,"data/parentsSpinoutsFirstFundingsExitsOutcomes.csv")
 
@@ -87,21 +62,12 @@ setkey(parentsSpinouts,IndustryCodeDesc,SubcodeDesc)
 
 parentsSpinouts <- crosswalk[parentsSpinouts]
 
-#------------------------------------#
-# Only count as "founders" those employees who 
-# moved to the firm within 2 years of its foundingYear.
-#------------------------------------#
-
-parentsSpinouts[ , yearError := joinYear - foundingYear]
-parentsSpinouts <- parentsSpinouts[yearError <= founderThreshold]
-
 # The "year" of the parent-spinout linkage is the joinYear, not the foundingYear, 
 # in cases where they are distinct.
 parentsSpinouts[,  year := joinYear]
 
 # Drop unnecessary variables
 parentsSpinouts[, joinYear := NULL]
-parentsSpinouts[, yearError := NULL]
 
 #------------------------------------#
 # Compute the spinout counts
@@ -124,44 +90,58 @@ fwrite(parentsSpinouts,"data/parentsSpinoutsWSO.csv")
 # (1) Compute spinout counts regardless of WSO or not
 #--------------------------#
 
-out <- parentsSpinouts[ , .(spinoutCount = sum(Weight), spinoutCountUnweighted = .N , spinoutsDiscountedFFValue = sum(na.omit(Weight * discountedFFValue))), by = .(gvkey,year)][order(gvkey,year)]
-
-# In preparation for merging with WSO counts below
+out <- unique( parentsSpinouts[ , .(gvkey,year)])
 setkey(out,gvkey,year)
 
-#--------------------------#
-# (2) Compute spinout counts for wso1,wso2,wso3,wso4,wso5,wso6
-#--------------------------#
+parentsSpinouts[ executive == 0 , all := 1]
+parentsSpinouts[ is.na(all), all := 0]
 
-for (i in 1:6)
+for (founderType in c("all","founder2","executive"))
 {
-  # Construct strings for referring to column names
-  wsoFlag <- paste("wso",i,sep = "")
-  spinoutCountVar <- paste("spinoutCount_",wsoFlag,sep = "")
-  spinoutCountUnweightedVar <- paste("spinoutCountUnweighted_",wsoFlag,sep = "")
-  spinoutsDiscountedFFValueVar <- paste("spinoutsDiscountedFFValue_",wsoFlag,sep = "")
+  weightString <- paste(founderType,"Weight",sep = "")
+  spinoutsString <- paste("spinouts",founderType,".")
+  foundersString <- paste("founders",founderType,".")
+  dffvString <- paste("dffv",founderType,".")
+  temp1 <- parentsSpinouts[ , .( sum(na.omit(get(weightString))), sum(get(founderType)), 
+                                sum(na.omit(get(weightString) * discountedFFValue))), 
+                            by = .(gvkey,year)]
   
-  # Construct count
-  temp <- parentsSpinouts[ , .(sum(Weight * get(wsoFlag)), sum(get(wsoFlag)) , 
-                               sum(na.omit(Weight * discountedFFValue * get(wsoFlag)))), by = .(gvkey,year)][order(gvkey,year)]
+  setnames(temp1,"V1",spinoutsString)
+  setnames(temp1,"V2",foundersString)
+  setnames(temp1,"V3",dffvString)
   
-  setnames(temp,"V1",spinoutCountVar)
-  setnames(temp,"V2",spinoutCountUnweightedVar)
-  setnames(temp,"V3",spinoutsDiscountedFFValueVar)
-
-  # Merge with main dataset with spinout counts
-  setkey(temp,gvkey,year)
-  out <- temp[out]
+  setkey(temp1,gvkey,year)
+  
+  for (i in 1:6)
+  {
+    # Construct strings for referring to column names
+    wsoFlag <- paste("wso",i,sep = "")
+    spinoutsString_inner <- paste(spinoutsString,wsoFlag,sep = ".")
+    foundersString_inner <- paste(foundersString,wsoFlag,sep = ".")
+    dffvString_inner <- paste(dffvString,wsoFlag,sep = ".")
+    
+    # Construct count
+    temp2 <- parentsSpinouts[ , .( sum(na.omit(get(weightString) * get(wsoFlag))), sum(get(wsoFlag) * get(founderType)) , 
+                                 sum(na.omit(get(weightString) * discountedFFValue * get(wsoFlag)))), 
+                              by = .(gvkey,year)]
+    
+    setnames(temp2,"V1",spinoutsString_inner)
+    setnames(temp2,"V2",foundersString_inner)
+    setnames(temp2,"V3",dffvString_inner)
+    
+    # Merge with main dataset with spinout counts
+    setkey(temp2,gvkey,year)
+    temp1 <- temp2[temp1]
+  }
+  
+  out <- temp1[out]
+  
 }
 
 fwrite(out,"data/parentsSpinoutCounts.csv")
 
 # Clean up
-rm(crosswalk,exits,firstFundings,out,
-   parentsSpinouts,startupOutcomes,temp)
-
-rm(spinoutCountUnweightedVar,spinoutCountVar,spinoutsDiscountedFFValueVar,wsoFlag,i)
-
+rm(startupsData,crosswalk,out,temp1,temp2,parentsSpinouts)
 
 
 

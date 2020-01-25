@@ -17,6 +17,20 @@
 # Load funding information about all startups
 deals <- fread("raw/VentureSource/01Deals.csv")[year(ymd(StartDate)) >= 1986][order(EntityID,RoundNo)][, .(EntityID,EntityName,State,StartDate,CloseDate,RoundNo,RoundID,RoundType,RoundBusinessStatus,RaisedDA,RaisedUSD,PostValueDA,PostValUSD,IndustryCode,SubcodeDesc,IndustryCodeDesc,Competition)]
 
+#---------------------------#
+# Impute SubcodeDesc from IndustryCodeDesc 
+# when it is missing - by convention, I use this 
+# in my match later
+#---------------------------#
+
+deals[ SubcodeDesc == "", SubcodeDesc := IndustryCodeDesc]
+
+
+#---------------------------#
+# Calculate attributes of startups related to funding 
+# success and successful IPO or acquisition.
+#---------------------------#
+
 deals[ , PreValUSD := PostValUSD - RaisedUSD]
 deals[ !is.na(PreValUSD), fundingEvent := 1]
 deals[ is.na(fundingEvent) , fundingEvent := 0]
