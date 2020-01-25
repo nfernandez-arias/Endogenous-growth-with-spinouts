@@ -39,7 +39,7 @@ setwd("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spi
 # Set some parameters
 founderThreshold <- 2
 minimumSpinoutsThreshold <- 10
-excludeAltDG <- TRUE
+excludeAltDG <- FALSE
 fundingDiscountFactor <- 1.1
 
 founderTitles <- c("CEO","CTO","CCEO","PCEO","PRE","PCOO","PCHM","PCOO","FDR")

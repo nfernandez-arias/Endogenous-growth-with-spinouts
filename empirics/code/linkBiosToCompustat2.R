@@ -49,7 +49,7 @@ EntitiesPrevEmployers[ is.na(joinYearImputed), joinYearImputed := 0]
 
 
 ## Prepare data
-EntitiesPrevEmployers <- EntitiesPrevEmployers[, .(EntityID,EntityName,foundingYear,founder2,executive,FirstName,LastName,joinYear,Title,TitleCode,Employer,Position)]
+EntitiesPrevEmployers <- EntitiesPrevEmployers[, .(EntityID,EntityName,foundingYear,founder2,executive,FirstName,LastName,joinYear,joinYearImputed,Title,TitleCode,Employer,Position)]
 EntitiesPrevEmployers[ Employer == "Cisco", Employer := "Cisco Systems"]
 EntitiesPrevEmployers[ Employer == "Amazon", Employer := "Amazon.com"]
 EntitiesPrevEmployers[ Employer == "Yahoo" | Employer == "Yahoo!", Employer :=  "Verizon"]
