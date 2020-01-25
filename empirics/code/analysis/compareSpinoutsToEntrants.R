@@ -49,7 +49,7 @@ for (founderType in c("all","founder2","executive"))
     #ggtitle("Unadjusted") + 
     xlim(1986,2015) + 
     ylab("Number of entrepreneurs") +
-    xlab("Founding Year")
+    xlab("Join Year")
   
   filePath = paste(paste("../figures/founderCountsByYear",founderType,sep = "_"),".png",sep = "")
   
@@ -62,59 +62,55 @@ for (founderType in c("all","founder2","executive"))
 }
 
 #-----------------------------------#
-# Construct counts of startups and dfffv 
-# in each year
+# Construct counts of startups 
+# in each year (unweighted)
 #-----------------------------------#
 
 for (founderType in c("all","founder2","executive"))
 {
+  # Label spinouts that have at least one founder (of type founderType)
+  # who was last employed at a public firm (and is matched by my algorithm)
+  tempstr_frompublic <- paste("entityFromPublic",founderType,sep = "_")
+  parentsSpinouts[ , (tempstr_frompublic) := sum( get(founderType) * fromPublic), by = EntityID]
+  parentsSpinouts[ get(tempstr_frompublic) > 0, (tempstr_frompublic) := 1, by = EntityID]
   
-  parentsSpinouts[ max(fromPublic), entityFromPublic := 1, by = ]
+  # Similarly, label spinouts with at least one founder from 
+  # same industry as a wso4, etc.
+  tempstr_wso4 <- paste("entityWso4",founderType,sep = "_")
+  parentsSpinouts[ , temp := sum( get(founderType) * wso4), by = EntityID]
+  parentsSpinouts[ temp > 0, (tempstr_wso4) := 1, by = EntityID] 
   
+  parentsSpinouts_temp <- unique(parentsSpinouts, by = "EntityID")
   
+  temp <- parentsSpinouts_temp[ , .(wso4 = sum(na.omit(get(tempstr_wso4))), nonwso4 = sum(na.omit(get(tempstr_frompublic) - get(tempstr_wso4))), 
+                               nonSpinout = sum(na.omit((1 - get(tempstr_frompublic)))), startups = .N), 
+                           by = foundingYear]
   
-  temp <- parentsSpinouts[ , .(wso4 = sum(na.omit(wso4 * get(founderType))), nonwso4 = sum(na.omit(get(founderType) * (fromPublic - wso4))), 
-                               nonSpinout = sum(na.omit(get(founderType) * (1 - fromPublic))), startups = sum(get(founderType))), 
-                           by = year]
+  temp[ , checksum := wso4 + nonwso4 + nonSpinout]
   
-  #temp[ , checksum := wso4 + nonwso4 + nonSpinout]
+  temp <- melt(temp, id.var = "foundingYear", measure.vars = c("wso4","nonwso4","nonSpinout","startups"))
   
-  temp <- melt(temp, id.var = "year", measure.vars = c("wso4","nonwso4","nonSpinout","startups"))
-  
-  ggplot(data = temp[ variable == "nonSpinout" | variable == "wso4" | variable == "nonwso4"], aes(x = year, y = value, fill = variable)) + 
+  ggplot(data = temp[ variable == "nonSpinout" | variable == "wso4" | variable == "nonwso4"], aes(x = foundingYear, y = value, fill = variable)) + 
     geom_area(position = "stack") +
     #scale_fill_manual(values = my_palette) + 
     theme(text = element_text(size=16)) +
     #theme(legend.position = "none") +
-    ggtitle(paste(paste("Number of founders: ",founderType,sep = ""), " founders",sep = "")) +
+    ggtitle(paste(paste("Number of startups: ",founderType,sep = ""), " founders",sep = "")) +
     #ggtitle("Unadjusted") + 
     xlim(1986,2015) + 
-    ylab("Number of entrepreneurs") +
+    ylab("Number of startups") +
     xlab("Founding Year")
   
-  filePath = paste(paste("../figures/founderCountsByYear",founderType,sep = "_"),".png",sep = "")
+  filePath = paste(paste("../figures/spinoutCountsByYear",founderType,sep = "_"),".png",sep = "")
   
   ggsave(filePath, plot = last_plot())
   
-  outputName <- paste("founderCounts",founderType,sep = "_")
+  outputName <- paste("spinoutCountsUnweighted",founderType,sep = "_")
   
   assign(outputName,temp)
   
 }
 
-
-
-
-
-
-
-
-
-
-parentsSpinouts[ , `:=` (numExecutives = sum(executive),
-                         numFounders2 = sum(founder2),
-                         numAll = .N),
-                 by = EntityID]
 
 
 
