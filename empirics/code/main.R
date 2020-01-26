@@ -93,7 +93,7 @@ source("code/mergeRDwithSpinoutCounts.R")
 
 # Merge with compustat-patent data
 source("code/mergePatents_RD-Spinouts.R")
-
+  
 ####
 # BRING IN DATA ON NON-COMPETE ENFORCEMENT CHANGES FROM JEFFERS 2019
 ###
