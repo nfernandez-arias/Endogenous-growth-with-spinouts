@@ -11,7 +11,7 @@
 #
 #--------------------------------------------------#
 
-data <- fread("data/VentureSource/EntitiesBiosNamesFoundingDates.csv")
+data <- fread("data/parentsSpinouts.csv")
 
 
 #------------------------------#
@@ -23,15 +23,21 @@ data <- fread("data/VentureSource/EntitiesBiosNamesFoundingDates.csv")
 # Gompers et al. say that they go one by one to get data on this, but this infeasible at this point, given the size of the dataset.
 #------------------------------#
 
-data[ TitleCode %in% founderTitles & (is.na(JoinDate) | year(ymd(JoinDate)) - year(ymd(FoundingDate)) <= founderThreshold), founder2 := 1]
+data[ TitleCode %in% technicalTitles & (joinYear - foundingYear <= founderThreshold), technical := 1]
+data[ is.na(technical), technical := 0]
+
+data[ TitleCode %in% founderTitles & (joinYear - foundingYear <= founderThreshold), founder2 := 1]
 data[ is.na(founder2), founder2 := 0]
 
-data[ TitleCode %in% executiveTitles & (is.na(JoinDate) | year(ymd(JoinDate)) - year(ymd(FoundingDate)) <= founderThreshold), executive := 1]
+data[ TitleCode %in% executiveTitles & (joinYear - foundingYear <= founderThreshold), executive := 1]
 data[ is.na(executive), executive := 0]
+
+data[ joinYear - foundingYear <= founderThreshold , all := as.integer(1)]
+data[ is.na(all), all := 0]
 
 # Save data
 
-fwrite(data,"data/VentureSource/EntitiesBiosNamesFoundingDates.csv")
+fwrite(data,"data/parentsSpinouts.csv")
 
 # Clean up
 

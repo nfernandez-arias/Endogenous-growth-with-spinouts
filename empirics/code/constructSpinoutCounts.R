@@ -46,10 +46,11 @@ parentsSpinouts <- startupsData[parentsSpinouts]
 # I will also conduct an unweighted analysis
 #------------------------------------#
 
-parentsSpinouts[ , `:=` (allWeight = 1 / .N, founder2Weight = 1 / sum(founder2), executiveWeight = 1 / sum(executive)), by = "EntityID"]
+parentsSpinouts[ , `:=` (allWeight = 1 / .N, founder2Weight = 1 / sum(founder2), executiveWeight = 1 / sum(executive), technicalWeight = 1 / sum(technical)), by = "EntityID"]
 
 parentsSpinouts[ founder2Weight == Inf, founder2Weight := NA]
 parentsSpinouts[ executiveWeight == Inf, executiveWeight := NA]
+parentsSpinouts[ technicalWeight == Inf, technicalWeight := NA]
 
 fwrite(parentsSpinouts,"data/parentsSpinoutsFirstFundingsExitsOutcomes.csv")
 

@@ -49,7 +49,7 @@ EntitiesPrevEmployers[ is.na(joinYearImputed), joinYearImputed := 0]
 
 
 ## Prepare data
-EntitiesPrevEmployers <- EntitiesPrevEmployers[, .(EntityID,EntityName,foundingYear,founder2,executive,FirstName,LastName,joinYear,joinYearImputed,Title,TitleCode,Employer,Position)]
+EntitiesPrevEmployers <- EntitiesPrevEmployers[, .(EntityID,EntityName,foundingYear,FirstName,LastName,joinYear,joinYearImputed,Title,TitleCode,Employer,Position)]
 EntitiesPrevEmployers[ Employer == "Cisco", Employer := "Cisco Systems"]
 EntitiesPrevEmployers[ Employer == "Amazon", Employer := "Amazon.com"]
 EntitiesPrevEmployers[ Employer == "Yahoo" | Employer == "Yahoo!", Employer :=  "Verizon"]
@@ -274,19 +274,25 @@ setkey(matched,name,joinYear)
 
 parentsSpinouts <- matched[EntitiesPrevEmployers]
 
+#------------------------------#
+## Flag biographies as coming from public companies
+# based on successful matchesa above
+#------------------------------#
+
 parentsSpinouts[ is.na(source), source := "unmatched"]
-
-#parentsSpinouts <- parentsSpinouts[!is.na(gvkey)]
-
-# Filter: errors are more likely for companies with
-# fewer spinouts (because they are more likely to be 
-#temp <- parentsSpinouts[globCount >= minimumSpinoutsThreshold]
-
+if (excludeAltDG == TRUE)
+{
+  parentsSpinouts[ source %in% c("altdg","unmatched"), fromPublic := as.integer(0)] 
+} else
+{
+  parentsSpinouts[ source %in% c("unmatched") | globCount <= minimumSpinoutsThreshold, fromPublic := as.integer(0)] 
+}
+parentsSpinouts[ is.na(fromPublic), fromPublic := as.integer(1)]
 
 # For now, don't use matches by altdg, since they might have errors... Or can do robustness, whatever.
 
 fwrite(parentsSpinouts,"data/parentsSpinouts.csv")
-
+  
 # Clean up
 rm(matched,matchedDist,matchedQueries,matchedSegments,parentsSpinouts,
    prevEmployers,segments,unmatched,compustatFirmsSegments,

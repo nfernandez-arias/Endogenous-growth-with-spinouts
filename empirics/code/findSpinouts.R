@@ -17,9 +17,6 @@ source("code/VentureSource/parseBiographies.R")
 # Link entities to entityname and founding date
 source("code/VentureSource/linkEntitiesToEntityNamesAndFoundingDates.R")
 
-# Classify entrepreneurs into various classes
-source("code/VentureSource/classifyFounders.R")
-
 # Determine which is the previous firm the employee worked at
 source("code/VentureSource/findLastEmployer.R")
 
@@ -28,6 +25,9 @@ source("code/AltDG/cleanAltDGResults.R")
 
 # Link bios to Compustat
 source("code/linkBiosToCompustat2.R")
+
+# Classify entrepreneurs into various classes
+source("code/VentureSource/classifyFounders.R")
 
 
 

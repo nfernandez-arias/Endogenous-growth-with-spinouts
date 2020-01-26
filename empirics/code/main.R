@@ -32,18 +32,22 @@ ggthemr("flat") # Set theme -- controls all plots
 # Load specific functions
 complete <- tidyr::complete
 coalesce <- dplyr::coalesce
+NaRV.omit <- IDPmisc::NaRV.omit
 
 # Set working directory
 setwd("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics")
 
 # Set some parameters
-founderThreshold <- 2
+founderThreshold <- 1
 minimumSpinoutsThreshold <- 10
 excludeAltDG <- FALSE
 fundingDiscountFactor <- 1.1
 
-founderTitles <- c("CEO","CTO","CCEO","PCEO","PRE","PCOO","PCHM","PCOO","FDR")
-executiveTitles <- c(founderTitles,"CSO","COO","CIO","CFO","CHF","CHMN","EVP","MDIR","MGR")
+technicalTitles <- c("CTO","FDR","CSO","CIO","SADV")
+founderTitles <- c("CEO","CTO","CCEO","PCEO","PRE","PCHM","PCOO","FDR")
+executiveTitles <- c(founderTitles,"CSO","COO","PCOO","CIO","CFO","CHF","CHMN","EVP","MDIR","MGR")
+
+LargeStates <- c("CA","NY","TX","WA","MA","PA","CO","NC","NJ","GA","FL","MI","IL","VA","MD")
 
 #--------------------------------
 ## Preparing Venture Source data  
