@@ -49,7 +49,7 @@ EntitiesPrevEmployers[ is.na(joinYearImputed), joinYearImputed := 0]
 
 
 ## Prepare data
-EntitiesPrevEmployers <- EntitiesPrevEmployers[, .(EntityID,EntityName,foundingYear,FirstName,LastName,joinYear,joinYearImputed,Title,TitleCode,Employer,Position)]
+EntitiesPrevEmployers <- EntitiesPrevEmployers[, .(EntityID,EntityName,foundingYear,FirstName,LastName,joinYear,joinYearImputed,Title,TitleCode,Employer,Position,hasBio)]
 EntitiesPrevEmployers[ Employer == "Cisco", Employer := "Cisco Systems"]
 EntitiesPrevEmployers[ Employer == "Amazon", Employer := "Amazon.com"]
 EntitiesPrevEmployers[ Employer == "Yahoo" | Employer == "Yahoo!", Employer :=  "Verizon"]
@@ -282,10 +282,10 @@ parentsSpinouts <- matched[EntitiesPrevEmployers]
 parentsSpinouts[ is.na(source), source := "unmatched"]
 if (excludeAltDG == TRUE)
 {
-  parentsSpinouts[ source %in% c("altdg","unmatched"), fromPublic := as.integer(0)] 
+  parentsSpinouts[ source %in% c("altdg","unmatched") | hasBio == 0, fromPublic := as.integer(0)]
 } else
 {
-  parentsSpinouts[ source %in% c("unmatched") | globCount <= minimumSpinoutsThreshold, fromPublic := as.integer(0)] 
+  parentsSpinouts[ source %in% c("unmatched") | hasBio == 0 | source == "altdg" & globCount <= minimumSpinoutsThreshold, fromPublic := as.integer(0)] 
 }
 parentsSpinouts[ is.na(fromPublic), fromPublic := as.integer(1)]
 

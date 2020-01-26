@@ -7,108 +7,8 @@
 #
 #-----------------------------------#
 
-parentsSpinouts <- fread("data/parentsSpinoutsWSO.csv")
-
-#-----------------------------------#
-# Construct counts of founders in each year
-#-----------------------------------#
-
-
-for (founderType in c("all","technical","founder2","executive"))
-{
-  temp <- parentsSpinouts[ , .(wso4 = sum(na.omit(wso4 * get(founderType))), nonwso4 = sum(na.omit(get(founderType) * (fromPublic - wso4))), 
-                               nonSpinout = sum(na.omit(get(founderType) * (1 - fromPublic))), startups = sum(get(founderType))), 
-                           by = year]
-  
-  #temp[ , checksum := wso4 + nonwso4 + nonSpinout]
-  
-  temp <- melt(temp, id.var = "year", measure.vars = c("wso4","nonwso4","nonSpinout","startups"))
-  
-  ggplot(data = temp[ variable == "nonSpinout" | variable == "wso4" | variable == "nonwso4"], aes(x = year, y = value, fill = variable)) + 
-    geom_area(position = "stack") +
-    #scale_fill_manual(values = my_palette) + 
-    theme(text = element_text(size=16)) +
-    #theme(legend.position = "none") +
-    ggtitle(paste(paste("Number of founders: ",founderType,sep = ""), " founders",sep = "")) +
-    #ggtitle("Unadjusted") + 
-    xlim(1986,2015) + 
-    ylab("Number of entrepreneurs") +
-    xlab("Join Year")
-  
-  filePath = paste(paste("../figures/founderCountsByYear",founderType,sep = "_"),".png",sep = "")
-  
-  ggsave(filePath, plot = last_plot())
-  
-  outputName <- paste("founderCounts",founderType,sep = "_")
-  
-  assign(outputName,temp)
-  
-  ## By state and year
-  
-  temp <- parentsSpinouts[ , .(wso4 = sum(na.omit(wso4 * get(founderType))), nonwso4 = sum(na.omit(get(founderType) * (fromPublic - wso4))), 
-                               nonSpinout = sum(na.omit(get(founderType) * (1 - fromPublic))), startups = sum(get(founderType))), 
-                           by = .(EntityState,year)]
-  
-  #temp[ , checksum := wso4 + nonwso4 + nonSpinout]
-  
-  temp <- melt(temp, id.vars = c("EntityState","year"), measure.vars = c("wso4","nonwso4","nonSpinout","startups"))
-  
-  ggplot(data = temp[ EntityState %in% LargeStates & (variable == "nonSpinout" | variable == "wso4" | variable == "nonwso4")], aes(x = year, y = value, fill = variable)) + 
-    geom_area(position = "stack") +
-    #scale_fill_manual(values = my_palette) + 
-    theme(text = element_text(size=16)) +
-    #theme(legend.position = "none") +
-    ggtitle(paste(paste("Number of founders: ",founderType,sep = ""), " founders",sep = "")) +
-    #ggtitle("Unadjusted") + 
-    xlim(1986,2015) + 
-    ylab("Number of entrepreneurs") +
-    xlab("Join Year") + 
-    facet_wrap(~ EntityState, ncol = 4) 
-  
-  filePath = paste(paste("../figures/founderCountsByStateYear",founderType,sep = "_"),".png",sep = "")
-  
-  ggsave(filePath, plot = last_plot())
-  
-  outputName <- paste("founderCountsState",founderType,sep = "_")
-  
-  assign(outputName,temp)
-  
-  ## PERCENTAGES by state and year
-  
-  temp <- parentsSpinouts[ , .(wso4 = sum(na.omit(wso4 * get(founderType))), nonwso4 = sum(na.omit(get(founderType) * (fromPublic - wso4))), 
-                               nonSpinout = sum(na.omit(get(founderType) * (1 - fromPublic))), startups = sum(get(founderType))), 
-                           by = .(EntityState,year)]
-  
-  #temp[ , checksum := wso4 + nonwso4 + nonSpinout]
-  
-  temp[ , `:=` (wso4 = wso4 / startups, nonwso4 = nonwso4 / startups, nonSpinout = nonSpinout / startups)]
-  
-  temp <- melt(temp, id.vars = c("EntityState","year"), measure.vars = c("wso4","nonwso4","nonSpinout","startups"))
-  
-  ggplot(data = temp[ EntityState %in% LargeStates & (variable == "nonSpinout" | variable == "wso4" | variable == "nonwso4")], aes(x = year, y = value, fill = variable)) + 
-    geom_area(position = "stack") +
-    #scale_fill_manual(values = my_palette) + 
-    theme(text = element_text(size=16)) +
-    #theme(legend.position = "none") +
-    ggtitle(paste(paste("Number of founders: ",founderType,sep = ""), " founders",sep = "")) +
-    #ggtitle("Unadjusted") + 
-    xlim(1986,2015) + 
-    ylab("Number of entrepreneurs") +
-    xlab("Join Year") + 
-    facet_wrap(~ EntityState, ncol = 4) 
-  
-  filePath = paste(paste("../figures/founderFractionsByStateYear",founderType,sep = "_"),".png",sep = "")
-  
-  ggsave(filePath, plot = last_plot())
-  
-  outputName <- paste("founderFractionsState",founderType,sep = "_")
-  
-  assign(outputName,temp)
-  
-  
-  
-}
-
+# Founders
+source("code/analysis/foundersComparison.R")
 
 
 #-----------------------------------#
@@ -195,7 +95,7 @@ for (founderType in c("all","technical","founder2","executive"))
     ylab("Discounted first funding value of startups") +
     xlab("Founding Year")
   
-  filePath = paste(paste("../figures/spinoutDFFVByYear_UNWEIGHTED_",founderType,sep = "_"),".png",sep = "")
+  filePath = paste(paste("../figures/spinoutDFFVByYear_UNWEIGHTED",founderType,sep = "_"),".png",sep = "")
   
   ggsave(filePath, plot = last_plot())
   

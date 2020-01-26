@@ -28,6 +28,7 @@ library(readstata13)
 library(ggplot2)
 library(ggthemr)
 ggthemr("flat") # Set theme -- controls all plots
+library(xtable)
 
 # Load specific functions
 complete <- tidyr::complete
@@ -128,6 +129,9 @@ source("code/prepareEventStudyDataset.R")
 #----------------------------
 # ANALYSIS (other than Stata regressions)
 #----------------------------
+
+# Make some summary tables re: the Venture Source data
+#source("code/analysis/")
           
 # Make some scatter plots
 source("code/analysis/makeScatterPlots.R")

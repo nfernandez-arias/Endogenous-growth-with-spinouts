@@ -17,7 +17,7 @@ data <- fread("data/VentureSource/EntitiesBiosNamesFoundingDates.csv")
 positions <- c("Position1","Position2","Position3","Position4","Position5")
 companies <- c("Company1","Company2","Company3","Company4","Company5")
 
-data <- melt(data, id.vars = c("EntityID","EntityName","JoinDate","FoundingDate","Founder","founder2","executive","Title","TitleCode","FirstName","LastName",positions), 
+data <- melt(data, id.vars = c("EntityID","EntityName","JoinDate","FoundingDate","Founder","Title","TitleCode","FirstName","LastName","hasBio",positions), 
              measure.vars = companies) 
 
 for (i in 1:5)
@@ -54,8 +54,8 @@ data <- data[order(EntityID,FirstName,LastName)]
 # Get rid of previous employers equal to the startup. To do this,
 # get rid of observations where either string is a subset of the other (to account for different naming conventions)
 
-data <- data[ mapply(grepl,tolower(Employer),tolower(EntityName), MoreArgs = list(fixed = TRUE)) == FALSE & 
-                mapply(grepl,tolower(EntityName),tolower(Employer), MoreArgs = list(fixed = TRUE)) == FALSE]
+data <- data[ hasBio == 0 | (mapply(grepl,tolower(Employer),tolower(EntityName), MoreArgs = list(fixed = TRUE)) == FALSE & 
+                mapply(grepl,tolower(EntityName),tolower(Employer), MoreArgs = list(fixed = TRUE)) == FALSE)]
 
 
 

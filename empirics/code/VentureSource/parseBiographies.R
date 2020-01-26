@@ -26,6 +26,10 @@ BDVI <- fread("raw/VentureSource/PrincetonBDVI.csv")
 # I will only be using the first few jobs in any case, so it's fine.
 #------------------------------#
 
+# First, flag observations re: whether they have Biographical information
+BDVI[ Bio != "", hasBio := 1]
+BDVI[ is.na(hasBio), hasBio := 0]
+
 BDVI[ , c("Job1","Job2","Job3","Job4","Job5","Job6","Job7","Job8","Job9","Job10","Job11","Job12","Job13","Job14","Job15") := tstrsplit(Bio,";")]
 
 #------------------------------#

@@ -24,7 +24,7 @@ source("code/VentureSource/findLastEmployer.R")
 source("code/AltDG/cleanAltDGResults.R")
 
 # Link bios to Compustat
-source("code/linkBiosToCompustat2.R")
+source("code/VentureSource/linkBiosToCompustat2.R")
 
 # Classify entrepreneurs into various classes
 source("code/VentureSource/classifyFounders.R")
