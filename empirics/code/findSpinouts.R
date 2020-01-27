@@ -29,6 +29,8 @@ source("code/VentureSource/linkBiosToCompustat2.R")
 # Classify entrepreneurs into various classes
 source("code/VentureSource/classifyFounders.R")
 
-
+# Construct WSO flags for spinouts / incorproate industry information 
+# into broader dataset on founders
+source("code/VentureSource/combineParentsSpinoutsWithStartupsData.R")
 
 

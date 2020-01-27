@@ -25,6 +25,31 @@ deals <- fread("raw/VentureSource/01Deals.csv")[year(ymd(StartDate)) >= 1986][or
 
 deals[ SubcodeDesc == "", SubcodeDesc := IndustryCodeDesc]
 
+#---------------------------#
+# Construct REAL variables
+# (instead of nominal)
+#---------------------------#
+
+# Extract deal year
+deals[ , dealYear := year(ymd(CloseDate))]
+deals[ , foundingYear := year(ymd(StartDate))]
+setkey(deals,dealYear)
+
+gdpDeflator <- fread("data/deflators/gdpDeflator.csv")
+setkey(gdpDeflator,year)
+
+deals <- gdpDeflator[deals]
+
+setnames(deals,"year","dealYear")
+
+# Put funding variables in real terms
+# using GDP deflator
+for (var in c("RaisedUSD","PostValUSD"))
+{
+  varString <- paste(var,"_nominal", sep = "")
+  deals[ , (varString) := get(var)]
+  deals[ , (var) := get(var) / gdpDeflator]
+}
 
 #---------------------------#
 # Calculate attributes of startups related to funding 
@@ -32,12 +57,9 @@ deals[ SubcodeDesc == "", SubcodeDesc := IndustryCodeDesc]
 #---------------------------#
 
 deals[ , PreValUSD := PostValUSD - RaisedUSD]
+
 deals[ !is.na(PreValUSD), fundingEvent := 1]
 deals[ is.na(fundingEvent) , fundingEvent := 0]
-
-# Extract deal year - for use later
-deals[ , dealYear := year(ymd(CloseDate))]
-deals[ , foundingYear := year(ymd(StartDate))]
 
 # Flag rounds as exits or non-exits
 deals[RoundType == "IPO" | RoundType == "ACQ" & !is.na(PostValUSD), exit  := 1]
@@ -99,13 +121,12 @@ startupsData[ , `:=` (timeToExit = exitYear - foundingYear,
 startupsData[ , discountedExitValue := (fundingDiscountFactor)^(-timeToExit) * valAtExit]
 startupsData[ , discountedFFValue := (fundingDiscountFactor)^(-timeToFirstFunding) * valAtFirstFunding]
 
-
 ## Now export csvs
 
 fwrite(startupsData,"data/VentureSource/startupsData.csv")
 
 
 # Clean up
-rm(deals,startupsData,temp)
+rm(deals,startupsData,temp,gdpDeflator)
 
 

@@ -42,13 +42,21 @@ setwd("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spi
 founderThreshold <- 1
 minimumSpinoutsThreshold <- 10
 excludeAltDG <- FALSE
-fundingDiscountFactor <- 1.1
+fundingDiscountFactor <- 1.06
 
 technicalTitles <- c("CTO","FDR","CSO","CIO","SADV")
 founderTitles <- c("CEO","CTO","CCEO","PCEO","PRE","PCHM","PCOO","FDR")
 executiveTitles <- c(founderTitles,"CSO","COO","PCOO","CIO","CFO","CHF","CHMN","EVP","MDIR","MGR")
 
 LargeStates <- c("CA","NY","TX","WA","MA","PA","CO","NC","NJ","GA","FL","MI","IL","VA","MD")
+
+
+#--------------------------------
+## Preliminary
+#--------------------------------
+
+source("code/constructDeflators.R")
+
 
 #--------------------------------
 ## Preparing Venture Source data  

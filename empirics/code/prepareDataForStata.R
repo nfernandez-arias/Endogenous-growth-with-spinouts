@@ -37,15 +37,6 @@ data[ , xrd := xrd / 1000]
 
 # Apply R&D price index
 
-xrdPriceIndex <- fread("raw/rdPriceIndex.csv")
-xrdPriceIndex[ , year := year(ymd(DATE))]
-xrdPriceAnnual <- xrdPriceIndex[ , .(priceIndex = mean(priceIndex)), by = year]
-xrdPriceAnnual[ , xrdInflation := priceIndex / priceIndex[year == 2012]]
-xrdPriceAnnual[ , priceIndex := NULL]
-setkey(xrdPriceAnnual,year)
-setkey(data,year)
-data <- xrdPriceAnnual[data]
-data[ , xrd := xrd / xrdInflation]
 
 
 # Need to deflate R&D further by productivity growth
@@ -64,17 +55,19 @@ cpi <- fread("raw/cpi.csv")
 setnames(cpi,"Year","year")
 cpi[ , cpiInflation := Annual / Annual[year == 2012]]
 cpi[ , Annual := NULL]
-
 setkey(cpi,year)
 
 data <- cpi[data]
+
+for (var in c("capx","capxv","at","sppe","intan","ni","ch","ebitda","sale","ppent")) 
+{
+  data[ , (var) := get(var) / (cpiInflation * growthFactor)]
+}
       
-data[ , `:=` (capx = capx / (cpiInflation * growthFactor), at = at / (cpiInflation * growthFactor), sppe = sppe / (cpiInflation * growthFactor), capxv = capxv / (cpiInflation * growthFactor), intan = intan / (cpiInflation * growthFactor), ni = ni / (cpiInflation * growthFactor), ch = ch / (cpiInflation * growthFactor), ebitda = ebitda / (cpiInflation * growthFactor), sale = sale / (cpiInflation * growthFactor), ppent = ppent / (cpiInflation * growthFactor))]
-
-data[ , spinoutsDiscountedFFValue := spinoutsDiscountedFFValue / (cpiInflation * growthFactor)]
-
 # Code for normalizing variables
 # if not normalizing, COMMENT OUT these lines
+
+
 
 #data[, xrd := (xrd - mean(xrd)) / sd(xrd)]
 #data[, patentApplicationCount := (patentApplicationCount - mean(patentApplicationCount)) / sd(patentApplicationCount)]
