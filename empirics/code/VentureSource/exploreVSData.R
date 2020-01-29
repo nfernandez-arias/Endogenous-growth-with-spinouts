@@ -50,7 +50,7 @@ output <- output[ FoundingYear != Inf]
 
 library(ggplot2)
 
-ggplot(data = output[State == "NY"], aes(x = FoundingYear, y = N, group = State)) + 
+p1 <- ggplot(data = output[State == "NY"], aes(x = FoundingYear, y = N, group = State)) + 
   geom_line(aes(color = State)) +
   theme(legend.position = "none") +
   #ggtitle("Number of firms added by year (color = state)") +

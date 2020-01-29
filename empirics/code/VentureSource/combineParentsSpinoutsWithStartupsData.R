@@ -23,7 +23,7 @@ parentsSpinouts <- fread("data/parentsSpinouts.csv")
 #------------------------------------#
 
 startupsData <- fread("data/VentureSource/startupsData.csv")[ , .(EntityID, EntityState = State, IndustryCodeDesc, SubcodeDesc,
-                                                                  discountedExitValue,discountedFFValue)]
+                                                                  discountedExitPreValue, discountedExitPostValue, discountedFFValue)]
 
 setkey(startupsData,EntityID)
 setkey(parentsSpinouts,EntityID)

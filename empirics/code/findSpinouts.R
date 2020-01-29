@@ -11,7 +11,7 @@
 # in Venture Source.  
 #------------------------------------------------#
 
-# Parse employee biographies
+# Parse employee biographies  
 source("code/VentureSource/parseBiographies.R")
 
 # Link entities to entityname and founding date

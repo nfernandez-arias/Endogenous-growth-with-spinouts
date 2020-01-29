@@ -55,12 +55,8 @@ LargeStates <- c("CA","NY","TX","WA","MA","PA","CO","NC","NJ","GA","FL","MI","IL
 ## Preliminary
 #--------------------------------
 
+# Construct deflators (CPI, GDP, XRD, CAPX, etc.)
 source("code/constructDeflators.R")
-
-
-#--------------------------------
-## Preparing Venture Source data  
-#--------------------------------
   
 # Construct VentureSource - NAICS cross-walk
 source("code/VentureSource/prepare-VentureSource-NAICS-Crosswalk.R")
