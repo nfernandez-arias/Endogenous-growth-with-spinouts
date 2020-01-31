@@ -49,7 +49,11 @@ founderTitles <- c("CEO","CTO","CCEO","PCEO","PRE","PCHM","PCOO","FDR")
 executiveTitles <- c(founderTitles,"CSO","COO","PCOO","CIO","CFO","CHF","CHMN","EVP","MDIR","MGR")
 
 LargeStates <- c("CA","NY","TX","WA","MA","PA","CO","NC","NJ","GA","FL","MI","IL","VA","MD")
+LargestStates <- c("CA","WA","MA","NY","TX")
 
+LargestIndustries_1 <- c("5","3","4","6","7")
+LargestIndustries_2 <- c("51","33","54","32","52")
+LargestIndustries_3 <- c("511","334","541","325","519")
 
 #--------------------------------
 ## Preliminary

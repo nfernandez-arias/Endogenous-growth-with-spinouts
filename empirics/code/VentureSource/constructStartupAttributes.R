@@ -15,7 +15,7 @@
     
 
 # Load funding information about all startups
-deals <- fread("raw/VentureSource/01Deals.csv")[year(ymd(StartDate)) >= 1986][, .(EntityID, EntityName,State, StartDate, CloseDate,
+deals <- fread("raw/VentureSource/01Deals.csv")[year (ymd(StartDate)) >= 1986][, .(EntityID, EntityName,State, StartDate, CloseDate,
                                                                                   RoundNo, RoundID, RoundType, RoundBusinessStatus,
                                                                                   OwnershipStatus, OwnerStatDate, BusinessStatus, EmployeeCount,
                                                                                   RaisedDA, RaisedUSD, PostValueDA, PostValUSD, 
@@ -117,35 +117,110 @@ fwrite(temp,"data/VentureSource/startupOutcomes.csv")
 
 
 #----------------------#
-# Construct dataset of employment, funding and exit evolution for each startup
+# Construct dataset of employment, funding, revenue, and exit evolution for each startup
 #----------------------#
 
-entityPaths <- deals[ , .(EntityID,dealYear,foundingYear,exitYear,EmployeeCount,PreValUSD,PostValUSD,RaisedUSD,StartDate,OwnershipStatus,OwnerStatDate,RoundType,RoundBusinessStatus,BusinessStatus)]
+entityPaths <- deals[!is.na(foundingYear)][ , .(EntityID,State,CloseDate,dealYear,foundingYear,exitYear,EmployeeCount,
+                          PostValUSD,RaisedUSD,StartDate,
+                          OwnershipStatus,OwnerStatDate,RoundType,RoundBusinessStatus,BusinessStatus)][ order(EntityID,dealYear,CloseDate)]
 
-entityPaths <- entityPaths[ order(EntityID,dealYear)]
+#----------------#
+# Take care of years with multiple funding rounds
+#----------------#
 
-entityPaths[ , EntityAge := dealYear - foundingYear]
+entityPaths[ , `:=` (hasEmploymentInfo_year = any(!is.na(EmployeeCount)),
+                     hasValuationInfo_year = any(!is.na(PostValUSD))), 
+             by = .(EntityID,dealYear)]
 
-entityPaths <- data.table(complete(entityPaths,EntityID,EntityAge = 0:30))
+# Store disaggregated data
+#entityPaths[ , `:=` (PostValUSD_disaggregated = PostValUSD,
+ #                    EmployeeCount_disaggregated = EmployeeCount)]
 
+# Construct means across deals that year with data
+
+entityPaths[ hasEmploymentInfo_year == TRUE , EmployeeCount_1 := mean(na.omit(EmployeeCount)), by = .(EntityID,dealYear) ]
+entityPaths[ hasValuationInfo_year == TRUE, PostValUSD_1 := mean(na.omit(PostValUSD)), by = .(EntityID,dealYear) ]
+
+entityPaths[ , `:=` (PostValUSD = NULL,
+                     EmployeeCount = NULL)]
+
+setnames(entityPaths,"PostValUSD_1","PostValUSD")
+setnames(entityPaths,"EmployeeCount_1","EmployeeCount")
+
+entityPaths <- unique(entityPaths, by = c("EntityID","dealYear"))
+
+#----------------#
+# Complete 
+
+# Complete dataset
+
+setnames(entityPaths,"dealYear","year")
+entityPaths <- data.table(complete(entityPaths,EntityID,year = 1986:2019))
+
+
+# Define time-invariatn firm-specific variables
 entityPaths[ , foundingYear := mean(na.omit(foundingYear)) , by = EntityID]
 
-entityPaths[ , year := foundingYear + EntityAge]
+entityPaths[ , EntityAge := year - foundingYear]
+
+entityPaths[ , State := max(na.omit(State)), by = EntityID]
+entityPaths[ , OwnershipStatus := max(na.omit(OwnershipStatus)), by = EntityID]
+entityPaths[ , lastDealYear := max(na.omit(year(ymd(CloseDate)))), by = EntityID]
+entityPaths[ any(OwnerStatDate != ""), OwnerStatDate := max(NaRV.omit(OwnerStatDate)), by = EntityID]
+
+
+entityPaths <- entityPaths[ year <= pmax(year(ymd(OwnerStatDate)), lastDealYear, na.rm = TRUE)  & EntityAge >= 0]
+
+# Define exit dates
+entityPaths[ OwnershipStatus == "Out of Business" & year == year(ymd(OwnerStatDate)), goingOutOfBusiness := 1 ]
+entityPaths[ is.na(goingOutOfBusiness), goingOutOfBusiness := 0]
 
 setcolorder(entityPaths,c("EntityID","year"))
 
+# Bring in revenue information
+revenue <- fread("raw/VentureSource/06CoRevenue.csv")[ , .(EntityID,CoFiscalYear,RevenueHighUSD)]
+
+setnames(revenue,"RevenueHighUSD","revenue")
+
+revenue[ , year := year(ymd(CoFiscalYear))]
+
+revenue[ , revenue := mean(na.omit(revenue)), by = .(EntityID,year)]
+
+revenue <- unique(revenue, by = c("EntityID","year"))
+#revenue[ month(ymd(CoFiscalYear)) %in% c(1,12), year := year(round_date(ymd(CoFiscalYear), unit = "years"))]
+#revenue[ !(month(ymd(CoFiscalYear)) %in% c(1,12)), year := year(ymd(CoFiscalYear))]
+
+setkey(revenue,EntityID,year)
+setkey(entityPaths,EntityID,year)
+
+entityPaths <- revenue[ , .(EntityID,year,revenue)][entityPaths]
+
+# Transform variables and interpolate
+
 entityPaths[ , lEmployeeCount := log(EmployeeCount)]
 entityPaths[ lEmployeeCount == -Inf, lEmployeeCount := NA]
-entityPaths[ , lPreValUSD := log(PreValUSD)]
 entityPaths[ , lPostValUSD := log(PostValUSD)]
+entityPaths[ , lrevenue := log(revenue)]
+entityPaths[ lrevenue == -Inf, lrevenue := NA]
 
-entityPaths[ EntityAge == 0, lEmployeeCount := 0]
+# Set initial revenue and valuation equal to one dollar, for extrapolative purposes...
+
+entityPaths[ , hasEmploymentInfo := any(!is.na(EmployeeCount)), by = EntityID]
+entityPaths[ , hasValuationInfo := any(!is.na(PostValUSD)), by = EntityID]
+entityPaths[ , hasRevenueInfo := any(!is.na(revenue)), by = EntityID]
+
+entityPaths[ EntityAge == 0 & hasEmploymentInfo, lEmployeeCount := 0]
+entityPaths[ EntityAge == 0 & hasValuationInfo, lPostValUSD := log(0.000001)]
+entityPaths[ EntityAge == 0 & hasRevenueInfo, lrevenue := log(0.000001)]
+
 
 setkey(entityPaths,EntityID,EntityAge)
 
-entityPaths[ , lEmployeeCount := na.approx(lEmployeeCount, na.rm = FALSE), by = "EntityID"]
-entityPaths[ , lPreValUSD := na.approx(lPreValUSD, na.rm = FALSE), by = "EntityID"]
-entityPaths[ , lPostValUSD := na.approx(lPostValUSD, na.rm = FALSE), by = "EntityID"]
+entityPaths[ hasEmploymentInfo == 1, lEmployeeCount := na.approx(lEmployeeCount, na.rm = FALSE), by = "EntityID"]
+entityPaths[ hasValuationInfo == 1, lPostValUSD := na.approx(lPostValUSD, na.rm = FALSE), by = "EntityID"]
+entityPaths[ hasRevenueInfo == 1, lrevenue := na.approx(lrevenue,na.rm = FALSE), by = "EntityID"]
+entityPaths[ , lPostValUSDdivEmployeeCount := lPostValUSD - lEmployeeCount]
+entityPaths[ , lrevenuedivEmployeeCount := lrevenue - lEmployeeCount]
 
 fwrite(entityPaths,"data/VentureSource/startupsPaths.csv")
 
