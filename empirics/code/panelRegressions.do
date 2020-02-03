@@ -225,8 +225,6 @@ eststo clear
 
 * Log regressions (like in Babina and Howell)
 
-
-
 reghdfe founders_fut4 lxrd, absorb(gvkey naics4#year stateCode#year) cluster(gvkey)
 
 eststo model1: reghdfe spinouts_fut4 lxrd ltobin_q salesgrowth lat lch assettang lebitda roa lemp lpatentcount_cw_cumulative, absorb(gvkey age naics4#year stateCode#year) cluster(gvkey)
@@ -300,12 +298,27 @@ eststo clear
 **** Evaluating the efect of Non-compete Agreemtn enforcement policy changes due to court rulings
 **********************
 
+**** First, let's evaluate the effect on R&D spending by incumbent firms
+** The data provide some evidence of an increase, but it's not super clear in my opinion. Need some input from empiricists...
+
+
+* Regression of R&D on state-level non-compete enforcement changes
+
+label variable treatedpre4 "-4"
+label variable treatedpre3 "-3"
+label variable treatedpre2 "-2"
+label variable treatedpre1 "-1"
+label variable treatedpost0 "0"
+label variable treatedpost1 "1"
+label variable treatedpost2 "2"
+label variable treatedpost3 "3"
+label variable treatedpost4 "4"
+
+reg lxrd treatedpre4 treatedpre3 treatedpre2 treatedpre1 treatedpost0 treatedpost1 treatedpost2 treatedpost3 treatedpost4, robust
+test (1/4) * (treatedpre1 + treatedpre2 + treatedpre3 + treatedpre4) = (1/5) * (treatedpost0 + treatedpost1 + treatedpost2 + treatedpost3 + treatedpost4)
+coefplot, keep(treatedpre4 treatedpre3 treatedpre2 treatedpre1 treatedpost0 treatedpost1 treatedpost2 treatedpost3 treatedpost4) vertical
+
 * Regression of R&D on firm-specific non-compete enforcement changes
-
-reg lxrd ltobin_q lat fw_pre3 fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3, robust
-coefplot, keep(fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3) vertical
-
-* Fixed effects and clustering
 
 label variable fw_pre4 "-4"
 label variable fw_pre3 "-3"
@@ -317,9 +330,53 @@ label variable fw_post2 "2"
 label variable fw_post3 "3"
 label variable fw_post4 "4"
 
-reghdfe lxrd fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3, absorb(gvkey age stateCode#year naics4#year) cluster(stateCode)
+* Ordinary regression
+
+reg lxrd fw_pre4 fw_pre3 fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3 fw_post4, robust
+test (1/4) * (fw_pre1 + fw_pre2 + fw_pre3 + fw_pre4) = (1/5) * (fw_post0 + fw_post1 + fw_post2 + fw_post3 + fw_post4)
+coefplot, keep(fw_pre4 fw_pre3 fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3 fw_post4) vertical
+
+* Adding fixed effects (year fixed effect appears to mute the effect, suggesting a time-trend in R&D spending)
+
+reghdfe lxrd fw_pre4 fw_pre3 fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3 fw_post4, absorb(year) cluster(stateCode)
+test (1/4) * (fw_pre1 + fw_pre2 + fw_pre3 + fw_pre4) = (1/5) * (fw_post0 + fw_post1 + fw_post2 + fw_post3 + fw_post4)
+coefplot, keep(fw_pre4 fw_pre3 fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3 fw_post4) vertical
+
+reghdfe lxrd fw_pre4 fw_pre3 fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3 fw_post4, absorb(gvkey year) cluster(stateCode)
+test (1/4) * (fw_pre1 + fw_pre2 + fw_pre3 + fw_pre4) = (1/5) * (fw_post0 + fw_post1 + fw_post2 + fw_post3 + fw_post4)
+coefplot, keep(fw_pre4 fw_pre3 fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3 fw_post4) vertical
+
+reghdfe lxrd fw_pre4 fw_pre3 fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3 fw_post4, absorb(gvkey naics4#year) cluster(stateCode)
+test (1/4) * (fw_pre1 + fw_pre2 + fw_pre3 + fw_pre4) = (1/5) * (fw_post0 + fw_post1 + fw_post2 + fw_post3 + fw_post4)
+coefplot, keep(fw_pre4 fw_pre3 fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3 fw_post4) vertical
+
+* Adding controls (but may be mediating variables, so not surprising that it kills the effect, in my opinion.)
+
+reghdfe lxrd ltobin_q fw_pre4 fw_pre3 fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3 fw_post4, absorb(gvkey year) cluster(stateCode)
+test (1/4) * (fw_pre1 + fw_pre2 + fw_pre3 + fw_pre4) = (1/5) * (fw_post0 + fw_post1 + fw_post2 + fw_post3 + fw_post4)
+coefplot, keep(fw_pre4 fw_pre3 fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3 fw_post4) vertical
+
+reghdfe lxrd ltobin_q lat lemp lebitda fw_pre4 fw_pre3 fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3 fw_post4, absorb(gvkey year) cluster(stateCode)
+test (1/4) * (fw_pre1 + fw_pre2 + fw_pre3 + fw_pre4) = (1/5) * (fw_post0 + fw_post1 + fw_post2 + fw_post3 + fw_post4)
+coefplot, keep(fw_pre4 fw_pre3 fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3 fw_post4) vertical
+
+reg lxrd ltobin_q lat treatedpre3 treatedpre2 treatedpre1 treatedpost0 treatedpost1 treatedpost2 treatedpost3, robust
+coefplot, keep(treatedpre3 treatedpre2 treatedpre1 treatedpost0 treatedpost1 treatedpost2 treatedpost3) vertical
+
+******
+*** Next, let's evaluate the effect of non-compete enforcement on 
+*** the relationship between R&D and spinout formation.
+
+
+
+
+
+
+* Deprecated
+
+reghdfe lxrd ltobin_q fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3 fw_post4, absorb(gvkey age stateCode#year naics4#year) cluster(stateCode)
 matrix list e(V)
-test (1/2) * (fw_pre1 + fw_pre2) = (1/4) * (fw_post1 + fw_post2 + fw_post3)
+test (1/2) * (fw_pre1 + fw_pre2) = (1/4) * (fw_post1 + fw_post2 + fw_post3 + fw_post4)
 coefplot, keep(fw_pre2 fw_pre1 fw_post0 fw_post1 fw_post2 fw_post3) vertical
 graph export "../writings/figures/shiftShareDiffInDiff.png", replace
 
@@ -407,7 +464,6 @@ gen lxrd_tre_post_0 = lxrd * treatedpost0
 gen lxrd_tre_post_1 = lxrd * treatedpost1
 gen lxrd_tre_post_2 = lxrd * treatedpost2
 gen lxrd_tre_post_3 = lxrd * treatedpost3
-
 gen lxrd_tre_pre = lxrd * (treatedpre3 + treatedpre2 + treatedpre1)
 gen lxrd_tre_post = lxrd * (treatedpost0 + treatedpost1 + treatedpost2 + treatedpost3)
 

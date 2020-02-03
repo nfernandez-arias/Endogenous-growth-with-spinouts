@@ -6,52 +6,73 @@
 #
 # Purpose:
 #
-# This program analyzes EntitiesBios.csv 
+# This program analyzes EntitiesBiosIndustries.csv 
 # to determine the last employer of each employee.
 # 
 # 
 #------------------------------------------------#
 
-rm(list = ls())
+data <- fread("data/VentureSource/EntitiesBiosNamesFoundingDates.csv")
 
-data <- fread("data/VentureSource/EntitiesBiosIndustries.csv")
+positions <- c("Position1","Position2","Position3","Position4","Position5")
+companies <- c("Company1","Company2","Company3","Company4","Company5")
 
-data <- melt(data, id.vars = c("EntityID","EntityName","JoinDate","StartDate","foundingYear","Founder","Title","TitleCode","FirstName","LastName","IndustryCodeDesc","SubcodeDesc"), 
-             measure.vars = c("Company1","Position1","Company2","Position2","Company3","Position3","Company4","Position4","Company5","Position5")) 
+data <- melt(data, id.vars = c("EntityID","EntityName","JoinDate","FoundingDate","Founder","Title","TitleCode","FirstName","LastName","hasBio",positions), 
+             measure.vars = companies) 
 
-data[variable == "Company1" | variable == "Company2" | variable == "Company3" | variable == "Company4" | variable == "Company5" , valueCLEAN := gsub("( )?(_x000D_)?(\n)?( )?(_x000D_)?(\n)?( )?_x000D_\n$","",value), by = value]
-data[variable == "Company1" | variable == "Company2" | variable == "Company3" | variable == "Company4" | variable == "Company5"  , valueCLEAN := gsub("[.]$","",valueCLEAN), by = valueCLEAN]
-data[variable == "Company1" | variable == "Company2" | variable == "Company3" | variable == "Company4" | variable == "Company5"  , valueCLEAN := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",valueCLEAN), by = valueCLEAN]
-data[variable == "Company1" | variable == "Company2" | variable == "Company3" | variable == "Company4" | variable == "Company5"  , valueCLEAN := gsub("[ ]?[(].*[)]$","",valueCLEAN), by = valueCLEAN]
+for (i in 1:5)
+{
+  companyTemp <- paste("Company",i,sep = "")
+  positionTemp <- paste("Position",i,sep = "")
+  
+  data[ variable == companyTemp , Position := get(positionTemp)]
+  data[ , (positionTemp) := NULL]
+}
 
-data[variable == "Company1" | variable == "Company2" | variable == "Company3" | variable == "Company4" | variable == "Company5"  , EntityNameCLEAN := gsub("[.]$","",EntityName), by = EntityName]
-data[variable == "Company1" | variable == "Company2" | variable == "Company3" | variable == "Company4" | variable == "Company5"  , EntityNameCLEAN := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",EntityNameCLEAN), by = EntityNameCLEAN]
-data[variable == "Company1" | variable == "Company2" | variable == "Company3" | variable == "Company4" | variable == "Company5"  , EntityNameCLEAN := gsub("[ ]?[(].*[)]$","",EntityNameCLEAN), by = EntityNameCLEAN]
 
-data[variable == "Position1" | variable == "Position2" | variable == "Position3" | variable == "Position4" | variable == "Position5" & value == "Chief Technical Officer", valueCLEAN := "CTO"]
+#------------------------------#
+# Clean up names of Previous Employers and Entities, 
+# so that we can get rid of obs where they are equal 
+# and look further back into employment history for those founders
+#------------------------------#
+
+setnames(data,"value","Employer")
+
+data[ , Employer := gsub("( )?(_x000D_)?(\n)?( )?(_x000D_)?(\n)?( )?_x000D_\n$","",Employer)]
+data[ , Employer := gsub("[.]$","",Employer)]
+data[ , Employer := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",Employer)]
+data[ , Employer := gsub("[ ]?[(].*[)]$","",Employer)]
+
+data[ , EntityName := gsub("[.]$","",EntityName)]
+data[ , EntityName := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",EntityName)]
+data[ , EntityName := gsub("[ ]?[(].*[)]$","",EntityName)]
+
+data[ Position == "Chief Technical Officer", Position := "CTO"]
 
 data <- data[order(EntityID,FirstName,LastName)]
 
-positionCounts <- data[variable == "Position1" | variable == "Position2" | variable == "Position3" | variable == "Position4" | variable == "Position5", .N, by = "value"]
-employerCounts <- data[variable == "Company1" | variable == "Company2" | variable == "Company3" | variable == "Company4" | variable == "Company5", .N, by = "value"]
+# Get rid of previous employers equal to the startup. To do this,
+# get rid of observations where either string is a subset of the other (to account for different naming conventions)
+
+data <- data[ hasBio == 0 | (mapply(grepl,tolower(Employer),tolower(EntityName), MoreArgs = list(fixed = TRUE)) == FALSE & 
+                mapply(grepl,tolower(EntityName),tolower(Employer), MoreArgs = list(fixed = TRUE)) == FALSE)]
 
 
 
-temp1 <- data[EntityName != value]
-data <- data[EntityNameCLEAN != valueCLEAN]
+# Get the first record for each person-EntityID pair. Given the previous line of code, this should 
+# have info on the most recent job. 
+mostRecentEmployers <- data[data[ , .I[1], by = c("EntityID","Title","FirstName","LastName")]$V1]
 
-setnames(data,"value","PreviousEmployer")
+mostRecentEmployers[ , variable := NULL]
 
-data[TitleCode == "CEO" | TitleCode == "CTO" | TitleCode == "CCEO" | TitleCode == "PCEO" | Founder == 1, founder2 := 1]
-data[ is.na(founder2), founder2 := 0]
+#------------------------------#
+# Save data
+#------------------------------#
 
-data <- data[  founder2 == 1]
+fwrite(mostRecentEmployers,"data/VentureSource/EntitiesPrevEmployers.csv")
 
-temp <- data[data[ , .I[1], by = c("EntityID","Title","FirstName","LastName")]$V1]
-
-temp[ , variable := NULL]
-
-fwrite(temp,"data/VentureSource/EntitiesPrevEmployers.csv")
+# Clean up
+rm(data,mostRecentEmployers)
 
 
 

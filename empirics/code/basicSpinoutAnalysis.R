@@ -14,7 +14,8 @@ rm(list = ls())
 library(lubridate)
 
 #parentsSpinouts <- fread("data/parentsSpinouts.csv")
-parentsSpinouts <- fread("data/parentsSpinoutsExits.csv")
+#parentsSpinouts2 <- fread("data/parentsSpinoutsExits.csv")
+parentsSpinouts <- fread("data/parentsSpinoutsWSO.csv")
 
 parentsSpinouts[ , `:=` (snms = NULL, PreviousEmployer = NULL)]
 

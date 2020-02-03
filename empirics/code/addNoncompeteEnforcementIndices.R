@@ -10,9 +10,7 @@
 # to the data
 #------------------------------------------------#
 
-rm(list = ls())
-
-enforcementIndex <- fread("data/NCCEnforcementIndices.csv")
+enforcementIndex <- fread("raw/NCCEnforcementIndices.csv")
 
 compustatSpinouts <- fread("data/compustat-spinouts.csv")
 
@@ -22,3 +20,6 @@ setkey(compustatSpinouts,state)
 compustatSpinouts <- enforcementIndex[compustatSpinouts]
 
 fwrite(compustatSpinouts,"data/compustat-spinouts.csv")
+
+# Clean up
+rm(compustatSpinouts,enforcementIndex)

@@ -57,7 +57,7 @@ replace base=0.5*xrd if base<0.5*xrd
 * credit amount = 0.5*(xrd-base)
 * MERGE IN federal_credit_rate, fed_tax_rate, r
 preserve
-	insheet using "data/bsv/RDusercost_2017.csv", clear 
+	insheet using "data/bsv/RDusercost_2017.csv", clear
 	keep year k_f_e t_f t_f_e t_s_e
 	egen tag=tag(year)
 	keep if tag==1
@@ -75,7 +75,7 @@ merge m:1 year using "data/bsv/fedrates"
 ***** TAX PRICE OF R&D following Hall (1992)
 * indicator for taxable income
 gen T=(ebit>0 & year>1980)
-* indicator for above/below base amount-sorta
+* indicator for above/below base amount-sorta2
 gen  Z=(xrd<base)
 replace Z=0.5 if xrd>=2*base
 * share of R&D which qualifies for credit

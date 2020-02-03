@@ -11,21 +11,26 @@
 # in Venture Source.  
 #------------------------------------------------#
 
-rm(list = ls())
-setwd("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics")
-
-# Parse employee biographies
+# Parse employee biographies  
 source("code/VentureSource/parseBiographies.R")
 
-# Link with industry information
-source("code/VentureSource/linkEntitiesToIndustries.R")
+# Link entities to entityname and founding date
+source("code/VentureSource/linkEntitiesToEntityNamesAndFoundingDates.R")
 
 # Determine which is the previous firm the employee worked at
 source("code/VentureSource/findLastEmployer.R")
 
-source("code/linkBiosToCompustat2.R")
-# Extra: link employee bios to other firms in Venture Source
+# Clean results from AltDG
+source("code/AltDG/cleanAltDGResults.R")
 
+# Link bios to Compustat
+source("code/VentureSource/linkBiosToCompustat2.R")
 
+# Classify entrepreneurs into various classes
+source("code/VentureSource/classifyFounders.R")
+
+# Construct WSO flags for spinouts / incorproate industry information 
+# into broader dataset on founders
+source("code/VentureSource/combineParentsSpinoutsWithStartupsData.R")
 
 

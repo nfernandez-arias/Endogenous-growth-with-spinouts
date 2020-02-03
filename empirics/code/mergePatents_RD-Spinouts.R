@@ -9,8 +9,6 @@
 # This script merges patent counts with the RD-Spinouts dataset
 #------------------------------------------------#
 
-rm(list = ls())
-
 appCounts <- fread("data/patentApplicationCounts.csv")
 patentCounts <- fread("data/patentGrantCounts.csv")
 appCitationCounts <- fread("data/patentApplicationCitationCounts.csv")
@@ -39,4 +37,7 @@ compustatSpinouts[, patentCount_CW_cumulative := cumsum(patentCount_CW), by = "g
 
 fwrite(compustatSpinouts,"data/compustat-spinouts.csv")
 
+# Clean up
+rm(appCitationCounts,appCounts,compustatSpinouts,
+   patentCitationCounts,patentCounts)
 

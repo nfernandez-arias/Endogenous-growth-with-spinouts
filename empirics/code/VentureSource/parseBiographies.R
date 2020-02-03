@@ -17,42 +17,63 @@
 # 
 #------------------------------------------------#
 
-rm(list = ls())
+BDVI <- fread("raw/VentureSource/PrincetonBDVI.csv")
 
-library(data.table)
-library(stringr)
+#------------------------------#
+# Divide biographies into jobs: separated by ";" character
+#
+# This will return a warning, since there are some employees with more than 15 jobs
+# I will only be using the first few jobs in any case, so it's fine.
+#------------------------------#
 
-BDVI <- fread("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics/raw/VentureSource/PrincetonBDVI.csv")
+# First, flag observations re: whether they have Biographical information
+BDVI[ Bio != "", hasBio := 1]
+BDVI[ is.na(hasBio), hasBio := 0]
 
-# First, filter out entities that are venture capital firms.
-
-
-# For now I haven't done this because I'm not sure I need to - VC firms have spinouts too no?
-
-# Next, parse biographies of resulting dataset
 BDVI[ , c("Job1","Job2","Job3","Job4","Job5","Job6","Job7","Job8","Job9","Job10","Job11","Job12","Job13","Job14","Job15") := tstrsplit(Bio,";")]
-#BDVI[ , c("Job1","Job2","Job3","Job4","Job5") := tstrsplit(Bio,";")]
-BDVI[ , Bio := NULL]
 
-BDVI[ , c("Position1","Company1") := tstrsplit(Job1,",\\s*(?=[^,]+$)", perl=TRUE)]
-BDVI[ , c("Position2","Company2") := tstrsplit(Job2,",\\s*(?=[^,]+$)", perl=TRUE)]
-BDVI[ , c("Position3","Company3") := tstrsplit(Job3,",\\s*(?=[^,]+$)", perl=TRUE)]
-BDVI[ , c("Position4","Company4") := tstrsplit(Job4,",\\s*(?=[^,]+$)", perl=TRUE)]
-BDVI[ , c("Position5","Company5") := tstrsplit(Job5,",\\s*(?=[^,]+$)", perl=TRUE)]
-BDVI[ , c("Position6","Company6") := tstrsplit(Job6,",\\s*(?=[^,]+$)", perl=TRUE)]             
-BDVI[ , c("Position7","Company7") := tstrsplit(Job7,",\\s*(?=[^,]+$)", perl=TRUE)]
-BDVI[ , c("Position8","Company8") := tstrsplit(Job8,",\\s*(?=[^,]+$)", perl=TRUE)]
-BDVI[ , c("Position9","Company9") := tstrsplit(Job9,",\\s*(?=[^,]+$)", perl=TRUE)]
-BDVI[ , c("Position10","Company10") := tstrsplit(Job10,",\\s*(?=[^,]+$)", perl=TRUE)]
-BDVI[ , c("Position11","Company11") := tstrsplit(Job11,",\\s*(?=[^,]+$)", perl=TRUE)]
-BDVI[ , c("Position12","Company12") := tstrsplit(Job12,",\\s*(?=[^,]+$)", perl=TRUE)]
-BDVI[ , c("Position13","Company13") := tstrsplit(Job13,",\\s*(?=[^,]+$)", perl=TRUE)]
-BDVI[ , c("Position14","Company14") := tstrsplit(Job14,",\\s*(?=[^,]+$)", perl=TRUE)]
-BDVI[ , c("Position15","Company15") := tstrsplit(Job15,",\\s*(?=[^,]+$)", perl=TRUE)]
+#------------------------------#
+# Next, divide each job into (position,company) pair.
+# 
+# The challenge here is that some jobs are in the format
+# <position>, <division>, <company>
+# 
+# While some are in the format
+# <position> , <company>
+#
+# And finally some company strings are in the format
+# <companyName>, <LLC | Inc | Inc.> 
+# and so on.
+#
+# Originally I was dividing based on the last comma; this works
+# in the first two cases. However, it leads to company names of "Inc.", "Inc" and "LLC" 
+# in the third case. Therefore, do a second pass for those cases (hard-coding the major error cases)
+# where I break based on the second-to-last comma. 
+# A simple way to do this without having to construct a new RegEx expression is to simply 
+# break off the area after the last comma in the relevant Company variable.
+#
+#------------------------------#
 
-BDVI[ , c("Job1","Job2","Job3","Job4","Job5","Job6","Job7","Job8","Job9","Job10","Job11","Job12","Job13","Job14","Job15") := NULL]
+for (i in 1:15)
+{
+  position <- paste("Position",i, sep = "" )
+  company <- paste("Company",i, sep = "")
+  job <- paste("Job",i,sep = "")
 
-#BDVI[ , c("Job1","Job2","Job3","Job4","Job5") := NULL]
+  # First pass
+  BDVI[ , c(position,company) := tstrsplit(get(job),",\\s*(?=[^,]+$)", perl=TRUE)]
+  
+  # Second pass
+  BDVI[ get(company) == "Inc." | get(company) == "Inc" | get(company) == "LLC", c(position,company) := tstrsplit(get(position),",\\s*(?=[^,]+$)", perl=TRUE)]
+  
+  # Clear job variable when done
+  BDVI[ , (job) := NULL]
+  
+}
 
-fwrite(BDVI,"~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics/data/VentureSource/EntitiesBios.csv")
+fwrite(BDVI,"data/VentureSource/EntitiesBios.csv")
+
+# Clean up
+rm(BDVI)
+rm(company,i,job,position)
 

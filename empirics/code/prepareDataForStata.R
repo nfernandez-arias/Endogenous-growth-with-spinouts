@@ -12,10 +12,6 @@
 #------------------------------------------------#  
 
 
-rm(list = ls())
-
-library(data.table)
-
 data <- fread("data/compustat-spinouts.csv")
 
 # Set NA xrd values to zero 
@@ -27,17 +23,20 @@ data[is.na(sppe), sppe := 0]
 # Change units
 data[ , xrd := xrd / 1000]
 
+
+#-------------------------------#
+#
+# APPLY PRICE DEFLATORS TO GET REAL UNITS
+#
+# (1) First, convert R&D into real units of R&D, taking into account change in relative price of R&D
+# (2) Second, convert R&D into units of R&D deflated by productivity growth: model hypothesizes that more real units of R&D are required to generate 
+# innovations as productivity increases
+# (3) Third, deflate the funding valuations of spinouts by the CPI, to arrive at real funding valuations
+#
+#-------------------------------#
+
 # Apply R&D price index
 
-xrdPriceIndex <- fread("raw/rdPriceIndex.csv")
-xrdPriceIndex[ , year := year(ymd(DATE))]
-xrdPriceAnnual <- xrdPriceIndex[ , .(priceIndex = mean(priceIndex)), by = year]
-xrdPriceAnnual[ , xrdInflation := priceIndex / priceIndex[year == 2012]]
-xrdPriceAnnual[ , priceIndex := NULL]
-setkey(xrdPriceAnnual,year)
-setkey(data,year)
-data <- xrdPriceAnnual[data]
-data[ , xrd := xrd / xrdInflation]
 
 
 # Need to deflate R&D further by productivity growth
@@ -56,17 +55,19 @@ cpi <- fread("raw/cpi.csv")
 setnames(cpi,"Year","year")
 cpi[ , cpiInflation := Annual / Annual[year == 2012]]
 cpi[ , Annual := NULL]
-
 setkey(cpi,year)
 
 data <- cpi[data]
+
+for (var in c("capx","capxv","at","sppe","intan","ni","ch","ebitda","sale","ppent")) 
+{
+  data[ , (var) := get(var) / (cpiInflation * growthFactor)]
+}
       
-data[ , `:=` (capx = capx / (cpiInflation * growthFactor), at = at / (cpiInflation * growthFactor), sppe = sppe / (cpiInflation * growthFactor), capxv = capxv / (cpiInflation * growthFactor), intan = intan / (cpiInflation * growthFactor), ni = ni / (cpiInflation * growthFactor), ch = ch / (cpiInflation * growthFactor), ebitda = ebitda / (cpiInflation * growthFactor), sale = sale / (cpiInflation * growthFactor), ppent = ppent / (cpiInflation * growthFactor))]
+# Code for normalizing variables
+# if not normalizing, COMMENT OUT these lines
 
-data[ , spinoutsDiscountedFFValue := spinoutsDiscountedFFValue / (cpiInflation * growthFactor)]
 
-# Decide whether to use normalized variable or not -- 
-# if not, COMMENT OUT these lines
 
 #data[, xrd := (xrd - mean(xrd)) / sd(xrd)]
 #data[, patentApplicationCount := (patentApplicationCount - mean(patentApplicationCount)) / sd(patentApplicationCount)]
@@ -80,6 +81,14 @@ data[ , spinoutsDiscountedFFValue := spinoutsDiscountedFFValue / (cpiInflation *
 #data[, spinoutCountUnweighted := (spinoutCountUnweighted - mean(spinoutCountUnweighted,na.rm = TRUE)) / sd(spinoutCountUnweighted, na.rm = TRUE)]
 #data[, spinoutCountUnweighted_onlyExits := (spinoutCountUnweighted_onlyExits - mean(spinoutCountUnweighted_onlyExits,na.rm = TRUE)) / sd(spinoutCountUnweighted_onlyExits, na.rm = TRUE)]
 #data[, emp := (emp - mean(emp,na.rm = TRUE)) / sd(emp, na.rm = TRUE)]
+
+
+#----------------------#
+#
+# Some messy code computing some data transformations
+# Some of this is deprecated...
+#
+#----------------------#
 
 
 ## Compute moving averages
@@ -124,7 +133,7 @@ data <- data[, if(max(na.omit(xrd)) > 0) .SD, by = gvkey]
 data <- data[year >= 1986]
 data <- data[year <= 2018]
 
-# Construct 4-digit NAICS codes
+# Construct 1,2,3,4,5,6-digit NAICS codes
 data[, naics6 := substr(naics,1,6)]
 data[, naics5 := substr(naics,1,5)]
 data[, naics4 := substr(naics,1,4)]
@@ -139,6 +148,12 @@ data <- data[order(gvkey,year)]
 data[, firmAge := rowidv(gvkey)]
 
 data[, naics4Year_count := .N, by = .(naics4,year)]
+
+#-------------#
+# Drop naics4-year categories which have fewer than 10 firms in them
+# (not sure if deprecated)
+#-------------#
+
 data[naics4Year_count <= 10, naics4Year_drop := 1]
   
 #data <- data[ sale > 0 ]
@@ -151,25 +166,15 @@ data <- data[State != ""]
 
 ### Define xrd treatment interaction variables
 
-data[ , xrd_tre_post_0 := xrd * treatedPost0]
-data[ , xrd_tre_post_1 := xrd * treatedPost1]
-data[ , xrd_tre_post_2 := xrd * treatedPost2]
-data[ , xrd_tre_post_3 := xrd * treatedPost3]
-data[ , xrd_tre_pre_1 := xrd * treatedPre1]
-data[ , xrd_tre_pre_2 := xrd * treatedPre2]
-data[ , xrd_tre_pre_3 := xrd * treatedPre3]
-
-data[ , xrd_plac_post_0 := xrd * placeboPost1]
-data[ , xrd_plac_post_1 := xrd * placeboPost1]
-data[ , xrd_plac_post_2 := xrd * placeboPost2]
-data[ , xrd_plac_post_3 := xrd * placeboPost3]
-data[ , xrd_plac_pre_1 := xrd * placeboPre1]
-data[ , xrd_plac_pre_2 := xrd * placeboPre2]
-data[ , xrd_plac_pre_3 := xrd * placeboPre3]
-
-
-#sdata <- data[ !is.na(xrdIntensity) & !is.na(xrdIntensity1)]
-
+for (str in c("Pre3","Pre2","Pre1","Post0","Post1","Post2","Post3"))
+{
+  xrdTreatedString <- paste("xrd_tre",str,sep = "_")
+  xrdPlaceboString <- paste("xrd_plac",str,sep = "_")
+  treatedString <- paste("treated",str,sep = "")
+  placeboString <- paste("placebo",str, sep = "")
+  data[ , (xrdTreatedString) := xrd * get(treatedString)]
+  data[ , (xrdPlaceboString) := xrd * get(placeboString)]
+}
 
 ## Construct variables to attempt to 
 # do OLS regressions from Babina & Howell 2019          
@@ -200,49 +205,6 @@ data[ , spinouts_fut2 := Reduce(`+`,shift(spinoutCount,1L:2L,type = "lead")), by
 data[ , founders_fut2 := Reduce(`+`,shift(spinoutCountUnweighted,1L:2L,type = "lead")), by = gvkey]
 data[ , spinoutsDFFV_fut2 := Reduce(`+`,shift(spinoutsDiscountedFFValue,1L:2L,type = "lead")), by = gvkey]
 
-data[ , spinouts_wso1_fut2 := Reduce(`+`,shift(spinouts_wso1,1L:2L,type = "lead")), by = gvkey]
-data[ , founders_wso1_fut2 := Reduce(`+`,shift(spinoutsUnweighted_wso1,1L:2L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso1_fut2 := Reduce(`+`,shift(spinoutsDFFV_wso1,1L:2L,type = "lead")), by = gvkey]
-
-data[ , spinouts_wso2_fut2 := Reduce(`+`,shift(spinouts_wso2,1L:2L,type = "lead")), by = gvkey]
-data[ , founders_wso2_fut2 := Reduce(`+`,shift(spinoutsUnweighted_wso2,1L:2L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso2_fut2 := Reduce(`+`,shift(spinoutsDFFV_wso2,1L:2L,type = "lead")), by = gvkey]
-
-data[ , spinouts_wso3_fut2 := Reduce(`+`,shift(spinouts_wso3,1L:2L,type = "lead")), by = gvkey]
-data[ , founders_wso3_fut2 := Reduce(`+`,shift(spinoutsUnweighted_wso3,1L:2L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso3_fut2 := Reduce(`+`,shift(spinoutsDFFV_wso3,1L:2L,type = "lead")), by = gvkey]
-
-data[ , spinouts_wso4_fut2 := Reduce(`+`,shift(spinouts_wso4,1L:2L,type = "lead")), by = gvkey]
-data[ , founders_wso4_fut2 := Reduce(`+`,shift(spinoutsUnweighted_wso4,1L:2L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso4_fut2 := Reduce(`+`,shift(spinoutsDFFV_wso4,1L:2L,type = "lead")), by = gvkey]
-
-data[ , spinouts_wso5_fut2 := Reduce(`+`,shift(spinouts_wso5,1L:2L,type = "lead")), by = gvkey]
-data[ , founders_wso5_fut2 := Reduce(`+`,shift(spinoutsUnweighted_wso5,1L:2L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso5_fut2 := Reduce(`+`,shift(spinoutsDFFV_wso5,1L:2L,type = "lead")), by = gvkey]
-
-data[ , spinouts_wso6_fut2 := Reduce(`+`,shift(spinouts_wso6,1L:2L,type = "lead")), by = gvkey]
-data[ , founders_wso6_fut2 := Reduce(`+`,shift(spinoutsUnweighted_wso6,1L:2L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso6_fut2 := Reduce(`+`,shift(spinoutsDFFV_wso6,1L:2L,type = "lead")), by = gvkey]
-
-### 4-year
-
-data[ , spinouts_wso1_fut4 := Reduce(`+`,shift(spinouts_wso1,1L:4L,type = "lead")), by = gvkey]
-data[ , founders_wso1_fut4 := Reduce(`+`,shift(spinoutsUnweighted_wso1,1L:4L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso1_fut4 := Reduce(`+`,shift(spinoutsDFFV_wso1,1L:4L,type = "lead")), by = gvkey]
-
-data[ , spinouts_wso2_fut4 := Reduce(`+`,shift(spinouts_wso2,1L:4L,type = "lead")), by = gvkey]
-data[ , founders_wso2_fut4 := Reduce(`+`,shift(spinoutsUnweighted_wso2,1L:4L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso2_fut4 := Reduce(`+`,shift(spinoutsDFFV_wso2,1L:4L,type = "lead")), by = gvkey]
-
-data[ , spinouts_wso3_fut4 := Reduce(`+`,shift(spinouts_wso3,1L:4L,type = "lead")), by = gvkey]
-data[ , founders_wso3_fut4 := Reduce(`+`,shift(spinoutsUnweighted_wso3,1L:4L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso3_fut4 := Reduce(`+`,shift(spinoutsDFFV_wso3,1L:4L,type = "lead")), by = gvkey]
-
-data[ , spinouts_wso4_fut4 := Reduce(`+`,shift(spinouts_wso4,1L:4L,type = "lead")), by = gvkey]
-data[ , founders_wso4_fut4 := Reduce(`+`,shift(spinoutsUnweighted_wso4,1L:4L,type = "lead")), by = gvkey]
-data[ , spinoutsDFFV_wso4_fut4 := Reduce(`+`,shift(spinoutsDFFV_wso4,1L:4L,type = "lead")), by = gvkey]
-
-
 
 data[ , xrd_lag := shift(xrd,1L,type="lag"), by = gvkey]
 data[ , xrd_lag2 := shift(xrd,2L,type="lag"), by = gvkey]
@@ -271,7 +233,9 @@ data[ , at_ma5 := (1/5) * Reduce(`+`, shift(at,0L:4L,type="lag")), by = gvkey]
 data[ , Tobin_Q_assets := Tobin_Q * at]
           
 fwrite(data,"data/compustat-spinouts_Stata.csv")
-                                                        
 
+# Clean up
+rm(cpi, data, productivityGrowth, xrdPriceAnnual, xrdPriceIndex)
+rm(placeboString, str, treatedString, xrdPlaceboString, xrdTreatedString)
 
 

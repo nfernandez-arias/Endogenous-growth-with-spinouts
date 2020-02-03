@@ -9,7 +9,6 @@
 # This adds NCC enforcement changes to the dataset 
 #------------------------------------------------#
 
-rm(list = ls())
 
 compustatSpinouts <- fread("data/compustat-spinouts.csv")
 
@@ -130,7 +129,6 @@ compustatSpinouts[ state == "IL" & year == 2013-4, treatedPre4 := 0]
 compustatSpinouts[ state == "VA" & year == 2013-4, treatedPre4 := 1]
 compustatSpinouts[ state == "GA" & year == 2011-4, treatedPre4 := 1]
 
-
 compustatSpinouts[ year == 2008, placeboPre3 := 1]
 compustatSpinouts[ year == 2009, placeboPre2 := 1]
 compustatSpinouts[ year == 2010, placeboPre1 := 1]
@@ -140,3 +138,19 @@ compustatSpinouts[ year == 2013, placeboPost2 := 1]
 compustatSpinouts[ year == 2014, placeboPost3 := 1]
 
 fwrite(compustatSpinouts,"data/compustat-spinouts.csv")
+
+#-------------------------#
+# Store these for later use (in constructFirmSpecificNCchanges.R)
+#-------------------------#
+
+temp <- compustatSpinouts[ , .(state,year,treatedPre4,treatedPre3,treatedPre2,treatedPre1,treatedPost0,treatedPost1,treatedPost2,treatedPost3,treatedPost4,
+                               placeboPre3,placeboPre2,placeboPre1,placeboPost0,placeboPost1,placeboPost2,placeboPost3)]
+
+temp <- unique(temp, by = c("state","year"))
+temp <- temp[ !is.na(state) & state != ""]
+
+fwrite(temp,"data/NCCenforcementChanges.csv")
+
+# Clean up
+
+rm(compustatSpinouts,temp)
