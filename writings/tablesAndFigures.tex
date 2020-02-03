@@ -59,31 +59,851 @@
 \onehalfspacing
 \usepackage{babel}
 \usepackage{amsmath}
+
+% Graphics
 \usepackage{graphicx}
 
 
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}
+
+
+% Figures in different sections
+
+\usepackage{placeins}
+
+\let\Oldsection\section
+\renewcommand{\section}{\FloatBarrier\Oldsection}
+
+\let\Oldsubsection\subsection
+\renewcommand{\subsection}{\FloatBarrier\Oldsubsection}
+
+\let\Oldsubsubsection\subsubsection
+\renewcommand{\subsubsection}{\FloatBarrier\Oldsubsubsection}
+
+
 \begin{document}
 	
 \title{Figures and tables\\ \small Project: Endogenous growth with spinouts \\ \href{https://drive.google.com/file/d/16vrZivy1MLKdUfLVawUrpLs475bzAwMg/view?usp=sharing}{Click here for most recent version}}
 \author{Nicolas Fernandez-Arias}
 \maketitle
 
-\input{../figures/tables/table1_all.tex}
+\tableofcontents
 
-\input{../figures/tables/table1_executive.tex}
+\section{Introduction}
 
-\input{../figures/tables/table1_founder2.tex}
+This document shows plots and tables relating to the empirics of my project. Throughout, I perform the same exercise on 4 different definitions of a "founder" of a startup.
 
-\input{../figures/tables/table1_technical.tex}
+\begin{enumerate}
+	\item \textbf{All}: individuals who joined the company within a year of its founding date.
+	\item \textbf{Founder2}: the subset of \textbf{All} with title of President, CTO or CEO.
+	\item \textbf{Executive}: the subset of \textbf{All} with title C-level / President / Executive Vice President / Manager / Managing Director
+	\item \textbf{Technical}: subset of \textbf{All} with title CTO / Chief Scientific Officer (CSO) / Chief Information Officer (CIO) / Scientific advisor (SADV)
+\end{enumerate}
 
-\begin{figure}
-	\includegraphics[]{../figures/}
+\section{Finding spinouts}
+
+In this section I show statistics relating to the parent-spinout matching procedure, as well as some basic statistics about the Venture Source data. 
+
+\pagebreak
+
+\subsection{All individuals}
+
+\input{../empirics/figures/tables/table1_all.tex}
+\pagebreak
+
+\subsection{Founder2}
+
+\input{../empirics/figures/tables/table1_founder2.tex}
+\pagebreak
+
+\subsection{Executives}
+
+\input{../empirics/figures/tables/table1_executive.tex}
+\pagebreak
+
+
+\subsection{Technical}
+
+\input{../empirics/figures/tables/table1_technical.tex}
+\pagebreak
+
+\section{Startup life-cycle}
+
+This section documents the distribution of startup performance characteristics by employee age, by employee age and state (for select states), and by employee age and industry (for select industries).
+
+
+\subsection{All individuals}
+
+\subsubsection{Overall}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{All founders}}
 \end{figure}
 
-\tiny
-\input{../figures/tables/startupLifeCycle_regs_all.tex}
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\subsubsection{By state}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_State_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_State_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_State_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_State_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_State_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\subsubsection{By 1-digit NAICS}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_NAICS1_1_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_NAICS1_1_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_NAICS1_1_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_NAICS1_1_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_NAICS1_1_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\subsubsection{By 2-digit NAICS}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_NAICS1_2_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_NAICS1_2_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_NAICS1_2_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_NAICS1_2_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}`
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_NAICS1_2_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\subsubsection{By 3-digit NAICS}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_NAICS1_3_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_NAICS1_3_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_NAICS1_3_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_NAICS1_3_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}`
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_all_NAICS1_3_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{All founders}}
+\end{figure}
+
+
+\subsection{Technical founders}
+
+\subsubsection{Overall}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\subsubsection{By state}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_State_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_State_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_State_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_State_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_State_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\subsubsection{By 1-digit NAICS}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_NAICS1_1_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_NAICS1_1_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_NAICS1_1_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_NAICS1_1_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_NAICS1_1_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\subsubsection{By 2-digit NAICS}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_NAICS1_2_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_NAICS1_2_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_NAICS1_2_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_NAICS1_2_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}`
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_NAICS1_2_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\subsubsection{By 3-digit NAICS}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_NAICS1_3_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_NAICS1_3_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_NAICS1_3_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_NAICS1_3_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}`
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_technical_NAICS1_3_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{technical founders}}
+\end{figure}
+
+
+
+
+
+
+
+\subsection{Founder2 founders}
+
+\subsubsection{Overall}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\subsubsection{By state}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_State_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_State_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_State_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_State_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_State_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\subsubsection{By 1-digit NAICS}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_NAICS1_1_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_NAICS1_1_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_NAICS1_1_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_NAICS1_1_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_NAICS1_1_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\subsubsection{By 2-digit NAICS}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_NAICS1_2_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_NAICS1_2_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_NAICS1_2_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_NAICS1_2_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}`
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_NAICS1_2_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\subsubsection{By 3-digit NAICS}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_NAICS1_3_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_NAICS1_3_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_NAICS1_3_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_NAICS1_3_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}`
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_founder2_NAICS1_3_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{founder2 founders}}
+\end{figure}
+
+
+
+
+
+
+
+
+
+\subsection{Executive founders}
+
+\subsubsection{Overall}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\subsubsection{By state}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_State_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_State_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_State_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_State_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_State_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\subsubsection{By 1-digit NAICS}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_NAICS1_1_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_NAICS1_1_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_NAICS1_1_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_NAICS1_1_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_NAICS1_1_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\subsubsection{By 2-digit NAICS}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_NAICS1_2_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_NAICS1_2_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_NAICS1_2_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_NAICS1_2_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}`
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_NAICS1_2_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\subsubsection{By 3-digit NAICS}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_NAICS1_3_lEmployeeCount.pdf}
+	\caption{Quantiles of log \textbf{\# of employees} by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_NAICS1_3_lPostValUSD.pdf}
+	\caption{Quantiles of log of most recent \textbf{post-money valuation} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_NAICS1_3_lrevenue.pdf}
+	\caption{Quantiles of log of \textbf{revenue} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_NAICS1_3_lPostValUSDdivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{valuation per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}`
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.5]{../empirics/figures/plots/startupLifeCycle_executive_NAICS1_3_lrevenuedivEmployeeCount.pdf}
+	\caption{Quantiles of log of \textbf{revenue per employee} (real USD 2012) by startup age. 
+		Sample: \textbf{executive founders}}
+\end{figure}
+
+
+
+
+%\begin{figure}[!htb]
+%	\tiny
+%	\input{../figures/tables/startupLifeCycle_regs_all.tex}
+%\end{figure}
+
 
 \begin{figure}
 	\includegraphics[]{../figures/startupLifeCycle_regs_lemployeecount.pdf}
@@ -112,8 +932,8 @@
 
 %%% Now with fixed effects
 
-\tiny
-\input{../figures/tables/startupLifeCycle_regs_all_FE.tex}
+%\tiny
+%\input{../figures/tables/startupLifeCycle_regs_all_FE.tex}
 
 \begin{figure}
 	\includegraphics[]{../figures/startupLifeCycle_regs_lemployeecount_FE.pdf}

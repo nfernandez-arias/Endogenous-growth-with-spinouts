@@ -16,6 +16,8 @@ parentsSpinouts <- fread("data/parentsSpinoutsWSO.csv")
 # Construct counts of founders in each year
 #-----------------------------------#
 
+setnames(parentsSpinouts,"joinYear","year")
+
 for (founderType in c("all","technical","founder2","executive"))
 {
   #-----------------#
@@ -43,9 +45,9 @@ for (founderType in c("all","technical","founder2","executive"))
     ylab("Number of entrepreneurs") +
     xlab("Join Year")
   
-  filePath = paste(paste("../figures/founderCountsByYear",founderType,sep = "_"),".png",sep = "")
+  filePath = paste(paste("figures/plots/founderCountsByYear",founderType,sep = "_"),".pdf",sep = "")
   
-  ggsave(filePath, plot = last_plot())
+  ggsave(filePath, plot = last_plot(), device = "pdf")
   
   outputName <- paste("founderCounts",founderType,sep = "_")
   
@@ -74,9 +76,9 @@ for (founderType in c("all","technical","founder2","executive"))
     ylab("Number of entrepreneurs") +
     xlab("Join Year")
   
-  filePath = paste(paste("../figures/founderFractionsByYear",founderType,sep = "_"),".png",sep = "")
+  filePath = paste(paste("figures/plots/founderFractionsByYear",founderType,sep = "_"),".pdf",sep = "")
   
-  ggsave(filePath, plot = last_plot())
+  ggsave(filePath, plot = last_plot(), device = "pdf")
   
   outputName <- paste("founderFractions",founderType,sep = "_")
   
@@ -111,9 +113,9 @@ for (founderType in c("all","technical","founder2","executive"))
     ylab("Number of entrepreneurs") +
     xlab("Join Year")
   
-  filePath = paste(paste("../figures/founderFractionsByYearHasBio",founderType,sep = "_"),".png",sep = "")
+  filePath = paste(paste("figures/plots/founderFractionsByYearHasBio",founderType,sep = "_"),".pdf",sep = "")
   
-  ggsave(filePath, plot = last_plot())
+  ggsave(filePath, plot = last_plot(), device = "pdf")
   
   outputName <- paste("founderFractionsHasBio",founderType,sep = "_")
   
@@ -148,9 +150,9 @@ for (founderType in c("all","technical","founder2","executive"))
     ylab("Number of entrepreneurs") +
     xlab("Join Year")
   
-  filePath = paste(paste("../figures/founderFractionsByYearHasBioNoJoinYearImputation",founderType,sep = "_"),".png",sep = "")
+  filePath = paste(paste("figures/plots/founderFractionsByYearHasBioNoJoinYearImputation",founderType,sep = "_"),".pdf",sep = "")
   
-  ggsave(filePath, plot = last_plot())
+  ggsave(filePath, plot = last_plot(), device = "pdf")
   
   outputName <- paste("founderFractionsHasBioNoJoinYearImputation",founderType,sep = "_")
   
@@ -182,9 +184,9 @@ for (founderType in c("all","technical","founder2","executive"))
     xlab("Join Year") + 
     facet_wrap(~ EntityState, ncol = 4) 
   
-  filePath = paste(paste("../figures/founderCountsByStateYear",founderType,sep = "_"),".png",sep = "")
+  filePath = paste(paste("figures/plots/founderCountsByStateYear",founderType,sep = "_"),".pdf",sep = "")
   
-  ggsave(filePath, plot = last_plot())
+  ggsave(filePath, plot = last_plot(), device = "pdf")
   
   outputName <- paste("founderCountsState",founderType,sep = "_")
   
@@ -218,9 +220,9 @@ for (founderType in c("all","technical","founder2","executive"))
     xlab("Join Year") + 
     facet_wrap(~ EntityState, ncol = 4) 
   
-  filePath = paste(paste("../figures/founderFractionsByStateYear",founderType,sep = "_"),".png",sep = "")
+  filePath = paste(paste("figures/plots/founderFractionsByStateYear",founderType,sep = "_"),".pdf",sep = "")
   
-  ggsave(filePath, plot = last_plot())
+  ggsave(filePath, plot = last_plot(), device = "pdf")
   
   outputName <- paste("founderFractionsState",founderType,sep = "_")
   
@@ -255,9 +257,9 @@ for (founderType in c("all","technical","founder2","executive"))
     xlab("Join Year") + 
     facet_wrap(~ EntityState, ncol = 4) 
   
-  filePath = paste(paste("../figures/founderFractionsByStateYearHasBio",founderType,sep = "_"),".png",sep = "")
+  filePath = paste(paste("figures/plots/founderFractionsByStateYearHasBio",founderType,sep = "_"),".pdf",sep = "")
   
-  ggsave(filePath, plot = last_plot())
+  ggsave(filePath, plot = last_plot(), device = "pdf")
   
   outputName <- paste("founderFractionsStateHasBio",founderType,sep = "_")
   
@@ -353,8 +355,8 @@ for (founderType in c("all","technical","founder2","executive"))
     
     
     tempXtable <- xtable(temp,align = c("c","p{1.75cm}","p{1.75cm}","p{1.75cm}","p{1.75cm}","p{1.75cm}","p{1.75cm}","p{1.75cm}","p{1.75cm}"), caption = captionString, digits = 1)
-    filePath <- paste(paste("../figures/tables/",tableNameString, sep = ""),".tex",sep = "")
-    print(tempXtable,filePath, type = "latex", size = "\\footnotesize", include.rownames = FALSE, booktabs = TRUE)
+    filePath <- paste(paste("figures/tables/",tableNameString, sep = ""),".tex",sep = "")
+    print(tempXtable,filePath, type = "latex", size = "\\scriptsize", include.rownames = FALSE, booktabs = TRUE, table.placement = "!htb")
     
 }
 

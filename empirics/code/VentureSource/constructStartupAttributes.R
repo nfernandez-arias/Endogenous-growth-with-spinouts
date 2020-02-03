@@ -187,9 +187,17 @@ revenue[ , year := year(ymd(CoFiscalYear))]
 revenue[ , revenue := mean(na.omit(revenue)), by = .(EntityID,year)]
 
 revenue <- unique(revenue, by = c("EntityID","year"))
+
 #revenue[ month(ymd(CoFiscalYear)) %in% c(1,12), year := year(round_date(ymd(CoFiscalYear), unit = "years"))]
 #revenue[ !(month(ymd(CoFiscalYear)) %in% c(1,12)), year := year(ymd(CoFiscalYear))]
 
+setkey(revenue,year)
+# First transform to real terms
+revenue <- gdpDeflator[revenue]
+
+revenue[ , revenue := revenue / gdpDeflator]
+
+# Now merge in
 setkey(revenue,EntityID,year)
 setkey(entityPaths,EntityID,year)
 
