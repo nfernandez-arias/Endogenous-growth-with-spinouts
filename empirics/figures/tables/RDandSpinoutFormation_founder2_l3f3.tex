@@ -1,0 +1,67 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{7}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}&\multicolumn{1}{c}{(7)}\\
+                    &\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{$\frac{\textrm{Founders}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{Founders}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{Founders}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{Founders}}{\textrm{Assets}}$}\\
+\midrule
+R\&D                &     0.00055\sym{***}&     0.00056\sym{***}&     0.00075\sym{**} &                     &                     &                     &                     \\
+                    &   (0.00019)         &   (0.00019)         &   (0.00029)         &                     &                     &                     &                     \\
+\addlinespace
+Employment          &    -0.00076         &    -0.00067         &     0.00084         &                     &                     &                     &                     \\
+                    &   (0.00095)         &   (0.00095)         &   (0.00056)         &                     &                     &                     &                     \\
+\addlinespace
+Assets              &  -0.0000087         &  -0.0000093\sym{*}  & -0.00000013         &                     &                     &                     &                     \\
+                    & (0.0000054)         & (0.0000055)         & (0.0000014)         &                     &                     &                     &                     \\
+\addlinespace
+Intangible assets   &   0.0000079         &   0.0000059         &   -0.000010         &                     &                     &                     &                     \\
+                    & (0.0000081)         & (0.0000086)         & (0.0000080)         &                     &                     &                     &                     \\
+\addlinespace
+Investment          &   -0.000077\sym{*}  &   -0.000072         &   -0.000022         &                     &                     &                     &                     \\
+                    &  (0.000046)         &  (0.000047)         &  (0.000019)         &                     &                     &                     &                     \\
+\addlinespace
+Net income          &     0.00012\sym{*}  &     0.00013\sym{**} &    0.000075\sym{*}  &                     &                     &                     &                     \\
+                    &  (0.000060)         &  (0.000061)         &  (0.000040)         &                     &                     &                     &                     \\
+\addlinespace
+$\textrm{Tobin's Q} \times \textrm{Assets}$&   0.0000082\sym{*}  &   0.0000084\sym{*}  &   0.0000010         &                     &                     &                     &                     \\
+                    & (0.0000049)         & (0.0000050)         &(0.00000098)         &                     &                     &                     &                     \\
+\addlinespace
+$\frac{\textrm{R\&D}}{\textrm{Assets}}$&                     &                     &                     &      0.0014\sym{***}&      0.0012\sym{***}&     0.00076\sym{*}  &     0.00079\sym{*}  \\
+                    &                     &                     &                     &   (0.00025)         &   (0.00033)         &   (0.00046)         &   (0.00047)         \\
+\addlinespace
+$\frac{\textrm{Employment}}{\textrm{Assets}}$&                     &                     &                     &   -0.000012         &    0.000031         &     -0.0015         &     -0.0014         \\
+                    &                     &                     &                     &   (0.00012)         &   (0.00019)         &    (0.0015)         &    (0.0013)         \\
+\addlinespace
+$\frac{\textrm{Intangible assets}}{\textrm{Assets}}$&                     &                     &                     &    0.000022         &    -0.00016\sym{*}  &    -0.00033\sym{**} &    -0.00032\sym{*}  \\
+                    &                     &                     &                     &  (0.000040)         &  (0.000085)         &   (0.00015)         &   (0.00016)         \\
+\addlinespace
+$\frac{\textrm{Investment}}{\textrm{Assets}}$&                     &                     &                     &    -0.00014\sym{**} &   -0.000066         &   -0.000021         &   -0.000059         \\
+                    &                     &                     &                     &  (0.000066)         &  (0.000086)         &  (0.000089)         &   (0.00011)         \\
+\addlinespace
+$\frac{\textrm{Net income}}{\textrm{Assets}}$&                     &                     &                     & -0.00000071         &  -0.0000047         &   -0.000015         &   -0.000013         \\
+                    &                     &                     &                     & (0.0000091)         &  (0.000010)         &  (0.000013)         &  (0.000013)         \\
+\addlinespace
+Tobin's Q           &                     &                     &                     &-0.000000033         & -0.00000016         &  0.00000016         & 0.000000040         \\
+                    &                     &                     &                     &(0.000000050)         &(0.00000014)         &(0.00000021)         &(0.00000026)         \\
+\addlinespace
+Constant            &       0.028\sym{***}&       0.027\sym{***}&       0.020         &    0.000092\sym{***}&     0.00012\sym{***}&     0.00017\sym{***}&     0.00017\sym{***}\\
+                    &    (0.0052)         &    (0.0048)         &     (0.013)         &  (0.000018)         &  (0.000025)         &  (0.000034)         &  (0.000035)         \\
+\addlinespace
+NAICS4-Year FE      &          No         &         Yes         &          No         &          No         &         Yes         &          No         &         Yes         \\
+\addlinespace
+State-Year FE       &          No         &         Yes         &          No         &          No         &         Yes         &          No         &         Yes         \\
+\addlinespace
+Firm FE             &          No         &          No         &         Yes         &          No         &          No         &         Yes         &         Yes         \\
+\addlinespace
+Year FE             &          No         &          No         &         Yes         &          No         &          No         &         Yes         &          No         \\
+\addlinespace
+No FE               &         Yes         &          No         &          No         &         Yes         &          No         &          No         &          No         \\
+\midrule
+r2\_a                &        0.24         &        0.24         &        0.78         &      0.0099         &      -0.047         &        0.33         &        0.29         \\
+r2\_a\_within         &        0.24         &        0.26         &        0.17         &      0.0099         &      0.0046         &      0.0018         &      0.0016         \\
+N                   &       88101         &       86495         &       86719         &       82686         &       81052         &       81416         &       79745         \\
+\bottomrule
+\multicolumn{8}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{8}{l}{\footnotesize \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

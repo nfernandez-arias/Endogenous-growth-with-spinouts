@@ -16,6 +16,7 @@ compustat <- fread("data/compustat/compustat_withBloomInstruments.csv")
 
 ## Construct Tobin's Q
 # (following methodology from WRDS)
+# https://wrds-www.wharton.upenn.edu/pages/support/applications/risk-and-valuation-measures/tobins-q-altman-z-score-and-companys-age/
 compustat <- compustat[ seq > 0]
 compustat[ , pref := coalesce(pstkrv,pstkl,pstk)]
 compustat[ , BE := seq + txdb + itcb - pref]
@@ -38,6 +39,14 @@ setkey(parentsSpinoutCounts,gvkey,year)
 
 output <- parentsSpinoutCounts[compustat]
 
+# When a count is NA, set equal to 0
+
+countCols <- grep("spinouts|founders|dev|dffv", names(output), value = T)
+
+for (col in countCols)
+{
+  set(output, which(is.na(output[[col]])), col, 0)
+}
 
 # Save data
 fwrite(output,"data/compustat-spinouts.csv")

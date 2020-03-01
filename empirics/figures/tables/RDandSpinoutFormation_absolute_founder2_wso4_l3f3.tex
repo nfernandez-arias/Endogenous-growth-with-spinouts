@@ -1,0 +1,31 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{5}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\midrule
+R\&D                &       0.079\sym{***}&       0.082\sym{***}&        0.12\sym{***}&        0.12\sym{***}&       0.090\sym{***}\\
+                    &     (0.020)         &     (0.020)         &     (0.036)         &     (0.035)         &     (0.027)         \\
+\addlinespace
+NAICS4-State-Age-Year FE&          No         &          No         &          No         &          No         &         Yes         \\
+\addlinespace
+NAICS4-Year FE      &          No         &         Yes         &          No         &         Yes         &          No         \\
+\addlinespace
+State-Year FE       &          No         &         Yes         &          No         &         Yes         &          No         \\
+\addlinespace
+Firm FE             &          No         &          No         &         Yes         &         Yes         &         Yes         \\
+\addlinespace
+Age FE              &          No         &          No         &          No         &         Yes         &          No         \\
+\addlinespace
+Year FE             &          No         &          No         &         Yes         &          No         &          No         \\
+\addlinespace
+No FE               &         Yes         &          No         &          No         &          No         &          No         \\
+\midrule
+r2\_a                &        0.18         &        0.18         &        0.60         &        0.58         &        0.54         \\
+r2\_a\_within         &        0.18         &        0.19         &        0.18         &        0.18         &        0.13         \\
+N                   &       65009         &       63812         &       63732         &       62488         &       25361         \\
+\bottomrule
+\multicolumn{6}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{6}{l}{\footnotesize \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

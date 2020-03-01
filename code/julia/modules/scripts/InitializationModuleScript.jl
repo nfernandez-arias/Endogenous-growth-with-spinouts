@@ -13,11 +13,11 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 700
+    mgrid_numPoints = 1000
     mgrid_minimum = 0.0
-    mgrid_maximum = 0.2
+    mgrid_maximum = 0.15
     mgrid_logSpacing = true
-    mgrid_logSpacingMinimum = 1e-10 * mgrid_maximum
+    mgrid_logSpacingMinimum = 1e-8 * mgrid_maximum
 
     mGrid = mGridParameters(mgrid_numPoints,mgrid_minimum,mgrid_maximum,mgrid_logSpacing,mgrid_logSpacingMinimum)
 
@@ -159,23 +159,23 @@ function setModelParameters()
     L = 1
 
     # Innovation
-    χI = 2.1973
-    χE = 0.5
-    χS = 2 * χE
+    χI = 2.000
+    χE = 0.221927
+    χS = 1.3 * χE
     ψI = 0.5
-    ψSE = 0.5
-    λ = 1.07998
+    ψSE = 0.7
+    λ = 1.078036
     #λ = 1.10
 
     # Spinouts
     #ν = 0.0102495
-    ν = 0.2
+    ν = 0.419788
     θ = 0.5
     ξ = 1
     ζ = 0
 
     # Creative destruction cost
-    κ = 0.4
+    κ = 0.442979
 
     # CNCs
     CNC = false

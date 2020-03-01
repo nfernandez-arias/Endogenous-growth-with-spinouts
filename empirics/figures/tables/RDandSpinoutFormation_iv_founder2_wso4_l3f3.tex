@@ -1,0 +1,48 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         &\multicolumn{1}{c}{(6)}         \\
+\midrule
+lxrd\_l3             &        0.14\sym{***}&        0.37\sym{+}  &       0.093         &        0.43\sym{++} &        0.31         &       -0.56         \\
+                    &     (0.035)         &      (0.23)         &      (0.11)         &      (0.40)         &      (0.42)         &      (0.79)         \\
+\addlinespace
+Standardized values of (Tobin\_Q)     &                     &       -3.01\sym{**} &                     &       -12.2\sym{++} &       -20.2\sym{+}  &        5.90         \\
+                    &                     &      (1.23)         &                     &      (11.3)         &      (15.5)         &      (16.8)         \\
+\addlinespace
+Standardized values of (lat\_l3)     &                     &       -0.33         &                     &        0.15         &        0.12         &        0.90         \\
+                    &                     &      (0.49)         &                     &      (0.70)         &      (0.65)         &      (1.19)         \\
+\addlinespace
+Standardized values of (lintan\_l3)     &                     &       0.045         &                     &       -0.33\sym{*}  &       -0.31\sym{+}  &      -0.070         \\
+                    &                     &      (0.21)         &                     &      (0.17)         &      (0.19)         &      (0.27)         \\
+\addlinespace
+Standardized values of (lemp\_l3)     &                     &       -1.11\sym{+}  &                     &       -1.05\sym{+}  &       -0.73         &       0.098         \\
+                    &                     &      (0.73)         &                     &      (0.68)         &      (0.81)         &      (1.36)         \\
+\addlinespace
+Standardized values of (lch\_l3)     &                     &        0.34\sym{++} &                     &       0.046         &       0.061         &       -0.51\sym{*}  \\
+                    &                     &      (0.26)         &                     &      (0.18)         &      (0.23)         &      (0.29)         \\
+\addlinespace
+Standardized values of (lsale\_l3)     &                     &        0.16         &                     &        0.42         &        0.37         &        0.18         \\
+                    &                     &      (0.27)         &                     &      (0.50)         &      (0.46)         &      (0.23)         \\
+\addlinespace
+Constant            &       -2.13\sym{***}&       -2.89\sym{***}&                     &                     &                     &                     \\
+                    &      (0.16)         &      (1.01)         &                     &                     &                     &                     \\
+\addlinespace
+NAICS3-Year FE      &          No         &         Yes         &          No         &          No         &          No         &         Yes         \\
+\addlinespace
+State-Year FE       &          No         &         Yes         &          No         &          No         &          No         &         Yes         \\
+\addlinespace
+Firm FE             &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+\addlinespace
+Firm Age FE         &          No         &         Yes         &          No         &          No         &         Yes         &         Yes         \\
+\addlinespace
+Year FE             &          No         &          No         &          No         &          No         &         Yes         &          No         \\
+\midrule
+r2\_a                &        0.54         &        0.64         &       0.033         &       0.042         &      -0.043         &       -0.85         \\
+r2\_a\_within         &       0.042         &       0.016         &                     &                     &                     &                     \\
+N                   &        2950         &         891         &        1675         &         663         &         663         &         403         \\
+\bottomrule
+\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{++} \(p<0.3\), \sym{+} \(p<0.2\), \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

@@ -1,60 +1,170 @@
 
 data <- fread("data/compustat-spinouts_Stata.csv")
 
-#data[ , xrd := log(xrd)]
-#data[ , Spinouts_fut4 := log(Spinouts_fut4)]
-#data[ Spinouts_fut4 == -Inf, Spinouts_fut4 := NA]
-#data[ xrd == -Inf, xrd := NA]
-
-data[ , spinoutCount := Reduce(`+`,shift(spinoutCount,1L:2L,type="lead")), by = "gvkey"]
-data[ , spinoutCountUnweighted := Reduce(`+`,shift(spinoutCountUnweighted,1L:2L,type="lead")), by = "gvkey"]
-data[ , spinoutsDiscountedFFValue := Reduce(`+`,shift(spinoutsDiscountedFFValue,1L:2L,type="lead")), by = "gvkey"]
 
 
-data[ , xrd_d := xrd - mean(na.omit(xrd)), by = "gvkey"]
-data[ , Spinouts_fut4_d := Spinouts_fut4 - mean(na.omit(Spinouts_fut4)), by = "gvkey"]
-data[ , spinoutCount_d := spinoutCount - mean(na.omit(spinoutCount)), by = "gvkey"]
-data[ , spinoutCountUnweighted_d := spinoutCountUnweighted - mean(na.omit(spinoutCountUnweighted)), by = "gvkey"]
-data[ , spinoutsDiscountedFFValue_d := spinoutsDiscountedFFValue - mean(na.omit(spinoutsDiscountedFFValue)), by = "gvkey"]
-
-data[ , xrd_d := xrd_d - mean(na.omit(xrd_d)), by = c("naics4","year")]
-data[ , Spinouts_fut4_d := Spinouts_fut4_d - mean(na.omit(Spinouts_fut4)), by = c("naics4","year")]
-data[ , spinoutCount_d := spinoutCount_d - mean(na.omit(spinoutCount_d)), by = c("naics4","year")]
-data[ , spinoutCountUnweighted_d := spinoutCountUnweighted_d - mean(na.omit(spinoutCountUnweighted_d)), by = c("naics4","year")]
-data[ , spinoutsDiscountedFFValue_d := spinoutsDiscountedFFValue_d - mean(na.omit(spinoutsDiscountedFFValue_d)), by = c("naics4","year")]
-
-data[ , xrd_d := xrd_d - mean(na.omit(xrd_d)), by = c("State","year")]
-data[ , Spinouts_fut4_d := Spinouts_fut4_d - mean(na.omit(Spinouts_fut4)), by = c("State","year")]
-data[ , spinoutCount_d := spinoutCount_d - mean(na.omit(spinoutCount_d)), by = c("State","year")]
-data[ , spinoutCountUnweighted_d := spinoutCountUnweighted_d - mean(na.omit(spinoutCountUnweighted_d)), by = c("State","year")]
-data[ , spinoutsDiscountedFFValue_d := spinoutsDiscountedFFValue_d - mean(na.omit(spinoutsDiscountedFFValue_d)), by = c("State","year")]
-
-data[ , xrd_d := xrd_d - mean(na.omit(xrd_d)), by = "firmAge"]
-data[ , Spinouts_fut4_d := Spinouts_fut4_d - mean(na.omit(Spinouts_fut4)), by = "firmAge"]
-data[ , spinoutCount_d := spinoutCount_d - mean(na.omit(spinoutCount_d)), by = "firmAge"]
-data[ , spinoutCountUnweighted_d := spinoutCountUnweighted_d - mean(na.omit(spinoutCountUnweighted_d)), by = "firmAge"]
-data[ , spinoutsDiscountedFFValue_d := spinoutsDiscountedFFValue_d - mean(na.omit(spinoutsDiscountedFFValue_d)), by = "firmAge"]
-
-# Construct scatter plot by state
+for (var in c("xrd.l3","xrd.at.l3",
+              "founders.founder2.f3","founders.founder2.at.f3",
+              "founders.founder2.wso4.f3","founders.founder2.wso4.at.f3",
+              "founders.founder2.wso1.f3","founders.founder2.wso1.at.f3",
+              "founders.founder2.wso2.f3","founders.founder2.wso2.at.f3",
+              "founders.founder2.wso3.f3","founders.founder2.wso3.at.f3"))
+{
+  # remove outliers
+  data <- data[ abs(get(var) - mean(get(var), na.rm = TRUE)) / sd(get(var), na.rm = TRUE) <= 7 ]
+  varString <- paste0(var,".d")
+  data[ , (varString) := get(var) - mean(get(var) , na.rm = TRUE), by = "gvkey" ]
+  
+  varString2 <- paste0(var,".d2")
+  data[ , (varString2) := get(varString) - mean(get(varString) , na.rm = TRUE), by = .(naics4,year) ]
+  
+  varString3 <- paste0(var,".d3")
+  data[ , (varString3) := get(varString2) - mean(get(varString2) , na.rm = TRUE), by = .(State,year) ]
+  
+  varString4 <- paste0(var,".d4")
+  data[ , (varString4) := get(varString3) - mean(get(varString3) , na.rm = TRUE), by = .(firmAge) ]
+  
+  varStringIntersection <- paste0(var,".dIntersection")
+  data[ , (varStringIntersection) := get(varString) - mean(get(varString), na.rm = TRUE), by = .(naics4,State,firmAge,year) ]
+        
+}
 
 
 ## Raw OLS
 
-ggplot(data = data, aes(x = xrd, y = spinoutCount)) + 
+ggplot(data = data[State %in% c("CA","NY","TX","MA","IL")], aes(x = xrd.l3.dIntersection, y = founders.founder2.wso4.f3.dIntersection, color = as.factor(State), fill = as.factor(State))) + 
   geom_point(size = 0.1) +
-  geom_smooth(method = "lm", se = TRUE, size = 0.6) + 
-  #scale_color_manual(values = my_palette) + 
-  theme(text = element_text(size=14)) + 
+  geom_smooth(method = "lm_robust", formula = y ~ poly(x,1), se = FALSE) +
+  #geom_smooth(method = "lm_robust", formula = y ~ poly(x,1), se = FALSE, aes(linetype = "Whole sample")) + 
+  #geom_smooth(method = "lm_robust", data = data[founders.founder2.f3 > 0], formula = y ~ poly(x,1), se = TRUE, color = "black", aes(linetype = "# founders > 0") + 
+  #scale_color_manual(values = my_palette) +
+  theme(legend.position = "bottom") +
+  scale_linetype_discrete(name = "") + 
   #theme(legend.position = "none") +
-  ggtitle("Higher R&D is associated with more employee spinout formation") +
+  labs(title = "Higher R&D is associated with more employee spinout formation", 
+       subtitle = "Levels") +
   #ggtitle("Unadjusted") + 
   #ylim(0,1500) + 
-  ylab("# of Spinouts") +
-  xlab("Effective real R&D spending")
+  ylab("Founders") +
+  xlab("Real effective R&D spending")
 
-ggsave("../figures/scatterPlot_RD-Spinouts-1yr-raw.png", plot = last_plot())
+#ggsave("figures/scatterPlot_RD-Founders.pdf", plot = last_plot(), width = 9, height = 6, units = "in")
 
-# Raw OLS separated out by parent firm state
+
+ggplot(data = data[], aes(x = xrd.l3, y = founders.founder2.f3)) + 
+  geom_point(size = 0.1) +
+  geom_smooth(method = "lm_robust", formula = y ~ poly(x,1), se = TRUE, color = "black", fill = "grey") + 
+  #geom_smooth(method = "lm_robust", data = data[founders.founder2.f3 > 0], formula = y ~ poly(x,1), se = TRUE, color = "black", fill = "grey", aes(linetype = "# founders > 0")) + 
+  #scale_color_manual(values = my_palette) + 
+  theme(legend.position = "bottom") +
+  scale_linetype_discrete(name = "") + 
+  #theme(legend.position = "none") +
+  labs(title = "Higher R&D is associated with more employee spinout formation", 
+       subtitle = "Levels") +
+  #ggtitle("Unadjusted") + 
+  #ylim(0,1500) + 
+  ylab("Founders") +
+  xlab("Real effective R&D spending")
+
+ggsave("figures/scatterPlot_RD-Founders.png", plot = last_plot(), width = 9, height = 6, units = "in")
+
+ggplot(data = data[], aes(x = xrd.l3.dIntersection, y = founders.founder2.f3.dIntersection)) + 
+  geom_point(size = 0.1) +
+  geom_smooth(method = "lm_robust", formula = y ~ poly(x,1), se = TRUE, color = "black", fill = "grey") + 
+  #geom_smooth(method = "lm_robust", data = data[founders.founder2.f3 > 0], formula = y ~ poly(x,1), se = TRUE, color = "black", fill = "grey", aes(linetype = "# founders > 0")) + 
+  #scale_color_manual(values = my_palette) + 
+  theme(legend.position = "bottom") +
+  scale_linetype_discrete(name = "") + 
+  #theme(legend.position = "none") +
+  labs(title = "Higher R&D is associated with more employee spinout formation", 
+       subtitle = "Deviation from Firm and State-industry-age-year mean") +
+  #ggtitle("Unadjusted") + 
+  #ylim(0,1500) + 
+  ylab("Founders") +
+  xlab("Real effective R&D spending")
+
+ggsave("figures/scatterPlot_RD-Founders_dIntersection.png", plot = last_plot(), width = 9, height = 6, units = "in")
+
+
+ggplot(data = data[State == "CA"], aes(x = xrd.l3.dIntersection, y = founders.founder2.wso4.f3.dIntersection)) + 
+  geom_point(size = 0.1) +
+  geom_smooth(method = "lm_robust", formula = y ~ poly(x,1), se = TRUE, color = "black", fill = "grey") + 
+  #geom_smooth(method = "lm_robust", data = data[founders.founder2.f3 > 0], formula = y ~ poly(x,1), se = TRUE, color = "black", fill = "grey", aes(linetype = "# founders > 0")) + 
+  #scale_color_manual(values = my_palette) + 
+  theme(legend.position = "bottom") +
+  scale_linetype_discrete(name = "") + 
+  #theme(legend.position = "none") +
+  labs(title = "Higher R&D is associated with more employee WSO4 formation", 
+       subtitle = "Levels") +
+  #ggtitle("Unadjusted") + 
+  #ylim(0,1500) + 
+  ylab("Founders") +
+  xlab("Real effective R&D spending")
+
+ggsave("figures/scatterPlot_RD-FoundersWSO4_dIntersection.png", plot = last_plot(), width = 9, height = 6, units = "in")
+
+ggplot(data = data[], aes(x = xrd.l3.dIntersection, y = founders.founder2.f3.dIntersection)) + 
+  geom_point(size = 0.1) +
+  geom_smooth(method = "lm_robust", formula = y ~ poly(x,1), se = TRUE, color = "black", fill = "grey", aes(linetype = "Whole sample")) + 
+  geom_smooth(method = "lm_robust", data = data[founders.founder2.f3 > 0], formula = y ~ poly(x,1), se = TRUE, color = "black", fill = "grey", aes(linetype = "# founders > 0")) + 
+  #scale_color_manual(values = my_palette) + 
+  theme(legend.position = "bottom") +
+  scale_linetype_discrete(name = "") + 
+  #theme(legend.position = "none") +
+  labs(title = "Higher R&D is associated with more employee spinout formation", 
+       subtitle = "Deviation from Firm and State-industry-age-year mean") +
+  #ggtitle("Unadjusted") + 
+  #ylim(0,1500) + 
+  ylab("Founders") +
+  xlab("Real effective R&D spending")
+
+ggsave("figures/scatterPlot_RD-Founders_dIntersection.pdf", plot = last_plot(), width = 9, height = 6, units = "in")
+
+
+ggplot(data = data[], aes(x = xrd.at.l3, y = founders.founder2.at.f3)) + 
+  geom_point(size = 0.1) +
+  geom_smooth(method = "lm_robust", formula = y ~ poly(x,1), se = TRUE, color = "black", fill = "grey", aes(linetype = "Whole sample")) + 
+  geom_smooth(method = "lm_robust", data = data[founders.founder2.at.f3 > 0], formula = y ~ poly(x,1), se = TRUE, color = "black", fill = "grey", aes(linetype = "# founders > 0")) + 
+  #scale_color_manual(values = my_palette) + 
+  theme(legend.position = "bottom") +
+  scale_linetype_discrete(name = "") + 
+  #theme(legend.position = "none") +
+  labs(title = "Higher R&D / assets is associated with more employee founders / assets", 
+       subtitle = "Levels") +
+  #ggtitle("Unadjusted") + 
+  #ylim(0,1500) + 
+  ylab("Founders / assets") +
+  xlab("Real effective R&D spending / assets")
+
+ggsave("figures/scatterPlot_RDAssets-FoundersAssets.pdf", plot = last_plot(), width = 9, height = 6, units = "in")
+
+ggplot(data = data[], aes(x = xrd.at.l3.dIntersection, y = founders.founder2.at.f3.dIntersection)) + 
+  geom_point(size = 0.1) +
+  geom_smooth(method = "lm_robust", formula = y ~ poly(x,1), se = TRUE, color = "black", fill = "grey", aes(linetype = "Whole sample")) + 
+  geom_smooth(method = "lm_robust", data = data[founders.founder2.at.f3 > 0], formula = y ~ poly(x,1), se = TRUE, color = "black", fill = "grey", aes(linetype = "# founders > 0")) + 
+  #scale_color_manual(values = my_palette) + 
+  theme(legend.position = "bottom") +
+  scale_linetype_discrete(name = "") + 
+  #theme(legend.position = "none") +
+  labs(title = "Higher R&D / assets is inconsistently associated with more employee founders / assets", 
+       subtitle = "Deviations (firm, age, naics4-year, state-year)") +
+  #ggtitle("Unadjusted") + 
+  #ylim(0,1500) + 
+  ylab("Founders / assets") +
+  xlab("Real effective R&D spending / assets")
+      
+ggsave("figures/scatterPlot_RDAssets-FoundersAssets_d4.pdf", plot = last_plot(), width = 9, height = 6, units = "in")
+  
+  
+
+
+
+#-----------------------------------------#
+# DEPRECATED 
+#-----------------------------------------#
+
+
+    # Raw OLS separated out by parent firm state
 
 ggplot(data = data[State == "CA" | State == "IL" | State == "IN" | State == "MA" | State == "MI" | State == "NY" | State == "TX" | State == "WA"], aes(x = xrd, y = spinoutCount)) + 
   geom_point(size = 0.1) +

@@ -1,0 +1,336 @@
+\begin{thebibliography}{37}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Achdou et~al.(2017)Achdou, Han, Lasry, Lions, and
+  Moll]{achdou_income_2017}
+Yves Achdou, Jiequn Han, Jean-Michel Lasry, Pierre-Louis Lions, and Benjamin
+  Moll.
+\newblock Income and {Wealth} {Distribution} in {Macroeconomics}: {A}
+  {Continuous}-{Time} {Approach}.
+\newblock Technical Report w23732, National Bureau of Economic Research,
+  Cambridge, MA, August 2017.
+\newblock URL \url{http://www.nber.org/papers/w23732.pdf}.
+
+\bibitem[Aghion and Howitt(1992)]{aghion_model_1992}
+Philippe Aghion and Peter Howitt.
+\newblock A {Model} of {Growth} {Through} {Creative} {Destruction}.
+\newblock \emph{Econometrica}, 60\penalty0 (2):\penalty0 323--351, 1992.
+\newblock ISSN 0012-9682.
+\newblock \doi{10.2307/2951599}.
+\newblock URL \url{https://www.jstor.org/stable/2951599}.
+
+\bibitem[Aghion et~al.(2005)Aghion, Bloom, Blundell, Griffith, and
+  Howitt]{aghion_competition_2005}
+Philippe Aghion, Nick Bloom, Richard Blundell, Rachel Griffith, and Peter
+  Howitt.
+\newblock Competition and {Innovation}: {An} {Inverted}-{U} {Relationship}.
+\newblock \emph{The Quarterly Journal of Economics}, 120\penalty0 (2):\penalty0
+  701--728, 2005.
+\newblock URL \url{http://www.jstor.org/stable/25098750}.
+
+\bibitem[Akcigit and Kerr(2018)]{akcigit_growth_2018}
+Ufuk Akcigit and William~R. Kerr.
+\newblock Growth through {Heterogeneous} {Innovations}.
+\newblock \emph{Journal of Political Economy}, 126\penalty0 (4):\penalty0
+  1374--1443, March 2018.
+\newblock ISSN 0022-3808.
+\newblock \doi{10.1086/697901}.
+\newblock URL \url{https://www.journals.uchicago.edu/doi/10.1086/697901}.
+
+\bibitem[Anton and Yao(1994)]{anton_expropriation_1994}
+James~J. Anton and Dennis~A. Yao.
+\newblock Expropriation and {Inventions}: {Appropriable} {Rents} in the
+  {Absence} of {Property} {Rights}.
+\newblock \emph{The American Economic Review}, 84\penalty0 (1):\penalty0
+  190--209, 1994.
+\newblock ISSN 0002-8282.
+\newblock URL \url{https://www.jstor.org/stable/2117978}.
+
+\bibitem[Anton and Yao(1995)]{anton_start-ups_1995}
+James~J. Anton and Dennis~A. Yao.
+\newblock Start-ups, {Spin}-offs, and {Internal} {Projects}.
+\newblock \emph{Journal of Law, Economics, \& Organization}, 11\penalty0
+  (2):\penalty0 362--378, 1995.
+\newblock ISSN 8756-6222.
+\newblock URL \url{https://www.jstor.org/stable/765002}.
+
+\bibitem[Babina and Howell(2018)]{babina_entrepreneurial_2018}
+Tania Babina and Sabrina~T Howell.
+\newblock Entrepreneurial {Spillovers} from {Corporate} {R}\&{D}.
+\newblock Working {Paper} 25360, National Bureau of Economic Research, December
+  2018.
+\newblock URL \url{http://www.nber.org/papers/w25360}.
+
+\bibitem[Baslandze(2019)]{baslandze_spinout_2019}
+Salome Baslandze.
+\newblock Spinout {Entry}, {Innovation}, and {Growth}.
+\newblock \emph{Working Paper}, 2019.
+
+\bibitem[Bloom et~al.(2013)Bloom, Schankerman, and
+  Reenen]{bloom_identifying_2013}
+Nicholas Bloom, Mark Schankerman, and John~Van Reenen.
+\newblock Identifying {Technology} {Spillovers} and {Product} {Market}
+  {Rivalry}.
+\newblock \emph{Econometrica}, 81\penalty0 (4):\penalty0 1347--1393, 2013.
+\newblock ISSN 1468-0262.
+\newblock \doi{10.3982/ECTA9466}.
+\newblock URL \url{https://onlinelibrary.wiley.com/doi/abs/10.3982/ECTA9466}.
+
+\bibitem[Chatterjee and Rossi-Hansberg(2012)]{chatterjee_spinoffs_2012}
+Satyajit Chatterjee and Esteban Rossi-Hansberg.
+\newblock Spinoffs and the {Market} for {Ideas}.
+\newblock \emph{International Economic Review}, 53\penalty0 (1):\penalty0
+  53--93, 2012.
+\newblock ISSN 0020-6598.
+\newblock URL \url{https://www.jstor.org/stable/41349201}.
+
+\bibitem[Cohen(2010)]{cohen_fifty_2010}
+Wesley~M. Cohen.
+\newblock Fifty {Years} of {Empirical} {Studies} of {Innovative} {Activity} and
+  {Performance}.
+\newblock In Bronwyn~H. Hall and Nathan Rosenberg, editors, \emph{Handbook of
+  the {Economics} of {Innovation}}, volume~1 of \emph{Handbook of {The}
+  {Economics} of {Innovation}, {Vol}. 1}, pages 129--213. North-Holland,
+  January 2010.
+\newblock \doi{10.1016/S0169-7218(10)01004-X}.
+\newblock URL
+  \url{http://www.sciencedirect.com/science/article/pii/S016972181001004X}.
+
+\bibitem[Colombo et~al.(2013)Colombo, Dawid, Piva, and
+  Vivarelli]{colombo_does_2013}
+Luca Colombo, Herbert Dawid, Mariacristina Piva, and Marco Vivarelli.
+\newblock Does {Easy} {Start}-{Up} {Formation} {Hamper} {Incumbents}' {R}\&{D}
+  {Investment}? {A} {Theoretical} and {Empirical} {Analysis}.
+\newblock \emph{SSRN Electronic Journal}, 2013.
+\newblock ISSN 1556-5068.
+\newblock \doi{10.2139/ssrn.2246689}.
+\newblock URL \url{http://www.ssrn.com/abstract=2246689}.
+
+\bibitem[Conti(2014)]{conti_non-competition_2014}
+Raffaele Conti.
+\newblock Do non-competition agreements lead firms to pursue risky {R}\&{D}
+  projects?
+\newblock \emph{Strategic Management Journal}, 35\penalty0 (8):\penalty0
+  1230--1248, 2014.
+\newblock ISSN 1097-0266.
+\newblock \doi{10.1002/smj.2155}.
+\newblock URL \url{https://onlinelibrary.wiley.com/doi/abs/10.1002/smj.2155}.
+
+\bibitem[Fallick et~al.(2006)Fallick, Fleischman, and
+  Rebitzer]{fallick_job-hopping_2006}
+Bruce Fallick, Charles~A. Fleischman, and James~B. Rebitzer.
+\newblock Job-{Hopping} in {Silicon} {Valley}: {Some} {Evidence} {Concerning}
+  the {Microfoundations} of a {High}-{Technology} {Cluster}, October 2006.
+\newblock URL
+  \url{https://www.mitpressjournals.org/doix/abs/10.1162/rest.88.3.472}.
+
+\bibitem[Franco and Mitchell(2008)]{franco_covenants_2008}
+April~M. Franco and Matthew~F. Mitchell.
+\newblock Covenants not to {Compete}, {Labor} {Mobility}, and {Industry}
+  {Dynamics}.
+\newblock \emph{Journal of Economics \& Management Strategy}, 17\penalty0
+  (3):\penalty0 581--606, 2008.
+\newblock ISSN 1530-9134.
+\newblock \doi{10.1111/j.1530-9134.2008.00187.x}.
+\newblock URL
+  \url{https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1530-9134.2008.00187.x}.
+
+\bibitem[Franco and Filson(2006)]{franco_spin-outs:_2006}
+April~Mitchell Franco and Darren Filson.
+\newblock Spin-outs: knowledge diffusion through employee mobility.
+\newblock \emph{The RAND Journal of Economics}, 37\penalty0 (4):\penalty0
+  841--860, December 2006.
+\newblock ISSN 07416261, 17562171.
+\newblock \doi{10.1111/j.1756-2171.2006.tb00060.x}.
+\newblock URL \url{http://doi.wiley.com/10.1111/j.1756-2171.2006.tb00060.x}.
+
+\bibitem[Garmaise(2011)]{garmaise_ties_2011}
+Mark~J. Garmaise.
+\newblock Ties that {Truly} {Bind}: {Noncompetition} {Agreements}, {Executive}
+  {Compensation}, and {Firm} {Investment}.
+\newblock \emph{The Journal of Law, Economics, and Organization}, 27\penalty0
+  (2):\penalty0 376--425, August 2011.
+\newblock ISSN 8756-6222.
+\newblock \doi{10.1093/jleo/ewp033}.
+\newblock URL \url{https://academic.oup.com/jleo/article/27/2/376/2194339}.
+
+\bibitem[Gilson(1999)]{gilson_legal_1999}
+Ronald~J. Gilson.
+\newblock The {Legal} {Infrastructure} of {High} {Technology} {Industrial}
+  {Districts}: {Silicon} {Valley}, {Route} 128, and {Covenants} {Not} to
+  {Compete}.
+\newblock \emph{New York University Law Review}, 74\penalty0 (3):\penalty0
+  575--629, 1999.
+\newblock ISSN 1556-5068.
+\newblock \doi{10.2139/ssrn.124508}.
+\newblock URL \url{http://www.ssrn.com/abstract=124508}.
+
+\bibitem[Gompers et~al.(2005)Gompers, Lerner, and
+  Scharfstein]{gompers_entrepreneurial_2005}
+Paul Gompers, Josh Lerner, and David Scharfstein.
+\newblock Entrepreneurial {Spawning}: {Public} {Corporations} and the {Genesis}
+  of {New} {Ventures}, 1986 to 1999.
+\newblock \emph{The Journal of Finance}, 60\penalty0 (2):\penalty0 577--614,
+  2005.
+\newblock ISSN 1540-6261.
+\newblock \doi{10.1111/j.1540-6261.2005.00740.x}.
+\newblock URL
+  \url{https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1540-6261.2005.00740.x}.
+
+\bibitem[Grossman and Helpman(1991)]{grossman_quality_1991}
+Gene~M. Grossman and Elhanan Helpman.
+\newblock Quality {Ladders} in the {Theory} of {Growth}.
+\newblock \emph{The Review of Economic Studies}, 58\penalty0 (1):\penalty0
+  43--61, 1991.
+\newblock ISSN 0034-6527.
+\newblock \doi{10.2307/2298044}.
+\newblock URL \url{https://www.jstor.org/stable/2298044}.
+
+\bibitem[Jeffers(2018)]{jeffers_impact_2018}
+Jessica Jeffers.
+\newblock The {Impact} of {Restricting} {Labor} {Mobility} on {Corporate}
+  {Investment} and {Entrepreneurship}.
+\newblock {SSRN} {Scholarly} {Paper} ID 3040393, Social Science Research
+  Network, Rochester, NY, May 2018.
+\newblock URL \url{https://papers.ssrn.com/abstract=3040393}.
+
+\bibitem[Jorgenson et~al.(2008)Jorgenson, Ho, and
+  Stiroh]{jorgenson_retrospective_2008}
+Dale~W. Jorgenson, Mun~S. Ho, and Kevin~J. Stiroh.
+\newblock A {Retrospective} {Look} at the {U}.{S}. {Productivity} {Growth}
+  {Resurgence}.
+\newblock \emph{Journal of Economic Perspectives}, 22\penalty0 (1):\penalty0
+  3--24, March 2008.
+\newblock ISSN 0895-3309.
+\newblock \doi{10.1257/jep.22.1.3}.
+\newblock URL \url{https://www.aeaweb.org/articles?id=10.1257/jep.22.1.3}.
+
+\bibitem[Kaplan et~al.(2002)Kaplan, Sensoy, and Stromberg]{kaplan_how_2002}
+Steven~N. Kaplan, Berk~M. Sensoy, and Per Stromberg.
+\newblock How well do venture capital databases reflect actual investments?
+\newblock \emph{Working Paper}, September 2002.
+\newblock URL
+  \url{https://faculty.chicagobooth.edu/steven.kaplan/research/kss1.pdf}.
+
+\bibitem[Kaplan(2016)]{kaplan_venture_2016}
+Steven~Neil Kaplan.
+\newblock Venture {Capital} {Data}: {Opportunities} and {Challenges}.
+\newblock \emph{NBER Working Paper}, page~26, 2016.
+
+\bibitem[Klepper and Sleeper(2005)]{klepper_entry_2005}
+Steven Klepper and Sally Sleeper.
+\newblock Entry by {Spinoffs}.
+\newblock \emph{Management Science}, 51\penalty0 (8):\penalty0 1291--1306,
+  August 2005.
+\newblock ISSN 0025-1909.
+\newblock \doi{10.1287/mnsc.1050.0411}.
+\newblock URL \url{https://pubsonline.informs.org/doi/10.1287/mnsc.1050.0411}.
+
+\bibitem[Klette and Kortum(2004)]{klette_innovating_2004}
+Tor~Jakob Klette and Samuel Kortum.
+\newblock Innovating {Firms} and {Aggregate} {Innovation}.
+\newblock \emph{Journal of Political Economy}, 112\penalty0 (5):\penalty0
+  986--1018, October 2004.
+\newblock ISSN 0022-3808.
+\newblock \doi{10.1086/422563}.
+\newblock URL \url{https://www.journals.uchicago.edu/doi/10.1086/422563}.
+
+\bibitem[Marx et~al.(2009)Marx, Strumsky, and Fleming]{marx_mobility_2009}
+Matt Marx, Deborah Strumsky, and Lee Fleming.
+\newblock Mobility, {Skills}, and the {Michigan} {Non}-{Compete} {Experiment}.
+\newblock \emph{Management Science}, 55\penalty0 (6):\penalty0 875--889, April
+  2009.
+\newblock ISSN 0025-1909.
+\newblock \doi{10.1287/mnsc.1080.0985}.
+\newblock URL
+  \url{https://pubsonline.informs.org/doi/abs/10.1287/mnsc.1080.0985}.
+
+\bibitem[Marx et~al.(2015)Marx, Singh, and Fleming]{marx_regional_2015}
+Matt Marx, Jasjit Singh, and Lee Fleming.
+\newblock Regional disadvantage? {Employee} non-compete agreements and brain
+  drain.
+\newblock \emph{Research Policy}, 44\penalty0 (2):\penalty0 394--404, 2015.
+\newblock URL
+  \url{https://ideas.repec.org/a/eee/respol/v44y2015i2p394-404.html}.
+
+\bibitem[Nuno and Moll(2018)]{nuno_social_2018}
+Galo Nuno and Benjamin Moll.
+\newblock Social optima in economies with heterogeneous agents.
+\newblock \emph{Review of Economic Dynamics}, 28:\penalty0 150--180, April
+  2018.
+\newblock ISSN 1094-2025.
+\newblock \doi{10.1016/j.red.2017.08.003}.
+\newblock URL
+  \url{http://www.sciencedirect.com/science/article/pii/S1094202517300686}.
+
+\bibitem[Parilla and Muro(2017)]{parilla_understanding_2017}
+Jose Parilla and Mark Muro.
+\newblock Understanding {US} productivity trends from the bottom-up.
+\newblock Technical report, Brookings Institution: Metropolitan Policy Program,
+  March 2017.
+\newblock URL
+  \url{https://www.brookings.edu/research/understanding-us-productivity-trends-from-the-bottom-up/}.
+
+\bibitem[Romer(1986)]{romer_increasing_1986}
+Paul~M. Romer.
+\newblock Increasing {Returns} and {Long}-{Run} {Growth}.
+\newblock \emph{Journal of Political Economy}, 94\penalty0 (5):\penalty0
+  1002--1037, October 1986.
+\newblock ISSN 0022-3808, 1537-534X.
+\newblock \doi{10.1086/261420}.
+\newblock URL \url{https://www.journals.uchicago.edu/doi/10.1086/261420}.
+
+\bibitem[Samila and Sorenson(2010)]{samila_venture_2010}
+Sampsa Samila and Olav Sorenson.
+\newblock Venture {Capital}, {Entrepreneurship}, and {Economic} {Growth}.
+\newblock \emph{The Review of Economics and Statistics}, 93\penalty0
+  (1):\penalty0 338--349, July 2010.
+\newblock ISSN 0034-6535.
+\newblock \doi{10.1162/REST_a_00066}.
+\newblock URL \url{https://www.mitpressjournals.org/doi/10.1162/REST_a_00066}.
+
+\bibitem[Saxenian(1994)]{saxenian_regional_1994}
+AnnaLee Saxenian.
+\newblock \emph{Regional {Advantage}: {Culture} and {Competition} in {Silicon}
+  {Valley} and {Route} 128}.
+\newblock Harvard University Press, Cambridge, MA, 1994.
+\newblock ISBN 0-674-75339-9.
+\newblock URL \url{https://doi.org/10.1177/027046769601600314}.
+
+\bibitem[Shi(2018)]{shi_restrictions_2018}
+Liyan Shi.
+\newblock Restrictions on {Executive} {Mobility} and {Reallocation}: {The}
+  {Aggregate} {Effect} of {Non}-{Competition} {Contracts}.
+\newblock \emph{Working Paper}, January 2018.
+
+\bibitem[Starr(2018)]{starr_consider_2018}
+Evan Starr.
+\newblock Consider {This}: {Training}, {Wages}, and the {Enforceability} of
+  {Covenants} {Not} to {Compete}.
+\newblock {SSRN} {Scholarly} {Paper} ID 2556669, Social Science Research
+  Network, Rochester, NY, May 2018.
+\newblock URL \url{https://papers.ssrn.com/abstract=2556669}.
+
+\bibitem[Starr et~al.(2019)Starr, Prescott, and
+  Bishara]{starr_noncompetes_2019}
+Evan Starr, J.~J. Prescott, and Norman Bishara.
+\newblock Noncompetes in the {U}.{S}. {Labor} {Force}.
+\newblock {SSRN} {Scholarly} {Paper} ID 2625714, Social Science Research
+  Network, Rochester, NY, January 2019.
+\newblock URL \url{https://papers.ssrn.com/abstract=2625714}.
+
+\bibitem[Stuart and Sorenson(2003)]{stuart_liquidity_2003}
+Toby~E. Stuart and Olav Sorenson.
+\newblock Liquidity {Events} and the {Geographic} {Distribution} of
+  {Entrepreneurial} {Activity}.
+\newblock \emph{Administrative Science Quarterly}, 48\penalty0 (2):\penalty0
+  175--201, 2003.
+\newblock ISSN 0001-8392.
+\newblock \doi{10.2307/3556656}.
+\newblock URL \url{https://www.jstor.org/stable/3556656}.
+
+\end{thebibliography}

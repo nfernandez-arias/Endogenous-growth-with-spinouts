@@ -58,6 +58,7 @@ EntitiesPrevEmployers[ , Employer := gsub("[.]$","",Employer)]
 EntitiesPrevEmployers[ , Employer := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",Employer)]
 EntitiesPrevEmployers[ , Employer := gsub("[ ]?[(].*[)]$","",Employer)]
 EntitiesPrevEmployers[ , Employer := gsub("^Google.*$","Google",Employer)]
+EntitiesPrevEmployers[ , EmployerCase := Employer]
 EntitiesPrevEmployers[ , Employer := tolower(Employer)]
 
 #------------------------------#

@@ -1,0 +1,126 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\linespread{1.05}
+%\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage{placeins}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{svg}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{blindtext}
+%\renewcommand{\arraystretch}{1.2}
+\usepackage{multirow}
+\usepackage{float}
+
+% TikZ stuff
+
+\usepackage{tikz}
+\usepackage{mathdots}
+\usepackage{yhmath}
+\usepackage{cancel}
+\usepackage{color}
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usetikzlibrary{fadings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shadows.blur}
+
+
+
+
+
+
+%\usepackage{caption}
+%\captionsetup{justification=raggedright,singlelinecheck=false}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{No exponent on $q_j$}
+\author{Nicolas Fernandez-Arias}
+\maketitle
+
+Have
+
+\begin{align*}
+Y = F(L,\{q_j\},\{k_j\}) &= \frac{L^{\beta}}{1-\beta} \int_0^1 (q_j k_j)^{1-\beta} dj
+\end{align*}
+
+And
+\begin{align*}
+k_j = H(l_j,q_j,Q)
+\end{align*}
+
+What assumption on $H$ to get BGP, and what are its properties?
+
+Well, demand curve given prices $p_j$ is defined by 
+\begin{align*}
+	\max_{k_j} \int_0^1 (q_j k_j)^{1-\beta} dj 
+\end{align*}
+subject to 
+\begin{align*}
+	\int_0^1 p_j k_j dj \le E
+\end{align*}
+
+Lagrangean:
+\begin{align*}
+	\mathcal{L} &= \int_0^1 (q_j k_j)^{1-\beta} dj  + \lambda \big(E -\int_0^1 p_j k_j dj  \big)
+\end{align*}
+
+FOC:
+\begin{align*}
+	(1-\beta) q_j^{1-\beta} k_j^{-\beta} &= \lambda p_j \\
+	(1-\beta) q_j^{1-\beta} k_j^{1-\beta} &= \lambda k_j p_j
+\end{align*}
+
+Dividing the FOC for $j'$ by the FOC for $j$ get
+\begin{align*}
+	\Big (\frac{q_j k_j}{q_{j'} k_{j'}} \Big)^{1-\beta} &= \frac{p_j k_j}{p_{j'} k_{j'}}
+\end{align*}
+
+so 
+\begin{align*}
+	E &= \int_0^1 p_j k_j dj \\
+	  &= \int_0^1 \Big (\frac{q_j k_j}{q_{j'} k_{j'}} \Big)^{1-\beta} p_{j'} k_{j'} dj \\
+	  &= \frac{p_{j'} k_{j'}}{\big(q_{j'} k_{j'}\big)^{1-\beta}} \int_0^1 \big( {q_j} {k_j} \big)^{1-\beta}  dj \\
+	  &= \frac{p_{j'}}{q_{j'}^{1-\beta}} k_{j'}^{\beta} K \\
+	\frac{E}{K p_{j'}} &= \frac{k_{j'}^{\beta}}{q_{j'}^{1-\beta}} 
+\end{align*}
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,28 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+                    &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
+\hline
+Spinout=1           &       0.207         &       0.107\sym{*}  &      0.0233\sym{***}&      0.0289         \\
+                    &     (0.105)         &    (0.0494)         &  (1.79e-10)         &    (0.0552)         \\
+[1em]
+Constant            &      -2.843\sym{***}&      -2.852\sym{***}&      -2.744\sym{***}&      -2.817\sym{***}\\
+                    &     (0.134)         &    (0.0116)         &  (1.37e-10)         &    (0.0187)         \\
+[1em]
+State-NAICS4-Year FE&          No         &         Yes         &         Yes         &          No         \\
+[1em]
+State-NAICS4-Age FE &          No         &         Yes         &          No         &         Yes         \\
+[1em]
+State-NAICS4-Cohort FE&          No         &          No         &         Yes         &         Yes         \\
+[1em]
+\_cons              &         Yes         &          No         &          No         &          No         \\
+\hline
+r2\_a                &     0.00180         &       0.274         &       0.343         &       0.359         \\
+r2\_a\_within         &     0.00180         &    0.000544         &   -0.000234         &   -0.000191         \\
+N                   &        8927         &        5326         &        5492         &        5878         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

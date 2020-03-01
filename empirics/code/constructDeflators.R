@@ -15,6 +15,7 @@
 gdpDeflator <- fread("raw/deflators/gdpDeflator.csv")
 names(gdpDeflator) <- c("year","gdpDeflator")
 gdpDeflator[ , year := year(ymd(year))]
+gdpDeflator[ , gdpDeflator := gdpDeflator / 100]
 fwrite(gdpDeflator,"data/deflators/gdpDeflator.csv")
 
 # CPI deflator
@@ -30,6 +31,7 @@ fwrite(cpi[ , .(year,cpiDeflator)],"data/deflators/cpiDeflator.csv")
 investmentDeflator <- fread("raw/deflators/fixedinvestmentDeflator.csv")
 names(investmentDeflator) <- c("year","investmentDeflator")
 investmentDeflator[ , year := year(ymd(year))]
+investmentDeflator[ , investmentDeflator := investmentDeflator / 100]
 fwrite(investmentDeflator,"data/deflators/investmentDeflator.csv")
 
 # R&D deflator
@@ -55,6 +57,7 @@ productivityGrowth[ , growthFactor := cumGrowth / cumGrowth[Year == 2012]]
 setnames(productivityGrowth,"Year","year")
 setnames(productivityGrowth,"growthFactor","productivityDeflator")
 setkey(productivityGrowth,year)
+
 fwrite(productivityGrowth[ , .(year,productivityDeflator)],"data/deflators/productivityDeflator.csv")
 
 

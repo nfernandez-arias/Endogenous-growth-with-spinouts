@@ -1,0 +1,28 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+                    &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
+\hline
+WSO4=1              &      -0.276         &      0.0638         &      0.0824         &       0.105\sym{***}\\
+                    &     (0.184)         &         (.)         &         (.)         & (0.0000513)         \\
+[1em]
+Constant            &      -2.424\sym{***}&      -2.693         &      -2.605         &      -2.693\sym{***}\\
+                    &     (0.133)         &         (.)         &         (.)         &    (0.0150)         \\
+[1em]
+State-NAICS4-Year FE&          No         &         Yes         &         Yes         &          No         \\
+[1em]
+State-NAICS4-Age FE &          No         &         Yes         &          No         &         Yes         \\
+[1em]
+State-NAICS4-Cohort FE&          No         &          No         &         Yes         &         Yes         \\
+[1em]
+\_cons              &         Yes         &          No         &          No         &          No         \\
+\hline
+r2\_a                &     0.00437         &       0.283         &       0.377         &       0.393         \\
+r2\_a\_within         &     0.00437         &   0.0000251         &    0.000177         &    0.000493         \\
+N                   &        8171         &        4611         &        4825         &        5256         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

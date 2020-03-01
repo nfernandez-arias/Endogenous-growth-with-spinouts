@@ -21,7 +21,7 @@
 # I use dynass to form my matches. Anyway...
 
 firmYearStateShares <- fread("data/compustat/firmYearStateShares.csv")[ ,.(gvkey,state,year,ishare)]
-#firmYearStateShares <- fread("data/compustat/firmYearStateShares_bloom.csv")[ ,.(gvkey,state,year,ishare)]
+#firmYearStateShares_bloom <- fread("data/compustat/firmYearStateShares_bloom.csv")[ ,.(gvkey,state,year,ishare)]
 
 NCCenforcementChanges <- fread("data/NCCenforcementChanges.csv")
 

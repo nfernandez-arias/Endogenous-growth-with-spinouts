@@ -18,36 +18,48 @@ rm(list = ls())
 
 # Load data manipulation libraries
 library(data.table)
+library(parallel)
 library(lubridate)
 library(stringr)
 library(zoo)
 library(stringdist)
 library(readstata13)
+library(foreign)
 
 # Load and set up plotting libraries
 library(ggplot2)
+library(estimatr)
 library(ggthemr)
-ggthemr("flat") # Set theme -- controls all plots
+ggthemr("flat")# Set theme -- controls all plots
+library(gridExtra)
+library(gplots)
+library(heatmap3)
 library(xtable)
 
-# Load specific functions
+# Load specific functions       
 complete <- tidyr::complete
 coalesce <- dplyr::coalesce
 NaRV.omit <- IDPmisc::NaRV.omit
 
 # Set working directory
 setwd("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics")
-
+                    
 # Set some parameters
-founderThreshold <- 1
-minimumSpinoutsThreshold <- 10
-excludeAltDG <- FALSE
+founderThreshold <- 3
+minimumSpinoutsThreshold <- 1
+excludeAltDG <- TRUE
 fundingDiscountFactor <- 1.06
+normalizeVariablesStata <- FALSE
 
+startupSpinoutFounderFraction <- 0.1
+
+VSminFoundingYear <- 1986
+VSmaxFoundingYear <- 2008
+    
 technicalTitles <- c("CTO","FDR","CSO","CIO","SADV")
-founderTitles <- c("CEO","CTO","CCEO","PCEO","PRE","PCHM","PCOO","FDR")
+founderTitles <- c("CEO","CTO","CCEO","PCEO","PRE","PCHM","PCOO","FDR","CHF")
 executiveTitles <- c(founderTitles,"CSO","COO","PCOO","CIO","CFO","CHF","CHMN","EVP","MDIR","MGR")
-
+        
 LargeStates <- c("CA","NY","TX","WA","MA","PA","CO","NC","NJ","GA","FL","MI","IL","VA","MD")
 LargestStates <- c("CA","WA","MA","NY","TX")
 
@@ -61,7 +73,7 @@ LargestIndustries_3 <- c("511","334","541","325","519")
 
 # Construct deflators (CPI, GDP, XRD, CAPX, etc.)
 source("code/constructDeflators.R")
-  
+
 # Construct VentureSource - NAICS cross-walk
 source("code/VentureSource/prepare-VentureSource-NAICS-Crosswalk.R")
 
@@ -102,9 +114,9 @@ source("code/mergeRDwithSpinoutCounts.R")
 
 # Merge with compustat-patent data
 source("code/mergePatents_RD-Spinouts.R")
-  
+
 ####
-# BRING IN DATA ON NON-COMPETE ENFORCEMENT CHANGES FROM JEFFERS 2019
+# BRING IN DATA ON NON-COMPETE ENFORCEMENT CHANGES FROM JEFFERS 2019    
 ###
 
 # Add variable encoding whether state has been trated by non-compete enforcement 
@@ -126,21 +138,23 @@ source("code/mergeFirmNCchangesToMasterData.R")
 # Prepare the data for analysis in Stata
 # (because it has better implementations of fixed effect regressions)
 #-------------------------
-  
+
 # Next, prepare the data for panel regressions in Stata   
 source("code/prepareDataForStata.R")
 
 # Prepare dataset for event study to see how    
 # much spinout funding affects parent f irm stock price
 source("code/prepareEventStudyDataset.R")
-        
+      
 #----------------------------
 # ANALYSIS (other than Stata regressions)
 #----------------------------
 
 # Make some summary tables re: the Venture Source data
 #source("code/analysis/")
-          
+
+source("code/analysis/summaryTables.R")
+        
 # Make some scatter plots
 source("code/analysis/makeScatterPlots.R")
 
@@ -162,8 +176,8 @@ source("code/analysis/parentChildIndustryMatrix.R")
 # (2) Fraction of patents coming from "new" firms (firms which first appeared in the patent data)
 
 source("code/patents/statsFromPatentData.R")
-    
-        
+  
+      
 
 
-                
+              

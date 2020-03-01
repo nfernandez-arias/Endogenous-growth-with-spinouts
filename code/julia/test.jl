@@ -1,6 +1,8 @@
 using Revise
 using EndogenousGrowthWithSpinouts
 
+cd("/home/nico/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/code/julia")
+
 algoPar = setAlgorithmParameters()
 modelPar = setModelParameters()
 mGrid,Δm = mGridBuild(algoPar.mGrid)
@@ -21,7 +23,7 @@ gr()
 
 #using JLD2, FileIO, Optim
 #@load "output/calibrationResults_noCNC.jld2" modelMoments modelResults score
-#results = modelResults
+#results = modelResult
 
 #--------------------------------#
 # Make plots and compute statistics
@@ -35,8 +37,6 @@ include("testPlots.jl")
 #--------------------------------#
 
 include("testDiags.jl")
-
-
 
 results1 = results
 results2 = results

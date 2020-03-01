@@ -142,6 +142,8 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     z = zS + zE + zI
     finalGoodsLabor = LF(L_RD,modelPar)
 
+    flowOutput = (((1-β) * wbar^(-1) )^(1-β))/(1-β) * finalGoodsLabor
+
     #-----------------------------------#
     # Calculate entry rates
     #-----------------------------------#
@@ -190,7 +192,8 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
     aggregateRDSpending = aggregateRDSpendingByIncumbents + aggregateRDSpendingBySpinouts + aggregateRDSpendingByEntrants
 
-    RDintensity = aggregateRDSpending / aggregateSales
+    #RDintensity = aggregateRDSpending / aggregateSales
+    RDintensity = aggregateRDSpending / aggregateOutput
 
     # Average wage of RD employee / average wage of production employee (of same human capital)
     WageRatio = (aggregateRDSpending / L_RD)  / wbar
@@ -361,7 +364,7 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
                   ]
 
     lower = [1, 0.02, 1.005, 0.05, 0]
-    upper = [8, 0.9, 1.12, 2, 0.95]
+    upper = [8, 0.3, 1.15, 2, 0.95]
 
     #inner_optimizer = GradientDescent()
     inner_optimizer = LBFGS()

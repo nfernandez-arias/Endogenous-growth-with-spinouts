@@ -8,9 +8,9 @@ parentsSpinouts[ , NAICS1_4 := substr(NAICS1,1,4)]
 parentsSpinouts[ , NAICS1_3 := substr(NAICS1,1,3)]
 parentsSpinouts[ , NAICS1_2 := substr(NAICS1,1,2)]
 parentsSpinouts[ , NAICS1_1 := substr(NAICS1,1,1)]
-
+  
 tempvarlist <- c()
-
+      
 #---------------------------#
 # For each definition of founder, 
 # construct entity-level indicator which
@@ -23,17 +23,39 @@ for (founderType in c("all","founder2","technical","executive"))
   entityfounderString <- paste("Entity_",founderType,sep = "")
   entityfounderFromPublicString <- paste(entityfounderString,"_fromPublic", sep = "")
   
+  # Construct flag as from public if at least startupSpinoutFounderFraction of founders are from public
+  
   parentsSpinouts[ , (entityfounderString) := max(get(founderType)), by = EntityID]
   
-  parentsSpinouts[ , (entityfounderFromPublicString) := max(get(entityfounderString) * fromPublic), by = EntityID]
+  parentsSpinouts[ , (entityfounderFromPublicString) := sum(fromPublic * get(founderType)) / sum(get(founderType)), 
+                   by = EntityID]
   
+  parentsSpinouts[ get(entityfounderFromPublicString) >= startupSpinoutFounderFraction & get(entityfounderString) == 1,
+                   (entityfounderFromPublicString) := 1]
+  
+  parentsSpinouts[ get(entityfounderFromPublicString) < startupSpinoutFounderFraction & get(entityfounderString) == 1,
+                   (entityfounderFromPublicString) := 0]
+  
+  parentsSpinouts[ get(entityfounderString) == 0, (entityfounderFromPublicString) := NA]
+  
+  #parentsSpinouts[ , (entityfounderFromPublicString) := max(get(entityfounderString) * fromPublic), by = EntityID]
+      
   for (i in 1:4)
   {
     wsoLowerCase <- paste("wso",i,sep = "")
     wsoString <- paste("WSO",i,sep = "")
     entitywsoString <- paste("Entity_",founderType,"_",wsoString, sep = "")
+  
+    # Construct flag as WSOi if at least startupSpinoutFounderFraction of founders of founderType as WSOi
+    parentsSpinouts[ , (entitywsoString) := sum(get(wsoLowerCase) * get(founderType)) /sum(get(founderType)), 
+                     by = EntityID]
+    parentsSpinouts[ get(entitywsoString) >= startupSpinoutFounderFraction & get(entitywsoString) != Inf, 
+                     (entitywsoString) := 1]
+    parentsSpinouts[ get(entitywsoString) < startupSpinoutFounderFraction & get(entitywsoString) != Inf, 
+                     (entitywsoString) := 0]
+    parentsSpinouts[ get(entitywsoString) == Inf, (entitywsoString) := NA ]
     
-    parentsSpinouts[ , (entitywsoString) := max(get(wsoLowerCase) * get(founderType)) , by = EntityID]
+    #parentsSpinouts[ , (entitywsoString) := max(get(wsoLowerCase) * get(founderType)) , by = EntityID]
     
     tempvarlist <- c(tempvarlist,entitywsoString)
     
@@ -54,12 +76,10 @@ setkey(spinoutsID,EntityID)
 setkey(data,EntityID)
 
 data <- spinoutsID[data]
-
+    
 # Export for regression analysis
 fwrite(data,"data/VentureSource/startupsPathsStata.csv")
-
-#data <- data[year >= 1995 & year <= 2005]
-
+#write.dta(data,"data/VentureSource/startupPathsStata.dta")
 
 #---------------------------#
 # Make plots!
@@ -67,10 +87,12 @@ fwrite(data,"data/VentureSource/startupsPathsStata.csv")
 
 data_store <- data
 
+entityMinAge <- 0
+
 for (founderType in c("all","founder2","executive","technical"))
 {
   
-  # Consider the universe of startups that have at least one "founder"
+  # Consider the universe of startups that have at least one "founder"  
   # under the four definitions of founder
   entityfounderString <- paste("Entity_",founderType,sep = "")
   data <- data_store[ get(entityfounderString) == 1]
@@ -78,15 +100,19 @@ for (founderType in c("all","founder2","executive","technical"))
   entityfounderFromPublicString <- paste(entityfounderString,"_fromPublic", sep = "")
   
   #---------------------------------------------#
-  # Make plots of quantiles of startup success
+  # Make plots of startup success
   # metric vs. startup age.
   #---------------------------------------------#
   
-  
-  
   for (var in c("lEmployeeCount","lPostValUSD","lPostValUSDdivEmployeeCount",
-                "lrevenue","lrevenuedivEmployeeCount","goingOutOfBusiness"))
+                "lrevenue","lrevenuedivEmployeeCount","goingOutOfBusiness","successfullyExiting"))
   {
+    
+    # First calculate unconditional -- nothing vs age
+    varNum <- paste0(founderType,"_",var,"_unconditional")
+    assign(varNum,data[ EntityAge >= entityMinAge , mean(na.omit(as.double(get(var)))), by = get(entityfounderFromPublicString)])
+    
+    
     varTable <- paste("data_",var,sep = "")
     outerTemp_State <- data[ , .(avg = mean( na.omit(as.double(get(var)))),
                                  q05 = quantile(na.omit(as.double(get(var))),0.05), 
@@ -215,7 +241,7 @@ for (founderType in c("all","founder2","executive","technical"))
     
     if (var %in% c("lEmployeeCount","lPostValUSD","lPostValUSDdivEmployeeCount","lrevenue","lrevenuedivEmployeeCount"))
     {
-      ggplot(outerTemp[EntityAge <= 15 & EntityAge >= 3], aes(x = EntityAge, linetype = group)) + 
+      ggplot(outerTemp[EntityAge <= 15 & EntityAge >= entityMinAge], aes(x = EntityAge, linetype = group)) + 
         geom_line(aes(y = q05, color = "q05")) +
         #geom_line(aes(y = q10, color = "q10")) + 
         geom_line(aes(y = q25, color = "q25")) + 
@@ -226,17 +252,69 @@ for (founderType in c("all","founder2","executive","technical"))
         #theme(text = element_text(size=14)) +
         #theme(legend.position = "none") +
         ggtitle(paste(var, " by startup age", sep = "")) +
+        theme(plot.title = element_text(hjust = 0.5)) +
         #ggtitle("Unadjusted") + 
         #xlim(1986,2009) + 
         ylab(paste("Quantiles of ",var,sep = "")) +
-        xlab("Years") + 
+        xlab("Age") + 
         facet_wrap(.~subplot, ncol = 2)
       
       filePath = paste("figures/plots/startupLifeCycle_",founderType,"_",var,".pdf",sep = "")
       
-      ggsave(filePath, plot = last_plot(), device = "pdf")
+      ggsave(filePath, plot = last_plot(), device = "pdf", width = 12, height = 8, units = "in")
       
-      ggplot(outerTemp_State[EntityAge <= 15 & EntityAge >= 3 & State %in% LargestStates], aes(x = EntityAge, linetype = group)) + 
+      ggplot(outerTemp[EntityAge <= 15 & EntityAge >= entityMinAge], aes(x = EntityAge, linetype = group)) + 
+        geom_line(aes(y = avg, color = "avg")) +
+        #theme(text = element_text(size=14)) +
+        #theme(legend.position = "none") +
+        ggtitle(paste(var, " by startup age", sep = "")) +
+        theme(plot.title = element_text(hjust = 0.5)) +
+        #ggtitle("Unadjusted") + 
+        #xlim(1986,2009) + 
+        ylab(paste("Mean ",var,sep = "")) +
+        xlab("Age") + 
+        facet_wrap(.~subplot, ncol = 2)
+      
+      filePath = paste("figures/plots/startupLifeCycle_",founderType,"_avg_",var,".pdf",sep = "")
+      
+      ggsave(filePath, plot = last_plot(), device = "pdf", width = 12, height = 8, units = "in")
+      
+      outerTemp_1 <- outerTemp[(EntityAge <= 15 & EntityAge >= entityMinAge) & (subplot == "Spinouts vs Non-Spinouts" | subplot == "WSO4 vs Non-WSO4")]
+      outerTemp_1[ subplot == "Spinouts vs Non-Spinouts" & group == "Left", group := "Spinouts"]
+      outerTemp_1[ subplot == "Spinouts vs Non-Spinouts" & group == "Right", group := "Other startups"]
+      outerTemp_1[ subplot == "Spinouts vs Non-Spinouts" , subplot := "SvNoS"]
+      outerTemp_1[ subplot == "WSO4 vs Non-WSO4" & group == "Left", group := "WSO4 Spinouts"]
+      outerTemp_1[ subplot == "WSO4 vs Non-WSO4" & group == "Right", group := "Non-WSO4 Spinouts"]
+      outerTemp_1[ subplot == "WSO4 vs Non-WSO4", subplot := "WSO4vNoWSO4"]
+      
+      labels <- c("Spinouts vs Non-Spinouts", "WSO4 vs Non-WSO4")
+      names(labels) <- c("SvNoS","WSO4vNoWSO4")
+      
+      outerTemp_1 <- split(outerTemp_1, f = outerTemp_1$subplot)
+      
+      p1 <- ggplot(outerTemp_1$SvNoS, aes(x = EntityAge, linetype = group)) + 
+        geom_line(aes(y = avg)) +
+        #theme(text = element_text(size=14)) +
+        #theme(legend.position = "none") +  
+        ggtitle(paste0("Mean ", var, " by startup age")) +
+        theme(legend.position = "bottom") +
+        guides(linetype = guide_legend(title = "Legend")) +  
+        #theme(plot.title = element_text(hjust = 0.5)) +
+        #ggtitle("Unadjusted") + 
+        #xlim(1986,2009) + 
+        ylab(paste("Mean ",var,sep = "")) +
+        xlab("Age") + 
+        facet_wrap( ~subplot, ncol = 2, labeller = labeller(subplot = labels)) 
+        
+      p2 <- p1 %+% outerTemp_1$WSO4vNoWSO4
+      
+      p3 <- grid.arrange(p1,p2, nrow = 1)
+      
+      filePath = paste("figures/plots/startupLifeCycle_",founderType,"_avg_SvNoS_WSO4vNoWSO4_",var,".pdf",sep = "")
+      
+      ggsave(filePath, plot = p3, device = "pdf", width = 10, height = 4, units = "in")
+      
+      ggplot(outerTemp_State[EntityAge <= 15 & EntityAge >= entityMinAge & State %in% LargestStates], aes(x = EntityAge, linetype = group)) + 
         geom_line(aes(y = q05, color = "q05")) +
         #geom_line(aes(y = q10, color = "q10")) + 
         geom_line(aes(y = q25, color = "q25")) + 
@@ -247,15 +325,32 @@ for (founderType in c("all","founder2","executive","technical"))
         #theme(text = element_text(size=14)) +
         #theme(legend.position = "none") +
         ggtitle(paste(var, " by startup age", sep = "")) +
+        theme(plot.title = element_text(hjust = 0.5)) +
         #ggtitle("Unadjusted") + 
         #xlim(1986,2009) + 
         ylab(paste("Quantiles of ",var,sep = "")) +
-        xlab("Years") + 
+        xlab("Age") + 
         facet_wrap(State~subplot, ncol = 5)
       
       filePath = paste("figures/plots/startupLifeCycle_", founderType, "_State_", var,".pdf",sep = "")
       
-      ggsave(filePath, plot = last_plot(), device = "pdf")
+      ggsave(filePath, plot = last_plot(), device = "pdf", width = 12, height = 8, units = "in")
+      
+      ggplot(outerTemp_State[EntityAge <= 15 & EntityAge >= entityMinAge & State %in% LargestStates], aes(x = EntityAge, linetype = group)) + 
+        geom_line(aes(y = avg, color = "avg")) +
+        #theme(text = element_text(size=14)) +
+        #theme(legend.position = "none") +
+        ggtitle(paste(var, " by startup age", sep = "")) +
+        theme(plot.title = element_text(hjust = 0.5)) +
+        #ggtitle("Unadjusted") + 
+        #xlim(1986,2009) + 
+        ylab(paste("Mean ",var,sep = "")) +
+        xlab("Age") + 
+        facet_wrap(State~subplot, ncol = 5)
+      
+      filePath = paste("figures/plots/startupLifeCycle_", founderType, "_avg", "_State_", var,".pdf",sep = "")
+      
+      ggsave(filePath, plot = last_plot(), device = "pdf", width = 12, height = 8, units = "in")
       
       for (j in 1:3) 
       {
@@ -263,7 +358,7 @@ for (founderType in c("all","founder2","executive","technical"))
         dtString_inner <- paste("outerTemp",naicsString, sep = "_")
         naicsListString <- paste("LargestIndustries",j,sep = "_")
         
-        ggplot(get(dtString_inner)[EntityAge <= 15 & EntityAge >= 3 & get(naicsString) %in% get(naicsListString)], aes(x = EntityAge, linetype = group)) + 
+        ggplot(get(dtString_inner)[EntityAge <= 15 & EntityAge >= entityMinAge & get(naicsString) %in% get(naicsListString)], aes(x = EntityAge, linetype = group)) + 
           geom_line(aes(y = q05, color = "q05")) +
           #geom_line(aes(y = q10, color = "q10")) + 
           geom_line(aes(y = q25, color = "q25")) + 
@@ -274,47 +369,122 @@ for (founderType in c("all","founder2","executive","technical"))
           #theme(text = element_text(size=14)) +
           #theme(legend.position = "none") +
           ggtitle(paste(var, " by startup age", sep = "")) +
+          theme(plot.title = element_text(hjust = 0.5)) +
           #ggtitle("Unadjusted") + 
           #xlim(1986,2009) + 
           ylab(paste("Quantiles of ",var,sep = "")) +
-          xlab("Years") + 
+          xlab("Age") + 
           facet_wrap(get(naicsString)~subplot, ncol = 5)
         
         filePath = paste("figures/plots/startupLifeCycle_", founderType, "_", naicsString, "_", var, ".pdf",sep = "")
         
-        ggsave(filePath, plot = last_plot(), device = "pdf")
+        ggsave(filePath, plot = last_plot(), device = "pdf", width = 12, height = 8, units = "in")
+        
+        ggplot(get(dtString_inner)[EntityAge <= 15 & EntityAge >= entityMinAge & get(naicsString) %in% get(naicsListString)], aes(x = EntityAge, linetype = group)) + 
+          geom_line(aes(y = avg, color = "avg")) +
+          #theme(text = element_text(size=14)) +
+          #theme(legend.position = "none") +
+          ggtitle(paste(var, " by startup age", sep = "")) +
+          theme(plot.title = element_text(hjust = 0.5)) +
+          #ggtitle("Unadjusted") + 
+          #xlim(1986,2009) + 
+          ylab(paste("Mean ",var,sep = "")) +
+          xlab("Age") + 
+          facet_wrap(get(naicsString)~subplot, ncol = 5)
+        
+        filePath = paste("figures/plots/startupLifeCycle_", founderType, "_avg_", naicsString, "_", var, ".pdf",sep = "")
+        
+        ggsave(filePath, plot = last_plot(), device = "pdf", width = 12, height = 8, units = "in")
       }
     } else
     {
-      ggplot(outerTemp[EntityAge <= 15 & EntityAge >= 3], aes(x = EntityAge, linetype = group)) + 
+      ggplot(outerTemp[EntityAge <= 15 & EntityAge >= entityMinAge], aes(x = EntityAge, linetype = group)) + 
         geom_line(aes(y = avg, color = "avg")) +
         #theme(text = element_text(size=14)) +
         #theme(legend.position = "none") +
         ggtitle(paste(var, " by startup age", sep = "")) +
+        theme(plot.title = element_text(hjust = 0.5)) +
         #ggtitle("Unadjusted") + 
         #xlim(1986,2009) + 
         ylab(paste("Quantiles of ",var,sep = "")) +
-        xlab("Years") + 
+        xlab("Age") + 
         facet_wrap(.~subplot, ncol = 2)
       
       filePath = paste("figures/plots/startupLifeCycle_",founderType,"_",var,".pdf",sep = "")
       
-      ggsave(filePath, plot = last_plot(), device = "pdf")
+      ggsave(filePath, plot = last_plot(), device = "pdf", width = 12, height = 8, units = "in")
       
-      ggplot(outerTemp_State[EntityAge <= 15 & EntityAge >= 3 & State %in% LargestStates], aes(x = EntityAge, linetype = group)) + 
+      # Just S v no S and WSO4 vs no WSO4
+      
+      outerTemp_1 <- outerTemp[(EntityAge <= 15 & EntityAge >= entityMinAge) & (subplot == "Spinouts vs Non-Spinouts" | subplot == "WSO4 vs Non-WSO4")]
+      outerTemp_1[ subplot == "Spinouts vs Non-Spinouts" & group == "Left", group := "Spinouts"]
+      outerTemp_1[ subplot == "Spinouts vs Non-Spinouts" & group == "Right", group := "Other startups"]
+      outerTemp_1[ subplot == "Spinouts vs Non-Spinouts" , subplot := "SvNoS"]
+      outerTemp_1[ subplot == "WSO4 vs Non-WSO4" & group == "Left", group := "WSO4 Spinouts"]
+      outerTemp_1[ subplot == "WSO4 vs Non-WSO4" & group == "Right", group := "Non-WSO4 Spinouts"]
+      outerTemp_1[ subplot == "WSO4 vs Non-WSO4", subplot := "WSO4vNoWSO4"]
+      
+      labels <- c("Spinouts vs Non-Spinouts", "WSO4 vs Non-WSO4")
+      names(labels) <- c("SvNoS","WSO4vNoWSO4")
+      
+      outerTemp_1 <- split(outerTemp_1, f = outerTemp_1$subplot)
+      
+      p1 <- ggplot(outerTemp_1$SvNoS, aes(x = EntityAge, linetype = group)) + 
+        geom_line(aes(y = avg)) +
+        #theme(text = element_text(size=14)) +
+        #theme(legend.position = "none") +  
+        #ggtitle(paste0("Hazard rate of ", var, " by startup age")) +
+        theme(legend.position = "bottom") +
+        guides(linetype = guide_legend(title = "Legend")) +  
+        #theme(plot.title = element_text(hjust = 0.5)) +
+        #ggtitle("Unadjusted") + 
+        #xlim(1986,2009) + 
+        ylab(paste("Hazard rate of ",var,sep = "")) +
+        xlab("Age") + 
+        facet_wrap( ~subplot, ncol = 2, labeller = labeller(subplot = labels)) 
+      
+      p2 <- p1 %+% outerTemp_1$WSO4vNoWSO4
+      
+      p3 <- grid.arrange(p1,p2, nrow = 1)
+      
+      filePath = paste("figures/plots/startupLifeCycle_",founderType,"_avg_SvNoS_WSO4vNoWSO4_",var,".pdf",sep = "")
+      
+      ggsave(filePath, plot = p3, device = "pdf", width = 10, height = 4, units = "in")
+      
+        # State
+      
+      ggplot(outerTemp[EntityAge <= 15 & EntityAge >= entityMinAge], aes(x = EntityAge, linetype = group)) + 
         geom_line(aes(y = avg, color = "avg")) +
         #theme(text = element_text(size=14)) +
         #theme(legend.position = "none") +
         ggtitle(paste(var, " by startup age", sep = "")) +
+        theme(plot.title = element_text(hjust = 0.5)) +
         #ggtitle("Unadjusted") + 
         #xlim(1986,2009) + 
         ylab(paste("Quantiles of ",var,sep = "")) +
-        xlab("Years") + 
+        xlab("Age") + 
+        facet_wrap(.~subplot, ncol = 2)
+      
+      filePath = paste("figures/plots/startupLifeCycle_",founderType,"_",var,".pdf",sep = "")
+      
+      ggsave(filePath, plot = last_plot(), device = "pdf", width = 12, height = 8, units = "in")
+      
+      
+      ggplot(outerTemp_State[EntityAge <= 15 & EntityAge >= entityMinAge & State %in% LargestStates], aes(x = EntityAge, linetype = group)) + 
+        geom_line(aes(y = avg, color = "avg")) +
+        #theme(text = element_text(size=14)) +
+        #theme(legend.position = "none") +
+        ggtitle(paste(var, " by startup age", sep = "")) +
+        theme(plot.title = element_text(hjust = 0.5)) +
+        #ggtitle("Unadjusted") + 
+        #xlim(1986,2009) + 
+        ylab(paste("Quantiles of ",var,sep = "")) +
+        xlab("Age") + 
         facet_wrap(State~subplot, ncol = 5)
       
       filePath = paste("figures/plots/startupLifeCycle_", founderType, "_State_", var,".pdf",sep = "")
       
-      ggsave(filePath, plot = last_plot(), device = "pdf")
+      ggsave(filePath, plot = last_plot(), device = "pdf", width = 12, height = 8, units = "in")
       
       for (j in 1:3) 
       {
@@ -322,20 +492,21 @@ for (founderType in c("all","founder2","executive","technical"))
         dtString_inner <- paste("outerTemp",naicsString, sep = "_")
         naicsListString <- paste("LargestIndustries",j,sep = "_")
         
-        ggplot(get(dtString_inner)[EntityAge <= 15 & EntityAge >= 3 & get(naicsString) %in% get(naicsListString)], aes(x = EntityAge, linetype = group)) + 
+        ggplot(get(dtString_inner)[EntityAge <= 15 & EntityAge >= entityMinAge & get(naicsString) %in% get(naicsListString)], aes(x = EntityAge, linetype = group)) + 
           geom_line(aes(y = avg, color = "avg")) +
           #theme(text = element_text(size=14)) +
           #theme(legend.position = "none") +
           ggtitle(paste(var, " by startup age", sep = "")) +
+          theme(plot.title = element_text(hjust = 0.5)) +
           #ggtitle("Unadjusted") + 
           #xlim(1986,2009) + 
           ylab(paste("Quantiles of ",var,sep = "")) +
-          xlab("Years") + 
+          xlab("Age") + 
           facet_wrap(get(naicsString)~subplot, ncol = 5)
         
         filePath = paste("figures/plots/startupLifeCycle_", founderType, "_", naicsString, "_", var, ".pdf",sep = "")
         
-        ggsave(filePath, plot = last_plot(), device = "pdf")
+        ggsave(filePath, plot = last_plot(), device = "pdf", width = 12, height = 8, units = "in")
       }
     }
   }
@@ -348,7 +519,7 @@ for (founderType in c("all","founder2","executive","technical"))
   #dataOverTime <- data[EntityAge >= 3 & EntityAge <= 20]
   
   for (var in c("lEmployeeCount","lPostValUSD","lPostValUSDdivEmployeeCount",
-                "lrevenue","lrevenuedivEmployeeCount","goingOutOfBusiness"))
+                "lrevenue","lrevenuedivEmployeeCount","goingOutOfBusiness","successfullyExiting"))
   {
     varTable <- paste("data_overTime_",var,sep = "")
     outerTemp <- data_overTime[ , .(avg = mean( na.omit(as.double(get(var)))),
@@ -411,6 +582,7 @@ for (founderType in c("all","founder2","executive","technical"))
         #theme(text = element_text(size=14)) +
         #theme(legend.position = "none") +
         ggtitle(paste(var, " by year", sep = "")) +
+        theme(plot.title = element_text(hjust = 0.5)) +
         #ggtitle("Unadjusted") + 
         #xlim(1986,2009) + 
         ylab(paste("Quantiles of ",var,sep = "")) +
@@ -424,6 +596,7 @@ for (founderType in c("all","founder2","executive","technical"))
         #theme(text = element_text(size=14)) +
         #theme(legend.position = "none") +
         ggtitle(paste(var, " by year", sep = "")) +
+        theme(plot.title = element_text(hjust = 0.5)) +
         #ggtitle("Unadjusted") + 
         #xlim(1986,2009) + 
         ylab(paste("Mean of ",var,sep = "")) +
@@ -433,42 +606,57 @@ for (founderType in c("all","founder2","executive","technical"))
     
     filePath = paste("figures/plots/startupOverTime_", founderType, "_", var,".pdf",sep = "")
     
-    ggsave(filePath, plot = last_plot(), device = "pdf")
+    ggsave(filePath, plot = last_plot(), device = "pdf", width = 12, height = 8, units = "in")
     
   }
   
 }
 
+#-----------------------------#
+# Construct table of raw comparisons
+#-----------------------------#
+
+for (var in c("lEmployeeCount","lPostValUSD","lPostValUSDdivEmployeeCount",
+              "lrevenue","lrevenuedivEmployeeCount","goingOutOfBusiness","successfullyExiting"))
+{
+  
+  outputTableString <- paste0("table_raw_comparison_",var)
+  
+  outer <- data.table()
+  
+  for (founderType in c("all","founder2","executive","technical"))
+  {
+    inputTableString <- paste0(founderType,"_",var,"_unconditional")
+    
+    temp <- get(inputTableString)$V1
+    
+    outer <- rbind(outer,t(c(founderType,as.double(temp))))
+    
+  }
+  
+  names(outer) <- c("Definition of founder","Spinouts","Other")
+  
+  outer[ , Other := as.double(Other)]
+  outer[ , Spinouts := as.double(Spinouts)]
+  
+  assign(outputTableString,outer)
+    
+  captionString <- paste0("Average ",var," by cateogry of startup and by definition of founder. Startups are classified as spinouts if",
+                          " at least a fraction ", startupSpinoutFounderFraction ," their founders are from a ",
+                          "public firm in Compustat.")
+  
+  outerXtable <- xtable(outer,align = c("r","p{1.5cm}","c","c"), 
+                         caption = captionString, 
+                         label = paste0("table:raw_comparison_",var),
+                         digits = 2)
+  
+  filePath <- paste0("figures/tables/",outputTableString,".tex")
+  print(outerXtable,filePath, type = "latex", size = "\\small", include.rownames = FALSE, floating = TRUE, booktabs = TRUE, table.placement = "!htb")
+  
+      
+}
 
 
 
       
-
-
-
-
-## First make scatter plot
-
-#ggplot(data[ !is.na(lEmployeeCount)],aes(x = EntityAge, y = lEmployeeCount)) + 
-#  geom_point(size = 0.1)
-
-
-
-
-ggplot(averageEmployeeCountsWSO4[!is.na(EntityWso4) & EntityAge <= 15], aes(x = EntityAge, group = group, color = group)) + 
-  geom_line(aes(y = q03, linetype = "q03")) +
-  geom_line(aes(y = q10, linetype = "q10")) + 
-  geom_line(aes(y = q25, linetype = "q25")) + 
-  geom_line(aes(y = q50, linetype = "q50")) +
-  geom_line(aes(y = q75, linetype = "q75")) +
-  geom_line(aes(y = q90, linetype = "q90")) +
-  geom_line(aes(y = q97, linetype = "q97")) +
-  #theme(text = element_text(size=14)) +
-  #theme(legend.position = "none") +
-  ggtitle("Employment paths for WSO4 and non-WSO4 (excl. non-spinouts)") +
-  #ggtitle("Unadjusted") + 
-  #xlim(1986,2009) + 
-  ylab("Quantiles of log employment") +
-  xlab("Firm age")
-
 

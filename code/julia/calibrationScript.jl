@@ -32,8 +32,8 @@ modelPar.CNC = false
 
 RDintensity = CalibrationTarget(0.025,1)
 InternalPatentShare = CalibrationTarget(0.85,1)
-SpinoutEntryRate = CalibrationTarget(0.025,1)
-SpinoutShare = CalibrationTarget(0.17,1)
+SpinoutEntryRate = CalibrationTarget(0.03,1)
+SpinoutShare = CalibrationTarget(0.3,1)
 g = CalibrationTarget(0.015,1)
 RDLaborAllocation = CalibrationTarget(.05,0)
 #WageRatio = CalibrationTarget(0.9,1)

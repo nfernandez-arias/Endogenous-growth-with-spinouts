@@ -15,7 +15,7 @@ parentsSpinouts <- fread("data/parentsSpinoutsWSO.csv")
 #-----------------------------------#
 # Construct counts of founders in each year
 #-----------------------------------#
-
+    
 setnames(parentsSpinouts,"joinYear","year")
 
 for (founderType in c("all","technical","founder2","executive"))
@@ -41,13 +41,13 @@ for (founderType in c("all","technical","founder2","executive"))
     #theme(legend.position = "none") +
     ggtitle(paste(paste("Number of founders: ",founderType,sep = ""), " founders",sep = "")) +
     #ggtitle("Unadjusted") + 
-    xlim(1986,2015) + 
-    ylab("Number of entrepreneurs") +
+    xlim(1986,2011) + 
+    ylab("Number of founders") +
     xlab("Join Year")
   
   filePath = paste(paste("figures/plots/founderCountsByYear",founderType,sep = "_"),".pdf",sep = "")
   
-  ggsave(filePath, plot = last_plot(), device = "pdf")
+  ggsave(filePath, plot = last_plot(), device = "pdf", width = 12, height = 8)
   
   outputName <- paste("founderCounts",founderType,sep = "_")
   
@@ -72,13 +72,13 @@ for (founderType in c("all","technical","founder2","executive"))
     #theme(legend.position = "none") +
     ggtitle(paste(paste("Fraction of founders: ",founderType,sep = ""), " founders",sep = "")) +
     #ggtitle("Unadjusted") + 
-    xlim(1986,2015) + 
-    ylab("Number of entrepreneurs") +
+    xlim(1986,2011) + 
+    ylab("Fraction of founders") +
     xlab("Join Year")
   
   filePath = paste(paste("figures/plots/founderFractionsByYear",founderType,sep = "_"),".pdf",sep = "")
   
-  ggsave(filePath, plot = last_plot(), device = "pdf")
+  ggsave(filePath, plot = last_plot(), device = "pdf", width = 12, height = 8)
   
   outputName <- paste("founderFractions",founderType,sep = "_")
   
@@ -109,13 +109,13 @@ for (founderType in c("all","technical","founder2","executive"))
     #theme(legend.position = "none") +
     ggtitle(paste(paste("Fraction of founders: ",founderType,sep = ""), " founders",sep = "")) +
     #ggtitle("Unadjusted") + 
-    xlim(1986,2015) + 
-    ylab("Number of entrepreneurs") +
+    xlim(1986,2011) + 
+    ylab("Fraction of founders") +
     xlab("Join Year")
   
   filePath = paste(paste("figures/plots/founderFractionsByYearHasBio",founderType,sep = "_"),".pdf",sep = "")
   
-  ggsave(filePath, plot = last_plot(), device = "pdf")
+  ggsave(filePath, plot = last_plot(), device = "pdf", width = 12, height = 8)
   
   outputName <- paste("founderFractionsHasBio",founderType,sep = "_")
   
@@ -146,13 +146,13 @@ for (founderType in c("all","technical","founder2","executive"))
     #theme(legend.position = "none") +
     ggtitle(paste(paste("Fraction of founders: ",founderType,sep = ""), " founders",sep = "")) +
     #ggtitle("Unadjusted") + 
-    xlim(1986,2015) + 
-    ylab("Number of entrepreneurs") +
+    xlim(1986,2011) + 
+    ylab("Fraction of founders") +
     xlab("Join Year")
   
   filePath = paste(paste("figures/plots/founderFractionsByYearHasBioNoJoinYearImputation",founderType,sep = "_"),".pdf",sep = "")
   
-  ggsave(filePath, plot = last_plot(), device = "pdf")
+  ggsave(filePath, plot = last_plot(), device = "pdf", width = 12, height = 8)
   
   outputName <- paste("founderFractionsHasBioNoJoinYearImputation",founderType,sep = "_")
   
@@ -179,14 +179,14 @@ for (founderType in c("all","technical","founder2","executive"))
     #theme(legend.position = "none") +
     ggtitle(paste(paste("Number of founders: ",founderType,sep = ""), " founders",sep = "")  ) +
     #ggtitle("Unadjusted") + 
-    xlim(1986,2015) + 
-    ylab("Number of entrepreneurs") +
+    xlim(1986,2011) + 
+    ylab("Number of founders") +
     xlab("Join Year") + 
     facet_wrap(~ EntityState, ncol = 4) 
   
   filePath = paste(paste("figures/plots/founderCountsByStateYear",founderType,sep = "_"),".pdf",sep = "")
   
-  ggsave(filePath, plot = last_plot(), device = "pdf")
+  ggsave(filePath, plot = last_plot(), device = "pdf", width = 12, height = 8)
   
   outputName <- paste("founderCountsState",founderType,sep = "_")
   
@@ -215,14 +215,14 @@ for (founderType in c("all","technical","founder2","executive"))
     #theme(legend.position = "none") +
     ggtitle(paste(paste("Fraction of founders: ",founderType,sep = ""), " founders",sep = "")) +
     #ggtitle("Unadjusted") + 
-    xlim(1986,2015) + 
-    ylab("Number of entrepreneurs") +
+    xlim(1986,2011) + 
+    ylab("Fraction of founders") +
     xlab("Join Year") + 
     facet_wrap(~ EntityState, ncol = 4) 
   
   filePath = paste(paste("figures/plots/founderFractionsByStateYear",founderType,sep = "_"),".pdf",sep = "")
   
-  ggsave(filePath, plot = last_plot(), device = "pdf")
+  ggsave(filePath, plot = last_plot(), device = "pdf", width = 12, height = 8)
   
   outputName <- paste("founderFractionsState",founderType,sep = "_")
   
@@ -252,14 +252,14 @@ for (founderType in c("all","technical","founder2","executive"))
     #theme(legend.position = "none") +
     ggtitle(paste(paste("Fraction of founders: ",founderType,sep = ""), " founders",sep = "")) +
     #ggtitle("Unadjusted") + 
-    xlim(1986,2015) + 
-    ylab("Number of entrepreneurs") +
+    xlim(1986,2011) + 
+    ylab("Fraction of founders") +
     xlab("Join Year") + 
     facet_wrap(~ EntityState, ncol = 4) 
   
   filePath = paste(paste("figures/plots/founderFractionsByStateYearHasBio",founderType,sep = "_"),".pdf",sep = "")
   
-  ggsave(filePath, plot = last_plot(), device = "pdf")
+  ggsave(filePath, plot = last_plot(), device = "pdf", width = 12, height = 8)
   
   outputName <- paste("founderFractionsStateHasBio",founderType,sep = "_")
   
@@ -267,17 +267,17 @@ for (founderType in c("all","technical","founder2","executive"))
   
 }
 
+#-----------------------------------#
+# Make a plot with all
+#-----------------------------------#
+
+#data_all <- rbind(founderFractions)  
+
 
 
 #-----------------------------------#
 # Make some tables
 #-----------------------------------#
-
-# quick table: number of startups founded 
-# in each year
-
-startupsCountByYear <- unique(parentsSpinouts,by = "EntityID")[ , .(startupsCount = .N), by = foundingYear]
-setkey(startupsCountByYear,foundingYear)
 
 ## Table 1 (a,b,c,d): 
 # 
@@ -327,34 +327,37 @@ for (founderType in c("all","technical","founder2","executive"))
     assign(tableNameString,temp)
     
     # Print latex table
-    names(temp) <- c("Year","Number of entrepreneurs","Number of start-ups","Number of entrepreneurs from public companies",
+    names(temp) <- c("Year","Number of founders","Number of start-ups","Number of founders from public companies",
                      "Fraction from public companies (%)","Fraction from public companies when bio. info available (%)",
                      "Fraction from public companies in same 4-digit NAICS (%)","Fraction from public companies in same 4-digit NAICS when bio. info available (%)")
     
     
     if (founderType == "all")
     {
-      captionString <- paste("Summary of entrepreneurs. Here, \"entrepreneur\" includes all individuals employed at startups in",
+      captionString <- paste("Summary of founders. Here, \"founder\" includes all individuals employed at startups in",
                         " the VentureSource database who joined the startup within ",founderThreshold," year(s) of its founding year.", sep = "")
     } else if (founderType == "technical")
     {
-      captionString <- paste("Summary of entrepreneurs. Here, \"entrepreneur\" includes all individuals employed at startups in"
+      captionString <- paste("Summary of founders. Here, \"founder\" includes all individuals employed at startups in"
                                          ,"the VentureSource database who (1) joined the startup within ",founderThreshold,
                                          " year(s) of its founding year; and (2) have the title of ",paste0(technicalTitles, collapse = ", "),".",sep = "")
     } else if (founderType == "founder2")
     {
-      captionString <- paste("Summary of entrepreneurs. Here, \"entrepreneur\" includes all individuals employed at startups in"
+      captionString <- paste("Summary of founders. Here, \"founder\" includes all individuals employed at startups in"
                              ,"the VentureSource database who (1) joined the startup within ",founderThreshold,
                              " year(s) of its founding year; and (2) have the title of ",paste0(founderTitles, collapse = ", "),".",sep = "")
     } else if (founderType == "executive")
     {
-      captionString <- paste("Summary of entrepreneurs. Here, \"entrepreneur\" includes all individuals employed at startups in"
+      captionString <- paste("Summary of founders. Here, \"founder\" includes all individuals employed at startups in"
                              ,"the VentureSource database who (1) joined the startup within ",founderThreshold,
                              " year(s) of its founding year; and (2) have the title of ",paste0(executiveTitles, collapse = ", "),".",sep = "")
     }
     
     
-    tempXtable <- xtable(temp,align = c("c","p{1.75cm}","p{1.75cm}","p{1.75cm}","p{1.75cm}","p{1.75cm}","p{1.75cm}","p{1.75cm}","p{1.75cm}"), caption = captionString, digits = 1)
+    tempXtable <- xtable(temp,align = c("c","p{1.75cm}","p{1.75cm}","p{1.75cm}","p{1.75cm}","p{1.75cm}","p{1.75cm}","p{1.75cm}","p{1.75cm}"), 
+                         caption = captionString, 
+                         label = paste0("table:GStable_",founderType),
+                         digits = 1)
     filePath <- paste(paste("figures/tables/",tableNameString, sep = ""),".tex",sep = "")
     print(tempXtable,filePath, type = "latex", size = "\\scriptsize", include.rownames = FALSE, booktabs = TRUE, table.placement = "!htb")
     

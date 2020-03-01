@@ -1,0 +1,414 @@
+\begin{table}[!htb]
+\centering
+\begingroup\scriptsize
+\begin{tabular}{p{4.5cm}llrllrll}
+  \toprule
+Industry & Startups & Individuals & State & Startups & Individuals & Year & Startups & Individuals \\
+  \midrule
+Business Applications Software & 1790 & 31218 & California & 8433 & 140958 & 1986 & 293 & 2103 \\
+  Biotechnology Therapeutics & 1037 & 19264 & Massachussetts & 2217 & 37185 & 1987 & 353 & 2732 \\
+  Communications Software & 996 & 14859 & New York & 1490 & 26450 & 1988 & 356 & 2877 \\
+  Advertising/Marketing & 880 & 15211 & Texas & 1299 & 18452 & 1989 & 403 & 3293 \\
+  Network/Systems Management Software & 671 & 13907 & Pennsylvania & 883 & 10759 & 1990 & 396 & 3222 \\
+  Vertical Market Applications Software & 536 & 8401 & Washington & 784 & 12187 & 1991 & 422 & 3801 \\
+  Online Communities & 467 & 6460 & Virginia & 606 & 8964 & 1992 & 537 & 4896 \\
+  Application-Specific Integrated Circuits & 463 & 6475 & Colorado & 605 & 9337 & 1993 & 554 & 5322 \\
+  Wired Communications Equipment & 458 & 6808 & Georgia & 562 & 7426 & 1994 & 689 & 6771 \\
+  IT Consulting & 451 & 6378 & New Jersey & 557 & 7309 & 1995 & 876 & 8946 \\
+  Drug Development Technologies & 400 & 5725 & Florida & 533 & 6524 & 1996 & 1191 & 13134 \\
+  Healthcare Administration Software & 378 & 6500 & Illinois & 525 & 8054 & 1997 & 1141 & 13468 \\
+  Fiberoptic Equipment & 362 & 4981 & North Carolina & 455 & 6333 & 1998 & 1513 & 19512 \\
+  Therapeutic Devices (Minimally Invasive/Noninvasive) & 358 & 5635 & Maryland & 430 & 6223 & 1999 & 2557 & 32495 \\
+  Business Support Services: Other & 341 & 4087 & Minnesota & 373 & 4661 & 2000 & 2003 & 24276 \\
+  Procurement/Supply Chain & 325 & 4941 & Connecticut & 355 & 4614 & 2001 & 1067 & 13295 \\
+  Multimedia/Streaming Software & 322 & 4460 & Ohio & 346 & 3876 & 2002 & 986 & 12946 \\
+  Wireless Communications Equipment & 319 & 5045 & Utah & 249 & 3407 & 2003 & 1037 & 11922 \\
+  Database Software & 318 & 6701 & Tennessee & 217 & 2828 & 2004 & 1110 & 13363 \\
+  Specialty Retailers & 309 & 3354 & Oregon & 209 & 3071 & 2005 & 1222 & 13318 \\
+  Entertainment & 295 & 3676 & Arizona & 207 & 2770 & 2006 & 1380 & 13829 \\
+  Pharmaceuticals & 289 & 4282 & Michigan & 191 & 2460 & 2007 & 1506 & 13058 \\
+  Therapeutic Devices (Invasive) & 285 & 3808 & Wisonsin & 140 & 1508 & 2008 & 1416 & 10504 \\
+   \bottomrule
+\end{tabular}
+\endgroup
+\caption{Statistics on startups covered by VS sample. Industry information uses VS industrial classification. Startups are counted by founding year, individuals by year they joined the firm.}
+\label{table:VS_summaryTable}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\centering
+\begingroup\footnotesize
+\begin{tabular}{rll}
+  \toprule
+Title & Individuals & Percentage \\
+  \midrule
+Board member (outsider) & 103367 & 34.6 \\
+  Vice President & 59149 & 19.8 \\
+  Chief Executive Officer & 24230 & 8.1 \\
+  Chief Technology Officer & 13971 & 4.7 \\
+  Chief Financial Officer & 11621 & 3.9 \\
+  Director & 10988 & 3.7 \\
+  Chief & 10846 & 3.6 \\
+  President \& CEO & 9088 & 3.0 \\
+  Senior Vice President & 8700 & 2.9 \\
+  Founder & 8471 & 2.8 \\
+  Chief Operating Officer & 6777 & 2.3 \\
+  President & 5441 & 1.8 \\
+  Chairman & 5029 & 1.7 \\
+  Executive Vice President & 4920 & 1.6 \\
+  Chairman \& CEO & 2755 & 0.9 \\
+  Manager & 2357 & 0.8 \\
+  Chief Scientific Officer & 1461 & 0.5 \\
+  Controller & 1137 & 0.4 \\
+  President \& COO & 1134 & 0.4 \\
+  General Counsel & 1056 & 0.4 \\
+   \bottomrule
+\end{tabular}
+\endgroup
+\caption{Top 20 most frequent titles among founders in VS data.}
+\label{table:VS_titlesSummaryTable}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\centering
+\begingroup\footnotesize
+\begin{tabular}{rlrll}
+  \toprule
+Employer & Count & Position & Count & Percentage \\
+  \midrule
+Individual Investor & 1115 & Board Member, Institutional Investor & 38527 & 14.2 \\
+  Microsoft & 938 & Executive & 19617 & 7.2 \\
+  Google & 780 & CEO & 9681 & 3.6 \\
+  IBM & 773 & President \& CEO & 6871 & 2.5 \\
+  Cisco Systems & 690 & CFO & 6567 & 2.4 \\
+  Oracle & 602 & President & 5741 & 2.1 \\
+  New Enterprise Associates & 565 & Founder & 4964 & 1.8 \\
+  AT\&T & 466 & Cofounder & 3884 & 1.4 \\
+  Verizon & 443 & Partner & 3757 & 1.4 \\
+  Sun Microsystems & 402 & CTO & 3491 & 1.3 \\
+  Intel & 389 & Managing Director & 3381 & 1.2 \\
+  Hewlett-Packard & 386 & VP & 3365 & 1.2 \\
+  Sequoia Capital & 384 & COO & 2445 & 0.9 \\
+  Venrock & 342 & Board Member, Outsider & 2260 & 0.8 \\
+  Kleiner Perkins Caufield \& Byers & 334 & Director & 2221 & 0.8 \\
+  Mayfield Fund & 310 & Chairman \& CEO & 2147 & 0.8 \\
+  McKinsey \& & 307 & Founder \& CEO & 2091 & 0.8 \\
+  Bessemer Venture Partners & 305 & Chairman & 2086 & 0.8 \\
+  Stanford University & 298 & Principal & 1836 & 0.7 \\
+  Ernst \& Young & 275 & VP, Marketing & 1785 & 0.7 \\
+   \bottomrule
+\end{tabular}
+\endgroup
+\caption{Top 20 previous employers and previous positions for founders in VS data.}
+\label{table:VS_previousEmployersSummaryTable}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\centering
+\begingroup\scriptsize
+\begin{tabular}{p{1.75cm}p{1.75cm}p{1.75cm}p{1.75cm}p{1.75cm}p{1.75cm}p{1.75cm}p{1.75cm}}
+  \toprule
+Year & Number of founders & Number of start-ups & Number of founders from public companies & Fraction from public companies (\%) & Fraction from public companies when bio. info available (\%) & Fraction from public companies in same 4-digit NAICS (\%) & Fraction from public companies in same 4-digit NAICS when bio. info available (\%) \\
+  \midrule
+1986 & 269 & 216 & 43 & 16.0 & 21.8 & 5.2 & 7.1 \\
+  1987 & 356 & 280 & 42 & 11.8 & 14.8 & 4.8 & 6.0 \\
+  1988 & 372 & 281 & 56 & 15.1 & 19.2 & 5.1 & 6.5 \\
+  1989 & 479 & 341 & 71 & 14.8 & 18.2 & 5.2 & 6.4 \\
+  1990 & 478 & 329 & 84 & 17.6 & 20.9 & 7.1 & 8.5 \\
+  1991 & 540 & 356 & 82 & 15.2 & 18.1 & 7.0 & 8.4 \\
+  1992 & 674 & 450 & 99 & 14.7 & 17.7 & 4.0 & 4.8 \\
+  1993 & 778 & 490 & 140 & 18.0 & 20.7 & 7.5 & 8.6 \\
+  1994 & 999 & 611 & 165 & 16.5 & 19.1 & 5.9 & 6.8 \\
+  1995 & 1326 & 772 & 219 & 16.5 & 18.5 & 6.1 & 6.9 \\
+  1996 & 1926 & 1077 & 315 & 16.4 & 17.9 & 5.8 & 6.3 \\
+  1997 & 1986 & 1036 & 347 & 17.5 & 19.1 & 6.9 & 7.6 \\
+  1998 & 2895 & 1390 & 523 & 18.1 & 19.0 & 6.1 & 6.4 \\
+  1999 & 5189 & 2388 & 920 & 17.7 & 18.5 & 5.4 & 5.6 \\
+  2000 & 4084 & 1832 & 747 & 18.3 & 19.4 & 5.9 & 6.2 \\
+  2001 & 2245 & 948 & 378 & 16.8 & 18.4 & 7.2 & 7.8 \\
+  2002 & 2113 & 884 & 381 & 18.0 & 19.9 & 8.0 & 8.8 \\
+  2003 & 1979 & 903 & 344 & 17.4 & 19.8 & 8.3 & 9.5 \\
+  2004 & 2098 & 988 & 358 & 17.1 & 19.7 & 8.0 & 9.2 \\
+  2005 & 2278 & 1068 & 396 & 17.4 & 20.5 & 7.6 & 9.0 \\
+  2006 & 2492 & 1212 & 419 & 16.8 & 19.9 & 7.1 & 8.5 \\
+  2007 & 2817 & 1366 & 377 & 13.4 & 16.5 & 5.7 & 7.0 \\
+  2008 & 2710 & 1307 & 412 & 15.2 & 18.7 & 6.2 & 7.6 \\
+  2009 & 2756 & 1364 & 380 & 13.8 & 16.9 & 4.7 & 5.8 \\
+  2010 & 3156 & 1608 & 393 & 12.5 & 15.5 & 4.5 & 5.6 \\
+  2011 & 4058 & 2013 & 490 & 12.1 & 14.9 & 4.4 & 5.4 \\
+  2012 & 4467 & 2188 & 605 & 13.5 & 16.0 & 4.4 & 5.2 \\
+  2013 & 4610 & 2259 & 656 & 14.2 & 16.2 & 3.3 & 3.7 \\
+  2014 & 4715 & 2277 & 668 & 14.2 & 15.9 & 3.8 & 4.3 \\
+  2015 & 4463 & 2136 & 608 & 13.6 & 15.0 & 3.8 & 4.2 \\
+   \bottomrule
+\end{tabular}
+\endgroup
+\caption{Summary of founders. Here, "founder" includes all individuals employed at startups inthe VentureSource database who (1) joined the startup within 3 year(s) of its founding year; and (2) have the title of CEO, CTO, CCEO, PCEO, PRE, PCHM, PCOO, FDR, CHF.}
+\label{table:GStable_founder2}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\footnotesize
+\centering
+\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_lemployeecount_overall.tex}
+\caption{The regresssions above compare \textbf{employment} between \textbf{spinouts} and \textbf{non-spinouts}. The first regression uses no controls. The following three regressions in addition control for year effects, age effects, and / or cohort effects, in each case allowing the relevant effect to differ by State-NAICS4 combination. Spinouts have on average 17\% higher employment than non-spinouts all else equal.}
+\label{table:startupLifeCycle_founder2founders_regs_lemployeecount_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\footnotesize
+\centering
+\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_wso4_lemployeecount_overall.tex}
+\caption{The regressions above compare \textbf{employment} between \textbf{WSO4 spinouts} and \textbf{non-WSO4 spinouts}. The dependent variable in all four regression is the log of employment. The following three regressions in addition control for year effects, age effects, and / or cohort effects, in each case allowing the relevant effect to differ by State-NAICS4 combination. WSO4 spinouts have on average 10\% higher employment than non-WSO4 spinouts, all else equal.}
+\label{table:startupLifeCycle_founder2founders_regs_wso4_lemployeecount_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\footnotesize
+\centering
+\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_lpostvalusd_overall.tex}
+\caption{The regresssions above compare \textbf{valuation} between \textbf{spinouts} and \textbf{non-spinouts}. The first regression uses no controls. The following three regressions in addition control for year effects, age effects, and / or cohort effects, in each case allowing the relevant effect to differ by State-NAICS4 combination.}
+\label{table:startupLifeCycle_founder2founders_regs_lPostValUSD_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\footnotesize
+\centering
+\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_wso4_lpostvalusd_overall.tex}
+\caption{The regressions above compare \textbf{valuation} between \textbf{WSO4 spinouts} and \textbf{non-WSO4 spinouts}. The first regression uses no controls. The following three regressions in addition control for year effects, age effects, and / or cohort effects, in each case allowing the relevant effect to differ by State-NAICS4 combination.}
+\label{table:startupLifeCycle_founder2founders_regs_wso4_lPostValUSD_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\footnotesize
+\centering
+\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_lpostvalusddivemployeecount_overall.tex}
+\caption{The regresssions above compare \textbf{valuation per employee} between \textbf{spinouts} and \textbf{non-spinouts}. The first regression uses no controls. The following three regressions in addition control for year effects, age effects, and / or cohort effects, in each case allowing the relevant effect to differ by State-NAICS4 combination.}
+\label{table:startupLifeCycle_founder2founders_regs_lPostValUSDdivEmployeeCount_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\footnotesize
+\centering
+\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_wso4_lpostvalusddivemployeecount_overall.tex}
+\caption{The regressions above compare \textbf{valuation per employee} between \textbf{WSO4 spinouts} and \textbf{non-WSO4 spinouts}. The first regression uses no controls. The following three regressions in addition control for year effects, age effects, and / or cohort effects, in each case allowing the relevant effect to differ by State-NAICS4 combination.}
+\label{table:startupLifeCycle_founder2founders_regs_wso4_lPostValUSDdivEmployeeCount_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\footnotesize
+\centering
+\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_lrevenue_overall.tex}
+\caption{The regresssions above compare \textbf{revenue} between \textbf{spinouts} and \textbf{non-spinouts}. The first regression uses no controls. The following three regressions in addition control for year effects, age effects, and / or cohort effects, in each case allowing the relevant effect to differ by State-NAICS4 combination. Spinouts have on average 20\% higher revenue than non-spinouts all else equal.}
+\label{table:startupLifeCycle_founder2founders_regs_lrevenue_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\footnotesize
+\centering
+\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_wso4_lrevenue_overall.tex}
+\caption{The regressions above compare \textbf{revenue} between \textbf{WSO4 spinouts} and \textbf{non-WSO4 spinouts}. The first regression uses no controls. The following three regressions in addition control for year effects, age effects, and / or cohort effects, in each case allowing the relevant effect to differ by State-NAICS4 combination. There is not enough statistical power to make a comparison here.}
+\label{table:startupLifeCycle_founder2founders_regs_wso4_lrevenue_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\footnotesize
+\centering
+\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_lrevenuedivemployeecount_overall.tex}
+\caption{The regresssions above compare \textbf{revenue per employee} between \textbf{spinouts} and \textbf{non-spinouts}. The first regression uses no controls. The following three regressions in addition control for year effects, age effects, and / or cohort effects, in each case allowing the relevant effect to differ by State-NAICS4 combination. Spinouts have on average 20\% higher revenue than non-spinouts all else equal.}
+\label{table:startupLifeCycle_founder2founders_regs_lrevenuedivEmployeeCount_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\footnotesize
+\centering
+\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_wso4_lrevenuedivemployeecount_overall.tex}
+\caption{The regressions above compare \textbf{revenue per employee} between \textbf{WSO4 spinouts} and \textbf{non-WSO4 spinouts}. The first regression uses no controls. The following three regressions in addition control for year effects, age effects, and / or cohort effects, in each case allowing the relevant effect to differ by State-NAICS4 combination. There is not enough statistical power to make a comparison here.}
+\label{table:startupLifeCycle_founder2founders_regs_wso4_lrevenuedivEmployeeCount_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\footnotesize
+\centering
+\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_successfullyexiting_overall.tex}
+\caption{The regresssions above compare \textbf{successful exit hazard rate} between \textbf{spinouts} and \textbf{non-spinouts}. The first regression uses no controls. The following three regressions in addition control for year effects, age effects, and / or cohort effects, in each case allowing the relevant effect to differ by State-NAICS4 combination. Spinouts have an approximately 40\% higher hazard rate of successfully exiting than non-spinouts.}
+\label{table:startupLifeCycle_founder2founders_regs_successfullyExiting_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\footnotesize
+\centering
+\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_wso4_successfullyexiting_overall.tex}
+\caption{The regressions above compare \textbf{successful exit hazard rate} between \textbf{WSO4 spinouts} and \textbf{non-WSO4 spinouts}. The first regression uses no controls. The following three regressions in addition control for year effects, age effects, and / or cohort effects, in each case allowing the relevant effect to differ by State-NAICS4 combination. There is substantially less power in this regression, due to the sample being restricted to only spinouts. Still, the estimates are consistently positive and large across specifications: overall, they suggest that WSO4 spinouts have an approximately 30-60\% higher hazard rate of successfully exiting.}
+\label{table:startupLifeCycle_founder2founders_regs_wso4_successfullyExiting_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\scriptsize
+\centering
+\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_goingoutofbusiness_overall.tex}
+\caption{The regresssions above compare \textbf{going out of business hazard rate} between \textbf{spinouts} and \textbf{non-spinouts}. The first regression uses no controls. The following three regressions in addition control for year effects, age effects, and / or cohort effects, in each case allowing the relevant effect to differ by State-NAICS4 combination. The estimated effect in the first column is positive, but in all regressions with fixed effects, the estimate is negative. In one, it is significant at the 5\% level, in the others close to it. Quantitatively, this is approximately a 10\% reduction in the hazard rate of going out of business.}
+\label{table:startupLifeCycle_founder2founders_regs_goingOutOfBusiness_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\scriptsize
+\centering
+\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_wso4_goingoutofbusiness_overall.tex}
+\caption{The regressions above compare \textbf{going out of business hazard rate} between \textbf{WSO4 spinouts} and \textbf{non-WSO4 spinouts}. The first regression uses no controls. The following three regressions in addition control for year effects, age effects, and / or cohort effects, in each case allowing the relevant effect to differ by State-NAICS4 combination. There is even less power here as the sample is restricted to only spinout firms. However, all estimates with fixed effects are negative, and one is significant at the 5\% level. The magnitude is again approximately at 10\% reduction in the hazard rate of going out of business.}
+\label{table:startupLifeCycle_founder2founders_regs_wso4_goingOutOfBusiness_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\scriptsize
+\centering
+\input{../empirics/figures/tables/RDandSpinoutFormation_founder2.tex}
+\caption{The regressions above relate corporate R\&D to the entrepreneurship decisions of employees.}
+\label{table:RDandSpinoutFormation_founder2}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\scriptsize
+\centering
+\input{../empirics/figures/tables/RDandSpinoutFormation_founder2_l3f3.tex}
+\caption{The regressions above relate corporate R\&D to the entrepreneurship decisions of employees. In this regression, the dependent variable is averaged over the years $t+1,t+2,t+3$ while the independent variable is averaged over $t,t-1,t-2$.}
+\label{table:RDandSpinoutFormation_founder2_l3f3}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\centering
+\footnotesize
+\input{../empirics/figures/tables/startupLifeCycle_allfounders_regs_lemployeecount_overall.tex}
+\caption{Table corresponding to \autoref{table:startupLifeCycle_founder2founders_regs_lemployeecount_overall} in the main text, but using the sample of \textbf{all founders}. The dependent variable is the log of employment. The findings are qualitatively and quantitatively similar.}
+\label{table:startupLifeCycle_allfounders_regs_lemployeecount_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\centering
+\footnotesize
+\input{../empirics/figures/tables/startupLifeCycle_allfounders_regs_wso4_lemployeecount_overall.tex}
+\caption{Table corresponding to \autoref{table:startupLifeCycle_founder2founders_regs_wso4_lemployeecount_overall} in the main text, but using the sample of \textbf{all founders}. The dependent variable is the log of employment. The findings are qualitatively and quantitatively similar.}
+\label{table:startupLifeCycle_allfounders_regs_wso4_lemployeecount_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\centering
+\footnotesize
+\input{../empirics/figures/tables/startupLifeCycle_executivefounders_regs_lemployeecount_overall.tex}
+\caption{Table corresponding to \autoref{table:startupLifeCycle_founder2founders_regs_lemployeecount_overall} in the main text, but using the sample of \textbf{executive founders}. The dependent variable is the log of employment. The findings are qualitatively and quantitatively similar.}
+\label{table:startupLifeCycle_executivefounders_regs_lemployeecount_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\centering
+\footnotesize
+\input{../empirics/figures/tables/startupLifeCycle_executivefounders_regs_wso4_lemployeecount_overall.tex}
+\caption{Table corresponding to \autoref{table:startupLifeCycle_founder2founders_regs_wso4_lemployeecount_overall} in the main text, but using the sample of \textbf{executive founders}. The dependent variable is the log of employment. The findings are qualitatively and quantitatively similar.}
+\label{table:startupLifeCycle_executivefounders_regs_wso4_lemployeecount_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\centering
+\footnotesize
+\input{../empirics/figures/tables/startupLifeCycle_technicalfounders_regs_lemployeecount_overall.tex}
+\caption{Table corresponding to \autoref{table:startupLifeCycle_founder2founders_regs_lemployeecount_overall} in the main text, but using the sample of \textbf{technical founders}. The dependent variable is the log of employment. The findings are qualitatively and quantitatively similar.}
+\label{table:startupLifeCycle_technicalfounders_regs_lemployeecount_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\centering
+\footnotesize
+\input{../empirics/figures/tables/startupLifeCycle_technicalfounders_regs_wso4_lemployeecount_overall.tex}
+\caption{Table corresponding to \autoref{table:startupLifeCycle_founder2founders_regs_wso4_lemployeecount_overall} in the main text, but using the sample of \textbf{technical founders}. The dependent variable is the log of employment. The findings are qualitatively and quantitatively similar.}
+\label{table:startupLifeCycle_technicalfounders_regs_wso4_lemployeecount_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\centering
+\footnotesize
+\input{../empirics/figures/tables/startupLifeCycle_allfounders_regs_lpostvalusd_overall.tex}
+\caption{Table corresponding to \autoref{table:startupLifeCycle_founder2founders_regs_lPostValUSD_overall} in the main text, but using the sample of \textbf{all founders}. The dependent variable is the log of valuation. The findings are qualitatively and quantitatively similar.}
+\label{table:startupLifeCycle_allfounders_regs_lPostValUSD_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\centering
+\footnotesize
+\input{../empirics/figures/tables/startupLifeCycle_allfounders_regs_wso4_lpostvalusd_overall.tex}
+\caption{Table corresponding to \autoref{table:startupLifeCycle_founder2founders_regs_wso4_lPostValUSD_overall} in the main text, but using the sample of \textbf{all founders}. The dependent variable is the log of valuation. The findings are qualitatively and quantitatively similar.}
+\label{table:startupLifeCycle_allfounders_regs_wso4_lPostValUSD_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\centering
+\footnotesize
+\input{../empirics/figures/tables/startupLifeCycle_executivefounders_regs_lpostvalusd_overall.tex}
+\caption{Table corresponding to \autoref{table:startupLifeCycle_founder2founders_regs_lPostValUSD_overall} in the main text, but using the sample of \textbf{executive founders}. The dependent variable is the log of valuation. The findings are qualitatively and quantitatively similar.}
+\label{table:startupLifeCycle_executivefounders_regs_lPostValUSD_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\centering
+\footnotesize
+\input{../empirics/figures/tables/startupLifeCycle_technicalfounders_regs_lpostvalusd_overall.tex}
+\caption{Table corresponding to \autoref{table:startupLifeCycle_founder2founders_regs_lPostValUSD_overall} in the main text, but using the sample of \textbf{technical founders}. The dependent variable is the log of valuation. The findings are qualitatively and quantitatively similar.}
+\label{table:startupLifeCycle_technicalfounders_regs_lPostValUSD_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\centering
+\footnotesize
+\input{../empirics/figures/tables/startupLifeCycle_allfounders_regs_lrevenue_overall.tex}
+\caption{Table corresponding to \autoref{table:startupLifeCycle_founder2founders_regs_lrevenue_overall} in the main text, but using the sample of \textbf{all founders}. The dependent variable is the log of revenue. The findings are qualitatively and quantitatively similar.}
+\label{table:startupLifeCycle_allfounders_regs_lrevenue_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\centering
+\footnotesize
+\input{../empirics/figures/tables/startupLifeCycle_executivefounders_regs_lrevenue_overall.tex}
+\caption{Table corresponding to \autoref{table:startupLifeCycle_founder2founders_regs_lrevenue_overall} in the main text, but using the sample of \textbf{executive founders}. The dependent variable is the log of revenue. The findings are qualitatively and quantitatively similar.}
+\label{table:startupLifeCycle_executivefounders_regs_lrevenue_overall}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[!htb]
+\centering
+\footnotesize
+\input{../empirics/figures/tables/startupLifeCycle_technicalfounders_regs_lrevenue_overall.tex}
+\caption{Table corresponding to \autoref{table:startupLifeCycle_founder2founders_regs_lrevenue_overall} in the main text, but using the sample of \textbf{technical founders}. The dependent variable is the log of revenue. The findings are qualitatively and quantitatively similar.}
+\label{table:startupLifeCycle_technicalfounders_regs_lrevenue_overall}
+\end{table}
+\efloatseparator
+ 

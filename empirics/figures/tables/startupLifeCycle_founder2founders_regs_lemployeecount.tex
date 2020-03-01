@@ -1,0 +1,87 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
+                    &\multicolumn{1}{c}{lEmployeeCount}&\multicolumn{1}{c}{lEmployeeCount}&\multicolumn{1}{c}{lEmployeeCount}\\
+\hline
+Entity\_founder2\_fromPublic=1&       0.128\sym{***}&       0.139\sym{***}&      0.0269\sym{**} \\
+                    &    (0.0212)         &    (0.0136)         &   (0.00863)         \\
+[1em]
+EntityAge=1 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &      0.0213         \\
+                    &                     &                     &    (0.0137)         \\
+[1em]
+EntityAge=2 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &      0.0802\sym{***}\\
+                    &                     &                     &    (0.0167)         \\
+[1em]
+EntityAge=3 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &       0.140\sym{***}\\
+                    &                     &                     &    (0.0185)         \\
+[1em]
+EntityAge=4 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &       0.158\sym{***}\\
+                    &                     &                     &    (0.0277)         \\
+[1em]
+EntityAge=5 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &       0.166\sym{***}\\
+                    &                     &                     &    (0.0288)         \\
+[1em]
+EntityAge=6 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &       0.191\sym{***}\\
+                    &                     &                     &    (0.0238)         \\
+[1em]
+EntityAge=7 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &       0.190\sym{***}\\
+                    &                     &                     &    (0.0345)         \\
+[1em]
+EntityAge=8 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &       0.170\sym{***}\\
+                    &                     &                     &    (0.0304)         \\
+[1em]
+EntityAge=9 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &       0.177\sym{***}\\
+                    &                     &                     &    (0.0326)         \\
+[1em]
+EntityAge=10 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &       0.190\sym{***}\\
+                    &                     &                     &    (0.0478)         \\
+[1em]
+EntityAge=11 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &       0.212\sym{***}\\
+                    &                     &                     &    (0.0405)         \\
+[1em]
+EntityAge=12 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &       0.232\sym{***}\\
+                    &                     &                     &    (0.0545)         \\
+[1em]
+EntityAge=13 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &       0.198\sym{*}  \\
+                    &                     &                     &    (0.0855)         \\
+[1em]
+EntityAge=14 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &       0.223\sym{*}  \\
+                    &                     &                     &     (0.109)         \\
+[1em]
+EntityAge=15 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &       0.195         \\
+                    &                     &                     &    (0.0995)         \\
+[1em]
+EntityAge=16 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &       0.233         \\
+                    &                     &                     &     (0.124)         \\
+[1em]
+EntityAge=17 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &       0.205         \\
+                    &                     &                     &     (0.143)         \\
+[1em]
+EntityAge=18 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &       0.270         \\
+                    &                     &                     &     (0.193)         \\
+[1em]
+EntityAge=19 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &       0.204         \\
+                    &                     &                     &     (0.193)         \\
+[1em]
+EntityAge=20 $\times$ Entity\_founder2\_fromPublic=1&                     &                     &       0.441\sym{***}\\
+                    &                     &                     &    (0.0883)         \\
+[1em]
+Constant            &       2.061\sym{***}&       2.037\sym{***}&       2.037\sym{***}\\
+                    &    (0.0717)         &   (0.00331)         &   (0.00322)         \\
+[1em]
+State-NAICS4-Year FE&          No         &         Yes         &         Yes         \\
+[1em]
+State-NAICS4-Age FE &          No         &         Yes         &          No         \\
+[1em]
+\_cons              &         Yes         &          No         &          No         \\
+\hline
+r2\_a                &     0.00114         &       0.639         &       0.639         \\
+r2\_a\_within         &     0.00114         &     0.00399         &     0.00505         \\
+N                   &      209212         &      185143         &      185143         \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

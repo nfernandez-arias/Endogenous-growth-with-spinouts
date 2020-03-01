@@ -58,6 +58,7 @@ data <- data[ hasBio == 0 | (mapply(grepl,tolower(Employer),tolower(EntityName),
                 mapply(grepl,tolower(EntityName),tolower(Employer), MoreArgs = list(fixed = TRUE)) == FALSE)]
 
 
+data[ Employer == "Individual Investors", Employer := "Individual Investor"]
 
 # Get the first record for each person-EntityID pair. Given the previous line of code, this should 
 # have info on the most recent job. 

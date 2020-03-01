@@ -1,0 +1,104 @@
+\begin{figure} \phantomsection
+\center
+\includegraphics[scale = 0.77]{../figures/fairchildren_early.png}
+\caption{Direct and indirect spinouts of Fairchild Semiconductor}
+\label{fairchild_spinouts}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.75]{../empirics/figures/plots/industry_row_heatmap_naics2_founder2.pdf}
+\caption{Heatmap displaying the distribution of child 2-digit NAICS code (column), conditional on parent NAICS code (row). Darker hues indicate a higher density.}
+\label{figure:industry_row_heatmap_naics2_founder2}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.75]{../empirics/figures/plots/industry_column_heatmap_naics2_founder2.pdf}
+\caption{Heatmap displaying the distribution of parent 2-digit NAICS code (row), conditional on child NAICS code (column). Darker hues indicate a higher density.}
+\label{figure:industry_column_heatmap_naics2_founder2}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.75]{../empirics/figures/plots/state_row_heatmap_founder2.pdf}
+\caption{Heatmap displaying the distribution of spinout state (column), conditional on parent state (row). Darker hues indicate a higher density.}
+\label{figure:state_row_heatmap_founder2}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.75]{../empirics/figures/plots/state_column_heatmap_founder2.pdf}
+\caption{Heatmap displaying the distribution of parent state (row), conditional on child state (column). Darker hues indicate a higher density.}
+\label{figure:state_column_heatmap_founder2}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.75]{../empirics/figures/plots/industry_row_heatmap_naics3_founder2.pdf}
+\caption{This heatmap visualizes the distribution of parent-spinout links across NAICS 3-digit industries. Each row visualizes the conditional distribution of spinout industry (column) conditional on that parent industry (row).}
+\label{figure:industry_row_heatmap_naics3_founder2}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.75]{../empirics/figures/plots/industry_column_heatmap_naics3_founder2.pdf}
+\caption{This heatmap visualizes the distribution of parent-spinout links across NAICS 3-digit industries. Each column visualizes the conditional distribution of parent industry (row) conditional on that child industry (column).}
+\label{figure:industry_column_heatmap_naics3_founder2}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale= 0.6]{../empirics/figures/plots/startupLifeCycle_all_avg_SvNoS_WSO4vNoWSO4_lEmployeeCount.pdf}
+\caption{These plots consider the sample of \textbf{all founders}. The left panel shows that the mean spinout has higher employment than the mean non-spinout, throughout the age distribution. Within spinouts, the right panel shows that non-WSO4s tend to have higher employment than WSO4s across the age distribution. However, this is not controlling for industry / state / age / cohort effects, as done in the regressions.}
+\label{figure:startupLifeCycle_all_avg_SvNoS_WSO4vNoWSO4_lEmployeeCount}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale= 0.6]{../empirics/figures/plots/startupLifeCycle_executive_avg_SvNoS_WSO4vNoWSO4_lEmployeeCount.pdf}
+\caption{These plots consider the sample of \textbf{executive founders}. The left panel shows that the mean spinout has higher employment than the mean non-spinout, throughout the age distribution. Within spinouts, the right panel shows that non-WSO4s tend to have higher employment than WSO4s across the age distribution. However, this is not controlling for industry / state / age / cohort effects, as done in the regressions.}
+\label{figure:startupLifeCycle_executive_avg_SvNoS_WSO4vNoWSO4_lEmployeeCount}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[!htb]
+\centering
+% \includegraphics[scale= 0.6]{../empirics/figures/plots/startupLifeCycle_technical_avg_SvNoS_WSO4vNoWSO4_lEmployeeCount.pdf}
+\caption{These plots consider the sample of \textbf{technical founders}. The left panel shows that the mean spinout has higher employment than the mean non-spinout, throughout the age distribution. Within spinouts, the right panel shows that non-WSO4s tend to have higher employment than WSO4s across the age distribution. However, this is not controlling for industry / state / age / cohort effects, as done in the regressions.}
+\label{figure:startupLifeCycle_technical_avg_SvNoS_WSO4vNoWSO4_lEmployeeCount}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale= 0.6]{../empirics/figures/plots/startupLifeCycle_all_avg_SvNoS_lPostValUSD.pdf}
+\caption{The mean spinout has higher employment across the age distribution.}
+\label{figure:startupLifeCycle_all_avg_SvNoS_lPostValUSD}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale= 0.6]{../empirics/figures/plots/startupLifeCycle_executive_avg_SvNoS_lPostValUSD.pdf}
+\caption{The mean spinout has higher employment across the age distribution.}
+\label{figure:startupLifeCycle_executive_avg_SvNoS_lPostValUSD}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale= 0.6]{../empirics/figures/plots/startupLifeCycle_technical_avg_SvNoS_lPostValUSD.pdf}
+\caption{The mean spinout has higher employment across the age distribution.}
+\label{figure:startupLifeCycle_technical_avg_SvNoS_lPostValUSD}
+\end{figure}
+\efloatseparator
+ 

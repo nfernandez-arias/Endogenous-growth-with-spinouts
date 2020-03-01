@@ -132,20 +132,22 @@ entrantRDSpending = sum(wageEntrants .* zE .* γ .* μ .* Δm)
 spinoutRDSpending = sum(wageSpinouts.* zS .* γ .* μ .* Δm)
 aggregateRDSpending = incumbentRDSpending + entrantRDSpending + spinoutRDSpending
 
-aggregateRDSalesRatio = aggregateRDSpending / aggregateSales
-incumbentRDSalesRatio = incumbentRDSpending / aggregateSales
-incumbentRDSalesRatio2 = incumbentRDSpending2 / aggregateSales
-entrantRDSalesRatio = entrantRDSpending / aggregateSales
-spinoutRDSalesRatio = spinoutRDSpending / aggregateSales
+flowOutput = (((1-β) * wbar^(-1) )^(1-β))/(1-β) * L_F
+
+aggregateRDintensity = 100 * aggregateRDSpending / flowOutput
+incumbentRDintensity = 100 * incumbentRDSpending / flowOutput
+incumbentRDintensity2 = 100 * incumbentRDSpending2 / flowOutput
+entrantRDintensity = 100 * entrantRDSpending / flowOutput
+spinoutRDintensity = 100 * spinoutRDSpending / flowOutput
 
 println("\n--------------------------------------------------------------")
 println("R&D Intensity-------------------------------------------------")
 println("--------------------------------------------------------------\n")
-println("$aggregateRDSalesRatio (Total R&D spending / Total revenue from sales of intermediate goods)\n")
-println("$incumbentRDSalesRatio (Incumbent R&D spending / Total sales revenue from intermediate goods)\n")
-println("$incumbentRDSalesRatio2 (Incumbent R&D spending (if paid spinout R&D wages) / Total sales revenue from intermediate goods)\n")
-println("$entrantRDSalesRatio (Entrant R&D spending / Total sales revenue from intermediate goods)\n")
-println("$spinoutRDSalesRatio (Spinout R&D spending / Total sales revenue from intermediate goods)\n")
+println("$aggregateRDintensity (Total R&D spending % GDP)\n")
+println("$incumbentRDintensity (Incumbent R&D spending % GDP)\n")
+println("$incumbentRDintensity2 (Incumbent R&D spending (if paid spinout R&D wages) %GDP)\n")
+println("$entrantRDintensity (Entrant R&D spending % GDP)\n")
+println("$spinoutRDintensity (Spinout R&D spending % GDP)\n")
 
 println("\n--------------------------------------------------------------")
 println("NON-TARGETED MOMENTS--------------------------------------------")

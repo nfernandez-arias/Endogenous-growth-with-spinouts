@@ -1,0 +1,32 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{8}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}&\multicolumn{1}{c}{(7)}&\multicolumn{1}{c}{(8)}\\
+                    &\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}\\
+\midrule
+log(R\&D)           &        0.19\sym{***}&        0.84\sym{+}  &       -0.94         &        0.38         &        0.18\sym{***}&       -0.92         &        1.08\sym{*}  &        0.14         \\
+                    &     (0.022)         &      (0.53)         &      (8.21)         &      (0.58)         &     (0.026)         &      (4.68)         &      (0.61)         &      (0.76)         \\
+\addlinespace
+highNCC=0 $\times$ log(R\&D)&           0         &           0         &           0         &           0         &           0         &           0         &           0         &           0         \\
+                    &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         \\
+\addlinespace
+highNCC=1 $\times$ log(R\&D)&       0.033         &       -1.32         &        3.85         &       -0.21         &       0.018         &        3.16         &        0.20         &     -0.0060         \\
+                    &     (0.053)         &      (1.45)         &      (18.3)         &      (0.67)         &     (0.069)         &      (12.3)         &      (0.73)         &      (0.53)         \\
+\addlinespace
+NAICS4-Year FE      &          No         &          No         &          No         &         Yes         &          No         &          No         &          No         &         Yes         \\
+\addlinespace
+Firm FE             &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+\addlinespace
+Firm Age FE         &          No         &          No         &         Yes         &         Yes         &          No         &          No         &         Yes         &         Yes         \\
+\addlinespace
+Year FE             &          No         &          No         &         Yes         &          No         &          No         &          No         &         Yes         &          No         \\
+\midrule
+r2\_a                &        0.68         &       -0.58         &       -1.96         &       -0.30         &        0.60         &       -3.98         &       -0.12         &       -0.27         \\
+r2\_a\_within         &       0.099         &                     &                     &                     &        0.12         &                     &                     &                     \\
+N                   &        7111         &        4007         &        1206         &         909         &        2950         &        1675         &         467         &         389         \\
+\bottomrule
+\multicolumn{9}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{9}{l}{\footnotesize \sym{++} \(p<0.3\), \sym{+} \(p<0.2\), \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

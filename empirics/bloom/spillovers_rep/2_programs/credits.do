@@ -106,7 +106,7 @@ sa "data/compustat/lfirm", replace
 * STATE R&D TAX CREDITS
 ***************************
 * Read in the patents data from the NBER
-insheet using "data/nber uspto/patents_light.csv", clear
+use "raw/nber uspto/pat76_06_assg.dta", clear
 * rename key variables
 gen pat_count=1
 * merge to dynamic assignee match file

@@ -16,7 +16,7 @@
 
 # Load funding information about all startups
 deals <- fread("raw/VentureSource/01Deals.csv")[year (ymd(StartDate)) >= 1986][, .(EntityID, EntityName,State, StartDate, CloseDate,
-                                                                                  RoundNo, RoundID, RoundType, RoundBusinessStatus,
+                                                                                  RoundNo, RoundID, RoundClass, RoundType, RoundBusinessStatus,
                                                                                   OwnershipStatus, OwnerStatDate, BusinessStatus, EmployeeCount,
                                                                                   RaisedDA, RaisedUSD, PostValueDA, PostValUSD, 
                                                                                   IndustryCode, SubcodeDesc, IndustryCodeDesc,Competition)]
@@ -68,7 +68,7 @@ deals[ !is.na(PreValUSD), fundingEvent := 1]
 deals[ is.na(fundingEvent) , fundingEvent := 0]
 
 # Flag rounds as exits or non-exits
-deals[RoundType == "IPO" | RoundType == "ACQ" & !is.na(PreValUSD), exit  := 1]
+deals[RoundType == "IPO" | RoundType == "ACQ" | RoundClass == "Buyout" | RoundClass == "Merger", exit  := 1]
 deals[is.na(exit), exit := 0]
 
 # Compute whether there is an exit at all for the EntityID: if maxExit == 1, there is an exit. Otherwise no exit.
@@ -122,7 +122,7 @@ fwrite(temp,"data/VentureSource/startupOutcomes.csv")
 
 entityPaths <- deals[!is.na(foundingYear)][ , .(EntityID,State,CloseDate,dealYear,foundingYear,exitYear,EmployeeCount,
                           PostValUSD,RaisedUSD,StartDate,
-                          OwnershipStatus,OwnerStatDate,RoundType,RoundBusinessStatus,BusinessStatus)][ order(EntityID,dealYear,CloseDate)]
+                          OwnershipStatus,OwnerStatDate,RoundClass,RoundType,RoundBusinessStatus,BusinessStatus)][ order(EntityID,dealYear,CloseDate)]
 
 #----------------#
 # Take care of years with multiple funding rounds
@@ -169,11 +169,21 @@ entityPaths[ , lastDealYear := max(na.omit(year(ymd(CloseDate)))), by = EntityID
 entityPaths[ any(OwnerStatDate != ""), OwnerStatDate := max(NaRV.omit(OwnerStatDate)), by = EntityID]
 
 
-entityPaths <- entityPaths[ year <= pmax(year(ymd(OwnerStatDate)), lastDealYear, na.rm = TRUE)  & EntityAge >= 0]
+entityPaths <- entityPaths[ year <= pmin(pmax(year(ymd(OwnerStatDate)), lastDealYear, na.rm = TRUE),exitYear, na.rm = TRUE)  & EntityAge >= 0]
 
 # Define exit dates
-entityPaths[ OwnershipStatus == "Out of Business" & year == year(ymd(OwnerStatDate)), goingOutOfBusiness := 1 ]
+entityPaths[ OwnershipStatus == "Out of Business" & year == year(ymd(OwnerStatDate)), goingOutOfBusiness := 100 ]
 entityPaths[ is.na(goingOutOfBusiness), goingOutOfBusiness := 0]
+
+
+entityPaths[ is.na(exitYear), exitYear := -1]
+entityPaths[ , exitYear := max(exitYear) , by = EntityID]
+
+entityPaths[ year == exitYear, 
+             successfullyExiting := 100]
+entityPaths[ is.na(successfullyExiting), successfullyExiting := 0]
+
+
 
 setcolorder(entityPaths,c("EntityID","year"))
 
@@ -203,6 +213,67 @@ setkey(entityPaths,EntityID,year)
 
 entityPaths <- revenue[ , .(EntityID,year,revenue)][entityPaths]
 
+#--------------#
+## Calculate some statistics
+#--------------#
+
+fracRevAll <- entityPaths[ , sum(!is.na(revenue)) / .N]
+fracEmpAll <- entityPaths[ , sum(!is.na(EmployeeCount)) / .N]
+fracValAll <- entityPaths[ , sum(!is.na(PostValUSD)) / .N]
+
+fracRev <- entityPaths[ , .(fracRev = sum(!is.na(revenue)) / .N, Nobs = .N), by = EntityID]
+fracEmp <- entityPaths[ , .(fracEmp = sum(!is.na(EmployeeCount)) / .N, Nobs = .N), by = EntityID]
+fracVal <- entityPaths[ , .(fracVal = sum(!is.na(PostValUSD)) / .N, Nobs = .N), by = EntityID]
+
+# frac of entities that have at least one obs
+
+fracRev[ fracRev > 0, hasRev := 1]
+fracRev[ is.na(hasRev), hasRev := 0]
+fracHasRev <- fracRev[ , sum(hasRev) / .N]
+
+fracEmp[ fracEmp > 0, hasEmp := 1]
+fracEmp[ is.na(hasEmp), hasEmp := 0]
+fracHasEmp <- fracEmp[ , sum(hasEmp) / .N]
+
+fracVal[ fracVal > 0, hasVal := 1]
+fracVal[ is.na(hasVal), hasVal := 0]
+fracHasVal <- fracVal[ , sum(hasVal) / .N]
+
+# fraction of all conditional on at least one data point
+
+fracRevAllCond <- fracRev[ fracRev > 0][ , sum(fracRev * Nobs) / sum(Nobs)]
+fracEmpAllCond <- fracEmp[fracEmp >0][ , sum(fracEmp * Nobs) / sum(Nobs)]
+fracValAllCond <- fracVal[fracVal > 0][ , sum(fracVal * Nobs) / sum(Nobs)]
+
+    
+
+# histograms
+
+hist(fracRev$fracRev, breaks = 50)
+hist(fracEmp$fracEmp, breaks = 50)
+hist(fracVal$fracVal, breaks = 50)
+
+
+
+#---------------------#
+# Incorporate debt raised to construct asset value
+#---------------------#
+
+entityPaths[ RoundClass == "Debt/Non-Equity", debtRaised := RaisedUSD]
+entityPaths[is.na(debtRaised), debtRaised := 0]
+
+setkey(entityPaths,EntityID,year)
+
+entityPaths[ , cumDebtRaised := cumsum(debtRaised), by = EntityID]
+
+entityPaths[ , assetVal := PostValUSD + cumDebtRaised]
+
+#---------------------#
+# Interpolation
+#---------------------#
+
+
+
 # Transform variables and interpolate
 
 entityPaths[ , lEmployeeCount := log(EmployeeCount)]
@@ -217,16 +288,16 @@ entityPaths[ , hasEmploymentInfo := any(!is.na(EmployeeCount)), by = EntityID]
 entityPaths[ , hasValuationInfo := any(!is.na(PostValUSD)), by = EntityID]
 entityPaths[ , hasRevenueInfo := any(!is.na(revenue)), by = EntityID]
 
-entityPaths[ EntityAge == 0 & hasEmploymentInfo, lEmployeeCount := 0]
-entityPaths[ EntityAge == 0 & hasValuationInfo, lPostValUSD := log(0.000001)]
-entityPaths[ EntityAge == 0 & hasRevenueInfo, lrevenue := log(0.000001)]
+#entityPaths[ EntityAge == 0 & hasEmploymentInfo, lEmployeeCount := 0]
+#entityPaths[ EntityAge == 0 & hasValuationInfo, lPostValUSD := log(0.000001)]
+#entityPaths[ EntityAge == 0 & hasRevenueInfo, lrevenue := log(0.000001)]
 
 
 setkey(entityPaths,EntityID,EntityAge)
 
-entityPaths[ hasEmploymentInfo == 1, lEmployeeCount := na.approx(lEmployeeCount, na.rm = FALSE), by = "EntityID"]
-entityPaths[ hasValuationInfo == 1, lPostValUSD := na.approx(lPostValUSD, na.rm = FALSE), by = "EntityID"]
-entityPaths[ hasRevenueInfo == 1, lrevenue := na.approx(lrevenue,na.rm = FALSE), by = "EntityID"]
+#entityPaths[ hasEmploymentInfo == 1, lEmployeeCount := na.approx(lEmployeeCount, na.rm = FALSE), by = "EntityID"]
+#entityPaths[ hasValuationInfo == 1, lPostValUSD := na.approx(lPostValUSD, na.rm = FALSE), by = "EntityID"]
+#entityPaths[ hasRevenueInfo == 1, lrevenue := na.approx(lrevenue,na.rm = FALSE), by = "EntityID"]
 entityPaths[ , lPostValUSDdivEmployeeCount := lPostValUSD - lEmployeeCount]
 entityPaths[ , lrevenuedivEmployeeCount := lrevenue - lEmployeeCount]
 
