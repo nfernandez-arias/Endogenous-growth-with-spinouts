@@ -171,9 +171,9 @@ L_F + L_I + L_{RD} &= 1 \label{labor_resource_constraint}
 \subsubsection{Production and storage technology}
 
 Below I suppress the $t$ subscript where it is clear. The final good $Y$ is produced competitively using labor and a continuum of intermediate goods indexed by $j \in [0,1]$, with production technology
-\begin{align*}
-Y = F(L,\{q_j\},\{k_j\}) &= \frac{L^{\beta}}{1-\beta} \int_0^1 q_j^{\beta} k_j^{1-\beta} dj
-\end{align*}
+\begin{align}
+Y = F(L,\{q_j\},\{k_j\}) &= \frac{L^{\beta}}{1-\beta} \int_0^1 q_j^{\beta} k_j^{1-\beta} dj \label{final_goods_production}
+\end{align}
 
 where $q_j,k_j$ are the quality and quantity of intermediate input $j$. The price of the final good is normalized to 1 in every period.
 
@@ -321,9 +321,9 @@ Substituting (\ref{optimal_k}) into (\ref{optimal_l}) and integrating $L_I = \in
 L_I &= \frac{1-\beta}{C(\beta)}L_F \label{intermediate_goods_labor}
 \end{align}
 
-Final goods firm optimization implies output is given by 
+Plugging (\ref{optimal_k}) into (\ref{final_goods_production}) yields
 \begin{align}
-Y = \frac{\Big((1-\beta)C(\beta)^{-1}\Big)^{1-\beta}}{1-\beta} Q L_F
+Y = \frac{(1-\beta)^{1-2\beta}}{\beta^{1-\beta}} Q L_F
 \end{align}
 
 and substituting (\ref{intermediate_goods_labor}) into the labor resource constraint (\ref{labor_resource_constraint}) yields

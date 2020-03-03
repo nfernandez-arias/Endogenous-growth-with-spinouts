@@ -11,7 +11,8 @@ driftNC = results.finalGuess.driftNC
 zS = EndogenousGrowthWithSpinouts.zSFunc(algoPar,modelPar,idxM)
 zE = EndogenousGrowthWithSpinouts.zEFunc(modelPar,results.incumbent,w,wE,zS)
 
-
+Cβ = EndogenousGrowthWithSpinouts.Cβ
+flowOutputFunc = EndogenousGrowthWithSpinouts.flowOutput
 
 μ = results.auxiliary.μ
 γ = results.auxiliary.γ
@@ -132,7 +133,7 @@ entrantRDSpending = sum(wageEntrants .* zE .* γ .* μ .* Δm)
 spinoutRDSpending = sum(wageSpinouts.* zS .* γ .* μ .* Δm)
 aggregateRDSpending = incumbentRDSpending + entrantRDSpending + spinoutRDSpending
 
-flowOutput = (((1-β) * wbar^(-1) )^(1-β))/(1-β) * L_F
+flowOutput = flowOutputFunc(L_F,modelPar)
 
 aggregateRDintensity = 100 * aggregateRDSpending / flowOutput
 incumbentRDintensity = 100 * incumbentRDSpending / flowOutput
@@ -182,7 +183,7 @@ println("$growthShare_spinouts (Growth share: spinouts)\n")
 #### Equilibrium evaluation
 
 # Welfare
-flowOutput = (((1-β) * wbar^(-1) )^(1-β))/(1-β) * L_F
+flowOutput = flowOutputFunc(L_F,modelPar)
 
 
 CreativeDestructionCost = modelPar.κ * sum(τSE .* γ .* μ .* Δm) * λ * V[1]

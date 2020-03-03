@@ -397,9 +397,9 @@ L_F + L_I + L_{RD} &= 1 \label{labor_resource_constraint}
 \subsubsection{Production and storage technology}
 
 Below I suppress the $t$ subscript where it is clear. The final good $Y$ is produced competitively using labor and a continuum of intermediate goods indexed by $j \in [0,1]$, with production technology
-\begin{align*}
-Y = F(L,\{q_j\},\{k_j\}) &= \frac{L^{\beta}}{1-\beta} \int_0^1 q_j^{\beta} k_j^{1-\beta} dj
-\end{align*}
+\begin{align}
+Y = F(L,\{q_j\},\{k_j\}) &= \frac{L^{\beta}}{1-\beta} \int_0^1 q_j^{\beta} k_j^{1-\beta} dj \label{final_goods_production}
+\end{align}
 
 where $q_j,k_j$ are the quality and quantity of intermediate input $j$. 
 The price of the final good is normalized to 1 in every period. 
@@ -571,30 +571,25 @@ Substituting (\ref{optimal_k}) into the first-order condition for final goods fi
 C(\beta) &= \beta^{\beta} (1-\beta)^{1-2\beta} \label{def_cbeta}
 \end{align}
 
-Substituting (\ref{optimal_p}) and (\ref{wbar}) into the expression for profit in (\ref{incumbent_profit}) yields
+Substituting (\ref{optimal_k}) and (\ref{wbar}) into the expression for profit in (\ref{incumbent_profit}) yields
 \begin{align}
 \pi_j &= (1-\beta) C(\beta) L_F q_j \label{profits_eq}
 \end{align}
 
 Substituting (\ref{optimal_k}) into (\ref{optimal_l}) and integrating $L_I = \int_0^1 l_j dj$ yields aggregate labor allocated to intermediate goods production,
 \begin{align}
-L_I &= \frac{1-\beta}{C(\beta)}L_F \label{intermediate_goods_labor}
-\end{align}
-
-Final goods firm optimization implies output is given by 
-\begin{align}
-Y = \frac{\Big((1-\beta)C(\beta)^{-1}\Big)^{1-\beta}}{1-\beta} Q L_F \label{output_eq}
+L_I &= \Big( \frac{1-\beta}{C(\beta)} \Big)^{1 / \beta} L_F \label{intermediate_goods_labor}
 \end{align}
 
 and substituting (\ref{intermediate_goods_labor}) into the labor resource constraint (\ref{labor_resource_constraint}) yields
 \begin{align}
-L_F &= \frac{1 - L_{RD}}{1 + \frac{1-\beta}{C(\beta)}}
+L_F &= \frac{1 - L_{RD}}{1 + \Big(\frac{1-\beta}{C(\beta)}\Big)^{1/\beta}}
 \end{align}
 
-The value of $L_{RD}$ is determined by incumbents' and entrants' innovation decisions, described below.
-
-
-
+The value of $L_{RD}$ is determined endogenously by incumbents' and entrants' innovation decisions, described in the next subsection. Output can be computed by substituting (\ref{optimal_k}) into (\ref{final_goods_production}), 
+\begin{align}
+Y = \frac{(1-\beta)^{1-2\beta}}{\beta^{1-\beta}} Q L_F \label{flow_output}
+\end{align}
 \subsubsection{Dynamic optimization}
 
 I will solve for an equilibrium of the model which is a balanced growth path. In such an equilibrium, output, consumption and average quality in the economy grow at a constant and equal exponential rate, innovation rate in line $j$ depends only on $m_j$ and the distribution of $m_j$, $F(m) = \mathrm{Pr}_j\{m_j < m\}$, is constant. 
@@ -762,17 +757,7 @@ To compute $\Gamma(m)$, define $s(m)$ as the equilibrium (deterministic) amount 
 s(m) &= \int_0^m \frac{1}{\sigma(m')} dm'
 \end{align}
 
-Define $\tilde{\Gamma}(s') = \Gamma(s^{-1}(s'))$. Absent any innovation, $q/Q_t$ decreases at rate $g$. Therefore, $\tilde{\Gamma}(s)$ decays at rate $g$, 
-\begin{align}
-\tilde{\Gamma}(s) &= C_{\Gamma} e^{-gs}
-\end{align}
-
-Recover $\Gamma(m)$ using 
-\begin{align}
-\Gamma(m) &= \tilde{\Gamma}(s(m))
-\end{align}
-
-Finally, $C_{\Gamma}$ is determined by the law of iterated expectations,\footnote{It is possible to also derive the condition $C_{\Gamma} = \lambda \int_0^{\infty} \Gamma(m) \tau(m) \mu(m) dm$. This equation can be shown to be redundant (\textbf{appendix})}
+Define $\tilde{\Gamma}(s') = \Gamma(s^{-1}(s'))$. Absent any innovation, $q/Q_t$ decreases at rate $g$. Therefore, $\tilde{\Gamma}(s)$ decays at rate $g$, $\tilde{\Gamma}(s) = C_{\Gamma} e^{-gs}$. Recover $\Gamma(m)$ using $\Gamma(m) = \tilde{\Gamma}(s(m))$. Finally, $C_{\Gamma}$ is determined by the law of iterated expectations,\footnote{It is possible to also derive the condition $C_{\Gamma} = \lambda \int_0^{\infty} \Gamma(m) \tau(m) \mu(m) dm$. This equation can be shown to be redundant (\textbf{appendix})}
 \begin{align}
 \int_0^{\infty} \Gamma(m) \mu(m) dm = 1
 \end{align}
@@ -830,49 +815,49 @@ I calibrate the model using direct and indirect inference, as well as some param
 
 Table \ref{identification} displays the various parameters to be identified alongside their sources of identification. 
 
-\begin{center}
-	\footnotesize
-	\begin{tabular}{lll}
-		\hline 
-		Parameter &  Description & Source / match / target \\
-		\hline 
-		Chosen outside model & \\
+\begin{table}
+	\small
+	\centering
+	\begin{tabular}{rll}
+		\toprule \toprule 
+		Parameter &  Description & Source / Target\\
+		\midrule
+		\textbf{Chosen from literature}& \\
 		$\psi, \hat{\psi}$ & Curvature of incumbent, entrant R\&D & R\&D regressions from \\
 		& technology & literature\\
 		& & \\
-		Calibrated directly &  \\
+		\textbf{Matched exactly}&  \\
 		$\rho$ & Discount factor & Interest rate \\
-		$\beta$ & $\beta^{-1}$ EoS between intermediate goods & Profit / sales ratio \\
-		$\chi_S / \chi_E$ & Spinouts / entrants R\&D prod. & Spinout / entrant probability \\
-		& & of reaching profitablity \\
+		$\beta$ & $\beta^{-1}$ EoS between intermediate goods & Profit / GDP \\
+		$\chi_S / \chi_E$ & Spinouts / entrants R\&D prod. & Spinout / entrant hazard \\
+		& & of successful exit \\
 		$\theta$ & Fraction of spinouts that & WSO reg. coef. divided \\
 		& are WSOs & by All Spinout reg. coef. \\
 		& \\
-		Indirect inference & \\
+		\textbf{Indirect inference}& \\
 		$\lambda$ & Step size of innovations & Growth rate \\
-		$\chi_I$ & Incumbent R\&D prod. & Fraction of patents citing \\
-		& & > 50\% same firm patents \\
-		$\kappa$ & Cost of creative destruction & Rate of creative destruction \\
-		$\chi_E$ & Entrant R\&D prod. & R\&D employment / \\
-		& & total employment \\
+		$\chi_I$ & Incumbent R\&D prod. & Fraction of innovations \\
+		& &  by incumbent firms \\
+		$\kappa$ & Entry cost & R\&D / GDP ratio\\
+		$\chi_E$ & Entrant R\&D prod. & Entry rate \\
 		$\nu$ & Spinout idea generation rate & Spinout entry rate implied \\
 		& & by regressions \\
-		\hline
+		\bottomrule
 	\end{tabular}
 	\captionof{table}{Identification of model parameters.}\label{identification}
-\end{center}
+\end{table}
 
 \paragraph{Identification of discount rate and intermediate goods elasticity}
 
-The parameter $\rho$ is equal to the interest rate in the equilibrium of the economy. While the model exhibits no risk premium due to risk neutrality, I calibrate $\rho$ so that it matches a real interest rate of 5\%, to better reflect the fact that such investments would carry a risk premium in the actual economy. 
+The parameter $\rho$ is equal to the interest rate in the equilibrium of the economy. While the model exhibits no risk premium due to risk neutrality, I calibrate $\rho = 0.05$ so that it matches a real interest rate of 5\%, to better reflect the fact that such investments would carry a risk premium in the actual economy. 
 
-The parameter $\beta$ controls both the elasticity of substitution between intermediate goods and the share of income that accrues to final goods labor. The fact that these two disparate measures are controlled by the same parameter is clearly undesirable but is useful for the purpose of tractability. I calibrate it by targeting the ratio of profits to GDP, which is about 10\%.\footnote{I believe this is preferrable to calibrating to the R\&D / sales ratio, as in \cite{akcigit_growth_2018}, for two reasons: the R\&D / sales ratio is contaminated by the degree of vertical integration in the supply chain, which is not present in the model, which assumes that intermediate goods firms produce using no intermediate goods of their own.}
+The parameter $\beta$ controls both the elasticity of substitution between intermediate goods and the share of income that accrues to final goods labor. I calibrate it by targeting the ratio of profits to GDP, which is about 6\%.\footnote{I believe this is preferrable to calibrating to the R\&D / sales ratio, as in \cite{akcigit_growth_2018}, for two reasons: the R\&D / sales ratio is contaminated by the degree of vertical integration in the supply chain, which is not present in the model, which assumes that intermediate goods firms produce using no intermediate goods of their own.} Using (\ref{profits_eq}) and (\ref{flow_output}) one can show that the profit to final goods output ratio is $\frac{(1-\beta) C(\beta) \beta^{1-\beta}}{(1-\beta)^{1-2\beta}}$, yielding a $\beta = .065$. According to (\ref{optimal_p}), this implies an equilibrium markup of $6.9\%$.
 
 \paragraph{Identification of R\&D curvature parameters}
 
 The parameters $\psi, \hat{\psi}$ govern the curvature of the innovation production function. I choose $\psi = 0.5$, based on microeconometric estimates of (1) the elasticity of patents to R\&D expenditures (citations), and (2) the impact of R\&D tax credits on R\&D expenditures. See the discussion in \cite{akcigit_growth_2018}. 
 
-As discussed previously, $\hat{\psi} > \psi$ in order to capture the fact that entering firms do not coordinate their innovations and therefore run the risk of duplicating projects. A higher value of the parameter $\hat{\psi}$ implies a lower sensitivity of entry to changes in firm value. Absent data with which to discipline, I set a baseline of $\hat{\psi} = 0.6$ and conduct robustness checks where I vary the value of this parameter (\textbf{what values?}).
+As discussed previously, $\hat{\psi} > \psi$ in order to capture the fact that entering firms do not coordinate their innovations and therefore run the risk of duplicating projects. A higher value of the parameter $\hat{\psi}$ implies a lower sensitivity of entry to changes in firm value. Absent data with which to discipline, I set a baseline of $\hat{\psi} = 0.7$ and conduct robustness checks where I vary the value of this parameter (\textbf{what values?}).
 
 \paragraph{Identification of R\&D productivity parameters}
 
@@ -904,22 +889,29 @@ Table \ref{calibration_targets} displays the calibrations targets in the data an
 \begin{table}
 	\centering
 	\captionof{table}{Calibration targets}\label{calibration_targets}
-	\begin{tabular}{lll}
-		\hline
-		Moment  & Target & Model \tabularnewline
-		\hline 
-		Growth rate $g$ & 0.015 & 0.0146 \tabularnewline
-		Risk-adjusted interest rate $r$ & 0.05 & 0.05 \tabularnewline
-		Profit / ratio & .109 & .109 \tabularnewline
-		S/E profit. probability & 1.58 & 1.58 \tabularnewline
+	\begin{tabular}{rll}
+		\toprule \toprule
+		  & Target & Model \tabularnewline
+		\midrule
+		\multicolumn{1}{l}{\textbf{Exactly matched}} & &  \tabularnewline
+		Interest rate & 5\% & 5\% \tabularnewline
+		Profit (\% GDP) & 6\% & 6\% \tabularnewline
+		Spinouts / ordinary entrants & 1.3 & 1.3 \tabularnewline
+		innovation probability \tabularnewline
 		\tabularnewline
-		Internal patent share & 0.2 & 0.234
+		\multicolumn{1}{l}{\textbf{Indirect inference}} & & 
 		\tabularnewline
-		Rate of creative destruction & 0.8 & 0.323
+		Growth rate & 1.5\% & 1.35\% 
 		\tabularnewline
-		Spinout entry rate & 0.025 & 0.011
+		R\&D spending (\% GDP) & 1.5\% & 0.9\% 
+		\tabularnewline		
+		Incumbent innovation share & 0.75 & 0.63
 		\tabularnewline
-		R\&D Labor allocation & 0.08 & 0.031
+		Entry rate & 0.09 & 0.097
+		\tabularnewline
+		Spinout entry rate & 0.03 & 0.03
+		\tabularnewline
+		\bottomrule
 	\end{tabular}
 \end{table}
 
@@ -927,33 +919,78 @@ Table \ref{calibration_parameters} displays the parameter settings in the calibr
 
 \begin{table}
 	\centering
-	\captionof{table}{Calibration parameters}
-	\begin{tabular}{lll}\label{calibration_parameters}
-		Parameter & Value\tabularnewline
-		\hline 
-		$\rho$ & 0.05\tabularnewline
-		$\beta$ & 0.106\tabularnewline
-		$\psi$ & 0.5\tabularnewline
-		$\hat{\psi}$ & 0.5\tabularnewline
-		$\lambda$ & 1.05\tabularnewline
-		$\chi_I$ & 4.46 \tabularnewline
-		$\chi_E$ & 1.90 \tabularnewline
-		$\chi_S$ & 2.489 \tabularnewline
-		$\kappa$ & 0.481 \tabularnewline
-		$\nu$ & 0.699 \tabularnewline
-		$\theta$ & 0.46
+	\captionof{table}{Calibration parameters}\label{calibration_parameters}
+	\begin{tabular}{rlll}
+		\toprule \toprule
+		Parameter & Value & Description \tabularnewline
+		\midrule
+		$\rho$ & 0.05 & Discount rate \tabularnewline
+		$\beta$ & 0.065 & $(1-\beta)^{-1}$ markup\tabularnewline
+		$\psi$ & 0.5 & Incumbent R\&D elasticity \tabularnewline
+		$\hat{\psi}$ & 0.7 & Entrant R\&D elasticity \tabularnewline
+		$\lambda$ & 1.053 & Quality ladder step size \tabularnewline
+		$\chi_I$ & 1.43 & Incumbent R\&D productivity \tabularnewline
+		$\chi_E$ & 0.22 & Ordinary entrant R\&D productivity \tabularnewline
+		$\chi_S$ & 0.29 & Spinout R\&D productivity \tabularnewline
+		$\kappa$ & 0.82 & Entry cost \tabularnewline
+		$\nu$ & 0.34 & Spinout generation rate \tabularnewline
+		$\theta$ & 0.5 & Fraction WSOs\tabularnewline
+		\bottomrule
 	\end{tabular}
 \end{table}
 
+
+
 \subsection{Calibrated equilibrium}
+
+In this section I document the properties of the equilibrium that results from the calibration in the previous section. First, \autoref{figure:calibration_HJB_solutions_plot} shows the value functions and R\&D policies of incumbents and spinouts, as a function of $m$. Both value functions are decreasing in $m$ until $M^*$ after which they are constant. This is because, provided $m \le M^*$, higher $m$ increases the hazard rate of creative destruction, reducing the expected duration of the incumbent's monopoly. For $m > M^*$, additional spinout ideas formed do not find it profitable to enter and the hazard rate no longer increases. 
+
+By contrast, both policy functions are increasing in $m$ until $M^*$ and subsequently constant. The spinout policy function is mechanical as spinouts have no intensive margin and as $m$ increases there is a larger mass of spinouts which can choose to enter. The incumbent policy function increases in $m$ due to the ``escape competition'' effect, whereby it pays to innovate when successfully doing so creates more distance from one's competition (i.e., decreases the subsequent hazard rate of creative destruction). That is the case here, since a successfull innovation returns $m$ to zero, reducing the mass of spinouts attempting entry. 
+
+\begin{figure}[]
+	\centering
+	\includegraphics[scale=0.77]{../code/julia/figures/plotsGR/HJB_solutions_plot.pdf}
+	\caption{Equilibrium incumbent and spinout value functions and R\&D policy. The upper left panel shows the value function of an incumbent as a decreasing function of the mass $m$ of spinout attempting innovation on his good own good $j$. The upper right panel shows the value of a spinout idea, again a decreasing function of $m$ as more spinouts crowd the innovation race. The bottom two panels show innovation policy funcions. The bottomr right panel naturally shows how all spinouts in a good $j$ increase their total R\&D spending due to the extensive margin. The bottom left panel shows the ``escape competition'' effect (see \cite{aghion_competition_2005}) where the incumbent R\&D is increasing in $m$. All displayed graphs are constant for $m > M^*$.}
+	\label{figure:calibration_HJB_solutions_plot}
+\end{figure}
+
+\autoref{figure:innovation_rates_m} shows the equilibrium hazard rates of innovation by different types of firms as a function of the state $m$. First, notice how the increase in the orange line (spinouts) replace the fall in the green line (ordinary entrants) as $m$ increases. After $m = M^*$, all lines are constant. Second, notice the rapidly increasing incumbent arrival rate of innovation. This drives the majority of the overall increase in the arrival rate of innovation.
+
+\begin{figure}
+	\includegraphics[scale=0.77]{../code/julia/figures/plotsGR/innovation_rates_m.pdf}
+	\caption{Equilibrium innovation rates as a function of $m$. While incumbents spend less on R\&D in the calibration, they have much more productivity, leading to a high innovation rate relative to entrants and spinouts.}
+	\label{figure:innovation_rates_m}
+\end{figure}
+
+\autoref{figure:gamma_t_mu_vs_m_plots} shows the implications of innovation policies for the equilibrium distribution of intermediate goods in quality and $m$-space.
+
+\begin{figure}
+	\includegraphics[scale=0.77]{../code/julia/figures/plotsGR/gamma_t_mu_vs_m_plots.pdf}
+	\caption{Equilibrium intermediate good distributions. The top panel shows the stationary density $\mu(m)$. By $m = 0.4$ or so, the vast majority of products have been innovated upon. The third panel shows that this is approximately 8 years since the last innovation, given the equilibrium rate of drift in $m$-space. The second panel shows the function $\Gamma(m)$, the conditional mean of $q / Q$ given $m$. It declines at decreasing rate; this the mirror image of the fact that the rate of drift in $m$ space increases in $m$.}
+	\label{figure:gamma_t_mu_vs_m_plots}
+\end{figure}
+
+
 
 \subsection{Model validation}
 
-\section{Policy experiments}
+\section{Comparative statics}
 
 \subsection{Enabling permanent non-competes}
 
+According to this calibration, allowing non-competes increases welfare by 10\%. The reason is that, as discussed before, a high $\kappa$ means that spinouts do not value their knowledge gained as much as it hurts firms in expectation. Firms therefore value highly the ability to impose an NCA. Because NCAs reduce the effective wage paid by incumbents for R\&D, they increase their R\&D spending by $21\%$. While the WSO entry rate falls to zero, increased R\&D spending by incumbents leads to more non-WSO spinouts. The overall spinout entry rate only declines from $3.1\%$ to $2.8\%$, and the overall entry rate falls from $9.7\%$ to $9.5\%$. Overall, the aggregate growth rate increases from $1.35\%$ to $1.72\%$, driving the 10\% increase in welfare.
+
+This is a large quantity because of the high calibrated values for $\kappa$ and $\theta$. The value of $\kappa$ must be high so that the model can match the low level of R\&D spending compared to the entry rate. If the value 
+
+Given the high estimate for $\kappa$, even a value of $\theta = 0.1$ implies a welfare improvement of 2\% from allowing NCAs. 
+
+Note that the previous calibration was done using data for the entire country, but the results would remain similar if I had used only data from states with weak non-compete enforcement (including California and New York, but not including, e.g. Massachusetts). 
+
 \subsection{Other experiments}
+
+A reduction in $\kappa$ to a value of $0.5$ reduces welfare by 6.2\% due to a large increase in the entry rate. This reduces incumbent R\&D spending by 30\% while significantly increasing R\&D spending in the entire economy, due to an increase in spending by entrants. Productivity growth increases from $1.35\%$ to $1.42\%$, but labor allocated to R\&D rises from $6.3\%$ to $14.7\%$, reducing an output. Because a reduction in $\kappa$ implies an expansion of the production possibilities frontier, it follows that reducing $\kappa$ exacerbates a market inefficiency that creates excessive R\&D spending. 
+
+In part this result may be due to the assumed low value of $\lambda = 1.053$. Given that the model must match a relatively high entry rate of 10\% and the fact that 75\% of innovations are by incumbents, it must be the case that innovations occur roughly once every three or four years, so that $\lambda$ must be around $1.05$. This implies a very strong business stealing effect ($\frac{\lambda}{\lambda - 1} \approx 21$). In order to generate sufficient innovation by incumbents relative to entrants, incumbents must be given an extremely productive innovation technology. In equilibrium this means that they innovate a lot but with low expenditures. If instead $\lambda$ were set higher, entrants would do less to price incumbents out of innovation, and incumbents could be given a lower $\chi_I$ to match the data. I am thinking of doing an alternative calibration where only firms that reach a certain size threshold are considered to have entered, or only firm with a certain amount of patenting in the patent data are "entering" firms.
 
 \begin{enumerate}
 	\item Subsidizing new firm entry?
@@ -976,6 +1013,8 @@ Table \ref{calibration_parameters} displays the parameter settings in the calibr
 \counterwithin{figure}{section}
 
 \counterwithin{table}{section}
+
+\pagebreak
 
 \section{Appendix of figures}
 

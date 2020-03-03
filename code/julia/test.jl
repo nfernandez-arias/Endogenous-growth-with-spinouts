@@ -1,5 +1,8 @@
 using Revise
 using EndogenousGrowthWithSpinouts
+using LaTeXStrings
+using Plots
+gr()
 
 cd("/home/nico/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/code/julia")
 
@@ -12,14 +15,7 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 # Solve model with the above parameters
 #--------------------------------#
 
-#include("testWelfarePlots.jl")
-#@timev w_diag,V_diag,noncompete_diag,W_diag,μ_diag,g_diag,L_RD_diag,results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
-#@timev w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,results.finalGuess,results.incumbent)
-
-@timev results,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,initGuess)
-
-using Plots
-gr()
+@timev sol,A,results = solveModel(algoPar,modelPar,initGuess)
 
 #using JLD2, FileIO, Optim
 #@load "output/calibrationResults_noCNC.jld2" modelMoments modelResults score
@@ -32,7 +28,7 @@ gr()
 #include("testPlots_calibration_noCNC.jl")
 include("testPlots.jl")
 
-#--------------------------------#
+#-----------------------------true---#
 # Compute diagnostics
 #--------------------------------#
 

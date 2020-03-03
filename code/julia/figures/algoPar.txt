@@ -1,6 +1,6 @@
 mGrid Parameters 
 ---------------
-numPoints: 600 
+numPoints: 1000 
 minimum: 0.0 
 maximum: 0.1 
 logSpacing: true 
@@ -11,7 +11,7 @@ Incumbent HJB Parameters
 ---------------
 timeStep: 100.0 
 tolerance: 1.0e-8 
-maxIter: 20 
+maxIter: 50 
 
 
 Spinout HJB Parameters 
@@ -24,7 +24,7 @@ maxIter: 150
 g Iteration Parameters 
 ---------------
 tolerance: 1.0e-7 
-maxIter: 100.0 
+maxIter: 10.0 
 updateRate: 0.3 
 updateRateExponent: 1.0 
 
@@ -32,7 +32,7 @@ updateRateExponent: 1.0
 L_RD Iteration Parameters 
 ---------------
 tolerance: 1.0e-7 
-maxIter: 100.0 
+maxIter: 10.0 
 updateRate: 0.3 
 updateRateExponent: 1.0 
 
@@ -40,7 +40,7 @@ updateRateExponent: 1.0
 w Iteration Parameters 
 ---------------
 tolerance: 1.0e-7 
-maxIter: 100.0 
+maxIter: 10.0 
 updateRate: 0.3 
 updateRateExponent: 1.0 
 

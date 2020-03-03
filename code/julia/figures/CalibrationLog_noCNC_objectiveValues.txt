@@ -13334,3 +13334,6 @@ Value of objective: 0.8181843408621288
 Value of objective: 0.818137980353396
 Value of objective: 0.8181639905845074
 Value of objective: 0.8181536018387604
+Value of objective: 5.4581645924988464
+Value of objective: 4.984164958064051
+Value of objective: 4.984390079440491

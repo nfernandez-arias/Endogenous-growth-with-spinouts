@@ -10,9 +10,9 @@
 
 rm(list = ls())
 
-patentsPdpass <- fread("data/nber uspto/pat76_06_assg.csv")[country == "US"][ , .(patent,pdpass,appyear,gyear)]
+patentsPdpass <- fread("raw/nber uspto/pat76_06_assg.csv")[country == "US"][ , .(patent,pdpass,appyear,gyear)]
 
-citations <- fread("data/nber uspto/cite76_06.csv")
+citations <- fread("raw/nber uspto/cite76_06.csv")
 
 # First, merge in information on citing patents
 setkey(patentsPdpass,patent)

@@ -9,13 +9,13 @@ export setAlgorithmParameters, setModelParameters, setInitialGuess
 
 function setAlgorithmParameters()
 
-    outerLoopMax = 100
+    outerLoopMax = 10
 
     f = open("./figures/algoPar.txt", "w")
 
     mgrid_numPoints = 1000
     mgrid_minimum = 0.0
-    mgrid_maximum = 0.15
+    mgrid_maximum = .1
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-8 * mgrid_maximum
 
@@ -30,7 +30,7 @@ function setAlgorithmParameters()
 
     incumbentHJB_timeStep = 100
     incumbentHJB_tolerance = 1e-8
-    incumbentHJB_maxIter = 20
+    incumbentHJB_maxIter = 50
 
     incumbentHJB = HJBellmanParameters(incumbentHJB_timeStep,incumbentHJB_tolerance,incumbentHJB_maxIter)
 
@@ -155,30 +155,30 @@ function setModelParameters()
 
     # General
     ρ = 0.05
-    β = 0.106
+    β = 0.065
     L = 1
 
     # Innovation
-    χI = 2.000
-    χE = 0.221927
+    χI = 1.99
+    χE = 0.21866
     χS = 1.3 * χE
     ψI = 0.5
     ψSE = 0.7
-    λ = 1.078036
+    λ = 1.04567
     #λ = 1.10
 
     # Spinouts
     #ν = 0.0102495
-    ν = 0.419788
-    θ = 0.5
+    ν = 0.1
+    θ = 0.1
     ξ = 1
     ζ = 0
 
     # Creative destruction cost
-    κ = 0.442979
+    κ = 0.8348
 
     # CNCs
-    CNC = false
+    CNC = true
 
     # Rate of Spinout formation of spinouts and entrants
 
@@ -221,7 +221,7 @@ function setInitialGuess(pa::AlgorithmParameters,pm::ModelParameters,mGrid)
 
     idxM = ceil(pa.mGrid.numPoints / 2)
 
-    driftNC = 0.1
+    driftNC = 1
 
     initGuess = Guess(g,L_RD,w,wNC,wE,idxM,driftNC)
 

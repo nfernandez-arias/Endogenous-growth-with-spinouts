@@ -46,6 +46,10 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
     # Define some auxiliary functions
     ϕI(z) = z .^(-ψI)
+    ξ = modelPar.ξ
+	ζ = modelPar.ζ
+	sFromS = modelPar.spinoutsFromSpinouts
+	sFromE = modelPar.spinoutsFromEntrants
     ϕSE(z) = z .^(-ψSE)
 
     ## Unpack guess
@@ -81,8 +85,6 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	# Spinout flow construction
 	spinoutFlow = zeros(size(zS))
 
-
-
 	if modelPar.spinoutsSamePool == true
 
 		#spinoutFlow = χS .* ϕI(zS + zI + zE) .* (λ * (1-ζ) * V[1] ) .- (sFromS * w + (1-sFromS) * wbar * ones(size(mGrid)))
@@ -103,7 +105,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
 		j = Imax - i
 
-		W[j] = ((drift[j] / Δm[j]) * W[j+1] + zS_density[j] * ( spinoutFlow[j] )) / (ρ + τ[j] + drift[j] / Δm[j])
+		W[j] = ((drift[j] / Δm[j]) * W[j+1] + zS_density[j] * ( max(spinoutFlow[j],0) )) / (ρ + τ[j] + drift[j] / Δm[j])
 
 	end
 
@@ -148,9 +150,14 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 		#A[i,1] = τI[i]  # no λ term -- Moll's idea
 		A[i,i+1] = drift[i] / Δm[i]
 		A[i,i] = - drift[i] / Δm[i] - τI[i] - τSE[i]
-		#A[i,i] = - ν * (zI[i] + aSE[i]) / Δm[i]
 
     end
+
+	# Make correction for A[1,1]
+	A[1,1] += τI[1] * λ
+
+	#println("τI[1] = $(τI[1])")
+	#println("A[1,1] = $(A[1,1])")
 
 	A[end,1] = τI[end] * λ
 	#A[end,1] = τI[end]  # no λ term -- Moll's idea
@@ -314,7 +321,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 			    Vprime = (V0[i+1] - V0[i]) / Δm[i]
 
 				if i == 1
-					Vprime = Vprime2
+					#Vprime = Vprime2
 				end
 
 				objective1(z) = -(z * χI * ϕI(z + zS[i] + zE[i])  * ( λ * V0[1] - V0[i] ) - z * ( w[i] - ν * Vprime))
@@ -385,7 +392,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 				Vprime = (V0[i+1] - V0[i]) / Δm[i]
 
 				if i == 1
-					Vprime = Vprime2
+					#Vprime = Vprime2
 				end
 
 				#if i >= idxM
@@ -484,15 +491,16 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 			try
 				V1,error = updateV_implicit(algoPar,modelPar,A,u,V0)
 
-			catch caughtError
+			catch err
 
-				#print(caughtError)
+				print("Caught error when attempting implicit update: $(typeof(err))\n")
+				break
 				#V1,error = updateV_explicit(algoPar,modelPar,A,u,V0)
 
 			end
 
 			# Hack to avoid instabiities - will be true in equilibrium
-			V1[idxM+1:end] .= V1[idxM]
+			#V1[idxM+1:end] .= V1[idxM]
 
 			# Normalize error by timeStep because
 			# it will always be smaller if timeStep is smaller
@@ -534,7 +542,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
     # Output
     #return V_diag,zI_diag,noncompete_diag,IncumbentSolution(V0,zI,noncompete)
-	return IncumbentSolution(V0,zI,noncompete)
+	return IncumbentSolution(V0,zI,noncompete),A
 
 end
 

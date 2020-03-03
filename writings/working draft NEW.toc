@@ -32,43 +32,43 @@
 \contentsline {section}{\numberline {3}Model}{24}{section.3}
 \contentsline {subsection}{\numberline {3.1}Basics}{24}{subsection.3.1}
 \contentsline {subsubsection}{\numberline {3.1.1}Individual endowments and preferences}{24}{subsubsection.3.1.1}
-\contentsline {subsubsection}{\numberline {3.1.2}Production and storage technology}{25}{subsubsection.3.1.2}
-\contentsline {subsubsection}{\numberline {3.1.3}Borrowing and lending}{26}{subsubsection.3.1.3}
+\contentsline {subsubsection}{\numberline {3.1.2}Production and storage technology}{24}{subsubsection.3.1.2}
+\contentsline {subsubsection}{\numberline {3.1.3}Borrowing and lending}{25}{subsubsection.3.1.3}
 \contentsline {subsection}{\numberline {3.2}R\&D, innovation and entry}{26}{subsection.3.2}
-\contentsline {subsubsection}{\numberline {3.2.1}Innovation by incumbent firms}{27}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.1}Innovation by incumbent firms}{26}{subsubsection.3.2.1}
 \contentsline {subsubsection}{\numberline {3.2.2}Innovation by entrants}{27}{subsubsection.3.2.2}
 \contentsline {paragraph}{Ordinary entrants}{27}{section*.24}
-\contentsline {paragraph}{Spinouts}{28}{section*.25}
-\contentsline {paragraph}{Entry cost}{29}{section*.26}
+\contentsline {paragraph}{Spinouts}{27}{section*.25}
+\contentsline {paragraph}{Entry cost}{28}{section*.26}
 \contentsline {subsubsection}{\numberline {3.2.3}Formation of spinouts}{29}{subsubsection.3.2.3}
-\contentsline {paragraph}{Details of spinout formation}{30}{section*.27}
-\contentsline {subsubsection}{\numberline {3.2.4}Financing of startup ideas}{31}{subsubsection.3.2.4}
+\contentsline {paragraph}{Details of spinout formation}{29}{section*.27}
+\contentsline {subsubsection}{\numberline {3.2.4}Financing of startup ideas}{30}{subsubsection.3.2.4}
 \contentsline {subsection}{\numberline {3.3}Non-compete agreements}{31}{subsection.3.3}
-\contentsline {subsection}{\numberline {3.4}Summary of product line dynamics}{32}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.4}Summary of product line dynamics}{31}{subsection.3.4}
 \contentsline {subsection}{\numberline {3.5}Equilibrium}{32}{subsection.3.5}
 \contentsline {subsubsection}{\numberline {3.5.1}Static optimization}{32}{subsubsection.3.5.1}
 \contentsline {paragraph}{Quality gaps and limit pricing}{33}{section*.29}
-\contentsline {subsubsection}{\numberline {3.5.2}Dynamic optimization}{35}{subsubsection.3.5.2}
+\contentsline {subsubsection}{\numberline {3.5.2}Dynamic optimization}{34}{subsubsection.3.5.2}
 \contentsline {paragraph}{Households}{35}{section*.30}
 \contentsline {paragraph}{Incumbents}{36}{section*.31}
-\contentsline {paragraph}{Spinout ideas}{38}{section*.32}
+\contentsline {paragraph}{Spinout ideas}{37}{section*.32}
 \contentsline {paragraph}{Equilibrium entry behavior}{38}{section*.33}
-\contentsline {subsubsection}{\numberline {3.5.3}Linear scaling in $q$}{39}{subsubsection.3.5.3}
-\contentsline {paragraph}{Aggregate distributions}{40}{section*.34}
-\contentsline {paragraph}{Aggregate growth, R\&D labor demand, and non-WSO spinouts}{41}{section*.35}
-\contentsline {subsubsection}{\numberline {3.5.4}Solution algorithm}{41}{subsubsection.3.5.4}
-\contentsline {subsection}{\numberline {3.6}Efficiency}{42}{subsection.3.6}
-\contentsline {section}{\numberline {4}Calibration and model validation}{42}{section.4}
-\contentsline {subsection}{\numberline {4.1}Calibration}{42}{subsection.4.1}
-\contentsline {paragraph}{Identification of discount rate and intermediate goods elasticity}{43}{section*.36}
-\contentsline {paragraph}{Identification of R\&D curvature parameters}{44}{section*.37}
-\contentsline {paragraph}{Identification of R\&D productivity parameters}{44}{section*.38}
-\contentsline {paragraph}{Identification of spinout entry parameters}{45}{section*.39}
-\contentsline {subsection}{\numberline {4.2}Calibrated equilibrium}{47}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {3.5.3}Linear scaling in $q$}{38}{subsubsection.3.5.3}
+\contentsline {paragraph}{Aggregate distributions}{39}{section*.34}
+\contentsline {paragraph}{Aggregate growth, R\&D labor demand, and non-WSO spinouts}{40}{section*.35}
+\contentsline {subsubsection}{\numberline {3.5.4}Solution algorithm}{40}{subsubsection.3.5.4}
+\contentsline {subsection}{\numberline {3.6}Efficiency}{41}{subsection.3.6}
+\contentsline {section}{\numberline {4}Calibration and model validation}{41}{section.4}
+\contentsline {subsection}{\numberline {4.1}Calibration}{41}{subsection.4.1}
+\contentsline {paragraph}{Identification of discount rate and intermediate goods elasticity}{41}{section*.37}
+\contentsline {paragraph}{Identification of R\&D curvature parameters}{43}{section*.38}
+\contentsline {paragraph}{Identification of R\&D productivity parameters}{43}{section*.39}
+\contentsline {paragraph}{Identification of spinout entry parameters}{44}{section*.40}
+\contentsline {subsection}{\numberline {4.2}Calibrated equilibrium}{45}{subsection.4.2}
 \contentsline {subsection}{\numberline {4.3}Model validation}{47}{subsection.4.3}
-\contentsline {section}{\numberline {5}Policy experiments}{48}{section.5}
-\contentsline {subsection}{\numberline {5.1}Enabling permanent non-competes}{48}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Other experiments}{48}{subsection.5.2}
-\contentsline {section}{\numberline {6}Conclusion}{48}{section.6}
-\contentsline {section}{\numberline {A}Appendix of figures}{52}{appendix.A}
-\contentsline {section}{\numberline {B}Appendix of tables}{62}{appendix.B}
+\contentsline {section}{\numberline {5}Comparative statics}{51}{section.5}
+\contentsline {subsection}{\numberline {5.1}Enabling permanent non-competes}{51}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Other experiments}{51}{subsection.5.2}
+\contentsline {section}{\numberline {6}Conclusion}{52}{section.6}
+\contentsline {section}{\numberline {A}Appendix of figures}{57}{appendix.A}
+\contentsline {section}{\numberline {B}Appendix of tables}{66}{appendix.B}

@@ -16,7 +16,7 @@
 
 function Cβ(β::Float64)
 
-    return (β/(1-β) * (1-β)^((1-β)/β))^β
+    return β^β * (1-β)^(1-2*β)
 
 end
 
@@ -33,10 +33,17 @@ end
 function LF(L_RD::Array{Float64}, modelPar::ModelParameters)
 
     β,L = modelPar.β, modelPar.L;
-    Cβconst = Cβ(β)
     #return β * (L - L_RD) / (β + (1-β)^2);
 
-    return (ones(size(L_RD)) * L -L_RD) / (1 + (1-β)/Cβconst)
+    return (L .- L_RD) / (1 + ((1-β)/Cβ(β))^(1/β))
+
+end
+
+function flowOutput(L_F::Float64, modelPar::ModelParameters)
+
+    β = modelPar.β
+
+    return ((1-β)^(1-2*β) / (β^(1-β)) )* L_F
 
 end
 
@@ -47,7 +54,7 @@ function profit(L_RD::Float64, modelPar::ModelParameters)
     β = modelPar.β;
     #return β * (1-β)^((2-β)/β) * β^(-1) * LF(L_RD,modelPar);
 
-    return β * LF(L_RD, modelPar)
+    return (1-β) * Cβ(β) * LF(L_RD, modelPar)
 
 end
 

@@ -1,0 +1,892 @@
+\documentclass[english,usenames,dvipsnames]{beamer}
+\usetheme{default}
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{footline}[frame number]
+\setbeamercolor{alerted text}{fg=blue1}
+%\setbeamercolor{frametitle}{fg=blue2}
+\usepackage[utf8]{inputenc}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{appendixnumberbeamer}
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{bbm}
+\usepackage{tikz}
+\usepackage{amsthm}
+\usepackage{verbatim}
+%\usepackage{palatino}
+\definecolor{red1}{RGB}{155,50,0}
+\definecolor{blue1}{RGB}{0,0,155}
+\definecolor{blue2}{rgb}{0.22,0.37,1}
+\definecolor{green1}{RGB}{34,139,35}
+
+\setbeamertemplate{itemize items}[default]
+
+
+\title{Employee Spinouts, Creative Destruction and Endogenous Growth}
+\author{Nicolas Fernandez-Arias}
+%\date{March 7, 2019}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+\begin{frame}
+\begin{itemize}
+	\item Redo introduction to more carefully define terms
+	\item Also, improve theoretical motivation (i.e., argue why it is natural to want to augment the Grossman-Helpman model in this way -- endogenizing the knowledge spillovers in that model which are key for the welfare effects of it)
+	\item Intensive margin regressions - are spinouts formed when there is R\&D of higher value than not? (discuss with Rowan)
+	\item Try normalizing regressions by measures of cost, instead of assets (why? ask Benny)
+	\item Hannah: try calibration with no non-WSO firms, calibrate and show that it's not the increased entry due to more non-WSO spinouts that's driving the welfare result
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Motivation}
+\begin{itemize}
+	\item Entry contributes significantly to productivity growth
+	\begin{itemize}
+		\item 25\% of labor productivity growth in manufacturing (Baily-Bartelsman-Haltiwanger 1996)
+		\item ~25\% of aggregate productivity growth due to entrants (Akcigit-Kerr 2017)
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Motivation}\label{motivation_spillovers}
+\begin{itemize}
+	\item Knowledge spillovers important in productivity growth: Bloom 2013, others, etc.
+	\item Spinouts: employees found new firms using knowledge developed / learned at previous employer  \hyperlink{spinouts_facts_from_literature}{\beamergotobutton{stylized facts}}
+	\begin{itemize}
+		\item Fairchild semiconductor / Silicon Valley; Detroit automakers
+		\item Modern examples: Tinder $\rightarrow$ Bumble; Ableton $\rightarrow$ Bitwig Studio; 1010 Data $\rightarrow$ AltDG 
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Spinouts of Fairchild Semiconductor}
+\begin{figure}
+\includegraphics[scale=0.34]{../figures/fairchildren_early.png}
+\caption{Source: Endeavor Insights}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Motivation}
+\begin{itemize}
+\item Non-compete agreement (NCA) enforcement policy debate
+\begin{itemize}
+\item Silicon Valley often attributed to California non-enforcement
+\item States passing laws restricting enforcement of noncompetes (Hawaii in 2015, Massachussetts and Maryland in 2019, many others)
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{NCA enforcement policy}
+\begin{figure}
+\includegraphics[scale=0.32,angle = -90]{./figures/bishara_map.png}
+\caption{Map of non-compete enforcement policy in 2009, Bishara 2011.}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Theory}
+\label{theory_big_picture}
+\begin{itemize}
+\item Schumpeter 1942, Arrow 1962, Romer 1986, Grossman-Helpman 1991, etc.: \textbf{\alert{underinvestment}} in knowledge due to \textbf{\alert{limited excludability}}
+\item Patent literature: dynamic efficiency vs. static monopoly distortion tradeoff
+\item Creative destruction by spinouts similar tradeoff
+\begin{itemize}
+\item Frictions (e.g. information asymmetry) cause breakdown in market for ideas (e.g. Anton \& Yao 1994/1995)
+\item Employee cannot commit not to reduce bilateral value
+\item Reduces incentive for R\&D, expands production possibilites
+\item Growth and welfare effect unclear
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Related literature}
+\begin{itemize}
+\item Firm dynamics and endogenous growth
+\begin{itemize}
+\item Romer 1986, Grossman \& Helpman 1991, Aghion \& Howitt 1992, Klette \& Kortum 2004, Acmemoglu \& Akcigit 2012, Akcigit \& Kerr 2017
+\end{itemize}
+\item Models of employee spinouts
+\begin{itemize}
+\item Klepper 2002, Klepper \& Sleeper 2005, Anton \& Yao 1994/1995, Franco \& Filson 2006, Franco \& Mitchell 2008, Rauch 2015, Rossi-Hansberg \& Chatterjee 2012
+\item Baslandze 2019
+\end{itemize}
+\item Empirics on employee mobility, spinouts
+\begin{itemize}
+\item Spawning of spinouts: Gompers et al. 2005, Garmaise 2011, Baslandze 2019, Babina \& Howell 2019
+\item Effect on parent firms: Campbell et. al 2012, Wezel et al. 2006
+\item Effect of non-compete enforcement: Garmaise 2009, Marx et al 2009, Samila-Sorenson 2011, Jeffers 2018, Shi 2018
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Overview and results}
+\begin{itemize}
+	\item Empirics of spinouts and WSOs
+	\begin{itemize}
+		\item Spinouts, WSOs have more revenue, are larger, more valuable, more likely to be acquired, less likely to fail than ordinary firms
+		\item R\&D leads to formation of more spinouts, WSOs
+	\end{itemize}
+	\item Develop GE model of endogenous growth with creative destruction by employee spinouts
+	\item Calibrate model to match empirics, aggregate data
+	\item Policy exercise: allowing noncompetes increases PDV of consumption by 10\%
+	\begin{itemize}
+		\item 20\% higher R\&D spending 
+		\item 27\% higher growth rate on BGP
+		\item Little effect on entry rate
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Empirics}
+
+\begin{frame}
+\tableofcontents[currentsection]
+\end{frame}
+
+
+
+\begin{frame}{Venture Source}
+\begin{itemize}
+	\item Venture Source
+	\begin{itemize}
+		\item Data on startups funded by VCs from 1986-2008: about 40,000 startups
+		\item Also includes funding by PEs and IPOs and acquisitions, and business status (e.g. product development, earning revenue, profitable)
+		\item \textbf{\alert{Key feature: }} employment biographies for founders / C-level / board members \\
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Merging with Compustat and patent data}
+\begin{itemize}
+\item Merge Venture Source with Compustat
+\begin{itemize}
+	\item Founders are President, CEO, Chairman, CTOs and flagged "Founders" at startups
+\end{itemize}
+\item NBER-USPTO patent data
+\begin{itemize}
+	\item Data on all USPTO-registered patents and their citations (also data on inventors, associated firms)
+	\item Merge to Compustat using gvkey
+\end{itemize}
+\end{itemize}
+\end{frame}
+\begin{frame}{Previous employers and positions}
+	\begin{figure}
+		\includegraphics[scale=0.25]{figures/presentation/titleCounts.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Results of match to Compustat}
+\begin{figure}
+	\includegraphics[scale=0.3]{figures/presentation/table1_founder2.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{$\mathrm{Pr}(\textrm{Child industry} | \textrm{Parent industry})$}
+\begin{figure}
+	\includegraphics[scale=0.39]{../empirics/figures/plots/industry_row_heatmap_naics2_founder2.pdf}
+	\caption{\footnotesize Heatmap displaying the distribution of child 2-digit NAICS code (column), conditional on parent 2-digit NAICS code (row).}
+\end{figure}
+\end{frame}
+
+\begin{frame}{$\mathrm{Pr}(\textrm{Parent industry} | \textrm{Child Industry})$}
+\begin{figure}
+	\includegraphics[scale=0.39]{../empirics/figures/plots/industry_column_heatmap_naics2_founder2.pdf}
+	\caption{\footnotesize Heatmap displaying the distribution of parent 2-digit NAICS code (row), conditional on child 2-digit NAICS code (column).}
+\end{figure}
+\end{frame}
+
+\begin{frame}{$\mathrm{Pr}(\textrm{Child state} | \textrm{Parent state})$}
+\begin{figure}
+	\includegraphics[scale=0.39]{../empirics/figures/plots/state_row_heatmap_founder2.pdf}
+	\caption{\footnotesize Heatmap displaying the distribution of child state (column), conditional on parent state (row).}
+\end{figure}
+\end{frame}
+
+\begin{frame}{$\mathrm{Pr}(\textrm{Parent state} | \textrm{Child state})$}
+\begin{figure}
+\includegraphics[scale=0.39]{../empirics/figures/plots/state_column_heatmap_founder2.pdf}
+\caption{\footnotesize Heatmap displaying the distribution of parent state (row), conditional on child state (column).}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Spinouts, WSOs employment}
+	\begin{figure}
+		\centering
+		\includegraphics[scale= 0.45]{../empirics/figures/plots/startupLifeCycle_founder2_avg_SvNoS_WSO4vNoWSO4_lEmployeeCount.pdf}
+		\caption{Comparison of age-employment distribution: spinouts vs non-spinouts, WSO spinouts vs non-WSO spinouts.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Spinouts, WSOs have higher employment}
+	\begin{table}
+		\tiny
+		\centering
+		\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_lemployeecount_overall.tex}
+		\caption{\footnotesize The regresssions above compare \textbf{\alert{employment}} in WSO4 spinouts, non-WSO4 spinouts and non-spinouts. The first regression uses no controls. The following three regressions in addition control for year effects, age effects, and / or cohort effects, in each case allowing the relevant effect to differ by State-NAICS4 combination. Standard errors are multi-way clustered at the state, NAICS4 and year levels.}
+	\end{table}
+\end{frame}
+
+\begin{frame}{Spinouts, WSOs valuations}
+\begin{figure}
+	\centering
+	\includegraphics[scale= 0.45]{../empirics/figures/plots/startupLifeCycle_founder2_avg_SvNoS_WSO4vNoWSO4_lPostValUSD.pdf}
+	\caption{Comparison of age-valuation distribution: spinouts vs non-spinouts, WSO spinouts vs non-WSO spinouts.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Spinouts, WSOs have higher valuations}
+	\begin{table}
+		\tiny
+		\centering
+		\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_lpostvalusd_overall.tex}
+		\caption{\footnotesize The regresssions above compare \textbf{\alert{valuation}} in WSO4 spinouts, non-WSO4 spinouts and non-spinouts. The first regression uses no controls. The following three regressions in addition control for year effects, age effects, and / or cohort effects, in each case allowing the relevant effect to differ by State-NAICS4 combination. Standard errors are multi-way clustered at the state, NAICS4 and year levels.}
+	\end{table}
+\end{frame}
+
+\begin{frame}{Spinouts, WSOs revenue}
+\begin{figure}
+	\centering
+	\includegraphics[scale= 0.45]{../empirics/figures/plots/startupLifeCycle_founder2_avg_SvNoS_WSO4vNoWSO4_lrevenue.pdf}
+	\caption{Comparison of age-revenue distribution: spinouts vs non-spinouts, WSO spinouts vs non-WSO spinouts.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Spinouts, WSOs have higher revenue}
+\begin{table}
+\tiny
+\centering
+\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_lrevenue_overall.tex}
+\caption{\footnotesize The regresssions above compare \textbf{\alert{revenue}} in WSO4 spinouts, non-WSO4 spinouts and non-spinouts. The first regression uses no controls. The following three regressions in addition control for year effects, age effects, and / or cohort effects, in each case allowing the relevant effect to differ by State-NAICS4 combination. Standard errors are multi-way clustered at the state, NAICS4 and year levels.}
+\end{table}
+\end{frame}
+
+\begin{frame}{Spinouts, WSOs M\&A / IPO hazard}
+\begin{figure}
+	\centering
+	\includegraphics[scale= 0.45]{../empirics/figures/plots/startupLifeCycle_founder2_avg_SvNoS_WSO4vNoWSO4_successfullyExiting.pdf}
+	\caption{Comparison of age-M\&A and IPO hazard rate distribution: spinouts vs non-spinouts, WSO spinouts vs non-WSO spinouts.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Spinouts, WSOs have higher M\&A / IPO hazard}
+\begin{table}
+\tiny
+\centering
+\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_successfullyexiting_overall.tex}
+\caption{\footnotesize The regresssions above compare the \textbf{\alert{M\&A and IPO hazard rate}} in WSO4 spinouts, non-WSO4 spinouts and non-spinouts. The first regression uses no controls. The following three regressions in addition control for year effects, age effects, and / or cohort effects, in each case allowing the relevant effect to differ by State-NAICS4 combination. Standard errors are multi-way clustered at the state, NAICS4 and year levels.}
+\end{table}
+\end{frame}
+
+\begin{frame}{Spinouts, WSOs failure hazard}
+\begin{figure}
+	\centering
+	\includegraphics[scale= 0.45]{../empirics/figures/plots/startupLifeCycle_founder2_avg_SvNoS_WSO4vNoWSO4_goingOutOfBusiness.pdf}
+	\caption{Comparison of age-failure hazard rate distribution: spinouts vs non-spinouts, WSO spinouts vs non-WSO spinouts.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Spinouts, WSOs have lower failure hazard}
+\begin{table}
+\tiny
+\centering
+\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_goingoutofbusiness_overall.tex}
+\caption{\footnotesize The regresssions above compare the \textbf{\alert{failure rate}} in WSO4 spinouts, non-WSO4 spinouts and non-spinouts. The first regression uses no controls. The following three regressions in addition control for year effects, age effects, and / or cohort effects, in each case allowing the relevant effect to differ by State-NAICS4 combination. Standard errors are multi-way clustered at the state, NAICS4 and year levels.}
+\end{table}
+\end{frame}
+
+
+\begin{frame}{Corporate R\&D and spinout formation}
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[scale= 0.4]{../empirics/figures/scatterPlot_RD-Founders_dIntersection.png}
+		\caption{Scatterplot of average yearly founder counts in $t+1,t+2,t+3$ versus average yearly R\&D spending in $t,t-1,t-2$.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Corporate R\&D and WSO formation}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale= 0.4]{../empirics/figures/scatterPlot_RD-FoundersWSO4_dIntersection.png}
+	\caption{Scatterplot of average yearly WSO4 founder counts in $t+1,t+2,t+3$ versus average yearly R\&D spending in $t,t-1,t-2$.}
+	\end{figure}
+\end{frame}
+
+
+
+\begin{frame}{Corporate R\&D and spinout formation regression: specification 1}
+	\begin{table}
+		\Tiny
+		\centering
+		\input{../empirics/figures/tables/RDandSpinoutFormation_absolute_founder2_l3f3.tex}
+		\caption{\tiny The dependent variable is average yearly number of founders joining startups in years $t+1,t+2,t+3$. The independent variables are averages over $t,t-1,t-2$. Firm controls are employment, assets, intangible assets, investment, net income, cumulative citation-weighted patents, and the product of Tobin's Q and Assets. Standard errors are clustered by firm.}
+	\end{table}
+\end{frame}
+
+\begin{frame}{Corporate R\&D and spinout formation regression: specification 2}
+\begin{table}
+	\Tiny
+	\centering
+	\input{../empirics/figures/tables/RDandSpinoutFormation_at_founder2_l3f3.tex}
+	\caption{\tiny The dependent variable is the average yearly number of founders from the parent firm joining startups in years $t+1,t+2,t+3$, normalized by a trailing five-year moving average of assets. Independent variables are also normalized by assets. Standard errors are clustered at the firm level.}
+	\label{table:RDandSpinoutFormation_at_founder2_l3f3}
+\end{table}
+\end{frame}
+
+\begin{frame}{Corporate R\&D and spinout formation regression: IV specification}
+\begin{table}
+	\Tiny
+	\centering
+	\input{../empirics/figures/tables/RDandSpinoutFormation_iv_founder2_l3f3.tex}
+	\caption{\tiny The dependent variable is the log of the average yearly number of founders from the parent firm joining startups, over the years $t+1,t+2,t+3$. Independent variables are similarly averaged over $t,t-1,t-2$. Columns (1) and (5) are estimated by OLS. The remaining columns columns are estimated by instrumenting R\&D spending using firm-specific tax incentives for R\&D, from Bloom 2013. Standard errors are clustered at the firm level.}
+	\label{table:RDandSpinoutFormation_iv_founder2_l3f3}
+\end{table}
+\end{frame}
+
+
+\begin{frame}{Economic magnitude}
+\begin{figure}[!htb]
+	\includegraphics[scale=0.3]{../empirics/figures/founder2_founders_f3_Accounting.pdf}
+	\caption{\tiny Economic magnitude of regression estimates. The first row of figures compares the predicted number of employee founders (dotted lines) to the observed number of employee founders (solid lines). The left figure considers all founders, the right figure only founders of firms in the same 4-digit NAICS industry as their previous employers. The bottom row shows the percentage explained in each year.}
+\end{figure}
+\end{frame}
+
+\section{Model}
+
+\begin{frame}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{Model}
+\begin{itemize}	
+\item Quality ladder model of endogenous growth through creative destruction 
+\begin{itemize}
+	\item Builds on Grossman-Helpman 1991, Akcigit-Kerr 2017 
+\end{itemize}
+\item \textbf{New feature:} R\&D workers \textbf{\alert{learn on the job}} how to innovate, form within-industry spinouts and other industry spinouts
+\begin{itemize}
+	\item Flow of knowledge \textbf{\alert{disincentives}} incumbent R\&D
+	\item Stock of disseminated knowledge incentivizes incumbent innovation to \textbf{\alert{escape competition}}
+\end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model - Overview}
+\begin{itemize}
+\item Individuals supply labor to production and R\&D
+\item Firms do R\&D to improve production technology, driving aggregate TFP growth
+\item R\&D by incumbents transfers knowledge to employees, generating new entrants with better entry technology
+\item Non-compete contracts
+\begin{itemize}
+\item Reduce flow of knowledge, \textbf{\alert{shrinking production possibilities frontier}}
+\item \textbf{\alert{May increase welfare}} due to effect on incumbent R\&D incentives
+\item Are relevant when expectation future spinouts \textbf{\alert{reduces bilateral value of firm-employee pair}} (e.g. DW loss of creative destruction, weakening of monopoly on R\&D)
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Households}
+\begin{itemize}
+\item Unit continuum of individuals are risk-neutral, discount rate $\rho > 0$, objective
+\begin{align*}
+\mathbb{E}_t \int_0^{\infty} e^{-\rho s} c_i(t+s) ds
+\end{align*}
+where $c_i(t)$ is household $i$ consumption of final good at time $t$
+\item One unit of labor, inelastic, used in final good or intermediate good production, or R\&D
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Final goods production}
+\begin{itemize}
+\item \textbf{\alert{Final goods}} production:
+\begin{align*}
+Y = F(L,\{q_j\},\{k_j\}) &= \frac{L^{\beta}}{1-\beta} \int_0^1 q_j^{\beta} k_j^{1-\beta}  dj 
+\end{align*}
+\item Labor $L$, intermediate goods $\{k_j\}$, qualities $\{q_j\}$, $j \in [0,1]$
+\item No storage $\rightarrow$ $C = Y - \overline{\kappa}$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Intermediate goods production}
+\begin{itemize}
+\item \textbf{\alert{Intermediate goods}} production:
+\begin{align*}
+k_j = Q l_j
+\end{align*}
+where $Q = \int_0^1 q_j dj$ is average quality
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Incumbent innovation}
+\begin{itemize}
+\item Incumbent ($I$) discovers next innovation with Poisson intensity
+\begin{align*}
+\tau^I(z) &= \chi_I z^{1-\psi}
+\end{align*}
+where $z$ is units of R\&D, $\chi_I$ is R\&D productivity, and $\psi \in (0,1)$ measures decreasing returns to R\&D 
+\item Scaling assumption: one unit of R\&D on quality $q$ requires $(q/Q)$ units of labor in R\&D
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Generation of spinout ideas}
+\begin{itemize}
+\item Law of motion for mass of potential spinouts: $\dot{m}_j = \dot{m}_j^{\textrm{from $j$}} + \dot{m}_j^{\textrm{from $-j$}}$ where
+\begin{align*}
+\dot{m}_j^{\textrm{from $j$}}&= \theta \nu z_{I,j} (1-x_j)\\
+\dot{m}_j^{\textrm{from $-j$}} &= (1-\theta)\nu \int_0^1 \frac{q_j}{Q} z_{I,j'} dj'
+\end{align*}
+where $x_j = 1$ if the incumbent imposes a non-compete
+\item Rate $\theta \frac{Q}{q_j} \nu$ per flow unit of labor, R\&D generates spinout ideas in line $j$
+\item Rate $(1-\theta) \nu$, idea generated in random line $j'$
+\item $\Rightarrow$ Individual state of product $j$ is $(q,m)$, aggregate state $d\mu(q,m,t)$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Financing of spinout ideas}
+\begin{itemize}
+	\item Ideas sold to and implemented by competitive financial intermediary
+	\item Intermediary funded by risk-free deposits held by households
+	\item Unfortunate since assuming incumbent can't buy ideas 
+	\item Necessary for tractability
+	\item No aggregate risk $\Rightarrow$ representative agent, could add curvature to utility (in progress)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Creative destruction}
+\begin{itemize}
+\item For good $j$, unit mass of entrants (E), mass $m_j$ of spinouts (S), aggregates $z_E(j) = \int_0^1 z_E^e(j) de$, $z_S(j) = \int_0^{m} z_S^s(j) ds$
+\item Innovation technology
+\begin{align*}
+\textrm{Spinouts: }\tau^S(z,z_E+z_S) &= \chi_{S} z (z_E + z_S)^{-\hat{\psi}} \\
+\textrm{Entrants: }\tau^E(z,z_E+z_S) &= \chi_{E} z (z_E + z_S)^{-\hat{\psi}}
+\end{align*}
+\item Aggregate DRS $\hat{\psi} > \psi$ due to lack of coordination: \textbf{\alert{duplication of research}} and \textbf{\alert{fishing out}} externalities
+\item Spinouts have \textbf{\alert{capacity constraint}} $z_S^s \le 1$ (normalization, can replace with DRS)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Dynamics of an individual good $j$}
+\begin{figure}
+	\centering
+	%\includegraphics[scale=0.5]{figures/tikz/individual_product_line_dynamics.png}
+	\resizebox{!}{.6\textheight}{\input{figures/tikz/individual_product_line_dynamics.tex}}
+	\caption{\scriptsize This figure illustrates the dynamics of an individual good $j$ in the equilibrium of the model. All goods $j$ start at point $A_0$. A typical path is given by the dark blue lines, moving left to right to $A_1$ then jumping to $B_0$ before continuing to drift to $B_1$, jump to $C_0$, and so on.}
+	\label{individual_product_line_dynamics}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Solving and closing the model}\label{closing_the_model}
+\small
+\begin{itemize}
+\item Individual state of product is $(q,m)$, aggregate state $d\mu(q,m,t)$ time-varying in general 
+\item Incumbent, spinout and household HJBs \hyperlink{HJB_incumbent}{\beamergotobutton{incumbents}} \hyperlink{HJB_spinout}{\beamergotobutton{spinouts}} \hyperlink{HJB_household}{\beamergotobutton{households}}
+\item Guess and verify $V(q,m,t) = qV(m,t)$ and wages scaling with $Q(t)$ to reduce complexity, and look for BGP \hyperlink{scaling_of_value_functions}{\beamergotobutton{more}}
+\item Static equilibrium conditions \hyperlink{static_eq_conditions}{\beamergotobutton{details}}
+\item Aggregation 
+\begin{itemize}
+\item Stationary density $\mu(m)$ and $E[q/Q|m]$ sufficient for BGP \hyperlink{aggregate_distribution_and_bgp}{\beamergotobutton{details}}
+\item Compute stationary density $\mu(m)$  \hyperlink{aggregation}{\beamergotobutton{details}}
+\item Compute stationary conditional mean $\Gamma(m) = E_t[q/Q(t)|m]$ \hyperlink{aggregation}{\beamergotobutton{details}}
+\end{itemize}
+\item Labor market clearing
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Household optimality}
+\begin{itemize}
+\item Household labor supply decisions maximize value of labor endowment
+\item Indifference condition: 
+\begin{align*}
+\bar{w} &= \overbrace{w(m)}^{\textrm{R\&D wage w/o NCA}} + \nu \Big(\overbrace{\theta W(m)}^{\textrm{Line $j$}} + \overbrace{(1-\theta) \mathcal{W}}^{\textrm{Other lines $-j$}} \Big) \\
+\bar{w} &= \underbrace{w^{NCA}}_{\textrm{R\&D wage w/ NCA}} + \underbrace{\nu (1-\theta) \mathcal{W}}_{\textrm{Only other lines $-j$}}
+\end{align*}
+for value of random spinout idea $j$
+\begin{align*}
+\mathcal{W} &= \int_0^{\infty} W(m) \tau(m) \mu(m) dm
+\end{align*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Incumbent optimal policies}
+\begin{itemize}
+\item Incumbent optimal policies
+\small
+\begin{align*}
+x^*(m) &= 
+\begin{cases}
+1 & \textrm{if } w(m) - \theta \nu V'(m) > w^{NCA}(m) \\
+0 & \textrm{o.w.}
+\end{cases}\\ 
+z_I^*(m) &= \Bigg( \frac{x^*(m) w^{NCA}(m) + \Big(1-x^*(m)\Big) \Big(w(m) - \theta \nu V'(m)\Big)}{\chi_I (1-\psi) \Big(\lambda V(0) - V(m) \Big)} \Bigg)^{-1/\psi} 
+\end{align*}
+\normalsize
+\item Worker indifference condition implies $x = 1$ iff
+\begin{align*}
+\underbrace{- \theta \nu V'(m)}_{\textrm{$\mathbb{E}$[Harm to parent]}} > \underbrace{\nu (\theta W(m) + (1-\theta) \mathcal{W})}_{\textrm{$\mathbb{E}$[Benefit to employee]}}  
+\end{align*}
+so non-compete chosen to \textbf{\alert{maximize bilateral expected value}}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Entrant optimal policies}
+\begin{itemize}
+\item Spinouts earn rents and price out entrants
+\item Equilibrium entry
+\begin{align*}
+z_S(m) &= \min(m,Z_S) \\
+z_E(m) &= \max(0, Z_E - z_S(m))
+\end{align*} 
+where $Z_E,Z_S$ defined by
+\begin{align*}
+\chi_E Z_E^{-\psi} (1-\kappa) \lambda V(0) &= \bar{w} \\
+\chi_S Z_S^{-\psi} (1-\kappa) \lambda V(0) &= \bar{w} 
+\end{align*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Aggregate growth}
+\begin{itemize}
+\item Growth rate of $Q(t)$
+\begin{align*}
+g_t &= (\lambda -1) \int_0^{\infty} \tau(m) \Gamma(m) \mu(m) dm
+\end{align*}
+where $\tau(m)$ is the arrival rate of innovations in state $(m)$ at time $t$
+\end{itemize}
+\end{frame}
+
+
+\section{Calibration}
+
+
+\begin{frame}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{Identification}
+\begin{table}
+	\tiny
+	\centering
+	\begin{tabular}{rll}
+		Parameter &  Description & Source / Target\\
+		\midrule
+		\textbf{Chosen from literature}& \\
+		$\psi, \hat{\psi}$ & Curvature of incumbent, entrant R\&D & R\&D regressions from \\
+		& technology & literature\\
+		& & \\
+		\textbf{Matched exactly}&  \\
+		$\rho$ & Discount factor & Interest rate \\
+		$\beta$ & $\beta^{-1}$ EoS between intermediate goods & Profit / GDP \\
+		$\chi_S / \chi_E$ & Spinouts / entrants R\&D prod. & Spinout / entrant hazard \\
+		& & of successful exit \\
+		$\theta$ & Fraction of spinouts that & WSO reg. coef. divided \\
+		& are WSOs & by All Spinout reg. coef. \\
+		& \\
+		\textbf{Indirect inference}& \\
+		$\lambda$ & Step size of innovations & Growth rate \\
+		$\chi_I$ & Incumbent R\&D prod. & Fraction of innovations \\
+		& &  by incumbent firms \\
+		$\kappa$ & Entry cost & R\&D / GDP ratio\\
+		$\chi_E$ & Entrant R\&D prod. & Entry rate \\
+		$\nu$ & Spinout idea generation rate & Spinout entry rate implied \\
+		& & by regressions \\
+		\bottomrule
+	\end{tabular}
+	\captionof{table}{Identification of model parameters.}
+\end{table}
+\end{frame}
+
+
+
+\begin{frame}{Targeted moments}
+\begin{table}
+	\scriptsize
+	\centering
+	\begin{tabular}{rll}
+		& Target & Model \tabularnewline
+		\midrule
+		\multicolumn{1}{l}{\textbf{Exactly matched}} & &  \tabularnewline
+		Interest rate & 5\% & 5\% \tabularnewline
+		Profit (\% GDP) & 6\% & 6\% \tabularnewline
+		Spinouts / ordinary entrants & 1.3 & 1.3 \tabularnewline
+		innovation probability \tabularnewline
+		\tabularnewline
+		\multicolumn{1}{l}{\textbf{Indirect inference}} & & 
+		\tabularnewline
+		Growth rate & 1.5\% & 1.35\% 
+		\tabularnewline
+		R\&D spending (\% GDP) & 1.5\% & 0.9\% 
+		\tabularnewline		
+		Incumbent innovation share & 0.75 & 0.63
+		\tabularnewline
+		Entry rate & 0.09 & 0.097
+		\tabularnewline
+		Spinout entry rate & 0.03 & 0.03
+		\tabularnewline
+		\bottomrule
+	\end{tabular}
+	\captionof{table}{Calibration targets}	
+\end{table}
+
+\end{frame}
+
+
+\begin{frame}{Parameters}
+\begin{table}
+	\scriptsize
+	\centering
+	\begin{tabular}{rlll}
+		Parameter & Value & Description \tabularnewline
+		\midrule
+		$\rho$ & 0.05 & Discount rate \tabularnewline
+		$\beta$ & 0.065 & $(1-\beta)^{-1}$ markup\tabularnewline
+		$\psi$ & 0.5 & Incumbent R\&D elasticity \tabularnewline
+		$\hat{\psi}$ & 0.7 & Entrant R\&D elasticity \tabularnewline
+		$\lambda$ & 1.053 & Quality ladder step size \tabularnewline
+		$\chi_I$ & 1.43 & Incumbent R\&D productivity \tabularnewline
+		$\chi_E$ & 0.22 & Ordinary entrant R\&D productivity \tabularnewline
+		$\chi_S$ & 0.29 & Spinout R\&D productivity \tabularnewline
+		$\kappa$ & 0.82 & Entry cost \tabularnewline
+		$\nu$ & 0.34 & Spinout generation rate \tabularnewline
+		$\theta$ & 0.5 & Fraction WSOs\tabularnewline
+		\bottomrule
+	\end{tabular}
+	\captionof{table}{Calibration parameters}
+\end{table}
+\end{frame}
+
+
+\begin{frame}{Incumbent and spinout values and policies}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.45]{../code/julia/figures/plotsGR/HJB_solutions_plot.pdf}
+	\caption{Equilibrium incumbent and spinout value functions and R\&D policy.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Innovation rates}
+\begin{figure}
+	\includegraphics[scale=0.45]{../code/julia/figures/plotsGR/innovation_rates_m.pdf}
+	\caption{Equilibrium innovation rates as a function of $m$.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Stationary distributions}
+\begin{figure}
+	\includegraphics[scale=0.45]{../code/julia/figures/plotsGR/gamma_t_mu_vs_m_plots.pdf}
+	\caption{Equilibrium intermediate good distributions.}
+	\label{figure:gamma_t_mu_vs_m_plots}
+\end{figure}
+\end{frame}
+
+\section{Counterfactual analysis}
+
+\begin{frame}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{Counterfactual: full enforcement of non-competes}
+\begin{itemize}
+\item Model calibrated assuming no availability of non-competes
+\item Counterfactual: allow use of non-competes
+\begin{itemize}
+\item Welfare increases by 10\% in current calibration
+\item Driven by 27\% increase in growth rate
+\item Incumbents spend 20\% more on R\&D
+\item Entry rate falls by 0.2 percentage points
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Equilibrium knowledge transfer}
+%\centering
+\begin{figure}
+	\includegraphics[scale=0.45]{../code/julia/figures/plotsGR/effectiveRDWage_vs_m.pdf}
+	\caption{In the calibration, unrestricted knowledge transfer to the employee harms the bilateral pair, creating a role for NCAs}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Equilibrium noncompete usage}
+%\centering
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.45]{../code/julia/figures/plotsGR/noncompete_usage_m.pdf}
+	\caption{Noncompetes are used whenever possible, given the parametrization of the model.}
+\end{figure}
+\end{frame}
+
+
+
+
+\begin{frame}{Importance of parameters $\kappa,\theta,\nu$}
+\begin{itemize}
+	\item High $\kappa$ increases incumbent effective R\&D wage
+	\begin{itemize}
+		\item Lower value of spinout $\Rightarrow$ incumbent R\&D wage discount decreases
+		\item Spinouts earn rents $\Rightarrow$ spinout entry is only slightly reduced
+	\end{itemize}
+	\item High $\nu , \theta$ amplify effect from $\kappa$
+	\begin{itemize}
+		\item High $\nu$ implies more spinouts
+		\item High $\theta$ implies more WSOs
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Counterfactual: reduction in entry cost $\kappa$}
+\begin{itemize}
+	\item Reducing entry cost $\kappa$ from $0.82$ to $0.5$ reduces welfare by 6.2\%
+	\begin{itemize}
+		\item Entry rate increases from $9.6\%$ to $12.5\%$
+		\item Incumbent R\&D (\% GDP) falls by 20\%
+		\item Entrant R\&D (\% GDP) increases by 114\%
+		\item Labor allocation to R\&D increases from 6.3\% to 14.7\%
+	\end{itemize}
+	\item Reduction in $\kappa$ expands PPF $\Rightarrow$ reduction in welfare implies exacerbation of market inefficiency 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Importance of $\lambda, \chi_I / \chi_E$}
+\begin{itemize}
+	\item Low $\lambda$ $\Rightarrow$ larger difference in private, social return of innovation by entrants
+	\item Also, low $\lambda$ implies a very high $\chi_I / \chi_E$ $\Rightarrow$ diversion of R\&D from incumbents to entrants very inefficient
+\end{itemize}
+\end{frame}
+
+\appendix
+
+
+
+\begin{frame}\label{spinouts_facts_from_literature}
+\hyperlink{motivation_spillovers}{\beamergotobutton{back}}
+\begin{itemize}
+\item All spinouts
+\begin{itemize}
+\item More patents / R\&D, sales growth, higher survival rates (Baslandze 2019) 
+\end{itemize}
+\item Within-industry spinouts (WSOs)
+\begin{itemize}
+\item 15\% of entrants; larger at entry, grow faster, higher survival rates (Muendler et al. 2012, Brazilian data)
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Incumbent HJB}\label{HJB_incumbent}
+\hyperlink{closing_the_model}{\beamergotobutton{back}}
+\begin{itemize}
+\item Incumbent value $V(q,m,t)$ satisfies
+\tiny
+\begin{align*}
+(\rho + \tau_E& + \tau_S) V(q,m,t) = \pi(q,m,t) + V_t(q,m,t) + \overbrace{\bar{\sigma}V_m(q,m,t)}^{\textrm{Spinouts from $j'$}}  \nonumber \\ 
+&+ \max_{z \ge 0, x\in \{0,1\}} \Big\{ \underbrace{\chi_I z^{1-\psi} \Big[V(\lambda q,0,t) - V(q,m,t) \Big]}_{\textrm{EV of innovation}} \\
+&-(1-x) z \underbrace{\Big(\frac{q}{Q(t)}\Big) \Big(  w(q,m,t) + \Big(\frac{q}{Q(t)}\Big)^{-1} \theta \nu V_m(q,m,t) \Big)}_{\textrm{Eff. cost of R\&D w/o NCA}} - xz \underbrace{\Big( \frac{q}{Q(t)} \Big) w^{NCA}(q,m,t)}_{\textrm{Cost of R\&D w/ NCA}} \Big\} 
+\end{align*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Spinout HJB}\label{HJB_spinout}
+\hyperlink{closing_the_model}{\beamergotobutton{back}}
+\begin{itemize}
+\item Spinout value $W(q,m,t)$ satisfies
+\scriptsize
+\begin{align*}
+(\rho  + \tau_E + \tau_S& + \tau_I)W(q,m,t) = W_t(q,m,t) + \bar{\sigma}W_m(q,m,t) \nonumber \\
++& \max_{0 \le z \le 1} \Big\{ \underbrace{\chi_S z (z_E + z_S)^{-\hat{\psi}} (1-\kappa) V(\lambda q,0,t)}_{\textrm{Flow value of potential innovation}} - \underbrace{\Big(\frac{q}{Q(t)}\Big) z w^{NCA}(q,m,t)}_{\textrm{R\&D cost}} \Big\} 
+\end{align*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Scaling of value functions}\label{scaling_of_value_functions}
+\hyperlink{closing_the_model}{\beamergotobutton{back}}
+\begin{itemize}
+\item Incumbent and spinout value functions $V(q,m,t),W(q,m,t)$, entrant and spinout behavior $z_E(q,m,t),\tau_E(q,m,t),z_S(q,m,t),\tau_S(q,m,t)$ 
+\item Guess and verify: BGP equilibrium with $V(q,m,t) = qV(m); W(q,m,t) = qW(m); z_E(q,m,t) = z_E(m)$ and similarly for $\tau_E,z_S,\tau_S$
+\item Worker indifference condition implies $w(q,m,t) = Q(t) w(m)$ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Static equilibrium given $L_{RD}$}\label{static_eq_conditions}
+\hyperlink{closing_the_model}{\beamergotobutton{back}}
+\begin{itemize}
+\item Final goods wage $\bar{w}(t) = \overbrace{\beta^{\beta} (1-\beta)^{1-2\beta}}^{:= C(\beta)} Q(t)$
+\item Final goods production labor allocation $L_F(t) = \frac{1 - L_{RD}(t)}{1 + \big(\frac{1-\beta}{C(\beta)}\big)^{1/\beta}}$
+\item Final goods production $Y(t) = \frac{(1-\beta)^{1-2\beta}}{\beta^{1-\beta}} Q(t) L_F(t)$
+\item Intermediate goods firm profits $\pi(q,m,t) = (1-\beta) C(\beta) L_F(t) q $ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Aggregation}\label{aggregation}
+\hyperlink{closing_the_model}{\beamergotobutton{back}}
+\small
+\begin{itemize}
+\item Stationary density $\mu(m)$ determined by KF equation
+\begin{align*}
+0 = - \frac{d}{dm} \Big( \sigma(m) \mu(m) \Big) - \tau(m) \mu(m)
+\end{align*}
+\item Solution
+\begin{align*}
+\mu(m) &= C_\mu e^{-\int_0^m \frac{\sigma'(m') + \tau(m')}{\sigma(m')}dm'} 
+\end{align*}
+\item Conditional mean $\Gamma(m) = E[q/Q | m]$ given by 
+\begin{align*}
+\Gamma(m) &= \tilde{\Gamma}(s(m))
+\end{align*}
+where
+\begin{align*}
+\tilde{\Gamma}(s) &= C_{\Gamma} e^{-gs} \\
+s(m) &= \int_0^m \frac{1}{\sigma(m')} dm' \\
+1 &= \int_0^{\infty} \Gamma(m) \mu(m) dm
+\end{align*}
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Aggregate distribution and BGP}\label{aggregate_distribution_and_bgp}
+\hyperlink{closing_the_model}{\beamergotobutton{back}}
+\begin{itemize}
+\item Distribution $d\mu(q,m,t)$ shifts over time
+\begin{itemize}
+\item Marginal over $m$ constant over time
+\item Growth in $Q(t)$ $\Rightarrow$ $\textrm{Pr}_t[q \le k | m]$ not constant
+\item Proportional growth in $q$, no exit for low $q/Q(t)$ $\Rightarrow$ $\textrm{Pr}_t[q /Q(t)\le k | m]$ not constant due to "fanning out"
+\item However, \textbf{\alert{conditional mean given $m$}} , $\Gamma(m;t) := E_t[q/Q(t) | m]$, constant over time
+\item Sufficient for BGP given policies derived above because
+\begin{itemize}
+\item Individually optimal $z$ (effective R\&D) depend on $m$ only
+\item R\&D labor demand given $(z,q)$ is $\frac{q}{Q}z$
+\item Growth contributions aggregate $g_t = (\lambda -1)\int_{q,m} \tau(m) \Gamma(m) \mu(m) dm$
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

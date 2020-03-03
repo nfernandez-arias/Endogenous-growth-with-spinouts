@@ -1,10 +1,14 @@
 #---------------------------#
 # Plot V,W,zI,zS/m
 #---------------------------#
-Plots.scalefontsizes(0.9)
-p = plot(mGrid,[V[:] W[:] zI[:] zS[:]], legend = :bottomright, title = ["Incumbent and Aggregate Spinout value" "Spinout value" "Incumbent policy" "Aggregated spinout policy"], xlabel = "Mass of spinouts", label = ["V(m)" "W(m)" "z_I(m)" "z_S(m)"], layout = (2,2))
-png("figures/plotsGR/HJB_solutions_plot.png")
-Plots.scalefontsizes(0.9^(-1))
+
+Plots.scalefontsizes(0.8)
+
+Plots.scalefontsizes(0.8)
+p = plot(mGrid,[V[:] W[:] zI[:] zS[:]], legend = :bottomright, title = ["Incumbent value" "Spinout value" "Incumbent policy" "Aggregated spinout policy"], xlabel = "Mass of spinouts", label = ["V(m)" "W(m)" "z_I(m)" "z_S(m)"], layout = (2,2))
+savefig(p,"figures/plotsGR/HJB_solutions_plot.pdf")
+savefig(p,"figures/plotsGR/HJB_solutions_plot.png")
+Plots.scalefontsizes(0.8^(-1))
 #---------------------------#
 # Plot V and m * W(m) , aggregate spinout value
 #---------------------------#
@@ -44,19 +48,21 @@ png("figures/plotsGR/HJB_tests.png")
 #----------------------------------------#
 
 if modelPar.CNC == true
-    plot(mGrid,[τI[:] τS[:] τE[:] τ[:]], layout = (1), xlabel = "Mass of spinouts", ylabel = "Yearly hazard rate of innovation", title = "Noncompetes", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
+    p = plot(mGrid,[τI[:] τS[:] τE[:] τ[:]], legend = :topleft, layout = (1), xlabel = "Mass of spinouts", ylabel = "Yearly hazard rate of innovation", title = "Noncompetes", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
 else
-    plot(mGrid,[τI[:] τS[:] τE[:] τ[:]], layout = (1), xlabel = "Mass of spinouts", ylabel = "Yearly hazard rate of innovation", title = "Baseline", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
+    p = plot(mGrid,[τI[:] τS[:] τE[:] τ[:]], legend = :topleft, layout = (1), xlabel = "Mass of spinouts", ylabel = "Yearly hazard rate of innovation", title = "Innovation rates", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
 end
-png("figures/plotsGR/innovation_rates_m")
+savefig(p,"figures/plotsGR/innovation_rates_m.pdf")
+savefig(p,"figures/plotsGR/innovation_rates_m.png")
 
 
 if modelPar.CNC == true
-    plot(t,[τI[:] τS[:] τE[:] τ[:]], layout = (1), xlabel = "Years since last innovation", ylabel = "Yearly hazard rate of innovation", title = "Noncompetes", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
+    p = plot(t,[τI[:] τS[:] τE[:] τ[:]], legend = :topleft, layout = (1), xlabel = "Years since last innovation", ylabel = "Yearly hazard rate of innovation", title = "Noncompetes", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
 else
-    plot(t,[τI[:] τS[:] τE[:] τ[:]], layout = (1), xlabel = "Years since last innovation", ylabel = "Yearly hazard rate of innovation", title = "Innovation hazard rates", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
+    p = plot(t,[τI[:] τS[:] τE[:] τ[:]], layout = (1), xlabel = "Years since last innovation", ylabel = "Yearly hazard rate of innovation", title = "Innovation hazard rates", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
 end
-png("figures/plotsGR/innovation_rates_t")
+savefig(p,"figures/plotsGR/innovation_rates_t.pdf")
+savefig(p,"figures/plotsGR/innovation_rates_t.png")
 
 #-----------------------------------------#
 # Plot wage
@@ -64,17 +70,19 @@ png("figures/plotsGR/innovation_rates_t")
 
 
 wbars = ones(size(mGrid)) * EndogenousGrowthWithSpinouts.Cβ(β)
-p = plot(mGrid, [w wageSpinouts wageEntrants (wNC - (1-θ) * (1-modelPar.ζ)*ν*W) wbars], title = "Wages", legend = :bottomright, linestyle = [:dash :dash :dash :solid :solid], label = ["R&D wage (incumbents)" "R&D wage (spinouts)" "R&D wage (entrants)" "Production wage minus employee flow value of knowledge" "Production wage"], xlabel = "Mass of spinouts", ylabel = "Units of final consumption")
-png("figures/plotsGR/wages_m.png")
+p = plot(mGrid, [w wbars], title = "Wages", legend = :bottomright, linestyle = [:dash :solid], label = ["R&D wage (incumbents)" "Production wage"], xlabel = "Mass of spinouts", ylabel = "Units of final consumption")
+savefig(p,"figures/plotsGR/wages_m.pdf")
+savefig(p,"figures/plotsGR/wages_m.png")
 
 
 
 if modelPar.CNC == true
     p = plot(t, [w wageSpinouts wageEntrants (wNC - (1-θ) * (1-modelPar.ζ)*ν*W) wbars], title = "Noncompetes", linestyle = [:dash :dash :dash :solid :solid], legend = :bottomright, label = ["R&D wage (incumbents)" "R&D wage (spinouts)" "R&D wage (entrants)" "Production wage minus employee flow value of knowledge" "Production wage"], xlabel = "Years since last innovation", ylabel = "Units of final consumption")
 else
-    p = plot(t, [w wageSpinouts wageEntrants (wNC - (1-θ) * (1-modelPar.ζ)*ν*W) wbars], title = "Baseline", linestyle = [:dash :dash :dash :solid :solid], legend = :bottomright, label = ["R&D wage (incumbents)" "R&D wage (spinouts)" "R&D wage (entrants)" "Production wage minus employee flow value of knowledge" "Production wage"], xlabel = "Years since last innovation", ylabel = "Units of final consumption")
+    p = plot(t, [w wbars], title = "Baseline", linestyle = [:dash :solid], legend = :bottomright, label = ["R&D wage (incumbents)" "Production wage"], xlabel = "Years since last innovation", ylabel = "Units of final consumption")
 end
-png("figures/plotsGR/wages_t.png")
+savefig(p,"figures/plotsGR/wages_t.pdf")
+savefig(p,"figures/plotsGR/wages_t.png")
 
 
 
@@ -83,7 +91,8 @@ png("figures/plotsGR/wages_t.png")
 #-----------------------------------------#
 
 p = plot(mGrid,ν * aTotal, title = "Eq. drift in m-space", label = "a(m)", xlabel = "Mass of spinouts", ylabel = "Expected mass of spinouts formed per year")
-png("figures/plotsGR/drift.png")
+savefig(p,"figures/plotsGR/drift.pdf")
+savefig(p,"figures/plotsGR/drift.png")
 
 #-----------------------------------------#
 # Plot aI(m),aE(m),aS(m)
@@ -125,8 +134,11 @@ png("figures/plotsGR/mushape.png")
 # Plot μ(m),γ(m),t(m)
 #-----------------------------------------#
 
-p = plot(mGrid, [μ γ t], label = ["\\mu\\(m\\)" "\\gamma\\(m\\)" "t(m)"], ylabel = ["Density" "Quality (relative)" "Years"], xlabel = "Mass of spinouts", layout = (3,1))
-png("figures/plotsGR/gamma_t_mu_vs_m_plots.png")
+Plots.scalefontsizes(0.8)
+
+p = plot(mGrid, [μ γ t], label = ["\\mu\\(m\\)" "\\Gamma\\(m\\)" "s(m)"], ylabel = ["Density" "Quality (relative)" "Years"], xlabel = "Mass of spinouts", layout = (3,1))
+savefig(p,"figures/plotsGR/gamma_t_mu_vs_m_plots.pdf")
+savefig(p,"figures/plotsGR/gamma_t_mu_vs_m_plots.png")
 
 
 #-----------------------------------------#
@@ -134,13 +146,16 @@ png("figures/plotsGR/gamma_t_mu_vs_m_plots.png")
 #-----------------------------------------#
 
 if modelPar.CNC == true
-    p = plot(t, [μ .* ν .* a γ], xlims = (0,35), ylims = (0,0.35), label = ["\\mu\\(t\\)" "\\gamma\\(t\\)"], title = "Noncompetes", ylabel = ["Density" "Quality (relative)"], xlabel = "Years since last innovation", layout = (2,1))
+    p = plot(t, [μ .* ν .* a γ], xlims = (0,35), label = ["\\mu\\(t\\)" "\\Gamma\\(t\\)"], title = "Noncompetes", ylabel = ["Density" "Quality (relative)"], xlabel = "Years since last innovation", layout = (2,1))
 else
-    p = plot(t, [μ .* ν .* a γ], xlims = (0,35), ylims = (0,0.35), label = ["\\mu\\(t\\)" "\\gamma\\(t\\)"], title = "Baseline", ylabel = ["Density" "Quality (relative)"], xlabel = "Years since last innovation", layout = (2,1))
+    p = plot(t, [μ .* ν .* a γ], xlims = (0,35), label = ["\\mu\\(t\\)" "\\Gamma\\(t\\)"], title = "Baseline", ylabel = ["Density" "Quality (relative)"], xlabel = "Years since last innovation", layout = (2,1))
 end
 
-png("figures/plotsGR/gamma_t_mu_vs_t_plots.png")
+savefig(p, "figures/plotsGR/gamma_t_mu_vs_t_plots.pdf")
+savefig(p, "figures/plotsGR/gamma_t_mu_vs_t_plots.png")
 
+
+Plots.scalefontsizes(0.8^(-1))
 
 if modelPar.CNC == true
     p = plot(t, μ .* ν .* a, xlims = (0,35), ylims = (0,0.35), label = "\\mu\\(t\\)", title = "Noncompetes", ylabel = "Density", xlabel = "Years since last innovation")
@@ -148,7 +163,8 @@ else
     p = plot(t, μ .* ν .* a, xlims = (0,35), ylims = (0,0.35), label = "\\mu\\(t\\)", title = "Baseline", ylabel = "Density", xlabel = "Years since last innovation")
 end
 
-png("figures/plotsGR/mu_vs_t_plots.png")
+savefig(p,"figures/plotsGR/mu_vs_t_plots.png")
+savefig(p,"figures/plotsGR/mu_vs_t_plots.pdf")
 
 
 
@@ -159,7 +175,8 @@ png("figures/plotsGR/mu_vs_t_plots.png")
 #-----------------------------------------#
 
 p = plot(mGrid, [(1-θ) * ν*V1prime (1-θ) * ν*(1-ζ) *  W (1-θ) * ν*(V1prime .+ (1-ζ) *W)], label = ["Firm" "R&D employee" "Net"], title = "Flow value of knowledge transfer", xlabel = "Mass of spinouts", ylabel = "Value", legend = :bottomright)
-png("figures/plotsGR/effectiveRDWage_vs_m.png")
+savefig(p,"figures/plotsGR/effectiveRDWage_vs_m.pdf")
+savefig(p,"figures/plotsGR/effectiveRDWage_vs_m.png")
 
 #-----------------------------------------#
 # Plot "effective R&D wage"  vs t :
@@ -167,7 +184,8 @@ png("figures/plotsGR/effectiveRDWage_vs_m.png")
 #-----------------------------------------#
 
 p = plot(t, [(1-θ) * ν*V1prime (1-θ) * ν*(1-ζ) *  W (1-θ) * ν*(V1prime .+ (1-ζ) *W)], label = ["Firm" "Employee" "Net"], title = "Knowledge spillover", xlabel = "Years since last innovation", ylabel = "Value", legend = :bottomright)
-png("figures/plotsGR/effectiveRDWage_vs_t.png")
+savefig(p,"figures/plotsGR/effectiveRDWage_vs_t.pdf")
+savefig(p,"figures/plotsGR/effectiveRDWage_vs_t.png")
 
 #-----------------------------------------#
 # Plot decomposition of difference in R\&D spending
@@ -199,10 +217,13 @@ png("figures/plotsGR/diagnostics/zEzIRatioDecomp.png")
 # Non-compete usage
 #-----------------------------------------#
 
+if modelPar.CNC == true
 
-p = plot(mGrid,noncompete,title = "Noncompete usage", xlabel = "Mass of spinouts", ylabel = "Usage = 1")
-png("figures/plotsGR/noncompete_usage_m.png")
+    p = plot(mGrid,noncompete,title = "Noncompete usage", xlabel = "Mass of spinouts", ylabel = "Usage = 1")
+    savefig(p,"figures/plotsGR/noncompete_usage_m.pdf")
+    savefig(p,"figures/plotsGR/noncompete_usage_m.png")
 
+end
 
 if modelPar.CNC == true
     p = plot(t,noncompete,title = "Noncompetes", xlabel = "Years since last innovation", ylabel = "Usage = 1")
@@ -210,4 +231,8 @@ else
     p = plot(t,noncompete,title = "Baseline", xlabel = "Years since last innovation", ylabel = "Usage = 1")
 end
 
-png("figures/plotsGR/noncompete_usage_t.png")
+savefig(p,"figures/plotsGR/noncompete_usage_t.pdf")
+savefig(p,"figures/plotsGR/noncompete_usage_t.png")
+
+
+Plots.scalefontsizes(0.8^(-1))

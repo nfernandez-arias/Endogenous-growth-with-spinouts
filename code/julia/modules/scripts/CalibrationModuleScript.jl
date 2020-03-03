@@ -89,6 +89,8 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     #-----------------------------------#
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
+    flowOutputFunc = EndogenousGrowthWithSpinouts.flowOutput
+
     #-----------------------------------#
     # Solve model
     #-----------------------------------#
@@ -180,7 +182,7 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
     aggregateSales = finalGoodsLabor
 
-    aggregateOutput = (((1-β) * wbar^(-1) )^(1-β))/(1-β) * finalGoodsLabor
+    aggregateOutput = flowOutputFunc(finalGoodsLabor, modelPar)
 
     aggregateRDSpendingByIncumbents = sum(((1 .- noncompete) .* w + noncompete .* wNC).* zI .* γ .* μ .* Δm)
     aggregateRDSpendingBySpinouts = sum(wageSpinouts .* zS .* γ .* μ .* Δm)
@@ -363,14 +365,14 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
                   modelPar.κ
                   ]
 
-    lower = [1, 0.02, 1.005, 0.05, 0]
-    upper = [8, 0.3, 1.15, 2, 0.95]
+    lower = [0.2, 0.05, 1.005, 0.05, 0]
+    upper = [2, 0.5, 1.09, 0.8, 0.9]
 
     #inner_optimizer = GradientDescent()
     inner_optimizer = LBFGS()
 
 
-    calibrationResults = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(outer_iterations = 1000000, iterations = 10000000))
+    calibrationResults = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(outer_iterations = 1000000, iterations = 10000000, store_trace = true))
     #results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer))
     #results = optimize(f,initial_x,inner_optimizer,Optim.Options(iterations = 1, store_trace = true, show_trace = true))
     #results = optimize(f,initial_x,method = inner_optimizer,iterations = 1,store_trace = true, show_trace = false)
@@ -381,7 +383,7 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
 
     modelPar.χI = x[1]
     modelPar.χE = x[2] * x[1]
-    modelPar.χS = 1.25 * modelPar.χE
+    modelPar.χS = 1.3 * modelPar.χE
     modelPar.λ = x[3]
     modelPar.ν = x[4]
     modelPar.κ = x[5]
