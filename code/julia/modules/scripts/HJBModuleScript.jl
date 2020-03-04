@@ -39,6 +39,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
     # Spinouts
     ν = modelPar.ν
+	θ = modelPar.θ
     ξ = modelPar.ξ
 	ζ = modelPar.ζ
 	sFromS = modelPar.spinoutsFromSpinouts
@@ -71,7 +72,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 	τSE = τSEFunc(modelPar,zI,zS,zE)
 	τ = τI .+ τSE
 
-	drift = driftNC * ν * (ones(size(zI)) + sFromE * zE .+ sFromS * zS .+ zI .* (1 .- noncompete)) # Take into account effect of non-competes on drift
+	drift = driftNC .+ (1-θ) * ν * (sFromE * zE .+ sFromS * zS .+ zI .* (1 .- noncompete)) # Take into account effect of non-competes on drift
 
     ## Construct mGrid and Delta_m vectors
     mGrid,Δm = mGridBuild(algoPar.mGrid)
@@ -101,9 +102,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
 	W = zeros(size(V))
 
-	for i = 1:Imax-1
-
-		j = Imax - i
+	for j = idxM-1:-1:1
 
 		W[j] = ((drift[j] / Δm[j]) * W[j+1] + zS_density[j] * ( max(spinoutFlow[j],0) )) / (ρ + τ[j] + drift[j] / Δm[j])
 
@@ -423,7 +422,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 				else
 
 					noncompete[i] = 0
-					zI[i] = 0.01 # not realy used...but haven't deleted just in case..
+					zI[i] = 0.01 # important for stability
 
 				end
 
@@ -434,6 +433,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 		# Hack - "guess and verify", true in eq by continuity
 
 		zI[end] = zI[end-1]
+
 
 		#zI[1] = zI[2] #- no need for hack with Moll's method
 		#noncompete[1] = noncompete[2]

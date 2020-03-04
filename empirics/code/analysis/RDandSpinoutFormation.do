@@ -147,6 +147,18 @@ estfe . *, restore
 
 *** Instrumental variables (why is my instrument / first stage so different from Babina & Howell's????)
 
+preserve
+
+keep if lpatentCount_CW_cumulative != .
+keep if zTobin_Q != .
+keep if zlat_l3 != .
+keep if zlintan_l3 != .
+keep if zlemp_l3 != .
+keep if zlch_l3 != .
+keep if zlsale_l3 != .
+keep if lstate_l3 != .
+keep if lfirm_l3 != .
+
 eststo clear
 eststo model1: reghdfe lfounders_founder2_f3 lxrd_l3, absorb(gvkey) cluster(gvkey)
 eststo model2: ivreghdfe lfounders_founder2_f3 (lxrd_l3 = lstate_l3 lfirm_l3), absorb(gvkey) cluster(gvkey)
@@ -161,6 +173,8 @@ estfe . *, labels(naics3#year "NAICS3-Year FE" naics4#year "NAICS4-Year FE" Stat
 return list
 esttab using "figures/tables/RDandSpinoutFormation_iv_founder2_l3f3.tex", replace se star(++ 0.3 + 0.2 * 0.1 ** 0.05 *** 0.01) label keep(*lxrd_l3*) indicate(`r(indicate_fe)') stats(r2_a r2_a_within N) interaction(" $\times$ ") style(tex) booktabs b(a2)
 estfe . *, restore
+
+restore
 
 
 **** WSO4

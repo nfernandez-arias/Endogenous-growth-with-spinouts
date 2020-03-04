@@ -9,13 +9,13 @@ export setAlgorithmParameters, setModelParameters, setInitialGuess
 
 function setAlgorithmParameters()
 
-    outerLoopMax = 10
+    outerLoopMax = 27
 
     f = open("./figures/algoPar.txt", "w")
 
     mgrid_numPoints = 1000
     mgrid_minimum = 0.0
-    mgrid_maximum = .1
+    mgrid_maximum = .05
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-8 * mgrid_maximum
 
@@ -84,7 +84,7 @@ function setAlgorithmParameters()
 
     w_tolerance = 1e-7
     w_maxIter = outerLoopMax
-    w_updateRate = 0.3
+    w_updateRate = 0.05
     w_updateRateExponent = 1
 
     w = IterationParameters(w_tolerance,w_maxIter,w_updateRate,w_updateRateExponent)
@@ -169,7 +169,7 @@ function setModelParameters()
 
     # Spinouts
     #ν = 0.0102495
-    ν = 0.1
+    ν = 0.0699
     θ = 0.1
     ξ = 1
     ζ = 0
