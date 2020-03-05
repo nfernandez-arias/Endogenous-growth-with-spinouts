@@ -367,5 +367,5 @@ p4 <- ggplot(dataByYear[year <= 2006], aes(x = year)) +
 
 p <- grid.arrange(p1,p2,p3,p4)
 
-ggsave("figures/founder2_founders_f3_Accounting.pdf", plot = p, width = 12, height = 8, units = "in")
+      ggsave("figures/founder2_founders_f3_Accounting.pdf", plot = p, width = 12, height = 8, units = "in")
     

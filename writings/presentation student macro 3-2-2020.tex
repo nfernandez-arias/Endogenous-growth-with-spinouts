@@ -72,9 +72,9 @@
 
 \begin{frame}{Motivation 2}
 \begin{itemize}
-	\item Hypothesis 1: Firm knowledge is developed through \alert{\textbf{R\&D investment}}
-	\item Hypothesis 2: Entrepreneurs \alert{\textbf{\textbf{bring knowledge}}}  from previous employers to their new firms
-	\item Hypothesis 3: Entry by WSOs \alert{\textbf{increases competition}}
+	\item Productivity is developed through \alert{\textbf{R\&D investment}}
+	\item Hypothesis: entrepreneurs bring \alert{\textbf{\textbf{knowledge acquired at previous employers}}} to their new firms
+	\item Entry by WSOs \alert{\textbf{increases competition}}
 	\item Implication: entry by WSOs can \alert{\textbf{reduce expected payoff}} of incumbent R\&D investments $\Rightarrow$ GE effect \alert{\textbf{reduces incumbent innovation}}
 \end{itemize}
 \end{frame}
@@ -137,25 +137,19 @@
 
 \begin{frame}{Venture Source}
 \begin{itemize}
-	\item Venture Source
-	\begin{itemize}
-		\item Data on startups funded by VCs from 1986-2008: about 40,000 startups
-		\item Also includes funding by PEs and IPOs and acquisitions, and business status (e.g. product development, earning revenue, profitable)
-		\item \textbf{\alert{Key feature: }} employment biographies for founders / C-level / board members \\
-	\end{itemize}
+	\item Deal and company data for startups funded by VCs from 1986-2008
+	\item 23,008 startups, 147,516 individuals, 89,382 financing rounds
+	\item Valuation, IPO / M\&A, employment, revenue, business failure
+	\item \textbf{\alert{Key feature: }} employment biographies for founders / C-level / board members
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Merging with Compustat and patent data}
 \begin{itemize}
-\item Merge Venture Source with Compustat
-\begin{itemize}
-	\item Founders are President, CEO, Chairman, CTOs and flagged "Founders" at startups
-\end{itemize}
+\item Match individuals Venture Source to previous employers in Compustat using employment biographies
 \item NBER-USPTO patent data
 \begin{itemize}
 	\item Data on all USPTO-registered patents and their citations (also data on inventors, associated firms)
-	\item Merge to Compustat using gvkey
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -228,18 +222,19 @@
 \end{table}
 \end{frame}
 
+\begin{frame}{Economic magnitude}
+\begin{figure}[!htb]
+	\includegraphics[scale=0.3]{../empirics/figures/founder2_founders_f3_Accounting.pdf}
+	\caption{\tiny Economic magnitude of regression estimates. The first row of figures compares the predicted number of employee founders (dotted lines) to the observed number of employee founders (solid lines). The left figure considers all founders, the right figure only founders of firms in the same 4-digit NAICS industry as their previous employers. The bottom row shows the percentage explained in each year.}
+\end{figure}
+\end{frame}
+
 \begin{frame}{Defining spinout firms in the data}
 \begin{itemize}	
 	\item WSO has at least one founder in same 4-digit NAICS industry as previous employer
 	\item OSO has at least one founder matched to Compustat, but none in the same 4-digit NAICS industry
-	\item Selection or knowledge spillover
-	\begin{itemize}
-		\item 
-	\end{itemize}
 \end{itemize}
 \end{frame}
-
-
 
 \begin{frame}{Spinouts have higher employment}
 	\begin{table}
@@ -286,12 +281,17 @@
 \end{table}
 \end{frame}
 
-\begin{frame}{Economic magnitude}
-\begin{figure}[!htb]
-	\includegraphics[scale=0.3]{../empirics/figures/founder2_founders_f3_Accounting.pdf}
-	\caption{\tiny Economic magnitude of regression estimates. The first row of figures compares the predicted number of employee founders (dotted lines) to the observed number of employee founders (solid lines). The left figure considers all founders, the right figure only founders of firms in the same 4-digit NAICS industry as their previous employers. The bottom row shows the percentage explained in each year.}
-\end{figure}
+\begin{frame}{Selection vs Knowledge Spillover}
+\begin{itemize}
+	\item No exogenous variation in assignment of employees to previous employers 
+	\item Correlation with exogenous shocks to R\&D helps but not quite sufficient to establish knowledge spillovers
+	\begin{itemize}
+		\item Could be that future entrepreneurs move to high-R\&D firms
+	\end{itemize}
+	\item Babina \& Howell, 2019: employees with above-median tenure equally likely to start firms in response to R\&D spending
+\end{itemize}
 \end{frame}
+
 
 \section{Model}
 

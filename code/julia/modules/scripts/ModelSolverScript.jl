@@ -325,7 +325,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     tempAlgoPar = Base.deepcopy(algoPar)
 
-    tempAlgoPar.incumbentHJB.timeStep = 10
+    tempAlgoPar.incumbentHJB.timeStep = 1
     tempAlgoPar.incumbentHJB.maxIter = 500
 
     # Diagnostics
@@ -374,20 +374,12 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
             try
 
-                sol1,A = solveIncumbentHJB(algoPar,modelPar,guess,sol)
+                sol1 = solveIncumbentHJB(algoPar,modelPar,guess,sol)
 
             catch err
                 print("Caught an error in model solver: $(typeof(err))\n")
 
-                try
-                    sol1,A = solveIncumbentHJB(tempAlgoPar,modelPar,guess,sol)
-                catch err
-
-                    print("Caught another error when trying different algoPar settings: $(typeof(err))\n")
-
-                    break
-
-                end
+                sol1 = solveIncumbentHJB(tempAlgoPar,modelPar,guess,sol)
 
             finally
 
@@ -533,6 +525,6 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
 
     #return w_diag,V_diag,W_diag,μ_diag,g_diag,L_RD_diag,ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
     #return w_diag,V_diag,noncompete_diag,W_diag,μ_diag,g_diag,L_RD_diag,ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t)),factor_zS,factor_zE,spinoutFlow
-    return sol,A,ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t))
+    return ModelSolution(guess,IncumbentSolution(V,zI,noncompete),W,AuxiliaryEquilibriumVariables(μ,γ,t))
 
 end

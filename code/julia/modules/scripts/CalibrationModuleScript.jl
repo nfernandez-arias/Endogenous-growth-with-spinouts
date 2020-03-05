@@ -48,7 +48,7 @@ end
 
 function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess)
 
-    results,a,b,c = solveModel(algoPar,modelPar,guess)
+    results = solveModel(algoPar,modelPar,guess)
 
     return computeModelMoments(algoPar,modelPar,results.finalGuess,results.incumbent)
 
@@ -96,7 +96,7 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     #-----------------------------------#
 
     #results,factor_zS,factor_zE,spinoutFlow = solveModel(algoPar,modelPar,guess)
-    results,factor_zS,factor_zE,spinoutFlow = solveModel(algoPar,modelPar,guess,incumbentSolution)
+    results = solveModel(algoPar,modelPar,guess,incumbentSolution)
 
 
     g = results.finalGuess.g
@@ -144,7 +144,7 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     z = zS + zE + zI
     finalGoodsLabor = LF(L_RD,modelPar)
 
-    flowOutput = (((1-β) * wbar^(-1) )^(1-β))/(1-β) * finalGoodsLabor
+    flowOutput = flowOutputFunc(finalGoodsLabor, modelPar)
 
     #-----------------------------------#
     # Calculate entry rates
@@ -182,8 +182,6 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
 
     aggregateSales = finalGoodsLabor
 
-    aggregateOutput = flowOutputFunc(finalGoodsLabor, modelPar)
-
     aggregateRDSpendingByIncumbents = sum(((1 .- noncompete) .* w + noncompete .* wNC).* zI .* γ .* μ .* Δm)
     aggregateRDSpendingBySpinouts = sum(wageSpinouts .* zS .* γ .* μ .* Δm)
     aggregateRDSpendingByEntrants = sum(wageEntrants .* zE .* γ .* μ .* Δm)
@@ -195,7 +193,7 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     aggregateRDSpending = aggregateRDSpendingByIncumbents + aggregateRDSpendingBySpinouts + aggregateRDSpendingByEntrants
 
     #RDintensity = aggregateRDSpending / aggregateSales
-    RDintensity = aggregateRDSpending / aggregateOutput
+    RDintensity = aggregateRDSpending / flowOutput
 
     # Average wage of RD employee / average wage of production employee (of same human capital)
     WageRatio = (aggregateRDSpending / L_RD)  / wbar
@@ -313,8 +311,8 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
         #modelPar.ρ = x[1]
         modelPar.χI = x[1]
         modelPar.χE = x[2] * x[1]
-        modelPar.χS = (11.4 / 8.7) *  modelPar.χE
-        modelPar.λ = x[3]
+        modelPar.χS = 1.3 *  modelPar.χE
+        modelPar.λ = x[3] / x[1] + 1
         modelPar.ν = x[4]
         #modelPar.ζ = x[5]
         modelPar.κ = x[5]
@@ -328,7 +326,7 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
             log_file2 = open("./figures/CalibrationLog_noCNC_objectiveValues.txt","a")
         end
 
-        write(log_file,"Iteration: χI = $(modelPar.χI); χE = $(modelPar.χE); χS = $(modelPar.χS); λ = $(modelPar.λ); ν = $(modelPar.ν)\n")
+        write(log_file,"Iteration: χI = $(modelPar.χI); χE = $(modelPar.χE); λ = $(modelPar.λ); ν = $(modelPar.ν); κ = $(modelPar.κ)\n")
         close(log_file)
 
         output = computeScore(algoPar,modelPar,guess,calibPar,targets,weights,incumbentSolution)
@@ -360,13 +358,13 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
 
     initial_x = [ modelPar.χI,
                   modelPar.χE/modelPar.χI,
-                  modelPar.λ,
+                  (modelPar.λ - 1) * modelPar.χI,
                   modelPar.ν,
                   modelPar.κ
                   ]
 
-    lower = [0.2, 0.05, 1.005, 0.05, 0]
-    upper = [2, 0.5, 1.09, 0.8, 0.9]
+    lower = [0.1, 0.05, 0.03, 0.01, 0]
+    upper = [1.2, 0.3, 0.075, 0.1, 0.9]
 
     #inner_optimizer = GradientDescent()
     inner_optimizer = LBFGS()
@@ -384,11 +382,11 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
     modelPar.χI = x[1]
     modelPar.χE = x[2] * x[1]
     modelPar.χS = 1.3 * modelPar.χE
-    modelPar.λ = x[3]
+    modelPar.λ = x[3] / x[1] + 1
     modelPar.ν = x[4]
     modelPar.κ = x[5]
 
-    modelSolution,zSfactor,zEfactor,spinoutFlow = solveModel(algoPar,modelPar,guess)
+    modelSolution = solveModel(algoPar,modelPar,guess)
 
     finalMoments,finalResults = computeModelMoments(algoPar,modelPar,guess,modelSolution.incumbent)
 

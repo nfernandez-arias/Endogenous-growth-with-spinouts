@@ -15,7 +15,7 @@ initGuess = setInitialGuess(algoPar,modelPar,mGrid)
 # Solve model with the above parameters
 #--------------------------------#
 
-@timev sol,A,results = solveModel(algoPar,modelPar,initGuess)
+@timev results = solveModel(algoPar,modelPar,initGuess)
 
 #using JLD2, FileIO, Optim
 #@load "output/calibrationResults_noCNC.jld2" modelMoments modelResults score

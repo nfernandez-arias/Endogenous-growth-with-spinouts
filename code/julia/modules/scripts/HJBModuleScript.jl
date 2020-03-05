@@ -326,7 +326,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 				objective1(z) = -(z * χI * ϕI(z + zS[i] + zE[i])  * ( λ * V0[1] - V0[i] ) - z * ( w[i] - ν * Vprime))
 				objective2(z) = -(z * χI * ϕI(z + zS[i] + zE[i])  * ( λ * V0[1] - V0[i] ) - z * wbar)
 
-				if CNC == false || w[i] - ν * Vprime <= wbar
+				if CNC == false || ((w[i] - ν * Vprime <= wbar) & i < idxM)
 
 					#print("Branch 1: \n")
 
@@ -542,7 +542,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
     # Output
     #return V_diag,zI_diag,noncompete_diag,IncumbentSolution(V0,zI,noncompete)
-	return IncumbentSolution(V0,zI,noncompete),A
+	return IncumbentSolution(V0,zI,noncompete)
 
 end
 
