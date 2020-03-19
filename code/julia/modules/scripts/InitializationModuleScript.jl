@@ -13,9 +13,9 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 1000
+    mgrid_numPoints = 400
     mgrid_minimum = 0.0
-    mgrid_maximum = 0.1
+    mgrid_maximum = 0.07
     mgrid_logSpacing = true
     mgrid_logSpacingMinimum = 1e-8 * mgrid_maximum
 
@@ -178,7 +178,7 @@ function setModelParameters()
     κ = 0.837880778
 
     # CNCs
-    CNC = true
+    CNC = false
 
     # Rate of Spinout formation of spinouts and entrants
 

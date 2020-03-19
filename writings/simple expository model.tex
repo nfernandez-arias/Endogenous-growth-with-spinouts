@@ -1,0 +1,305 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\linespread{1.05}
+%\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[section]{placeins}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{svg}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{blindtext}
+%\renewcommand{\arraystretch}{1.2}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{rotating}
+
+\usepackage{chngcntr}
+
+% TikZ stuff
+
+\usepackage{tikz}
+\usepackage{mathdots}
+\usepackage{yhmath}
+\usepackage{cancel}
+\usepackage{color}
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usetikzlibrary{fadings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shadows.blur}
+
+\usepackage[font=small]{caption}
+%\usepackage[printfigures]{figcaps}
+%\usepackage[nomarkers]{endfloat}
+
+
+%\usepackage{caption}
+%\captionsetup{justification=raggedright,singlelinecheck=false}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{SIMPLE MODEL for Endogenous Growth with Creative Destruction by Employee Spinouts}
+\author{Nicolas Fernandez-Arias}
+\date{\today}
+\maketitle
+
+\section{Introduction}
+
+In this document I describe a simple expository version of my model.  It can be viewed as a modification of the model presented in 14.3 of Acemoglu's growth textbook ("Innovation by Incumbents and Entrants").
+
+\section{Static production of final and intermediate goods}
+
+This block of the model is exactly as in the full model. 
+
+\section{Household preferences}
+
+The representative household has CRRA preferences over consumption, 
+\begin{align}
+	U_0 &= \int_0^{\infty} e^{-\rho t} \frac{C(t)^{1-\theta} - 1}{1-\theta} dt \label{preferences}
+\end{align}
+
+\section{Innovation and spinouts}
+
+The innovation part of this model is significantly simplified from the full model so that it admits a closed form solution. 
+
+For each product $j$, the incumbent and a mass of ordinary entrants attempt innovation by doing R\&D. In addition, innovation by spinouts occurs in proportion to R\&D spending by the incumbent. Whenever an innovation occurs, the party responsible becomes the incumbent with quality $\lambda q_j$. 
+
+\subsection{Incumbents}
+
+The incumbent in line $j$ can perform $z$ units of R\&D by hiring $\frac{q_j}{Q}z$ units of R\&D labor. In return, the incumbent receives a Poisson intensity of $\chi_I z$ of innovating on product $j$. In the full model, the incumbent's innovation technology has decreasing returns. Here, I make this assumption for tractability reasons: the CRS specification allows one to immediately derive a closed form for the incumbent's value function, which enables closed form solutions for the rest of the model. 
+
+\subsection{Generation of spinouts}
+
+When an incumbent conducts $z$ flow units of R\&D, he faces a certain Poisson intensity of being replaced by a spinout firm, given by 
+\begin{align*}
+	\tau_{sjt} &= (1-x_{jt}) \nu z_{jt}
+\end{align*} 
+where $x_{jt} = 1$ if and only if a non-compete is imposed. Imposing a non-compete on a good of quality $q$ implies a flow cost of $f_c V(q)$ units of the final good, where $V(q)$ is the incumbent value.\footnote{The purpose of the linear scaling with $V$ is so that the optimal non-compete policy can be derived independent of the endogenous value of $V$, allowing a closed-form solution.}
+
+\subsection{Ordinary entrants}
+
+For each $j$ there is a unit mass of entrants indexed by $e \in [0,1]$ who each perform $z_e$ units of R\&D by hiring $\frac{q_j}{Q} z_e$ units of R\&D labor. Each entrant receives a Poisson intensity of $z \chi_E z_E^{-\psi}$ of innovating on product $j$, where $z_E \equiv \int_0^1 z_e de$. If a successful innovation arrives, an entrant becomes the new incumbent of good $j$, with quality $\lambda q_j$. I assume without loss of generality that $z_e \equiv z_E$ for all $e \in [0,1]$. Note that entrants have constant returns to scale individually but decreasing returns to scale at the level of good $j$. 
+
+There is an asymmetry in the setup of this model in that incumbents have a constant returns to scale innovation technology while ordinary entrants' technology exhibits decreasing returns to scale at the good level.  Constant returns to scale in innovation technology is necessary for at least one of the two, in order to be able to derive a closed-form expression for the incumbent's value. In order to have a model where both incumbents and entrants engage in R\&D, they cannot both have a CRS innovation technology: otherwise, one type of agent will price out R\&D by the other type, depending on parameters. If ordinary entrants' technology is CRS, then entry by spinouts only affects aggregate entry if it reduces ordinary entry to the corner at zero -- otherwise, an increased entry rate by spinouts is directly offset by a reduction in the entry rate by ordinary entrants. In this case, the free entry condition for ordinary entrants no longer applies, and the model is only tractable if incumbents have constant returns to scale as well. Therefore, the natural choice is for incumbents to have a CRS innovation technology and entrants with a DRS innovation technology. The most tractable choice is DRS at the good level, CRS at the level of the individual entrant.
+
+
+\subsection{Entry cost}
+
+In addition to the R\&D costs of innovation, ordinary entrants and spinout must pay an entry cost $\kappa V(q_{jt})$ when an innovation is discovered, in order to become the incumbent. The interpretation of this cost can be either (1) the additional costs of building a business and finding customers that an incumbent would not need to incur, or (2) as a reduced form for lower markups in the industry during the battle for incumbency (which the entrant ultimately wins, due to higher fundamental quality). Economically, this parameter is crucial as it reduces the bilateral efficiency of spinouts, creating a role non-compete agreements. 
+
+
+\section{Solving the model}
+
+I will solve for a BGP of the above model with constant innovation effort by incumbents, entrants, constant innnovation rates by incumbents, entrants and spinouts; a constant growth rate $g$ and constant fractions of labor allocated to R\&D and production, and all wages increasing at the constant rate of productivity growth. I guess and verify that the incumbent value function takes the form $V(q,t) = \tilde{V}q$. 
+
+\subsection{Household optimization and non-competes}
+
+The representative household maximizes the value of their labor endowment. This implies an indifference condition analogous to that in the full model. In turn, given the incumbent HJB (solved below) this yields a condition
+\begin{align}
+	x^* = \begin{cases}
+		1 & \textrm{if } (1-(1-\kappa)\lambda)\nu > f_c\\
+		0 & \textrm{o.w.}
+	\end{cases}
+\end{align}
+
+\subsection{Equilibrium innovation}
+
+Fix all parameters except $f_c$, such that $z_I > 0$ for all $f_c \ge 0$, and consider $f_c$ such that $x^* = 1$. 
+
+Given that $x^* = 1$, the incumbent's HJB is given by 
+\begin{align}
+(r + \tau_E) \tilde{V} &= \tilde{\pi} + \max_{z \ge 0} \Big\{z \big(\chi_I (\lambda - 1) \tilde{V} - \bar{w} - f_c \tilde{V}\big) \Big\} \label{eq:hjb_incumbent}
+\end{align}
+
+In an interior solution, the term multiplying $z$ in (\ref{eq:hjb_incumbent}) must be equal zero. Solving for $\tilde{V}$ yields
+\begin{align}
+	\tilde{V} &= \frac{\bar{w}}{\chi_I(\lambda - 1) - f_c} \label{eq:hjb_incumbent_foc}
+\end{align}
+
+where 
+\begin{align}
+\bar{w} &= K(\beta) Q \label{eq:wage_prod}\\
+K(\beta) &= \beta^{\beta}(1-\beta)^{1-2\beta} \label{eq:Kbeta}
+\end{align}
+
+Given $\tilde{V}$, entrant innovation is determined by the free entry condition
+\begin{align}
+	z_E^{-\psi} \chi_E \lambda (1-\kappa) \tilde{V} &= \bar{w}  \label{eq:free_entry}\\
+	\Rightarrow z_E &= \Big( \frac{\chi_E (1-\kappa) \lambda \tilde{V}}{\bar{w}} \Big)^{1/\psi} \label{eq:effort_entrant}
+\end{align}
+
+Then substituting the FOC (\ref{eq:hjb_incumbent_foc}) into the incumbent HJB (\ref{eq:hjb_incumbent}) implies
+\begin{align}
+	(r + \tau_E) \tilde{V} &= \tilde{\pi} \label{eq:interest_rate}
+\end{align}
+
+The representative household's Euler equation then determines equilibrium growth $g$, 
+\begin{align}
+	g &= \frac{1}{\theta} (r - \rho) \label{eq:euler}
+\end{align}
+
+Finally, $z_I$ is determined by the growth accounting equation,
+\begin{align}
+	g &= (\lambda - 1)(\tau_I + \tau_E) \label{eq:growth_accounting}
+\end{align}
+
+where
+\begin{align}
+	\tau_I &= \chi_I z_I \label{eq:arrival_incumbent}\\
+	\tau_E &= \chi_E z_E^{1-\psi} \label{eq:arrival_entrant}
+\end{align}
+
+Finally note that
+\begin{align}
+	\tilde{\pi} &= (1-\beta)K(\beta)L_F \label{eq:profit}\\
+	L_{RD} &= z_I + z_E  \label{eq:agg_labor_rd}\\
+	L_F &= \frac{1-L_{RD}}{1+\big(\frac{1-\beta}{K(\beta}\big)^{1/\beta}} \label{eq:agg_labor_final_good}
+\end{align}
+
+\subsection{Solving the system of equations}
+
+Now we have a system of equations defining an equilibrium, consisting of 12 equations (\ref{eq:hjb_incumbent_foc}), (\ref{eq:wage_prod}),(\ref{eq:Kbeta}), (\ref{eq:effort_entrant}), (\ref{eq:interest_rate}), (\ref{eq:euler}), (\ref{eq:growth_accounting}),(\ref{eq:arrival_incumbent}), (\ref{eq:arrival_entrant}), (\ref{eq:profit}), (\ref{eq:agg_labor_rd}), and (\ref{eq:agg_labor_final_good}). The 12 unknowns consist of \linebreak $\tilde{V},z_I,z_E,\tau_I,\tau_E,\bar{w},K(\beta),\tilde{\pi}, L_F, L_{RD}, r, g$.\footnote{In addition, we must have $\rho > (1-\theta)g$ in equilibrium so that household utility is finite, and we must have $r > g$ in equilibrium so that the transversality condition is satisfied. (Make sure this is right...)}
+
+This system is non-trivial to solve because profits $\tilde{\pi}$ depend on the labor allocation to final goods and vice versa. The former results directly from the equation (\ref{eq:profit}). At the same time, the latter effect is present because higher profits implies a higher interest rate via (\ref{eq:interest_rate}) and hence higher growth and R\&D labor allocation via the Euler equation (\ref{eq:euler}) and growth accounting equation (\ref{eq:growth_accounting}). Through the labor resource constraint equation (\ref{eq:agg_labor_final_good}), this implies a lower allocation of labor to final goods production. The solution to the system is a level of $L_{RD} \in (0,1)$ that balances these two forces. The guess of an interior BGP is verified provided that the solution has $z_I > 0$. 
+
+The above reasoning leads to an equation characterizing $z_I$, 
+\begin{align}
+	\frac{1}{\theta} \Bigg( \frac{(1-\beta)K(\beta)(1- z_I - z_E)}{\tilde{V}\Big(1 + \big(\frac{1-\beta}{K(\beta)}\big)^{1/\beta}\Big)} - \tau_E - \rho \Bigg) &= (\lambda - 1)\big(\chi_Iz_I + \tau_E \big)
+\end{align}
+
+All variables other than $z_I$ in the above equation can be written directly in terms of parameters of the model. Solving the above equation for $z_I$ yields
+\begin{align}
+	z_I &= \frac{\theta^{-1}\Bigg( \frac{(1-\beta)K(\beta)(1- z_E)}{\tilde{V}\big(1 + \big(\frac{1-\beta}{K(\beta)}\big)^{1/\beta}\big)} - \tau_E - \rho \Bigg) - (\lambda-1) \tau_E}{(\lambda - 1) \chi_I + \frac{(1-\beta)K(\beta)}{\theta \tilde{V}\big(1 + \big(\frac{1-\beta}{K(\beta)}\big)^{1/\beta}\big)}} \label{eq:effort_incumbent}
+\end{align}
+
+\subsection{Solving the model}
+
+Given $z_I,z_E$, $L_{RD}$ can be computed from (\ref{eq:agg_labor_rd}) and then $L_F$ by (\ref{eq:agg_labor_final_good}). Final good output is then given by
+\begin{align}
+	Y(Q) &= \frac{(1-\beta)^{1-2\beta}}{\beta^{1-\beta}} Q L_F \label{eq:agg_final_good_output}
+\end{align}
+
+Finally, total utility is given by 
+\begin{align}
+	W(1) &= \frac{\big(Y(1) - \tau_E \kappa \tilde{V} - z_I f_c \tilde{V}\big)^{1-\theta}}{(1-\theta)(\rho - g(1-\theta))} - \frac{1}{(1-\theta)\rho} \label{eq:agg_welfare}
+\end{align}
+
+For welfare comparisons to be meaningful, they must be converted into consumption-equivalent (CEV) terms. For $\theta < 1$, an $x\%$ increase in CEV welfare results from a $\frac{x}{1-\theta}\%$ increase in the absolute value of the first term in (\ref{eq:agg_welfare}). For $\theta > 1$, an $x\%$ increase in CEV welfare results from a $\frac{x}{1-\theta}\%$ decrease in the absolute value of the same term. The case $\theta = 1$ corresponds to log utility, in which case
+\begin{align}
+	W(1) &= \frac{\rho \log(C_0) + g}{\rho^2} \label{eq:agg_welfare_log}
+\end{align}
+
+In this case, there is no simple correspondence to obtain CEV welfare changes, but they are easy to compute directly. Under the null policy, initial consumption is $C_0$ and growth is $g$. Under the new policy, initial consumption is $C_0^+$ and growth is $g^+$. The CEV welfare change is $\frac{C_0^* - C_0}{C_0}$, where $C_0^*$ is defined by 
+\begin{align}
+	\frac{\rho\log(C_0^*) + g}{\rho^2} = \frac{\rho \log(C_0^+) + g^+}{\rho^2} \label{eq:agg_welfare_log_CEV}
+\end{align}
+
+\subsection{Allowing $x$ to vary}
+
+Consider $\kappa, \lambda, \nu$ and define the threshold $\bar{f}_c$ by 
+\begin{align}
+	(1-(1-\kappa)\lambda)\nu = \bar{f}_c
+\end{align}
+
+For $0 \le f_c < \bar{f}_c$, incumbents use non-competes and the results in the previous section apply.
+
+For $f_c \ge \bar{f}_c$, incumbents do not use non-competes. The equilibrium is independent of the particular value of $f_c > \bar{f}_c$. The wage paid by incumbents for R\&D is determined by the household's indifference condition,
+\begin{align}
+	w = \bar{w} - \nu (1-\kappa) \lambda \tilde{V} \label{eq:wage_rd}
+\end{align}
+
+The incumbent's HJB is now given by 
+\begin{align}
+	(r + \tau_E) \tilde{V} &= \tilde{\pi} + \tau_I (\lambda - 1) \tilde{V} - z^*_I(\bar{w} - \nu (1-\kappa) \lambda \tilde{V} + \nu \tilde{V} ) \label{eq:hjb_incumbent_noNCA}
+\end{align}
+
+This implies a modified expression for the incumbent's value,
+\begin{align}
+\tilde{V} &= \frac{\bar{w}}{\chi_I(\lambda - 1) - (1-(1-\kappa)\lambda)\nu} \label{eq:hjb_incumbent_foc_noNCA}
+\end{align}
+
+Note that (\ref{eq:hjb_incumbent_foc_noNCA}) is equal to (\ref{eq:hjb_incumbent_foc}) at $f_c = \bar{f}_c$. There is also a modified growth accounting equation,
+\begin{align}
+g &= (\lambda - 1)(\tau_I + \tau_S + \tau_E) \label{eq:growth_accounting_noNCA}
+\end{align}
+where
+\begin{align}
+	\tau_S &= \nu z_I \label{eq:arrival_spinout_noNCA}
+\end{align}
+
+Putting this together yields a modified equation for equilibrium $z_I$,
+\begin{align}
+z_I &= \frac{\theta^{-1}\Bigg( \frac{(1-\beta)K(\beta)(1- z_E)}{\tilde{V}\big(1 + \big(\frac{1-\beta}{K(\beta)}\big)^{1/\beta}\big)} - \tau_E - \rho \Bigg) - (\lambda-1) \tau_E}{(\lambda - 1) (\chi_I + \nu) + \frac{(1-\beta)K(\beta)}{\theta \tilde{V}\big(1 + \big(\frac{1-\beta}{K(\beta)}\big)^{1/\beta}\big)}}  \label{eq:effort_incumbent_noNCA}
+\end{align}
+
+Finally, the welfare equation is also modified, now given by 
+\begin{align}
+W(1) &= \frac{\big(Y(1) - (\tau_E + \tau_S) \kappa \tilde{V}\big)^{1-\theta}}{(1-\theta)(\rho - g(1-\theta))} - \frac{1}{(1-\theta)\rho}  \label{eq:agg_welfare_noNCA}
+\end{align}
+
+As before, welfare changes are converted into CEV terms.
+
+\section{Policy counterfactual}
+
+\subsection{Preliminaries}
+
+\textbf{Need to update this}
+
+The expression for welfare on the RHS of (\ref{eq:agg_welfare}) implies that social welfare can be decomposed into the flow rate of consumption given $Q_t$ (numerator), and the growth rate $g$ (in the denominator). 
+
+In turn, the numerator consists of three terms. The term $Y(1)$ reflects the effect of final goods output at a given quality level. By (\ref{eq:agg_final_good_output}), this is determined by $L_F$ and the parameter $\beta$. In turn, $L_F$ is determined by spending on $R\&D$, given (\ref{eq:agg_labor_final_good}).
+
+The term $-(\tau_E + \tau_S) \kappa \tilde{V}$ reflects the negative effect on flow consumption of the cost of creative destruction. Similarly, the term $-cz_I \tilde{V}$ reflects the negative effect on flow consumption of the cost of enforcing non-compete agreements. Given the free entry condition (\ref{eq:free_entry}) and the fact that $z_E > 0$ for all $c' < c$, $\tilde{V}$ is pinned down by free entry. Therefore, these two terms are driven entirely by the equilibrium rate of creative destruction and the equilibrium rate of R\&D by incumbents (which use NCAs), respectively.
+
+Given a rate of flow consumption at each $Q_t$, the growth rate of flow consumption $g$ determines overall social welfare. 
+
+\subsection{Effect of the cost of non-competes on welfare}
+
+For $f_c \le \bar{f}_c$, social welfare is strictly decreasing in $f_c$. As $f_c$ increases, enforcing non-competes is more expensive. To satisfy the incumbent FOC, the value of incumbency in must increase as given in (\ref{eq:hjb_incumbent_foc}). Holding constant the labor allocation, the equilibrium interest rate falls to satisfy the incumbent's HJB (\ref{eq:hjb_incumbent}). By the Euler equation (\ref{eq:euler}), the equilibrium growth rate declines. The innovation rate by ordinary entrants necessarily increases due to the increased value of incumbency. The growth accounting equation (\ref{eq:growth_accounting}) then implies that incumbent innovation expenditures decline. Therefore, growth declines and a larger share of innovation expenditures is accounted by ordinary entrants, which are inefficient compared to incumbents. Furthermore, their innovation expenditures strictly increase. The net effect on the share of labor allocated to R\&D depends on parameters. If the share of labor allocated to R\&D falls as $f_c$ rises, equilibrium profits increase and the effects above are attenuated. Otherwise, they are amplified. 
+
+The effects of the above on welfare are unambiguously negative because growth declines, innovation expenditures by ordinary entrants increase and innovation expenditures by incumbents decrease. In this model, the decentralized equilibrium can exhibit too much growth. However, this is due to excessive innovation by entrants. Therefore, it is not possible to increase welfare by increase innovation by entrants and simultaneously reducing growth. \textbf{[Need to think about this argument...]}
+
+When $f_c > \bar{f}_c$, the equilibrium does not depend on the particular value of $f_c$. Upon crossing the threshold, welfare necessarily rises. The incumbent value and therefore innovation expenditures by ordinary entrants are constant for all $f_c \ge \bar{f}_c$. Holding constant the labor allocation to R\&D, the interest rate is unchanged. The Euler equation therefore implies the same growth rate. The growth accounting equation them implies a $z_I$ such that $\tau_I + \tau_S$ is the same as for $f_c = \bar{f}_c$. This requires lower $z_I$, which reduces the allocation of labor to R\&D. This feeds back into the incumbent HJB, requiring a higher interest rate. The Euler equation then implies a higher growth rate, which requires a higher incumbent R\&D expenditure. This increases the allocation of labor to R\&D, attenuating the effect. This logic has a fixed point at the new equilibrium. This new equilibrium has lower incumbent R\&D expenditure, the same entrant R\&D expenditure, and a higher growth rate. However, the above logic does not imply that welfare increases or decreases overall because I have no considered the net effect of (1) eliminating expenditures on enforcing non-competes and (2) increasing creative destruction expenditures. If $\kappa \lambda \nu < f_c$ then welfare necessarily increases. Otherwise, it could decrease but quantitatively I have not found any examples where it does.
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

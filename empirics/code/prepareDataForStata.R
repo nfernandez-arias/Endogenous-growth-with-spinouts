@@ -71,24 +71,28 @@ for (var in parentFirmControls)
 # data <- data[, if(max(na.omit(spinoutCount)) >0) .SD, by = gvkey]
 
 
+##  Compute firm age
+
+# Sort data 
+data <- data[order(gvkey,year)]
+
+# Compute firm age  
+data[, firmAge := rowidv(gvkey)]
+
+
 # Force the right time frame
 
 data <- data[year >= 1986]
 data <- data[year <= 2018]
 
 # Construct 1,2,3,4,5,6-digit NAICS codes
-data[, naics6 := as.integer(substr(naics,1,6))]
-data[, naics5 := as.integer(substr(naics,1,5))]
-data[, naics4 := as.integer(substr(naics,1,4))]
-data[, naics3 := as.integer(substr(naics,1,3))]
-data[, naics2 := as.integer(substr(naics,1,2))]
-data[, naics1 := as.integer(substr(naics,1,1))]
+data[nchar(naics) == 6, naics6 := as.integer(substr(naics,1,6))]
+data[nchar(naics) >= 5, naics5 := as.integer(substr(naics,1,5))]
+data[nchar(naics) >= 4, naics4 := as.integer(substr(naics,1,4))]
+data[nchar(naics) >= 3, naics3 := as.integer(substr(naics,1,3))]
+data[nchar(naics) >= 2, naics2 := as.integer(substr(naics,1,2))]
+data[nchar(naics) >= 1, naics1 := as.integer(substr(naics,1,1))]
 
-# Sort data 
-data <- data[order(gvkey,year)]
-    
-# Compute firm age  
-data[, firmAge := rowidv(gvkey)]
 
 data[, naics4Year_count := .N, by = .(naics4,year)]
 

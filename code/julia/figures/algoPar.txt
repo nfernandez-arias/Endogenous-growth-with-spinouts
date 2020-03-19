@@ -1,10 +1,10 @@
 mGrid Parameters 
 ---------------
-numPoints: 1000 
+numPoints: 400 
 minimum: 0.0 
-maximum: 0.1 
+maximum: 0.07 
 logSpacing: true 
-logSpacingMinimum: 1.0e-9 
+logSpacingMinimum: 7.000000000000001e-10 
 
 
 Incumbent HJB Parameters 

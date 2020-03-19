@@ -25,10 +25,11 @@ compustat[ is.na(re), re := 0]
 compustat[ is.na(act), act := 0]
 compustat[ BE > 0 , MtB := ME / BE]
 compustat[ , Tobin_Q := (at + ME - BE) / at]
+compustat[ , EnterpriseValue := at + ME - BE]
 
 setnames(compustat,"year","fyear")
 
-compustat <- compustat[ , .(gvkey,fyear,Tobin_Q,datadate,loc,state,xrd,sale,lfirm,lfirm_bloom,lstate,lstate_bloom,capx,capxv,sppe,ppent,ebitda,ni,ch,emp,revt,intan,at,sic,naics)]
+compustat <- compustat[ , .(gvkey,fyear,Tobin_Q,EnterpriseValue,datadate,loc,state,xrd,sale,lfirm,lfirm_bloom,lstate,lstate_bloom,capx,capxv,sppe,ppent,ebitda,ni,ch,emp,revt,intan,at,sic,naics)]
 compustat <- compustat[!is.na(fyear)]
 
 

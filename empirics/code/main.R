@@ -4,7 +4,7 @@
 # 
 # Author: Nicolas Fernandez-Arias
 #
-# Purpose:    
+# Purpose:    dat <- fread("data/compus
 #
 # This is the main script for the empirical component
 #------------------------------------------------#
@@ -136,7 +136,7 @@ source("code/mergeFirmNCchangesToMasterData.R")
 #-------------------------
 # EXPORT TO STATA
 # Prepare the data for analysis in Stata
-# (because it has better implementations of fixed effect regressions)
+# (because it has better implementations of fixed effe        ct regressions)
 #-------------------------
 
 # Next, prepare the data for panel regressions in Stata   

@@ -443,7 +443,7 @@ function solveModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,initG
         Wcal = WcalFunc(algoPar,modelPar,guess,W,μ,γ)
 
         # Calculate non-compete wage
-        temp_wE = (ones(size(mGrid)) .* wbar) .- (1- θ) * (sFromE * (1-ζ) * ν) * W
+        temp_wE = (ones(size(mGrid)) .* wbar) .- (1- θ) * (sFromE * (1-ζ) * ν) * W .- θ * (sFromE * (1-ζ) * ν) * Wcal
         temp_wNC = ones(size(mGrid)) .* (wbar - θ * (1-ζ) * ν * Wcal)
         temp_w = temp_wNC .- (1-θ) * (1-ζ) *  ν .* W
 

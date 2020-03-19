@@ -1,0 +1,32 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{8}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}&\multicolumn{1}{c}{(7)}&\multicolumn{1}{c}{(8)}\\
+                    &\multicolumn{1}{c}{$\frac{\textrm{Founders}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{Founders}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{Founders}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{Founders}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{WSO4}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{WSO4}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{WSO4}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{WSO4}}{\textrm{Assets}}$}\\
+\midrule
+log(R\&D)           &   -0.000032         &       0.010         &      0.0015         &     -0.0048         &  -0.0000079         &    -0.00084         &     0.00080         &    -0.00052         \\
+                    &  (0.000027)         &      (0.10)         &    (0.0019)         &     (0.032)         &  (0.000014)         &     (0.011)         &    (0.0011)         &    (0.0045)         \\
+\addlinespace
+highNCC=0 $\times$ log(R\&D)&           0         &           0         &           0         &           0         &           0         &           0         &           0         &           0         \\
+                    &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         \\
+\addlinespace
+highNCC=1 $\times$ log(R\&D)&   -0.000022         &      -0.023         &     -0.0032         &       0.012         &   -0.000025         &      0.0019         &     -0.0018         &      0.0011         \\
+                    &  (0.000056)         &      (0.22)         &    (0.0040)         &     (0.078)         &  (0.000046)         &     (0.023)         &    (0.0023)         &     (0.011)         \\
+\addlinespace
+NAICS4-Year FE      &          No         &          No         &          No         &         Yes         &          No         &          No         &          No         &         Yes         \\
+\addlinespace
+Firm FE             &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+\addlinespace
+Firm Age FE         &          No         &          No         &         Yes         &         Yes         &          No         &          No         &         Yes         &         Yes         \\
+\addlinespace
+Year FE             &          No         &          No         &         Yes         &          No         &          No         &          No         &         Yes         &          No         \\
+\midrule
+r2\_a                &        0.52         &       -19.6         &       -0.39         &       -5.49         &        0.55         &       -0.22         &       -0.20         &       -0.23         \\
+r2\_a\_within         &  0.00000057         &                     &                     &                     &    -0.00015         &                     &                     &                     \\
+N                   &        8338         &        8338         &        8338         &        7578         &        8338         &        8338         &        8338         &        7578         \\
+\bottomrule
+\multicolumn{9}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{9}{l}{\footnotesize \sym{++} \(p<0.2\), \sym{+} \(p<0.15\), \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

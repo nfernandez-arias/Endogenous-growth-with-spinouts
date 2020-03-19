@@ -74,14 +74,24 @@
 	\href{https://drive.google.com/open?id=1NZCBFnkxug8qXWAZLTir6dEmIy9LuEBg}{Click here for most recent version}}
 \maketitle
 
-
-
 \begin{abstract}
 	Knowledge spillovers have long been recognized as important drivers of aggregate productivity growth. For example, the flow of knowledge to startups founded by former employees, known as employee spinouts, is often credited with the emergence of Silicon Valley. However, when innovative efforts by incumbents create knowledge spillovers to competing firms, the effect of knowledge spillovers can be to discourage innovation by incumbent firms. The strength of this mechanism is particularly relevant to assessing the effect on growth of enforcing non-compete agreements, a policy question currently being discussed by several state legislatures. To explore and quantify this mechanism, I first esitmate the effect of corporate R\&D spending and subsequent formation of VC-funded startups by former employees in a micro dataset combining Compustat, the NBER-USPTO patent database, and Venture Source data on VC-funded spinouts. Interpreting the estimates as causal, I find that approximately 25\% of spinouts in the data resulted from R\&D expenditures of previous employees, 45\% of which are in the same 4-digit NAICS industry as the parent firm. To quantify the importance of this mechanism for productivity growth, I develop a model of endogenous growth with creative destruction by employee spinouts. The model proceeds from the hypothesis that, absent NCAs, R\&D projects by incumbents lead to formation of employee spinouts which do not maximize the joint surplus of the incumbent-employee pair. This can result from asymmetric information or disagreement between the worker and the firm concerning the value of the idea; I leave this unmodeled for tractability. Spinouts implement ideas that otherwise would not be implemented, so easier spinout formation expands the production possibilities frontier of the economy. However, the possibility of future spinouts which do not maximize joint surplus discourages incumbent R\&D. In addition, the model exhibits an "escape competition" effect: the stock of spinouts encourages incumbent R\&D because successfully innovating increases technological distance and hence the duration of the its monopoly. The net effect is that for some parameters the rate of spinout formation has a non-monotonic effect on steady state growth and welfare. Relatedly, enforcing non-compete agreements can increase or decrease both growth and welfare. To impose discipline on these parameters, I calibrate the model. For some parameter values, expanding the production possibilities frontier by increasing the using my estimates from the micro data, aggregate moments and parameters from the literature. I use the model to study the effect on steady state growth and welfare of increasing or decreasing the enforceability of non-competes, as well as other policies such as R\&D subsidies and startup subsidies. Since the identification of parameters is not ideal, I close with a discussion of how the implications of the model depend on the key parameters, and how they might be estimated in future work. 
 	
 \end{abstract}
 
 \tableofcontents
+
+\begin{enumerate}
+	\item Simple model with no $m$ state variable
+	\item Fixed cost of noncompete to match incidence, discuss incidence
+	\item Look at all notes you have on slides
+	\item Rearrange things - model first, then empirics
+	\item FIGURE OUT what the hell is wrong with the Bloom instrument!!!
+	\item Figure out why some entities in EmploymentPaths have NA for "fromPublic" field
+	\item Worth trying to match $m$ distribution in the data? Could be interesting...just look at, in Venture Source and in each NAICS code-year, the number of spinouts...or total employment of spinouts, or valuation of spinouts, whatever, that are currently operating and have no yet exitesd.
+	\item Clean up and simplify everything
+	\item Rewrite introduction (hard)
+\end{enumerate}
 
 \section{Introduction}
 
@@ -504,6 +514,8 @@ The resulting law of motion for $m_j$ is
 
 \subsubsection{Financing of startup ideas}
 
+\textbf{NEED TO REWRITE -- JUST RECAST WHOLE MODEL AS REP. HOUSEHOLD, THINK ABOUT ADDING CRRA}
+
 It is necessary to specify how an individual obtains financing for a spinout idea. I do not wish to introduce complexities around borrowing constraints, bankruptcy, and principal agent problems in managing a firm. Because there is no aggregate risk in this economy, it is sufficient to assume that there is a perfecty competitive financial intermediary which buys spinout ideas as soon as they are generated. The price paid is the value of the idea. This intermediary issues instantaneous risk-free deposits to the individuals in the economy.
 
 As a result of this assumption, individuals are exposed to no risk: they simply work and earn a flow wage plus an inflow of receipts from selling the spinout ideas to the bank. Hence this assumption is tantamount to an assumption of complete markets / representative agent. Given this, and the fact that there is no aggregate risk, I now believe it is possible to frame my model as a representative agent model and add a CRRA utility function. But for now I have not done that.
@@ -653,7 +665,7 @@ That is, the effective cost of R\&D is the wage plus the reduction in firm value
 
 A higher wage is required to attract labor when a non-compete is imposed, since it eliminates the expected value of the employee's future WSOs. The gap in wages required to attract labor is equal to the expected discounted present value of WSO formation to the worker. Using (\ref{worker_effective_wage}), (\ref{worker_effective_wage_NCA}), (\ref{wage_rd}), (\ref{wage_rd_NCA}), (\ref{incumbent_effective_wage}), and (\ref{incumbent_effective_wage_NCA}), it follows that (suppressing function arguments)
 \begin{align}
-\tilde{w}^{NCA} &= \tilde{w} + \overbrace{\nu \theta }^{\textrm{WSO formation}} \Bigg( \underbrace{\theta \nu V_m}_{\textrm{Harm to incumbent}} + \overbrace{\nu \theta W}^{\textrm{Value to employee}} \Bigg)
+\tilde{w}^{NCA} &= \tilde{w} + \overbrace{\nu \theta }^{\textrm{WSO formation}} \Bigg( \underbrace{V_m}_{\textrm{Harm to incumbent}} + \overbrace{W}^{\textrm{Value to employee}} \Bigg)
 \end{align} 
 
 That is, the incumbent uses a non-compete whenever the ex-ante bilateral value of knowledge spillovers from the incumbent to the R\&D employee is positive. Even absent explicit bargaining, equilibrium ensures the use of the bilaterally optimal contract (given the available contract space). Negative social consequences of non-competes in this model therefore must arise from externalities and general equilibrium effects rather than direct harm to those bound by them.\footnote{This is also the case in the models developed in \cite{baslandze_spinout_2019} and \cite{shi_restrictions_2018}. In fact, there is some empirical evidence that non-compete contracts can be damaging to workers themselves. For example, in some cases a non-compete can be used as a way to extract more rent from the worker after a job has already been accepted. See the discussion in \cite{starr_consider_2018}.} This is summarized by the optimal non-compete policy

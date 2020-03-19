@@ -25,9 +25,9 @@
 \setbeamertemplate{itemize items}[default]
 
 
-\title{Employee Spinouts, Creative Destruction and Endogenous Growth}
+\title{Noncompete Agreements and Endogenous Growth with Creative Destruction}
 \author{Nicolas Fernandez-Arias}
-%\date{March 7, 2019}
+\date{\today }
 
 \begin{document}
 
@@ -35,24 +35,27 @@
 
 \section{Introduction}
 
-\begin{frame}
+\begin{frame}{Notes from talk}
 \begin{itemize}
-	\footnotesize
-	\item Redo introduction to more carefully define terms
-	\item Also, improve theoretical motivation (i.e., argue why it is natural to want to augment the Grossman-Helpman model in this way -- endogenizing the knowledge spillovers in that model which are key for the welfare effects of it)
-	\item Intensive margin regressions - are spinouts formed when there is R\&D of higher value than not? (discuss with Rowan)
-	\item Try normalizing regressions by measures of cost, instead of assets (why? ask Benny)
-	\item Hannah: try calibration with no non-WSO firms, calibrate and show that it's not the increased entry due to more non-WSO spinouts that's driving the welfare result
-	\item Ernest: 
-	\begin{itemize}
-		\footnotesize
-		\item Combine initial 2, maybe 3, motivation slides -- fewer facts (just say them) -- take out references to 'accounting' vs 'non-accounting' decompositions
-		\item Fewer words
-		\item Don't introduce WSO, OSO distinction until talking about their differences
-		\item Write clear slide re: selection vs. learning from incumbents (what are my assumptions, when do they fail?)
-		\item Put stuff in beginning about why this is a natural extension of quality ladders model exogenous knowledge spillovers
-		\item Fewer words!
-	\end{itemize}
+	\item Richard: not clear what my main narrative is
+	\item Richard: calibrating without NCAs, so be clear about what model I'm solving etc. and what data I'm using 
+	\item Richard: who founds spinouts? What are their positions? how am I interpreting that it's related to R\&D?
+	\item Continue to tighten up model presentation...kind of confusing. just do the presentation over and over again to more people.
+	\item Variation in mechanism by NCA enforceability? 
+	\item Selection: Venture Source vs. firms not in Venture Source
+	\item Highlight what the main takeaways of firm type comparison
+	\item Patents held by entrepreneurs -- who founds firms, even if not R\&D? so try to match
+	\item What difference when trying match incumbent relative R\&D spending instead of patents
+	\item Be explicit about what you're showing in calibation: i.e., need to be more explicit about how things only depend on $m$ etc
+	\item Stats about non-competes at the beginning to motivate the non-competes
+	\item no caveats before results
+	\item Motivation (channel) and then model, then empirics
+	\item Don't put $\kappa$ discussion in presentation
+	\item Efficiency of R\&D very different between incumbents and entrants -- does literature agree? Compare to literature
+	\item Put motivation figure first, then model, then dive into empirics more carefully to discpline model, then calibration
+	\item Do exercise of just selling paper with no caveats
+	\item Add little picture explaining where entry comes from, add narrative, etc. Be a bit more defensive of paper (to practice job talk)
+	\item Have answer for "what happens if startup is in different state from previous employer?"
 \end{itemize}
 \end{frame}
 
@@ -64,8 +67,7 @@
 	\begin{itemize}
 		\item Entering firm whose founders previously worked in same industry 
 		\hyperlink{spinouts_facts_from_literature}{\beamergotobutton{stylized facts}}
-		\item Fairchild semiconductor / Silicon Valley; Detroit automakers \hyperlink{fairchildren_early}{\beamergotobutton{graphic}}
-		\item Modern examples: Tinder $\rightarrow$ Bumble; Ableton $\rightarrow$ Bitwig Studio; 1010 Data $\rightarrow$ AltDG 
+		\item Fairchild semiconductor descendents \hyperlink{fairchildren_early}{\beamergotobutton{graphic}}
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -102,7 +104,7 @@
 	\end{itemize}
 	\item GE model of endogenous growth where incumbent firm \alert{\textbf{R\&D generates ideas for employee spinouts}}
 	\item Calibration to match micro empirics and aggregate data
-	\item Policy exercise: allowing noncompetes increases incumbent R\&D by 20\%, growth by 27\%, and welfare by 10\%
+	\item Policy exercise: allowing noncompetes \alert{\textbf{increases welfare}} by 1.25\% 
 \end{itemize}
 \end{frame}
 
@@ -137,7 +139,7 @@
 
 \begin{frame}{Venture Source}
 \begin{itemize}
-	\item Deal and company data for startups funded by VCs from 1986-2008
+	\item Deal and company data for US-based startups funded by VCs from 1986-2008
 	\item 23,008 startups, 147,516 individuals, 89,382 financing rounds
 	\item Valuation, IPO / M\&A, employment, revenue, business failure
 	\item \textbf{\alert{Key feature: }} employment biographies for founders / C-level / board members
@@ -202,13 +204,14 @@
 	\item State-level
 	\begin{itemize}
 		\item Weighted average of state-level after-tax cost of R\&D based on location of last 10 years of firm's inventors
-		\item Problem with exclusion restriction: startups are usually in same state as founder
+		\item Problem with exclusion restriction
 	\end{itemize}
 	\item Firm-level
 	\begin{itemize}
 		\item Firm-specific R\&D subsidy a function of firm-specific base of past R\&D spending
-		\item Problem with exogeneity: firm subsidies are a function of firm behavior which depends on unobserved time-varying firm characteristics
+		\item Problem with exogeneity
 	\end{itemize}
+	\item LATE vs average effect
 \end{itemize}
 \end{frame}
 
@@ -220,13 +223,6 @@
 \caption{\tiny The dependent variable is the log of the average yearly number of founders from the parent firm joining startups, over the years $t+1,t+2,t+3$. Independent variables are similarly averaged over $t,t-1,t-2$. Columns (1) and (5) are estimated by OLS. The remaining columns columns are estimated by instrumenting R\&D spending using firm-specific tax incentives for R\&D, from Bloom 2013. Standard errors are clustered at the firm level.}
 \label{table:RDandSpinoutFormation_iv_founder2_l3f3}
 \end{table}
-\end{frame}
-
-\begin{frame}{Economic magnitude}
-\begin{figure}[!htb]
-	\includegraphics[scale=0.3]{../empirics/figures/founder2_founders_f3_Accounting.pdf}
-	\caption{\tiny Economic magnitude of regression estimates. The first row of figures compares the predicted number of employee founders (dotted lines) to the observed number of employee founders (solid lines). The left figure considers all founders, the right figure only founders of firms in the same 4-digit NAICS industry as their previous employers. The bottom row shows the percentage explained in each year.}
-\end{figure}
 \end{frame}
 
 \begin{frame}{Defining spinout firms in the data}
@@ -281,7 +277,7 @@
 \end{table}
 \end{frame}
 
-\begin{frame}{Selection vs Knowledge Spillover}
+\begin{frame}{Knowledge spillover vs selection}
 \begin{itemize}
 	\item No exogenous variation in assignment of employees to previous employers 
 	\item Correlation with exogenous shocks to R\&D helps but not quite sufficient to establish knowledge spillovers
@@ -305,7 +301,7 @@
 \begin{itemize}
 	\item Builds on Grossman-Helpman 1991, Akcigit-Kerr 2017 
 \end{itemize}
-\item \alert{\textbf{New:}} R\&D workers \textbf{\alert{learn on the job}} how to innovate, form within-industry spinouts and other industry spinouts
+\item \alert{\textbf{New:}} R\&D workers \textbf{\alert{acquire ability to form spinouts}} on the job
 \begin{itemize}
 	\item Flow of knowledge is \textbf{\alert{disincentive}} to incumbent R\&D
 	\item Stock of disseminated knowledge is incentive to incumbent R\&D: \textbf{\alert{escape competition}} effect
@@ -314,17 +310,7 @@
 \begin{itemize}
 	\item Reduce flow of knowledge, \textbf{\alert{shrinking production possibilities frontier}}
 	\item \textbf{\alert{May increase welfare}} due to effect on incumbent R\&D incentives
-	\item Are relevant when expectation future spinouts \textbf{\alert{reduces bilateral value of firm-employee pair}} (e.g. DW loss of creative destruction, weakening of monopoly on R\&D)
 \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Model - Overview}
-\begin{itemize}
-\item Individuals supply labor to production and R\&D
-\item Firms do R\&D to improve production technology, driving aggregate TFP growth
-\item R\&D by incumbents transfers knowledge to employees, generating new entrants with better entry technology
-
 \end{itemize}
 \end{frame}
 
@@ -367,50 +353,39 @@ where $c_i(t)$ is household $i$ consumption of final good at time $t$
 \tau^I(z) &= \chi_I z^{1-\psi}
 \end{align*}
 where $z$ is units of R\&D, $\chi_I$ is R\&D productivity, and $\psi \in (0,1)$ measures decreasing returns to R\&D 
+\item Innovation increases quality by exogenous factor $\lambda > 1$
 \item Scaling assumption: one unit of R\&D on quality $q$ requires $(q/Q)$ units of labor in R\&D
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Creative destruction}
 \begin{itemize}
-	\item For good $j$, unit mass of entrants (E), mass $m_j$ of spinouts (S), aggregates $z_E(j) = \int_0^1 z_E^e(j) de$, $z_S(j) = \int_0^{m} z_S^s(j) ds$
+	\item Good $j$: mass 1 entrants (E), mass $m_j$ spinouts (S)
+	\item Aggregates $z_E(j) = \int_0^1 z_E^e(j) de$, $z_S(j) = \int_0^{m} z_S^s(j) ds$
 	\item Innovation technology
 	\begin{align*}
 	\textrm{Spinouts: }\tau^S(z,z_E+z_S) &= \chi_{S} z (z_E + z_S)^{-\hat{\psi}} \\
 	\textrm{Entrants: }\tau^E(z,z_E+z_S) &= \chi_{E} z (z_E + z_S)^{-\hat{\psi}}
 	\end{align*}
-	\item Aggregate DRS $\hat{\psi} > \psi$ due to lack of coordination: \textbf{\alert{duplication of research}} and \textbf{\alert{fishing out}} externalities
-	\item Spinouts have \textbf{\alert{capacity constraint}} $z_S^s \le 1$ (normalization, can replace with DRS)
+	\item Aggregate DRS $\hat{\psi} > \psi$ due to lack of coordination: \alert{\textbf{fishing out}} and \textbf{\alert{duplication of research}} 
+	\item Spinouts have \textbf{\alert{capacity constraint}} $z_S^s \le 1$
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Generation of spinout ideas}
+\begin{frame}{Generation of spinouts}
 \begin{itemize}
-\item Rate $\theta \frac{Q}{q_j} \nu$ per flow unit of labor, R\&D generates spinout ideas in line $j$
+\item Rate $\theta \frac{Q}{q_j} \nu$ per flow unit of labor, R\&D generates spinouts in line $j$
 \item Rate $(1-\theta) \nu$, idea generated in random line $j'$
-\item $\Rightarrow$ Individual state of product $j$ is $(q,m)$, aggregate state $d\mu(q,m,t)$
-\item Successful innovation $\Rightarrow$ $m$ jumps to 0
-\item Law of motion for mass of potential spinouts: $\dot{m}_j = \dot{m}_j^{\textrm{from $j$}} + \dot{m}_j^{\textrm{from $-j$}}$ where
-\begin{align*}
-\dot{m}_j^{\textrm{from $j$}}&= \theta \nu z_{I,j} (1-x_j)\\
-\dot{m}_j^{\textrm{from $-j$}} &= (1-\theta)\nu \int_0^1 \frac{q_j}{Q} z_{I,j'} dj'
-\end{align*}
+\item Conditional on no innovations, law of motion for mass of potential spinouts: $\dot{m}_j = \dot{m}_j^{\textrm{WSO}} + \dot{m}_j^{\textrm{OSO}}$ where
+	\begin{align*}
+	\dot{m}_j^{\textrm{WSO}}&= \theta \nu z_{I,j} (1-x_j)\\
+	\dot{m}_j^{\textrm{OSO}} &= (1-\theta)\nu \int_0^1 \frac{q_j}{Q} z_{I,j'} dj'
+	\end{align*}
 where $x_j = 1$ if the incumbent imposes a non-compete
+\item Incumbent or entrant innovates on $j$ $\Rightarrow$ $m_j$ jumps to 0
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Financing of spinout ideas}
-\begin{itemize}
-	\item Ideas sold to and implemented by competitive financial intermediary
-	\item Intermediary funded by risk-free deposits held by households
-	\item Unfortunate since assuming incumbent can't buy ideas 
-	\begin{itemize}
-		\item Data: incumbents tend not to buy WSOs (Babina \& Howell 2019)
-		\item Theory: assuming that breakdown in within-firm market for ideas led to WSO $\Rightarrow$ natural to assume parent does not buy idea
-	\end{itemize}
-	\item No aggregate risk $\Rightarrow$ economy has representative agent, could add curvature to utility (in progress)
-\end{itemize}
-\end{frame}
 
 \begin{frame}{Dynamics of an individual good $j$}
 \begin{figure}
@@ -422,13 +397,23 @@ where $x_j = 1$ if the incumbent imposes a non-compete
 \end{figure}
 \end{frame}
 
-\begin{frame}{Solving and closing the model}\label{closing_the_model}
+\begin{frame}{Financing of spinouts}
+\begin{itemize}
+	\item Ideas sold to and implemented by competitive financial intermediary
+	\item Intermediary funded by risk-free deposits held by households
+	\item Not ideal because assuming incumbent can't buy ideas 
+	\item No aggregate risk $\Rightarrow$ economy has representative agent, could add EIS to utility function (in progress)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Aggregation and solving the model}\label{closing_the_model}
 \small
 \begin{itemize}
+\item Static equilibrium conditions \hyperlink{static_eq_conditions}{\beamergotobutton{details}}
 \item Individual state of product in general is $(q,m,t)$, aggregate state $d\mu(q,m,t)$ time-varying in general 
 \item Incumbent, spinout and household HJBs \hyperlink{HJB_incumbent}{\beamergotobutton{incumbents}} \hyperlink{HJB_spinout}{\beamergotobutton{spinouts}} \hyperlink{HJB_household}{\beamergotobutton{households}}
 \item Guess and verify $V(q,m,t) = qV(m), W(q,m,t) = qW(m)$ on BGP \hyperlink{scaling_of_value_functions}{\beamergotobutton{details}}
-\item Static equilibrium conditions \hyperlink{static_eq_conditions}{\beamergotobutton{details}}
 \item Aggregation 
 \begin{itemize}
 \item Stationary density $\mu(m)$ and $E[q/Q|m]$ sufficient for BGP \hyperlink{aggregate_distribution_and_bgp}{\beamergotobutton{details}}
@@ -443,9 +428,9 @@ where $x_j = 1$ if the incumbent imposes a non-compete
 \begin{itemize}
 \item Household labor supply decisions maximize value of labor endowment
 \item Indifference condition:
-\begin{align*}
-\bar{w} &= \overbrace{w(m)}^{\textrm{R\&D wage w/o NCA}} + \nu \Big(\overbrace{\theta W(m)}^{\textrm{Line $j$}} + \overbrace{(1-\theta) \mathcal{W}}^{\textrm{Other lines $-j$}} \Big) \\
-\bar{w} &= \underbrace{w^{NCA}}_{\textrm{R\&D wage w/ NCA}} + \underbrace{\nu (1-\theta) \mathcal{W}}_{\textrm{Only other lines $-j$}}
+\begin{align*}  
+\bar{w} &= \overbrace{w(m)}^{\textrm{R\&D wage w/o NCA}} + \nu \Big(\overbrace{\theta W(m)}^{\textrm{WSOs}} + \overbrace{(1-\theta) \mathcal{W}}^{\textrm{OSOs}} \Big) \\
+\bar{w} &= \underbrace{w^{NCA}}_{\textrm{R\&D wage w/ NCA}} + \underbrace{\nu (1-\theta) \mathcal{W}}_{\textrm{Only OSOs}}
 \end{align*}
 for expected value of spinout idea in random line $j' \ne j$,
 \begin{align*}
@@ -478,7 +463,6 @@ i.e. non-compete chosen to \textbf{\alert{maximize bilateral value}}
 
 \begin{frame}{Entrant optimal policies}
 \begin{itemize}
-\item Spinouts earn rents and price out entrants
 \item Equilibrium entry
 \begin{align*}
 z_S(m) &= \min(m,Z_S^*) \\
@@ -505,7 +489,7 @@ g &= \frac{\dot{Q}}{Q} = (\lambda -1) \int_0^{\infty} \tau(m) \Gamma(m) \mu(m) d
 \end{align*}
 \item Welfare = PDV of consumption
 \begin{align*}
-	\textrm{Welfare} &= \frac{Y - \overline{\kappa}}{\rho - g} \\
+	\textrm{Welfare} &\equiv \frac{C}{\rho - g} = \frac{Y - \overline{\kappa}}{\rho - g} \\
 	\textrm{where } \overline{\kappa} &= \underbrace{\kappa \lambda V(0) \int_0^{\infty} \big(\tau_S(m) + \tau_E(m)\big) \Gamma(m) \mu(m) dm}_{\textrm{Aggregate cost of creative destruction}}
 \end{align*}
 \end{itemize}
@@ -554,7 +538,7 @@ g &= \frac{\dot{Q}}{Q} = (\lambda -1) \int_0^{\infty} \tau(m) \Gamma(m) \mu(m) d
 
 
 
-\begin{frame}{Targeted moments}
+\begin{frame}{Calibration targets}\label{calibration_targets}
 \begin{table}
 	\scriptsize
 	\centering
@@ -569,19 +553,19 @@ g &= \frac{\dot{Q}}{Q} = (\lambda -1) \int_0^{\infty} \tau(m) \Gamma(m) \mu(m) d
 		\tabularnewline
 		\multicolumn{1}{l}{\textbf{Indirect inference}} & & 
 		\tabularnewline
-		Growth rate & 1.5\% & 1.35\% 
+		Growth rate & 1.5\% & 1.5\% 
 		\tabularnewline
 		R\&D spending (\% GDP) & 1.5\% & 0.9\% 
 		\tabularnewline		
-		Incumbent innovation share & 0.75 & 0.63
+		Incumbent innovation share & 0.75 & 0.75
 		\tabularnewline
-		Entry rate & 0.09 & 0.097
+		Entry rate & 0.05 & 0.05
 		\tabularnewline
-		Spinout entry rate & 0.03 & 0.03
+		Spinout entry rate & 0.005 & 0.005
 		\tabularnewline
 		\bottomrule
 	\end{tabular}
-	\captionof{table}{Calibration targets}	
+	\captionof{table}{Calibration targets \hyperlink{regs_economic_significance}{\beamergotobutton{details}}} 	
 \end{table}
 
 \end{frame}
@@ -596,14 +580,14 @@ g &= \frac{\dot{Q}}{Q} = (\lambda -1) \int_0^{\infty} \tau(m) \Gamma(m) \mu(m) d
 		\midrule
 		$\rho$ & 0.05 & Discount rate \tabularnewline
 		$\beta$ & 0.065 & $(1-\beta)^{-1}$ markup\tabularnewline
-		$\psi$ & 0.5 & Incumbent R\&D elasticity \tabularnewline
-		$\hat{\psi}$ & 0.7 & Entrant R\&D elasticity \tabularnewline
-		$\lambda$ & 1.053 & Quality ladder step size \tabularnewline
-		$\chi_I$ & 1.43 & Incumbent R\&D productivity \tabularnewline
-		$\chi_E$ & 0.22 & Ordinary entrant R\&D productivity \tabularnewline
-		$\chi_S$ & 0.29 & Spinout R\&D productivity \tabularnewline
-		$\kappa$ & 0.82 & Entry cost \tabularnewline
-		$\nu$ & 0.34 & Spinout generation rate \tabularnewline
+		$\psi$ & 0.5 & Incumbent R\&D curvature \tabularnewline
+		$\hat{\psi}$ & 0.7 & Entrant R\&D curvature \tabularnewline
+		$\lambda$ & 1.075 & Quality ladder step size \tabularnewline
+		$\chi_I$ & 0.97 & Incumbent R\&D productivity \tabularnewline
+		$\chi_E$ & 0.13 & Ordinary entrant R\&D productivity \tabularnewline
+		$\chi_S$ & 0.17 & Spinout R\&D productivity \tabularnewline
+		$\kappa$ & 0.82  & Entry cost \tabularnewline
+		$\nu$ & 0.027 & Spinout generation rate \tabularnewline
 		$\theta$ & 0.5 & Fraction WSOs\tabularnewline
 		\bottomrule
 	\end{tabular}
@@ -641,15 +625,16 @@ g &= \frac{\dot{Q}}{Q} = (\lambda -1) \int_0^{\infty} \tau(m) \Gamma(m) \mu(m) d
 \tableofcontents[currentsection]
 \end{frame}
 
-\begin{frame}{Counterfactual: full enforcement of non-competes}
+\begin{frame}{Counterfactual: full enforcement of NCAs}
 \begin{itemize}
-\item Model calibrated assuming no availability of non-competes
+\item Model calibrated assuming employers cannot use NCAs
 \item Counterfactual: allow use of non-competes
 \begin{itemize}
-\item Welfare increases by 10\% in current calibration
-\item Driven by 27\% increase in growth rate
-\item Incumbents spend 20\% more on R\&D
-\item Entry rate falls by 0.2 percentage points
+\item Welfare $\uparrow$ 1.25\%
+\item Productivity growth  $\uparrow$ 3.5\% (0.05 p.p.)
+\item Incumbent innovation rate $\uparrow$ 4.8\% (0.7 p.p.)
+\item Non-spinout entrant innovation rate $\uparrow$ 10.5\% (0.47 p.p.)
+\item Spinout innovation rate $\downarrow$ 45\% (0.45 p.p.)
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -667,11 +652,9 @@ g &= \frac{\dot{Q}}{Q} = (\lambda -1) \int_0^{\infty} \tau(m) \Gamma(m) \mu(m) d
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.45]{../code/julia/figures/plotsGR/noncompete_usage_m.pdf}
-	\caption{Noncompetes are used whenever possible, given the parametrization of the model.}
+	\caption{Noncompetes are used whenever possible, given the parametrization of the model (numerical issues at edge of state space)}
 \end{figure}
 \end{frame}
-
-
 
 
 \begin{frame}{Importance of parameters $\kappa,\theta,\nu$}
@@ -691,23 +674,19 @@ g &= \frac{\dot{Q}}{Q} = (\lambda -1) \int_0^{\infty} \tau(m) \Gamma(m) \mu(m) d
 
 \begin{frame}{Counterfactual: reduction in entry cost $\kappa$}
 \begin{itemize}
-	\item Reducing entry cost $\kappa$ from $0.82$ to $0.5$ reduces welfare by 6.2\%
+	\item Reducing entry cost $\kappa$ from $0.82$ to $0.7$ reduces welfare by 4.5\%
 	\begin{itemize}
-		\item Entry rate increases from $9.6\%$ to $12.5\%$
-		\item Incumbent R\&D (\% GDP) falls by 20\%
-		\item Entrant R\&D (\% GDP) increases by 114\%
-		\item Labor allocation to R\&D increases from 6.3\% to 14.7\%
+		\item Growth decreases by 3.9\% (0.06 p.p.)
+		\item Incumbent innovation rate decreases 12.4\% (1.8 p.p.) 
+		\item Non-spinout entrant innovation rate increases 15\% (0.75 p.p.)
+		\item Spinout innovation rate decreases 46\% (.24 p.p.)
+		\item Labor allocation to R\&D increases 30\% (3 p.p.)
 	\end{itemize}
 	\item Reduction in $\kappa$ expands PPF $\Rightarrow$ reduction in welfare implies exacerbation of market inefficiency 
+	\item Underinvestment in R\&D in laissez-faire, and reducing entry cost increases R\&D spending overall, but reduces welfare (incumbents more efficient at R\&D spending)
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Importance of $\lambda, \chi_I / \chi_E$}
-\begin{itemize}
-	\item Low $\lambda$ $\Rightarrow$ larger difference in private, social return of innovation by entrants
-	\item Also, low $\lambda$ implies a very high $\chi_I / \chi_E$ $\Rightarrow$ diversion of R\&D from incumbents to entrants very inefficient
-\end{itemize}
-\end{frame}
 
 \appendix
 
@@ -760,7 +739,7 @@ g &= \frac{\dot{Q}}{Q} = (\lambda -1) \int_0^{\infty} \tau(m) \Gamma(m) \mu(m) d
 &-(1-x) z \underbrace{\Big(\frac{q}{Q(t)}\Big) \Big(  w(q,m,t) + \Big(\frac{q}{Q(t)}\Big)^{-1} \theta \nu V_m(q,m,t) \Big)}_{\textrm{Eff. cost of R\&D w/o NCA}} - xz \underbrace{\Big( \frac{q}{Q(t)} \Big) w^{NCA}(q,m,t)}_{\textrm{Cost of R\&D w/ NCA}} \Big\} 
 \end{align*}
 \footnotesize
-where $\tau_E = \tau_E(q,m,t),\tau_S = \tau_S(q,m,t)$
+where $\tau_E = \tau_E(q,m,t),\tau_S = \tau_S(q,m,t)$ and $\bar{\sigma} = \dot{m}_j^{\textrm{from } -j}$
 \end{itemize}
 \end{frame}
 
@@ -775,7 +754,7 @@ where $\tau_E = \tau_E(q,m,t),\tau_S = \tau_S(q,m,t)$
 +& \max_{0 \le z \le 1} \Big\{ \underbrace{\chi_S z (z_E + z_S)^{-\hat{\psi}} (1-\kappa) V(\lambda q,0,t)}_{\textrm{Flow value of potential innovation}} - \underbrace{\Big(\frac{q}{Q(t)}\Big) z \bar{w}_t}_{\textrm{R\&D cost}} \Big\} 
 \end{align*}
 \footnotesize
-where $\tau_K = \tau_K(q,m,t)$ for $K \in \{I,E,S\}$ and $z_E = z_E(q,m,t), z_S = z_S(q,m,t)$
+where $\tau_K = \tau_K(q,m,t)$ for $K \in \{I,E,S\}$ and $z_E = z_E(q,m,t), z_S = z_S(q,m,t)$ and $\sigma(m) = \dot{m}_j^{\textrm{from }j}$
 \end{itemize}
 \end{frame}
 
@@ -844,6 +823,15 @@ s(m) &= \int_0^m \frac{1}{\sigma(m')} dm' \\
 \end{itemize}
 \end{itemize}
 \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Accounting for spinouts}\label{regs_economic_significance}
+\hyperlink{calibration_targets}{\beamergotobutton{back}}
+\begin{figure}[!htb]
+	\includegraphics[scale=0.3]{../empirics/figures/founder2_founders_f3_Accounting.pdf}
+	\caption{\tiny Economic magnitude of regression estimates. The first row of figures compares the predicted number of employee founders (dotted lines) to the observed number of employee founders (solid lines). The left figure considers all founders, the right figure only founders of firms in the same 4-digit NAICS industry as their previous employers. The bottom row shows the percentage explained in each year.}
+\end{figure}
 \end{frame}
 
 

@@ -127,7 +127,7 @@ eststo: quietly reghdfe founders_founder2_wso4_at_f3 xrd_at_l3  zpatentCount_CW_
 
 estfe . *, labels(firmAge#naics4#Statecode#year "NAICS4-State-Age-Year FE" naics4#year "NAICS4-Year FE" Statecode#year "State-Year FE" gvkey "Firm FE" firmAge "Age FE" Statecode "State FE" naics4 "NAICS 4 FE" year "Year FE" _cons "No FE")
 return list
-esttab using "figures/tables/RDandSpinoutFormation_at_founder2_l3f3.tex", replace se star(* 0.1 ** 0.05 *** 0.01) label keep(*xrd_at_l3*) indicate(`r(indicate_fe)') stats(r2_a r2_a_within N) interaction(" $\times$ ") style(tex) booktabs b(a2)
+esttab using "figures/tables/RDandSpinoutFormation_at_founder2_l3f3.tex", replace se star(++ 0.2 + 0.15 * 0.1 ** 0.05 *** 0.01) label keep(*xrd_at_l3*) indicate(`r(indicate_fe)') stats(r2_a r2_a_within N) interaction(" $\times$ ") style(tex) booktabs b(a2)
 estfe . *, restore
 
 eststo clear
@@ -142,7 +142,7 @@ eststo: quietly reghdfe founders_founder2_wso4_at_f3 xrd_at_l3 c.xrd_at_l3#i.hig
 
 estfe . *, labels(firmAge#naics4#Statecode#year "NAICS4-State-Age-Year FE" naics4#year "NAICS4-Year FE" Statecode#year "State-Year FE" gvkey "Firm FE" firmAge "Age FE" Statecode "State FE" naics4 "NAICS 4 FE" year "Year FE" _cons "No FE")
 return list
-esttab using "figures/tables/RDandSpinoutFormation_at_founder2_highNCC_l3f3.tex", replace se star(* 0.1 ** 0.05 *** 0.01) label keep(*xrd_at_l3*) indicate(`r(indicate_fe)') stats(r2_a r2_a_within N) interaction(" $\times$ ") style(tex) booktabs b(a2)
+esttab using "figures/tables/RDandSpinoutFormation_at_founder2_highNCC_l3f3.tex", replace se star(++ 0.2 + 0.15 * 0.1 ** 0.05 *** 0.01) label keep(*xrd_at_l3*) indicate(`r(indicate_fe)') stats(r2_a r2_a_within N) interaction(" $\times$ ") style(tex) booktabs b(a2)
 estfe . *, restore
 
 *** Instrumental variables (why is my instrument / first stage so different from Babina & Howell's????)
@@ -171,7 +171,36 @@ eststo model8: ivreghdfe lfounders_founder2_wso4_f3 lpatentCount_CW_cumulative z
 
 estfe . *, labels(naics3#year "NAICS3-Year FE" naics4#year "NAICS4-Year FE" Statecode#year "State-Year FE" gvkey "Firm FE" firmAge "Firm Age FE" Statecode "State FE" naics4 "NAICS 4 FE" year "Year FE" _cons "No FE")
 return list
-esttab using "figures/tables/RDandSpinoutFormation_iv_founder2_l3f3.tex", replace se star(++ 0.3 + 0.2 * 0.1 ** 0.05 *** 0.01) label keep(*lxrd_l3*) indicate(`r(indicate_fe)') stats(r2_a r2_a_within N) interaction(" $\times$ ") style(tex) booktabs b(a2)
+esttab using "figures/tables/RDandSpinoutFormation_iv_founder2_l3f3.tex", replace se star(++ 0.2 + 0.15 * 0.1 ** 0.05 *** 0.01) label keep(*lxrd_l3*) indicate(`r(indicate_fe)') stats(r2_a r2_a_within N) interaction(" $\times$ ") style(tex) booktabs b(a2)
+estfe . *, restore
+
+restore
+
+preserve
+
+keep if lpatentCount_CW_cumulative != .
+keep if zTobin_Q != .
+keep if zlat_l3 != .
+keep if zlintan_l3 != .
+keep if zlemp_l3 != .
+keep if zlch_l3 != .
+keep if zlsale_l3 != .
+keep if lstate_l3 != .
+keep if lfirm_l3 != .
+
+eststo clear
+eststo model1: reghdfe founders_founder2_at_f3 lxrd_l3 c.lxrd_l3#i.highNCC, absorb(gvkey) cluster(gvkey)
+eststo model2: ivreghdfe founders_founder2_at_f3 (lxrd_l3 c.lxrd_l3#i.highNCC = lstate_l3 lfirm_l3), absorb(gvkey) cluster(gvkey)
+eststo model3: ivreghdfe founders_founder2_at_f3 lpatentCount_CW_cumulative zTobin_Q zlat_l3 zlintan_l3 zlemp_l3 zlch_l3 zlsale_l3 (lxrd_l3 c.lxrd_l3#i.highNCC = lstate_l3 lfirm_l3), absorb(gvkey firmAge year) cluster(gvkey)
+eststo model4: ivreghdfe founders_founder2_at_f3 lpatentCount_CW_cumulative zTobin_Q zlat_l3 zlintan_l3 zlemp_l3 zlch_l3 zlsale_l3 (lxrd_l3 c.lxrd_l3#i.highNCC = lstate_l3 lfirm_l3), absorb(gvkey firmAge naics4#year) cluster(gvkey)
+eststo model5: reghdfe founders_founder2_wso4_at_f3 lxrd_l3 c.lxrd_l3#i.highNCC , absorb(gvkey) cluster(gvkey)
+eststo model6: ivreghdfe founders_founder2_wso4_at_f3 (lxrd_l3 c.lxrd_l3#i.highNCC = lstate_l3 lfirm_l3), absorb(gvkey) cluster(gvkey)
+eststo model7: ivreghdfe founders_founder2_wso4_at_f3 lpatentCount_CW_cumulative zTobin_Q zlat_l3 zlintan_l3 zlemp_l3 zlch_l3 zlsale_l3 (lxrd_l3 c.lxrd_l3#i.highNCC = lstate_l3 lfirm_l3), absorb(gvkey firmAge year) cluster(gvkey)
+eststo model8: ivreghdfe founders_founder2_wso4_at_f3 lpatentCount_CW_cumulative zTobin_Q zlat_l3 zlintan_l3 zlemp_l3 zlch_l3 zlsale_l3 (lxrd_l3 c.lxrd_l3#i.highNCC = lstate_l3 lfirm_l3), absorb(gvkey firmAge naics4#year) cluster(gvkey)
+
+estfe . *, labels(naics3#year "NAICS3-Year FE" naics4#year "NAICS4-Year FE" Statecode#year "State-Year FE" gvkey "Firm FE" firmAge "Firm Age FE" Statecode "State FE" naics4 "NAICS 4 FE" year "Year FE" _cons "No FE")
+return list
+esttab using "figures/tables/RDandSpinoutFormation_iv_founder2_highNCC_l3f3.tex", replace se star(++ 0.2 + 0.15 * 0.1 ** 0.05 *** 0.01) label keep(*lxrd_l3*) indicate(`r(indicate_fe)') stats(r2_a r2_a_within N) interaction(" $\times$ ") style(tex) booktabs b(a2)
 estfe . *, restore
 
 restore

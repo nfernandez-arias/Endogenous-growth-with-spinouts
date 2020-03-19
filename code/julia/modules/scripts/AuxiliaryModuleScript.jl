@@ -123,7 +123,7 @@ function abarFunc(algoPar::AlgorithmParameters,modelPar::ModelParameters,zI::Arr
     sFromS = modelPar.spinoutsFromSpinouts
     sFromE = modelPar.spinoutsFromEntrants
 
-    abar = θ * ν * sum( (zI + sFromS * zS) .* γ .* μ .* Δm )
+    abar = θ * ν * sum( (zI + sFromS * zS + sFromE * zE) .* γ .* μ .* Δm )
 
     return abar
 

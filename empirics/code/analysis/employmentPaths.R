@@ -16,7 +16,7 @@ tempvarlist <- c()
 # construct entity-level indicator which
 # denotes whether there is at least one
 # founder from public, or from WSOi for i = 1:4
-#---------------------------#
+#---------------------------@
 
 for (founderType in c("all","founder2","technical","executive"))
 {
@@ -53,7 +53,7 @@ for (founderType in c("all","founder2","technical","executive"))
                      (entitywsoString) := 1]
     parentsSpinouts[ get(entitywsoString) < startupSpinoutFounderFraction & get(entitywsoString) != Inf, 
                      (entitywsoString) := 0]
-    parentsSpinouts[ get(entitywsoString) == Inf, (entitywsoString) := NA ]
+    parentsSpinouts[ get(entityfounderString) == 0, (entitywsoString) := NA ]
     
     #parentsSpinouts[ , (entitywsoString) := max(get(wsoLowerCase) * get(founderType)) , by = EntityID]
     
@@ -80,6 +80,78 @@ data <- spinoutsID[data]
 # Export for regression analysis
 fwrite(data,"data/VentureSource/startupsPathsStata.csv")
 #write.dta(data,"data/VentureSource/startupPathsStata.dta")
+
+
+#---------------------------#
+# Construct m-distribution
+#---------------------------#
+
+# In each industry-year, count the number of startups still in operation and that have not been acquired
+# Could also count those that are still in product development, but might have modify something earlier 
+# in the data pipeline
+
+# Only include observations with industry information
+data_temp <- data[ nchar(NAICS1_4) == 4 &  year >= 1986 & year <= 2008]
+
+# Ensure that observations with zero employees contribute nothing to employee count
+data_temp[ lEmployeeCount == -Inf, lEmployeeCount := NA]
+industryYearCounts <- data_temp[ , .(count = .N, employees = sum(na.omit(exp(lEmployeeCount))), valuation = sum(na.omit(exp(lPostValUSD)))), by = .(NAICS1_4,year)]
+
+
+# Make bar plot of employee counts, and startup counts, for each industry
+p1 <- ggplot(industryYearCounts, aes(x = as.character(NAICS1_4), y = employees)) + 
+  geom_bar(stat = "identity") + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+p2 <- ggplot(industryYearCounts, aes(x = as.character(NAICS1_4), y = count)) + 
+  geom_bar(stat = "identity") + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+p3 <- ggplot(industryYearCounts, aes(x = as.character(NAICS1_4), y = valuation)) + 
+  geom_bar(stat = "identity") + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+p <- grid.arrange(p1,p2,p3)
+
+compustat <- fread("data/compustat-spinouts_Stata.csv")[ , .(gvkey, year, emp, naics4, naics1)]
+
+compustatIndustryYearCounts <- compustat[ , .(countCompustat = .N, employeesCompustat = sum(na.omit(emp)), naics1 = naics1), by = .(naics4,year)]
+
+
+# Merge
+setkey(compustatIndustryYearCounts,naics4,year)
+setkey(industryYearCounts,NAICS1_4,year)
+
+
+industryYearCounts <- compustatIndustryYearCounts[industryYearCounts]
+
+industryYearCounts[ , countFrac := count / countCompustat]
+industryYearCounts[ , employeesFrac := employees / employeesCompustat]
+
+industryYearCounts[ employeesFrac == Inf, employeesFrac := NA]
+industryYearCounts[ countFrac == Inf, countFrac := NA]
+
+ggplot(industryYearCounts[year == 1993 & (naics1 == 3 | naics1 == 5)], aes(x = employeesFrac)) + 
+  #geom_histogram(bins = 100) + 
+  geom_density() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  #facet_wrap(~year, nrow = 4)
+
+industryYearCounts[ , employeesFracNormalized := (employeesFrac - mean(na.omit(employeesFrac))) / sd(na.omit(employeesFrac)), by = naics4 ]
+industryYearCounts[ , countFracNormalized := (countFrac - mean(na.omit(countFrac))) / sd(na.omit(countFrac)), by = naics4 ]
+industryYearCounts[ countFracNormalized == Inf, countFracNormalized := NA]
+industryYearCounts[ employeesFracNormalized == Inf, employeesFracNormalized := NA]
+industryYearCounts[ employeesFrac == Inf, employeesFrac := NA]
+  
+ggplot(industryYearCounts[ year >= 1986 & year <= 2008 & (naics1 == 3 | naics1 == 5)], aes(x = year, y = countFracNormalized)) + 
+  geom_line() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+  facet_wrap(~naics4, nrow = 4)
+
+industryYearCounts.lm = lm(formula = countFrac ~ as.factor(year) + as.factor(naics4), na.action = na.exclude, data = industryYearCounts[ year >= 1986 & year <= 2008 & (naics1 == 3 | naics1 == 5)])
+
+industryYearCounts.res = resid(industryYearCounts.lm)
+
 
 #---------------------------#
 # Make plots!
