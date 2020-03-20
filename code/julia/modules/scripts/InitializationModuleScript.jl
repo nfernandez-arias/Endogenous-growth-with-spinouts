@@ -155,6 +155,7 @@ function setModelParameters()
 
     # General
     ρ = 0.05
+    η = 2  # 1/η is IES
     β = 0.065
     L = 1
 
@@ -189,7 +190,7 @@ function setModelParameters()
 
     spinoutsSamePool = false
 
-    modelPar = ModelParameters(ρ,β,L,χI,χS,χE,ψI,ψSE,λ,ν,θ,ξ,ζ,κ,CNC,spinoutsFromSpinouts,spinoutsFromEntrants,spinoutsSamePool)
+    modelPar = ModelParameters(ρ,η,β,L,χI,χS,χE,ψI,ψSE,λ,ν,θ,ξ,ζ,κ,CNC,spinoutsFromSpinouts,spinoutsFromEntrants,spinoutsSamePool)
 
     f = open("./figures/modelPar.txt", "w")
 

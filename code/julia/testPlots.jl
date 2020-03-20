@@ -18,6 +18,8 @@ flowOutputFunc = EndogenousGrowthWithSpinouts.flowOutput
 γ = results.auxiliary.γ
 t = results.auxiliary.t
 
+r = EndogenousGrowthWithSpinouts.rFunc(modelPar,g)
+
     #plot(mGrid,zE)
 #--------------------------------#
 # Unpack - using unpackScript.jl
@@ -37,7 +39,7 @@ idxCNC = findfirst( (noncompete .> 0)[:] )
 println("\n--------------------------------------------------------------")
 println("Growth and RD Labor Allocation--------------------------------")
 println("--------------------------------------------------------------\n")
-println("g: $g (growth rate) \nL_RD: $L_RD (labor allocation to R&D)")
+println("g: $g (growth rate) \nr: $r (interest rate) \nL_RD: $L_RD (labor allocation to R&D)")
 
 mass_competingSpinoutsFromIncumbents = zeros(size(mGrid))
 mass_competingSpinoutsFromSpinouts = zeros(size(mGrid))
@@ -185,12 +187,10 @@ println("$growthShare_spinouts (Growth share: spinouts)\n")
 # Welfare
 flowOutput = flowOutputFunc(L_F,modelPar)
 
-
 CreativeDestructionCost = modelPar.κ * sum(τSE .* γ .* μ .* Δm) * λ * V[1]
 
-
-welfare = (flowOutput - CreativeDestructionCost) / (ρ - g)
-welfare2 = flowOutput / (ρ - g)
+welfare = (flowOutput - CreativeDestructionCost)^(1-η) / ((1-η)*(ρ - g*(1-η)))
+welfare2 = (flowOutput)^(1-η) / ((1-η)*(ρ - g*(1-η)))
 
 println("\n--------------------------------------------------------------")
 println("Welfare---------------------------------------------------------")

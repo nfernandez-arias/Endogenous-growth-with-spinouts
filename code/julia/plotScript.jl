@@ -37,8 +37,10 @@ Vprime[end] = Vprime[end-1]
 V1prime[end] = V1prime[end-1]
 V1prime[1] = V1prime[2]
 
-err = (ρ .+ τSE) .* V .- Π .- ν * aTotal .* Vprime .- zI .* (χI .* ϕI(zI) .* (λ .* V[1] .- V) .- (w .* (1 .- noncompete) + wNC .* noncompete ))
-err2 = (ρ .+ τSE) .* V1 .- Π .- ν * aTotal .* V1prime .- zI .* (χI .* ϕI(zI) .* (λ .* V1[1] .- V1) .- (w .* (1 .- noncompete) + wNC .* noncompete ))
+
+
+err = (r .+ τSE) .* V .- Π .- ν * aTotal .* Vprime .- zI .* (χI .* ϕI(zI) .* (λ .* V[1] .- V) .- (w .* (1 .- noncompete) + wNC .* noncompete ))
+err2 = (r .+ τSE) .* V1 .- Π .- ν * aTotal .* V1prime .- zI .* (χI .* ϕI(zI) .* (λ .* V1[1] .- V1) .- (w .* (1 .- noncompete) + wNC .* noncompete ))
 
 p = plot(mGrid,[[err[:] err2[:]]], title = ["HJB error 1" "HJB error 2"], label = ["Error" "Error"], layout = (2,1))
 png("figures/plotsGR/HJB_tests.png")

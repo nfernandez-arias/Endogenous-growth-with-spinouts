@@ -55,11 +55,14 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
     ## Unpack guess
     ###################################################
+	g = guess.g
     w = guess.w
 	wE = guess.wE
 	idxM = guess.idxM
 	driftNC = guess.driftNC
 	wbar = wbarFunc(modelPar.β)
+
+	r = rFunc(modelPar,g)
 
 	zS = zSFunc(algoPar,modelPar,idxM)
 	zE = zEFunc(modelPar,incumbentHJBSolution,w,wE,zS)
@@ -104,7 +107,7 @@ function solveSpinoutHJB(algoPar::AlgorithmParameters, modelPar::ModelParameters
 
 	for j = idxM-1:-1:1
 
-		W[j] = ((drift[j] / Δm[j]) * W[j+1] + zS_density[j] * ( max(spinoutFlow[j],0) )) / (ρ + τ[j] + drift[j] / Δm[j])
+		W[j] = ((drift[j] / Δm[j]) * W[j+1] + zS_density[j] * ( max(spinoutFlow[j],0) )) / (r + τ[j] + drift[j] / Δm[j])
 
 	end
 
@@ -164,15 +167,15 @@ function updateMatrixA(algoPar::AlgorithmParameters, modelPar::ModelParameters, 
 
 end
 
-function updateV_implicit(algoPar::AlgorithmParameters, modelPar::ModelParameters, A::SparseMatrixCSC{Float64,Int64}, u::Array{Float64}, V0::Array{Float64})
+function updateV_implicit(algoPar::AlgorithmParameters, modelPar::ModelParameters, A::SparseMatrixCSC{Float64,Int64}, u::Array{Float64}, V0::Array{Float64}, g::Float64)
 
 	# Unpack
 
 	timeStep = algoPar.incumbentHJB.timeStep
-	ρ = modelPar.ρ
+	r = rFunc(modelPar,g)
 	V1 = zeros(size(u))
 
-	B = (1/timeStep + ρ) * I - A
+	B = (1/timeStep + r) * I - A
 
 	b = u .+ (1/timeStep) .* V0
 
@@ -204,6 +207,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
     # General
     ρ = modelPar.ρ
+    η = modelPar.η
     β = modelPar.β
     L = modelPar.L
 
@@ -241,7 +245,8 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
     ## Unpack guess
     ###################################################
-    w = guess.w
+	g = guess.g
+	w = guess.w
 	wNC = guess.wNC
 	wE = guess.wE
     #zS = guess.zS;
@@ -489,7 +494,7 @@ function solveIncumbentHJB(algoPar::AlgorithmParameters, modelPar::ModelParamete
 
 			# Implicit update step to compute V1 and error
 			try
-				V1,error = updateV_implicit(algoPar,modelPar,A,u,V0)
+				V1,error = updateV_implicit(algoPar,modelPar,A,u,V0,g)
 
 			catch err
 

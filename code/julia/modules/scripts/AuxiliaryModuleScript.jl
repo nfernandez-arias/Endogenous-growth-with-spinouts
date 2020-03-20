@@ -39,6 +39,19 @@ function LF(L_RD::Array{Float64}, modelPar::ModelParameters)
 
 end
 
+
+## This function returns the equilibrium interest rate given
+## a rate of growth g and parameters (discount rate and IES)
+
+function rFunc(modelPar::ModelParameters,g::Float64)
+
+    ρ = modelPar.ρ
+    η = modelPar.η
+
+    return η * g + ρ
+
+end
+
 function flowOutput(L_F::Float64, modelPar::ModelParameters)
 
     β = modelPar.β

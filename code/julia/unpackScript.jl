@@ -5,6 +5,7 @@
 χS = modelPar.χS
 λ = modelPar.λ
 ρ = modelPar.ρ
+η = modelPar.η
 ν = modelPar.ν
 ξ = modelPar.ξ
 ζ = modelPar.ζ

@@ -15,6 +15,8 @@ mutable struct ModelParameters
     #################
     # Discount rate
     ρ::Float64
+	# IES
+	η::Float64
     # 1/(1-β) is markup
     β::Float64
     # Total labor endowment
