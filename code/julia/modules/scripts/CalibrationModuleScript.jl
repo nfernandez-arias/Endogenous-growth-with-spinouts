@@ -23,6 +23,7 @@ struct CalibrationParameters
     SpinoutEntryRate::CalibrationTarget
     SpinoutShare::CalibrationTarget
     g::CalibrationTarget
+    r::CalibrationTarget
     RDLaborAllocation::CalibrationTarget
     #WageRatio::CalibrationTarget
     #WageRatioIncumbents::CalibrationTarget
@@ -37,6 +38,7 @@ mutable struct ModelMoments
     SpinoutEntryRate::Float64
     SpinoutShare::Float64
     g::Float64
+    r::Float64
     RDLaborAllocation::Float64
     #WageRatio::Float64
     #WageRatioIncumbents::Float64
@@ -60,6 +62,7 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     # Extract model parameters
     #-----------------------------------#
     ρ = modelPar.ρ
+    η = modelPar.η
     β = modelPar.β
     L = modelPar.L
 
@@ -111,6 +114,7 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     μ = results.auxiliary.μ
     γ = results.auxiliary.γ
 
+    r = rFunc(modelPar,g)
 
     Π = profit(results.finalGuess.L_RD,modelPar)
 
@@ -215,6 +219,7 @@ function computeModelMoments(algoPar::AlgorithmParameters,modelPar::ModelParamet
     modelMoments.SpinoutEntryRate = allSpinoutsEntry
     modelMoments.SpinoutShare = spinoutShare
     modelMoments.g = g
+    modelMoments.r = r
     modelMoments.RDLaborAllocation = L_RD
     #modelMoments.WageRatio = WageRatio
     #modelMoments.WageRatioIncumbents = WageRatioIncumbents
@@ -255,14 +260,15 @@ function computeScore(algoPar::AlgorithmParameters,modelPar::ModelParameters,gue
     #--------------------------------#
 
     #modelMomentsVec = zeros(length(fieldnames(typeof(modelMoments))),1)
-    modelMomentsVec = zeros(6,1)
+    modelMomentsVec = zeros(7,1)
 
     modelMomentsVec[1] = modelMoments.RDintensity
     modelMomentsVec[2] = modelMoments.InternalPatentShare
     modelMomentsVec[3] = modelMoments.SpinoutEntryRate
     modelMomentsVec[4] = modelMoments.SpinoutShare
     modelMomentsVec[5] = modelMoments.g
-    modelMomentsVec[6] = modelMoments.RDLaborAllocation
+    modelMomentsVec[6] = modelMoments.r
+    modelMomentsVec[7] = modelMoments.RDLaborAllocation
     #modelMomentsVec[7] = modelMoments.WageRatio
     #modelMomentsVec[8] = modelMoments.WageRatioIncumbents
     #modelMomentsVec[5] = modelMoments.SpinoutsNCShare
@@ -316,6 +322,7 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
         modelPar.ν = x[4]
         #modelPar.ζ = x[5]
         modelPar.κ = x[5]
+        modelPar.η = x[6]
         #modelPar.θ = x[6]
 
         if modelPar.CNC == true
@@ -360,11 +367,12 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
                   modelPar.χE/modelPar.χI,
                   (modelPar.λ - 1) * modelPar.χI,
                   modelPar.ν,
-                  modelPar.κ
+                  modelPar.κ,
+                  modelPar.η
                   ]
 
-    lower = [0.1, 0.05, 0.03, 0.01, 0]
-    upper = [1.2, 0.3, 0.075, 0.1, 0.9]
+    lower = [0.1, 0.05, 0.03, 0.01, 0, 1.05]
+    upper = [1.2, 0.3, 0.075, 0.1, 0.9, 3]
 
     #inner_optimizer = GradientDescent()
     inner_optimizer = LBFGS()
@@ -385,6 +393,7 @@ function calibrateModel(algoPar::AlgorithmParameters,modelPar::ModelParameters,g
     modelPar.λ = x[3] / x[1] + 1
     modelPar.ν = x[4]
     modelPar.κ = x[5]
+    modelPar.η = x[6]
 
     modelSolution = solveModel(algoPar,modelPar,guess)
 
