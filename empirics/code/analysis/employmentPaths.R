@@ -17,7 +17,7 @@ tempvarlist <- c()
 # denotes whether there is at least one
 # founder from public, or from WSOi for i = 1:4
 #---------------------------@
-
+              
 for (founderType in c("all","founder2","technical","executive"))
 {
   entityfounderString <- paste("Entity_",founderType,sep = "")

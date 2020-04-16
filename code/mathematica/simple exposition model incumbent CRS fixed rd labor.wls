@@ -13,9 +13,6 @@ K=\[Beta]^\[Beta] (1-\[Beta])^(1-2 \[Beta])
 w=K
 
 
-f=0
-
-
 (* ::InheritFromParent:: *)
 (*0*)
 
@@ -41,40 +38,52 @@ Subscript[\[Chi], E]=.1
 \[Nu]=2
 
 
+Subscript[L, RD]=0.05
+
+
+Subscript[L, F]=1-Subscript[L, RD]
+
+
+Subscript[\[Pi], 0] = (1-\[Beta])*K*Subscript[L, F]
+
+
 x[f_]:=Boole[(1-(1-\[Kappa]) \[Lambda]) \[Nu]>f]
 
 
 Subscript[f, 0]=(1-(1-\[Kappa]) \[Lambda]) \[Nu]
 
 
-V[f_]:=(x[f] w)/(Subscript[\[Chi], I] (\[Lambda]-1)-f)+((1-x[f]) w)/(Subscript[\[Chi], I] (\[Lambda]-1)-(1-(1-\[Kappa]) \[Lambda]) \[Nu])
+Subscript[z, E][f_]:=((Subscript[\[Chi], E]*(1-\[Kappa])*\[Lambda])/(Subscript[\[Chi], i]*(\[Lambda]-1)-f))^(1/\[Psi])
 
 
-Subscript[z, E][f_]:=((Subscript[\[Chi], E] (1-\[Kappa]) \[Lambda] V[f])/w)^(1/\[Psi])
+Subscript[z, e][0]
+
+
+Subscript[\[Chi], i]
 
 
 Subscript[\[Tau], E][f_]:=Subscript[\[Chi], E] Subscript[z, E][f]^(1-\[Psi])
 
 
+Subscript[z, i][f_]:=Subscript[L, RD]-Subscript[z, e][f]
+
+
 Subscript[\[Tau], S][f_]:=(1-x[f]) \[Nu] Subscript[z, I][f]
 
 
-Subscript[z, I][f_]:=(x[f] ((((1-\[Beta]) K (1-Subscript[z, E][f]))/(V[f] (1+((1-\[Beta])/K)^(1/\[Beta])))-Subscript[\[Tau], E][f]-\[Rho])/\[Theta]-(\[Lambda]-1) Subscript[\[Tau], E][f]))/((\[Lambda]-1) Subscript[\[Chi], I]+((1-\[Beta]) K)/(\[Theta] (V[f] (1+((1-\[Beta])/K)^(1/\[Beta])))))+((1-x[f]) ((((1-\[Beta]) K (1-Subscript[z, E][f]))/(V[f] (1+((1-\[Beta])/K)^(1/\[Beta])))-Subscript[\[Tau], E][f]-\[Rho])/\[Theta]-(\[Lambda]-1) Subscript[\[Tau], E][f]))/((\[Lambda]-1) (Subscript[\[Chi], I]+\[Nu])+((1-\[Beta]) K)/(\[Theta] (V[f] (1+((1-\[Beta])/K)^(1/\[Beta])))))
-
-
-Subscript[L, RD][f_]:=Subscript[z, I][f]+Subscript[z, E][f]
-
-
-Subscript[L, F][f_]:=(1-Subscript[L, RD][f])/(1+((1-\[Beta])/K)^(1/\[Beta]))
-
-
-Subscript[r, 2][f_]:=((1-\[Beta]) K Subscript[L, F][f])/V[f]-Subscript[\[Tau], E][f]
-
-
-g[f_]:=(((1-\[Beta]) K Subscript[L, F][f])/V[f]-Subscript[\[Tau], E][f]-\[Rho])/\[Theta]
+g[f_]:=(\[Lambda]-1) (Subscript[\[Chi], I] Subscript[z, I][f]+Subscript[\[Tau], E][f]+Subscript[\[Tau], S][f])
 
 
 r[f_]:=\[Theta] g[f]+\[Rho]
+
+
+V[f_]:=Subscript[\[Pi], 0]/(r[f]+Subscript[\[Tau], e][f])
+
+
+Subscript[z, e][0]
+
+
+Subscript[w, RD][f_]:=V[f]*(Subscript[\[Chi], i]*(\[Lambda]-1)-f)
 
 
 Y[f_]:=((1-\[Beta])^(1-2 \[Beta]) Subscript[L, F][f])/\[Beta]^(1-\[Beta])
@@ -87,9 +96,6 @@ Subscript[W, 2][f_]:=(x[f] (Y[f]-Subscript[\[Tau], E][f] \[Kappa] \[Lambda] V[f]
 
 
 Subscript[W, 3][f_]:=(x[f] Y[f]^(1-\[Theta]))/((1-\[Theta]) (\[Rho]-g[f] (1-\[Theta])))+((1-x[f]) Y[f]^(1-\[Theta]))/((1-\[Theta]) (\[Rho]-g[f] (1-\[Theta])))
-
-
-Subscript[g, 2][f_]:=(\[Lambda]-1) (Subscript[\[Chi], I] Subscript[z, I][f]+Subscript[\[Tau], E][f]+Subscript[\[Tau], S][f])
 
 
 a=0

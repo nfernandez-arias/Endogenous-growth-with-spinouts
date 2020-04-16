@@ -1,0 +1,32 @@
+\subsubsection{Numerical simulations}
+
+Because it is difficult to make broad claims about welfare, below I exhibit different parameter settings that lead to different socially optimal $\kappa_c$. 
+
+\subsubsection{title}
+
+\subsubsection{Extension with heterogeneity in $\kappa_e$}
+
+It is possible to extend the model to a case where the cost of entry into good $j$ is $\kappa_{e,jt}$. Assume that every time a good $j$ is successfully improved (by an incumbent, entrant or spinout) a new $\kappa_{ejt}$ is drawn from an independent uniform distribution on $[0,1]$. Along the BGP, for each value of $\kappa_c$ there exists a threshold $\bar{\kappa}_{e}(\kappa_c) \in [0,1]$ such that for all $j$ with $\kappa_{e,jt} > \bar{\kappa}_{e} (\kappa_c) $ the incumbent uses a non-compete. To be consistent with the baseline model's notation, define $\bar{\kappa}_c = \inf \{\kappa_c \ge 0: \bar{\kappa}_e(\kappa_c) = 1 \}$.  
+
+Define $\tilde{V}$ as the value of incumbency prior to the realization of $\kappa_{e,jt}$. Define $\hat{V}(\kappa_e)$ as the ex-post value. These quantities are related by 
+\begin{align}
+	\tilde{V} &\equiv \mathbb{E}_{\kappa_e} [V(\kappa_e)] = \int_0^1 V(\kappa_e) d\kappa_e
+\end{align}
+
+As before, the cost of enforcing noncompetes is given by $\kappa_c \nu \tilde{V}$. The incumbent HJB becomes
+\begin{align}
+	(r + \tau_E) \hat{V}(\kappa_e) = \tilde{\pi} + \max_{\substack{x \in \{0,1\} \\ z \ge 0}} \Bigg\{ z \Big( &\chi_I(\lambda - 1) \tilde{V} - w_{RD,E} - x \nu \kappa_c \tilde{V} \nonumber \\
+	&- (1-x) \nu \big( V(\kappa_e) - (1-\kappa_e) \lambda \tilde{V} \big)   \Big)  \Bigg\} \label{ext:hjb_incumbent}
+\end{align}
+
+Suppose that $\kappa_c < \bar{\kappa}_c$, so that a positive measure set of incumbents use non-competes, i.e. those with $\bar{\kappa}_e(\kappa_c) < \kappa_e < 1$. Further suppose we are in an equilibrium where some of these incumbents incur positive R\&D expenditures. Along this range we know that $\hat{V}(\kappa_e) = \hat{\underline{V}}$ is constant, since non-competes are used and the value of $\kappa_e$ is not relevant for the value of the incumbent conditional on innovation (by any agent) due to the fact that draws of $\kappa_e$ are independent over time. Therefore, if any incur expenditures, all do. Also, 
+\begin{align}
+	\hat{\underline{V}} &= \frac{\chi_I(\lambda-1) \tilde{V} - w_{RD}}{\kappa_c \nu }	
+\end{align}
+
+Now consider $\kappa_e \le \bar{\kappa}_e(\kappa_c)$. Holding constant the value $V(\kappa_e)$, it is apparent from (\ref{ext:hjb_incumbent}) that the effective wage paid for R\&D labor is lower for lower values of $\kappa_e$. This is due to the fact that the worker perceives a higher expected value of future spinout formation. The expected benefit to the incumbent from R\&D, on the other hand, does not depend on $\kappa_e$. In order for the FOC to be satisfied on a positive measure set $K \subseteq \{ \kappa_e: \kappa_e < \bar{\kappa}_e \}$, the expected wage must be the same for all such $\kappa_e$. This requires that
+\begin{align}
+	V(\kappa_e) = \Theta + (1-\kappa_e)\lambda \tilde{V} 
+\end{align}
+
+for some constant $\Theta$. However, if indeed it is the case that 

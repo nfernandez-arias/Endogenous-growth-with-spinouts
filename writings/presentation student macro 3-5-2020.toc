@@ -1,0 +1,6 @@
+\babel@toc {english}{}
+\beamer@sectionintoc {1}{Introduction}{2}{0}{1}
+\beamer@sectionintoc {2}{Empirics}{7}{0}{2}
+\beamer@sectionintoc {3}{Model}{24}{0}{3}
+\beamer@sectionintoc {4}{Calibration}{38}{0}{4}
+\beamer@sectionintoc {5}{Counterfactual analysis}{45}{0}{5}

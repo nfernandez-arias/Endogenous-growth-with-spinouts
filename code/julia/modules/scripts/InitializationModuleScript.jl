@@ -154,32 +154,32 @@ end
 function setModelParameters()
 
     # General
-    ρ = 0.03
-    η = 1.2762 # 1/η is IES
+    ρ = 0.05
+    η = 0 # 1/η is IES
     β = 0.065
     L = 1
 
     # Innovation
-    χI = 0.9647
-    χE = 0.13252
+    χI = 0.97
+    χE = 0.13
     χS = 1.3 * χE
     ψI = 0.5
     ψSE = 0.7
-    λ = 1.0753
+    λ = 1.075
     #λ = 1.10
 
     # Spinouts
     #ν = 0.0102495
-    ν = 0.02555
+    ν = 0.027
     θ = 0.5
     ξ = 1
     ζ = 0
 
     # Creative destruction cost
-    κ = 0.84096
+    κ = 0.82
 
     # CNCs
-    CNC = true
+    CNC = false
 
     # Rate of Spinout formation of spinouts and entrants
 
