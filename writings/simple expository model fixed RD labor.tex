@@ -76,7 +76,50 @@
 \begin{enumerate}
 	\item Look at literature to see how they calibrate these parameters - write up a document!
 	\item Entry rate in Garcia-Macia et al? Would be nice to get from there, because getting fraction of internal innovation there (forgot to tell Rogerson about Akcigit et al, getting this from patent data)
-	\item 
+	\begin{itemize}
+		\item Estimation using 5-year periods -- how does that relate to mine?
+		\item Compare a model with 5-year periods to a model with 1-year periods. The model with 1-year periods will 
+	\end{itemize}
+	\item Aghion-Boppart-et al "Theory of Rising Growth and Falling Rents"
+	\begin{itemize}
+		\item I have issues with any theory that explains the productivity slowdown through a reduced incentive for R\&D. Because we see the highest R\&D / GDP ratio ever right now. And during the 90s boom (which according to them is due to a momentarily higher incentive for R\&D for the "efficient firms") you see actually comparatively low R\&D / gdp. What we observe is that growth rates vary in a way unrelated to R\&D spending / GDP. This to me suggests very strongly a theory where the returns to R\&D are time-varying and unpredictable. 
+		\item What they've done is tantamount to explaining fluctuations in GDP *without* accompanying fluctuations in employment...using a model that *precludes* the possibility that labor productivity fluctuates around some trend...
+		\item The whole reason their model is "good" is that it generates a burst of growth and then a slowdown. It also generates a burst and then a slowdown in the inputs to growth, which is counterfactual. Of course, one could amend the model and add time-varying productivity of innovation. But then their story is no longer needed to generate the burst and then slowdown. Their story is only necessary at that point to create the markups, but there are a million stories that can do that. 
+	\end{itemize}
+	\item Model with "super entrant": some issues
+	\begin{itemize}
+		\item First "super entrant" must have rents. So, takes into account decreasing returns and there is no "free entry" of the super entrant. Makes sense.
+		\item But then second, third, etc. super entrants that enter reduce the rents
+		\item This means I basically have to rewrite my full model. So what's the point of doing this? This is my full model already...
+	\end{itemize}
+	\item Distinguishing $\chi_S, \chi_E, \nu$:
+	\begin{itemize}
+		\item $\chi_E$ controls the entry rate
+		\item $\chi_S$ and $\nu$ control the spinout entry rate
+		\item Can't be done with only data on entry rate by ordinary entrants and spinouts -- two moments, but three parameters. Need a third moment.
+		\item In particular, important to distinguish $\chi_S$ and $\nu$. If getting spinouts due to high $\chi_S$ versus high $\nu$, then spinout entry is more important $(\chi_S - \chi_E) \nu$ due to $\chi_S - \chi_E$, as opposed to high $\nu$, means spinout entry is relatively more important for social welfare (more of a boost in R\&D efficiency).
+		\item Holding constant all other parameters, it is not particularly important to make this distinction.
+		\begin{itemize}
+			\item Incumbent incentive for innovation \textit{absent NCAs} only depends on $\chi_E$ and $(\chi_S -\chi_E) \nu$. \textbf{Proof:} as long as $z_E(m) > 0$, the arrival rate of creative destruction at $j$ is determined by the ordinary entrant free entry condition, which pins down $(z_E(m) + z_S(m))$. Consider $s(m)$, the equilibrium amount of time it takes to get to $m$, conditional on no intervening innovations. Then, abusing notation, $z_S'(s) = \nu z_I(s)$. Unless the time path of incumbent innovation $z_I(s)$ changes across equilibria, we therefore have $z_S(m) = \nu z_S(m; \nu = 1)$. The arrival rate of innovations is $\big(\chi_Ez_E(s) + \chi_Sz_S(s)\big) (z_S(s) + z_E(s))^{-\psi}$. Substituting $z_S(s) = \nu z_S(s; \nu = 1)$ and $z_E(s) = \zeta - \nu z_S(s; \nu = 1)$, the first term becomes $\chi_E\zeta + (\chi_S - \chi_E) \nu z_S(s; \nu = 1)$. If $z_E(m) = 0$, then it makes a difference, because higher $(\chi_S -\chi_E)$ implies a higher free entry mass of spinouts. But the economy almost never gets to so high an $m$, because innovations happen before that, reseting $m$ to $0$.
+			\item What if non-competes are allowed? Suppose that parameters are such that, when allowed, they occur. Then this is equivalent to setting $\nu = 0$. The change to incumbent incentives for R\&D depends only on what the incentives were prior. So nothing changes.
+			\item Of course, more weight on $\chi_S - \chi_E$ and less on $\nu$ reduces the BGP value of $L_{RD}$, increasing profits $\tilde{\pi}$ and therefore incumbent innovation and the spinout entry rate. But this is all second order and not quantitatively important enough to discipline parameters.
+		\end{itemize}
+		\item However, once recalibration is taken into account, the story is different:
+		\begin{itemize}
+			\item Putting more weight on $(\chi_S -\chi_E)$ and less on $\nu$ shifts entry from spinouts to entrants, all else equal (because $\chi_S > \chi_E$ implies that $\chi_S \nu = \textrm{Constant} - \chi_E\nu$ is decreasing as $\nu$ increases with $(\chi_S - \chi_E)\nu$ constant). 
+			\item For the model to match the entry rate by entrants and spinouts, $\chi_E$ must decrease (shifting entry to spinouts and reducing overall entry) and $(\chi_S - \chi_E) \nu$ must increase (to undo the reduction in overall entry). 
+			\item This means we are in an equilibrium with a stronger incumbent disincentive for R\&D, and must therefore increase $\chi_I$ or increase $\kappa$ to shift innovation back to the incumbent and match that moment. The details of this are a bit hazy, admittedly.
+			\item But, regardless of the last bullet point, we are now in a parametrization where entry by spinouts has a larger effect on the equilibrium rate of creative destruction than before.
+			\item From the perspective of the value an individual worker assigns to a spinout, things have not changed much. The value that an R\&D worker expects from future spinout formation is related to $\chi_S \nu$, which declines as more weight is put on $(\chi_S -\chi_E)$ and less on $\nu$. In response, $\chi_E$ adjusts and $(\chi_S- \chi_E) \nu$ increases, which involves an increase in $\chi_S$, but quantitatively smaller (don't know this for sure). Intuitively, the R\&D worker doesn't care if his future profits come from displacing an entrant or from expanding the innovation possibilities frontier.
+			\item This means that the effect on entry of spinouts (and hence the cannibalization effect on incumbents) increases faster than the wage discount R\&D workers are ready to accept.
+			\item \textbf{Implication 1:} more incumbents will want to use non-competes in equilibrium
+			\item \textbf{Implication 2:} non-competes will be more damaging in equilibrium, because they are more likely to prevent spinouts from working on ideas that actually expand the innovation possibilities frontier.
+			\item This effect vanishes if instead of $(z_E + z_S)$ in the DRS term you have $(\chi_E z_E + \chi_S z_S)$. In that case, the rate of creative destruction does not depend on the entry of spinouts into R\&D as long as $z_E > 0$. The only contribution of spinout entry to welfare is through its reduction in the equilibrium labor allocation to R\&D (since they are more efficient than spinouts): this increases steady state consumption, directly increasing welfare, and thereby increases profits, increasing the overall incentive for R\&D and therefore growth. Incumbents don't care about spinout entry except due to the fact that it brings them closer to the mass of spinouts where the creative destruction rate actually starts to increase.
+			\item How much of this is rendered incorrect after taking into account that the incumbent value function internalizes getting closer to the increased entry rate state? So that the value function will still be decreasing in $m$ for all $m$, even in the bullet point immediately preceding this one?  
+			\item How much of this is due to the stark modeling assumption that there is one productivity level for entrants, one productivity level for spinouts?
+		\end{itemize}
+		\item I guess this logic does imply that it doesn't affect .
+	\end{itemize}
 \end{enumerate}
 
 \section{Introduction}
