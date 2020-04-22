@@ -173,13 +173,21 @@ Define
 
 \subsection{Generation of spinouts}
 
-When an incumbent conducts $z$ flow units of R\&D, he faces a certain Poisson intensity of being replaced by a spinout firm, given by 
+When an incumbent conducts $z$ flow units of R\&D, there is an associated Poisson intensity that the employee can form an entrant with R\&D efficiency $\chi_S > \chi_E$ (see  \ref{subsec_ordinaryEntrants}). The Poisson rate of arrival of this shock is given by 
 \begin{align*}
 	\tau_{S,jt} &= (1-x_{jt}) \nu z_{I,jt}
 \end{align*} 
 where $x_{jt} = 1$ if and only if a non-compete is imposed. Imposing a non-compete on a good of quality $q$ implies a flow cost of $\kappa_{c} \nu V(q)$ units of the final good, where $V(q)$ is the incumbent value.\footnote{The purpose of the linear scaling with $V$ is so that the optimal non-compete policy can be derived independent of the endogenous value of $V$, allowing a closed-form solution.}
 
-\paragraph{Value of future spinout formation}
+The formation of the spinout can happen only once, by assumption. This creates tractability -- without it, I might as well solve the full model. Assume $\chi_S / \chi_E$ is sufficiently large so that, when the spinout operates as a monopoly, the ordinary entrant is driven out of the innovation race. A necessary and sufficient condition is\footnote{If the inequality is reversed, the spinout never enters (if it's equal of course it's arbitrary and a tie breaking rule has to be chosen).}
+\begin{align}
+	\chi_S(1-\psi) > \chi_E
+\end{align}
+
+Given this inequality, the spinout will always enter and choose the optimal $z_S$, assuming that $z_E = 0$. 
+
+
+\paragraph{Value of spinout formation}
 
 If a spinout is formed, it is owned by the representative household. The household takes this into account when deciding where to allocate its labor, accepting a lower wage in equilibrium for R\&D labor supplied to incumbents. However, when assessing this value, the household \textit{does not} take into account the fact that this spinout steals the profits of the previous incumbent, which is also owned by the household. 
 
@@ -188,7 +196,9 @@ An equivalent formulation without an explicit representative household is one in
 This setup is analogous to the assumption that incumbent firms and ordinary entrants (described below) are owned by the household but maximize their individual profits. It is also similar in spirit to the assumption of competitive labor markets, where an individual agent does not take into account the effect of his or her behavior on prices and thereby behaves suboptimally when viewed strictly as an individual agent. 
 
 
-\subsection{Ordinary entrants}
+\subsection{Ordinary entrants and spinouts R\&D technology}\label{subsec_ordinaryEntrants}
+
+\subsubsection{Before spinout begins R\&D}
 
 For each $j$ there is a unit mass of entrants indexed by $e \in [0,1]$ who each perform $z_{e,ejt}$ units of R\&D by hiring $\frac{q_j}{Q} z_{E,ejt}$ units of R\&D labor. Each entrant receives a Poisson intensity of $z \chi_E z_{E,jt}^{-\psi}$ of innovating on product $j$, where $z_{E,jt} = \int_0^1 z_{E,ejt} de$. If a successful innovation arrives, an entrant becomes the new incumbent of good $j$, with quality $\lambda q_j$. I assume without loss of generality that $z_{E,ejt} \equiv z_{E,jt}$ for all $e,j \in [0,1], t \ge 0$. Note that entrants have constant returns to scale individually but decreasing returns to scale at the level of good $j$.
 
@@ -197,6 +207,15 @@ Define
 	\tau_{E,jt} &= \chi_E z_{E,jt}^{1-\psi}
 \end{align*}
 
+as the arrival rate of creative destruction before a spinout has begun R\&D.
+
+\subsubsection{After spinout begins R\&D}
+
+Define $\tilde{z}_{jt} = z_{E,jt} + z_{S,jt}$ as the total R\&D effort by ordinary entrants and spinouts. The arrival rates for creative destruction are
+\begin{align*}
+	\tau_{E,jt} &= z_{E,jt} \chi_E \tilde{z}_{jt}^{1-\psi} \\
+	\tau_{S,jt} &= z_{S,jt} \chi_S \tilde{z}_{jt}^{1-\psi}
+\end{align*}
 
 \subsection{Entry cost}
 
@@ -259,7 +278,7 @@ Y = \frac{(1-\beta)^{1-2\beta}}{\beta^{1-\beta}} Q L_F \label{flow_output}
 
 \subsection{Dynamic equilibrium}
 
-I will solve for a BGP of the above model with constant innovation effort by incumbents ($z_{I,jt} = z_I$), entrants ($z_{E,ejt} = z_{E})$, constant innnovation rates by incumbents ($\tau_{I,jt} = \tau_I$), entrants ($\tau_{E,ejt} = \tau_E$) and spinouts ($\tau_{S,jt} = \tau_S$), a constant growth rate of output, consumption and average intermediate goods quality ($g_t = g$) and constant interest rate ($r_t = r$), and wages increasing at exponential rate $g$ ($\bar{w}_t = \bar{w} e^{gt}$, $w_{RD,Et} = w_{RD}e^{gt}$, and $w_{RD,jt} = w_{RD,I}e^{gt}$). One can verify that along such a BGP there exists $\tilde{V} > 0$ such that the value of an incumbent firm of quality $q$ at time $t$ is $V(q,t) = \tilde{V}q$ (see appendix). Below, I start with this functional form and solve for $\{z_I,z_E,\tau_I,\tau_E,\tau_S,g,r,\bar{w},w_{RD,E},w_{RD,I},\tilde{V}\}$.
+I will solve for a BGP of the above model with constant innovation effort by incumbents ($z_{I,jt} = z_I$), entrants ($z_{E,ejt} = z_{E})$, constant innnovation rates by incumbents ($\tau_{I,jt} = \tau_I$), entrants ($\tau_{E,ejt} = \tau_E$) and spinouts ($\tau_{S,jt} = \tau_S$), a constant growth rate of output, consumption and average intermediate goods quality ($g_t = g$) and constant interest rate ($r_t = r$), and wages increasing at exponential rate $g$ ($\bar{w}_t = \bar{w} e^{gt}$, $w_{RD,Et} = w_{RD}e^{gt}$, and $w_{RD,jt} = w_{RD,I}e^{gt}$). One can verify that along such a BGP there exist $\tilde{V},\hat{V} > 0$ such that the value of an incumbent firm of quality $q$ at time $t$ is $V(i,q,t) = \tilde{V} q$ or $\hat{V}q$ if a spinout is not / is conducting R\&D, respectively. Below, I start with this functional form and solve for $\{z_I,z_E,\tau_I,\tau_E,\tau_S,g,r,\bar{w},w_{RD,E},w_{RD,I},\tilde{V}, \hat{V}\}$.
 
 \subsubsection{Household optimization and non-competes}
 
@@ -280,21 +299,17 @@ where $w_{RD,E}$ is the R\&D wage paid by entrants.
 
 Substituting (\ref{eq:RD_worker_indifference}) into the incumbent's HJB yields
 \begin{align}
-	(r + \tau_E) \tilde{V} &= \tilde{\pi} + \max_{\substack{x \in \{0,1\} \\ z \ge 0}} \Big\{z \big(\chi_I (\lambda - 1) \tilde{V} - w_{RD,E} - (1-x) (1 - (1-\kappa_{e})\lambda)\nu \tilde{V} - x \kappa_{c} \nu \tilde{V}\big) \Big\} \label{eq:hjb_incumbent_workerIndiff}
+	(r + \tau_E) \tilde{V} &= \tilde{\pi} + \max_{\substack{x \in \{0,1\} \\ z \ge 0}} \Big\{z \big(\overbrace{\chi_I \underbrace{(\lambda - 1)}_{\textrm{Quality improvement}} \tilde{V}}^{\textrm{Benefit of innovation}} \\
+	&- \overbrace{   \underbrace{w_{RD,E}}_{\textrm{Entrant R\&D wage}} - (1-x) (\underbrace{\nu (\tilde{V}-\hat{V})}_{\textrm{Spinouts competition}} - \underbrace{(1-\kappa_{e})\lambda \nu \tilde{V} }_{\textrm{Wage discount}}) - x \underbrace{\kappa_{c} \nu \tilde{V}}_{\textrm{NCA cost}} }^{\textrm{Cost of innovation}} \big) \Big\} \label{eq:hjb_incumbent_workerIndiff} \\
+	(r + \underbrace{\tau_S}_{\textrm{Spinouts entry}}) \hat{V} &= \tilde{\pi} + \max_{z \ge 0} \Big\{z \Big(\chi_I \big(\underbrace{(\lambda - 1) \tilde{V}}_{\textrm{Quality improvemnt}} + \underbrace{\tilde{V}- \hat{V}}_{\textrm{Escaping competition}}\big) - \underbrace{w_{RD,E}}_{\textrm{Entrant R\&D wage}}\Big) \Big\} \label{eq:hjb_incumbent_1_workerIndiff}
 \end{align}
+where I have used the fact that, in equilibrium, $\tau_E = 0$ when the spinout has started R\&D. 
 
-The above implies the incumbent's optimal noncompete policy,
-\begin{align}
-x^* = \begin{cases}
-1 & \textrm{if } (1-(1-\kappa_{e})\lambda) > \kappa_{c}\\
-0 & \textrm{o.w.}
-\end{cases} \label{eq_nca_policy}
-\end{align}
-
+Given the above, it is no longer the case that there is a simple expression for the noncompete policy $x^*$. It might still be possible to solve the model in closed form because $x$ is a discrete variable. Simply solve the model assuming $x^*$, check HJB, and characterize when HJB holds as a function of parameters. When HJB holds, $x^* = 1$; when it doesn't $x^* = 0$. There might be a region where a mixed strategy is necessary: if everyone chooses $x^* = 0$, then choosing $x^* = 1$ is optimal and if everyone chooses $x^* = 0$ then choosing $x^* = 1$ is optimal. This could be because, for example, the interest rate varies across equilibria.
 
 \subsubsection{Case $x^* = 1$}
 
-Fix all parameters except $\kappa_{c}$, such that $z_I > 0$ for all $\kappa_{c} \ge 0$, and consider $\kappa_{c}$ such that $x^* = 1$. Equation (\ref{eq:RD_worker_indifference}) implies $w_{RD,j} = w_{RD,E}$ and the incumbent's HJB is given by 
+Suppose that $x^* = 1$. Equation (\ref{eq:RD_worker_indifference}) implies $w_{RD,j} = w_{RD,E}$ and the incumbent's HJB is given by 
 \begin{align}
 (r + \tau_E) \tilde{V} &= \tilde{\pi} + \max_{z \ge 0} \Big\{z \big(\chi_I (\lambda - 1) \tilde{V} - w_{RD,E} - \kappa_{c} \nu \tilde{V}\big) \Big\} \label{eq:hjb_incumbent}
 \end{align}
@@ -326,10 +341,29 @@ g &= (\lambda - 1)(\tau_I + \tau_S + \tau_E) \label{eq:growth_accounting}
 
 The Euler equation determines the interest rate, 
 \begin{align}
-	g &= \frac{1}{\theta} (r - \rho) \label{eq:euler}
+	g &= \frac{1}{\theta} (r - \rho) \label{eq:euler} \\
+	\Rightarrow r &= \theta g + \rho \nonumber
 \end{align}
 
+Then $\tilde{V}$ is computed by 
+\begin{align*}
+	\tilde{V} &= \frac{\tilde{\pi}}{r + \tau_E}
+\end{align*}
+
+and $w_{RD,E}$ is determined by (\ref{eq:hjb_incumbent_foc}), 
+\begin{align*}
+	w_{RD,E} &= \big( \chi_I (\lambda - 1) - \kappa_c \nu  \big) \tilde{V}
+\end{align*}
+
+Plugging the expressions for $w_{RD,E}$ and $\tilde{V}$ into (\ref{eq:hjb_incumbent_1_workerIndiff}) yields an expression for $\hat{V}$ in terms of parameters. This can be plugged into (\ref{eq:hjb_incumbent_workerIndiff}) to check whether $x^* = 1$ is indeed optimal.
+
 \subsubsection{Case: $x^* = 0$}
+
+\paragraph{Complications in this case}
+
+This case is more complicated than the previous one because there will be another equilibrium object - the BGP fraction of goods $j$ in which there is a spinout attempting R\&D. An issue: because the incumbent perceives less cost and additional benefit from R\&D when there is already a spinout doing R\&D, the incumbent can't be indifferent between different amounts of R\&D both before and after the spinout starts to do R\&D. He will prefer to do R\&D in the latter case, and therefore will never do R\&D in the former case. But then there will never be any spinouts! There is something I am definitely confused by here. Maybe just do the math.
+
+\paragraph{Solving it}
 
 Consider $\kappa_{e}, \lambda$ and define the threshold $\bar{\kappa}_c$ by 
 \begin{align}
