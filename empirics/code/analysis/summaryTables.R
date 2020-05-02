@@ -130,8 +130,6 @@ print(title2CountsXtable, "figures/tables/summaryTables/titleCounts.tex",
       type = "latex", size = "\\footnotesize", floating = TRUE, include.rownames = FALSE, booktabs = TRUE, table.placement = "!htb")
   
 
-
-
 data[ Title2 == "Board member (outsider)", boardMember := 1]
 data[ is.na(boardMember) , boardMember := 0]
 

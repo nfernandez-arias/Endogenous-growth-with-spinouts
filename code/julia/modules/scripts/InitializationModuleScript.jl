@@ -13,7 +13,7 @@ function setAlgorithmParameters()
 
     f = open("./figures/algoPar.txt", "w")
 
-    mgrid_numPoints = 200
+    mgrid_numPoints = 400
     mgrid_minimum = 0.0
     mgrid_maximum = 0.15
     mgrid_logSpacing = true
@@ -162,7 +162,8 @@ function setModelParameters()
     # Innovation
     χI = 0.97
     χE = 0.13
-    χS = 2.2 * χE
+    ratio = 1.3
+    χS = ratio * χE
     ψI = 0.5
     ψSE = 0.7
     λ = 1.075
@@ -170,7 +171,7 @@ function setModelParameters()
 
     # Spinouts
     #ν = 0.0102495
-    ν = 0.027/5
+    ν = 0.027
     θ = 0.5
     ξ = 1
     ζ = 0

@@ -50,9 +50,9 @@ png("figures/plotsGR/HJB_tests.png")
 #----------------------------------------#
 
 if modelPar.CNC == true
-    p = plot(mGrid,[τI[:] τS[:] τE[:] τ[:]], legend = :topleft, layout = (1), xlabel = "Mass of spinouts", ylabel = "Yearly hazard rate of innovation", title = "Noncompetes", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
+    p = plot(mGrid,[τI[:] τS[:] τE[:] (τS[:] + τE[:]) τ[:]], legend = :topleft, layout = (1), xlabel = "Mass of spinouts", ylabel = "Yearly hazard rate of innovation", title = "Noncompetes", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Ordinary entrants + spinouts" "Total"])
 else
-    p = plot(mGrid,[τI[:] τS[:] τE[:] τ[:]], legend = :topleft, layout = (1), xlabel = "Mass of spinouts", ylabel = "Yearly hazard rate of innovation", title = "Innovation rates", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Total"])
+    p = plot(mGrid,[τI[:] τS[:] τE[:] (τS[:] + τE[:])  τ[:]], legend = :topleft, layout = (1), xlabel = "Mass of spinouts", ylabel = "Yearly hazard rate of innovation", title = "Innovation rates", label = ["Incumbent" "Spinouts" "Ordinary Entrants" "Ordinary entrants + spinouts" "Total"])
 end
 savefig(p,"figures/plotsGR/innovation_rates_m.pdf")
 savefig(p,"figures/plotsGR/innovation_rates_m.png")

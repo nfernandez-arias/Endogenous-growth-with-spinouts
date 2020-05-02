@@ -103,9 +103,9 @@ compustat <- compustat[order(gvkey,year)]
 
 # Indicator for taxable income
 compustat[ , capT := (ebit >0 & year > 1980)]
-# Indicator for above / below base amount
-compustat[xrd < base , Z := 1]
-compustat[is.na(Z) , Z := 0]
+# Indicator for above / below base amount, sorta
+compustat[xrd < base , Z := 0]
+compustat[base <= xrd & xrd < 2*base, Z := 1]
 compustat[ xrd >= 2 * base , Z := 0.5 ]
 
 compustat[ , Zlead1 := shift(Z,1L,type = "lead"), by = gvkey]
@@ -135,6 +135,10 @@ compustat[ year == 1989 , ERC := ERC * (1 - 0.5 * t_f)]
 # 1990+ (there'sa typo in Bloom...does for year >= 1989, negating previous line!)
 compustat[ year >= 1990 , ERC := k_f_e * (1 - t_f) * Z]
 compustat[ year < 1981, ERC := 0]
+
+# Tax credit lapses in 1995-1996...for some reason Bloom doesn't include this in his code...
+
+
 
 # Tax price
 compustat[ , theta := (1 - capT * t_f - eta * ERC)]

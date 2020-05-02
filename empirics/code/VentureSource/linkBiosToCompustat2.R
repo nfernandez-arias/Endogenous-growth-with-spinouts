@@ -45,11 +45,13 @@ EntitiesPrevEmployers[ , joinYear := as.integer(year(ymd(JoinDate)))]
 
 # As before, if missing info on joinYear, treat joinYear as foundingYear 
 EntitiesPrevEmployers[ is.na(joinYear) , `:=` (joinYear = foundingYear, joinYearImputed = 1)]
-EntitiesPrevEmployers[ is.na(joinYearImputed), joinYearImputed := 0]
+EntitiesPrevEmployers[ is.na(joinYearImputed), joinYearImputed := 0]  
 
 
 ## Prepare data
 EntitiesPrevEmployers <- EntitiesPrevEmployers[, .(EntityID,EntityName,foundingYear,FirstName,LastName,joinYear,joinYearImputed,Title,TitleCode,Employer,Position,hasBio)]
+EntitiesPrevEmployers[ TitleCode %in% founderTitles, founder2 := 1]
+EntitiesPrevEmployers[ is.na(founder2), founder2 := 0]
 EntitiesPrevEmployers[ Employer == "Cisco", Employer := "Cisco Systems"]
 EntitiesPrevEmployers[ Employer == "Amazon", Employer := "Amazon.com"]
 EntitiesPrevEmployers[ Employer == "Yahoo" | Employer == "Yahoo!", Employer :=  "Verizon"]
@@ -68,7 +70,8 @@ EntitiesPrevEmployers[ , Employer := tolower(Employer)]
 firms <- unique(compustatFirmsSegments,by = "gvkey")[ , .(gvkey,conml,tic,cusip,state,city,naics) ]
 EntitiesPrevEmployers[ , count := .N, by = c("Employer","joinYear")]
 EntitiesPrevEmployers[ , globCount := .N, by = Employer]
-prevEmployers <- unique(EntitiesPrevEmployers, by = c("Employer","joinYear"))[ , .(Employer,joinYear,count,globCount)]
+EntitiesPrevEmployers[ , founder2Count := sum(founder2), by = Employer]
+prevEmployers <- unique(EntitiesPrevEmployers, by = c("Employer","joinYear"))[ , .(Employer,joinYear,count,globCount,founder2Count)]
 
 setkey(prevEmployers,Employer)
 setkey(firms,conml)
@@ -76,8 +79,8 @@ setkey(firms,conml)
 firmsPrevEmployers <- firms[,.(gvkey,conml)][prevEmployers]
 
 # Construct subsample of matched and unmatched startup-founder observations
-matched <- firmsPrevEmployers[ !is.na(gvkey)][ , .(gvkey,conml,joinYear,count,globCount)]
-unmatched <- firmsPrevEmployers[ is.na(gvkey)][ , .(conml,joinYear,count,globCount)]
+matched <- firmsPrevEmployers[ !is.na(gvkey)][ , .(gvkey,conml,joinYear,count,globCount,founder2Count)]
+unmatched <- firmsPrevEmployers[ is.na(gvkey)][ , .(conml,joinYear,count,globCount,founder2Count)]
 
 matched[ , source := "regex"]
 
@@ -85,7 +88,7 @@ matched[ , source := "regex"]
 ## Secondary merge using compustat segments data
 #------------------------------#
 
-segments <- unique(compustatFirmsSegments, by = c("snms"))[ , .(gvkey,snms)]
+segments <- unique(compustatFirmsSegments[snms != ""], by = c("snms"))[ , .(gvkey,snms)]
 
 segments[ , snms := tolower(snms)]
 
@@ -98,7 +101,7 @@ unmatched <- segments[unmatched]
 # as per the Compustat business segment database
 
 matchedSegments <- unmatched[!is.na(gvkey)]
-unmatched <- unmatched[is.na(gvkey)][ , .(snms,joinYear,count,globCount)]
+unmatched <- unmatched[is.na(gvkey)][ , .(snms,joinYear,count,globCount,founder2Count)]
 
 matchedSegments[ , source := "compustat segments"]
 
@@ -115,7 +118,7 @@ setkey(firmsTickers,query)
 unmatched <- firmsTickers[unmatched]
 
 matchedQueries <- unmatched[!is.na(Ticker)]
-unmatched <- unmatched[is.na(Ticker)][ , .(query,joinYear,count,globCount)]
+unmatched <- unmatched[is.na(Ticker)][ , .(query,joinYear,count,globCount,founder2Count)]
 
 matchedQueries[ , source := "altdg"]
 
@@ -123,15 +126,19 @@ matchedQueries[ , source := "altdg"]
 setkey(matchedQueries,Ticker)
 setkey(firms,tic)
 
-matchedQueries <- firms[matchedQueries][, .(gvkey,query,count,globCount,joinYear,source)][ !is.na(gvkey)]
+matchedQueries <- firms[matchedQueries][, .(gvkey,tic,query,count,globCount,founder2Count,joinYear,source)]
+
+unmatchedQueries <- matchedQueries[is.na(gvkey)]
+matchedQueries <- matchedQueries[ !is.na(gvkey)]
 
 ## Change names to query
 
 setnames(matched,"conml","name")
 setnames(matchedSegments,"snms","name")
 setnames(matchedQueries,"query","name")
+setnames(unmatchedQueries,"query","name")
 
-matched <- rbind(matched,matchedSegments,matchedQueries)
+matched <- rbind(matched,matchedSegments,matchedQueries,unmatchedQueries[tic == "NOK"], fill = TRUE)
 #matched <- rbind(matched,matchedSegments)
 ### Now match back to EntitiesPrevEmployers
 
@@ -144,15 +151,16 @@ matched <- firms[matched]
 
 
 # First build matches that are not due to regex
-matchedDist <- matched[stringdist(conml,name) > 0]
+matchedDist <- matched[ source != "regex"]
 
 # Remove matches where one string is a subset of the other
-matchedDist <- matchedDist[mapply(grepl,conml,name) == FALSE & mapply(grepl,name,conml) == FALSE]
+matchedDist <- matchedDist[is.na(gvkey) | (mapply(grepl,conml,name) == FALSE & mapply(grepl,name,conml) == FALSE)]
 
 # Next order by largest count
-matchedDist <- matchedDist[order(-globCount,name,joinYear)]
+matchedDist <- matchedDist[order(-founder2Count,name,joinYear)]
 
-
+# Finally, get rid of copies
+matchedDistUnique <- unique(matchedDist, by = c("conml","name"))[ , .(conml,name,globCount,founder2Count,source)]
 
 ### Make some ad-hoc corrections for major M&A
 ## Basically AltDG tells me if something is currently a subsidiary,
@@ -161,68 +169,72 @@ matchedDist <- matchedDist[order(-globCount,name,joinYear)]
 # Still, this is MUCH easier than just going with the initial list of names.
 
 
-# Still need to figure out wtf is going on with AOL / Time Warner/ Verizon / Netscape
+# Still need to figure out what is going on with AOL / Time Warner/ Verizon / Netscape
 
 
-matched[ name == "merrill lynch" & joinYear <= 2012, `:=` (gvkey = 7267, tic = "BAC2", conml = "Merrill Lynch & Co Inc", naics = 523110, state = "NY", city = "New York", cusip = "59098Z002")]
+matched[ name == "merrill lynch" & joinYear <= 2008 + mergerThreshold, `:=` (gvkey = 7267, tic = "BAC2", conml = "Merrill Lynch & Co Inc", naics = 523110, state = "NY", city = "New York", cusip = "59098Z002")]
 
-matched[ name == "ca technologies" & joinYear <= 2018, `:=` (gvkey = 3310, tic = "CA", conml = "CA Inc", naics = 511210, state = "NY", city = "New York", cusip = "12673P105")]
+matched[ name == "ca technologies" & joinYear <= 2018 + mergerThreshold, `:=` (gvkey = 3310, tic = "CA", conml = "CA Inc", naics = 511210, state = "NY", city = "New York", cusip = "12673P105")]
 
-matched[ name == "bell labs" | name == "bell laboratories" | name == "at&t bell laboratories" & joinYear <= 1996, `:=` (gvkey = 9899, tic = "T", conml = "AT&T Inc", naics = 517210, state = "TX", city = "Dallas", cusip = "00206R102")]
-matched[ name == "bell labs" | name == "bell laboratories" | name == "at&t bell laboratories" & joinYear > 1996 & joinYear <= 2006, `:=` (gvkey = 62599, tic = "LU", conml = "Lucent Technologies", naics = 541512, state = "NJ", city = "New Providence", cusip = "549463107")]
-matched[ name == "bell labs" | name == "bell laboratories" | name == "at&t bell laboratories" & joinYear > 2006 & joinYear <= 2015, `:=` (gvkey = 101352, tic = "ALU", conml = "Alcatel-Lucent", naics = 334210, state = "", city = "Boulogne-Billancourt", cusip = "013904305")]
-matched[ name == "bell labs" | name == "bell laboratories" | name == "at&t bell laboratories" & joinYear > 2015, `:=` (gvkey = 23671, tic = "NOK", conml = "Nokia Corp", naics = 334220, state = "", city = "Espoo", cusip = "654902204")]
+matched[ name == "bell labs" | name == "bell laboratories" | name == "at&t bell laboratories" & joinYear <= 1996 + mergerThreshold, `:=` (gvkey = 9899, tic = "T", conml = "AT&T Inc", naics = 517210, state = "TX", city = "Dallas", cusip = "00206R102")]
+matched[ name == "bell labs" | name == "bell laboratories" | name == "at&t bell laboratories" & joinYear > 1996  + mergerThreshold & joinYear <= 2006 + mergerThreshold, `:=` (gvkey = 62599, tic = "LU", conml = "Lucent Technologies", naics = 541512, state = "NJ", city = "New Providence", cusip = "549463107")]
+#matched[ name == "bell labs" | name == "bell laboratories" | name == "at&t bell laboratories" & joinYear > 2006 & joinYear <= 2015, `:=` (gvkey = 101352, tic = "ALU", conml = "Alcatel-Lucent", naics = 334210, state = "", city = "Boulogne-Billancourt", cusip = "013904305")]
+#matched[ name == "bell labs" | name == "bell laboratories" | name == "at&t bell laboratories" & joinYear > 2015, `:=` (gvkey = 23671, tic = "NOK", conml = "Nokia Corp", naics = 334220, state = "", city = "Espoo", cusip = "654902204")]
 
-matched[ name == "alcatel" , gvkey := 101352]
+matched[ name == "myspace" & joinYear > 2008 + mergerThreshold & joinYear <= 2016 + mergerThreshold, gvkey := 18043]  # Owned by Newscorp during this time
 
-matched[ name == "compaq" & joinYear <= 2001, `:=` (gvkey = 3282, tic = "CPQ.2", conml = "Compaq Computer Corp", naics = 334111, state = "TX", city = "Houston", cusip = "204493100")]
+#matched[ name == "alcatel" , gvkey := 101352] 
 
-matched[ name == "appnexus" & joinYear <= 2018, gvkey := NA]
+matched[ name == "compaq" & joinYear <= 2002 + mergerThreshold, `:=` (gvkey = 3282, tic = "CPQ.2", conml = "Compaq Computer Corp", naics = 334111, state = "TX", city = "Houston", cusip = "204493100")] # acquired by HP
 
-matched[ name == "netscape" & joinYear <= 1997, gvkey := 61143]
+matched[ name == "appnexus" & joinYear <= 2018 + mergerThreshold, gvkey := NA] # acquired by AT&T
+
+matched[ name == "netscape" & joinYear <= 1999 + mergerThreshold, gvkey := 61143] # acquired by AOL
 
 # For some reason, amd was getting matched to something totally wrong...
 matched[ name == "amd", gvkey := 1161]
 
-matched[ name == "covidien" & joinYear < 2015 , gvkey := 177264]
+#matched[ name == "covidien" & joinYear <= 2015 + mergerThreshold , gvkey := 177264] #Medtronic acquires
 
-matched[ name == "lsi logic" & joinYear < 2014, gvkey := 60914]
+matched[ name == "lsi logic" & joinYear <= 2014 + mergerThreshold, gvkey := 60914] # Prior to acquisition, was publicly traded.
 
-matched[ name == "network associates", gvkey := 25783]
+matched[ name == "network associates", gvkey := 25783] # is Mcafee
 
-matched[ name == "hughes network systems", gvkey := 11206]
+matched[ name == "hughes network systems" & joinYear <= 2004 + mergerThreshold, gvkey := NA]            
+matched[ name == "hughes network systems" & joinYear > 2004 + mergerThreshold & joinYear <= 2007 + mergerThreshold, gvkey := 18043] # Owned by NewsCorp
+matched[ name == "hughes network systems" & joinYear > 2007 + mergerThreshold & joinYear <= 2011 + mergerThreshold, gvkey := 166208] # Separate private company
 
 matched[ name == "soasta", gvkey := NA]
 
-matched[ name == "storagetek" & joinYear <= 2004, gvkey := NA ]
-matched[ name == "storagetek" & joinYear > 2005 & joinYear <= 2009, gvkey := 12136] # acquisition by Sun
-matched[ name == "storagetek" & joinYear > 2009, gvkey := 12142] # acquisition by Oracle
+matched[ name == "storagetek" & joinYear <= 2005 + mergerThreshold, gvkey := NA ]
+matched[ name == "storagetek" & joinYear > 2005 + mergerThreshold & joinYear <= 2009 + mergerThreshold, gvkey := 12136] # acquisition by Sun
+matched[ name == "storagetek" & joinYear > 2009 + mergerThreshold, gvkey := 12142] # acquisition by Oracle
 
-matched[ name == "tumblr" & joinYear < 2014, gvkey := NA]
-matched[ name == "tumblr" & joinYear >=  2014, gvkey := 62634]  # Acquisition by Yahoo
-matched[ name == "tumblr" & joinYear >=  2018, gvkey := 2136]  # Acquisition by Verizon
+matched[ name == "tumblr" & joinYear <= 2013 + mergerThreshold, gvkey := NA]
+matched[ name == "tumblr" & joinYear >  2013 + mergerThreshold, gvkey := 62634]  # Acquisition by Yahoo
+matched[ name == "tumblr" & joinYear >  2017 + mergerThreshold, gvkey := 2136]  # Acquisition by Verizon
 
-matched[ name == "dow jones" & joinYear <= 2007, gvkey := 4062] # Pre acquisition by News Corp
+matched[ name == "dow jones" & joinYear <= 2007 + mergerThreshold, gvkey := 4062] # Pre acquisition by News Corp
 
-matched[ name == "endeca" & joinYear <= 2011, gvkey := NA]  # Private before acquisition by Oracle
+matched[ name == "endeca" & joinYear <= 2011 + mergerThreshold, gvkey := NA]  # Private before acquisition by Oracle
 
-matched[ name == "homeaway.com" & joinYear >= 2006 & joinYear <= 2015, gvkey := 186714] # HomeAway.com was public before being acquired by Expedia
+matched[ name == "homeaway.com" & joinYear <= 2015 + mergerThreshold, gvkey := 186714] # HomeAway.com was public before being acquired by Expedia
 
-matched[ name == "huffington post" & joinYear <= 2011, gvkey := NA] # Huffington post was private before being acquired by AOL
+matched[ name == "huffington post" & joinYear <= 2011 + mergerThreshold, gvkey := NA] # Huffington post was private before being acquired by AOL
 
-matched[ name == "the active network" & joinYear <= 2013, gvkey := 160281] # Before being acquired, it was public
+matched[ name == "the active network" & joinYear > 2011 + mergerThreshold & joinYear <= 2013 + mergerThreshold, gvkey := 160281] # Before being acquired, it was public
 
 matched[ name == "websidestory" & joinYear <= 2008, gvkey := 140050] # Publicly listed 
-matched[ name == "websidestory" & joinYear > 2008 & joinYear <= 2010, gvkey := 174871] # Bought by Omniture
-matched[ name == "websidestory" & joinYear > 2010, gvkey := 12540] # Bought by Adobe
+matched[ name == "websidestory" & joinYear > 2008 + mergerThreshold & joinYear <= 2010 + mergerThreshold, gvkey := 174871] # Bought by Omniture
+matched[ name == "websidestory" & joinYear > 2010 + mergerThreshold, gvkey := 12540] # Bought by Adobe
 
 matched[ name == "yousendit", gvkey := NA]   # Not acquired until 2018, so null for me
 
-matched[ name == "accelops" & joinYear <= 2018, gvkey := NA]  # Private 
+matched[ name == "accelops" & joinYear <= 2016 + mergerThreshold, gvkey := NA]  # Private 
 
-matched[ name == "airclic" & joinYear <= 2016, gvkey := NA] # Private
+matched[ name == "airclic" & joinYear <= 2014 + mergerThreshold, gvkey := NA] # Private
 
-matched[ name == "apollo group" & joinYear <= 2017, gvkey := 31122]  # Apollo Education Group before being acuqired by Apollo Group
+matched[ name == "apollo group" & joinYear <= 2017 + mergerThreshold, gvkey := 31122]  # Apollo Education Group before being acuqired by Apollo Group
 
 matched[ name == "arbor networks" & joinYear <= 2011, gvkey := NA] # Private
 matched[ name == "arbor networks" & joinYear > 2011 & joinYear <= 2016, gvkey := 3735]  # Owned by Danaher Corporation
@@ -263,9 +275,15 @@ matched[ name == "zulily" & joinYear <= 2008, gvkey := NA]  # Private before acq
 
 
 
+
+
+
+
+
+
 matched[ , count := NULL]
 matched[ , globCount := NULL]
-
+matched[ , founder2Count := NULL]
 # Merge with founder information using joinYear, because 
 # matches of names to gvkey, in particular using AltDG, 
 # can depend on the joinYear. See above.
@@ -286,11 +304,9 @@ if (excludeAltDG == TRUE)
   parentsSpinouts[ source %in% c("altdg","unmatched") | hasBio == 0, fromPublic := as.integer(0)]
 } else
 {
-  parentsSpinouts[ source %in% c("unmatched") | hasBio == 0 | source == "altdg" & globCount <= minimumSpinoutsThreshold, fromPublic := as.integer(0)] 
+  parentsSpinouts[ source %in% c("unmatched") | hasBio == 0 | source == "altdg" & founder2Count < minimumSpinoutsThreshold, fromPublic := as.integer(0)] 
 }
 parentsSpinouts[ is.na(fromPublic), fromPublic := as.integer(1)]
-
-# For now, don't use matches by altdg, since they might have errors... Or can do robustness, whatever.
 
 fwrite(parentsSpinouts,"data/parentsSpinouts.csv")
   

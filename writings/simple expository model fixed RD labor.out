@@ -1,24 +1,22 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
-\BOOKMARK [1][-]{section.2}{Individual endowments and preferences}{}% 2
-\BOOKMARK [1][-]{section.3}{Production of final and intermediate goods}{}% 3
-\BOOKMARK [1][-]{section.4}{Innovation}{}% 4
-\BOOKMARK [2][-]{subsection.4.1}{Incumbents}{section.4}% 5
-\BOOKMARK [2][-]{subsection.4.2}{Generation of spinouts}{section.4}% 6
-\BOOKMARK [2][-]{subsection.4.3}{Ordinary entrants}{section.4}% 7
-\BOOKMARK [2][-]{subsection.4.4}{Entry cost}{section.4}% 8
-\BOOKMARK [1][-]{section.5}{Solving the model}{}% 9
-\BOOKMARK [2][-]{subsection.5.1}{Static equilibrium}{section.5}% 10
-\BOOKMARK [2][-]{subsection.5.2}{Dynamic equilibrium}{section.5}% 11
-\BOOKMARK [3][-]{subsubsection.5.2.1}{Household optimization and non-competes}{subsection.5.2}% 12
-\BOOKMARK [2][-]{subsection.5.3}{Equilibrium innovation}{section.5}% 13
-\BOOKMARK [3][-]{subsubsection.5.3.1}{Case x* = 1}{subsection.5.3}% 14
-\BOOKMARK [3][-]{subsubsection.5.3.2}{Case: x* = 0}{subsection.5.3}% 15
-\BOOKMARK [2][-]{subsection.5.4}{Parameter restriction}{section.5}% 16
-\BOOKMARK [3][-]{subsubsection.5.4.1}{Ensuring zI > 0}{subsection.5.4}% 17
-\BOOKMARK [3][-]{subsubsection.5.4.2}{Transversality condition}{subsection.5.4}% 18
-\BOOKMARK [1][-]{section.6}{Comparative statics}{}% 19
-\BOOKMARK [2][-]{subsection.6.1}{Welfare}{section.6}% 20
-\BOOKMARK [2][-]{subsection.6.2}{Effect of the cost of non-competes on welfare}{section.6}% 21
-\BOOKMARK [3][-]{subsubsection.6.2.1}{Effect on growth}{subsection.6.2}% 22
-\BOOKMARK [3][-]{subsubsection.6.2.2}{Effect on steady-state consumption}{subsection.6.2}% 23
-\BOOKMARK [3][-]{subsubsection.6.2.3}{Netting out welfare effects}{subsection.6.2}% 24
+\BOOKMARK [1][-]{section.2}{Model}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Individual endowments and preferences}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Production of final and intermediate goods}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Innovation}{section.2}% 5
+\BOOKMARK [3][-]{subsubsection.2.3.1}{Incumbents}{subsection.2.3}% 6
+\BOOKMARK [3][-]{subsubsection.2.3.2}{Generation of spinouts}{subsection.2.3}% 7
+\BOOKMARK [3][-]{subsubsection.2.3.3}{Ordinary entrants}{subsection.2.3}% 8
+\BOOKMARK [3][-]{subsubsection.2.3.4}{Entry cost}{subsection.2.3}% 9
+\BOOKMARK [2][-]{subsection.2.4}{Solving the model}{section.2}% 10
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Static equilibrium}{subsection.2.4}% 11
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Dynamic equilibrium}{subsection.2.4}% 12
+\BOOKMARK [3][-]{subsubsection.2.4.3}{Case: x* = 0}{subsection.2.4}% 13
+\BOOKMARK [3][-]{subsubsection.2.4.4}{Parameter restriction}{subsection.2.4}% 14
+\BOOKMARK [2][-]{subsection.2.5}{Comparative statics}{section.2}% 15
+\BOOKMARK [3][-]{subsubsection.2.5.1}{Welfare}{subsection.2.5}% 16
+\BOOKMARK [3][-]{subsubsection.2.5.2}{Effect of the cost of non-competes on welfare}{subsection.2.5}% 17
+\BOOKMARK [1][-]{section.3}{Calibration}{}% 18
+\BOOKMARK [2][-]{subsection.3.1}{Targets}{section.3}% 19
+\BOOKMARK [2][-]{subsection.3.2}{Identification}{section.3}% 20
+\BOOKMARK [2][-]{subsection.3.3}{Model validation}{section.3}% 21
+\BOOKMARK [2][-]{subsection.3.4}{Effect of increasing c}{section.3}% 22

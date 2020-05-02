@@ -4,7 +4,7 @@
 using Plots
 gr()
 
-export solveSimpleModel, initializeSimpleModel, makePlots
+export solveSimpleModel, initializeSimpleModel, makePlots, SimpleCalibrationTarget,SimpleCalibrationParameters,SimpleModelMoments
 
 mutable struct SimpleModelParameters
 
@@ -49,7 +49,7 @@ function initializeSimpleModel()
 
     ρ = 0.01
     θ = 2
-    β = 0.06
+    β = 0.094
     L = 0.05
     χE = 0.13
     χI = 3.5
@@ -150,8 +150,11 @@ function solveSimpleModel(modelPar::SimpleModelParameters)
     # Compute wage
     wRD_NCA = V * denom
 
+    # Compute final goods labor
+    LF = (1 - L) / (1 + ( (1 - β) ./ Cβ(β))^(1/β))
+
     # Compute output
-    Y = ((1-β)^(1-2*β)) / (β^(1-β)) * (1-L)
+    Y = ((1-β)^(1-2*β)) / (β^(1-β)) * LF
 
     # Compute welfare
     W = (Y - τE * κE * λ * V - x * zI * ν * κC * V - τS * κE * λ * V)^(1-θ) / ((1-θ) * ( ρ - g * (1-θ)))

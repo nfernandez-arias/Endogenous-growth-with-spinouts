@@ -24,7 +24,8 @@ library(stringr)
 library(zoo)
 library(stringdist)
 library(readstata13)
-library(foreign)
+#library(foreign)
+library(haven)
 
 # Load and set up plotting libraries
 library(ggplot2)
@@ -46,8 +47,9 @@ setwd("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spi
                     
 # Set some parameters
 founderThreshold <- 3
-minimumSpinoutsThreshold <- 1
-excludeAltDG <- TRUE
+mergerThreshold <- 1  # Startup is assigned to parent company from previous years, in case of acquisitions
+minimumSpinoutsThreshold <- 10
+excludeAltDG <- FALSE
 fundingDiscountFactor <- 1.06
 normalizeVariablesStata <- FALSE
 
@@ -59,7 +61,7 @@ VSmaxFoundingYear <- 2008
 technicalTitles <- c("CTO","FDR","CSO","CIO","SADV")
 founderTitles <- c("CEO","CTO","CCEO","PCEO","PRE","PCHM","PCOO","FDR","CHF")
 executiveTitles <- c(founderTitles,"CSO","COO","PCOO","CIO","CFO","CHF","CHMN","EVP","MDIR","MGR")
-        
+
 LargeStates <- c("CA","NY","TX","WA","MA","PA","CO","NC","NJ","GA","FL","MI","IL","VA","MD")
 LargestStates <- c("CA","WA","MA","NY","TX")
 
@@ -143,7 +145,7 @@ source("code/mergeFirmNCchangesToMasterData.R")
 source("code/prepareDataForStata.R")
 
 # Prepare dataset for event study to see how    
-# much spinout funding affects parent f irm stock price
+# much spinout funding affects parent firm stock price
 source("code/prepareEventStudyDataset.R")
       
 #----------------------------

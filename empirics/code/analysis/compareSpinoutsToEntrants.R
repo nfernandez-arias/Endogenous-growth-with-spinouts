@@ -12,7 +12,7 @@ source("code/analysis/foundersComparison.R")
 
 # Spinouts 
 source("code/analysis/spinoutsComparison.R")
-
+    
 
 #-----------------------------------#
 # Construct counts of startups 

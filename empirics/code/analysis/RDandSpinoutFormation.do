@@ -12,11 +12,13 @@ label variable founders_founder2 "Founders"
 label variable founders_founder2_at "$\frac{\textrm{Founders}}{\textrm{Assets}}$"
 label variable founders_founder2_f3 "Founders"
 label variable founders_founder2_at_f3 "$\frac{\textrm{Founders}}{\textrm{Assets}}$"
+label variable founders_founder2_emp_f3 "$\frac{\textrm{Founders}}{\textrm{Emp}}$"
 
 label variable founders_founder2_wso4 "WSO4"
 label variable founders_founder2_wso4_at "$\frac{\textrm{WSO4}}{\textrm{Assets}}$"
 label variable founders_founder2_wso4_f3 "WSO4"
 label variable founders_founder2_wso4_at_f3 "$\frac{\textrm{WSO4}}{\textrm{Assets}}$"
+label variable founders_founder2_wso4_emp_f3 "$\frac{\textrm{WSO4}}{\textrm{Emp}}$"
 
 
 
@@ -160,14 +162,14 @@ keep if lstate_l3 != .
 keep if lfirm_l3 != .
 
 eststo clear
-eststo model1: reghdfe lfounders_founder2_f3 lxrd_l3, absorb(gvkey) cluster(gvkey)
-eststo model2: ivreghdfe lfounders_founder2_f3 (lxrd_l3 = lstate_l3 lfirm_l3), absorb(gvkey) cluster(gvkey)
-eststo model3: ivreghdfe lfounders_founder2_f3 lpatentCount_CW_cumulative zTobin_Q zlat_l3 zlintan_l3 zlemp_l3 zlch_l3 zlsale_l3 (lxrd_l3 = lstate_l3 lfirm_l3), absorb(gvkey firmAge year) cluster(gvkey)
-eststo model4: ivreghdfe lfounders_founder2_f3 lpatentCount_CW_cumulative zTobin_Q zlat_l3 zlintan_l3 zlemp_l3 zlch_l3 zlsale_l3 (lxrd_l3 = lstate_l3 lfirm_l3), absorb(gvkey firmAge naics4#year) cluster(gvkey)
-eststo model5: reghdfe lfounders_founder2_wso4_f3 lxrd_l3 , absorb(gvkey) cluster(gvkey)
-eststo model6: ivreghdfe lfounders_founder2_wso4_f3 (lxrd_l3 = lstate_l3 lfirm_l3), absorb(gvkey) cluster(gvkey)
-eststo model7: ivreghdfe lfounders_founder2_wso4_f3 lpatentCount_CW_cumulative zTobin_Q zlat_l3 zlintan_l3 zlemp_l3 zlch_l3 zlsale_l3 (lxrd_l3 = lstate_l3 lfirm_l3), absorb(gvkey firmAge year) cluster(gvkey)
-eststo model8: ivreghdfe lfounders_founder2_wso4_f3 lpatentCount_CW_cumulative zTobin_Q zlat_l3 zlintan_l3 zlemp_l3 zlch_l3 zlsale_l3 (lxrd_l3 = lstate_l3 lfirm_l3), absorb(gvkey firmAge naics4#year) cluster(gvkey)
+eststo model1: reghdfe founders_founder2_f3 lxrd_l3, absorb(gvkey) cluster(gvkey)
+eststo model2: ivreghdfe founders_founder2_f3 (lxrd_l3 = lfirm_l3), absorb(gvkey) cluster(gvkey)
+eststo model3: ivreghdfe founders_founder2_f3 lpatentCount_CW_cumulative zTobin_Q zlat_l3 zlintan_l3 zlemp_l3 zlch_l3 zlsale_l3 (lxrd_l3 = lfirm_l3), absorb(gvkey year) cluster(gvkey)
+eststo model4: ivreghdfe founders_founder2_f3 lpatentCount_CW_cumulative zTobin_Q zlat_l3 zlintan_l3 zlemp_l3 zlch_l3 zlsale_l3 (lxrd_l3 = lfirm_l3), absorb(gvkey naics4#year) cluster(gvkey)
+eststo model5: reghdfe founders_founder2_wso4_f3 lxrd_l3 , absorb(gvkey) cluster(gvkey)
+eststo model6: ivreghdfe founders_founder2_wso4_f3 (lxrd_l3 = lfirm_l3), absorb(gvkey) cluster(gvkey)
+eststo model7: ivreghdfe founders_founder2_wso4_f3 lpatentCount_CW_cumulative zTobin_Q zlat_l3 zlintan_l3 zlemp_l3 zlch_l3 zlsale_l3 (lxrd_l3 = lfirm_l3), absorb(gvkey year) cluster(gvkey)
+eststo model8: ivreghdfe founders_founder2_wso4_f3 lpatentCount_CW_cumulative zTobin_Q zlat_l3 zlintan_l3 zlemp_l3 zlch_l3 zlsale_l3 (lxrd_l3 = lfirm_l3), absorb(gvkey naics4#year) cluster(gvkey)
 
 estfe . *, labels(naics3#year "NAICS3-Year FE" naics4#year "NAICS4-Year FE" Statecode#year "State-Year FE" gvkey "Firm FE" firmAge "Firm Age FE" Statecode "State FE" naics4 "NAICS 4 FE" year "Year FE" _cons "No FE")
 return list

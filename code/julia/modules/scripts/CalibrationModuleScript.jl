@@ -4,8 +4,6 @@
 # Module containing functions for calibrating the model
 #
 
-using LinearAlgebra, Statistics, Optim
-
 export CalibrationTarget,ModelMoments,CalibrationParameters,calibrateModel,computeModelMoments,computeScore
 
 struct CalibrationTarget

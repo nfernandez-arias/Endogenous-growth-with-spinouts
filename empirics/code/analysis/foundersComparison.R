@@ -290,8 +290,14 @@ for (founderType in c("all","technical","founder2","executive"))
 # Column7: founderFractionsHasBio - wso4 + nonwso4  
 # Column8: founderFractionsHasBio - wso4
 
+
+
 for (founderType in c("all","technical","founder2","executive"))
 {
+  
+    startupsCountByYear <- unique(parentsSpinouts[ get(founderType) == 1], by = "EntityID")[, .N, by = foundingYear]
+    setnames(startupsCountByYear,"N","startupsCount")
+    
     founderCountsString <- paste("founderCounts",founderType,sep = "_")
     founderFracsString <- paste("founderFractions",founderType,sep = "_")
     founderFracsHasBioString <- paste("founderFractionsHasBio",founderType,sep = "_")
@@ -321,6 +327,8 @@ for (founderType in c("all","technical","founder2","executive"))
     setcolorder(temp,c("year","allCount","startupsCount","spinoutsCount","spinoutsFrac","spinoutsFracHasBio","wso4Frac","wso4FracHasBio"))
     
     temp <- temp[ year >= 1986]
+    
+    temp <- temp[order(year)]
     
     tableNameString <- paste("table1",founderType,sep = "_")
     

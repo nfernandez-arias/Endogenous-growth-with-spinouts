@@ -112,11 +112,11 @@ data <- data[State != ""]
 for (str in c("Pre3","Pre2","Pre1","Post0","Post1","Post2","Post3"))
 {
   xrdTreatedString <- paste("xrd_tre",str,sep = "_")
-  xrdPlaceboString <- paste("xrd_plac",str,sep = "_")
+  #xrdPlaceboString <- paste("xrd_plac",str,sep = "_")
   treatedString <- paste("treated",str,sep = "")
-  placeboString <- paste("placebo",str, sep = "")
+  #placeboString <- paste("placebo",str, sep = "")
   data[ , (xrdTreatedString) := xrd * get(treatedString)]
-  data[ , (xrdPlaceboString) := xrd * get(placeboString)]
+  #data[ , (xrdPlaceboString) := xrd * get(placeboString)]
 }
 
 # Construct indicator variables
@@ -157,9 +157,11 @@ data[ , emp_ma5 := rollapplyr(emp, FUN = mean, width = 5, align = "right", parti
 
 for (col in c(countCols,parentFirmControls,parentFirmVars))
 {
-  colString <- paste(col,"at",sep = ".")
+  colString1 <- paste(col,"at",sep = ".")
+  colString2 <- paste(col,"emp",sep = ".")
   
-  data[ , (colString) := get(col) / at_ma5]
+  data[ , (colString1) := get(col) / at_ma5]
+  data[ , (colString2) := get(col) / emp_ma5]
 }
 
 
@@ -202,7 +204,7 @@ for (col in founderCols.f3)
 # Construct backward looking independent variables
 
 parentCols <- grep("at$", paste(c(parentFirmControls,parentFirmVars),"at",sep = "."), value = T)
-
+      
 # Consruct backward looking moving averages   
 ptm <- proc.time()
 

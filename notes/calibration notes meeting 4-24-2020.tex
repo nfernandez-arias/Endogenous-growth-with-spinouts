@@ -1,0 +1,243 @@
+\documentclass[12pt,english]{article}
+\usepackage{lmodern}
+\linespread{1.05}
+%\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+\usepackage[section]{placeins}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{svg}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{blindtext}
+%\renewcommand{\arraystretch}{1.2}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{rotating}
+
+\usepackage{chngcntr}
+
+% TikZ stuff
+
+\usepackage{tikz}
+\usepackage{mathdots}
+\usepackage{yhmath}
+\usepackage{cancel}
+\usepackage{color}
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usetikzlibrary{fadings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shadows.blur}
+
+\usepackage[font=small]{caption}
+%\usepackage[printfigures]{figcaps}
+%\usepackage[nomarkers]{endfloat}
+
+
+%\usepackage{caption}
+%\captionsetup{justification=raggedright,singlelinecheck=false}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+\definecolor{red1}{RGB}{128,0,0}
+\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+%\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+%\onehalfspacing
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\begin{document}
+	
+\title{Calibrating the model: \\ What do other papers in the creative destruction literature do?}
+\author{Nicolas Fernandez-Arias}
+\date{\today}
+\maketitle
+
+\begin{itemize}
+	\item To-do:
+	\begin{itemize}
+		\item Think about calibrating model to JUST growth due to creative destruction and own innovation
+		\item Propose / analyze baseline calibration of simple model given everything I've read about how other people calibrate these models
+	\end{itemize}
+	\item Garcia-Macia, Hsieh, and Klenow (GHK) Econometrica 2019, "How Destructive is Innovation?"
+	\begin{itemize}
+		\item \textbf{Moments / inferences:} some ambiguity re: how long to make the periods in the model.
+		\begin{itemize}
+				\item 1 yr measurements\footnote{Which measurements to use? Not sure, but doesn't make a big difference. Regardless, not clear how to figure out what the growth advantage of spinouts is. In all of these calibrations, we don't observe entrants "before" entering, which is what I would want to do. Perhaps could do something where I try to take these measurements, create a third category -- pre-entrant -- out of firms that are <= 1 year old. Look at their likelihood of surviving the first year, and how it compares spinouts vs. ordinary entrants in the data. Then define "entrants" as those between 1 and 5 years old, and match their share of employment (annualized) in order to get the right entry rate.}
+			\begin{itemize}
+				\item Employment share of entrants: 3.4\%
+				\item Incumbent internal innovation: 83.4\%
+			\end{itemize}
+			\item 5 yr measurements
+			\begin{itemize}
+				\item Employment share of entrants: 15.5\% (roughly annualized: 3.1\%)
+				\item Incumbent internal innovation: 74\%
+			\end{itemize}
+			\item 10 yr measurements
+			\begin{itemize}
+				\item Employment share of entrants: 26.3\% (roughly annualized: 2.6\%)
+				\item Incumbent internal innovation: 65.1\%
+			\end{itemize}
+		\end{itemize}
+		\item \textbf{Parameters:} in this paper, \textbf{growth is exogenous}, so the only relevant parameters are $\beta$ (the elasticity of substitution across intermediates) and $\lambda$, the step size of innovations. 
+		\begin{itemize}
+			\item \textbf{$\beta = 1/4$ (EoS of 4 between intermediates)}
+			\begin{itemize}
+				\item Controls markups, like in my model, but this isn't important to get right in their model because growth is exogenous, so profits as a percent of GDP are irrelevant. So they don't think about this at all.
+				\item In their model, also controls how firm employment scales with $q_j$. Entrants are on average more productive than incumbents (since they improve on incumbents in order to enter). Therefore their share of employment is larger than their share of products $j$. In terms of this property, my model is equivalent to a $\beta = 1/2$. They try the setting $\beta = 1/3$ in a robustness exercise and find that the same amount of creative destruction now implies fewer jobs in entrants. Therefore, they infer a faster rate of creative destruction. Not sure what they would find with $\beta = 1/2$, where employment is proportional to the quality of the firm.
+				\item They justify their choice $\beta = 1/4$ on two grounds: (1) "outside evidence" (not discussed), and (2) they need $\beta < 1$ so that large firms can exit (firms can be large because they have many low quality products; such firms are more likely to exit than firms that are large because they have many (but fewer, of course) average products.) They want to use this moment to discipline creative destruction by incumbents vs own innovation: if innovation by incumbents is more related to creative destruction, then the exit rate vs. firm size graph is flatter (because large firms only exit when all of their totally independent products get destroyed)
+			\end{itemize}
+			\item \textbf{$\lambda$: in their model, average improvement in quality is 7.5\%, exactly as in my model}
+			\begin{itemize}
+				\item Not directly comparable to my model though - explanation below
+				\item In my model labor productivity is just average quality $Q = \int_0^1 q_j dj$
+				\item In their model, labor productivity (assuming constant set of varities) is analogous to $\Big(\int_0^1 q_j^{\frac{1-\beta}{\beta}}dj \Big)^{\frac{\beta}{1-\beta}}$
+				\item Hence
+				\begin{align*}
+					(1+g_{t+1})^{\frac{1-\beta}{\beta}} &= \frac{\int_0^1 (\lambda_{j,t+1} q_{jt})^{\frac{1-\beta}{\beta}} dj}{\int_0^1q_j^{\frac{1-\beta}{\beta}} dj} 
+				\end{align*}
+				where $\lambda_{j,t+1}$ is the innovation step between $t$ and $t+1$ in good $j$ (zero if no innovation).
+				\item If a random fraction $\tau$ of goods are innovated on each year, then $\mathbb{E}[(1+g)^{\frac{1-\beta}{\beta}}] = 1 + (s_q^{\frac{1-\beta}{\beta}} - 1) \tau$
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\item Klenow \& Yi (KY), 2020 "Innovative Growth Accounting"
+	\begin{itemize}
+		\item \textbf{Moments / inferences:} similar time horizon ambiguity here -- I think it's pretty directly comparable to the previous paper
+		\begin{itemize}
+			\item 1 yr measurements (i.e. treating new firms that year as entrants)
+			\begin{itemize}
+				\item Employment share of entrants: 3.1\%
+				\item Entry is 30\% of growth (75\% new varieties, 25\% creative destruction)
+				\item Incumbents are 70\% of growth (85\% internal innovation, 6\% new varieties, 9\% creative destruction)
+			\end{itemize}
+			\item 5 yr measurments (ok still measuring 1-yr, but treating age 0-5 as entrants, and all their innovation as creative destruction or new varieties)
+			\begin{itemize}
+				\item Employment share of entrants: 16.7\%
+				\item Entry is 50\% of growth (same breakdown)
+				\item Incumbents are 50\% of growth (same breakdown)
+			\end{itemize}
+			\item \textbf{Note:} Given the importance of new variety creation in entry, maybe it makes sense to think about this in my model. Either modeling it, or somehow purging it from the data. 
+		\end{itemize}
+		\item Parameters
+		\begin{itemize}
+			\item Like GHK, uses different aggregator...doesn't mention what parameter they use (it's not calibrated). Kind of important, and they haven't said how they're setting it. Shouldn't use same value as in GHK, because that model is at the firm level, this is at the product level.
+			\item Step size $\lambda$: not comparable, unfortunately, because there are different step size for every type of firm, etc. Some examples:
+			\begin{itemize}
+				\item Step size of entering firm creative destruction innovations: 18\%
+				\item I don't think KY separately identify step size of own innovation separately from frequency of own innovation -- only displays composite of two in tables, which compares roughly to my $(\lambda -1)\tau_I \approx 0.011$. For firms age 1-5, it decays from .213 for small firms to 0 for large firms.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\item Aghion, Boppart, et al. 2019 "A Theory of Falling Growth and Rising Rents."
+	\begin{itemize}
+		\item \textbf{Moments:}
+		\item \textbf{Parameters:}
+		\begin{itemize}
+			\item Innovation step size: 33.5\% 
+			\item CRRA parameter: 2
+			\item CES parameter: they say 4, but they write that they use a log specification (so, 1) in the beginning of the paper...not sure what to think...
+			\item Discount factor: equivalent to 0.0106
+			\item Innovation productivity parameter (corresponds roughly to $\chi_E$) 0.59
+			\begin{itemize}
+				\item In my model, a step size of 33.5\% and this value of $\chi_E$ would create far too much growth
+				\item Not directly comparable because here, firms face an additional cost of innovation, which is a convex cost per product held by the firm (so efficient firms are willing to expand into more products)
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\item Akcigit \& Kerr, 2017, "Growth through heterogeneous innovations."
+	\begin{itemize}
+		\item \textbf{Moments:}
+		\begin{itemize}
+			\item Average profit / sales ratio: 10.9\% (not clear if average ratio or ratio of averages...)
+			\item Entry rate: uses 5.82\%, "measured over five-year intervals through employments among patenting entrants" (not sure what that means, doesn't explain)
+			\item Average R\&D / sales ratio: 4.1\% (again, not clear if average ratio or ratio of averages...)
+			\item External citations per internal patent / external citations per external patent = 0.774
+			\item Fraction of patents that are internal: 21.5\%
+			\item Aggregate labor productivity growth rate: 1\%
+		\end{itemize}
+		\item \textbf{Parameters:}
+		\begin{itemize}
+			\item $\beta = 0.106$ (targets average profit / sales ratio)
+			\item Decreasing returns to R\&D $\psi, \hat{\psi}$: 0.5
+			\begin{itemize}
+				\item Targets micro regressions of patents on R\&D or of R\&D on R\&D price; issues with intensive vs extensive margin, etc.
+			\end{itemize}
+			\item \textbf{The five parameters (or in some cases, model statistics) below target the last five moments above}
+			\item Innovation step sizes: internal (5.1\%), external (equilibrium average: 6.9\%)
+			\begin{itemize}
+				\item Equilibrium ratio of internal innovation size to external innovation size largely informed by difference in number of external citations for internal vs external patents
+				\item Internal controlled by parameter $\lambda$ corresponding to my $\lambda$
+				\item External controlled by several parameters
+				\item Fraction of external innovations that open up new technology clusters ($\theta =  0.103$)
+				\item \% quality improvement of first innovation in a technology cluster ($\eta = 11.2\%$)
+				\item Decay rate of external innovations in a given cluster ($\alpha = 0.929$, kth innovation in a cluster improves by $\alpha^{k-1} \eta$
+			\end{itemize}
+			\item Incumbent internal innovation efficiency $\chi_I$: 1.7
+			\begin{itemize}
+				\item My model counterpart: 0.97 (not quantitatively directly comparable because haven't accounted for wage in my model)
+				\item Qualitatively, makes sense their number is higher bc innovations are smaller and more frequent (due to higher entry rate in calibration)
+			\end{itemize}
+			\item Incumbent external innovation efficiency: 0.5
+			\begin{itemize}
+				\item No direct counterpart in my model, because no external innovation by incumbents
+			\end{itemize}
+			\item Entrant innovation efficiency (not directly comparable because CRS): 1.20
+			\begin{itemize}
+				\item In my model, given DRS, average entrant productivity is approx 1.2 as well
+			\end{itemize}
+			\item Entry efficiency parameter chosen to match the firm entry rate
+			\begin{itemize}
+				\item Entrants do not do R\&D to enter in this model, unlike in my model
+			\end{itemize}
+			\item R\&D efficiency parameters chosen to match: R\&D intensity, fraction of patents that are internal, and the aggregate labor productivity growth rate  
+		\end{itemize}
+	\end{itemize}
+	\item Acemoglu \& Cao JET 2015, "Innovation by entrants and incumbents"
+	\item Acemoglu, Akcigit, Alp, Bloom and Kerr AER 2018, "Innovation, Reallocation, and Growth"
+	\begin{itemize}
+		\item Basically a Klette-Kortum 2004 model with heterogeneity in firm innovative efficiency
+		\item \textbf{Moments:}
+		\begin{itemize}
+			\item Firm exit rates
+			\item Transition rates of firms between size buckets
+			\item Size conditional on entry
+			\item Employment, sales growth, and R\&D-sales ratio for different categories of firms
+			\item Five-year entrant share
+		\end{itemize}
+		\item \textbf{Parameters:}
+		\begin{itemize}
+			\item EoS between products: $\beta = 1/3$
+			\item Exogenous supply of skilled labor -- matched to 14.2 percent (arbitrary though, right? could just assume higher productivity per unit of skilled labor....)
+			\item discount rate $\rho = 0.02$
+			\item CRRA parameter: 2
+			\item R\&D decreasing returns parameter $\psi$: 0.5
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+
+
+
+
+\end{document}

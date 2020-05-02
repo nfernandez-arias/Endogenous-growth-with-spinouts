@@ -1,0 +1,47 @@
+ * Status: success
+
+ * Candidate solution
+    Minimizer: [3.40e-02, 1.62e+00, 3.73e-01,  ...]
+    Minimum:   2.269321e-15
+
+ * Found with
+    Algorithm:     Fminbox with L-BFGS
+    Initial Point: [1.00e-02, 1.20e+00, 3.50e+00,  ...]
+
+ * Convergence measures
+    |x - x'|               = 2.12e-06 ≰ 0.0e+00
+    |x - x'|/|x'|          = 1.15e-06 ≰ 0.0e+00
+    |f(x) - f(x')|         = 1.86e-13 ≰ 0.0e+00
+    |f(x) - f(x')|/|f(x')| = 4.48e-04 ≰ 0.0e+00
+    |g(x)|                 = 7.29e-10 ≤ 1.0e-08
+
+ * Work counters
+    Seconds run:   0  (vs limit Inf)
+    Iterations:    4
+    f(x) calls:    826
+    ∇f(x) calls:   826
+
+
+Score: 2.2693214515712738e-15
+
+Minimizer: 
+
+
+ρ = 0.033999999060357805
+λ = 1.62252889155003
+χI = 0.3726247160433808
+χE = 0.05492334441002413
+κE = 0.7638940641142654
+ν = 0.008811823804058545)
+
+Moments: SimpleModelMoments(0.05999999950620208, 0.013000000222922137, 0.6999999727235207, 0.05999999953806759, 0.0667000003099863, 0.014999999736627915)
+
+
+Format : (target, model)
+
+Interest rate: (0.06 , 0.05999999950620208)
+Growth rate: (0.013 , 0.013000000222922137)
+Growth share OI: (0.7 , 0.6999999727235207)
+Young firm emp. share: (0.06 , 0.05999999953806759)
+Spinout emp. share: (0.0667 , 0.0667000003099863)
+RD share: (0.015 , 0.014999999736627915)
