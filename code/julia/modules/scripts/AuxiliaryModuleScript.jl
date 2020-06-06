@@ -14,13 +14,13 @@
 
 #export Cβ,LF,profit,wbarFunc,initialGuessIncumbentHJB,zSFunc,zEFunc,τSEFunc,τEFunc,τIFunc
 
-function Cβ(β::Float64)
+function Cβ(β::Real)
 
     return β^β * (1-β)^(1-2*β)
 
 end
 
-function LF(L_RD::Float64, modelPar::ModelParameters)
+function LF(L_RD::Real, modelPar::ModelParameters)
 
     β,L = modelPar.β, modelPar.L;
     Cβconst = Cβ(β)
@@ -30,7 +30,7 @@ function LF(L_RD::Float64, modelPar::ModelParameters)
 
 end
 
-function LF(L_RD::Array{Float64}, modelPar::ModelParameters)
+function LF(L_RD::Array{Real}, modelPar::ModelParameters)
 
     β,L = modelPar.β, modelPar.L;
     #return β * (L - L_RD) / (β + (1-β)^2);
@@ -43,7 +43,7 @@ end
 ## This function returns the equilibrium interest rate given
 ## a rate of growth g and parameters (discount rate and IES)
 
-function rFunc(modelPar::ModelParameters,g::Float64)
+function rFunc(modelPar::ModelParameters,g::Real)
 
     ρ = modelPar.ρ
     η = modelPar.η
@@ -52,7 +52,7 @@ function rFunc(modelPar::ModelParameters,g::Float64)
 
 end
 
-function flowOutput(L_F::Float64, modelPar::ModelParameters)
+function flowOutput(L_F::Real, modelPar::ModelParameters)
 
     β = modelPar.β
 
@@ -62,7 +62,7 @@ end
 
 
 
-function profit(L_RD::Float64, modelPar::ModelParameters)
+function profit(L_RD::Real, modelPar::ModelParameters)
 
     β = modelPar.β;
     #return β * (1-β)^((2-β)/β) * β^(-1) * LF(L_RD,modelPar);
@@ -71,7 +71,7 @@ function profit(L_RD::Float64, modelPar::ModelParameters)
 
 end
 
-function wbarFunc(β::Float64)
+function wbarFunc(β::Real)
 
     #return (β^β)*(1-β)^(2-2*β);
     return Cβ(β)
@@ -98,7 +98,7 @@ function zSFunc(algoPar::AlgorithmParameters,modelPar::ModelParameters,idxM::Int
 
 end
 
-function zEFunc(modelPar::ModelParameters,V0::Float64,zI::Array{Float64},w::Array{Float64},wE::Array{Float64}, zS::Array{Float64})
+function zEFunc(modelPar::ModelParameters,V0::Real,zI::Array{Real},w::Array{Real},wE::Array{Real}, zS::Array{Real})
 
     #wE = (modelPar.spinoutsFromEntrants * w + (1 - modelPar.spinoutsFromEntrants) * wbarFunc(modelPar.β) * ones(size(w)))
 
@@ -116,7 +116,7 @@ function zEFunc(modelPar::ModelParameters,V0::Float64,zI::Array{Float64},w::Arra
 
 end
 
-function zEFunc(modelPar::ModelParameters,incumbentHJBSolution::IncumbentSolution,w::Array{Float64},wE::Array{Float64},zS::Array{Float64})
+function zEFunc(modelPar::ModelParameters,incumbentHJBSolution::IncumbentSolution,w::Array{Real},wE::Array{Real},zS::Array{Real})
 
     V = incumbentHJBSolution.V
     zI = incumbentHJBSolution.zI
@@ -127,7 +127,7 @@ function zEFunc(modelPar::ModelParameters,incumbentHJBSolution::IncumbentSolutio
 
 end
 
-function abarFunc(algoPar::AlgorithmParameters,modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64},zE::Array{Float64},μ::Array{Float64},γ::Array{Float64})
+function abarFunc(algoPar::AlgorithmParameters,modelPar::ModelParameters,zI::Array{Real},zS::Array{Real},zE::Array{Real},μ::Array{Real},γ::Array{Real})
 
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
@@ -142,7 +142,7 @@ function abarFunc(algoPar::AlgorithmParameters,modelPar::ModelParameters,zI::Arr
 
 end
 
-function abarIncumbentsFunc(algoPar::AlgorithmParameters,modelPar::ModelParameters,zI::Array{Float64},μ::Array{Float64},γ::Array{Float64})
+function abarIncumbentsFunc(algoPar::AlgorithmParameters,modelPar::ModelParameters,zI::Array{Real},μ::Array{Real},γ::Array{Real})
 
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
@@ -157,7 +157,7 @@ function abarIncumbentsFunc(algoPar::AlgorithmParameters,modelPar::ModelParamete
 
 end
 
-function aFunc(modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64},zE::Array{Float64},abar::Float64)
+function aFunc(modelPar::ModelParameters,zI::Array{Real},zS::Array{Real},zE::Array{Real},abar::Real)
 
     θ = modelPar.θ
     ν = modelPar.ν
@@ -170,7 +170,7 @@ function aFunc(modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64},z
 
 end
 
-function WcalFunc(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess,W::Array{Float64},μ::Array{Float64},γ::Array{Float64},CNC::Bool)
+function WcalFunc(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess,W::Array{Real},μ::Array{Real},γ::Array{Real},CNC::Bool)
 
     if CNC == true
 
@@ -188,7 +188,7 @@ function WcalFunc(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::
 
 end
 
-function WcalFunc(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess,W::Array{Float64},μ::Array{Float64},γ::Array{Float64})
+function WcalFunc(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::Guess,W::Array{Real},μ::Array{Real},γ::Array{Real})
 
     mGrid,Δm = mGridBuild(algoPar.mGrid)
 
@@ -203,7 +203,7 @@ function WcalFunc(algoPar::AlgorithmParameters,modelPar::ModelParameters,guess::
 
 end
 
-function τSEFunc(modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64},zE::Array{Float64})
+function τSEFunc(modelPar::ModelParameters,zI::Array{Real},zS::Array{Real},zE::Array{Real})
 
     χS = modelPar.χS
     χE = modelPar.χE
@@ -226,7 +226,7 @@ function τSEFunc(modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64
 
 end
 
-function τEFunc(modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64},zE::Array{Float64})
+function τEFunc(modelPar::ModelParameters,zI::Array{Real},zS::Array{Real},zE::Array{Real})
 
     χE = modelPar.χE
 
@@ -248,7 +248,7 @@ function τEFunc(modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64}
 
 end
 
-function τIFunc(modelPar::ModelParameters,zI::Array{Float64})
+function τIFunc(modelPar::ModelParameters,zI::Array{Real})
 
     χI = modelPar.χI
 
@@ -260,7 +260,7 @@ function τIFunc(modelPar::ModelParameters,zI::Array{Float64})
 
 end
 
-function τIFunc(modelPar::ModelParameters,zI::Array{Float64},zS::Array{Float64},zE::Array{Float64})
+function τIFunc(modelPar::ModelParameters,zI::Array{Real},zS::Array{Real},zE::Array{Real})
 
     χI = modelPar.χI
 

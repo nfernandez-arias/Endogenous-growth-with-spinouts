@@ -1,9 +1,14 @@
-\begin{thebibliography}{4}
+\begin{thebibliography}{5}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Acemoglu(2009)]{acemoglu_introduction_2009}
+Daron Acemoglu.
+\newblock \emph{Introduction to {Modern} {Economic} {Growth}}.
+\newblock Princeton University Press, 2009.
 
 \bibitem[Aghion et~al.(2005)Aghion, Bloom, Blundell, Griffith, and
   Howitt]{aghion_competition_2005}

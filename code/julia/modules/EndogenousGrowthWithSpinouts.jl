@@ -1,7 +1,5 @@
 module EndogenousGrowthWithSpinouts
 
-    include("scripts/SimpleModelModuleScript.jl")
-    include("scripts/SimpleModelCalibrationModuleScript.jl")
     include("scripts/AlgorithmParametersModuleScript.jl")
     include("scripts/ModelParametersModuleScript.jl")
     include("scripts/GuessModuleScript.jl")

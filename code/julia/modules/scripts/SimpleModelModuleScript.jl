@@ -4,59 +4,83 @@
 using Plots
 gr()
 
-export solveSimpleModel, initializeSimpleModel, makePlots, SimpleCalibrationTarget,SimpleCalibrationParameters,SimpleModelMoments
+export SimpleModelParameters, SimpleModelSolution, solveSimpleModel, computeWelfareComparison, initializeSimpleModel, makePlots, SimpleCalibrationTarget,SimpleCalibrationParameters,SimpleModelMoments,SimpleModelParameterLimit,SimpleModelParameterLimitList,welfareComparison
+
 
 mutable struct SimpleModelParameters
 
     ## General parameters
     #################
     # Discount rate
-    ρ::Float64
+    ρ::Real
     # IES
-    θ::Float64
+    θ::Real
     # 1/(1-β) is markup
-    β::Float64
+    β::Real
     # Labor allocated to RD
-    L::Float64
+    L::Real
 
     ## Returns to R&D
     ##################
     # Scale
-    χE::Float64
-    χI::Float64
+    χE::Real
+    χI::Real
     # Curvature
-    ψ::Float64
+    ψ::Real
     # Step size of quality ladder
-    λ::Float64
+    λ::Real
 
     ## Spinouts
     ###############
 
     # Knowledge spillover rate
-    ν::Float64
+    ν::Real
 
     # Creative destruction deadweight loss discount
-    κE::Float64
+    κE::Real
 
     ## Noncompetes
 
     # Noncompete enforcement cost
-    κC::Float64
+    κC::Real
+
+end
+
+#Base.copy(modelPar::SimpleModelParameters) = SimpleModelParameters([ deepcopy(getfield(m, k)) for k = 1:length(fieldnames(typeof(modelPar))) ]...)
+
+struct SimpleModelParameterLimit
+
+    lower::Real
+    upper::Real
+
+end
+
+struct SimpleModelParameterLimitList
+
+    ρ::SimpleModelParameterLimit
+    θ::SimpleModelParameterLimit
+    β::SimpleModelParameterLimit
+    χE::SimpleModelParameterLimit
+    χI::SimpleModelParameterLimit
+    ψ::SimpleModelParameterLimit
+    λ::SimpleModelParameterLimit
+    ν::SimpleModelParameterLimit
+    κE::SimpleModelParameterLimit
 
 end
 
 function initializeSimpleModel()
 
-    ρ = 0.01
+    ρ = 0.0339999
     θ = 2
     β = 0.094
     L = 0.05
-    χE = 0.13
-    χI = 3.5
+    χE = 0.11633
+    χI = 1.85744
     ψ = 0.5
-    λ = 1.2
-    ν = 0.3
-    κE = 0.8
+    λ = 1.165946
+    ν = 0.04875
+    κE = 0.7376
     κC = 0
 
     modelPar = SimpleModelParameters(ρ,θ,β,L,χE,χI,ψ,λ,ν,κE,κC)
@@ -65,34 +89,40 @@ function initializeSimpleModel()
 
 end
 
+function Cβ(β::Real)
+
+    return β^β * (1-β)^(1-2*β)
+
+end
+
 struct SimpleModelSolution
 
     # Incumbent value
-    V::Float64
+    V::Real
     # Incumbent RD effort
-    zI::Float64
+    zI::Real
     # Incumbent innovation rate
-    τI::Float64
+    τI::Real
     # Entrant RD effort
-    zE::Float64
+    zE::Real
     # Entrant innovation rate
-    τE::Float64
+    τE::Real
     # Spinout innovation rate
-    τS::Float64
+    τS::Real
     # Noncompete usage
-    x::Float64
+    x::Real
     # RD wage (ignoring employee value from spinout)
-    wRD_NCA::Float64
+    wRD_NCA::Real
     # Interest rate
-    r::Float64
+    r::Real
     # Growth rate
-    g::Float64
+    g::Real
     # Output
-    Y::Float64
+    Y::Real
     # Welfare
-    W::Float64
+    W::Real
     # Welfare 2 (not considering costs of entry or NCA enforcement)
-    W2::Float64
+    W2::Real
 
 end
 
@@ -121,13 +151,13 @@ function solveSimpleModel(modelPar::SimpleModelParameters)
     denom = χI * (λ - 1) - x * ν * κC - (1-x) * ν * (1 - (1-κE)*λ)
 
     # Compute zE
-    zE = ((χE * (1-κE) * λ)/ denom)^(1/ψ)
+    zE = min(L,((χE * (1-κE) * λ)/ denom)^(1/ψ))
 
     # Compute τE
     τE = χE * zE^(1-ψ)
 
     # Compute zI
-    zI = L - zE
+    zI = max(0,L - zE)
 
     # Compute τI
     τI = χI * zI
@@ -163,12 +193,11 @@ function solveSimpleModel(modelPar::SimpleModelParameters)
     W2 = (Y)^(1-θ) / ((1-θ)*( ρ - g * (1-θ)))
 
     sol = SimpleModelSolution(V,zI,τI,zE,τE,τS,x,wRD_NCA,r,g,Y,W,W2)
-
     return sol
 
 end
 
-function solveSimpleModel(κC::Float64,modelPar::SimpleModelParameters)
+function solveSimpleModel(κC::Real,modelPar::SimpleModelParameters)
 
     modelPar.κC = κC
 
@@ -177,6 +206,32 @@ function solveSimpleModel(κC::Float64,modelPar::SimpleModelParameters)
     return sol
 
 end
+
+function computeWelfare(modelPar::SimpleModelParameters)
+
+    sol = solveSimpleModel(modelPar)
+
+    return sol.W
+
+end
+
+function computeWelfareComparison(modelPar::SimpleModelParameters,κC0::Real,κC1::Real)
+
+    modelParTemp = deepcopy(modelPar)
+
+    sol0 = solveSimpleModel(κC0,modelParTemp)
+    W0 = sol0.W
+
+    sol1 = solveSimpleModel(κC1,modelParTemp)
+    W1 = sol1.W
+
+    out = -((abs(W1) / abs(W0)) - 1) * 100 / abs(1-modelParTemp.θ)
+
+    return out
+
+end
+
+
 
 function makePlots(modelPar::SimpleModelParameters,string::String)
 
@@ -271,4 +326,91 @@ function makePlots(modelPar::SimpleModelParameters,string::String)
     summaryPlot = plot(valuePlot,innovationRatesPlot,wagePlot,interestRatePlot,growthPlot,welfarePlot, xtickfont = fnt, ytickfont = fnt, guidefont = fnt, size = (800,450))
     savefig(summaryPlot,"figures/simpleModel/$(string)_summaryPlot.pdf")
     Plots.scalefontsizes(0.6^(-1))
+end
+
+
+# Function for doing welfare comparative static for every parameter setting
+
+function welfareComparison(parameterLimits::SimpleModelParameterLimitList, numPoints::Int64)
+
+    ρLimits = parameterLimits.ρ
+    θLimits = parameterLimits.θ
+    βLimits = parameterLimits.β
+    χELimits = parameterLimits.χE
+    χILimits = parameterLimits.χI
+    ψLimits = parameterLimits.ψ
+    λLimits = parameterLimits.λ
+    νLimits = parameterLimits.ν
+    κELimits = parameterLimits.κE
+
+    ρStep = (ρLimits.upper - ρLimits.lower) / (numPoints - 1)
+    θStep = (θLimits.upper - θLimits.lower) / (numPoints - 1)
+    βStep = (βLimits.upper - βLimits.lower) / (numPoints - 1)
+    χEStep = (χELimits.upper - χELimits.lower) / (numPoints - 1)
+    χIStep = (χILimits.upper - χILimits.lower) / (numPoints - 1)
+    ψStep = (ψLimits.upper - ψLimits.lower) / (numPoints - 1)
+    λStep = (λLimits.upper - λLimits.lower) / (numPoints - 1)
+    νStep = (νLimits.upper - νLimits.lower) / (numPoints - 1)
+    κEStep = (κELimits.upper - κELimits.lower) / (numPoints - 1)
+
+    # Construct grids
+
+    ρGrid = ρLimits.lower:ρStep:ρLimits.upper
+    θGrid = θLimits.lower:θStep:θLimits.upper
+    βGrid = βLimits.lower:βStep:βLimits.upper
+    χEGrid = χELimits.lower:χEStep:χELimits.upper
+    χIGrid = χILimits.lower:χIStep:χILimits.upper
+    ψGrid = ψLimits.lower:ψStep:ψLimits.upper
+    λGrid = λLimits.lower:λStep:λLimits.upper
+    νGrid = νLimits.lower:νStep:νLimits.upper
+    κEGrid = κELimits.lower:κEStep:κELimits.upper
+
+
+    # Now loop through grids of all values
+
+    println(typeof(Iterators.product(ρGrid,θGrid,βGrid,χEGrid,χIGrid,ψGrid,λGrid,νGrid,κEGrid)))
+
+    A = Iterators.product(ρGrid,θGrid,βGrid,χEGrid,χIGrid,ψGrid,λGrid,νGrid,κEGrid)
+
+    welfareGainResultsArray = zeros(size(A))
+
+    for (i,x) in enumerate(A)
+
+        println("x equals: $x")
+
+        # Welfare when NCAs are enforced
+        modelPar0 = SimpleModelParameters(x[1],x[2],x[3],0.05,x[4],x[5],x[6],x[7],x[8],x[9],0.0)
+        sol0 = solveSimpleModel(modelPar0)
+
+        println("With NCA enforcement, welfare is: $(sol0.W)")
+
+        # Welfare when NCAs are not enforced
+
+        # First, calculate κC that guarantees NCAs are prohibitively expensive
+        # and then interpret this as no enforcement
+
+        # maximum of zero and the actual threshold, in case threshold is negative i.e. no one uses NCAs even when they are free.
+        κC_max = max(0,2*(1 - (1-modelPar0.κE)*modelPar0.λ))
+
+        println("κC_max equals $κC_max")
+
+        # Solve model
+        sol1 = solveSimpleModel(κC_max,modelPar0)
+
+
+        println("Without NCA enforcement, welfare is: $(sol1.W)")
+
+        CEWelfareBoostNCAEnforcement = ((abs(sol1.W) / abs(sol0.W)) - 1) * 100 * abs(1-modelPar0.θ)
+
+        println("CE Welfare gain from κC = 0: $CEWelfareBoostNCAEnforcement \n\n")
+
+        idx = CartesianIndices(welfareGainResultsArray)[i]
+
+        welfareGainResultsArray[idx] = CEWelfareBoostNCAEnforcement
+
+    end
+
+    return welfareGainResultsArray
+
+
 end

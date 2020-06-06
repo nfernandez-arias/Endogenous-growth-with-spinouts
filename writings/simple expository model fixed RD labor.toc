@@ -1,0 +1,70 @@
+\babel@toc {english}{}
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}
+\contentsline {section}{\numberline {2}Model}{2}{section.2}
+\contentsline {subsection}{\numberline {2.1}Individual endowments and preferences}{2}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Production of final and intermediate goods}{3}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Innovation}{4}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}Own-product innovation by incumbents}{5}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {2.3.2}Generation of spinouts}{5}{subsubsection.2.3.2}
+\contentsline {paragraph}{Direct cost of using NCAs}{5}{section*.2}
+\contentsline {paragraph}{Value of future spinout formation}{6}{section*.3}
+\contentsline {paragraph}{No idea stealing}{6}{section*.4}
+\contentsline {subsubsection}{\numberline {2.3.3}Entrants}{7}{subsubsection.2.3.3}
+\contentsline {subsubsection}{\numberline {2.3.4}Entry cost}{7}{subsubsection.2.3.4}
+\contentsline {subsection}{\numberline {2.4}Decentralized equilibrium}{8}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}Static equilibrium}{8}{subsubsection.2.4.1}
+\contentsline {paragraph}{Intermediate goods market structure}{8}{section*.5}
+\contentsline {subsubsection}{\numberline {2.4.2}Dynamic equilibrium}{9}{subsubsection.2.4.2}
+\contentsline {paragraph}{Household optimization and non-competes}{9}{section*.6}
+\contentsline {paragraph}{Equilibrium innovation}{10}{section*.7}
+\contentsline {paragraph}{Plan for solving the model}{10}{section*.8}
+\contentsline {paragraph}{Case 1: $\kappa _c < \bar {\kappa }_c(\kappa _e,\lambda )$ and $x = 1$}{11}{section*.9}
+\contentsline {paragraph}{Case 2: $\kappa _c > \bar {\kappa }_c(\kappa _e,\lambda )$ and $x = 0$}{12}{section*.10}
+\contentsline {paragraph}{Case 3: $\kappa _c = \bar {\kappa }_c(\kappa _e,\lambda )$ and $x \in \{0,1\}$}{13}{section*.11}
+\contentsline {paragraph}{Transversality condition}{13}{section*.12}
+\contentsline {section}{\numberline {3}Calibration}{13}{section.3}
+\contentsline {subsection}{\numberline {3.1}Targets}{13}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}Interest rate}{13}{subsubsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.2}Growth rate}{14}{subsubsection.3.1.2}
+\contentsline {subsubsection}{\numberline {3.1.3}Profits \% GDP}{14}{subsubsection.3.1.3}
+\contentsline {subsubsection}{\numberline {3.1.4}R\&D spending / GDP}{14}{subsubsection.3.1.4}
+\contentsline {subsubsection}{\numberline {3.1.5}Growth share of own innovation}{14}{subsubsection.3.1.5}
+\contentsline {subsubsection}{\numberline {3.1.6}Entry rate}{14}{subsubsection.3.1.6}
+\contentsline {subsubsection}{\numberline {3.1.7}R\&D-induced spinout share of employment}{15}{subsubsection.3.1.7}
+\contentsline {subsection}{\numberline {3.2}Computing the corresponding model moments}{16}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}R\&D / GDP}{16}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}Entry rate}{16}{subsubsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.3}Growth share of own innovation}{17}{subsubsection.3.2.3}
+\contentsline {subsubsection}{\numberline {3.2.4}R\&D-induced spinout employment share}{17}{subsubsection.3.2.4}
+\contentsline {subsection}{\numberline {3.3}Identification}{17}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Model validation}{18}{subsection.3.4}
+\contentsline {section}{\numberline {4}Policy analysis}{23}{section.4}
+\contentsline {paragraph}{Abstracting from public finance}{24}{section*.19}
+\contentsline {subsection}{\numberline {4.1}Effect of increasing $\kappa _c$ in calibrated equilibrium}{24}{subsection.4.1}
+\contentsline {subsubsection}{\numberline {4.1.1}Theory}{24}{subsubsection.4.1.1}
+\contentsline {paragraph}{Effect on growth}{24}{section*.20}
+\contentsline {subsubsection}{\numberline {4.1.2}Consumption}{25}{subsubsection.4.1.2}
+\contentsline {subsubsection}{\numberline {4.1.3}Welfare}{25}{subsubsection.4.1.3}
+\contentsline {subsubsection}{\numberline {4.1.4}Effect of the cost of non-competes on welfare}{26}{subsubsection.4.1.4}
+\contentsline {paragraph}{Robustness of welfare gain from NCA enforcement}{26}{section*.22}
+\contentsline {subsection}{\numberline {4.2}Scenario 1: Taxes and subsidies for NCAs}{27}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Scenario 2: Taxes and subsidies R\&D spending}{30}{subsection.4.3}
+\contentsline {subsubsection}{\numberline {4.3.1}Theory}{32}{subsubsection.4.3.1}
+\contentsline {paragraph}{Effect on growth}{32}{section*.27}
+\contentsline {paragraph}{Effect on consumption}{32}{section*.28}
+\contentsline {paragraph}{Effect on welfare}{32}{section*.29}
+\contentsline {subsubsection}{\numberline {4.3.2}Optimal policy}{32}{subsubsection.4.3.2}
+\contentsline {subsection}{\numberline {4.4}Scenario 3: Taxes and subsidies on creative destruction}{32}{subsection.4.4}
+\contentsline {subsubsection}{\numberline {4.4.1}Theory}{32}{subsubsection.4.4.1}
+\contentsline {paragraph}{Effect on growth}{32}{section*.30}
+\contentsline {paragraph}{Effect on consumption}{33}{section*.31}
+\contentsline {paragraph}{Effect on welfare}{33}{section*.32}
+\contentsline {subsubsection}{\numberline {4.4.2}Optimal policy}{33}{subsubsection.4.4.2}
+\contentsline {subsection}{\numberline {4.5}Scenario 4: Targeted taxes and subsidies on R\&D, creative destruction}{33}{subsection.4.5}
+\contentsline {subsubsection}{\numberline {4.5.1}Theory}{33}{subsubsection.4.5.1}
+\contentsline {paragraph}{Effect on growth}{33}{section*.33}
+\contentsline {paragraph}{Effect on consumption}{33}{section*.34}
+\contentsline {paragraph}{Effect on welfare}{33}{section*.35}
+\contentsline {subsubsection}{\numberline {4.5.2}Optimal policy}{33}{subsubsection.4.5.2}
+\contentsline {section}{\numberline {A}Miscellanea}{33}{appendix.A}
+\contentsline {paragraph}{Old stuff - need to reinterpret in light of the sensitivity plots}{34}{section*.37}

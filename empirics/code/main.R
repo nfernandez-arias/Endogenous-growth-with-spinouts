@@ -164,6 +164,8 @@ source("code/analysis/makeScatterPlots.R")
 # e.g., how many of each kind in each year? 
 source("code/analysis/compareSpinoutsToEntrants.R")
 
+source("code/analysis/regressionPredictionAttribution.R")
+
 # Make some parent-child heatmaps: by industry, by state
 
 source("code/analysis/parentChildStateMatrix.R")

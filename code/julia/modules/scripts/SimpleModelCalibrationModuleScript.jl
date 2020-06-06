@@ -4,14 +4,14 @@
 # Module containing functions for calibrating the model
 #
 
-using LinearAlgebra, Statistics, Optim
+using LinearAlgebra, Statistics, Optim, ForwardDiff
 
-export SimpleCalibrationTarget, SimpleCalibrationParameters, SimpleModelMoments, calibrateModel,computeSimpleModelMoments,computeScore
+export SimpleCalibrationTarget, SimpleCalibrationParameters, SimpleModelMoments, calibrateModel,computeSimpleModelMoments,computeScore, constructJacobian, constructWelfareComparisonFullGradient, constructLevelsWelfareComparisonFullGradient, constructFullJacobian
 
 struct SimpleCalibrationTarget
 
-    value::Float64
-    weight::Float64
+    value::Real
+    weight::Real
 
 end
 
@@ -32,14 +32,15 @@ end
 
 struct SimpleModelMoments
 
-    interestRate::Float64
-    growthRate::Float64
-    growthShareOI::Float64
-    youngFirmEmploymentShare::Float64
-    spinoutEmploymentShare::Float64
-    rdShare::Float64
+    interestRate::Real
+    growthRate::Real
+    growthShareOI::Real
+    youngFirmEmploymentShare::Real
+    spinoutEmploymentShare::Real
+    rdShare::Real
 
 end
+
 
 function computeSimpleModelMoments(modelPar::SimpleModelParameters)
 
@@ -80,9 +81,9 @@ function computeSimpleModelMoments(modelPar::SimpleModelParameters)
 
     # share of overall employment
 
-    youngFirmEmploymentShare = Ξ * (1 - sol.zE) + sol.zE
+    youngFirmEmploymentShare = (2/3) * ( Ξ * (1 - sol.zE) + sol.zE )
 
-    spinoutEmploymentShare = sol.τS / (sol.τS + sol.τE)
+    spinoutEmploymentShare = (sol.τS / (sol.τS + (2/3) * sol.τE)) * (1 - (2/3) * sol.zE)
 
     #------------#
     # growthShareOI
@@ -94,7 +95,7 @@ function computeSimpleModelMoments(modelPar::SimpleModelParameters)
     # rdShare
     #------------#
 
-    rdShare = (sol.wRD_NCA * (sol.zI + sol.zE) + (1 - modelPar.κE) * modelPar.λ * sol.V * sol.τS) / sol.Y
+    rdShare = (sol.wRD_NCA * (sol.zI + sol.zE) - (1 - modelPar.κE) * modelPar.λ * sol.V * sol.τS) / sol.Y
 
     #println(sol.r)
     #println(sol.g)
@@ -246,5 +247,256 @@ function calibrateModel(modelPar::SimpleModelParameters,calibPar::SimpleCalibrat
     finalScore = computeScore(modelPar,targets,weights)
 
     return calibrationResults,finalMoments,sol,finalScore
+
+end
+
+function constructJacobian(modelPar::SimpleModelParameters)
+
+    # Set κC so that NCAs are not used -- always true in calibration,
+    # because data has spinouts, and this is necessary for model
+    # to generate any spinouts at all.
+
+    modelPar.κC = 2*(1 - (1-modelPar.κE)*modelPar.λ)
+
+    # Next, compute the log-log Jacobian, i.e. in elasticity terms
+    # To do this, define six function, each taking as arguments the
+    # logs of the parameters, and returns the log of the relevant
+    # moment. Don't know how to do this simultaneously, but not
+    # a huge deal because just six functions....
+
+    function f(x::Vector{})
+
+        # Make copy of modelParameters
+        modelParTemp = deepcopy(modelPar)
+
+        # Now assign x values to relevant parameters
+
+        modelParTemp.ρ = exp(x[1])
+        modelParTemp.λ = exp(x[2])
+        modelParTemp.χI = exp(x[3])
+        modelParTemp.χE = exp(x[4])
+        modelParTemp.κE = exp(x[5])
+        modelParTemp.ν = exp(x[6])
+
+        # Now compute model moments
+        moments = computeSimpleModelMoments(modelParTemp)
+
+        # Return log of model moments
+
+        # Has to be in vector form or automatic differentiation doesn't work
+
+        outputVec = Vector{}(undef,6)
+
+        outputVec[1] = log(moments.interestRate)
+        outputVec[2] = log(moments.growthRate)
+        outputVec[3] = log(moments.growthShareOI)
+        outputVec[4] = log(moments.youngFirmEmploymentShare)
+        outputVec[5] = log(moments.spinoutEmploymentShare)
+        outputVec[6] = log(moments.rdShare)
+
+        return outputVec
+
+    end
+
+    x = Vector{}(undef,6)
+
+    x[1] = log(modelPar.ρ)
+    x[2] = log(modelPar.λ)
+    x[3] = log(modelPar.χI)
+    x[4] = log(modelPar.χE)
+    x[5] = log(modelPar.κE)
+    x[6] = log(modelPar.ν)
+
+    g = x -> ForwardDiff.jacobian(f,x)
+
+    return g
+
+end
+
+function constructWelfareComparisonFullGradient(modelPar::SimpleModelParameters)
+
+    # Set κC so that NCAs are not used -- always true in calibration,
+    # because data has spinouts, and this is necessary for model
+    # to generate any spinouts at all.
+
+    # Next, compute the log-log Jacobian, i.e. in elasticity terms
+    # To do this, define six function, each taking as arguments the
+    # logs of the parameters, and returns the log of the relevant
+    # moment. Don't know how to do this simultaneously, but not
+    # a huge deal because just six functions....
+
+    function f(x::Vector{})
+
+        # Make copy of modelParameters
+        modelParTemp = deepcopy(modelPar)
+
+        # Now assign x values to relevant parameters
+
+        modelParTemp.ρ = exp(x[1])
+        modelParTemp.θ = exp(x[2])
+        modelParTemp.β = exp(x[3])
+        modelParTemp.ψ = exp(x[4])
+        modelParTemp.λ = exp(x[5])
+        modelParTemp.χI = exp(x[6])
+        modelParTemp.χE = exp(x[7])
+        modelParTemp.κE = exp(x[8])
+        modelParTemp.ν = exp(x[9])
+
+        κC0 = 2*(1 - (1-modelParTemp.κE)*modelParTemp.λ)
+
+        out = computeWelfareComparison(modelParTemp,κC0,0)
+        # Return log of welfare improvement
+        return log(out)
+
+    end
+
+    x = Vector{}(undef,9)
+
+    x[1] = log(modelPar.ρ)
+    x[2] = log(modelPar.θ)
+    x[3] = log(modelPar.β)
+    x[4] = log(modelPar.ψ)
+    x[5] = log(modelPar.λ)
+    x[6] = log(modelPar.χI)
+    x[7] = log(modelPar.χE)
+    x[8] = log(modelPar.κE)
+    x[9] = log(modelPar.ν)
+
+    g = x -> ForwardDiff.gradient(f,x)
+
+    return g
+
+end
+
+function constructLevelsWelfareComparisonFullGradient(modelPar::SimpleModelParameters)
+
+    # Set κC so that NCAs are not used -- always true in calibration,
+    # because data has spinouts, and this is necessary for model
+    # to generate any spinouts at all.
+
+    # Next, compute the log-log Jacobian, i.e. in elasticity terms
+    # To do this, define six function, each taking as arguments the
+    # logs of the parameters, and returns the log of the relevant
+    # moment. Don't know how to do this simultaneously, but not
+    # a huge deal because just six functions....
+
+    function f(x::Vector{})
+
+        # Make copy of modelParameters
+        modelParTemp = deepcopy(modelPar)
+
+        # Now assign x values to relevant parameters
+
+        modelParTemp.ρ = exp(x[1])
+        modelParTemp.θ = exp(x[2])
+        modelParTemp.β = exp(x[3])
+        modelParTemp.ψ = exp(x[4])
+        modelParTemp.λ = exp(x[5])
+        modelParTemp.χI = exp(x[6])
+        modelParTemp.χE = exp(x[7])
+        modelParTemp.κE = exp(x[8])
+        modelParTemp.ν = exp(x[9])
+
+        κC0 = 2*(1 - (1-modelParTemp.κE)*modelParTemp.λ)
+
+        out = computeWelfareComparison(modelParTemp,κC0,0)
+        # Return log of welfare improvement
+        return out
+
+    end
+
+    x = Vector{}(undef,9)
+
+    x[1] = log(modelPar.ρ)
+    x[2] = log(modelPar.θ)
+    x[3] = log(modelPar.β)
+    x[4] = log(modelPar.ψ)
+    x[5] = log(modelPar.λ)
+    x[6] = log(modelPar.χI)
+    x[7] = log(modelPar.χE)
+    x[8] = log(modelPar.κE)
+    x[9] = log(modelPar.ν)
+
+    g = x -> ForwardDiff.gradient(f,x)
+
+    return g
+
+end
+
+
+
+
+function constructFullJacobian(modelPar::SimpleModelParameters)
+
+    # Set κC so that NCAs are not used -- always true in calibration,
+    # because data has spinouts, and this is necessary for model
+    # to generate any spinouts at all.
+
+    modelPar.κC = 2*(1 - (1-modelPar.κE)*modelPar.λ)
+
+    # Next, compute the log-log Jacobian, i.e. in elasticity terms
+    # To do this, define six function, each taking as arguments the
+    # logs of the parameters, and returns the log of the relevant
+    # moment. Don't know how to do this simultaneously, but not
+    # a huge deal because just six functions....
+
+    function f(x::Vector{})
+
+        # Make copy of modelParameters
+        modelParTemp = deepcopy(modelPar)
+
+        # Now assign x values to relevant parameters
+
+        modelParTemp.ρ = exp(x[1])
+        modelParTemp.θ = exp(x[2])
+        modelParTemp.β = exp(x[3])
+        modelParTemp.ψ = exp(x[4])
+        modelParTemp.λ = exp(x[5])
+        modelParTemp.χI = exp(x[6])
+        modelParTemp.χE = exp(x[7])
+        modelParTemp.κE = exp(x[8])
+        modelParTemp.ν = exp(x[9])
+
+        # Now compute model moments
+        moments = computeSimpleModelMoments(modelParTemp)
+
+        # Return log of model moments
+
+        # Has to be in vector form or automatic differentiation doesn't work
+
+        outputVec = Vector{}(undef,9)
+
+        outputVec[1] = log(moments.interestRate)
+        outputVec[2] = log(moments.growthRate)
+        outputVec[3] = log(moments.growthShareOI)
+        outputVec[4] = log(moments.youngFirmEmploymentShare)
+        outputVec[5] = log(moments.spinoutEmploymentShare)
+        outputVec[6] = log(moments.rdShare)
+
+        # Non-calibrated parameters
+
+        outputVec[7] = x[2] # θ
+        outputVec[8] = x[3] # β
+        outputVec[9] = x[4] # ψ
+
+        return outputVec
+
+    end
+
+    x = Vector{}(undef,9)
+
+    x[1] = log(modelPar.ρ)
+    x[2] = log(modelPar.θ)
+    x[3] = log(modelPar.β)
+    x[4] = log(modelPar.ψ)
+    x[5] = log(modelPar.λ)
+    x[6] = log(modelPar.χI)
+    x[7] = log(modelPar.χE)
+    x[8] = log(modelPar.κE)
+    x[9] = log(modelPar.ν)
+
+    g = x -> ForwardDiff.jacobian(f,x)
+
+    return g
 
 end
