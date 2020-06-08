@@ -63,5 +63,5 @@
 \contentsline {subsubsection}{\numberline {4.5.3}Effect on welfare}{37}{subsubsection.4.5.3}
 \contentsline {subsection}{\numberline {4.6}Scenario 5: All policy instruments}{37}{subsection.4.6}
 \contentsline {subsubsection}{\numberline {4.6.1}Optimal policy}{37}{subsubsection.4.6.1}
-\contentsline {section}{\numberline {A}Miscellanea}{38}{appendix.A}
-\contentsline {paragraph}{Old stuff - need to reinterpret in light of the sensitivity plots}{38}{section*.32}
+\contentsline {section}{\numberline {A}Miscellanea}{39}{appendix.A}
+\contentsline {paragraph}{Old stuff - need to reinterpret in light of the sensitivity plots}{39}{section*.33}

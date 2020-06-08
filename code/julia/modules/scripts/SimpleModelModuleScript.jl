@@ -4,7 +4,7 @@
 using Plots
 gr()
 
-export SimpleModelParameters, SimpleModelSolution, solveSimpleModel, computeWelfareComparison, initializeSimpleModel, makePlots, makePlotsRDSubsidy, makePlotsKappaCRDSubsidy
+export SimpleModelParameters, SimpleModelSolution, solveSimpleModel, computeWelfareComparison, initializeSimpleModel, makePlots, makePlotsRDSubsidy, makePlotsKappaCRDSubsidy, makePlotsEntryTax
 export SimpleCalibrationTarget,SimpleCalibrationParameters,SimpleModelMoments,SimpleModelParameterLimit,SimpleModelParameterLimitList,welfareComparison
 
 mutable struct SimpleModelParameters
@@ -132,7 +132,7 @@ struct SimpleModelSolution
 
 end
 
-function solveSimpleModel(κC::Real, τRD::Real, modelPar::SimpleModelParameters)
+function solveSimpleModel(κC::Real, τRD::Real, Te::Real, modelPar::SimpleModelParameters)
 
     # Unpack parameters
 
@@ -151,16 +151,18 @@ function solveSimpleModel(κC::Real, τRD::Real, modelPar::SimpleModelParameters
     LF = (1-L)/(1+((1-β)/Cβ(β))^(1/β))
 
     # Compute x
-    x = ((1 - (1-τRD)*(1-κE)*λ) > κC)
+    x = ((1 - (1-τRD)*(1-(1+Te)*κE)*λ) > κC)
 
-    denom = χI * (λ - 1) - x * ν * κC - (1-x) * ν * (1 - (1-τRD)*(1-κE)*λ)
+    denom = χI * (λ - 1) - x * ν * κC - (1-x) * ν * (1 - (1-τRD)*(1-(1+Te)*κE)*λ)
 
-    # Compute zE
-    zE = min(L,((χE * (1-κE) * λ)/ denom)^(1/ψ))
-
-    # Compute τE
-    τE = χE * zE^(1-ψ)
-
+    # Compute zE,τE - robustness to zero value
+    if (1+Te)*κE < 1
+        zE = min(L,((χE * (1-(1+Te)*κE) * λ)/ denom)^(1/ψ))
+        τE = χE * zE^(1-ψ)
+    else
+        zE = 0
+        τE = 0
+    end
     # Compute zI
     zI = max(0,L - zE)
 
@@ -215,7 +217,7 @@ end
 
 function solveSimpleModel(modelPar::SimpleModelParameters)
 
-    sol = solveSimpleModel(modelPar.κC,0,modelPar)
+    sol = solveSimpleModel(modelPar.κC,0,0,modelPar)
 
     return sol
 
@@ -223,7 +225,7 @@ end
 
 function solveSimpleModel(κC::Real,modelPar::SimpleModelParameters)
 
-    sol = solveSimpleModel(κC,0,modelPar)
+    sol = solveSimpleModel(κC,0,0,modelPar)
 
     return sol
 
@@ -279,7 +281,7 @@ function makePlots(modelPar::SimpleModelParameters,string::String)
     W3 = zeros(size(κC_grid))
     W4 = zeros(size(κC_grid))
 
-    Wbenchmark = solveSimpleModel(κC_max, 0, modelPar).W
+    Wbenchmark = solveSimpleModel(κC_max, 0, 0, modelPar).W
 
     for i in 1:length(κC_grid)
 
@@ -366,7 +368,7 @@ end
 function makePlotsRDSubsidy(modelPar::SimpleModelParameters,string::String)
 
     κC = 1.2*(1 - (1-modelPar.κE)*modelPar.λ)
-    τRD_grid = -1:0.01:0.75
+    τRD_grid = -1:0.001:0.75
 
     V = zeros(size(τRD_grid))
     zI = zeros(size(τRD_grid))
@@ -387,11 +389,11 @@ function makePlotsRDSubsidy(modelPar::SimpleModelParameters,string::String)
     W3 = zeros(size(τRD_grid))
     W4 = zeros(size(τRD_grid))
 
-    Wbenchmark = solveSimpleModel(κC, 0, modelPar).W
+    Wbenchmark = solveSimpleModel(κC, 0, 0, modelPar).W
 
     for i in 1:length(τRD_grid)
 
-        sol = solveSimpleModel(κC,τRD_grid[i],modelPar)
+        sol = solveSimpleModel(κC,τRD_grid[i],0,modelPar)
 
         V[i] = sol.V
         zI[i] = sol.zI
@@ -459,11 +461,110 @@ function makePlotsRDSubsidy(modelPar::SimpleModelParameters,string::String)
     welfarePlot = plot(τRD_grid,W3, title = "CE welfare chg.", ylabel = "% chg", xlabel = "\\tau_{RD}", label = "\$\\tilde{C}^*\$", legend = false)
     #savefig(welfarePlot,"figures/simpleModel/$(string)_CEwelfare.pdf")
 
-    p = plot(τRD_grid,W4, title = "CE Welfare chg.", ylabel = "% chg", xlabel = "(Cost of NCAs) (\\tau_{RD})", label = "\$\\tilde{C}^*\$")
-    #savefig(p,"figures/simpleModel/$(string)_CEwelfare_nocosts.pdf")
 
     summaryPlot = plot(effortPlot,innovationRatesPlot,growthPlot,valuePlot,interestRatePlot,wagePlot,staticCostPlot,consumptionPlot,welfarePlot, xtickfont = fnt, ytickfont = fnt, guidefont = fnt, size = (800,650))
     savefig(summaryPlot,"figures/simpleModel/$(string)_RDSubsidy_summaryPlot.pdf")
+    Plots.scalefontsizes(0.6^(-1))
+end
+
+function makePlotsEntryTax(modelPar::SimpleModelParameters,string::String)
+
+    κC = 1.2*(1 - (1-modelPar.κE)*modelPar.λ)
+    Te_grid = -0.5:0.001:0.5
+
+    V = zeros(size(Te_grid))
+    zI = zeros(size(Te_grid))
+    τI = zeros(size(Te_grid))
+    zE = zeros(size(Te_grid))
+    τE = zeros(size(Te_grid))
+    τS = zeros(size(Te_grid))
+    x = zeros(size(Te_grid))
+    wRD_NCA = zeros(size(Te_grid))
+    r = zeros(size(Te_grid))
+    g = zeros(size(Te_grid))
+    Y = zeros(size(Te_grid))
+    entryCost = zeros(size(Te_grid))
+    NCACost = zeros(size(Te_grid))
+    C = zeros(size(Te_grid))
+    W = zeros(size(Te_grid))
+    W2 = zeros(size(Te_grid))
+    W3 = zeros(size(Te_grid))
+    W4 = zeros(size(Te_grid))
+
+    Wbenchmark = solveSimpleModel(κC, 0, 0, modelPar).W
+
+    for i in 1:length(Te_grid)
+
+        sol = solveSimpleModel(κC,0,Te_grid[i],modelPar)
+
+        V[i] = sol.V
+        zI[i] = sol.zI
+        τI[i] = sol.τI
+        zE[i] = sol.zE
+        τE[i] = sol.τE
+        τS[i] = sol.τS
+        x[i] = sol.x
+        wRD_NCA[i] = sol.wRD_NCA
+        r[i] = sol.r
+        g[i] = sol.g
+        Y[i] = sol.Y
+        entryCost[i] = sol.entryCost
+        NCACost[i] = sol.NCACost
+        C[i] = sol.C
+        W[i] = sol.W
+        W2[i] = sol.W2
+
+        W3[i] = -((abs(W[i]) / abs(Wbenchmark)) - 1) * 100 * abs(1-modelPar.θ)
+        W4[i] = -((abs(W2[i]) / abs(Wbenchmark)) - 1) * 100 * abs(1-modelPar.θ)
+
+    end
+
+    Plots.scalefontsizes(0.6)
+    fnt = Plots.font("sans-serif", 9)
+
+    valuePlot = plot(Te_grid,V,title = "Incumbent value", xlabel = "\$T_e\$", label = "V", legend = false)
+    #savefig(valuePlot,"figures/simpleModel/$(string)_V.pdf")
+
+    p = plot(Te_grid,zI, title = "Incumbent R&D Effort", xlabel = "\$T_e\$", label = "\$z_I\$", legend = false)
+    savefig(p,"figures/simpleModel/$(string)_zI.pdf")
+
+    incumbentInnovationPlot = plot(Te_grid,τI, title = "Incumbent innovation rate", ylabel = "Innovations per year", xlabel = "\$T_e\$", label = "\$\\tau_I\$")
+    #savefig(incumbentInnovationPlot,"figures/simpleModel/$(string)_tauI.pdf")
+
+    p = plot(Te_grid,zE, title = "Entrant R&D Effort", xlabel = "\$T_e\$", label = "\$z_E\$")
+    #savefig(p,"figures/simpleModel/$(string)_zE.pdf")
+
+    effortPlot = plot(Te_grid,[zI zE], title = "Innovation effort", legend = :bottomright, xlabel = "\$T_e\$", label = ["Incumbent" "Entrant"])
+
+    entrantInnovationPlot = plot(Te_grid,τE, title = "Entrant innovation rate", ylabel = "Innovations per year", xlabel = "\$T_e\$", label = "\$\\tau_E\$")
+    #savefig(entrantInnovationPlot,"figures/simpleModel/$(string)_tauE.pdf")
+
+    spinoutInnovationPlot = plot(Te_grid,τS, title = "Spinout innovation rate", ylabel = "Innovations per year", xlabel = "\$T_e\$", label = "\$\\tau_S\$")
+    #savefig(p,"figures/simpleModel/$(string)_tauS.pdf")
+
+    innovationRatesPlot = plot(Te_grid,[τI τE τS (τI + τE + τS)], title = "Innovation rate", legend = :bottomright, ylabel = "Innovations per year", xlabel = "\$T_e\$", label = ["Incumbent" "Entrant" "Spinout" "Total"])
+
+    p = plot(Te_grid,x, title = "NCA usage", xlabel = "\$T_e\$", label = "x")
+    #savefig(p,"figures/simpleModel/$(string)_NCA.pdf")
+
+    wagePlot = plot(Te_grid,[wRD_NCA wRD_NCA .- (1 .- x) .* modelPar.ν .* (1-modelPar.κE) .* V], title = "R&D wage", xlabel = "\$T_e\$", label = ["Entrant" "Incumbent"])
+    #savefig(p,"figures/simpleModel/$(string)_wageRD.pdf")
+
+    interestRatePlot = plot(Te_grid,100*r,title = "Interest rate", ylabel = "% per year", xlabel = "\$T_e\$", label = "r", legend = false)
+    #savefig(p,"figures/simpleModel/$(string)_interestrate.pdf")
+
+    growthPlot = plot(Te_grid,g*100, title = "Growth rate", ylabel = "% per year", xlabel = "\$T_e\$", label = "g", legend = false)
+    #savefig(growthPlot,"figures/simpleModel/$(string)_growth.pdf")
+
+    staticCostPlot = plot(Te_grid,[entryCost NCACost], title = "Entry and NCA costs", xlabel = "\$T_e\$", label = ["Entry cost" "NCA cost"])
+
+    consumptionPlot = plot(Te_grid,C,title = "Consumption", xlabel = "\$T_e\$", legend = false)
+
+    welfarePlot = plot(Te_grid,W3, title = "CE welfare chg.", ylabel = "% chg", xlabel = "\$T_e\$", label = "\$\\tilde{C}^*\$", legend = false)
+    #savefig(welfarePlot,"figures/simpleModel/$(string)_CEwelfare.pdf")
+
+    summaryPlot = plot(effortPlot,innovationRatesPlot,growthPlot,valuePlot,interestRatePlot,wagePlot,staticCostPlot,consumptionPlot,welfarePlot, xtickfont = fnt, ytickfont = fnt, guidefont = fnt, size = (800,650))
+    savefig(summaryPlot,"figures/simpleModel/$(string)_EntryTax_summaryPlot.pdf")
     Plots.scalefontsizes(0.6^(-1))
 end
 

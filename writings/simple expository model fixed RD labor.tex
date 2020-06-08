@@ -866,7 +866,7 @@ As numerical exercises show welfare effects are driven by productivity growth, r
 
 \begin{figure}[]
 	\includegraphics[scale = 0.57]{../code/julia/figures/simpleModel/calibration_RDSubsidy_summaryPlot.pdf}
-	\caption{Summary of equilibrium of simple model for baseline parameter values and various values of $\tau_{RD}$. This assumes that $\kappa_c = 1.2 \bar{\kappa}_c$ in the baseline calibration.}
+	\caption{Summary of equilibrium of simple model for baseline parameter values and various values of $\tau_{RD}$. This assumes that $\kappa_c = 1.2 \tilde{\bar{\kappa}}_c(\kappa_e,\lambda;\tau_{RD} = 0)$.}
 	\label{calibration_RDSubsidy_summaryPlot}
 \end{figure}
 
@@ -940,7 +940,7 @@ w_{RD,E} &= \chi_E z_E^{-\psi} (1-(1+T_e)\kappa_e) \lambda \tilde{V} \label{eq:w
 
 Suppose that $x = 1$ and the tax is increased from $T_e$ to $T_e' > T_e$. Then (\ref{eq:effort_entrant_entryTax}) implies that $z_E$ falls, (\ref{eq:labor_resource_constraint_entryTax}) implies that $z_I$ increase to keep $L_{RD} = \bar{L}_{RD}$, and then by (\ref{cs:growth_decreasing_condition}) growth increases. Intuitively, when $x = 1$ the only effect of the entry tax is to reduce the misallocation of R\&D labor to entrants. Because the laissez-faire equilibrium overallocates R\&D to entrants, due to the business-stealing effect, equilibrium growth increases.
 
-However, if $x = 0$, the situation changes, for two reasons. First, as can be seen readily in (\ref{eq:effort_entrant_entryTax}), the effect of $T_e$ on $z_E$ is ambiguous, since the denominator now decreases in $T_e$ as well as the numerator. Intuitively, an increase in $T_e$ reduces the value of future spinouts, requiring incumbents to compensate workers with higher wages. Because the expected harm from future spinouts remains constant, this implies a net disincentive to incumbent R\&D, reallocating labor to the entrant in equilibrium. Again, due to (\ref{cs:growth_decreasing_condition}), this tends to reduce growth.
+However, if $x = 0$, the situation changes, for two reasons. First, as can be seen readily in (\ref{eq:effort_entrant_entryTax}), the effect of $T_e$ on $z_E$ is ambiguous, since the denominator now decreases in $T_e$ as well as the numerator. Intuitively, an increase in $T_e$ reduces the value of future spinouts, requiring incumbents to compensate workers with higher wages. Because the expected harm from future spinouts remains constant, this implies a net disincentive to incumbent R\&D. In equilibrium, labor is reallocated to the entrant. However, the mechanism in the first paragraph is still present and the net effect of the two could be positive or negative depending on parameters. In particular, if $\nu$ is large compared to $\chi_E$, the negative growth effect dominates.
 
 Second, by (\ref{eq:nca_policy_entryTax}) and (\ref{eq:barkappa_entryTax}), a sufficiently large increase in $T_e$ induces a change from $x = 0$ to $x = 1$. Intuitively, a higher $T_e$ means it is relatively more expensive for incumbents to compensate their employees with future spinouts. For a high enough $T_e$, incumbents prefer to use NCAs and pay their employees with wages directly.
 
@@ -956,9 +956,18 @@ Even when the effect on $z_I,\tau_E,\tau_S$ could be computed analytically, the 
 
 \subsubsection{Effect on welfare}
 
+The plots in \autoref{calibration_entryTax_summaryPlot} show the impact of varying $T_e$ on equilibrium variables, growth and welfare, when $\kappa_c = 1.2 \hat{\tilde{\kappa}}_c(\kappa_e,\lambda;T_e = 0)$. As expected based on the discussion of the previous paragraphs, growth and welfare increase in the entry tax $T_e$ due to a reallocation of R\&D to the incumbent. When the tax $T_e$ is high enough (around 16\% below), incumbents begin to use noncompetes.  
 
+\begin{figure}[]
+	\includegraphics[scale = 0.57]{../code/julia/figures/simpleModel/calibration_EntryTax_summaryPlot.pdf}
+	\caption{Summary of equilibrium of simple model for baseline parameter values and various values of $T_e$. This assumes that $\kappa_c = 1.2 \hat{\tilde{\kappa}}_c(\kappa_e,\lambda;T_e = 0)$.}
+	\label{calibration_entryTax_summaryPlot}
+\end{figure}
 
 \subsection{Scenario 4: Targeted taxes and subsidies on R\&D, creative destruction}
+
+Suppose that the plannner can subsidize R\&D spent on improving a product while excluding R\&D aiming at creative destruction. In the model, this corresponds to a targeted subsidy to R\&D spending by incumbents. 
+
 
 \subsubsection{Effect on growth}
 
