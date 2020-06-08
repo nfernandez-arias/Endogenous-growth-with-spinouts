@@ -3,43 +3,17 @@
 \BOOKMARK [2][-]{subsection.2.1}{Individual endowments and preferences}{section.2}% 3
 \BOOKMARK [2][-]{subsection.2.2}{Production of final and intermediate goods}{section.2}% 4
 \BOOKMARK [2][-]{subsection.2.3}{Innovation}{section.2}% 5
-\BOOKMARK [3][-]{subsubsection.2.3.1}{Own-product innovation by incumbents}{subsection.2.3}% 6
-\BOOKMARK [3][-]{subsubsection.2.3.2}{Generation of spinouts}{subsection.2.3}% 7
-\BOOKMARK [3][-]{subsubsection.2.3.3}{Entrants}{subsection.2.3}% 8
-\BOOKMARK [3][-]{subsubsection.2.3.4}{Entry cost}{subsection.2.3}% 9
-\BOOKMARK [2][-]{subsection.2.4}{Decentralized equilibrium}{section.2}% 10
-\BOOKMARK [3][-]{subsubsection.2.4.1}{Static equilibrium}{subsection.2.4}% 11
-\BOOKMARK [3][-]{subsubsection.2.4.2}{Dynamic equilibrium}{subsection.2.4}% 12
-\BOOKMARK [1][-]{section.3}{Calibration}{}% 13
-\BOOKMARK [2][-]{subsection.3.1}{Targets}{section.3}% 14
-\BOOKMARK [3][-]{subsubsection.3.1.1}{Interest rate}{subsection.3.1}% 15
-\BOOKMARK [3][-]{subsubsection.3.1.2}{Growth rate}{subsection.3.1}% 16
-\BOOKMARK [3][-]{subsubsection.3.1.3}{Profits \045 GDP}{subsection.3.1}% 17
-\BOOKMARK [3][-]{subsubsection.3.1.4}{R\046D spending / GDP}{subsection.3.1}% 18
-\BOOKMARK [3][-]{subsubsection.3.1.5}{Growth share of own innovation}{subsection.3.1}% 19
-\BOOKMARK [3][-]{subsubsection.3.1.6}{Entry rate}{subsection.3.1}% 20
-\BOOKMARK [3][-]{subsubsection.3.1.7}{R\046D-induced spinout share of employment}{subsection.3.1}% 21
-\BOOKMARK [2][-]{subsection.3.2}{Computing the corresponding model moments}{section.3}% 22
-\BOOKMARK [3][-]{subsubsection.3.2.1}{R\046D / GDP}{subsection.3.2}% 23
-\BOOKMARK [3][-]{subsubsection.3.2.2}{Entry rate}{subsection.3.2}% 24
-\BOOKMARK [3][-]{subsubsection.3.2.3}{Growth share of own innovation}{subsection.3.2}% 25
-\BOOKMARK [3][-]{subsubsection.3.2.4}{R\046D-induced spinout employment share}{subsection.3.2}% 26
-\BOOKMARK [2][-]{subsection.3.3}{Identification}{section.3}% 27
-\BOOKMARK [2][-]{subsection.3.4}{Model validation}{section.3}% 28
-\BOOKMARK [1][-]{section.4}{Policy analysis}{}% 29
-\BOOKMARK [2][-]{subsection.4.1}{Effect of increasing c in calibrated equilibrium}{section.4}% 30
-\BOOKMARK [3][-]{subsubsection.4.1.1}{Theory}{subsection.4.1}% 31
-\BOOKMARK [3][-]{subsubsection.4.1.2}{Consumption}{subsection.4.1}% 32
-\BOOKMARK [3][-]{subsubsection.4.1.3}{Welfare}{subsection.4.1}% 33
-\BOOKMARK [3][-]{subsubsection.4.1.4}{Effect of the cost of non-competes on welfare}{subsection.4.1}% 34
-\BOOKMARK [2][-]{subsection.4.2}{Scenario 1: Taxes and subsidies for NCAs}{section.4}% 35
-\BOOKMARK [2][-]{subsection.4.3}{Scenario 2: Taxes and subsidies R\046D spending}{section.4}% 36
-\BOOKMARK [3][-]{subsubsection.4.3.1}{Theory}{subsection.4.3}% 37
-\BOOKMARK [3][-]{subsubsection.4.3.2}{Optimal policy}{subsection.4.3}% 38
-\BOOKMARK [2][-]{subsection.4.4}{Scenario 3: Taxes and subsidies on creative destruction}{section.4}% 39
-\BOOKMARK [3][-]{subsubsection.4.4.1}{Theory}{subsection.4.4}% 40
-\BOOKMARK [3][-]{subsubsection.4.4.2}{Optimal policy}{subsection.4.4}% 41
-\BOOKMARK [2][-]{subsection.4.5}{Scenario 4: Targeted taxes and subsidies on R\046D, creative destruction}{section.4}% 42
-\BOOKMARK [3][-]{subsubsection.4.5.1}{Theory}{subsection.4.5}% 43
-\BOOKMARK [3][-]{subsubsection.4.5.2}{Optimal policy}{subsection.4.5}% 44
-\BOOKMARK [1][-]{appendix.A}{Miscellanea}{}% 45
+\BOOKMARK [2][-]{subsection.2.4}{Decentralized equilibrium}{section.2}% 6
+\BOOKMARK [1][-]{section.3}{Calibration}{}% 7
+\BOOKMARK [2][-]{subsection.3.1}{Targets}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.2}{Computing the corresponding model moments}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.3}{Identification}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.4}{Model validation}{section.3}% 11
+\BOOKMARK [1][-]{section.4}{Policy analysis}{}% 12
+\BOOKMARK [2][-]{subsection.4.1}{Effect of increasing c in calibrated equilibrium}{section.4}% 13
+\BOOKMARK [2][-]{subsection.4.2}{Scenario 1: Taxes and subsidies for NCAs}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.3}{Scenario 2: Taxes and subsidies R\046D spending}{section.4}% 15
+\BOOKMARK [2][-]{subsection.4.4}{Scenario 3: Taxes and subsidies on creative destruction}{section.4}% 16
+\BOOKMARK [2][-]{subsection.4.5}{Scenario 4: Targeted taxes and subsidies on R\046D, creative destruction}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.6}{Scenario 5: All policy instruments}{section.4}% 18
+\BOOKMARK [1][-]{appendix.A}{Miscellanea}{}% 19

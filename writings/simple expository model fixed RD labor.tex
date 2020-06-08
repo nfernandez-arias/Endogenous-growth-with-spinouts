@@ -73,6 +73,8 @@
 \date{\today}
 \maketitle
 
+
+\setcounter{tocdepth}{2}
 \tableofcontents
 
 \section{Introduction}
@@ -83,7 +85,7 @@ In this document I describe a simple expository version of my model which nests 
 
 \subsection{Individual endowments and preferences}
 
-The model is in continuous time, starting at $t = 0$. The representative household has CRRA preferences over consumption, given by\footnote{There is no expectation operator because there is no aggregate uncertainty in this setting (more on this in later sections).}
+The model is in continuous time, starting at $t = 0$. The representative household has CRRA preferences over consumption, given by\footnote{There is no expectation operator use there is no aggregate uncertainty in this setting (more on this in later sections).}
 \begin{align}
 U_t &= \int_0^{\infty} e^{-\rho s} \frac{C(t+s)^{1-\theta} - 1}{1-\theta} ds \label{preferences}
 \end{align}
@@ -623,9 +625,9 @@ Instead, I conduct a sequence of second-best analyses assuming the planner can c
 	\item Policies 2-4 above simultaneously
 \end{enumerate}
 
-\paragraph{Abstracting from public finance} 
+\paragraph{Public finance} 
 
-In cases of taxes (subsidies), I assume that they are rebated (financed) in a lump-sum fashion. Because there is no labor-leisure choice, this does not create any additional distortions in the economy. This is an abstraction to keep the model focused; in reality, larger Pigouvian subsidies are more expensive as they must be financed using distortionary income or capital taxation; and larger Pigouvian taxes are actually preferrable, since they reduce the distortionary burden of raising funds for overall government spending.
+In cases of taxes (subsidies), I assume that they are rebated (financed) in a lump-sum fashion. Because there is no labor-leisure choice, this does not create any additional distortions in the economy. 
 
 \subsection{Effect of increasing $\kappa_c$ in calibrated equilibrium} 
 
@@ -701,6 +703,7 @@ If $\psi = 0.5$ and $z_I / z_E$ is high, as described in Section \ref{cs:consump
 
 
 
+
 \paragraph{Robustness of welfare gain from NCA enforcement}
 
 \autoref{welfareComparisonSensitivityFull} and \autoref{levelsWelfareComparisonSensitivityFull} show the sensitivity of the welfare comparison the moments targeted, including the externally calibrated parameters as pseudo-moments as before. It is computed as $\nabla_m \tilde{W}|_m = (J^{-1})^T \nabla_p W|_p$, where $J$ is the Jacobian of the mapping from log parameters to moments (so that $J^{-1}$ is the Jacobian of the inverse mapping), and $W$ is the mapping from parameters the \% change (or log of \% change, in \autoref{welfareComparisonSensitivityFull})) in CEV welfare from reducing $\kappa_c$ from $\infty$ to $0$. That is, it is the gradient of the change in welfare to the change in target moments or uncalibrated parameters, taking as given the change in parameters required to continue matching the target moments. For reference, $\nabla_p W|_p$  for each definition of $W$ can be found in \autoref{welfareComparisonParameterSensitivityFull} and \autoref{levelsWelfareComparisonParameterSensitivityFull}.
@@ -733,6 +736,42 @@ The estimated welfare improvement is 1.42\%. Taking the uncertainty into account
 	\caption{Sensitivity of welfare comparison to moments. This is $\nabla_p W$, wahere $W(p)$ maps log parameters to the percentage change in BGP consumption which is equivalent to the change in welfare from changing $\kappa_c$ from $\infty$ to $0$ (i.e. going from banning to frictionlessly enforcing NCAs).}
 	\label{levelsWelfareComparisonParameterSensitivityFull}
 \end{figure}
+
+\paragraph{When are NCAs bad for welfare?}
+
+The results above suggest that a calibration targeting a lower rate of creative destruction could have the opposite result. \autoref{calibration_lowEntry_summaryPlot} shows the analogue of \autoref{calibration_summaryPlot} if entry rate targeted is 4\% instead of 8.35\%. The model is again able to match the moments exactly; inferred parameter values are shown in \autoref{calibration_lowEntry_parameters}.
+
+As expected, growth and welfare fall when $\kappa_C$ is reduced and NCAs begin to be used. This is because of the much higher inferred value of $\lambda$. As \autoref{welfareComparisonParameterSensitivityFull} shows, increasing $\lambda$ significantly reduces the welfare gain from reducing $\kappa_C$. The present exercise shows that the relationship is not only local, but global, and strong enough to switch the sign of the welfare comparison.
+
+\begin{figure}[]
+	\includegraphics[scale = 0.57]{../code/julia/figures/simpleModel/calibration_lowEntry_summaryPlot.pdf}
+	\caption{Summary of equilibrium of simple model for baseline parameter values and various values of $\kappa_c$.}
+	\label{calibration_lowEntry_summaryPlot}
+\end{figure}
+
+\begin{table}[]
+	\centering
+	\captionof{table}{Low entry rate calibration}\label{calibration_lowEntry_parameters}
+	\begin{tabular}{rlll}
+		\toprule \toprule
+		Parameter & Value & Description & Source \tabularnewline
+		\midrule
+		$\rho$ & 0.0339 & Discount rate  & Indirect inference \tabularnewline
+		$\theta$ & 2 & $\theta^{-1} = $ IES & External calibration 
+		\tabularnewline
+		$\beta$ & 0.094 & $\beta^{-1} = $ EoS intermediate goods & Exactly identified \tabularnewline 
+		$\psi$ & 0.5 & Entrant R\&D elasticity & External calibration \tabularnewline
+		$\lambda$ & 1.65 & Quality ladder step size & Indirect inference 
+		\tabularnewline
+		$\chi_I$ & 0.366 & Incumbent R\&D productivity & Indirect inference 
+		\tabularnewline
+		$\chi_E$ & 0.0474 & Entrant R\&D productivity & Indirect inference \tabularnewline 
+		$\kappa_e$ & 0.703 & Non-R\&D entry cost & Indirect inference \tabularnewline
+		$\nu$ & 0.0126 & Spinout generation rate  & Indirect inference\tabularnewline
+		$\bar{L}_{RD}$ & 0.05 & R\&D labor allocation  & Normalization \tabularnewline
+		\bottomrule
+	\end{tabular}
+\end{table}
 
 \subsection{Scenario 1: Taxes and subsidies for NCAs}
 
@@ -803,9 +842,7 @@ The rest of the equilibrium allocation and prices can be computed by using the f
 	w_{RD,E} &= (1-\tau_{RD})^{-1}\chi_E z_E^{-\psi} (1-\kappa_e) \lambda \tilde{V} \label{eq:wage_rd_labor_RDsubsidy}
 \end{align}
 
-\subsubsection{Theory}
-
-\paragraph{Effect on growth}
+\subsubsection{Effect on growth}
 
 First suppose $x = 0$ and consider a small increase in $\tau_{RD}$ from $\tau_{RD}^0$ to $\tau_{RD}^1 > \tau_{RD}^0$. If $x = 0$ after the increase in $\tau_{RD}$, then by (\ref{eq:effort_entrant_RDsubsidy}), $z_E$ increases; and by (\ref{eq:labor_resource_constraint_RDsubsidy}) $z_I$ decreases. If (\ref{cs:growth_decreasing_condition}) holds, this reduces growth. Intuitively, the increased R\&D subsidy reduces the wage expenses paid for R\&D by the same factor $1-\frac{1-\tau_{RD}^1}{1-\tau_{RD}^0}$ for incumbents and entrants. However, the incumbent's effective cost of R\&D also includes the shadow cost of more creative destruction by spinouts. Therefore, her effective cost of R\&D is reduced by a factor $\tilde{\tau}_{RD} < 1-\frac{1-\tau_{RD}^1}{1-\tau_{RD}^0}$. In equilibrium, R\&D labor is reallocated to entrants and growth falls.
 
@@ -813,51 +850,127 @@ If the increase in $\tau_{RD}$ is large enough, $x$ changes from $x = 0$ to $x =
 
 Finally, if $\tau_{RD}$ is increased even further, there is no change in the equilibrium allocation. The only change is the wage of R\&D labor, which by (\ref{eq:wage_rd_labor_RDsubsidy}) increases to equilibriate the R\&D labor market.
 
-\paragraph{Effect on consumption}
+\subsubsection{Effect on consumption}
 
 Steady state consumption is given by
-\begin{align*}
+\begin{align}
 \tilde{C} &= \tilde{Y} - \Big( (\tau_E  + \tau_S)\kappa_e \lambda + x z_I \nu \kappa_c \Big) \tilde{V} \\
 &= \tilde{Y} - \Big( \big( \chi_E (\bar{L}_{RD} - z_I)^{1-\psi} + (1-x) \nu z_I \big) \kappa_e \lambda + x z_I \nu \kappa_c \Big) \tilde{V}  \label{cs:scen2:consumption_eq}
-\end{align*}
+\end{align}
 
 As argued above $\tau_E$ is increasing in $\tau_{RD}$; $\tau_S$ is constant or decreasing in $\tau_{RD}$; and $z_I$ is decreasing in $\tau_{RD}$. The overall effect on steady state consumption depends on parameters. 
 
-\paragraph{Effect on welfare}
+\subsubsection{Effect on welfare}
 
-As numerical exercises show welfare effects are driven by productivity growth, rather than consumption at a given level of productivity, typically the effect of increasing $\tau_{RD}$ will be to reduce welfare, provided of course that (\ref{cs:growth_decreasing_condition}) holds.
+As numerical exercises show welfare effects are driven by productivity growth, rather than consumption at a given level of productivity, typically the effect of increasing $\tau_{RD}$ will be to reduce welfare, provided of course that (\ref{cs:growth_decreasing_condition}) holds. \autoref{calibration_RDSubsidy_summaryPlot} shows how the equilibrium varies with the $\tau_{RD}$. For this exercise, I set $\kappa_c = 1.2 \tilde{\bar{\kappa}}_c(\kappa_e,\lambda;\tau_{RD} = 0)$. 
 
+\begin{figure}[]
+	\includegraphics[scale = 0.57]{../code/julia/figures/simpleModel/calibration_RDSubsidy_summaryPlot.pdf}
+	\caption{Summary of equilibrium of simple model for baseline parameter values and various values of $\tau_{RD}$. This assumes that $\kappa_c = 1.2 \bar{\kappa}_c$ in the baseline calibration.}
+	\label{calibration_RDSubsidy_summaryPlot}
+\end{figure}
 
+Notice that growth (first row, third column) and welfare (third row, third column) both fall with $\tau_{RD}$, and jump down when the increase in $\tau_{RD}$ increases the use of NCAs. This implies that if for some $\tau_{RD}$ we have $x = 1$, while for $\tau_{RD} = 0$ we have $x = 0$, setting $\kappa_C = \infty$ could increase welfare. 
 
-\subsubsection{Optimal policy}
-
-Here, show some plots of the optimal policy numerical exercises. (low priority to get this done for now)
 
 \subsection{Scenario 3: Taxes and subsidies on creative destruction}
 
+Suppose that the planner taxes or subsidizes entry. Specifically, the planner taxes the entry fixed cost $\kappa_e \lambda \tilde{V} q$ at rate $T_e$ so that a firm entering with quality $\lambda q$ perceives a total cost of $(1+T_e) \kappa_e \lambda \tilde{V}q$ units of the final good. Economically, this can be interpreted as a tax on non-R\&D expenses related to the development of new versions of products currently not sold by the firm in question.\footnote{Because the tax is proportional to these expenses, rather than a fixed tax on entry, it does not induce any reallocation of R\&D towards higher quality goods. This property is not only analytically convenient -- it is necessary for a BGP to exist. In the baseline model, the expected growth rate of normalized frontier quality $\tilde{\bar{q}}_j = \frac{\bar{q}_j}{Q}$ is constant for all $j \in [0,1]$ and there is no exit of low quality firms (and subsequent injection of "average quality" firms). Running this stochastic process forward in time, the distribution of $\tilde{\bar{q}}_j$ spreads out, i.e. its variance and higher order measures of dispersion increase, which implies that there is no stationary distribution of $\tilde{\bar{q}}_j$. A BGP continues to exist, however, because only the mean of $\tilde{\bar{q}}_j$, $\mathbb{E}[\tilde{\bar{q}}_j] = 1$, is relevant for aggregate variables. This is why, e.g. the growth accounting equation (\ref{eq:growth_accounting}) can be written so simply. If, instead, growth is faster for higher $\tilde{\bar{q}}_j$, as is the case with a fixed entry fee, there is again no stationary distribution of $\tilde{\bar{q}}_j$, as before. However, in addition, there is no BGP, because aggregate variables such as the growth rate and the R\&D wage now depend on the entire distribution of $\tilde{\bar{q}}_j$, which is not stationary.}
+
+In this setup, the R\&D labor supply indifference condition becomes
+\begin{align}
+	w_{RD,E} &= w_{RD,j} + (1-x_j) \nu (1-(1+T_e)\kappa_e) \lambda \tilde{V} \label{eq:RD_worker_indifference_entryTax}
+\end{align}
+
+The incumbent HJB is
+\begin{align}
+(r + \tau_E) \tilde{V} = \tilde{\pi} + \max_{\substack{x \in \{0,1\} \\ z \ge 0}} \Big\{z &\Big( \overbrace{\chi_I (\lambda - 1) \tilde{V}}^{\mathclap{\mathbb{E}[\textrm{Benefit from R\&D}]}}-  \big( \overbrace{w_{RD,E} - (1-x)(1-(1+T_e)\kappa_e)\lambda \nu \tilde{V}}^{\mathclap{\text{R\&D wage}}}\big) \label{eq:hjb_incumbent_entryTax} \nonumber \\ 
+&-  \underbrace{(1-x) \nu \tilde{V}}_{\mathclap{\text{Net cost from spinout formation}}} - \overbrace{x \kappa_{c} \nu \tilde{V}}^{\mathclap{\text{Direct cost of NCA}}}\Big) \Big\} 
+\end{align}
+
+which can be rearranged to
+\begin{align}
+(r + \tau_E) \tilde{V} = \tilde{\pi} + \max_{\substack{x \in \{0,1\} \\ z \ge 0}} \Big\{z &\Big( \overbrace{\chi_I (\lambda - 1) \tilde{V}}^{\mathclap{\mathbb{E}[\textrm{Benefit from R\&D}]}}- w_{RD,E} \\
+&-  \underbrace{(1-x)(1 - (1-(1+T_e)\kappa_{e})\lambda)\nu \tilde{V}}_{\mathclap{\text{Net cost from spinout formation}}} - \overbrace{x \kappa_{c} \nu \tilde{V}}^{\mathclap{\text{Direct cost of NCA}}}\Big) \Big\} \label{eq:hjb_incumbent_entryTax_2}
+\end{align}
+
+Define
+\begin{align}
+\hat{\bar{\kappa}}_c(\kappa_e,\lambda;T_e) = 1 - (1-(1+T_e)\kappa_e)\lambda  \label{eq:barkappa_entryTax}
+\end{align} 
+
+If $z_I > 0$, the incumbent's optimal NCA policy is given by 
+\begin{align}
+x = \begin{cases}
+1 & \textrm{if } \kappa_{c} < \hat{\bar{\kappa}}_c (\kappa_e, \lambda;\tau_{RD}) \\
+0 & \textrm{if } \kappa_{c} > \hat{\bar{\kappa}}_c (\kappa_e, \lambda;\tau_{RD})\\
+\{0,1\} & \textrm{if } \kappa_c = \hat{\bar{\kappa}}_c (\kappa_e, \lambda;\tau_{RD})
+\end{cases} \label{eq:nca_policy_entryTax}
+\end{align}
 
 
-\subsubsection{Theory}
+By the usual argument, $z_I > 0$ implies that the incumbent's FOC can be rearranged to
+\begin{align}
+\tilde{V} &= \frac{(1-\tau_{RD})w_{RD,E}}{\chi_I(\lambda -1) - \nu (x\kappa_c + (1-x)(1 - (1-(1+T_e)\kappa_e)\lambda)) } \label{eq:hjb_incumbent_foc_entryTax}
+\end{align}
 
-\paragraph{Effect on growth}
+The free entry condition is
+\begin{align}
+\underbrace{\chi_E z_E^{-\psi}}_{\mathclap{\text{Marginal innovation rate}}} \overbrace{(1-(1+T_e)\kappa_e) \lambda \tilde{V}}^{\mathclap{\text{Payoff from innovation}}} &= \underbrace{w_{RD,E}}_{\mathclap{\text{MC of R\&D}}} \label{eq:free_entry_condition_entryTax}
+\end{align}
 
-\paragraph{Effect on consumption}
+Substituting (\ref{eq:hjb_incumbent_foc_entryTax}) into (\ref{eq:free_entry_condition_entryTax}) to eliminate $\tilde{V}$ yields an expression for $z_E$, 
+\begin{align}
+z_E &= \Bigg( \frac{\chi_E (1-(1+T_e)\kappa_{e}) \lambda}{\chi_I(\lambda -1) - \nu (x\kappa_c + (1-x)(1 - (1-(1+T_e)\kappa_e)\lambda)) } \Bigg)^{1/\psi} \label{eq:effort_entrant_entryTax}
+\end{align}
 
-\paragraph{Effect on welfare}
+From here, the rest of the model can be solved using
+\begin{align}
+\tau_E &= \chi_E z_E^{1-\psi} \\
+z_I &= \bar{L}_{RD} - z_E \label{eq:labor_resource_constraint_entryTax}\\ 
+\tau_I &= \chi_I z_I \\
+\tau_S &= (1-x) \nu z_I \\
+g &= (\lambda - 1) (\tau_I + \tau_S + \tau_E) \\
+r &= \theta g + \rho \\
+\tilde{V} &= \frac{\tilde{\pi}}{r + \tau_E} \\ 
+w_{RD,E} &= \chi_E z_E^{-\psi} (1-(1+T_e)\kappa_e) \lambda \tilde{V} \label{eq:wage_rd_labor_entryTax}
+\end{align}
 
-\subsubsection{Optimal policy}
+\subsubsection{Effect on growth}
+
+Suppose that $x = 1$ and the tax is increased from $T_e$ to $T_e' > T_e$. Then (\ref{eq:effort_entrant_entryTax}) implies that $z_E$ falls, (\ref{eq:labor_resource_constraint_entryTax}) implies that $z_I$ increase to keep $L_{RD} = \bar{L}_{RD}$, and then by (\ref{cs:growth_decreasing_condition}) growth increases. Intuitively, when $x = 1$ the only effect of the entry tax is to reduce the misallocation of R\&D labor to entrants. Because the laissez-faire equilibrium overallocates R\&D to entrants, due to the business-stealing effect, equilibrium growth increases.
+
+However, if $x = 0$, the situation changes, for two reasons. First, as can be seen readily in (\ref{eq:effort_entrant_entryTax}), the effect of $T_e$ on $z_E$ is ambiguous, since the denominator now decreases in $T_e$ as well as the numerator. Intuitively, an increase in $T_e$ reduces the value of future spinouts, requiring incumbents to compensate workers with higher wages. Because the expected harm from future spinouts remains constant, this implies a net disincentive to incumbent R\&D, reallocating labor to the entrant in equilibrium. Again, due to (\ref{cs:growth_decreasing_condition}), this tends to reduce growth.
+
+Second, by (\ref{eq:nca_policy_entryTax}) and (\ref{eq:barkappa_entryTax}), a sufficiently large increase in $T_e$ induces a change from $x = 0$ to $x = 1$. Intuitively, a higher $T_e$ means it is relatively more expensive for incumbents to compensate their employees with future spinouts. For a high enough $T_e$, incumbents prefer to use NCAs and pay their employees with wages directly.
+
+\subsubsection{Effect on consumption}
+
+As before, steady state consumption is given by
+\begin{align}
+\tilde{C} &= \tilde{Y} - \Big( (\tau_E  + \tau_S)\kappa_e \lambda + x z_I \nu \kappa_c \Big) \tilde{V} \\
+&= \tilde{Y} - \Big( \big( \chi_E (\bar{L}_{RD} - z_I)^{1-\psi} + (1-x) \nu z_I \big) \kappa_e \lambda + x z_I \nu \kappa_c \Big) \tilde{V}  \label{cs:scen3:consumption_eq}
+\end{align}
+
+Even when the effect on $z_I,\tau_E,\tau_S$ could be computed analytically, the effect on consumption is ambiguous and depends on parameters. In this case, the effect of $T_e$ on $z_I,\tau_E,\tau_S$ in addition depends on parameters, so the situation is even less transparent. 
+
+\subsubsection{Effect on welfare}
+
+
 
 \subsection{Scenario 4: Targeted taxes and subsidies on R\&D, creative destruction}
 
-\subsubsection{Theory}
+\subsubsection{Effect on growth}
 
-\paragraph{Effect on growth}
+\subsubsection{Effect on consumption}
 
-\paragraph{Effect on consumption}
+\subsubsection{Effect on welfare}
 
-\paragraph{Effect on welfare}
+\subsection{Scenario 5: All policy instruments}
 
 \subsubsection{Optimal policy}
+
+
 
 
 
