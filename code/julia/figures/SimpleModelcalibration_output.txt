@@ -16,7 +16,7 @@
     |g(x)|                 = 2.78e-08 ≰ 1.0e-08
 
  * Work counters
-    Seconds run:   0  (vs limit Inf)
+    Seconds run:   2  (vs limit Inf)
     Iterations:    4
     f(x) calls:    729
     ∇f(x) calls:   729

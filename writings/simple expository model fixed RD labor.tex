@@ -619,9 +619,9 @@ Instead, I conduct a sequence of second-best analyses assuming the planner can c
 
 \begin{enumerate}
 	\item Cost of NCAs: $\kappa_c$ 
-	\item R\&D subsidy (tax): $\tau_{RD}$
+	\item R\&D subsidy (tax): $T_{RD}$
 	\item Creative destruction tax (subsidy): $\tau_e$
-	\item Targeted R\&D subsidy (tax): $\tau_{RD,I}, \tau_{RD,E}$
+	\item Targeted R\&D subsidy (tax): $T_{RD,I}, \tau_{RD,E}$
 	\item Policies 2-4 above simultaneously
 \end{enumerate}
 
@@ -789,45 +789,45 @@ Second, if $\kappa_c = x = 0$ in the baseline social optimum, then subsidizing t
 
 \subsection{Scenario 2: Taxes and subsidies R\&D spending}
 
-Suppose that the planner subsidizes R\&D spending at rate $\tau_{RD} \in (0,1)$. The incumbent's HJB becomes
+Suppose that the planner subsidizes R\&D spending at rate $T_{RD}$ (tax if $T_{RD} < 0$). The incumbent's HJB becomes
 \begin{align}
-	(r + \tau_E) \tilde{V} = \tilde{\pi} + \max_{\substack{x \in \{0,1\} \\ z \ge 0}} \Big\{z &\Big( \overbrace{\chi_I (\lambda - 1) \tilde{V}}^{\mathclap{\mathbb{E}[\textrm{Benefit from R\&D}]}}- (\underbrace{1-\tau_{RD}}_{\mathclap{\text{R\&D Subsidy}}}) \big( \overbrace{w_{RD,E} - (1-x)(1-\kappa_e)\lambda \nu \tilde{V}}^{\mathclap{\text{R\&D wage}}}\big) \label{eq:hjb_incumbent_RDsubsidy} \nonumber \\ 
+	(r + \tau_E) \tilde{V} = \tilde{\pi} + \max_{\substack{x \in \{0,1\} \\ z \ge 0}} \Big\{z &\Big( \overbrace{\chi_I (\lambda - 1) \tilde{V}}^{\mathclap{\mathbb{E}[\textrm{Benefit from R\&D}]}}- (\underbrace{1-T_{RD}}_{\mathclap{\text{R\&D Subsidy}}}) \big( \overbrace{w_{RD,E} - (1-x)(1-\kappa_e)\lambda \nu \tilde{V}}^{\mathclap{\text{R\&D wage}}}\big) \label{eq:hjb_incumbent_RDsubsidy} \nonumber \\ 
 	&-  \underbrace{(1-x) \nu \tilde{V}}_{\mathclap{\text{Net cost from spinout formation}}} - \overbrace{x \kappa_{c} \nu \tilde{V}}^{\mathclap{\text{Direct cost of NCA}}}\Big) \Big\} 
 \end{align}
 
 This can be rearranged to a form analogous to (\ref{eq:hjb_incumbent_workerIndiff}),
 \begin{align}
-	(r + \tau_E) \tilde{V} = \tilde{\pi} + \max_{\substack{x \in \{0,1\} \\ z \ge 0}} \Big\{z &\Big( \overbrace{\chi_I (\lambda - 1) \tilde{V}}^{\mathclap{\mathbb{E}[\textrm{Benefit from R\&D}]}}- (1-\tau_{RD}) w_{RD,E} \\
-	&-  \underbrace{(1-x)(1 - (1-\tau_{RD})(1-\kappa_{e})\lambda)\nu \tilde{V}}_{\mathclap{\text{Net cost from spinout formation}}} - \overbrace{x \kappa_{c} \nu \tilde{V}}^{\mathclap{\text{Direct cost of NCA}}}\Big) \Big\} \label{eq:hjb_incumbent_RDsubsidy_2}
+	(r + \tau_E) \tilde{V} = \tilde{\pi} + \max_{\substack{x \in \{0,1\} \\ z \ge 0}} \Big\{z &\Big( \overbrace{\chi_I (\lambda - 1) \tilde{V}}^{\mathclap{\mathbb{E}[\textrm{Benefit from R\&D}]}}- (1-T_{RD}) w_{RD,E} \\
+	&-  \underbrace{(1-x)(1 - (1-T_{RD})(1-\kappa_{e})\lambda)\nu \tilde{V}}_{\mathclap{\text{Net cost from spinout formation}}} - \overbrace{x \kappa_{c} \nu \tilde{V}}^{\mathclap{\text{Direct cost of NCA}}}\Big) \Big\} \label{eq:hjb_incumbent_RDsubsidy_2}
 \end{align}
 
 Define
 \begin{align}
-	\tilde{\bar{\kappa}}_c(\kappa_e,\lambda;\tau_{RD}) = 1 - (1-\tau_{RD})(1-\kappa_e)\lambda
+	\tilde{\bar{\kappa}}_c(\kappa_e,\lambda;T_{RD}) = 1 - (1-T_{RD})(1-\kappa_e)\lambda
 \end{align} 
 
 If $z_I > 0$, the incumbent's optimal NCA policy is given by 
 \begin{align}
 x = \begin{cases}
-1 & \textrm{if } \kappa_{c} < \tilde{\bar{\kappa}}_c (\kappa_e, \lambda;\tau_{RD}) \\
-0 & \textrm{if } \kappa_{c} > \tilde{\bar{\kappa}}_c (\kappa_e, \lambda;\tau_{RD})\\
-\{0,1\} & \textrm{if } \kappa_c = \tilde{\bar{\kappa}}_c (\kappa_e, \lambda;\tau_{RD})
+1 & \textrm{if } \kappa_{c} < \tilde{\bar{\kappa}}_c (\kappa_e, \lambda;T_{RD}) \\
+0 & \textrm{if } \kappa_{c} > \tilde{\bar{\kappa}}_c (\kappa_e, \lambda;T_{RD})\\
+\{0,1\} & \textrm{if } \kappa_c = \tilde{\bar{\kappa}}_c (\kappa_e, \lambda;T_{RD})
 \end{cases} \label{eq:nca_policy_RDsubsidy}
 \end{align}
 
 Since the argument is the same as in Section \ref{subsubsec:dynamic_equilibrium_original_solution}, I will not be as detailed in my proof. Assuming $z_I > 0$, by the same logic as before the incumbent's FOC can be rearranged to
 \begin{align}
-	\tilde{V} &= \frac{(1-\tau_{RD})w_{RD,E}}{\chi_I(\lambda -1) - \nu (x\kappa_c + (1-x)(1 - (1-\tau_{RD})(1-\kappa_e)\lambda)) } \label{eq:hjb_incumbent_foc_RDsubsidy}
+	\tilde{V} &= \frac{(1-T_{RD})w_{RD,E}}{\chi_I(\lambda -1) - \nu (x\kappa_c + (1-x)(1 - (1-T_{RD})(1-\kappa_e)\lambda)) } \label{eq:hjb_incumbent_foc_RDsubsidy}
 \end{align}
 
 The free entry condition is
 \begin{align}
-\underbrace{\chi_E z_E^{-\psi}}_{\mathclap{\text{Marginal innovation rate}}} \overbrace{(1-\kappa_e) \lambda \tilde{V}}^{\mathclap{\text{Payoff from innovation}}} &= \overbrace{(\underbrace{1-\tau_{RD}}_{\mathclap{\text{R\&D subsidy}}})w_{RD,E}}^{\mathclap{\text{MC of R\&D}}} \label{eq:free_entry_condition_RDsubsidy}
+\underbrace{\chi_E z_E^{-\psi}}_{\mathclap{\text{Marginal innovation rate}}} \overbrace{(1-\kappa_e) \lambda \tilde{V}}^{\mathclap{\text{Payoff from innovation}}} &= \overbrace{(\underbrace{1-T_{RD}}_{\mathclap{\text{R\&D subsidy}}})w_{RD,E}}^{\mathclap{\text{MC of R\&D}}} \label{eq:free_entry_condition_RDsubsidy}
 \end{align}
 
 Substituting (\ref{eq:hjb_incumbent_foc_RDsubsidy}) into (\ref{eq:free_entry_condition_RDsubsidy}) to eliminate $\tilde{V}$ yields an expression for $z_E$, 
 \begin{align}
-z_E &= \Bigg( \frac{\chi_E (1-\kappa_{e}) \lambda}{\chi_I(\lambda -1) - \nu (x\kappa_c + (1-x)(1 - (1-\tau_{RD})(1-\kappa_e)\lambda)) } \Bigg)^{1/\psi} \label{eq:effort_entrant_RDsubsidy}
+z_E &= \Bigg( \frac{\chi_E (1-\kappa_{e}) \lambda}{\chi_I(\lambda -1) - \nu (x\kappa_c + (1-x)(1 - (1-T_{RD})(1-\kappa_e)\lambda)) } \Bigg)^{1/\psi} \label{eq:effort_entrant_RDsubsidy}
 \end{align}
 
 The rest of the equilibrium allocation and prices can be computed by using the following equations in sequence to compute the variable on the LHS:
@@ -839,16 +839,16 @@ The rest of the equilibrium allocation and prices can be computed by using the f
 	g &= (\lambda - 1) (\tau_I + \tau_S + \tau_E) \\
 	r &= \theta g + \rho \\
 	\tilde{V} &= \frac{\tilde{\pi}}{r + \tau_E} \\ 
-	w_{RD,E} &= (1-\tau_{RD})^{-1}\chi_E z_E^{-\psi} (1-\kappa_e) \lambda \tilde{V} \label{eq:wage_rd_labor_RDsubsidy}
+	w_{RD,E} &= (1-T_{RD})^{-1}\chi_E z_E^{-\psi} (1-\kappa_e) \lambda \tilde{V} \label{eq:wage_rd_labor_RDsubsidy}
 \end{align}
 
 \subsubsection{Effect on growth}
 
-First suppose $x = 0$ and consider a small increase in $\tau_{RD}$ from $\tau_{RD}^0$ to $\tau_{RD}^1 > \tau_{RD}^0$. If $x = 0$ after the increase in $\tau_{RD}$, then by (\ref{eq:effort_entrant_RDsubsidy}), $z_E$ increases; and by (\ref{eq:labor_resource_constraint_RDsubsidy}) $z_I$ decreases. If (\ref{cs:growth_decreasing_condition}) holds, this reduces growth. Intuitively, the increased R\&D subsidy reduces the wage expenses paid for R\&D by the same factor $1-\frac{1-\tau_{RD}^1}{1-\tau_{RD}^0}$ for incumbents and entrants. However, the incumbent's effective cost of R\&D also includes the shadow cost of more creative destruction by spinouts. Therefore, her effective cost of R\&D is reduced by a factor $\tilde{\tau}_{RD} < 1-\frac{1-\tau_{RD}^1}{1-\tau_{RD}^0}$. In equilibrium, R\&D labor is reallocated to entrants and growth falls.
+First suppose $x = 0$ and consider a small increase in $T_{RD}$ from $T_{RD}^0$ to $T_{RD}^1 > T_{RD}^0$. If $x = 0$ after the increase in $T_{RD}$, then by (\ref{eq:effort_entrant_RDsubsidy}), $z_E$ increases; and by (\ref{eq:labor_resource_constraint_RDsubsidy}) $z_I$ decreases. If (\ref{cs:growth_decreasing_condition}) holds, this reduces growth. Intuitively, the increased R\&D subsidy reduces the wage expenses paid for R\&D by the same factor $1-\frac{1-T_{RD}^1}{1-T_{RD}^0}$ for incumbents and entrants. However, the incumbent's effective cost of R\&D also includes the shadow cost of more creative destruction by spinouts. Therefore, her effective cost of R\&D is reduced by a factor $\tilde{\tau}_{RD} < 1-\frac{1-T_{RD}^1}{1-T_{RD}^0}$. In equilibrium, R\&D labor is reallocated to entrants and growth falls.
 
-If the increase in $\tau_{RD}$ is large enough, $x$ changes from $x = 0$ to $x = 1$ and therefore $\tau_S$ jumps to zero, reducing growth further. Intuitively, higher R\&D subsidies mean the incumbent prefers to pay for the R\&D with wages, which are tax-deductible, rather than implicitly through future spinouts, the implicit cost of which is not tax-deductible. Incumbents therefore opt to use NCAs, bringing spinout entry to zero and reducing growth by a discrete jump. In addition, there are no indirect effects on growth through changes in $z_E$,$z_I$, as these variables do not jump: according to (\ref{eq:nca_policy_RDsubsidy}), the transition from $x= 0$ to $x =1$ occurs at the value of $\tau_{RD}$ such that $\kappa_c$ is equal to the term multiplying $(1-x)$, implying that $z_E$, and therefore $z_I$, does not jump.
+If the increase in $T_{RD}$ is large enough, $x$ changes from $x = 0$ to $x = 1$ and therefore $\tau_S$ jumps to zero, reducing growth further. Intuitively, higher R\&D subsidies mean the incumbent prefers to pay for the R\&D with wages, which are tax-deductible, rather than implicitly through future spinouts, the implicit cost of which is not tax-deductible. Incumbents therefore opt to use NCAs, bringing spinout entry to zero and reducing growth by a discrete jump. In addition, there are no indirect effects on growth through changes in $z_E$,$z_I$, as these variables do not jump: according to (\ref{eq:nca_policy_RDsubsidy}), the transition from $x= 0$ to $x =1$ occurs at the value of $T_{RD}$ such that $\kappa_c$ is equal to the term multiplying $(1-x)$, implying that $z_E$, and therefore $z_I$, does not jump.
 
-Finally, if $\tau_{RD}$ is increased even further, there is no change in the equilibrium allocation. The only change is the wage of R\&D labor, which by (\ref{eq:wage_rd_labor_RDsubsidy}) increases to equilibriate the R\&D labor market.
+Finally, if $T_{RD}$ is increased even further, there is no change in the equilibrium allocation. The only change is the wage of R\&D labor, which by (\ref{eq:wage_rd_labor_RDsubsidy}) increases to equilibriate the R\&D labor market.
 
 \subsubsection{Effect on consumption}
 
@@ -858,24 +858,24 @@ Steady state consumption is given by
 &= \tilde{Y} - \Big( \big( \chi_E (\bar{L}_{RD} - z_I)^{1-\psi} + (1-x) \nu z_I \big) \kappa_e \lambda + x z_I \nu \kappa_c \Big) \tilde{V}  \label{cs:scen2:consumption_eq}
 \end{align}
 
-As argued above $\tau_E$ is increasing in $\tau_{RD}$; $\tau_S$ is constant or decreasing in $\tau_{RD}$; and $z_I$ is decreasing in $\tau_{RD}$. The overall effect on steady state consumption depends on parameters. 
+As argued above $\tau_E$ is increasing in $T_{RD}$; $\tau_S$ is constant or decreasing in $T_{RD}$; and $z_I$ is decreasing in $T_{RD}$. The overall effect on steady state consumption depends on parameters. 
 
 \subsubsection{Effect on welfare}
 
-As numerical exercises show welfare effects are driven by productivity growth, rather than consumption at a given level of productivity, typically the effect of increasing $\tau_{RD}$ will be to reduce welfare, provided of course that (\ref{cs:growth_decreasing_condition}) holds. \autoref{calibration_RDSubsidy_summaryPlot} shows how the equilibrium varies with the $\tau_{RD}$. For this exercise, I set $\kappa_c = 1.2 \tilde{\bar{\kappa}}_c(\kappa_e,\lambda;\tau_{RD} = 0)$. 
+As numerical exercises show welfare effects are driven by productivity growth, rather than consumption at a given level of productivity, typically the effect of increasing $T_{RD}$ will be to reduce welfare, provided of course that (\ref{cs:growth_decreasing_condition}) holds. \autoref{calibration_RDSubsidy_summaryPlot} shows how the equilibrium varies with the $T_{RD}$. For this exercise, I set $\kappa_c = 1.2 \tilde{\bar{\kappa}}_c(\kappa_e,\lambda;T_{RD} = 0)$. 
 
 \begin{figure}[]
 	\includegraphics[scale = 0.57]{../code/julia/figures/simpleModel/calibration_RDSubsidy_summaryPlot.pdf}
-	\caption{Summary of equilibrium of simple model for baseline parameter values and various values of $\tau_{RD}$. This assumes that $\kappa_c = 1.2 \tilde{\bar{\kappa}}_c(\kappa_e,\lambda;\tau_{RD} = 0)$.}
+	\caption{Summary of equilibrium of simple model for baseline parameter values and various values of $T_{RD}$. This assumes that $\kappa_c = 1.2 \tilde{\bar{\kappa}}_c(\kappa_e,\lambda;T_{RD} = 0)$.}
 	\label{calibration_RDSubsidy_summaryPlot}
 \end{figure}
 
-Notice that growth (first row, third column) and welfare (third row, third column) both fall with $\tau_{RD}$, and jump down when the increase in $\tau_{RD}$ increases the use of NCAs. This implies that if for some $\tau_{RD}$ we have $x = 1$, while for $\tau_{RD} = 0$ we have $x = 0$, setting $\kappa_C = \infty$ could increase welfare. 
+Notice that growth (first row, third column) and welfare (third row, third column) both fall with $T_{RD}$, and jump down when the increase in $T_{RD}$ increases the use of NCAs.
 
 
 \subsection{Scenario 3: Taxes and subsidies on creative destruction}
 
-Suppose that the planner taxes or subsidizes entry. Specifically, the planner taxes the entry fixed cost $\kappa_e \lambda \tilde{V} q$ at rate $T_e$ so that a firm entering with quality $\lambda q$ perceives a total cost of $(1+T_e) \kappa_e \lambda \tilde{V}q$ units of the final good. Economically, this can be interpreted as a tax on non-R\&D expenses related to the development of new versions of products currently not sold by the firm in question.\footnote{Because the tax is proportional to these expenses, rather than a fixed tax on entry, it does not induce any reallocation of R\&D towards higher quality goods. This property is not only analytically convenient -- it is necessary for a BGP to exist. In the baseline model, the expected growth rate of normalized frontier quality $\tilde{\bar{q}}_j = \frac{\bar{q}_j}{Q}$ is constant for all $j \in [0,1]$ and there is no exit of low quality firms (and subsequent injection of "average quality" firms). Running this stochastic process forward in time, the distribution of $\tilde{\bar{q}}_j$ spreads out, i.e. its variance and higher order measures of dispersion increase, which implies that there is no stationary distribution of $\tilde{\bar{q}}_j$. A BGP continues to exist, however, because only the mean of $\tilde{\bar{q}}_j$, $\mathbb{E}[\tilde{\bar{q}}_j] = 1$, is relevant for aggregate variables. This is why, e.g. the growth accounting equation (\ref{eq:growth_accounting}) can be written so simply. If, instead, growth is faster for higher $\tilde{\bar{q}}_j$, as is the case with a fixed entry fee, there is again no stationary distribution of $\tilde{\bar{q}}_j$, as before. However, in addition, there is no BGP, because aggregate variables such as the growth rate and the R\&D wage now depend on the entire distribution of $\tilde{\bar{q}}_j$, which is not stationary.}
+Suppose that the planner taxes entry at rate $T_e$ (subsidy if $T_e < 0$). Specifically, the planner taxes the entry fixed cost $\kappa_e \lambda \tilde{V} q$ at rate $T_e$ so that a firm entering with quality $\lambda q$ perceives a total cost of $(1+T_e) \kappa_e \lambda \tilde{V}q$ units of the final good. Economically, this can be interpreted as a tax on non-R\&D expenses related to the development of new versions of products currently not sold by the firm in question.\footnote{Because the tax is proportional to these expenses, rather than a fixed tax on entry, it does not induce any reallocation of R\&D towards higher quality goods. This property is not only analytically convenient -- it is necessary for a BGP to exist. In the baseline model, the expected growth rate of normalized frontier quality $\tilde{\bar{q}}_j = \frac{\bar{q}_j}{Q}$ is constant for all $j \in [0,1]$ and there is no exit of low quality firms (and subsequent injection of "average quality" firms). Running this stochastic process forward in time, the distribution of $\tilde{\bar{q}}_j$ spreads out, i.e. its variance and higher order measures of dispersion increase, which implies that there is no stationary distribution of $\tilde{\bar{q}}_j$. A BGP continues to exist, however, because only the mean of $\tilde{\bar{q}}_j$, $\mathbb{E}[\tilde{\bar{q}}_j] = 1$, is relevant for aggregate variables. This is why, e.g. the growth accounting equation (\ref{eq:growth_accounting}) can be written so simply. If, instead, growth is faster for higher $\tilde{\bar{q}}_j$, as is the case with a fixed entry fee, there is again no stationary distribution of $\tilde{\bar{q}}_j$, as before. However, in addition, there is no BGP, because aggregate variables such as the growth rate and the R\&D wage now depend on the entire distribution of $\tilde{\bar{q}}_j$, which is not stationary.}
 
 In this setup, the R\&D labor supply indifference condition becomes
 \begin{align}
@@ -902,19 +902,18 @@ Define
 If $z_I > 0$, the incumbent's optimal NCA policy is given by 
 \begin{align}
 x = \begin{cases}
-1 & \textrm{if } \kappa_{c} < \hat{\bar{\kappa}}_c (\kappa_e, \lambda;\tau_{RD}) \\
-0 & \textrm{if } \kappa_{c} > \hat{\bar{\kappa}}_c (\kappa_e, \lambda;\tau_{RD})\\
-\{0,1\} & \textrm{if } \kappa_c = \hat{\bar{\kappa}}_c (\kappa_e, \lambda;\tau_{RD})
+1 & \textrm{if } \kappa_{c} < \hat{\bar{\kappa}}_c (\kappa_e, \lambda;T_{RD}) \\
+0 & \textrm{if } \kappa_{c} > \hat{\bar{\kappa}}_c (\kappa_e, \lambda;T_{RD})\\
+\{0,1\} & \textrm{if } \kappa_c = \hat{\bar{\kappa}}_c (\kappa_e, \lambda;T_{RD})
 \end{cases} \label{eq:nca_policy_entryTax}
 \end{align}
 
-
 By the usual argument, $z_I > 0$ implies that the incumbent's FOC can be rearranged to
 \begin{align}
-\tilde{V} &= \frac{(1-\tau_{RD})w_{RD,E}}{\chi_I(\lambda -1) - \nu (x\kappa_c + (1-x)(1 - (1-(1+T_e)\kappa_e)\lambda)) } \label{eq:hjb_incumbent_foc_entryTax}
+\tilde{V} &= \frac{w_{RD,E}}{\chi_I(\lambda -1) - \nu (x\kappa_c + (1-x)(1 - (1-(1+T_e)\kappa_e)\lambda)) } \label{eq:hjb_incumbent_foc_entryTax}
 \end{align}
 
-The free entry condition is
+If $(1 + T_e) \kappa_e > 1$ then $z_E = 0$ and $z_I = \bar{L}_{RD}$. Otherwise, the free entry condition is
 \begin{align}
 \underbrace{\chi_E z_E^{-\psi}}_{\mathclap{\text{Marginal innovation rate}}} \overbrace{(1-(1+T_e)\kappa_e) \lambda \tilde{V}}^{\mathclap{\text{Payoff from innovation}}} &= \underbrace{w_{RD,E}}_{\mathclap{\text{MC of R\&D}}} \label{eq:free_entry_condition_entryTax}
 \end{align}
@@ -924,7 +923,7 @@ Substituting (\ref{eq:hjb_incumbent_foc_entryTax}) into (\ref{eq:free_entry_cond
 z_E &= \Bigg( \frac{\chi_E (1-(1+T_e)\kappa_{e}) \lambda}{\chi_I(\lambda -1) - \nu (x\kappa_c + (1-x)(1 - (1-(1+T_e)\kappa_e)\lambda)) } \Bigg)^{1/\psi} \label{eq:effort_entrant_entryTax}
 \end{align}
 
-From here, the rest of the model can be solved using
+From here, the rest of the model (including the case where $(1-\kappa_e)\lambda < 1$ and $z_E = 0$) can be solved using
 \begin{align}
 \tau_E &= \chi_E z_E^{1-\psi} \\
 z_I &= \bar{L}_{RD} - z_E \label{eq:labor_resource_constraint_entryTax}\\ 
@@ -933,14 +932,17 @@ z_I &= \bar{L}_{RD} - z_E \label{eq:labor_resource_constraint_entryTax}\\
 g &= (\lambda - 1) (\tau_I + \tau_S + \tau_E) \\
 r &= \theta g + \rho \\
 \tilde{V} &= \frac{\tilde{\pi}}{r + \tau_E} \\ 
-w_{RD,E} &= \chi_E z_E^{-\psi} (1-(1+T_e)\kappa_e) \lambda \tilde{V} \label{eq:wage_rd_labor_entryTax}
+w_{RD,E} &= \begin{cases}
+				\chi_E z_E^{-\psi} (1-(1+T_e)\kappa_e) \lambda \tilde{V} &\textrm{, if } z_E > 0\\
+				\Big( \chi_I(\lambda -1) - \nu (x\kappa_c + (1-x)\hat{\bar{\kappa}}_c(\kappa_e,\lambda;T_e))\Big) \tilde{V} &\textrm{, o.w.}
+			\end{cases} \label{eq:wage_rd_labor_entryTax}
 \end{align}
 
 \subsubsection{Effect on growth}
 
 Suppose that $x = 1$ and the tax is increased from $T_e$ to $T_e' > T_e$. Then (\ref{eq:effort_entrant_entryTax}) implies that $z_E$ falls, (\ref{eq:labor_resource_constraint_entryTax}) implies that $z_I$ increase to keep $L_{RD} = \bar{L}_{RD}$, and then by (\ref{cs:growth_decreasing_condition}) growth increases. Intuitively, when $x = 1$ the only effect of the entry tax is to reduce the misallocation of R\&D labor to entrants. Because the laissez-faire equilibrium overallocates R\&D to entrants, due to the business-stealing effect, equilibrium growth increases.
 
-However, if $x = 0$, the situation changes, for two reasons. First, as can be seen readily in (\ref{eq:effort_entrant_entryTax}), the effect of $T_e$ on $z_E$ is ambiguous, since the denominator now decreases in $T_e$ as well as the numerator. Intuitively, an increase in $T_e$ reduces the value of future spinouts, requiring incumbents to compensate workers with higher wages. Because the expected harm from future spinouts remains constant, this implies a net disincentive to incumbent R\&D. In equilibrium, labor is reallocated to the entrant. However, the mechanism in the first paragraph is still present and the net effect of the two could be positive or negative depending on parameters. In particular, if $\nu$ is large compared to $\chi_E$, the negative growth effect dominates.
+However, if $x = 0$, the situation changes, for two reasons. First, as can be seen readily in (\ref{eq:effort_entrant_entryTax}), the effect of $T_e$ on $z_E$ is ambiguous, since the denominator now decreases in $T_e$ as well as the numerator. Intuitively, an increase in $T_e$ reduces the value of future spinouts, requiring incumbents to compensate workers with higher wages. Because the expected harm from future spinouts remains constant, this implies a net disincentive to incumbent R\&D. In equilibrium, labor is reallocated to the entrant. However, the mechanism in the first paragraph is still present and the net effect of the two could be positive or negative depending on parameters.
 
 Second, by (\ref{eq:nca_policy_entryTax}) and (\ref{eq:barkappa_entryTax}), a sufficiently large increase in $T_e$ induces a change from $x = 0$ to $x = 1$. Intuitively, a higher $T_e$ means it is relatively more expensive for incumbents to compensate their employees with future spinouts. For a high enough $T_e$, incumbents prefer to use NCAs and pay their employees with wages directly.
 
@@ -960,26 +962,149 @@ The plots in \autoref{calibration_entryTax_summaryPlot} show the impact of varyi
 
 \begin{figure}[]
 	\includegraphics[scale = 0.57]{../code/julia/figures/simpleModel/calibration_EntryTax_summaryPlot.pdf}
-	\caption{Summary of equilibrium of simple model for baseline parameter values and various values of $T_e$. This assumes that $\kappa_c = 1.2 \hat{\tilde{\kappa}}_c(\kappa_e,\lambda;T_e = 0)$.}
+	\caption{Summary of equilibrium of simple model for baseline parameter values and various values of $T_e$. This assumes that $\kappa_c = 1.2 \hat{\bar{\kappa}}_c(\kappa_e,\lambda;T_e = 0)$.}
 	\label{calibration_entryTax_summaryPlot}
 \end{figure}
 
-\subsection{Scenario 4: Targeted taxes and subsidies on R\&D, creative destruction}
+\subsection{Scenario 4: Subsidy to OI R\&D}
 
-Suppose that the plannner can subsidize R\&D spent on improving a product while excluding R\&D aiming at creative destruction. In the model, this corresponds to a targeted subsidy to R\&D spending by incumbents. 
+Suppose that the plannner can subsidize R\&D spent on improving a product while excluding R\&D aiming at creative destruction. In the model, this corresponds to a targeted subsidy to R\&D spending by incumbents, of magnitude $T_{RD,I}$ (tax if $T_{RD,I} < 0$). The incumbent's HJB becomes
+\begin{align}
+(r + \tau_E) \tilde{V} = \tilde{\pi} + \max_{\substack{x \in \{0,1\} \\ z \ge 0}} \Big\{z &\Big( \overbrace{\chi_I (\lambda - 1) \tilde{V}}^{\mathclap{\mathbb{E}[\textrm{Benefit from R\&D}]}}- (\underbrace{1-T_{RD,I}}_{\mathclap{\text{R\&D Subsidy}}}) \big( \overbrace{w_{RD,E} - (1-x)(1-\kappa_e)\lambda \nu \tilde{V}}^{\mathclap{\text{R\&D wage}}}\big) \label{eq:hjb_incumbent_RDsubsidyTargeted} \nonumber \\ 
+&-  \underbrace{(1-x) \nu \tilde{V}}_{\mathclap{\text{Net cost from spinout formation}}} - \overbrace{x \kappa_{c} \nu \tilde{V}}^{\mathclap{\text{Direct cost of NCA}}}\Big) \Big\} 
+\end{align}
 
+This can be rearranged to a form analogous to (\ref{eq:hjb_incumbent_workerIndiff}),
+\begin{align}
+(r + \tau_E) \tilde{V} = \tilde{\pi} + \max_{\substack{x \in \{0,1\} \\ z \ge 0}} \Big\{z &\Big( \overbrace{\chi_I (\lambda - 1) \tilde{V}}^{\mathclap{\mathbb{E}[\textrm{Benefit from R\&D}]}}- (1-T_{RD,I}) w_{RD,E} \\
+&-  \underbrace{(1-x)(1 - (1-T_{RD,I})(1-\kappa_{e})\lambda)\nu \tilde{V}}_{\mathclap{\text{Net cost from spinout formation}}} - \overbrace{x \kappa_{c} \nu \tilde{V}}^{\mathclap{\text{Direct cost of NCA}}}\Big) \Big\} \label{eq:hjb_incumbent_RDsubsidyTargeted_2}
+\end{align}
+
+The non-compete policy is the same as with untargeted R\&D subsidies. That is, define
+\begin{align}
+\tilde{\bar{\kappa}}_c(\kappa_e,\lambda;T_{RD}) = 1 - (1-T_{RD,I})(1-\kappa_e)\lambda
+\end{align} 
+
+Then $z_I > 0$ implies that the incumbent's optimal NCA policy is given by 
+\begin{align}
+x = \begin{cases}
+1 & \textrm{if } \kappa_{c} < \tilde{\bar{\kappa}}_c (\kappa_e, \lambda;T_{RD,I}) \\
+0 & \textrm{if } \kappa_{c} > \tilde{\bar{\kappa}}_c (\kappa_e, \lambda;T_{RD,I})\\
+\{0,1\} & \textrm{if } \kappa_c = \tilde{\bar{\kappa}}_c (\kappa_e, \lambda;T_{RD,I})
+\end{cases} \label{eq:nca_policy_RDsubsidyTargeted}
+\end{align}
+
+Assuming $z_I > 0$, the FOC of the incumbent HJB implies
+\begin{align}
+\tilde{V} &= \frac{(1-T_{RD,I})w_{RD,E}}{\chi_I(\lambda -1) - \nu (x\kappa_c + (1-x)(1 - (1-T_{RD,I})(1-\kappa_e)\lambda)) } \label{eq:hjb_incumbent_foc_RDsubsidyTargeted}
+\end{align}
+
+The free entry condition is
+\begin{align}
+\underbrace{\chi_E z_E^{-\psi}}_{\mathclap{\text{Marginal innovation rate}}} \overbrace{(1-\kappa_e) \lambda \tilde{V}}^{\mathclap{\text{Payoff from innovation}}} &= \underbrace{w_{RD,E}}_{\mathclap{\text{MC of R\&D}}} \label{eq:free_entry_condition_RDsubsidyTargeted}
+\end{align}
+
+Substituting (\ref{eq:hjb_incumbent_foc_RDsubsidyTargeted}) into (\ref{eq:free_entry_condition_RDsubsidyTargeted}) to eliminate $\tilde{V}$ yields an expression for $z_E$, 
+\begin{align}
+z_E &= \Bigg( \frac{(1-T_{RD,I})\chi_E (1-\kappa_{e}) \lambda}{\chi_I(\lambda -1) - \nu (x\kappa_c + (1-x)(1 - (1-T_{RD,I})(1-\kappa_e)\lambda)) } \Bigg)^{1/\psi} \label{eq:effort_entrant_RDsubsidyTargeted}
+\end{align}
+
+The rest of the equilibrium allocation and prices can be computed by using the following equations in sequence to compute the variable on the LHS:
+\begin{align}
+\tau_E &= \chi_E z_E^{1-\psi} \\
+z_I &= \bar{L}_{RD} - z_E \label{eq:labor_resource_constraint_RDsubsidyTargeted}\\ 
+\tau_I &= \chi_I z_I \\
+\tau_S &= (1-x) \nu z_I \\
+g &= (\lambda - 1) (\tau_I + \tau_S + \tau_E) \\
+r &= \theta g + \rho \\
+\tilde{V} &= \frac{\tilde{\pi}}{r + \tau_E} \\ 
+w_{RD,E} &= \chi_E z_E^{-\psi} (1-\kappa_e) \lambda \tilde{V} \label{eq:wage_rd_labor_RDsubsidyTargeted}
+\end{align}
 
 \subsubsection{Effect on growth}
 
+If $x = 1$, increasing $T_{RD,I}$ reduces $z_E$ by (\ref{eq:effort_entrant_RDsubsidyTargeted}) and will increase growth if the condition (\ref{cs:growth_decreasing_condition}) holds. Intuitively, a subsidy to incumbent R\&D causes the R\&D wage to increase, reducing R\&D by the entrant in equilibrium. 
+
+If $x = 0$, increasing $T_{RD,I}$ has a more complicated effect on $z_E$ because it reduces the denominator as well. This follows from the same reasoning as in the case of the untargeted R\&D subsidy: incumbents pay partially through future spinouts and so not all of their costs are subsidized at rate $T_{RD,I}$. From this economic interpretation, it follows immediately that the net effect is still to reduce incumbent R\&D expenses relative to those of the entrant and hence to lower $z_E$ and increase $z_I$, and this is confirmed in the numerical analysis of the next subsection.
+
+Finally, (\ref{eq:nca_policy_RDsubsidyTargeted}) implies that if the increase in $T_{RD,I}$ is sufficiently large, it will induce the use of NCAs by incumbents. As in the case of the untargeted R\&D subsidy, targeted R\&D subsidies do not reduce the harm to the incumbent's profits due to future employee spinouts. At a certain point, the incumbent prefers the higher but tax-deductible wages of an NCA contract. This switch unambiguously reduces growth.
+
 \subsubsection{Effect on consumption}
+
+As in the previous cases, the effect on consumption is not possible to determine in general due to the interplay between entry costs and NCA costs. 
 
 \subsubsection{Effect on welfare}
 
-\subsection{Scenario 5: All policy instruments}
+\begin{figure}[]
+	\includegraphics[scale = 0.57]{../code/julia/figures/simpleModel/calibration_RDSubsidyTargeted_summaryPlot.pdf}
+	\caption{Summary of equilibrium of simple model for baseline parameter values and various values of $T_{RD,I}$. This assumes that $\kappa_c = 1.2 \tilde{\bar{\kappa}}_c(\kappa_e,\lambda;T_{RD,I} = 0)$.}
+	\label{calibration_RDSubsidyTargeted_summaryPlot}
+\end{figure}
 
-\subsubsection{Optimal policy}
+
+\subsection{Scenario 5: Policies 2-4}
+
+Now consider a planner who can use either of the instruments described in the previous three sections. In this setup, the R\&D labor supply indifference condition becomes
+\begin{align}
+w_{RD,E} &= w_{RD,j} + (1-x_j) \nu (1-(\underbrace{1+T_e}_{\mathclap{\text{Entry tax}}})\kappa_e) \lambda \tilde{V} \label{eq:RD_worker_indifference_all}
+\end{align}
+
+The incumbent HJB is
+\begin{align}
+(r + \tau_E) \tilde{V} = \tilde{\pi} + \max_{\substack{x \in \{0,1\} \\ z \ge 0}} \Big\{z &\Big( \overbrace{\chi_I (\lambda - 1) \tilde{V}}^{\mathclap{\mathbb{E}[\textrm{Benefit from R\&D}]}}-  (\underbrace{1 - T_{RD} - T_{RD,I}}_{\mathclap{\text{R\&D subsidies}}})\big( \overbrace{w_{RD,E} - (1-x)(1-(1+T_e)\kappa_e)\lambda \nu \tilde{V}}^{\mathclap{\text{R\&D wage}}}\big) \label{eq:hjb_incumbent_all} \nonumber \\ 
+&-  \underbrace{(1-x) \nu \tilde{V}}_{\mathclap{\text{Net cost from spinout formation}}} - \overbrace{x \kappa_{c} \nu \tilde{V}}^{\mathclap{\text{Direct cost of NCA}}}\Big) \Big\} 
+\end{align}
+
+which can be rearranged to
+\begin{align}
+(r + \tau_E) \tilde{V} = \tilde{\pi} + \max_{\substack{x \in \{0,1\} \\ z \ge 0}} \Big\{z &\Big( \overbrace{\chi_I (\lambda - 1) \tilde{V}}^{\mathclap{\mathbb{E}[\textrm{Benefit from R\&D}]}}- (1-T_{RD}- T_{RD,I})w_{RD,E} \\
+&-  \underbrace{(1-x)(1 - (1-T_{RD} - T_{RD,I})(1-(1+T_e)\kappa_{e})\lambda)\nu \tilde{V}}_{\mathclap{\text{Net cost from spinout formation}}} - \overbrace{x \kappa_{c} \nu \tilde{V}}^{\mathclap{\text{Direct cost of NCA}}}\Big) \Big\} \label{eq:hjb_incumbent_all_2}
+\end{align}
+
+Define
+\begin{align}
+\bar{\bar{\kappa}}_c(\kappa_e,\lambda;T_{RD},T_{RD,I},T_e) = 1 - (1-T_{RD} - T_{RD,I})(1-(1+T_e)\kappa_e)\lambda  \label{eq:barkappa_all}
+\end{align} 
+
+If $z_I > 0$, the incumbent's optimal NCA policy is given by 
+\begin{align}
+x = \begin{cases}
+1 & \textrm{if } \kappa_{c} < \bar{\bar{\kappa}}_c (\kappa_e, \lambda;T_{RD},T_{RD,I},T_e) \\
+0 & \textrm{if } \kappa_{c} > \bar{\bar{\kappa}}_c (\kappa_e, \lambda;T_{RD},T_{RD,I},T_e)\\
+\{0,1\} & \textrm{if } \kappa_c = \bar{\bar{\kappa}}_c (\kappa_e, \lambda;T_{RD},T_{RD,I},T_e)
+\end{cases} \label{eq:nca_policy_all}
+\end{align}
 
 
+By the usual argument, $z_I > 0$ implies that the incumbent's FOC can be rearranged to
+\begin{align}
+\tilde{V} &= \frac{(1-T_{RD} - T_{RD,I})w_{RD,E}}{\chi_I(\lambda -1) - \nu (x\kappa_c + (1-x)(1 - (1-T_{RD} - T_{RD,I})(1-(1+T_e)\kappa_e)\lambda)) } \label{eq:hjb_incumbent_foc_all}
+\end{align}
+
+The free entry condition is
+\begin{align}
+\underbrace{\chi_E z_E^{-\psi}}_{\mathclap{\text{Marginal innovation rate}}} \overbrace{(1-(1+T_e)\kappa_e) \lambda \tilde{V}}^{\mathclap{\text{Payoff from innovation}}} &= (1-T_{RD})\underbrace{w_{RD,E}}_{\mathclap{\text{MC of R\&D}}} \label{eq:free_entry_condition_all}
+\end{align}
+
+Substituting (\ref{eq:hjb_incumbent_foc_all}) into (\ref{eq:free_entry_condition_all}) to eliminate $\tilde{V}$ yields an expression for $z_E$, 
+\begin{align}
+z_E &= \Bigg( \frac{\Big(\frac{1-T_{RD} -T_{RD,I}}{1-T_{RD}} \Big)\chi_E (1-(1+T_e)\kappa_{e}) \lambda}{\chi_I(\lambda -1) - \nu (x\kappa_c + (1-x)(1 - (1-T_{RD} - T_{RD,I})(1-(1+T_e)\kappa_e)\lambda)) } \Bigg)^{1/\psi} \label{eq:effort_entrant_all}
+\end{align}
+
+From here, the rest of the model can be solved using
+\begin{align}
+\tau_E &= \chi_E z_E^{1-\psi} \\
+z_I &= \bar{L}_{RD} - z_E \label{eq:labor_resource_constraint_all}\\ 
+\tau_I &= \chi_I z_I \\
+\tau_S &= (1-x) \nu z_I \\
+g &= (\lambda - 1) (\tau_I + \tau_S + \tau_E) \\
+r &= \theta g + \rho \\
+\tilde{V} &= \frac{\tilde{\pi}}{r + \tau_E} \\ 
+w_{RD,E} &= \begin{cases}
+(1-T_{RD})^{-1}\chi_E z_E^{-\psi} (1-(1+T_e)\kappa_e) \lambda \tilde{V} &\textrm{, if } z_E > 0\\
+\Big( \chi_I(\lambda -1) - \nu (x\kappa_c + (1-x)\bar{\bar{\kappa}}_c)\Big) \tilde{V} &\textrm{, o.w.}
+\end{cases} \label{eq:wage_rd_labor_all}
+\end{align}
 
 
 

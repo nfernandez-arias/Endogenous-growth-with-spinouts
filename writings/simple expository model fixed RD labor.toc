@@ -46,22 +46,21 @@
 \contentsline {subsubsection}{\numberline {4.1.2}Consumption}{25}{subsubsection.4.1.2}
 \contentsline {subsubsection}{\numberline {4.1.3}Welfare}{25}{subsubsection.4.1.3}
 \contentsline {subsubsection}{\numberline {4.1.4}Effect of the cost of non-competes on welfare}{25}{subsubsection.4.1.4}
-\contentsline {paragraph}{Robustness of welfare gain from NCA enforcement}{27}{section*.22}
-\contentsline {paragraph}{When are NCAs bad for welfare?}{27}{section*.27}
-\contentsline {subsection}{\numberline {4.2}Scenario 1: Taxes and subsidies for NCAs}{27}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Scenario 2: Taxes and subsidies R\&D spending}{31}{subsection.4.3}
+\contentsline {paragraph}{Robustness of welfare gain from NCA enforcement}{26}{section*.22}
+\contentsline {paragraph}{When are NCAs bad for welfare?}{26}{section*.27}
+\contentsline {subsection}{\numberline {4.2}Scenario 1: Taxes and subsidies for NCAs}{30}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Scenario 2: Taxes and subsidies R\&D spending}{32}{subsection.4.3}
 \contentsline {subsubsection}{\numberline {4.3.1}Effect on growth}{33}{subsubsection.4.3.1}
-\contentsline {subsubsection}{\numberline {4.3.2}Effect on consumption}{33}{subsubsection.4.3.2}
-\contentsline {subsubsection}{\numberline {4.3.3}Effect on welfare}{33}{subsubsection.4.3.3}
-\contentsline {subsection}{\numberline {4.4}Scenario 3: Taxes and subsidies on creative destruction}{35}{subsection.4.4}
-\contentsline {subsubsection}{\numberline {4.4.1}Effect on growth}{36}{subsubsection.4.4.1}
+\contentsline {subsubsection}{\numberline {4.3.2}Effect on consumption}{34}{subsubsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.3}Effect on welfare}{34}{subsubsection.4.3.3}
+\contentsline {subsection}{\numberline {4.4}Scenario 3: Taxes and subsidies on creative destruction}{34}{subsection.4.4}
+\contentsline {subsubsection}{\numberline {4.4.1}Effect on growth}{37}{subsubsection.4.4.1}
 \contentsline {subsubsection}{\numberline {4.4.2}Effect on consumption}{37}{subsubsection.4.4.2}
-\contentsline {subsubsection}{\numberline {4.4.3}Effect on welfare}{37}{subsubsection.4.4.3}
-\contentsline {subsection}{\numberline {4.5}Scenario 4: Targeted taxes and subsidies on R\&D, creative destruction}{37}{subsection.4.5}
-\contentsline {subsubsection}{\numberline {4.5.1}Effect on growth}{37}{subsubsection.4.5.1}
-\contentsline {subsubsection}{\numberline {4.5.2}Effect on consumption}{37}{subsubsection.4.5.2}
-\contentsline {subsubsection}{\numberline {4.5.3}Effect on welfare}{37}{subsubsection.4.5.3}
-\contentsline {subsection}{\numberline {4.6}Scenario 5: All policy instruments}{37}{subsection.4.6}
-\contentsline {subsubsection}{\numberline {4.6.1}Optimal policy}{37}{subsubsection.4.6.1}
-\contentsline {section}{\numberline {A}Miscellanea}{39}{appendix.A}
-\contentsline {paragraph}{Old stuff - need to reinterpret in light of the sensitivity plots}{39}{section*.33}
+\contentsline {subsubsection}{\numberline {4.4.3}Effect on welfare}{38}{subsubsection.4.4.3}
+\contentsline {subsection}{\numberline {4.5}Scenario 4: Subsidy to OI R\&D}{38}{subsection.4.5}
+\contentsline {subsubsection}{\numberline {4.5.1}Effect on growth}{40}{subsubsection.4.5.1}
+\contentsline {subsubsection}{\numberline {4.5.2}Effect on consumption}{41}{subsubsection.4.5.2}
+\contentsline {subsubsection}{\numberline {4.5.3}Effect on welfare}{41}{subsubsection.4.5.3}
+\contentsline {subsection}{\numberline {4.6}Scenario 5: Policies 2-4}{41}{subsection.4.6}
+\contentsline {section}{\numberline {A}Miscellanea}{44}{appendix.A}
+\contentsline {paragraph}{Old stuff - need to reinterpret in light of the sensitivity plots}{44}{section*.34}
