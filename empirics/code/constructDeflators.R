@@ -60,6 +60,7 @@ setkey(productivityGrowth,year)
 
 fwrite(productivityGrowth[ , .(year,productivityDeflator)],"data/deflators/productivityDeflator.csv")
 
-
+# Clear data
+rm(list = ls.str(mode = "list"))
 
 

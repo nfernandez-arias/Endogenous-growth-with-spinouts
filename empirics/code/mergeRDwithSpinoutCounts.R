@@ -53,8 +53,7 @@ for (col in countCols)
 fwrite(output,"data/compustat-spinouts.csv")
 
 # Clean up
-rm(compustat,output,parentsSpinoutCounts)
-
+rm(list = ls.str(mode = "list"))
 
 
 

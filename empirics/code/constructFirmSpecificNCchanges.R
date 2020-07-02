@@ -68,14 +68,13 @@ hist(na.omit(firmYearNCchanges[fw_post0 != 0]$fw_post0, breaks = 100))
 hist(na.omit(firmYearNCchanges[fw_post0 != 0 & fw_post0 != 1 & fw_post0 != -1]$fw_post0),breaks = 100)
 hist(na.omit(firmYearStateShares[ishare != 0 & ishare != 1]$ishare), breaks = 100)
 
+hist(na.omit(firmYearStateShares[ishare != 0]$ishare), breaks = 100)
     
 fwrite(firmYearNCchanges,"data/firmYearNCchanges.csv")
 
 
 # Clean up
-
-rm(firmYearStateShares,firmYearNCchanges,NCCenforcementChanges)
-
+rm(list = ls.str(mode = "list"))
 
 
 

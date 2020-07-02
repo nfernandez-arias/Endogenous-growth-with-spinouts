@@ -1,4 +1,4 @@
-\begin{thebibliography}{37}
+\begin{thebibliography}{36}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -116,10 +116,14 @@ Raffaele Conti.
 \bibitem[Fallick et~al.(2006)Fallick, Fleischman, and
   Rebitzer]{fallick_job-hopping_2006}
 Bruce Fallick, Charles~A. Fleischman, and James~B. Rebitzer.
-\newblock Job-{Hopping} in {Silicon} {Valley}: {Some} {Evidence} {Concerning}
-  the {Microfoundations} of a {High}-{Technology} {Cluster}, October 2006.
+\newblock \emph{Job-{Hopping} in {Silicon} {Valley}: {Some} {Evidence}
+  {Concerning} the {Microfoundations} of a {High}-{Technology} {Cluster}}.
+\newblock October 2006.
+\newblock \doi{10.1162/rest.88.3.472}.
 \newblock URL
   \url{https://www.mitpressjournals.org/doix/abs/10.1162/rest.88.3.472}.
+\newblock Publication Title: http://dx.doi.org/10.1162/rest.88.3.472 Type:
+  research-article.
 
 \bibitem[Franco and Mitchell(2008)]{franco_covenants_2008}
 April~M. Franco and Matthew~F. Mitchell.
@@ -131,15 +135,6 @@ April~M. Franco and Matthew~F. Mitchell.
 \newblock \doi{10.1111/j.1530-9134.2008.00187.x}.
 \newblock URL
   \url{https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1530-9134.2008.00187.x}.
-
-\bibitem[Franco and Filson(2006)]{franco_spin-outs:_2006}
-April~Mitchell Franco and Darren Filson.
-\newblock Spin-outs: knowledge diffusion through employee mobility.
-\newblock \emph{The RAND Journal of Economics}, 37\penalty0 (4):\penalty0
-  841--860, December 2006.
-\newblock ISSN 07416261, 17562171.
-\newblock \doi{10.1111/j.1756-2171.2006.tb00060.x}.
-\newblock URL \url{http://doi.wiley.com/10.1111/j.1756-2171.2006.tb00060.x}.
 
 \bibitem[Garmaise(2011)]{garmaise_ties_2011}
 Mark~J. Garmaise.

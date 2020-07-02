@@ -44,5 +44,5 @@ output <- output[order(gvkey,dataYear)]
 fwrite(output,"data/compustat/firmsSegments.csv")
 
 # Clean up
-rm(firms,output,segments,segmentsUnique)
+rm(list = ls.str(mode = "list"))
 

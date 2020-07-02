@@ -37,5 +37,4 @@ temp <- temp[ , .(pdpass,gvkey,year)]
 fwrite(temp,"data/nber uspto/dynass_reshaped.csv")
 
 # Clean up
-rm(dynass,dynass_long,temp)
-
+rm(list = ls.str(mode = "list"))

@@ -24,7 +24,8 @@ library(stringr)
 library(zoo)
 library(stringdist)
 library(readstata13)
-#library(foreign)
+library(openxlsx)
+library(foreign)
 library(haven)
 
 # Load and set up plotting libraries
@@ -43,7 +44,7 @@ coalesce <- dplyr::coalesce
 NaRV.omit <- IDPmisc::NaRV.omit
 
 # Set working directory
-setwd("~/nfernand@princeton.edu/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics")
+setwd("~/Insync/nfernand@princeton.edu/Google Drive/PhD - Thesis/Research/Endogenous-growth-with-spinouts/empirics")
                     
 # Set some parameters
 founderThreshold <- 3
@@ -61,6 +62,8 @@ VSmaxFoundingYear <- 2008
 technicalTitles <- c("CTO","FDR","CSO","CIO","SADV")
 founderTitles <- c("CEO","CTO","CCEO","PCEO","PRE","PCHM","PCOO","FDR","CHF")
 executiveTitles <- c(founderTitles,"CSO","COO","PCOO","CIO","CFO","CHF","CHMN","EVP","MDIR","MGR")
+
+foundersToInclude <- c("founder2")
 
 LargeStates <- c("CA","NY","TX","WA","MA","PA","CO","NC","NJ","GA","FL","MI","IL","VA","MD")
 LargestStates <- c("CA","WA","MA","NY","TX")
@@ -138,7 +141,7 @@ source("code/mergeFirmNCchangesToMasterData.R")
 #-------------------------
 # EXPORT TO STATA
 # Prepare the data for analysis in Stata
-# (because it has better implementations of fixed effe        ct regressions)
+# (because it has better implementations of fixed effect regressions)
 #-------------------------
 
 # Next, prepare the data for panel regressions in Stata   

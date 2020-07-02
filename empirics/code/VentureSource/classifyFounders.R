@@ -40,5 +40,4 @@ data[ is.na(all), all := 0]
 fwrite(data,"data/parentsSpinouts.csv")
 
 # Clean up
-
-rm(data)
+rm(list = ls.str(mode = "list"))

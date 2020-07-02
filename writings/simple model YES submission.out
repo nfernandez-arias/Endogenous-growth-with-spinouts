@@ -1,0 +1,55 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Model}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Individual endowments and preferences}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Production of final and intermediate goods}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Innovation}{section.2}% 5
+\BOOKMARK [3][-]{subsubsection.2.3.1}{Own-product innovation by incumbents}{subsection.2.3}% 6
+\BOOKMARK [3][-]{subsubsection.2.3.2}{Generation of spinouts}{subsection.2.3}% 7
+\BOOKMARK [3][-]{subsubsection.2.3.3}{Entrants}{subsection.2.3}% 8
+\BOOKMARK [3][-]{subsubsection.2.3.4}{Entry cost}{subsection.2.3}% 9
+\BOOKMARK [2][-]{subsection.2.4}{Decentralized equilibrium}{section.2}% 10
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Static equilibrium}{subsection.2.4}% 11
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Dynamic equilibrium}{subsection.2.4}% 12
+\BOOKMARK [1][-]{section.3}{Empirics}{}% 13
+\BOOKMARK [2][-]{subsection.3.1}{Data}{section.3}% 14
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Sources}{subsection.3.1}% 15
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Construction of dataset}{subsection.3.1}% 16
+\BOOKMARK [2][-]{subsection.3.2}{Corporate R\046D and spinout formation}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.3}{Characteristics of spinouts and other firms}{section.3}% 18
+\BOOKMARK [1][-]{section.4}{Calibration}{}% 19
+\BOOKMARK [2][-]{subsection.4.1}{Targets}{section.4}% 20
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Interest rate}{subsection.4.1}% 21
+\BOOKMARK [3][-]{subsubsection.4.1.2}{Growth rate}{subsection.4.1}% 22
+\BOOKMARK [3][-]{subsubsection.4.1.3}{Profits \045 GDP}{subsection.4.1}% 23
+\BOOKMARK [3][-]{subsubsection.4.1.4}{R\046D spending / GDP}{subsection.4.1}% 24
+\BOOKMARK [3][-]{subsubsection.4.1.5}{Growth share of own innovation}{subsection.4.1}% 25
+\BOOKMARK [3][-]{subsubsection.4.1.6}{Entry rate}{subsection.4.1}% 26
+\BOOKMARK [3][-]{subsubsection.4.1.7}{R\046D-induced spinout share of employment}{subsection.4.1}% 27
+\BOOKMARK [2][-]{subsection.4.2}{Computing the corresponding model moments}{section.4}% 28
+\BOOKMARK [3][-]{subsubsection.4.2.1}{R\046D / GDP}{subsection.4.2}% 29
+\BOOKMARK [3][-]{subsubsection.4.2.2}{Entry rate}{subsection.4.2}% 30
+\BOOKMARK [3][-]{subsubsection.4.2.3}{Growth share of own innovation}{subsection.4.2}% 31
+\BOOKMARK [3][-]{subsubsection.4.2.4}{R\046D-induced spinout employment share}{subsection.4.2}% 32
+\BOOKMARK [2][-]{subsection.4.3}{Identification}{section.4}% 33
+\BOOKMARK [1][-]{section.5}{Policy analysis}{}% 34
+\BOOKMARK [2][-]{subsection.5.1}{NCA cost c}{section.5}% 35
+\BOOKMARK [3][-]{subsubsection.5.1.1}{Effect on growth}{subsection.5.1}% 36
+\BOOKMARK [3][-]{subsubsection.5.1.2}{Consumption}{subsection.5.1}% 37
+\BOOKMARK [3][-]{subsubsection.5.1.3}{Effect on welfare}{subsection.5.1}% 38
+\BOOKMARK [2][-]{subsection.5.2}{NCA tax \(subsidy\)}{section.5}% 39
+\BOOKMARK [2][-]{subsection.5.3}{R\046D subsidy \(tax\)}{section.5}% 40
+\BOOKMARK [3][-]{subsubsection.5.3.1}{Effect on growth}{subsection.5.3}% 41
+\BOOKMARK [3][-]{subsubsection.5.3.2}{Effect on consumption}{subsection.5.3}% 42
+\BOOKMARK [3][-]{subsubsection.5.3.3}{Effect on welfare}{subsection.5.3}% 43
+\BOOKMARK [2][-]{subsection.5.4}{CD tax \(subsidy\)}{section.5}% 44
+\BOOKMARK [3][-]{subsubsection.5.4.1}{Effect on growth}{subsection.5.4}% 45
+\BOOKMARK [3][-]{subsubsection.5.4.2}{Effect on consumption}{subsection.5.4}% 46
+\BOOKMARK [3][-]{subsubsection.5.4.3}{Effect on welfare}{subsection.5.4}% 47
+\BOOKMARK [2][-]{subsection.5.5}{OI R\046D subsidy \(tax\)}{section.5}% 48
+\BOOKMARK [3][-]{subsubsection.5.5.1}{Effect on growth}{subsection.5.5}% 49
+\BOOKMARK [3][-]{subsubsection.5.5.2}{Effect on consumption}{subsection.5.5}% 50
+\BOOKMARK [3][-]{subsubsection.5.5.3}{Effect on welfare}{subsection.5.5}% 51
+\BOOKMARK [2][-]{subsection.5.6}{All policies}{section.5}% 52
+\BOOKMARK [3][-]{subsubsection.5.6.1}{Optimal policy}{subsection.5.6}% 53
+\BOOKMARK [1][-]{appendix.A}{Appendix of tables}{}% 54
+\BOOKMARK [1][-]{appendix.B}{Appendix of figures}{}% 55

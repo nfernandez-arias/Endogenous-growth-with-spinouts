@@ -30,6 +30,8 @@
 
 
 compustatFirmsSegments <- fread("data/compustat/firmsSegments.csv")
+
+# Some standardizations - doesn't hurt, but not sure why it's here
 compustatFirmsSegments[tic == "IBM", conml := "IBM"]
 compustatFirmsSegments[tic == "GS", conml := "Goldman Sachs"] 
 compustatFirmsSegments[tic == "HPQ", conml := "Hewlett-Packard"]
@@ -131,14 +133,14 @@ matchedQueries <- firms[matchedQueries][, .(gvkey,tic,query,count,globCount,foun
 unmatchedQueries <- matchedQueries[is.na(gvkey)]
 matchedQueries <- matchedQueries[ !is.na(gvkey)]
 
-## Change names to query
+## Change names of variables to be consistent
 
 setnames(matched,"conml","name")
 setnames(matchedSegments,"snms","name")
 setnames(matchedQueries,"query","name")
 setnames(unmatchedQueries,"query","name")
 
-matched <- rbind(matched,matchedSegments,matchedQueries,unmatchedQueries[tic == "NOK"], fill = TRUE)
+matched <- rbind(matched,matchedSegments,matchedQueries, fill = TRUE)
 #matched <- rbind(matched,matchedSegments)
 ### Now match back to EntitiesPrevEmployers
 
@@ -311,10 +313,7 @@ parentsSpinouts[ is.na(fromPublic), fromPublic := as.integer(1)]
 fwrite(parentsSpinouts,"data/parentsSpinouts.csv")
   
 # Clean up
-rm(matched,matchedDist,matchedQueries,matchedSegments,parentsSpinouts,
-   prevEmployers,segments,unmatched,compustatFirmsSegments,
-   EntitiesPrevEmployers,firms,firmsPrevEmployers,firmsTickers)
-
+rm(list = ls.str(mode = "list"))
 
 
 

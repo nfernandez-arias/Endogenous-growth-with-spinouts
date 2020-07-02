@@ -36,14 +36,14 @@ deals[ SubcodeDesc == "", SubcodeDesc := IndustryCodeDesc]
 # (instead of nominal)
 #---------------------------#
 
-# Extract deal year
+# Extract deal year and founding year
 deals[ , dealYear := year(ymd(CloseDate))]
 deals[ , foundingYear := year(ymd(StartDate))]
 setkey(deals,dealYear)
 
+# Merge with GDP deflator
 gdpDeflator <- fread("data/deflators/gdpDeflator.csv")
 setkey(gdpDeflator,year)
-
 deals <- gdpDeflator[deals]
 
 setnames(deals,"year","dealYear")
@@ -109,7 +109,7 @@ deals[ is.na(profitable), profitable := 0]
 deals[ , profitable := max(profitable), by = "EntityID"]
 
 
- # Probably deprecated
+# Probably deprecated
 temp <- unique(deals[, .(EntityID, IndustryCodeDesc, State, foundingYear, noRevenue, genRevenue, profitable, maxExit)], by = "EntityID")
 #temp <- unique(deals[  , .(EntityID, foundingYear, noRevenue, genRevenue, profitable)], by = "EntityID")
 
@@ -158,7 +158,7 @@ setnames(entityPaths,"dealYear","year")
 entityPaths <- data.table(complete(entityPaths,EntityID,year = 1986:2019))
 
 
-# Define time-invariatn firm-specific variables
+# Define time-invariant firm-specific variables
 entityPaths[ , foundingYear := mean(na.omit(foundingYear)) , by = EntityID]
 
 entityPaths[ , EntityAge := year - foundingYear]
@@ -168,14 +168,14 @@ entityPaths[ , OwnershipStatus := max(na.omit(OwnershipStatus)), by = EntityID]
 entityPaths[ , lastDealYear := max(na.omit(year(ymd(CloseDate)))), by = EntityID]
 entityPaths[ any(OwnerStatDate != ""), OwnerStatDate := max(NaRV.omit(OwnerStatDate)), by = EntityID]
 
-
+# Drop data for each entity after last event (deal or going out of business) occurs
 entityPaths <- entityPaths[ year <= pmin(pmax(year(ymd(OwnerStatDate)), lastDealYear, na.rm = TRUE),exitYear, na.rm = TRUE)  & EntityAge >= 0]
 
 # Define exit dates
 entityPaths[ OwnershipStatus == "Out of Business" & year == year(ymd(OwnerStatDate)), goingOutOfBusiness := 100 ]
 entityPaths[ is.na(goingOutOfBusiness), goingOutOfBusiness := 0]
 
-
+# Not sure why I did it this way
 entityPaths[ is.na(exitYear), exitYear := -1]
 entityPaths[ , exitYear := max(exitYear) , by = EntityID]
 
@@ -194,15 +194,12 @@ setnames(revenue,"RevenueHighUSD","revenue")
 
 revenue[ , year := year(ymd(CoFiscalYear))]
 
+# Take mean when multiple sources in same year
 revenue[ , revenue := mean(na.omit(revenue)), by = .(EntityID,year)]
-
 revenue <- unique(revenue, by = c("EntityID","year"))
 
-#revenue[ month(ymd(CoFiscalYear)) %in% c(1,12), year := year(round_date(ymd(CoFiscalYear), unit = "years"))]
-#revenue[ !(month(ymd(CoFiscalYear)) %in% c(1,12)), year := year(ymd(CoFiscalYear))]
-
-setkey(revenue,year)
 # First transform to real terms
+setkey(revenue,year)
 revenue <- gdpDeflator[revenue]
 
 revenue[ , revenue := revenue / gdpDeflator]
@@ -269,10 +266,8 @@ entityPaths[ , cumDebtRaised := cumsum(debtRaised), by = EntityID]
 entityPaths[ , assetVal := PostValUSD + cumDebtRaised]
 
 #---------------------#
-# Interpolation
+# Interpolation -- decided not to do this after discussion with Ulrich Muller
 #---------------------#
-
-
 
 # Transform variables and interpolate
 
@@ -325,6 +320,5 @@ fwrite(startupsData,"data/VentureSource/startupsData.csv")
 
 
 # Clean up
-rm(deals,startupsData,temp,gdpDeflator)
-
+rm(list = ls.str(mode = "list"))
 

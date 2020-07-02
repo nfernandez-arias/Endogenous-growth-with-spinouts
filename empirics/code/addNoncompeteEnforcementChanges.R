@@ -152,5 +152,4 @@ temp <- temp[ !is.na(state) & state != ""]
 fwrite(temp,"data/NCCenforcementChanges.csv")
 
 # Clean up
-
-rm(compustatSpinouts,temp)
+rm(list = ls.str(mode = "list"))

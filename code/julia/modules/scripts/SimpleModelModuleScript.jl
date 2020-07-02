@@ -4,7 +4,7 @@
 using Plots, Measures
 gr()
 
-export SimpleModelParameters, SimpleModelSolution, solveSimpleModel, computeWelfareComparison, initializeSimpleModel, makePlots, makePlotsRDSubsidy, makePlotsKappaCRDSubsidy, makePlotsEntryTax, makePlotsRDSubsidyTargeted
+export SimpleModelParameters, SimpleModelSolution, solveSimpleModel, computeWelfareComparison, initializeSimpleModel, makePlots, makePlotsRDSubsidy, makePlotsKappaCRDSubsidy, makePlotsEntryTax, makePlotsRDSubsidyTargeted, makePlotsALL
 export SimpleCalibrationTarget,SimpleCalibrationParameters,SimpleModelMoments,SimpleModelParameterLimit,SimpleModelParameterLimitList,welfareComparison
 
 mutable struct SimpleModelParameters
@@ -119,6 +119,8 @@ struct SimpleModelSolution
     g::Real
     # Output
     Y::Real
+    # Final goods labor
+    LF::Real
     # Entry cost
     entryCost::Real
     # NCA cost
@@ -132,9 +134,9 @@ struct SimpleModelSolution
 
 end
 
-function solveSimpleModel(κC::Real, τRD::Real, Te::Real, τRD_I::Real, modelPar::SimpleModelParameters)
+function solveSimpleModel(κC::Real, T_RD::Real, T_E::Real, T_RD_I::Real, T_NCA::Real, modelPar::SimpleModelParameters)
 
-    # Unpack parameters
+    # Unpack parameT_Ers
 
     ρ = modelPar.ρ
     θ = modelPar.θ
@@ -147,54 +149,54 @@ function solveSimpleModel(κC::Real, τRD::Real, Te::Real, τRD_I::Real, modelPa
     ν = modelPar.ν
     κE = modelPar.κE
 
-    # Compute final goods labor allocation
+    # CompuT_E final goods labor allocation
     LF = (1-L)/(1+((1-β)/Cβ(β))^(1/β))
 
-    # Compute x
-    x = ((1 - (1-τRD-τRD_I)*(1-(1+Te)*κE)*λ) > κC)
+    # CompuT_E x
+    x = ((1 - (1-T_RD-T_RD_I)*(1-(1+T_E)*κE)*λ) > κC + T_NCA)
 
-    denom = χI * (λ - 1) - x * ν * κC - (1-x) * ν * (1 - (1 - τRD - τRD_I)*(1-(1+Te)*κE)*λ)
+    denom = χI * (λ - 1) - x * ν * (κC + T_NCA) - (1-x) * ν * (1 - (1 - T_RD - T_RD_I)*(1-(1+T_E)*κE)*λ)
 
-    # Compute zE,τE - robustness to zero value
-    if (1+Te)*κE < 1
-        zE = min(L,((((1-τRD - τRD_I)/(1-τRD))* χE * (1-(1+Te)*κE) * λ)/ denom)^(1/ψ))
+    # CompuT_E zE,τE - robustness to zero value
+    if (1+T_E)*κE < 1
+        zE = min(L,((((1-T_RD - T_RD_I)/(1-T_RD))* χE * (1-(1+T_E)*κE) * λ)/ denom)^(1/ψ))
         τE = χE * zE^(1-ψ)
     else
         zE = 0
         τE = 0
     end
-    # Compute zI
+    # CompuT_E zI
     zI = max(0,L - zE)
 
-    # Compute τI
+    # CompuT_E τI
     τI = χI * zI
 
-    # Compute τS
+    # CompuT_E τS
     τS = ν * zI * (1-x)
 
-    # Compute g
+    # CompuT_E g
     g = (λ-1) * (τI + τS + τE)
 
-    # Compute r
+    # CompuT_E r
     r = θ*g + ρ
 
-    # Compute profit
+    # CompuT_E profit
     π0 = Cβ(β)*(1-β) * LF
 
-    # Compute V
+    # CompuT_E V
     V = π0 / (r + τE)
 
-    # Compute wage
+    # CompuT_E wage
     if zE < L
-        wRD_NCA = (V * denom) / (1-τRD-τRD_I)
+        wRD_NCA = (V * denom) / (1-T_RD-T_RD_I)
     else
-        wRD_NCA = (1-τRD)^(-1) * χE * zE^(-ψ) * (1 - (1 + Te) * κE ) *λ *  V
+        wRD_NCA = (1-T_RD)^(-1) * χE * zE^(-ψ) * (1 - (1 + T_E) * κE ) *λ *  V
     end
 
-    # Compute final goods labor
+    # CompuT_E final goods labor
     LF = (1 - L) / (1 + ( (1 - β) ./ Cβ(β))^(1/β))
 
-    # Compute output
+    # CompuT_E output
     Y = ((1-β)^(1-2*β)) / (β^(1-β)) * LF
 
     # Entry cost
@@ -208,20 +210,20 @@ function solveSimpleModel(κC::Real, τRD::Real, Te::Real, τRD_I::Real, modelPa
     # Consumption
     C = Y - entryCost - NCACost
 
-    # Compute welfare
+    # CompuT_E welfare
     W = (C)^(1-θ) / ((1-θ) * ( ρ - g * (1-θ)))
 
-    # Compute welfare
+    # CompuT_E welfare
     W2 = (Y)^(1-θ) / ((1-θ)*( ρ - g * (1-θ)))
 
-    sol = SimpleModelSolution(V,zI,τI,zE,τE,τS,x,wRD_NCA,r,g,Y,entryCost,NCACost,C,W,W2)
+    sol = SimpleModelSolution(V,zI,τI,zE,τE,τS,x,wRD_NCA,r,g,Y,LF,entryCost,NCACost,C,W,W2)
     return sol
 
 end
 
 function solveSimpleModel(modelPar::SimpleModelParameters)
 
-    sol = solveSimpleModel(modelPar.κC,0,0,0,modelPar)
+    sol = solveSimpleModel(modelPar.κC,0,0,0,0,modelPar)
 
     return sol
 
@@ -229,7 +231,7 @@ end
 
 function solveSimpleModel(κC::Real,modelPar::SimpleModelParameters)
 
-    sol = solveSimpleModel(κC,0,0,0,modelPar)
+    sol = solveSimpleModel(κC,0,0,0,0,modelPar)
 
     return sol
 
@@ -283,7 +285,7 @@ function makePlots(modelPar::SimpleModelParameters,string::String)
     W3 = zeros(size(κC_grid))
     W4 = zeros(size(κC_grid))
 
-    Wbenchmark = solveSimpleModel(κC_max, 0, 0, 0, modelPar).W
+    Wbenchmark = solveSimpleModel(κC_max, 0, 0, 0, 0, modelPar).W
 
     for i in 1:length(κC_grid)
 
@@ -391,11 +393,11 @@ function makePlotsRDSubsidy(modelPar::SimpleModelParameters,string::String)
     W3 = zeros(size(τRD_grid))
     W4 = zeros(size(τRD_grid))
 
-    Wbenchmark = solveSimpleModel(κC, 0, 0, 0, modelPar).W
+    Wbenchmark = solveSimpleModel(κC, 0, 0, 0, 0, modelPar).W
 
     for i in 1:length(τRD_grid)
 
-        sol = solveSimpleModel(κC,τRD_grid[i],0, 0, modelPar)
+        sol = solveSimpleModel(κC,τRD_grid[i],0, 0, 0, modelPar)
 
         V[i] = sol.V
         zI[i] = sol.zI
@@ -494,11 +496,11 @@ function makePlotsEntryTax(modelPar::SimpleModelParameters,string::String)
     W3 = zeros(size(Te_grid))
     W4 = zeros(size(Te_grid))
 
-    Wbenchmark = solveSimpleModel(κC, 0, 0, 0, modelPar).W
+    Wbenchmark = solveSimpleModel(κC, 0, 0, 0, 0, modelPar).W
 
     for i in 1:length(Te_grid)
 
-        sol = solveSimpleModel(κC,0,Te_grid[i],0,modelPar)
+        sol = solveSimpleModel(κC,0,Te_grid[i],0,0,modelPar)
 
         V[i] = sol.V
         zI[i] = sol.zI
@@ -596,11 +598,11 @@ function makePlotsRDSubsidyTargeted(modelPar::SimpleModelParameters,string::Stri
     W3 = zeros(size(τRD_I_grid))
     W4 = zeros(size(τRD_I_grid))
 
-    Wbenchmark = solveSimpleModel(κC, 0, 0, 0, modelPar).W
+    Wbenchmark = solveSimpleModel(κC, 0, 0, 0, 0, modelPar).W
 
     for i in 1:length(τRD_I_grid)
 
-        sol = solveSimpleModel(κC,0, 0, τRD_I_grid[i], modelPar)
+        sol = solveSimpleModel(κC,0, 0, τRD_I_grid[i], 0, modelPar)
 
         V[i] = sol.V
         zI[i] = sol.zI
@@ -676,113 +678,71 @@ function makePlotsRDSubsidyTargeted(modelPar::SimpleModelParameters,string::Stri
     Plots.scalefontsizes(0.6^(-1))
 end
 
-function makePlotsKappaCRDSubsidy(modelPar::SimpleModelParameters,string::String,τRD::Float64)
+function makePlotsALL(modelPar::SimpleModelParameters,string::String)
 
-    κC_max = 2*(1 - (1-modelPar.κE)*modelPar.λ)
-    κC_grid = 0:0.001:κC_max
+    κC = 1.2*(1 - (1-modelPar.κE)*modelPar.λ)
 
-    V = zeros(size(κC_grid))
-    zI = zeros(size(κC_grid))
-    τI = zeros(size(κC_grid))
-    zE = zeros(size(κC_grid))
-    τE = zeros(size(κC_grid))
-    τS = zeros(size(κC_grid))
-    x = zeros(size(κC_grid))
-    wRD_NCA = zeros(size(κC_grid))
-    r = zeros(size(κC_grid))
-    g = zeros(size(κC_grid))
-    Y = zeros(size(κC_grid))
-    entryCost = zeros(size(κC_grid))
-    NCACost = zeros(size(κC_grid))
-    C = zeros(size(κC_grid))
-    W = zeros(size(κC_grid))
-    W2 = zeros(size(κC_grid))
-    W3 = zeros(size(κC_grid))
-    W4 = zeros(size(κC_grid))
+    κCmin = 0.5 * κC
 
-    Wbenchmark = solveSimpleModel(κC_max, τRD, modelPar).W
+    T_NCA_max = κC * 1.5
 
-    for i in 1:length(κC_grid)
+    T_RD_I_grid = 0:0.01:0.8
+    T_NCA_grid = 0:0.01:T_NCA_max
 
-        sol = solveSimpleModel(κC_grid[i],τRD,modelPar)
-
-        V[i] = sol.V
-        zI[i] = sol.zI
-        τI[i] = sol.τI
-        zE[i] = sol.zE
-        τE[i] = sol.τE
-        τS[i] = sol.τS
-        x[i] = sol.x
-        wRD_NCA[i] = sol.wRD_NCA
-        r[i] = sol.r
-        g[i] = sol.g
-        Y[i] = sol.Y
-        entryCost[i] = sol.entryCost
-        NCACost[i] = sol.NCACost
-        C[i] = sol.C
-        W[i] = sol.W
-        W2[i] = sol.W2
-
-        W3[i] = -((abs(W[i]) / abs(Wbenchmark)) - 1) * 100 * abs(1-modelPar.θ)
-        W4[i] = -((abs(W2[i]) / abs(Wbenchmark)) - 1) * 100 * abs(1-modelPar.θ)
-
-    end
-
-    Plots.scalefontsizes(0.6)
     fnt = Plots.font("sans-serif", 9)
+    fnt2 = Plots.font("sans-serif", 8)
+    fnt3 = Plots.font("sans-serif", 8)
+    guideFont = Plots.font("sans-serif",9)
 
-    valuePlot = plot(κC_grid,V,title = "Incumbent value", xlabel = "\\kappa_c", label = "V", legend = false)
+    Wbenchmark = solveSimpleModel(κC, 0, 0, 0, 0, modelPar).W
+
+    valuePlot = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> solveSimpleModel(κCmin,0,0,x,y,modelPar).V,title = "Incumbent value", xlabel = "\$T_{RD,I}\$", ylabel = "\$T_{NCA}\$", label = "V", legend = false)
     #savefig(valuePlot,"figures/simpleModel/$(string)_V.pdf")
 
-    p = plot(κC_grid,zI, title = "Incumbent R&D Effort", xlabel = "\\kappa_c", label = "\$z_I\$", legend = false)
-    savefig(p,"figures/simpleModel/$(string)_zI.pdf")
+    #p = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> makePlotsALL(κCmin,0,0,x,y,modelPar).zI, title = "Incumbent R&D Effort", xlabel = "\$T_{RD,I}\$", ylabel = "\$T_{NCA}\$", label = "\$z_I\$", legend = false)
+    #savefig(p,"figures/simpleModel/$(string)_zI.pdf")
 
-    incumbentInnovationPlot = plot(κC_grid,τI, title = "Incumbent innovation rate", ylabel = "Innovations per year", xlabel = "\\kappa_c", label = "\$\\tau_I\$")
+    xPlot = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> solveSimpleModel(κCmin,0,0,x,y,modelPar).x,title = "Noncompete usage", xlabel = "\$T_{RD,I}\$", ylabel = "\$T_{NCA}\$", label = "x", legend = false)
+
+    #incumbentInnovationPlot = surface(T_RD_I_grid,T_NCA_grid,τI, title = "Incumbent innovation rate", ylabel = "\$T_{NCA}\$", xlabel = "\$T_{RD,I}\$", label = "\$\\tau_I\$")
     #savefig(incumbentInnovationPlot,"figures/simpleModel/$(string)_tauI.pdf")
 
-    p = plot(κC_grid,zE, title = "Entrant R&D Effort", xlabel = "\\kappa_c", label = "\$z_E\$")
+    #p = surface(T_RD_I_grid,T_NCA_grid,zE, title = "Entrant R&D Effort", xlabel = "\$T_{RD,I}\$", ylabel = "\$T_{NCA}\$", label = "\$z_E\$")
     #savefig(p,"figures/simpleModel/$(string)_zE.pdf")
 
-    entrantInnovationPlot = plot(κC_grid,τE, title = "Entrant innovation rate", ylabel = "Innovations per year", xlabel = "\\kappa_c", label = "\$\\tau_E\$")
+    #effortPlot = surface(T_RD_I_grid,T_NCA_grid,[zI zE], title = "Innovation effort", legend = :bottomright, xlabel = "\$T_{RD,I}\$", ylabel = "\$T_{NCA}\$", label = ["Incumbent" "Entrant"])
+
+    #entrantInnovationPlot = surface(T_RD_I_grid,T_NCA_grid,τE, title = "Entrant innovation rate", ylabel = "\$T_{NCA}\$", xlabel = "\$T_{RD,I}\$", label = "\$\\tau_E\$")
     #savefig(entrantInnovationPlot,"figures/simpleModel/$(string)_tauE.pdf")
 
-    spinoutInnovationPlot = plot(κC_grid,τS, title = "Spinout innovation rate", ylabel = "Innovations per year", xlabel = "\\kappa_c", label = "\$\\tau_S\$")
+    #spinoutInnovationPlot = surface(T_RD_I_grid,T_NCA_grid,τS, title = "Spinout innovation rate", ylabel = "\$T_{NCA}\$", xlabel = "\$T_{RD,I}\$", label = "\$\\tau_S\$")
     #savefig(p,"figures/simpleModel/$(string)_tauS.pdf")
 
-    effortPlot = plot(κC_grid,[zI zE], title = "Innovation effort", legend = :bottomright, xlabel = "\\kappa_c", label = ["Incumbent" "Entrant"])
+    #innovationRatesPlot = surface(T_RD_I_grid,T_NCA_grid,[τI τE τS (τI + τE + τS)], title = "Innovation rate", legend = :bottomright, ylabel = "\$T_{NCA}\$", xlabel = "\$T_{RD,I}\$", label = ["Incumbent" "Entrant" "Spinout" "Total"])
 
-    innovationRatesPlot = plot(κC_grid,[τI τE τS (τI + τE + τS)], title = "Innovation rate", legend = :bottomright, ylabel = "Innovations per year", xlabel = "\\kappa_c", label = ["Incumbent" "Entrant" "Spinout" "Total"])
-
-    p = plot(κC_grid,x, title = "NCA usage", xlabel = "\\kappa_c", label = "x")
+    #p = surface(T_RD_I_grid,T_NCA_grid,x, title = "NCA usage", xlabel = "\$T_{RD,I}\$", ylabel = "\$T_{NCA}\$", label = "x")
     #savefig(p,"figures/simpleModel/$(string)_NCA.pdf")
 
-    wagePlot = plot(κC_grid,[wRD_NCA wRD_NCA .- (1 .- x) .* modelPar.ν .* (1-modelPar.κE) .* V], title = "R&D wage", xlabel = "\\kappa_c", label = ["Entrant" "Incumbent"])
+    #wagePlot = surface(T_RD_I_grid,T_NCA_grid,[wRD_NCA wRD_NCA .- (1 .- x) .* modelPar.ν .* (1-modelPar.κE) .* V], title = "R&D wage", xlabel = "\$T_{RD,I}\$", ylabel = "\$T_{NCA}\$", label = ["Entrant" "Incumbent"])
     #savefig(p,"figures/simpleModel/$(string)_wageRD.pdf")
 
-    interestRatePlot = plot(κC_grid,100*r,title = "Interest rate", ylabel = "% per year", xlabel = "\\kappa_c", label = "r", legend = false)
+    interestRatePlot = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> 100*solveSimpleModel(κCmin,0,0,x,y,modelPar).r,title = "Interest rate", ylabel = "\$T_{NCA}\$", xlabel = "\$T_{RD,I}\$", label = "r", legend = false)
     #savefig(p,"figures/simpleModel/$(string)_interestrate.pdf")
 
-    growthPlot = plot(κC_grid,g*100, title = "Growth rate", ylabel = "% per year", xlabel = "\\kappa_c", label = "g", legend = false)
+    growthPlot = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> solveSimpleModel(κCmin,0,0,x,y,modelPar).g*100, title = "Growth rate", ylabel = "\$T_{NCA}\$", xlabel = "\$T_{RD,I}\$", label = "g", legend = false)
     #savefig(growthPlot,"figures/simpleModel/$(string)_growth.pdf")
 
-    #plot(κC_grid,W)
-    #plot(κC_grid,W2)
+    #staticCostPlot = surface(T_RD_I_grid,T_NCA_grid,[entryCost NCACost], title = "Entry and NCA costs", xlabel = "\$T_{RD,I}\$", ylabel = "\$T_{NCA}\$", label = ["Entry cost" "NCA cost"])
 
-    staticCostPlot = plot(κC_grid,[entryCost NCACost], title = "Entry and NCA costs", xlabel = "\\kappa_c", label = ["Entry cost" "NCA cost"])
+    consumptionPlot = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> solveSimpleModel(κCmin,0,0,x,y,modelPar).C,title = "Consumption", xlabel = "\$T_{RD,I}\$", ylabel = "\$T_{NCA}\$", legend = false)
 
-    consumptionPlot = plot(κC_grid,C,title = "Consumption", xlabel = "\\kappa_c", legend = false)
-
-    welfarePlot = plot(κC_grid,W3, title = "CE welfare chg.", ylabel = "% chg", xlabel = "\\kappa_{c}", label = "\$\\tilde{C}^*\$", legend = false)
+    welfarePlot = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> -((abs(solveSimpleModel(κCmin,0,0,x,y,modelPar).W)/abs(Wbenchmark)) - 1) * 100 * abs(1-modelPar.θ), title = "CE welfare chg. (%)", ylabel = "\$T_{NCA}\$", xlabel = "\$T_{RD,I}\$", label = "\$\\tilde{C}^*\$", legend = false)
     #savefig(welfarePlot,"figures/simpleModel/$(string)_CEwelfare.pdf")
 
-    p = plot(κC_grid,W4, title = "CE Welfare chg.", ylabel = "% chg", xlabel = "(Cost of NCAs) (\\kappa_{c})", label = "\$\\tilde{C}^*\$")
-    #savefig(p,"figures/simpleModel/$(string)_CEwelfare_nocosts.pdf")
-
-
-    summaryPlot = plot(effortPlot,innovationRatesPlot,growthPlot,valuePlot,interestRatePlot,wagePlot,staticCostPlot,consumptionPlot,welfarePlot, bottom_margin = 5mm, xtickfont = fnt, ytickfont = fnt, guidefont = fnt, size = (800,650))
-    savefig(summaryPlot,"figures/simpleModel/$(string)_KappaCRDSubsidy_summaryPlot.pdf")
-    Plots.scalefontsizes(0.6^(-1))
+    summaryPlot = plot(growthPlot,valuePlot,xPlot,interestRatePlot,consumptionPlot,welfarePlot, bottom_margin = 5mm, xtickfont = fnt2, ytickfont = fnt3, guidefont = guideFont, size = (1000,900))
+    savefig(summaryPlot,"figures/simpleModel/$(string)_ALL_summaryPlot.png")
 end
+
 
 # Function for doing welfare comparative static for every parameter setting
 

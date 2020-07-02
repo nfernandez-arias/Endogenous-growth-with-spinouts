@@ -160,7 +160,7 @@ out[ is.na(gvkey), gvkey := 0]
 fwrite(out,"data/parentsSpinoutCounts.csv")
 
 # Clean up
-rm(out,temp1,temp2,parentsSpinouts)
+rm(list = ls.str(mode = "list"))
 
 
 

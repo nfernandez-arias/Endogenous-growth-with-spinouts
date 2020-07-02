@@ -20,4 +20,4 @@ rm(compustat)
 fwrite(compustatFirms,"data/compustat/compustatFirms.csv")
 
 # Clean up
-rm(compustatFirms)
+rm(list = ls.str(mode = "list"))

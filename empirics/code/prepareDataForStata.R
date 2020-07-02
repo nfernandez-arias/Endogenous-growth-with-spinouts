@@ -77,7 +77,7 @@ for (var in parentFirmControls)
 data <- data[order(gvkey,year)]
 
 # Compute firm age  
-data[, firmAge := rowidv(gvkey)]
+data[, firmAge := rowidv(gvkey) - 1]
 
 
 # Force the right time frame
@@ -120,9 +120,10 @@ for (str in c("Pre3","Pre2","Pre1","Post0","Post1","Post2","Post3"))
 }
 
 # Construct indicator variables
-countCols <- grep("spinouts|founders|dev|dffv", names(data), value = T)
+#countCols <- grep("spinouts|founders|dev|dffv", names(data), value = T)
+countCols <- grep("founders", names(data), value = T)
   
-        for (col in countCols) 
+for (col in countCols) 
 {
   indicatorString <- paste0("i",col)
   data[ get(col) >0, (indicatorString) := 1]
@@ -183,11 +184,22 @@ ptm <- proc.time()
 
 founderCols.f3 <- c()
 
+# Should probably figure out how to do in parallel. Or just make this dataset much smaller, there's no reason to do everything.
+
+#for (col in founderCols) {
+#  colString <- paste(col,".f3",sep = "")
+#  data[ , (colString) := 0]
+#}
+
 for (col in founderCols) {
-  colString <- paste(col,".f3",sep = "")
-  founderCols.f3 <- c(founderCols.f3,colString)
-  data[ , (colString) := (1/3) * Reduce(`+`,shift(get(col), 1L:3L, type = "lead")), by = gvkey]
+  
+  newCol = paste0(col,".f3")
+  founderCols.f3 <- c(founderCols.f3,newCol)
+  data[ , (newCol) :=  (1/3) * Reduce(`+`, shift(get(col), n = 1L:3L, type = "lead")), by = gvkey]
+  
 }
+
+
 proc.time() - ptm
 
 
@@ -263,5 +275,4 @@ fwrite(data,"data/compustat-spinouts_Stata.csv")
 write.dta(data,"data/compustat-spinouts_Stata.dta")
 
 # Clean up
-rm(data,gdpDeflator,investmentDeflator,productivityDeflator,xrdDeflator)
-        
+rm(list = ls.str(mode = "list"))

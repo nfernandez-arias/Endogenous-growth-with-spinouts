@@ -18,6 +18,7 @@
 #------------------------------------------------#
 
 BDVI <- fread("raw/VentureSource/PrincetonBDVI.csv")
+#BDVI <- read.xlsx("raw/VentureSource/PrincetonBDVI.xlsx")
 
 #------------------------------#
 # Divide biographies into jobs: separated by ";" character
@@ -30,7 +31,15 @@ BDVI <- fread("raw/VentureSource/PrincetonBDVI.csv")
 BDVI[ Bio != "", hasBio := 1]
 BDVI[ is.na(hasBio), hasBio := 0]
 
-BDVI[ , c("Job1","Job2","Job3","Job4","Job5","Job6","Job7","Job8","Job9","Job10","Job11","Job12","Job13","Job14","Job15") := tstrsplit(Bio,";")]
+## Split bio into jobs -- to ensure getting the previous employer, include last 15 jobs (this covers all jobs for almost all individuals)
+n <- max(lengths(strsplit(BDVI$Bio,";")))
+BDVI[ , paste0("Job",1:n) := tstrsplit(Bio,";", fixed = T)]
+# Keep first 15 jobs for good measure. 
+for (i in 16:n)
+{
+  jobString <- paste0("Job",i)
+  BDVI[ , (jobString) := NULL]
+}
 
 #------------------------------#
 # Next, divide each job into (position,company) pair.
@@ -74,6 +83,4 @@ for (i in 1:15)
 fwrite(BDVI,"data/VentureSource/EntitiesBios.csv")
 
 # Clean up
-rm(BDVI)
-rm(company,i,job,position)
-
+rm(list = ls.str(mode = "list"))

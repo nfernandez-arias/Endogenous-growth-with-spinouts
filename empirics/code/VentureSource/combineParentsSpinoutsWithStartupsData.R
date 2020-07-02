@@ -40,7 +40,7 @@ setkey(parentsSpinouts,IndustryCodeDesc,SubcodeDesc)
 parentsSpinouts <- crosswalk[parentsSpinouts]
 
 #------------------------------------#
-# Compute the spinout counts
+# Flag WSO4 spinouts
 #------------------------------------#
 
 ## First, look at industry information. My cross-walk is far from perfect, but it's something...
@@ -58,5 +58,5 @@ fwrite(parentsSpinouts,"data/parentsSpinoutsWSO.csv")
 
 
 # Clean up
-rm(crosswalk,parentsSpinouts,startupsData)
+rm(list = ls.str(mode = "list"))
 

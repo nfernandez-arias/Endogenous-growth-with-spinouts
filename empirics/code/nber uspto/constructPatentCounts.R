@@ -34,9 +34,7 @@ fwrite(appCitationCounts,"data/patentApplicationCitationCounts.csv")
 fwrite(grantedCitationCounts,"data/patentGrantCitationCounts.csv")
 
 # Clean up
-rm(appCitationCounts,appCounts,grantedCitationCounts,grantedCounts,
-   patentsAppyearGvkeys,patentsCitations,patentsCitationsAppyearGvkeys,
-   patentsCitationsGrantedyearGvkeys,patentsGrantedyearGvkeys)
+rm(list = ls.str(mode = "list"))
 
 
 

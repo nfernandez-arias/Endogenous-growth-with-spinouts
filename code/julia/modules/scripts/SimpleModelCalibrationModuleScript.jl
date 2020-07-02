@@ -81,7 +81,7 @@ function computeSimpleModelMoments(modelPar::SimpleModelParameters)
 
     # share of overall employment
 
-    youngFirmEmploymentShare = (2/3) * ( Ξ * (1 - sol.zE) + sol.zE )
+    youngFirmEmploymentShare = (2/3) * ( Ξ * (1 - sol.LF - sol.zE) + sol.zE ) / (1 - sol.LF)
 
     spinoutEmploymentShare = (sol.τS / (sol.τS + (2/3) * sol.τE)) * (1 - (2/3) * sol.zE)
 

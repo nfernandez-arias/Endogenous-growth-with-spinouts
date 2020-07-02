@@ -268,10 +268,7 @@ compustat <- lstate_bloom[compustat]
 fwrite(compustat,"data/compustat/compustat_withBloomInstruments.csv") 
 
 # Clean up
-rm(compustat,lfirm,lfirm_bloom,lstate,lstate_bloom)
-
-rm(R)
-
+rm(list = ls.str(mode = "list"))
 
 
 

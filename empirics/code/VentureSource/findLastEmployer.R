@@ -73,8 +73,7 @@ mostRecentEmployers[ , variable := NULL]
 fwrite(mostRecentEmployers,"data/VentureSource/EntitiesPrevEmployers.csv")
 
 # Clean up
-rm(data,mostRecentEmployers)
-
+rm(list = ls.str(mode = "list"))
 
 
 

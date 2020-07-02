@@ -38,6 +38,4 @@ compustatSpinouts[, patentCount_CW_cumulative := cumsum(patentCount_CW), by = "g
 fwrite(compustatSpinouts,"data/compustat-spinouts.csv")
 
 # Clean up
-rm(appCitationCounts,appCounts,compustatSpinouts,
-   patentCitationCounts,patentCounts)
-
+rm(list = ls.str(mode = "list"))

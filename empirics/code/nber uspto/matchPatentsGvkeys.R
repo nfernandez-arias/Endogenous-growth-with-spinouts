@@ -26,7 +26,8 @@ patentsGranted <- dynass_reshaped[patents][order(pdpass,year)]
 fwrite(patentsApplied,"data/patentsAppyearGvkeys.csv")
 fwrite(patentsGranted,"data/patentsGrantedyearGvkeys.csv")
 
-rm(dynass_reshaped,patents,patentsApplied,patentsGranted)
+# Clean up
+rm(list = ls.str(mode = "list"))
 
 
 

@@ -34,12 +34,16 @@ x[9] = log(modelPar.ν)
 
 grad = gradient(x)
 
+fnt = Plots.font("sans-serif", 9)
+fnt2 = Plots.font("sans-serif", 18)
+fnt3 = Plots.font("sans-serif", 24)
+
 # Plot gradient
 
 xAxisLabels = ["\$ \\rho \$"; "\$ \\theta \$"; "\$ \\beta \$"; "\$ \\psi \$"; "\$ \\lambda \$"; "\$ \\chi_I \$"; "\$ \\chi_E \$"; "\$ \\kappa_E \$"; "\$ \\nu \$"]
 
 p = bar(xAxisLabels,grad,xticks = :all, title = "\$ \\nabla_p \\log (\\textrm{CEV Welfare chg. \\%}) \$",xtickfont = fnt2, titlefont = fnt3, ytickfont = Plots.font("sans-serif", 16), guidefont = fnt, size = (1200,600), bottom_margin = 10mm, legend = false)
-savefig(p,"figures/simpleModel/welfareComparisonParameterSensitivityFull.pdf")
+savefig(p,"figures/simpleModel/welfareComparisonParameterSensitivityFull.png")
 
 jacobian = constructFullJacobian(modelPar)
 jac = jacobian(x)
@@ -51,12 +55,10 @@ sensitivity = transpose(invjac) * grad
 
 xAxisLabels = ["r"; "g"; "OI"; "E"; "S"; "RD"; "\$ \\Large \\theta \$"; "\$ \\Large  \\beta \$"; "\$ \\Large  \\psi \$"]
 
-fnt = Plots.font("sans-serif", 9)
-fnt2 = Plots.font("sans-serif", 18)
-fnt3 = Plots.font("sans-serif", 24)
+
 p = bar(xAxisLabels, transpose(invjac) * grad, xticks = :all, title = "\$ \\nabla_m \\log (\\textrm{CEV Welfare chg. \\%}) \$",xtickfont = fnt2, titlefont = fnt3, ytickfont = Plots.font("sans-serif", 16), guidefont = fnt, size = (1200,600), bottom_margin = 10mm, legend = false)
 
-savefig(p,"figures/simpleModel/welfareComparisonSensitivityFull.pdf")
+savefig(p,"figures/simpleModel/welfareComparisonSensitivityFull.png")
 
 # Standard deviation of log of each parameter
 σ = 0.1
@@ -70,13 +72,17 @@ sd_logs = sqrt(var)
 
 ## Semi-elasticity
 
+fnt = Plots.font("sans-serif", 9)
+fnt2 = Plots.font("sans-serif", 18)
+fnt3 = Plots.font("sans-serif", 24)
+
 gradient = constructLevelsWelfareComparisonFullGradient(modelPar)
 
 grad = gradient(x)
 
 xAxisLabels = ["\$ \\rho \$"; "\$ \\theta \$"; "\$ \\beta \$"; "\$ \\psi \$"; "\$ \\lambda \$"; "\$ \\chi_I \$"; "\$ \\chi_E \$"; "\$ \\kappa_E \$"; "\$ \\nu \$"]
 p = bar(xAxisLabels,grad,xticks = :all, title = "\$ \\nabla_p (\\textrm{CEV Welfare chg. \\%}) \$",xtickfont = fnt2, titlefont = fnt3, ytickfont = Plots.font("sans-serif", 16), guidefont = fnt, size = (1200,600), bottom_margin = 10mm, legend = false)
-savefig(p,"figures/simpleModel/levelsWelfareComparisonParameterSensitivityFull.pdf")
+savefig(p,"figures/simpleModel/levelsWelfareComparisonParameterSensitivityFull.png")
 
 jacobian = constructFullJacobian(modelPar)
 jac = jacobian(x)
@@ -93,7 +99,7 @@ fnt2 = Plots.font("sans-serif", 18)
 fnt3 = Plots.font("sans-serif", 24)
 p = bar(xAxisLabels, sensitivity, xticks = :all, title = "\$ \\nabla_m (\\textrm{CEV Welfare chg. \\%}) \$",xtickfont = fnt2, titlefont = fnt3, ytickfont = Plots.font("sans-serif", 16), guidefont = fnt, size = (1200,600), bottom_margin = 10mm, legend = false)
 
-savefig(p,"figures/simpleModel/levelsWelfareComparisonSensitivityFull.pdf")
+savefig(p,"figures/simpleModel/levelsWelfareComparisonSensitivityFull.png")
 
 ## Calculation of standard errors
 

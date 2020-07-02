@@ -30,3 +30,17 @@ Now consider $\kappa_e \le \bar{\kappa}_e(\kappa_c)$. Holding constant the value
 \end{align}
 
 for some constant $\Theta$. However, if indeed it is the case that 
+
+\paragraph{Household problem}
+
+\begin{maxi*}[1]<b>
+	{\substack{\{C(t)\}_{t \ge 0} \\ \{\ell_{RD,j}(t)\}_{j \in [0,1]} \\ \{\hat{\ell}_{RD,j}(t)\}_{j \in [0,1]} \\ L_I(t),L_F(t)\ge 0}} {\mathbb{E} \int_0^{\infty} \frac{C(t)^{1-\theta}-1}{1-\theta} dt}{}{}
+	\addConstraint{ C(t)}{ \ge 0} {\text{Non-negativity of consumption}}
+	\addConstraint{ A'(t)}{ = \overbrace{r_t A(t)}^{\mathclap{\text{Returns from equity holdings}}} + \underbrace{\bar{w}_t(L_I(t) + L_F(t))}_{\mathclap{\text{Production labor earnings}}} - \overbrace{C(t)}^{\mathclap{\text{Consumption}}}} {\text{Asset law of motion}}
+	\addConstraint{ }{+ \overbrace{\int_0^1 \big( \underbrace{w_{RD,jt}}_{\mathclap{\text{Wage}}} + \underbrace{(\frac{\bar{q}_{jt}}{Q_t})^{-1} \nu (1-\kappa_e) V(j,t|\lambda \bar{q}_{jt})}_{\mathclap{\text{WSO formation}}} \big) \underbrace{\ell_{RD,j}(t)}_{\mathclap{\text{Labor supply}}} dj}^{\mathclap{\text{Effective R\&D labor earnings incumbent j}}}}
+	\addConstraint{ }{+ \int_0^1 \hat{w}_{RD,t} \hat{\ell}_{RD,j}(t) dj}
+	\addConstraint{\lim_{t \to \infty} e^{-\int_0^{\infty} r_t dt} A(t) }{\ge 0}{\text{No-ponzi condition}}
+	\addConstraint{A(0)}{ = A_0} {\text{Initial asset holdings}}
+	\addConstraint{\int_0^1 (\ell_{RD,j}(t) + \hat{\ell}_{RD,j}(t))dj}{ \le \bar{L}_{RD}} {\text{R\&D labor endowment}}
+	\addConstraint{L_I(t) + L_F(t)}{\le 1 - \bar{L}_{RD}} {\text{Production labor endowment}}
+\end{maxi*}

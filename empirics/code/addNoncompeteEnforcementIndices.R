@@ -22,4 +22,4 @@ compustatSpinouts <- enforcementIndex[compustatSpinouts]
 fwrite(compustatSpinouts,"data/compustat-spinouts.csv")
 
 # Clean up
-rm(compustatSpinouts,enforcementIndex)
+rm(list = ls.str(mode = "list"))

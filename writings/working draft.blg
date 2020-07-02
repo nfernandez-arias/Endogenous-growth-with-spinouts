@@ -1,46 +1,49 @@
-This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
-Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: working draft.aux
 The style file: plainnat.bst
-Database file #1: references.bib.bib
-You've used 37 entries,
+Database file #1: references.bib
+Warning--I didn't find a database entry for "franco_spin-outs:_2006"
+Warning--empty publisher in fallick_job-hopping_2006
+You've used 36 entries,
             2773 wiz_defined-function locations,
-            894 strings with 13588 characters,
-and the built_in function-call counts, 17246 in all, are:
-= -- 1727
-> -- 817
-< -- 32
-+ -- 279
-- -- 242
-* -- 1472
-:= -- 2729
-add.period$ -- 190
-call.type$ -- 37
-change.case$ -- 191
-chr.to.int$ -- 37
-cite$ -- 74
-duplicate$ -- 741
-empty$ -- 1365
-format.name$ -- 307
-if$ -- 3588
+            885 strings with 13371 characters,
+and the built_in function-call counts, 16780 in all, are:
+= -- 1677
+> -- 796
+< -- 31
++ -- 272
+- -- 236
+* -- 1434
+:= -- 2662
+add.period$ -- 187
+call.type$ -- 36
+change.case$ -- 185
+chr.to.int$ -- 36
+cite$ -- 73
+duplicate$ -- 726
+empty$ -- 1325
+format.name$ -- 298
+if$ -- 3487
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 32
-newline$ -- 271
-num.names$ -- 150
-pop$ -- 256
+missing$ -- 33
+newline$ -- 266
+num.names$ -- 146
+pop$ -- 249
 preamble$ -- 1
-purify$ -- 154
+purify$ -- 150
 quote$ -- 0
-skip$ -- 540
+skip$ -- 523
 stack$ -- 0
-substring$ -- 722
-swap$ -- 72
+substring$ -- 695
+swap$ -- 70
 text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 402
-warning$ -- 0
-while$ -- 164
+type$ -- 386
+warning$ -- 1
+while$ -- 159
 width$ -- 0
-write$ -- 645
+write$ -- 631
+(There were 2 warnings)

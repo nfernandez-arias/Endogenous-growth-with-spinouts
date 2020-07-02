@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: simple model YES submission.aux
+The style file: plainnat.bst
+Database file #1: references.bib
+Warning--I didn't find a database entry for "franco_spin-outs:_2006"
+Warning--I didn't find a database entry for "babina_entrepreneurial_2018"
+Warning--empty journal in klenow_innovative_2020
+You've used 21 entries,
+            2773 wiz_defined-function locations,
+            758 strings with 9476 characters,
+and the built_in function-call counts, 9602 in all, are:
+= -- 932
+> -- 463
+< -- 17
++ -- 159
+- -- 138
+* -- 797
+:= -- 1514
+add.period$ -- 100
+call.type$ -- 21
+change.case$ -- 108
+chr.to.int$ -- 21
+cite$ -- 43
+duplicate$ -- 435
+empty$ -- 773
+format.name$ -- 171
+if$ -- 2002
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 21
+newline$ -- 150
+num.names$ -- 84
+pop$ -- 168
+preamble$ -- 1
+purify$ -- 88
+quote$ -- 0
+skip$ -- 315
+stack$ -- 0
+substring$ -- 366
+swap$ -- 43
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 226
+warning$ -- 1
+while$ -- 90
+width$ -- 0
+write$ -- 349
+(There were 3 warnings)

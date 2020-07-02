@@ -42,5 +42,6 @@ data[str_count(NAICS4) >= 1, NAICS4_1 := substr(NAICS4,1,1)]
 
 fwrite(data,"data/VentureSource-NAICS-Crosswalk-final.csv")
 
-rm(data)
+# Clean up
+rm(list = ls.str(mode = "list"))
 

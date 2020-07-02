@@ -2,9 +2,10 @@ clear all
 
 set more off
 
-cd "Z:\home\nico\nfernand@princeton.edu\PhD - Thesis\Research\Endogenous-growth-with-spinouts\empirics"
+cd "Z:\home\nico\Insync\nfernand@princeton.edu\Google Drive\PhD - Thesis\Research\Endogenous-growth-with-spinouts\empirics"
 
-insheet using "data/compustat-spinouts_Stata.csv"
+*insheet using "data/compustat-spinouts_Stata.csv"
+u data/compustat-spinouts_Stata.dta, clear
 
 rename spinoutcountunweighted spinoutCountUnweighted
 *rename spinoutcountunweighted_onlyexits spinoutCountUnweighted_onlyExits
