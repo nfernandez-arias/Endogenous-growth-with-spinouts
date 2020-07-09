@@ -1,16 +1,16 @@
 
 
-using EndogenousGrowthWithSpinouts_SimpleModel
+using Revise, EndogenousGrowthWithSpinouts_SimpleModel
 
 
 modelPar = initializeSimpleModel()
 
 
-makePlots(modelPar,"calibration")
-makePlotsRDSubsidy(modelPar,"calibration")
-makePlotsEntryTax(modelPar,"calibratoin")
-makePlotsRDSubsidyTargeted(modelPar,"calibration")
-makePlotsALL(modelPar,"calibration")
+makePlots(modelPar,"calibration3")
+makePlotsRDSubsidy(modelPar,"calibration3")
+makePlotsEntryTax(modelPar,"calibration3")
+makePlotsRDSubsidyTargeted(modelPar,"calibration3")
+makePlotsALL(modelPar,"calibration3")
 
 interestRate = SimpleCalibrationTarget(0.06,1)
 growthRate = SimpleCalibrationTarget(0.013,1)
@@ -21,4 +21,4 @@ rdShare = SimpleCalibrationTarget(0.015,1)
 
 calibPar = SimpleCalibrationParameters(interestRate,growthRate,growthShareOI,youngFirmEmploymentShare,spinoutEmploymentShare,rdShare)
 calibrationResults,finalMoments,sol,finalScore = calibrateModel(modelPar,calibPar)
-makePlots(modelPar,"calibration_lowEntry")
+makePlots(modelPar,"calibration3_lowEntry")

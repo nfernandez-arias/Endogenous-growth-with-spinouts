@@ -8,6 +8,8 @@ use "data/compustat-spinouts_Stata.dta", clear
 
 encode State, gen(Statecode)
 
+xtset gvkey year
+
 label variable founders_founder2 "Founders"
 label variable founders_founder2_at "$\frac{\textrm{Founders}}{\textrm{Assets}}$"
 label variable founders_founder2_f3 "Founders"
@@ -85,6 +87,8 @@ replace industry5 = 0 if industry5 == .
 gen industry3 = 1 if naics1 == 3
 replace industry3 = 0 if industry3 == .
 
+
+
 eststo clear
 eststo: quietly reghdfe founders_founder2_f3 xrd_l3  zpatentCount_CW_cumulative zemp_l3 zat_l3 zintan_l3 zcapxv_l3 zni_l3 ztobinqat, noabsorb cluster(gvkey)
 eststo: quietly reghdfe founders_founder2_f3 xrd_l3  zpatentCount_CW_cumulative zemp_l3 zat_l3 zintan_l3 zcapxv_l3 zni_l3 ztobinqat, absorb(gvkey year) cluster(gvkey)
@@ -93,11 +97,26 @@ eststo: quietly reghdfe founders_founder2_f3 xrd_l3  zpatentCount_CW_cumulative 
 eststo: quietly reghdfe founders_founder2_wso4_f3 xrd_l3  zpatentCount_CW_cumulative zemp_l3 zat_l3 zintan_l3 zcapxv_l3 zni_l3 ztobinqat, noabsorb cluster(gvkey)
 eststo: quietly reghdfe founders_founder2_wso4_f3 xrd_l3  zpatentCount_CW_cumulative zemp_l3 zat_l3 zintan_l3 zcapxv_l3 zni_l3 ztobinqat, absorb(gvkey year) cluster(gvkey)
 eststo: quietly reghdfe founders_founder2_wso4_f3 xrd_l3  zpatentCount_CW_cumulative zemp_l3 zat_l3 zintan_l3 zcapxv_l3 zni_l3 ztobinqat, absorb(gvkey firmAge naics4#year Statecode#year) cluster(gvkey)
-eststo: quietly reghdfe founders_founder2_wso4_f3 xrd_l3  zpatentCount_CW_cumulative zemp_l3 zat_l3 zintan_l3 zcapxv_l3 zni_l3 ztobinqat, absorb(gvkey naics4#firmAge naics4#Statecode#year) cluster(gvkey)
+eststo: quietly reghdfe founders_founder2_wso4_f3 xrd_l3  zpatentCount_CW_cumulative zemp_l3 zat_l3 zintan_l3 zcapxv_l3 zni_l3 ztobinqat, absorb(gvkey naics4#firmAge naics4#Statecode#year) cluster(Statecode)
 
 estfe . *, labels(_cons "No FE" gvkey "Firm FE" year "Year FE" firmAge "Age FE" naics4#firmAge "Industry-Age FE" naics4#year "Industry-Year FE" Statecode#year "State-Year FE" naics4#Statecode#year "Industry-State-Year FE")
 return list
 esttab using "figures/tables/RDandSpinoutFormation_absolute_founder2_l3f3.tex", replace se star(* 0.1 ** 0.05 *** 0.01) label keep(*xrd_l3*) indicate(`r(indicate_fe)') stats(r2_a r2_a_within N) interaction(" $\times$ ") style(tex) booktabs b(a2)
+estfe . *, restore
+
+eststo clear
+eststo: quietly ppmlhdfe founders_founder2_f3 xrd_l3  zpatentCount_CW_cumulative zemp_l3 zat_l3 zintan_l3 zcapxv_l3 zni_l3 ztobinqat, noabsorb cluster(gvkey)
+eststo: quietly ppmlhdfe founders_founder2_f3 xrd_l3  zpatentCount_CW_cumulative zemp_l3 zat_l3 zintan_l3 zcapxv_l3 zni_l3 ztobinqat, absorb(gvkey year) cluster(gvkey)
+eststo: quietly ppmlhdfe founders_founder2_f3 xrd_l3  zpatentCount_CW_cumulative zemp_l3 zat_l3 zintan_l3 zcapxv_l3 zni_l3 ztobinqat, absorb(gvkey firmAge naics4#year Statecode#year) cluster(gvkey)
+eststo: quietly ppmlhdfe founders_founder2_f3 xrd_l3  zpatentCount_CW_cumulative zemp_l3 zat_l3 zintan_l3 zcapxv_l3 zni_l3 ztobinqat, absorb(gvkey naics4#firmAge naics4#Statecode#year) cluster(gvkey)
+eststo: quietly ppmlhdfe founders_founder2_wso4_f3 xrd_l3  zpatentCount_CW_cumulative zemp_l3 zat_l3 zintan_l3 zcapxv_l3 zni_l3 ztobinqat, noabsorb cluster(gvkey)
+eststo: quietly ppmlhdfe founders_founder2_wso4_f3 xrd_l3  zpatentCount_CW_cumulative zemp_l3 zat_l3 zintan_l3 zcapxv_l3 zni_l3 ztobinqat, absorb(gvkey year) cluster(gvkey)
+eststo: quietly ppmlhdfe founders_founder2_wso4_f3 xrd_l3  zpatentCount_CW_cumulative zemp_l3 zat_l3 zintan_l3 zcapxv_l3 zni_l3 ztobinqat, absorb(gvkey firmAge naics4#year Statecode#year) cluster(gvkey)
+eststo: quietly ppmlhdfe founders_founder2_wso4_f3 xrd_l3  zpatentCount_CW_cumulative zemp_l3 zat_l3 zintan_l3 zcapxv_l3 zni_l3 ztobinqat, absorb(gvkey naics4#firmAge naics4#Statecode#year) cluster(Statecode)
+
+estfe . *, labels(_cons "No FE" gvkey "Firm FE" year "Year FE" firmAge "Age FE" naics4#firmAge "Industry-Age FE" naics4#year "Industry-Year FE" Statecode#year "State-Year FE" naics4#Statecode#year "Industry-State-Year FE")
+return list
+esttab using "figures/tables/RDandSpinoutFormation_ppml_absolute_founder2_l3f3.tex", replace se star(* 0.1 ** 0.05 *** 0.01) label keep(*xrd_l3*) indicate(`r(indicate_fe)') stats(r2_a r2_a_within N) interaction(" $\times$ ") style(tex) booktabs b(a2)
 estfe . *, restore
 
 eststo clear

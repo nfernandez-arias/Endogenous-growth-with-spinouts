@@ -8,6 +8,8 @@
 
 
 
+\usepackage{chngcntr}
+
 \usepackage[nocomma]{optidef}
 
 \usepackage[section]{placeins}
@@ -77,15 +79,21 @@
 %\usepackage{esint}
 \onehalfspacing
 
-\theoremstyle{remark}
-\newtheorem{remark}{Remark}
+%\theoremstyle{remark}
+%\newtheorem{remark}{Remark}
+%\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}
+\newtheorem{proposition_corollary}{Corollary}[proposition]
+\newtheorem{lemma}{Lemma}
+\newtheorem{lemma_corollary}{Corollary}[lemma]
+
 \begin{document}
 	
 \title{Creating Creative Destruction: Endogenous Growth with Employee Spinouts and Non-compete Agreements}
 
 \author{Nicolas Fernandez-Arias} 
 \date{\today \\ \small
-	\href{https://drive.google.com/file/d/1bnm90ZWuRin-JhtQvOfc_2SczClHDXxy/view?usp=sharing}{Click for most recent version}}
+	\href{https://drive.google.com/file/d/1v_ohHi0CpIoqz2LQTNEJYDz5qmpSZTSi/view?usp=sharing}{Click for most recent version}}
 \maketitle
 
 
@@ -144,7 +152,7 @@ I next calibrate the model using the estimates above as well as aggregate statis
 
 Some work has attempted to answer this question directly using empirical methods. Papers in this literature have typically used either cross-sectional and/or longitudinal variation in the state-level enforcement of non-competes.\footnote{Sometimes this variation is argued to be exogenous, either due to legislative error as in \cite{marx_mobility_2009} and \cite{marx_regional_2015}, or due to unexpected judicial precedent as in \cite{jeffers_impact_2018}. Often there is a control industry that is believed to be unaffected by the variation in CNC enforcement policy (e.g. law firms are typically exempt from CNC restrictions).} The results are inconclusive and suggest an important tradeoff between entry of spinouts and investment by incumbent firms. \cite{stuart_liquidity_2003} find more local  entrepreneurship in response to local IPO (a "liquidity event") in regions not enforcing CNCs. \cite{marx_mobility_2009} finds that inventor mobility declines in response to an increase in non-compete enforcement. \cite{samila_venture_2010} finds that an increase in VC funding supply increases entrepreneurship more in states without non-compete restrictions, using an IV design. \cite{garmaise_ties_2011} finds that, in states where CNCs are more enforceable, managers are less mobile, have lower compensation, and invest less in their human capital, to the point of offsetting increased investments by the firm. On the other hand, \cite{conti_non-competition_2014} finds evidence that non-compete enforceability leads to incumbent firms pursuing riskier R\&D projects. \cite{colombo_does_2013} finds evidence that easier spinout formation -- proxied by access to finance -- leads to a reduction in incumbent firm knowledge investments.  Most recently, \cite{jeffers_impact_2018} uses data on influential state-level court precedents matched with LinkedIn data and finds that enforcement indeed reduces spinout formation while increasing capital investment by incumbent firms. Finally, \cite{marx_regional_2015} finds that CNC enforcement leads to inventor mobility out of the state, suggesting that differences in outcomes could be in part due to reallocation. 
 
-Theoretical work has also explored this question. As mentioned previously, \cite{franco_spin-outs:_2006} develops a model in which employees learn from their employers and use this knowledge to form spinouts. They emphasize the "paying for knowledge" effect, whereby employees implicitly pay for the knowledge they take from the parent firm through lower equilibrium wages. Importantly, they assume spinout firms do not steal business from their parents: the only effect of a spinout on the parent firm is a reduction in the price of the output good, which the parent firm is assumed not to take into account. This, combined with the "paying for knowledge" mechanism, ensures that the competitive equilibrium allocation is Pareto efficient, even without resorting to elaborate labor contracts.
+Theoretical work has also explored this question. As mentioned previously, \cite{franco_spin-outs_2006} develops a model in which employees learn from their employers and use this knowledge to form spinouts. They emphasize the "paying for knowledge" effect, whereby employees implicitly pay for the knowledge they take from the parent firm through lower equilibrium wages. Importantly, they assume spinout firms do not steal business from their parents: the only effect of a spinout on the parent firm is a reduction in the price of the output good, which the parent firm is assumed not to take into account. This, combined with the "paying for knowledge" mechanism, ensures that the competitive equilibrium allocation is Pareto efficient, even without resorting to elaborate labor contracts.
 
 \cite{franco_covenants_2008} studies a two-period, two-region model with employee spinouts in which the region which does not enforce CNCs initially lags but eventually overtakes the region in which CNCs are enforced. In the first period, entry is more valuable in the enforcing region. But in the second period, spinouts enter in the non-enforcing region, there is Cournot competition with parent firms in the product market, and output increases relative to the enforcing region. The analysis emphasizes how asymmetric information about whether an employee has learned leads some firms in the non-enforcing region to allow spinouts (assuming firms cannot commit to wage backloading). This can be taken as a rough microfoundation of my assumption that labor contracts are "simple" in  a non-enforcing region: just a wage, with no attempts at retention in the case of learning. Relative to this study, my analysis considers a fully dynamic model rather than two-period model. In addition, I emphasize the role of R\&D investment in spawning spinout firms.
 
@@ -242,7 +250,7 @@ The factor $V(j,t|q)$ means that the cost of enforcing NCAs increases in the equ
 
 \paragraph{Value of future spinout formation}
 
-When a WSO is formed, it is owned by the representative household. The household takes this into account when deciding where to allocate its labor. However, when assessing this value, the household \textit{does not} take into account the fact that the potential WSO will eliminate the profits of the current incumbent, which is also owned by the household.\footnote{This setup can be microfounded in several ways. One is to assume, instead of a representative household, a continuum of households each consisting of a continuum of agents who fully insure one other against idiosyncratic risk. Idiosyncratic risk in this case is the risk of being vs. not being the agent to open the spinout). Such a model is observationally equivalent (for the aggregate variables that they have in common) to the one presented here.} 
+When R\&D induces the formation of a WSO, it is immediately sold by the representative household to a competitive financial intermediary which owns all firms in the economy, which is in turn owned by the household. When valuing the WSO, the intermediary does not take into account that its entry reduces the value of the incumbent, which it also owns. The intermediary remits all corporate profits to the representative household; the household also takes the amount of these profit remittances as given. \footnote{This setup can be microfounded in several ways. One is to assume, instead of a representative household, a continuum of households each consisting of a continuum of agents who fully insure one other against idiosyncratic risk. What is essential is that (1) households behave as though risk-neutral, and that (2) households do not internalize the business-stealing effects of the WSOs they form.} 
 
 
 
@@ -257,6 +265,8 @@ Let $\tau_j^E$ denote the arrival rate of entrant innovations in good $j$, given
 
 The choice $\psi > 0$ introduces decreasing returns and represents a reduced form \textit{congestion} externality in the entrant innovation technology. This is similar to the congestion externality present in search and matching models. Intuitively, due to a lack coordination, entrants attempt similar approaches to solve the same problem. This duplication of effort reduces the overall returns to entrant R\&D when considered at the level of good $j$.
 
+Upon successfully innovating and achieving the ability to produce quality $\bar{q}_{jt}$, an entrant sells his firm to the competitive financial intermediary. As with WSOs, the intermediary does not take into account the effect of entry of these new firms on the value of incumbents in the overall portfolio.
+
 \subsubsection{Entry cost}
 
 In addition to the R\&D costs of innovation, entrants and spinouts must pay an entry cost of $\kappa_{e} V(j,t|\lambda q)$ units of the final good in order to enter once they have successfully innovated. This reduced form represents non-R\&D expenditures required by CD innovation but not by OI innovation. Examples of such expenditures could be firm set-up or marketing costs for a new product or brand.
@@ -268,9 +278,9 @@ The scaling with $V(j,t|\lambda q)$ parallels the scaling of the NCA cost in Sec
 
 \subsection{Decentralized equilibrium}\label{subsec:decentralized_equilibrium}
 
-I will solve for a BGP equlibrium with a constant and equal growth rate of output, consumption, wages and average intermediate goods quality ($g_t = g$) as well as constant innovation effort by incumbents ($z_{jt} = z$) and entrants ($\hat{z}_{jet} = \hat{z})$.  
+I will solve for a BGP equlibrium with a constant growth rate of output ($g_t = g$) as well as constant innovation effort by incumbents ($z_{jt} = z$) and entrants ($\hat{z}_{jet} = \hat{z})$. I will refer to this class of BGP as a \textit{symmetric BGP}.
 
-The strategy is the following. First, I characterize the equilibrium of the static production side of the model given a profile of frontier qualities $\{ \bar{q}_{j}\}$. Next, using the static equilibrium and the guess $\hat{z}_{jet} = \hat{z}$, I guess and verify that there exists $\tilde{V} > 0$ such that $V(j,t|q) = \tilde{V} q$ solves the HJB. This representation eliminates a factor $q$ from the the equilibrium conditions, which I then solve in closed form.
+First, I characterize the equilibrium of the static production side of the model given a profile of frontier qualities $\{ \bar{q}_{j}\}$. Next, using the static equilibrium and the symmetry $\hat{z}_{jet} = \hat{z}, z_{jt} = z$, I prove that there exists $\tilde{V} > 0$ such that $V(j,t|q) = \tilde{V} q$ solves the HJB. T.3his representation eliminates a factor $q$ from the the equilibrium conditions, which can then be solved in closed form. In the end, there is a unique symmetric BGP. 
 
 \subsubsection{Static equilibrium}
 
@@ -328,27 +338,18 @@ Y = \frac{(1-\beta)^{1-2\beta}}{\beta^{1-\beta}} Q L_F \label{flow_output}
 
 \paragraph{Household optimization}
 
-\textbf{[Richard comments]}
-
-\begin{enumerate}
-	\item Get rid of $A(t)$ thing - just model as getting profits from owning shares in mutual fund and selling spinout to mutual fund
-	\item Make relevant guesses to simplify problem before presenting it in its full generality, to spare the reader (can always put in appendix)
-	\item Try to understand to what extent the BGP is unique. Can the results / claims in \cite{acemoglu_introduction_2009} be reproduced in my model?
-\end{enumerate}
 
 Household optimization will yield two types equilibrium conditions: an indifference condition on R\&D wages resulting from optimal labor supply, and an Euler equation and transversality condition coming from optimal consumption smoothing. The problems are separable since the household does not value leisure.
 
-The problem of the representative household is given by 
+The household household problem is
 
 \small
 \begin{maxi*}[1]<b>
 	{\substack{\{C(t)\}_{t \ge 0} \\ \{\ell_{RD,j}(t)\}_{j \in [0,1]} \\ \{\hat{\ell}_{RD,j}(t)\}_{j \in [0,1]} \\ L_I(t),L_F(t)\ge 0}} {\mathbb{E} \int_0^{\infty} \frac{C(t)^{1-\theta}-1}{1-\theta} dt}{}{}
-	\addConstraint{ C(t)}{ \ge 0} {\text{Non-negativity of consumption}}
-	\addConstraint{ A'(t)}{ = r_t A(t)+ \bar{w}_t(L_I(t) + L_F(t)) - C(t)} {\text{Asset law of motion}}
-	\addConstraint{ }{+ \int_0^1 \big( w_{RD,jt} + (\frac{\bar{q}_{jt}}{Q_t})^{-1} \nu (1-\kappa_e) V(j,t|\lambda \bar{q}_{jt}) \big) \ell_{RD,j}(t) dj}
+	\addConstraint{ C(t)}{ \le \Pi_t + \bar{w}_t(L_I(t) + L_F(t)) - C(t)} {\text{Budget constraint}}
+	\addConstraint{ }{+ \int_0^1 \big( w_{RD,jt} + (1-x_{jt})(\frac{\bar{q}_{jt}}{Q_t})^{-1} \nu (1-\kappa_e) V(j,t|\lambda \bar{q}_{jt}) \big) \ell_{RD,j}(t) dj}
 	\addConstraint{ }{+ \int_0^1 \hat{w}_{RD,t} \hat{\ell}_{RD,j}(t) dj}
-	\addConstraint{\lim_{t \to \infty} e^{-\int_0^{\infty} r_t dt} A(t) }{\ge 0}{\text{No-ponzi condition}}
-	\addConstraint{A(0)}{ = A_0} {\text{Initial asset holdings}}
+	\addConstraint{ C(t)}{ \ge 0} {\text{Non-negativity of consumption}}
 	\addConstraint{\int_0^1 (\ell_{RD,j}(t) + \hat{\ell}_{RD,j}(t))dj}{ \le \bar{L}_{RD}} {\text{R\&D labor endowment}}
 	\addConstraint{L_I(t) + L_F(t)}{\le 1 - \bar{L}_{RD}} {\text{Production labor endowment}}
 \end{maxi*}
@@ -357,120 +358,145 @@ The problem of the representative household is given by
 \normalsize
 
 
-where $\ell_{RD,j}(t)$ denotes R\&D labor supplied to incumbent $j$ and $\hat{\ell}_{RD,j}(t)$ denotes R\&D labor supplied to entrants attempting innovation on good $j$.\footnote{Because the household's effective "taste" for working at a given incumbent $j$ depends on the expected DPV of WSOs formed after working there, it is necessary to explicitly model the household's R\&D labor allocation across goods $j$. This is not necessary for R\&D labor supplied to entrants, since they are all identical. However, I present the problem symmetrically.} The variable $A(t)$ denotes household's holdings of corporate equity, which earns the risk-free rate $r(t)$ as the only risk is idiosyncratic. In equilibrium, equity market clearing will require that $A(t) = \int_0^1 V(j,t|\bar{q}_{jt}) dj$, the value of incumbent firms in the economy. In addition, the household earns wages from R\&D labor supply to incumbents and entrants as well production labor supply to incumbents and production of the final good. Finally, the household also values the generation of WSOs. A WSO occurs in good $j$ with intensity $(1-x_{jt})\nu \ell_{RD,j}(t)$ and has value $(1-\kappa_e)\lambda \tilde{V}$.\footnote{Technically this assumes that $\kappa_e < 1$. When I discuss entry taxes in Section \ref{subsec:cd_tax} and $\kappa_e + T_e \ge 1$, the value will be $\max\{0,(1-\kappa_e - T_e) \lambda \tilde{V} \}$.} As mentioned in Section \ref{subsubsec:generation_of_spinouts}, the household does not internalize the effect of its generation of spinouts on the value of its stock portfolio, whose return $r_t$ it takes as given. In equilibrium, the effect of WSOs on incumbent firm manifests in the values of $r_t$ and $\tilde{V}$. 
-	
-Because the household problem involves allocating R\&D labor to different goods $j$ depending on the random processes $\{\bar{q}_{jt}\}_{t \ge 0}, \{w_{RD,jt}\}_{t\ge 0}, \{x_{jt}\}_{t\ge 0}, \{V(j,t|\bar{q}_{jt})\}_{t\ge 0}$ for $j \in [0,1]$, in principle the problem must be formulated as a stochastic optimal control problem, hence the maximization of expected utility. On the BGP, however, there is no uncertainty in the household's consumption stream. To avoid the unnecessary complication of solving the household's problem in general, I proceed by guessing parametric expressions for endogenous equilibrium objects, solving the resulting deterministic household problem, and then verifying that the guesses hold in equilibrium. 
+where $\ell_{RD,j}(t)$ denotes R\&D labor supplied to incumbent $j$ and $\hat{\ell}_{RD,j}(t)$ denotes R\&D labor supplied to entrants attempting innovation on good $j$.\footnote{Because the household's effective "taste" for working at a given incumbent $j$ depends on the expected DPV of WSOs formed after working there, it is necessary to explicitly model the household's R\&D labor allocation across goods $j$. This is not necessary for R\&D labor supplied to entrants, since they are all identical. However, I present the problem symmetrically.} The household consumes out of profits remitted by the intermediary $\Pi_t$ (which it takes as given), wages earned from production labor supply $\bar{w}_t (L_I(t) + L_F(t))$, wages earned from R\&D labor supply $\int_0^1 \big(w_{RD,jt} \ell_{RD,j}(t) + \hat{w}_{RD.t} \hat{\ell}_{RD,j}(t) \big) dj$, and earnings from sales of WSOs to the financial intermediary $ \int_0^1 (1-x_{jt}) (\frac{\bar{q}_{jt}}{Q_t})^{-1} \nu (1-\kappa_e) V(j,t|\lambda \bar{q}_{jt}) \big)\ell_{RD,j}(t) dj$. The last term aggregates the fact that a WSO occurs in good $j$ with intensity $(1-x_{jt}) (\frac{\bar{q}_{jt}}{Q_t})^{-1} \nu \ell_{RD,j}(t)$ and has value $(1-\kappa_e) V(j,t|\lambda \bar{q}_{jt})$, given that the entry cost $\kappa_e V(j,t|\lambda \bar{q}_{jt})$ must be paid to enter.\footnote{Technically this assumes that $\kappa_e < 1$. When I discuss entry taxes in Section \ref{subsec:cd_tax} and $\kappa_e + T_e \ge 1$, the value will be $\max\{0,(1-\kappa_e - T_e) \lambda \tilde{V} \}$.} 
 
-To this end, suppose that $V(j,t|\lambda \bar{q}_{jt}) = \tilde{V} \lambda \bar{q}_{jt}$, and that $w_{RD,jt} = w_{RD,j}(x_{jt}) Q_t$,  $\hat{w}_{RD,t} = \hat{w}_{RD} Q_t$.  Then the law of motion for $A(t)$ becomes
-\begin{align*}
-	 A'(t) &= r_t A(t) + Q_t \bar{w} (L_I + L_F) - C(t) \\
-		   &+ Q_t \int_0^1 \big( w_{RD,j}(x_{jt}) + (1-x_{jt}) \nu (1-\kappa_e) \lambda \tilde{V} \big) \ell_{RD,j}(t) dj \\
-		   &+ Q_t \int_0^1 \hat{w}_{RD} \hat{\ell}_{RD,j}(t) dj
-\end{align*}
+Note that, because the household problem involves allocating R\&D labor to different goods $j$ depending on the random processes $\{\bar{q}_{jt}\}_{t \ge 0}, \{w_{RD,jt}\}_{t\ge 0}, \{x_{jt}\}_{t\ge 0}, \{V(j,t|\bar{q}_{jt})\}_{t\ge 0}$ for $j \in [0,1]$, the problem is formulated as a stochastic optimal control problem. However, in a symmetric BGP, there will be no uncertainty in the household's consumption stream, because equilibrium compensation (including the value of WSOs generated) will be the same in all goods $j$ to satisfy market clearing. This logic implies the following lemma.
 
-Because the household does not value leisure, it allocates its labor supply in order to maximize wealth. When deciding to which firm to supply its R\&D labor, the household seeks out only those employment opportunities which provide the maximal compensation. Mathematically, letting
+\begin{lemma}\label{lemma:RD_worker_indifference}
+	In a symmetric BGP with $z > 0$, R\&D wages satisfy
+	\begin{align}
+	\hat{w}_{RD,t} &= w_{RD,jt} + (1-x_{jt}) (\frac{\bar{q}_{jt}}{Q_t})^{-1} \nu (1-\kappa_e) V(j,t|\bar{q}_{jt}) \label{eq:RD_worker_indifference}
+	\end{align}
+	for all $t \ge 0$ and $j \in [0,1]$.
+\end{lemma}
+
+\begin{proof}
+	First note that $\hat{z} > 0$ in any equilibrium due to the Inada conditions on the entrant innovation technology (see (\ref{eq:free_entry_condition})). Further, assume for now that $z > 0$. This implies that $\ell_{RD,j}(t) > 0, \hat{\ell}_{RD,j}(t) > 0$ for all $j,t$. However, the household only supplies R\&D labor to jobs which generate the highest compensation. Therefore, in order to be consistent with household optimal labor supply, the stated indifference condition must hold for all $t \ge 0$ and $j \in [0,1]$, 
+\end{proof}
+
+
+
+To derive the Euler equation, technically one needs to add a market for a instantaneous risk-free bond, which in equilibrium is in zero net supply. I have not done this explicitly to avoid cumbersome notation. Denote the interest rate for this bond by $r_t$, which in principle can be time-varying. The resulting household problem is standard and gives rise to the Euler equation at each time $t \ge 0$, 
 \begin{align}
-	\mathbf{w}_{RD,t} = \max \Big\{ \hat{w}_{RD} , \max_{j\in[0,1]} \big\{ \frac{w_{RD,jt}}{Q_t} + (1-x_{jt}) \nu (1-\kappa_e) \lambda \tilde{V} \big\} \Big\}
+\frac{\dot{C}(t)}{C(t)} = \frac{1}{\theta} (r_t - \rho) \label{eq:euler0} 
 \end{align}
 
-denote the maximal labor compensation at time $t$, the following holds in equilibrium:
+And the transversality condition
 \begin{align}
-	\ell_{RD,j}(t) > 0 &\Rightarrow \frac{w_{RD,jt}}{Q_t} + (1-x_{jt}) \nu (1-\kappa_e) \lambda \tilde{V} = \mathbf{w}_{RD,t} \label{eq:RD_worker_indifference0a}\\
-	\hat{\ell}_{RD}(t) > 0 &\Rightarrow \hat{w}_{RD} = \mathbf{w}_{RD,t} \label{eq:RD_worker_indifference0b}
+	\lim_{t \to \infty} \mathbb{E} \Big[ e^{-\int_0^t r_s ds} \int_0^1 V(j,t|\bar{q}_{jt}) dj \Big] &= 0 \label{eq:tvc0}
 \end{align}
 
-Suppose all incumbents choose the same positive level of R\&D effort in equilibrium, that is $z > 0$; and similarly that all entrants choose the same level of R\&D effort, $\hat{z} > 0$.\footnote{Note that the restriction $\hat{z} > 0$ is without loss of generality due to Inada conditions on the entrant innovation technology (see (\ref{eq:free_entry_condition})). The restriction $z > 0$ is not without loss of generality, but the case $z = 0$ is trivial to solve so I will come back to it later.} Then, in equilibrium, $\ell_{RD,j}(t) , \hat{\ell}_{RD}(t) > 0$ for all $t \ge 0$, implying by (\ref{eq:RD_worker_indifference0a}) and (\ref{eq:RD_worker_indifference0b}) that
-\begin{align}
-\hat{w}_{RD} &= \frac{w_{RD,jt}}{Q_t} + (1-x_{jt}) \nu (1-\kappa_e) \lambda \tilde{V} \label{eq:RD_worker_indifference}
-\end{align}
-
-This confirms the guess above that $w_{RD,jt} = w_{RD,j}(x_{jt}) Q_t $ on the BGP. In addition, the law of motion for $A(t)$ can be written without explicitly considering randomness: BGP, the equilibrium relationship (\ref{eq:RD_worker_indifference}) and optimal labor supply imply that the household receives deterministic flow labor earnings of $\bar{w}_t(1 - \bar{L}_{RD}) + \hat{w}_{RD,t} \bar{L}_{RD} = Q_0 e^{gt} \big( \bar{w} (1-\bar{L}_{RD}) + \hat{w}_{RD} \bar{L}_{RD}\big) $,  regardless of the individual realizations of the stochastic processes $\bar{q}_{jt}$. The optimization problem becomes
-\begin{maxi*}[0]
-	{\{C(t)\}_{t\ge0}} {\int_0^{\infty} \frac{C(t)^{1-\theta}-1}{1-\theta} dt}{}{}
-	\addConstraint{ C(t)}{ \ge 0} 
-	\addConstraint{ A'(t)}{ = r_t A(t) + \bar{w}_t(1 - \bar{L}_{RD}) + \hat{w}_{RD,t} \bar{L}_{RD} - C(t)} 
-	\addConstraint{\lim_{t \to \infty} e^{-\int_0^t r_s ds} A(t) }{\ge 0}
-	\addConstraint{A(0)}{ = A_0} 
-\end{maxi*}
-
-Note that the path of $r_t$ is deterministic. The resulting problem is standard and gives rise to the Euler equation 
-\begin{align}
-\frac{\dot{C(t)}}{C(t)} = \frac{1}{\theta} (r_t - \rho) \label{eq:euler0} 
-\end{align}
-
-and the transversality condition
-\begin{align}
-	\lim_{t \to \infty} e^{-\int_0^t r_s ds} A(t) &= 0 \label{eq:tvc0}
-\end{align}
+because the time $t$ discounted present value of profits $\Pi_t$ is equal to $\int_0^1 V(j,t | \bar{q}_{jt})$ in equilibrium.
 
 \paragraph{Equilibrium innovation}
 
-Due to perfect competition, the incumbent faces an infinitely elastic supply curve for R\&D labor: given a choice of $x_{jt}$, she can hire as much as she likes provided she offers total compensation required by the indifference condition (\ref{eq:RD_worker_indifference}). The incumbent takes this into account when deciding whether to offer contracts with an NCA ($x = 1$) or without an NCA ($x = 0$). Let $w_{RD,jt}(x)$ denote the  wage given the incumbent's choice of $x$, given (\ref{eq:RD_worker_indifference}).
+Due to perfect competition, the incumbent faces an infinitely elastic supply curve for R\&D labor: given a choice of $x_{jt}$, she can hire as much as she likes provided she offers total compensation required by the indifference condition (\ref{eq:RD_worker_indifference}). The incumbent takes this into account when deciding whether to offer contracts with an NCA ($x = 1$) or without an NCA ($x = 0$). Let $w_{RD,jt}(x)$ denote the  wage given the incumbent's choice of $x$, given by (\ref{eq:RD_worker_indifference}).
 
 The incumbent HJB is given by 
 \begin{align}
 (r_t + \hat{\tau}(j,t|q)) &V(j,t |q) - \dot{V}(j,t|q) = \pi(j,t|q) \nonumber \\_{}
 &+ \max_{\substack{x \in \{0,1\} \\ z \ge 0}} \Bigg\{ z \Big[ \chi \big( V(j,t|\lambda q) - V(j,t|q)\big)  \nonumber \\
-&- \big(\frac{q}{Q_t}\big) \Big( w_{RD,jt}(x) - \big(\frac{q}{Q_t}\big)^{-1} (1-x) \nu V(j,t|q) -\big(\frac{q}{Q_t}\big)^{-1}  x \kappa_c \nu V(j,t|q) \Big)  \Big] \Bigg\} \label{eq:hjb_incumbent_0}
+&- \big(\frac{q}{Q_t}\big) \Big( w_{RD,jt}(x) + \big(\frac{q}{Q_t}\big)^{-1} (1-x) \nu V(j,t|q) + \big(\frac{q}{Q_t}\big)^{-1}  x \kappa_c \nu V(j,t|q) \Big)  \Big] \Bigg\} \label{eq:hjb_incumbent_0}
 \end{align}
-where the discounting is at the risk-free rate $r_t$ due to the absence of systemic risk. 
+where the discounting is at the risk-free rate $r_t$ because the financial intermediary diversifies across incumbents and there is no aggregate risk.
 
-On the BGP with $\frac{\dot{C}(t)}{C(t)} = g$ for all $t \ge 0 $, (\ref{eq:euler0}) implies that $r_t = r$. The static equilibrium implies that $\pi(j,t|q) = \tilde{\pi} q$. Using these results and the guess $\hat{z}(j,t|q) = \hat{z}, V(j,t|q) = \tilde{V} q$, and $w_{RD,jt}(x) = w_{RD,j}(x) Q_t$ in (\ref{eq:hjb_incumbent_0}) and dividing both sides by $q$ yields 
-\begin{align}
-(r + \hat{\tau}) &\tilde{V} = \tilde{\pi} + \max_{\substack{x \in \{0,1\} \\ z \ge 0}} \Bigg\{ z \Big( \chi (\lambda -1) \tilde{V}- w_{RD,j}(x) - (1-x) \nu \tilde{V} - x \kappa_c \nu \tilde{V} \Big)\Bigg\} \label{eq:hjb_incumbent_1}
-\end{align}
+\begin{lemma}\label{lemma:hjb_scaling}
+	In a symmetric BGP, the value function of the incumbent is given by
+	\begin{align*}
+		V(j,t|q) &= \tilde{V} q
+	\end{align*}
+	for some $\tilde{V} > 0$. Further, the equilibrium R\&D wages are given by 
+	\begin{align*}
+		\hat{w}_{RD,t} &= \hat{w}_{RD} Q_t \\
+		w_{RD,jt}(x) &= w_{RD}(x) Q_t \textrm{, if $z > 0$}
+	\end{align*}
+\end{lemma}
 
-Substituting in $w_{RD,j}(x)$ using (\ref{eq:RD_worker_indifference}) yields
-\begin{align}
+\begin{proof}
+	Suppose $z > 0$. The first order condition for $z$, after substituting for $w_{RD,jt}(x)$ using (\ref{eq:RD_worker_indifference}), is given by 
+	\begin{align}
+	0 = \chi \big( V(j,t|\lambda q) - V(j,t|q)\big) - \big(\frac{q}{Q_t}\big) \Bigg( &\hat{w}_{RD,t} - (1-x) (\frac{q}{Q_t})^{-1} \nu (1-\kappa_e) V(j,t|\lambda q) \nonumber \\
+	&+ \big(\frac{q}{Q_t}\big)^{-1} (1-x) \nu V(j,t|q) + \big(\frac{q}{Q_t}\big)^{-1}  x \kappa_c \nu V(j,t|q) \Bigg) \label{eq:HJB_FOC0}
+	\end{align}
+	
+	In a BGP with $z_{jt} = z > 0$, (\ref{eq:HJB_FOC0}) must hold for all $(j,t,q) \in [0,1] \times \mathbb{R}_+ \times \mathbb{R}_+$. Note that the assumption $\hat{z}_{jt} = \hat{z}$ implies that $\hat{\tau}_{jt} = \hat{\tau}$. Substituting (\ref{eq:HJB_FOC0}) into the incumbent HJB yields
+	\begin{align}
+	(r_t + \hat{\tau}) V(j,t|q) &= \pi(j,t|q) \label{eq:HJB_solved0}
+	\end{align}
+	
+	On the BGP with $\frac{\dot{C}(t)}{C(t)} = g$ for all $t \ge 0 $, (\ref{eq:euler0}) implies that $r_t = r$. Also, the static equilibrium implies that $\pi(j,t|q) = \tilde{\pi} q$. Substituting into (\ref{eq:HJB_solved0}) yields
+	\begin{align}
+	(r + \hat{\tau}) V(j,t|q) &= \tilde{\pi}q \label{eq:HJB_solved1}
+	\end{align}
+	
+	which proves that $V(j,t|q) = \tilde{V}q$. Substituting back into (\ref{eq:HJB_FOC0}) implies that $\hat{w}_{RD,t} = \hat{w}_{RD} Q_t$ and, using (\ref{eq:RD_worker_indifference}), that $w_{RD,jt}(x) = w_{RD}(x) Q_t$. 
+	
+	Next, suppose $z = 0$. The incumbent HJB can immediately be written
+	\begin{align*}
+		(r_t + \hat{\tau}) V(j,t|q) &= \pi(j,t|q)
+	\end{align*}
+	which yields the result as before. 
+\end{proof}
+
+The first proposition characterizes the optimal NCA policy of the incumbent.
+
+\begin{proposition}
+	In a symmetric BGP with $z > 0$, the optimal NCA policy of the incumbent is given by
+	\begin{align}
+	x = \begin{cases}
+	1 & \textrm{if } \kappa_{c} < \bar{\kappa}_c (\kappa_e, \lambda) \\
+	0 & \textrm{if } \kappa_{c} > \bar{\kappa}_c (\kappa_e, \lambda)\\
+	\{0,1\} & \textrm{if } \kappa_c = \bar{\kappa}_c (\kappa_e, \lambda) 
+	\end{cases} \label{eq_nca_policy}
+	\end{align}
+	where $\bar{\kappa}_c (\kappa_e, \lambda) = 1 - (1-\kappa_e)\lambda$.
+	
+	Note that on the knife-edge $\kappa_c = \bar{\kappa}_c$, the incumbent is indifferent between $x = 0$ and $x = 1$. 
+	
+	If $z = 0$, then the incumbent NCA policy is irrelevant to equilibrium allocations and prices.
+\end{proposition}
+
+\begin{proof}
+	Using the representation $V(j,t|q) = \tilde{V}q$ derived in Lemma \ref{lemma:hjb_scaling} in the incumbent HJB (\ref{eq:hjb_incumbent_0}) and dividing both sides by $q$ yields
+	\begin{align}
+	(r + \hat{\tau}) &\tilde{V} = \tilde{\pi} + \max_{\substack{x \in \{0,1\} \\ z \ge 0}} \Bigg\{ z \Big( \chi (\lambda -1) \tilde{V}- w_{RD}(x) - (1-x) \nu \tilde{V} - x \kappa_c \nu \tilde{V} \Big)\Bigg\} \label{eq:hjb_incumbent_1}
+	\end{align}
+	
+	Substituting in $w_{RD}(x)$ using the indifference condition (\ref{eq:RD_worker_indifference}) derived in Lemma \ref{lemma:RD_worker_indifference} yields
+	\begin{align}
 	(r + \hat{\tau}) \tilde{V} &= \tilde{\pi} + \max_{\substack{x \in \{0,1\} \\ z \ge 0}} \Big\{z \Big( \overbrace{\chi (\lambda - 1) \tilde{V}}^{\mathclap{\mathbb{E}[\textrm{Benefit from R\&D}]}}- \hat{w}_{RD} -  \underbrace{(1-x)(1 - (1-\kappa_{e})\lambda)\nu \tilde{V}}_{\mathclap{\text{Net cost from spinout formation}}} - \overbrace{x \kappa_{c} \nu \tilde{V}}^{\mathclap{\text{Direct cost of NCA}}}\Big) \Big\} \label{eq:hjb_incumbent_workerIndiff}
-\end{align}
+	\end{align}
 
-The term $\chi(\lambda -1) \tilde{V}$ is the expected benefit per unit of R\&D effort. Notice the factor $\lambda -1$, which takes into account the opportunity cost of no longer producing with the obsolete technology. The term $-\hat{w}_{RD}$ reflects the cost of R\&D effort due to the contribution from the prevailing R\&D wage. The term $-(1-x)(1 - (1-\kappa_e) \lambda) \nu \tilde{V}$ represents the expected net harm to the incumbent due to spinouts from the employee. Expanding this term, the term $-(1-x)\nu \tilde{V}$ reflects the direct harm from creative destruction by spinouts. The second term $(1-x)(1-\kappa_e)\lambda \nu \tilde{V}$ reflects the reduction in R\&D wage accepted by the R\&D employee in return for being free to open spinouts. Finally, the term $-x \kappa_c \nu \tilde{V}$ reflects the direct cost of enforcing NCAs.
+	
+	Let $\bar{\kappa}_c (\kappa_e, \lambda) = 1 - (1-\kappa_e)\lambda$. If $z > 0$, the incumbent maximizes her flow payoff by choosing $x \in \{0,1\}$ which maximizes the term multiplying $z$. Therefore, $x = 1$ is strictly preferred iff $1 - (1-\kappa_e) \lambda > \kappa_c$, which is equation (\ref{eq_nca_policy}).
+\end{proof}
 
-Let $\bar{\kappa}_c (\kappa_e, \lambda) = 1 - (1-\kappa_e)\lambda$. If $z > 0$, the above implies the incumbent's optimal noncompete policy is given by\footnote{If $z = 0$, the incumbent is indifferent between $x \in\{0,1\}$, but this choice is irrelevant for the equilibrium allocation and prices.} 
-\begin{align}
-x = \begin{cases}
-1 & \textrm{if } \kappa_{c} < \bar{\kappa}_c (\kappa_e, \lambda) \\
-0 & \textrm{if } \kappa_{c} > \bar{\kappa}_c (\kappa_e, \lambda)\\
-\{0,1\} & \textrm{if } \kappa_c = \bar{\kappa}_c (\kappa_e, \lambda) 
-\end{cases} \label{eq_nca_policy}
-\end{align}
-
-Note that if $\kappa_c = \bar{\kappa}_c$, the incumbent is indifferent between $x = 0$ and $x = 1$.
+Equation (\ref{eq:hjb_incumbent_workerIndiff}) has an intuitive economic interpretation. The left-hand side is the equilibrium flow payoff on an asset with value $\tilde{V}$. The RHS is the flow payoff of incumbency. The term $\chi(\lambda -1) \tilde{V}$ is the expected benefit per unit of R\&D effort. Notice the factor $\lambda -1$, which takes into account the opportunity cost of no longer producing with the obsolete technology. The term $-\hat{w}_{RD}$ reflects the cost of R\&D effort due to the contribution from the prevailing R\&D wage. The term $-(1-x)(1 - (1-\kappa_e) \lambda) \nu \tilde{V}$ represents the expected net harm to the incumbent due to spinouts from the employee. Expanding this term, the term $-(1-x)\nu \tilde{V}$ reflects the direct harm from creative destruction by spinouts. The second term $(1-x)(1-\kappa_e)\lambda \nu \tilde{V}$ reflects the reduction in R\&D wage accepted by the R\&D employee in return for being free to open spinouts. Finally, the term $-x \kappa_c \nu \tilde{V}$ reflects the direct cost of enforcing NCAs.
 
 \paragraph{Entry, aggregation and equilibrium}
 
-I according to whether we are in the $x = 1$, $x = 0$ or $x \in \{0,1\}$ regimes. In each case, first I assume that $z > 0$ in equilibrium and compute the candidate equilibrium prices and allocation that result. If this computed allocation has $z > 0$, then it is an equilibrium. Otherwise, we know that $z = 0$ in equilibrium, which gives $\hat{z} = \bar{L}_{RD}$, and the remainder of the equilibrium can be computed in the same way, with the R\&D wage $\hat{w}_{RD}$ falling to ensure equilibrium in the R\&D labor market. 
-
-\paragraph{Case 1: $\kappa_c < \bar{\kappa}_c(\kappa_e,\lambda)$ and $x = 1$}
-
-Equation (\ref{eq:RD_worker_indifference}) implies $w_{RD,j} = \hat{w}_{RD}$ and the incumbent's HJB is given by 
-\begin{align}
-(r + \hat{\tau}) \tilde{V} &= \tilde{\pi} + \max_{z \ge 0} \Big\{z \big(\chi (\lambda - 1) \tilde{V} - \hat{w}_{RD} - \kappa_{c} \nu \tilde{V}\big) \Big\} \label{eq:hjb_incumbent}
-\end{align}
-
-Assuming an interior solution $z > 0$, the incumbent's FOC implies that, in equilibrium, the term multiplying $z$ in (\ref{eq:hjb_incumbent}) must equal zero,
+Suppose first that $z > 0$. The incumbent's FOC implies that, in equilibrium, the term multiplying $z$ in (\ref{eq:hjb_incumbent_workerIndiff}) must equal zero,
 \begin{align*}
-	0 &= \chi(\lambda-1)\tilde{V}- \hat{w}_{RD} - \kappa_c \nu \tilde{V}
+	0 &= \chi(\lambda-1)\tilde{V}- \hat{w}_{RD} - (1-x)(1 - (1-\kappa_e)\lambda) \nu \tilde{V} - x \kappa_c \nu \tilde{V}
 \end{align*}
 
 Solving for $\tilde{V}$ yields
 \begin{align}
-	\tilde{V} &= \frac{\hat{w}_{RD}}{\chi(\lambda - 1) - \kappa_{c} \nu} \label{eq:hjb_incumbent_foc}
+	\tilde{V} &= \frac{\hat{w}_{RD}}{\chi(\lambda - 1) - (1-x) (1- (1-\kappa_e)\lambda)\nu - x \kappa_{c} \nu} \label{eq:hjb_incumbent_foc}
 \end{align}
 
 Entrant innovation satisfies a free entry condition,\footnote{The original condition is 
 	\begin{align*}
-		\hat{\chi} \hat{z}^{-\psi} (1-\kappa_e) \lambda V(j,t|q) = \frac{q}{Q_t} \hat{w}_{RD,t}
+		\hat{\chi} \hat{z}^{-\psi} (1-\kappa_e)  V(j,t|\lambda q) = \frac{q}{Q_t} \hat{w}_{RD,t}
 	\end{align*}
-	Using $V(q,t) = \tilde{V} q$ and $\hat{w}_{RD,t} = \hat{w}_{RD} Q_t$ yields (\ref{eq:free_entry_condition}).}
+	Using $V(j,t|q) = \tilde{V} q$ and $\hat{w}_{RD,t} = \hat{w}_{RD} Q_t$ yields (\ref{eq:free_entry_condition}).}
 \begin{align}
 	\underbrace{\hat{\chi} \hat{z}^{-\psi}}_{\mathclap{\text{Marginal innovation rate}}} \overbrace{(1-\kappa_e) \lambda \tilde{V}}^{\mathclap{\text{Payoff from innovation}}} &= \underbrace{\hat{w}_{RD}}_{\mathclap{\text{MC of R\&D}}} \label{eq:free_entry_condition}
 \end{align}
 
 Substituting $\tilde{V}$ using (\ref{eq:hjb_incumbent_foc}) yields an expression for entrant R\&D effort, 
 \begin{align}
-	\hat{z} &= \Big( \frac{\hat{\chi} (1-\kappa_{e}) \lambda}{\chi(\lambda-1) - \kappa_c \nu } \Big)^{1/\psi} \label{eq:effort_entrant}
+	\hat{z} &= \Big( \frac{\hat{\chi} (1-\kappa_{e}) \lambda}{\chi(\lambda-1) - (1-x) (1- (1-\kappa_e)\lambda)\nu - x \kappa_{c} \nu} \Big)^{1/\psi} \label{eq:effort_entrant}
 \end{align}
 
 Market clearing for R\&D labor requires
@@ -483,10 +509,10 @@ which implies
 	z &= \bar{L}_{RD} - \hat{z} \label{eq:zI_asFuncZe}
 \end{align}
 
-Growth is determined by the growth accounting equation\footnote{To see this, let $\Delta > 0$ and let $J_0(\Delta)$ ($J_1(\Delta)$) denote the indices $j\in [0,1]$ on which innovation occurs zero (one) times between $t$ and $t+\Delta$. By the law of large numbers, the set $J_1(\Delta)$ has measure $\mu_1 \Delta = (\tau + \tau^S + \hat{\tau})\Delta$. The set $J_0(\Delta)$ has measure $1 - \mu_1 \Delta + o(\Delta)$. 
+Growth is determined by the growth accounting equation\footnote{To see this, let $\Delta > 0$ and let $J_0(\Delta)$ ($J_1(\Delta)$) denote the indices $j\in [0,1]$ on which innovation occurs zero (one) times between $t$ and $t+\Delta$. By the law of large numbers, the set $J_1(\Delta)$ has measure $\mu_1 \Delta = (\tau + \tau^S + \hat{\tau})\Delta + o(\Delta)$. The set $J_0(\Delta)$ has measure $1 - \mu_1 \Delta + o(\Delta)$. 
 		\begin{align*}
 			Q_{t+\Delta} = \int_0^1 \bar{q}_{j,t+\Delta} dj &= \int_{j \in J_0} \bar{q}_{jt} dj + \int_{j \in J_1} \lambda \bar{q}_{jt} dj + o(\Delta) \\
-			&= (1 - \mu_1\Delta - o(\Delta)) Q_t + \mu_1 \Delta \lambda Q_t + o(\Delta) \\
+			&= (1 - \mu_1\Delta - o(\Delta)) Q_t + (\mu_1 \Delta + o(\Delta) ) \lambda Q_t + o(\Delta) \\
 			&= (1 - \mu_1\Delta) Q_t + \mu_1\Delta \lambda Q_t + o(\Delta)
  	\end{align*}
  where I used the fact that $\mathbb{E}[\bar{q}_{jt} | j \in J_0]  = \mathbb{E}[\bar{q}_{jt} | j \in J_1] = Q_t$, since innovations happen at the same rate regardless of $\bar{q}_{jt}$. It follows that
@@ -497,7 +523,7 @@ Growth is determined by the growth accounting equation\footnote{To see this, let
 g &= (\lambda - 1)(\tau + \tau^S + \hat{\tau}) \label{eq:growth_accounting}
 \end{align}
 
-The Euler equation and $g = \frac{\dot{C}}{C}$ determine the interest rate, 
+Since there is no storage technology, flow consumption $C(t)$ is equal to output minus entry and NCA costs. That is, $C(t) = \tilde{Y}Q_t - (\tau^S + \hat{\tau}) \kappa_e \lambda \tilde{V} Q_t - x \kappa_c \tilde{V}$. This implies that $\frac{\dot{C}}{C} = \frac{\dot{Q}}{Q} = g$ on the BGP. Given this, the Euler equation determines the interest rate, 
 \begin{align}
 	g &= \frac{\dot{C}}{C} = \frac{1}{\theta} (r - \rho) \label{eq:euler} \\
 	\Rightarrow r &= \theta g + \rho \nonumber
@@ -505,65 +531,101 @@ The Euler equation and $g = \frac{\dot{C}}{C}$ determine the interest rate,
 
 Substituting the incumbent's FOC into the incumbent's HJB, and using the expression for the interest rate, yields the incumbent's value $\tilde{V}$,
 \begin{align}
-	 \tilde{V} &= \frac{\tilde{\pi}}{r + \hat{\tau}}
+	 \tilde{V} &= \frac{\tilde{\pi}}{r + \hat{\tau}} \label{eq:hjb_incumbent_gordon_formula}
 \end{align}
 
 Finally, the free entry condition (\ref{eq:free_entry_condition}) determines the equilibrium value of $\hat{w}_{RD}$.
 
 If (\ref{eq:effort_entrant}) implies that $\hat{z} > \bar{L}_{RD}$, then in equilibrium $\hat{z} = \bar{L}_{RD}$ and $z = \tau = \tau^S = 0$.\footnote{In fact, (\ref{eq:effort_entrant}) characterizes when this occurs as a function of the model parameters.} Then $g = (\lambda - 1) \hat{\tau}$ and the rest of the equilibrium allocation and prices can be computed in the same way as before. 
 
-\paragraph{Case 2: $\kappa_c > \bar{\kappa}_c(\kappa_e,\lambda)$ and $x = 0$}
-Proceeding as before, the incumbent's HJB is now given by 
-\begin{align}
-	(r + \hat{\tau}) \tilde{V} &= \tilde{\pi} + \max_{z \ge 0 } \Big\{ z \Big( \chi (\lambda - 1) \tilde{V} - \hat{w}_{RD} - (1 - (1-\kappa_e)\lambda) \nu \tilde{V} \Big)  \Big\}\label{eq:hjb_incumbent_noNCA}
-\end{align}
+\paragraph{Knife-edge: $\kappa_c = \bar{\kappa}_c(\kappa_e,\lambda)$ and $x \in \{0,1\}$}
 
-In a manner analogous to Case 1, (\ref{eq:hjb_incumbent_noNCA}) and $z > 0$ imply, via the incumbent FOC, that
-\begin{align}
-\tilde{V} &= \frac{\hat{w}_{RD}}{\chi(\lambda - 1) - (1-(1-\kappa_{e})\lambda)\nu} \label{eq:hjb_incumbent_foc_noNCA}
-\end{align}
-
-As before, free entry and the incumbent FOC yield entrant R\&D effort, 
-\begin{align}
-	\hat{z} &= \Big( \frac{\hat{\chi} (1-\kappa_{e}) \lambda}{\chi(\lambda-1) - (1-(1-\kappa_e)\lambda)\nu } \Big)^{1/\psi} \label{eq:effort_entrant_case2}
-\end{align}
-
-Growth $g$ is computed as before,
-\begin{align}
-g &= (\lambda - 1)(\tau + \tau^S + \hat{\tau}) \label{eq:growth_accounting_noNCA}
-\end{align}
-where now $\tau^S > 0$ because $x = 0$. Similarly, the Euler equation again returns the equilibrium interest rate 
-\begin{align*}
-	r &= \theta g + \rho
-\end{align*}
-
-and the incumbent HJB and free entry condition yield the value $\tilde{V}$,
-\begin{align}
-	\tilde{V} &= 
-\end{align} 
-
-and the wage $\hat{w}_{RD}$, respectively. 
-
-If the above equations imply $\hat{z} > \bar{L}_{RD}$ then, as before, in equilibrium we have $\hat{z} = \bar{L}_{RD}$ and $z = \tau = \tau^S = 0$. Then $g,r,\tilde{V},\hat{w}_{RD}$ can be computed in a manner analogous to that in Case 1.  
-
-\paragraph{Case 3: $\kappa_c = \bar{\kappa}_c(\kappa_e,\lambda)$ and $x \in \{0,1\}$}
-
-In this case, the incumbent is indifferent between choosing $x = 0$ or $x = 1$. There exist BGPs where either $x_{jt} = 0$ for all $j\in[0,1],t \ge 0$ or $x_{jt} = 1$ for all $j\in[0,1],t \ge 0$.
-
-In addition, for any fraction $f \in (0,1)$ there exists a BGP where at all $t \ge 0$, a fraction $f$ of intermediate goods $j$ have $x_j = 1$. However, such a BGP is a more complicated construction than the "pure strategy" case because goods $j$ that use $x_j = 1$ are innovated upon less frequently and therefore tend to fall behind the rest of the economy. BGP requires that the endogenous variable $\mathbb{E}[\tilde{q}_j | x_j = 1]$ remain constant in equilibrium in order for the mapping from individual policies to the aggregate growth to remain constant. One relatively simple way to ensure this is to assume that a constant fraction of entering firms choose $x_j = 1$ and all firms use the same choice $x_j$ throughout their entire lives. Then while surviving goods with $x_j = 1$ tend to lag behind the rest of the economy, they receive a larger boost in proportional terms from the injection of recently innovated upon products whose incumbents set $x_j = 1$. This type of setup would also ensure a BGP in an alternative (I think promising) model where there is heterogeneity in $\kappa_e$. 
+In this case, the incumbent is indifferent between choosing $x = 0$ or $x = 1$. There exist BGPs where either $x_{jt} = 0$ for all $j\in[0,1],t \ge 0$ or $x_{jt} = 1$ for all $j\in[0,1],t \ge 0$. In addition, for any fraction $f \in (0,1)$ there exists a BGP where at all $t \ge 0$, a fraction $f$ of intermediate goods $j$ have $x_j = 1$. Such a BGP is significantly more complicated than the "pure strategy" BGP because goods $j$ that use $x_j = 1$ are innovated upon less frequently and therefore tend to fall behind goods with $x_j = 0$.\footnote{BGP requires that the endogenous variable $\mathbb{E}[\tilde{q}_j | x_j = 1]$ remain constant in equilibrium in order for the mapping from individual policies to the aggregate growth rate to be constant. One way to achieve this is to assume that a constant fraction of entering firms choose $x_j = 1$, keeping this choice $x_j$ throughout their entire lives. Goods with $x_j = 1$ tend to lag behind the rest of the economy, and so $\mathbb{E}[\tilde{q}_j| x_j = 1]$ tends to decrease; however, new firms choosing $x_j = 1$ are identical to new firms choosing $x_j = 0$. Therefore, new firms increase $\mathbb{E}[\tilde{q}_j | x_j = 1]$ by more the lower is $\mathbb{E}[\tilde{q}_j | x_j = 1]$. Similarly, new firms increase  $\mathbb{E}[\tilde{q}_j | x_j = 0]$ by less the higher is $\mathbb{E}[\tilde{q}_j | x_j = 0]$. These forces balance out in equilibrium so that $\mathbb{E}[\tilde{q}_j | x_j = 1]$ and $\mathbb{E}[\tilde{q}_j | x_j = 0]$ are both constant. This type of setup would also ensure a BGP in an alternative model where there is heterogeneity in $\kappa_e$ causing heterogeneity in $x$. An alternative which sidesteps this issue is to use a Cobb-Douglas aggregator. This requires tracking limit pricing, but has the advantage that the relevant measure of aggregate quality is average of log quality, which means proportional improvements have a given effect on the aggregate regardless of the quality on which they improve.}
 
 \paragraph{Transversality condition}
 
-Using $A(t) = \int_0^1 V(j,t|\bar{q}_{jt}) dj$,  $V(j,t|\bar{q}_{jt}) = \tilde{V} \bar{q}_{jt}$, and the fact that $\int_0^1 \bar{q}_{jt} dj = Q_t$, the transversality condition (\ref{eq:tvc0}) becomes
+Using $V(j,t|\bar{q}_{jt}) = \tilde{V} \bar{q}_{jt}$ and $\int_0^1 \bar{q}_{jt} dj = Q_t$, the transversality condition (\ref{eq:tvc0}) becomes
 \begin{align}
 	\lim_{t \to \infty} e^{-rt} \tilde{V} Q_t = 0 \label{eq:tvc}
 \end{align}
 
-Because $Q_t = Q_0 e^{gt}$, (\ref{eq:tvc}) is satisfied as long as $r > g$. Given the Euler equation (\ref{eq:euler}), the condition holds as long as $\rho > (1-\theta)g$.  For $\theta \ge 1$, this holds for all $\rho > 0$.  For $\theta < 1$, the condition has bite as it requires $\rho > K(g,\theta)$ for some constant $K(g,\theta) > 0$. Intuitively, when $\theta > 1$, the desire for intertemporal consumption smoothing is strong enough that high growth rates are met with even higher interest rates. As a result, BGP growth does not imply a suboptimal degree of wealth accumulation in the infinite future, even when there is no discounting or even some negative discounting. When $\theta = 1$, the effect of interest rates exactly offsets the effect of growth rates in equilibrium, and the value of assets in the infinite future is zero as long as there is some discounting. When $\theta < 1$, the response of interest rates to growth is so weak that a positive amount of subjective discounting is necessary for a BGP allocation to be optimal consumption-savings behavior.
+Because $Q_t = Q_0 e^{gt}$, (\ref{eq:tvc}) is satisfied as long as $r > g$. Given the Euler equation (\ref{eq:euler}), the condition holds as long as $\rho > (1-\theta)g$.  For $\theta \ge 1$, this holds for all $\rho > 0$.  For $\theta < 1$, the condition has bite as it requires $\rho > K(g,\theta)$ for some function $K(g,\theta) > 0$. Intuitively, when $\theta > 1$, the desire for intertemporal consumption smoothing is strong enough that high growth rates are met with even higher interest rates. As a result, BGP growth does not imply a suboptimal degree of wealth accumulation in the infinite future, even when there is no discounting or even some negative discounting. When $\theta = 1$, the effect of interest rates exactly offsets the effect of growth rates in equilibrium, and the value of assets in the infinite future is zero as long as there is some discounting. When $\theta < 1$, the response of interest rates to growth is so weak that a positive amount of subjective discounting is necessary for a BGP allocation to be optimal consumption-savings behavior.
 
 Since $\theta \ge 1$ is the empirically relevant case, I do not explore the case $\theta < 1$ in detail.
 
-\section{Empirics}
+\subsection{Efficiency properties of the model}
+
+Below I discuss theoretically the efficiency of the decentralized equilibrium and how this depends on parameters. 
+
+\subsubsection{Welfare}
+
+Denote social welfare from time $t$ onwards by $W_t$. Since the model's only agent is a representative household, social welfare is simply the household's utility,
+\begin{align}
+	W_t = \int_t^{\infty} e^{-\rho s} \frac{C(t+s)^{1-\theta} - 1}{1-\theta} ds
+\end{align}
+
+In equilibrium, $C(t+s) = C(t) e^{gs}$, so
+\begin{align}
+	W_t &= \int_t^{\infty} e^{-\rho s} \frac{C(t)^{1-\theta} e^{(1-\theta)gs} - 1}{1-\theta} ds \nonumber \\
+		&= \frac{C(t)^{1-\theta}}{1-\theta} \int_t^{\infty} e^{-\rho s} e^{(1-\theta) g s} ds - R(\rho,\theta) \nonumber \\
+		&= \frac{C(t)^{1-\theta} }{(1-\theta)(\rho - g(1-\theta))} - R(\rho,\theta)
+\end{align}
+
+for some function $R(\rho,\theta)$. This constant does not affect welfare comparisons qualitatively. Normally it also affects them quantitatively, but I will study welfare comparisons in consumption-equivalent terms, so the term $R(\rho,\theta)$ is also irrelevant quantitatively. Since $C(t) = \tilde{C}e^{gt}$ and $\tilde{C} = \tilde{Y} - (\hat{\tau} + \tau^S) \kappa_e \lambda \tilde{V} - x z \kappa_c \nu \tilde{V}$, define
+\begin{align}
+\tilde{W} &= \frac{\big(\overbrace{\tilde{Y} - (\hat{\tau} + \tau^S) \kappa_{e} \lambda \tilde{V} - x z \kappa_c \nu \tilde{V}}^{\tilde{C}}\big)^{1-\theta}}{(1-\theta)(\rho - g(1-\theta))} \label{eq:agg_welfare}
+\end{align}
+
+Then $\tilde{W} e^{(1-\theta)gt}  = W_t + R(\rho,\theta)$. I conduct welfare comparisons in consumption-equivalent (CEV) terms. This is defined as follows. For the purposes of this discussion, an \textit{allocation} is a set $A = \{ \tilde{C}_A, g_A \}$. Let $\tilde{W}(A)$ denote the welfare corresponding to a given allocation. Suppose $\tilde{W}(A) < \tilde{W}_B$. The percentage CEV welfare improvement of allocation $B$ is defined as 
+\begin{align}
+	100 \times \big(\frac{\hat{C}_A}{\tilde{C}_A} - 1 \big) 
+\end{align}
+
+where $\hat{C}_A$ is defined by 
+\begin{align}
+	A' &= \{\hat{C}_A, g_A\} \\
+	\tilde{W} ( A' ) &= \tilde{W} ( B ) 
+\end{align}
+
+That is, the CEV welfare improvement from allocation $A$ to allocation $B$ is the permanent increase in consumption in allocation $A$ that achieves the same welfare as allocation $B$.  For $\theta > 1$, which is the case I will focus on, a $\frac{\xi}{\theta-1}\%$ CEV welfare improvement results from an $\xi\%$ decrease in the absolute value of $\tilde{W}$. For $\theta < 1$, a $\frac{\xi}{1-\theta}\%$ CEV welfare improvement results from a $\xi\%$ increase in $\tilde{W}$. \footnote{The case $\theta = 1$ corresponds to log utility, in which case
+	\begin{align}
+	\tilde{W} &= \frac{\rho \log(\tilde{C}) + g}{\rho^2} \label{eq:agg_welfare_log}
+	\end{align}
+	
+	In this case, there is no simple correspondence to obtain CEV welfare changes, but they are easy to compute directly. Under the null policy, initial consumption is $\tilde{C}$ and growth is $g$. Under the new policy, initial consumption is $\tilde{C}^+$ and growth is $g^+$. The CEV welfare change is $\frac{\tilde{C}^* - \tilde{C}}{\tilde{C}}$, where $\tilde{C}^*$ is defined by 
+	\begin{align}
+	\frac{\rho\log(\tilde{C}^*) + g}{\rho^2} = \frac{\rho \log(\tilde{C}^+) + g^+}{\rho^2} \label{eq:agg_welfare_log_CEV}
+	\end{align}}
+
+\subsubsection{Misallocation of R\&D: OI vs. CD}\label{model:properties:misallocation}
+
+Due to the presence of externalities (discussed in detail below), the decentralized equilibrium is typically not efficient. Total R\&D spending is fixed, so there is no scope in the model for inefficient overall investment in R\&D due to the typical knowledge spillover and consumer surplus externalities present in endogenous growth models. However, the allocation of R\&D \textit{between} OI and CD is in fact endogenous and, in general, inefficient. 
+
+In particular, it tends to be the case that incumbents perform too little OI and entrants perform too much CD. This can be partly seen by comparing the equilibrium marginal effect on the innovation rate from more incumbent OI and entrant CD. If the marginal effect of entrant CD on growth is lower, then equilibrium growth would increase after a reallocation of R\&D labor to incumbent OI. The former is equal to $\chi + (1-x) \nu$, i.e. it includes the effect of WSOs if NCAs are not used in equilibrium. The latter is equal to 
+\begin{align}
+\frac{d}{d\hat{z}} \hat{\tau} &= (1-\psi) \hat{\chi} \hat{z}^{-\psi} \label{eq:marginal_effect_effort_entrant}
+\end{align}
+%
+Substituting the expression for $\hat{z}$ in (\ref{eq:effort_entrant}), dividing by $\chi + (1-x)\nu$, and rearranging yields 
+\begin{align}
+	\frac{\frac{d}{d\hat{z}} \hat{\tau}}{\chi + (1-x)\nu} &= \overbrace{\frac{\chi(\lambda-1) -(1-x) (1-(1-\kappa_e)\lambda)\nu - x \kappa_c \nu}{\chi(\lambda-1)}}^{\mathclap{\text{Entrants face different effective cost of R\&D}}} \times \underbrace{\frac{\chi}{\chi + (1-x)\nu}}_{\mathclap{\text{Effect of OI on WSO formation}}} \times \overbrace{\frac{\lambda-1}{\lambda}}^{\mathclap{\text{Business stealing}}} \times  \underbrace{(1-\psi)}_{\mathclap{\text{Congestion}}} \times \overbrace{\frac{1}{1-\kappa_{e}}}^{\mathclap{\text{Entry cost}}} \label{cs:growth_misallocation_condition}
+\end{align}
+
+The term $\frac{\chi(\lambda-1) -(1-x) (1-(1-\kappa_e)\lambda)\nu - x \kappa_c \nu}{\chi(\lambda-1)}$ reflects the fact that entrants pay a different effective cost of R\&D than the incumbent. Typically, incumbents pay a higher effective cost because they internalize the harm from future WSOs, or alternatively must pay a cost to enforce NCAs to prevent them. In equilibrium, this means entrants do more R\&D and hence they have a lower marginal effect on growth. If $(1-\kappa_e) \lambda > 1$, however, then incumbents actually benefit from WSOs \textit{ex ante} because they are bilaterally efficient, and as a consequence they pay a lower effective cost of R\&D. This has the opposite effect of increasing the equilibrium marginal effect on growth of entrant R\&D. 
+
+Next, the term $\frac{\chi}{\chi + (1-x)\nu}$ reflects the contribution to the productivity of OI stemming from entry by WSOs. If $x = 0$ and $\nu > 0$, incumbents generate more growth through R\&D than simply their OI. Because this reflects higher effective productivity of OI in producing innovations, all else equal it increases the extent of misallocation. If $x = 1$ or $\nu = 0$ this term is equal to 1 and has no effect on the inequality, corresponding to $\tau^S = 0$.
+
+The next term, $\frac{\lambda - 1}{\lambda} < 1$, reflects the \textit{business stealing} externality: innovation by entrants imposes a negative externality on the profits of the incumbent. This leads to a overallocation of R\&D spending to entrants instead of incumbents. Due to the convex cost assumption on the entrant innovation technology, this is manifested in a lower equilibrium marginal effect on growth of more entrant innovation. For most realistic parameter values, one has $\frac{\lambda - 1}{\lambda} << 1$. If for example $\lambda = 1.2$, then $\frac{\lambda - 1}{\lambda} = \frac{1}{6}$. This is quite a strong effect. Even if it takes $\lambda = 2$ to displace the previous incumbent, this a gap in the marginal product of innovation of a factor of 2.
+
+The term $1-\psi < 1$ reflects the \textit{congestion} externality: individual entrants impose a negative externality on the expected returns of other entrants by duplicating each other's efforts. As with business-stealing, the congestion externality also tends to overallocate R\&D to entrants. $\hat{z}$ to a level such that its marginal effect on growth is lower than that of $z$. This is a weaker effect than the business stealing, but is still substantial. In the basline calibration, it has a value of $1-\psi = 0.5$, corresponding to $\psi = 0.5$.
+
+Finally, the term $\frac{1}{1-\kappa_e} \ge 1$ reflects the additional entry cost paid by entrants upon innovating. If $\kappa_e > 0$, it reduces $\hat{z}$ in equilibrium and tends to \textit{reduce} the misallocation of R\&D when considering growth implications. However, higher $\kappa_e$ also means that CD by entrants and WSOs has a larger negative effect on $\tilde{C}$. Therefore, while an increase in $\kappa_e$ reduces the extent of misallocation when considering only growth implications, it does not necessarily imply an increase in social welfare. Practically speaking, however, in calculations I have tried it does, in fact, increase welfare, because growth effects tend to dominate welfare comparisons. This is true because in reasonable calibrations the inequality (\ref{cs:growth_misallocation_condition}) holds with considerable slack, so the increase in efficiency of R\&D from a reallocation to OI is quite large, outweighing the increased entry cost paid by the remaining CD entrants.
+
+\subsubsection{Monopoly distortion}
+
+In addition to the dynamic inefficiency coming from misallocation of R\&D resources, there is a distortion in the static component of the economy coming from monopolistic competition in the intermediate goods market. Producers of intermediate goods charge a price higher than their marginal cost, leading to an equilibrium underproduction of intermediate goods relative to the social optimum.  
+
+\section{Empirics}\label{sec:empirics}
 
 \subsection{Data}
 
@@ -603,7 +665,9 @@ The above procedure yields a dataset containing, for each individual, all of his
 
 The results of this procedure are summarized in \autoref{table:VS_previousEmployersSummaryTable}. The top previous employers include several well-known technology firms such as Microsoft, IBM, Google, and Oracle. However, notice that many of the top previous employers are VC firms (e.g., New Enterprise Associates, Sequoia Capital, Kleiner Perkins), and the top employer is the unaffiliated category "Individual Investor." This is largely because many of the individuals affiliated with startups are investors turned board members: about 33\% of the individual-startup observations are outside board members, As my focus is on the flow of knowledge from previous employers to new startups, I will later restrict attention to individuals with knowledge-related and/or executive titles. Finally, notice that Stanford University is also listed in the top 20. Several other prominent research universities are also in the top 50. 
 
-\input{../empirics/figures/tables/summaryTables/VS_previousEmployersPositionsCounts.tex}
+\input{../empirics/figures/tables/summaryTables/VS_previousEmployersPositionsCounts_all.tex}
+
+\input{../empirics/figures/tables/summaryTables/VS_previousEmployersPositionsCounts_founder2.tex}
 
 \paragraph{Linking to Compustat}
 
@@ -619,15 +683,17 @@ This study emphasizes the importance of competition between spinouts and their p
 
 \autoref{figure:industry_row_heatmap_naics2_founder2} and \autoref{figure:industry_column_heatmap_naics2_founder2} document the joint distribution of parent industry and child industry, defined by 2-digit NAICS codes. The raw joint distribution is too heavily concentrated to be easily visualized in this way, so instead I show the distribution of child industry (parent industry) conditional on parent industry (child industry), displayed in \autoref{figure:industry_row_heatmap_naics2_founder2} (\autoref{figure:industry_column_heatmap_naics2_founder2}). The dark diagonal lines in both figures reflects the prevalence of WSOs. In \autoref{figure:industry_row_heatmap_naics2_founder2}, the dark vertical line at column 51 (Information) indicates that parent firms of all industries tend to spawn spinouts in that industry. Similar dark regions appear at columns 54 (Professional, Scientific and Technical Services), and 32 and 33 (Manufacturing). In \autoref{figure:industry_column_heatmap_naics2_founder2}, the dark horizontal lines at 51 and to a lesser extend 32, 33, 52 and 54 indicate that child firms of all industries tend to have founders from those industries.
 
-\subsection{Corporate R\&D and spinout formation}
+\subsection{Corporate R\&D and spinout formation}\label{subsec:empirics:corpRDandspinouts}
 
 In this section, I consider the determinants of spinout formation. This is relevant to the general equilibrium consequences of spinouts. If employee spinout formation -- and, in particular, WSO4 formation -- is a consequence of parent firm decisions, then it could affect the parent firm decision making process, altering the general equilibrium consequences of facilitating WSO4 spinout formation by, e.g., prohibiting non-compete agreements. 
 
 In particular, I focus on whether R\&D expenditures tend to produce employee spinouts. As discussed in the introduction, this is theoretically plausible because (1) employees undertaking innnovation must be trained, exposing and them to the firm's existing knowledge stock, and (2) such employees also may develop new ideas which may not be implementable within the firm.  
 
-The purpose of this section is to provide discipline on the parametrization of the model used in the quantitative analysis. That model hypothesizes that R\&D by parent firms leads to a flow of employees into starting new spinout firms, and assumes that parent firms internalize this \textit{causal} relationship when making R\&D decisions. Therefore, the validity of my quantitative experiments depends crucially on whether the relationship established in this section is in fact causal. This presents a challenge, as many variables can be thought to simultaneously affect both corporate R\&D and employee entrepreneurship.
+The purpose of this section is to provide discipline on the parametrization of the model used in the quantitative analysis. That model hypothesizes that R\&D by parent firms leads to a flow of employees into starting new spinout firms, and assumes that parent firms internalize this \textit{causal} relationship when making R\&D decisions. Therefore, the validity of my quantitative experiments depends crucially on whether the relationship established in this section is in fact causal. 
 
-I address this challenge using two regression analyses. The first addresses the problem of omitted variable bias by including parent firm controls and fixed effects. Second, I use an IV approach, using the instruments developed in \cite{bloom_identifying_2013}. The latter is similar to the simultaneous work by \cite{babina_entrepreneurial_2018}. Using both approaches, I find evidence that firm-level R\&D leads to employee spinouts. 
+This presents a challenge, as many variables can be thought to simultaneously affect both corporate R\&D and employee entrepreneurship. For example, an innovative incumbent may have high R\&D expenses and also hire the most innovative employees who then start WSOs which they would have started regardless of being hired to do R\&D at the incumbent. Furthermore, there may be time-varying shocks to innovative investment opportunities, either at the aggregate level, or at the industry, state, or even industry-state level. 
+
+I address this challenge in the standard way by using a regression analysis. I control for observable confounders and using multiple fixed effects to absorb contaminating variation from shocks which are not directly observable. Based on these regressions, I obtain suggestive evidence of a statistically and economically significant causal effect of corporate R\&D on WSO formation.
 
 \paragraph{Preliminaries}
 
@@ -677,106 +743,51 @@ The regression estimates are economically significant. About half of all WSO4 sp
 
 \section{Calibration}
 
-The model has ten parameters given by $\{\rho, \theta, \beta, \psi, \lambda, \chi, \hat{\chi}, \kappa_e, \kappa_c, \nu, \bar{L}_{RD}\}$. The parameter $\bar{L}_{RD}$ is only a normalization determining the units in which R\&D human capital is measured. The remaining nine parameters are substantive. The elasticity parameters $\{\theta, \psi\}$ are chosen to match estimates from the literature. The remaining seven parameters $\{\rho, \lambda, \chi, \hat{\chi}, \kappa_e, \kappa_c, \nu\}$ are chosen to match six moments from the data. One parameter, $\kappa_c$, is partially identified as $\kappa_C > \bar{\kappa}_c$ by the observation that $\tau^S > 0$. The remaining six parameters are exactly identified and the model reproduces the target moments exactly. 
+\subsection{Parameters}
+
+The model has ten parameters given by $\{\rho, \theta, \beta, \psi, \lambda, \chi, \hat{\chi}, \kappa_e, \kappa_c, \nu, \bar{L}_{RD}\}$. The parameter $\bar{L}_{RD}$ is only a normalization determining the units in which R\&D human capital is measured. The remaining nine parameters are substantive. The elasticity parameters $\{\theta, \psi\}$ are chosen to match estimates from the literature. The remaining seven parameters $\{\rho, \lambda, \chi, \hat{\chi}, \kappa_e, \kappa_c, \nu\}$ pertain to preferences ($\rho$) and to the technology for innovation and NCA usage (all others), and are chosen to match six moments from the data. One parameter, $\kappa_c$, is partially identified as $\kappa_C > \bar{\kappa}_c$ by the observation that $\tau^S > 0$. The remaining six parameters are exactly identified and the model reproduces the target moments exactly. 
 
 \subsection{Targets}
 
-The targets of the calibration are: the labor productivity growth rate, the profit share of GDP, the R\&D share of GDP, the growth share of OI, the employment share of firms up to six years of age (exclusive), and the employment share of spinouts. \autoref{calibration_targets} shows the calibration targets. 
+The targets of the calibration are displayed in \autoref{calibration_targets} and consist of the labor productivity growth rate, the R\&D / GDP ratio, the share of growth coming from OI, the real interest rate, the employment share of entering firms, and the employment share of R\&D-induced WSOs. Matching the productivity growth rate, R\&D / GDP ratio and growth share of OI helps calibrate the efficiency of R\&D in generating aggregate productivity growth through OI and CD. The interest rate, profit / GDP ratio and employment share of entering firms determines the discount factor and the reward to innovation, which is in turn determined by the flow payoff to innovation (profit / GDP) and the expected duration of an incumbency position (employment share of entering firms). Finally, matching the employment share of entering WSOs allows the model to capture the rate at which R\&D by incumbents increases their likelihood of being replaced by a WSO. This calibrates the magnitude of the disincentive to OI R\&D.
 
-\textbf{[Condensed justification of target moments]}
+Below, I discuss issues pertaining to the measurement of the target moments. In particular, in this section I discuss how the results in Section \ref{subsec:empirics:corpRDandspinouts} are used to calibrate the model.
 
-In the sections below, for each moment I briefly explain the reason for targeting it and describe how it is calculated from the relevant data sources.
+\paragraph{Growth rate}
 
-\subsubsection{Interest rate}
+The growth rate is calibrated to the growth in labor productivity due to CD and OI, as calculated in \cite{klenow_innovative_2020}. [\textbf{Insert description of how they identify}]
 
-Matching the interest rate is important as the model is about the decision by firms to invest in the future, which involves the discount factor and hence the interest rate $r$. The interest rate is calibrated to a return on equity of 6\%. 
+\paragraph{R\&D spending / GDP}
 
-\subsubsection{Growth rate}
+The data on R\&D spending is from the National Patterns of R\&D resources.\footnote{I take the average of business-funded R\&D business-performed R\&D.} In the data, about half of R\&D spending is wages for employees; in the model, the only input to R\&D is labor. I opt to match the model's aggregate R\&D intensity to that in the data, including costs other than labor. This means that the model captures the full cost of innovation. The computation of the corresponding model moment is described in \ref{appendix:calibration:rd/gdp}.
 
-Matching the growth rate is essential a model that pretends to explain the forces determining the growth rate. To be specific, it means that the correctly quantifies the importance of the described mechanisms for the determination of growth. The growth rate is calibrated to the growth in labor productivity due to creative destruction and own innovation, as calculated in Klenow \& Li 2020. [\textbf{Insert description of how they identify}]
+\paragraph{Growth share of own innovation}
 
-\subsubsection{Profits \% GDP} 
+The growth share of OI is calibrated to the growth share of OI as a fraction of OI and CD innovations, as estimated in \cite{klenow_innovative_2020} using a model similar to this one. They find that, from 1982 to 2013, roughly 70\% of CD + OI productivity growth was due to OI. The computation of the corresponding model moment is described in \ref{appendix:calibration:growthShareOI}.
 
-Matching the profit share of GDP is important because intermediate goods firms in the economy innovate in search of profits. If the model's measure of profits is inaccurate, it will incorrectly infer the other parameters determining the decision to innovate. Such parameters must be accurately inferred if the model is to be useful for assessing the effect of policy on growth and welfare. The data on aggregate profits as a percent of GDP comes from the BEA (computed as an average during the sample period of 1986-2008). 
 
-\subsubsection{R\&D spending / GDP}
+\paragraph{Interest rate}
 
-Matching the R\&D share of GDP is important in order to properly assess the efficiency by which firms produce innovations. The data on R\&D spending is from the National Patterns of R\&D resources.\footnote{I take the average of business-funded R\&D business-performed R\&D.} In the data, about half of R\&D spending is wages for employees; in the model, the only input to R\&D is labor. I opt to match the model's aggregate R\&D intensity to that in the data, including costs other than labor. This means that the model captures the full cost of innovation. 
+The short-term risk-free real interest rate averages about 5\% in the United States from 1986-2006. However, the real interest rate in the model actually corresponds to the discount factor used to price an unlevered firm. Since there is no systemic risk in the model, these are the same; however, since the data exhibits systemic risk, unlevered firms require a higher return than 5\% in the data. 
 
-\subsubsection{Growth share of own innovation}
+To adjust for this, I use a back of the envelope calculation to calculate the asset beta from the equity betas and leverage ratios, and hence compute the hypothetical risk-premium on an unlevered investment. First, the real return on the S\&P 500 in the time period 1986-2006 averaged about 7\%. The average debt-value ratio of the S\&P 500 in the US is about 40\% during this period. Assuming that this corporate debt does not earn a risk premium, the entire risk premium accrues to the equity. If there were no leverage, the risk premium would be smaller in percentage terms, since it is accruing to a larger value investment. Quantitatively, we need to multiply the excess return by $E / (D + E)$, which in this case is $1 - 40\% = 60\%$. I arrive at a calibration value of about 6\% for the real interest rate in the model.
 
-It is important to match this moment to properly assess the relative importance for innovation of OI. If OI is not a large contributor to growth, then creating a disincentive to OI can be worth it if it creates more spinouts. 
+\paragraph{Profits \% GDP} 
 
-This moment cannot be directly measured. Instead, it is inferred using a model similar to the one presented here and data on employment growth at the establishment level. \cite{klenow_innovative_2020} 2020 finds that, from 1982 to 2013, roughly 70\% of CD + OI productivity growth was due to OI. 
+The data on aggregate profits as a percent of GDP comes from the BEA (computed as an average during the sample period of 1986-2008). In the model, this ratio is simple to calculate using the solution to the static equilibrium as $\tilde{\pi} / \tilde{Y}$.
 
-\subsubsection{Entry rate}
 
-Matching the employment share of entering firms is important to assess the overall level of turnover in the economy. For a given rate of productivity growth, more turnover implies that innovation occurs via smaller, more frequent improvements in quality. As I will show later, this drastically influences the welfare consequences of allowing NCAs.
 
-The entry rate target deserves some discussion. The purpose of including entry in the model is to capture the rate at which incumbent profits are destroyed due to creative destruction. As discussed in \cite{klenow_innovative_2020}, adjustment costs mean that, in the data, it can take several years for a new product to displace an old one. However, in the model, entrants that replace incumbents reach their mature size immediately upon entry. If the model matches the amount of employment in firms of age < 1, it might underestimate the true impact on employment reallocation of each new cohort of firms.\footnote{In the data, because firms grow to achieve their mature size over the first five years (and beyond), so that the employment of an entering cohort of firms does not decrease over time (i.e., including firm exit) very rapidly in the data. If the data were in continuous time, the employment of the cohort would increase at first, then decrease. In the model, firms enter at their mature size, so the employment of a cohort decreases over time.} Given this, I match the employment share of firms age <= 6 engaging in creative destruction, which is approximately 8.35\% during the sample period.
+\paragraph{Entry rate}
+
+The entry rate target deserves some discussion. The purpose of including entry in the model is to capture the rate at which incumbent profits are destroyed due to creative destruction. As discussed in \cite{klenow_innovative_2020}, adjustment costs mean that, in the data, it can take several years for a new product to displace an old one. However, in the model, entrants that replace incumbents reach their mature size immediately upon entry. If the model matches the amount of employment in firms of age < 1, it might underestimate the true impact on employment reallocation of each new cohort of firms.\footnote{In the data, because firms grow to achieve their mature size over the first five years (and beyond), so that the employment of an entering cohort of firms does not decrease over time (i.e., including firm exit) very rapidly in the data. If the data were in continuous time, the employment of the cohort would increase at first, then decrease. In the model, firms enter at their mature size, so the employment of a cohort decreases over time.} Given this, I match the employment share of firms age <= 6 engaging in creative destruction, which is approximately 8.35\% during the sample period. The computation of the corresponding model moment is described in \ref{appendix:calibration:entryRate}.
+
+
  
-\subsubsection{R\&D-induced spinout share of employment}
+\paragraph{R\&D-induced spinout share of employment}
 
-Finally, matching the employment share of spinouts is of course crucial, in order for the model to properly estimate the burden such firms impose on the incumbents that spawn them. As will be discussed below, care must be taken to only match the employment share of spinouts which can be attributed to R\&D, since spinouts in the model correspond to those in the data which are "induced" by R\&D at the incumbent. I discipline this using micro data on spinouts. [\textbf{Section in progress}]
+Finally, matching the employment share of spinouts is of course crucial, in order for the model to properly estimate the burden such firms impose on the incumbents that spawn them. As will be discussed below, care must be taken to only match the employment share of spinouts which can be attributed to R\&D, since spinouts in the model correspond to those in the data which are "induced" by R\&D at the incumbent. I discipline this using micro data on spinouts. [\textbf{Section in progress}] The computation of the corresponding model moment is described in \ref{appendix:calibration:WSOempShare}.
 
-\subsection{Computing the corresponding model moments}
-
-\subsubsection{R\&D / GDP} 
-
-In the model, the R\&D share is the ratio of the wage paid to R\&D workers to GDP. This is
-\begin{align*}
-\frac{\textrm{R\&D wage bill}}{\textrm{GDP}} &= \frac{\overline{w}_{RD,I} z + \overline{w}_{RD,E} \hat{z}}{\tilde{Y}} \\ 
-&= \frac{\overline{w}_{RD,E} (z + \hat{z}) + (\overline{w}_{RD,I} - \overline{w}_{RD,E})z}{\tilde{Y}} \\
-&= \frac{\overline{w}_{RD,E} (z + \hat{z}) - (1-\kappa_e) \lambda \tilde{V} \tau^S}{\tilde{Y}}
-\end{align*}
-
-where I used $\overline{w}_{RD,I} - \overline{w}_{RD,E} = -(1-x)(1-\kappa_e) \lambda \tilde{V} \nu$ and $\tau^S = (1-x)\nu z$. 
-
-\subsubsection{Entry rate}
-
-This has a counterpart in the model which can be calculated in closed form. Let $\ell(a)$ denote the density of incumbent employment at age $a$ incumbents. Then $\ell(a)$ is characterized by 
-\begin{align*}
-\ell(a) &= \ell(0)e^{((\hat{\tau}_I -1)g - (\hat{\tau} + (1-x)z \nu))a}  \\
-1 + \bar{L}_{RD} - \hat{z} &= \int_0^{\infty} \ell(a) da
-\end{align*}
-
-where $\hat{\tau}_I = \frac{\tau}{\tau + \hat{\tau} + \tau^S}$ is the fraction of innovations that are incumbents' own innovations. 
-
-The intuition for this characterization of $\ell(a)$ has two parts. First, because all shocks are \textit{iid} across firms in equilibrium, the law of large numbers applied to each cohort of firms implies that we can consider directly the evolution of the cohort as a whole instead of explicitly analyzing the dynamics each individual firm in the cohort.  Second, the employment of a firm is proportional to its relative quality, $l_j \propto \tilde{q}_j = q_j / Q$, as long as it is the leader. When it is no longer the leader, its employment is zero forever. Putting these two together, $\ell(a)$ must decline at exponential rate $g$ due to the increase in $Q_t$ (obsolescence), increase at rate $\hat{\tau}_I g$ due to incumbents own innovations, and decline at rate $\hat{\tau} + \tau^S$ due to creative destruction.\footnote{The second equation imposes consistency with aggregate employment; it implies $\ell(0) = -((\hat{\tau}_I -1)g - (\hat{\tau} + \tau^S))(1 + \bar{L}_{RD})$. The calibration does not require this explicit calculation since it is based only on employment shares.} Note that the employment density is strictly decreasing in $a$. This is because there are no adjustment costs: firms achieve their optimal scale immediately upon entry, and subsequently become obsolete (on average) or lose the innovation race to an entrant. Finally, due to the constant exponential decay of $\ell(a)$, the share of incumbent employment in incumbents of strictly less than 6 years of age is given by 
-\begin{align*}
-\Xi_{[0,6)} &=  1 - \frac{\ell(6)}{\ell(0)} \\
-&= 1 - e^{((\hat{\tau}_I -1)g - (\hat{\tau} + \tau^S))\cdot 6}
-\end{align*}  
-
-
-The share of overall employment in incumbents of age < 6, including R\&D performed by non-producing entrants, is equal to the previously calculated $\Xi_{[0,6)}$, multiplied by the share of total labor in incumbents, $1 - \hat{z}$, added to the R\&D labor used by entrants $\hat{z}$, 
-\begin{align*}
-\textrm{Age < 6 share of employment} &= \frac{2}{3}(\Xi_{[0,6)} (1-\hat{z}) + \hat{z})
-\end{align*}
-
-The factor 2/3 follows from interpreting entrants in the model as either new firms or incumbents engaging in creative destruction. According to KH 2020, creative destruction by incumbents is responsible for half as much growth as creative destruction by entrants. In this interpretation of the model, both types of creative destruction use the same technology. Therefore, 2/3 of employment in young firms in the model represents employment in young firms in the data.\footnote{Also, note that this formula extrapolates the employment-age distribution to the entire economy and calculated shares in that way. If I did not do this, the formula would be
-	\begin{align*}
-	\textrm{Age < 6 share of employment} &= \frac{2}{3} \frac{(\Xi_{[0,6)} (1 - L_F -\hat{z}) + \hat{z})}{1-L_F}
-	\end{align*}
-	
-	This has only minor effects on the inferred parameters. They are listed in \autoref{calibration_2_parameters}.}
-
-\subsubsection{Growth share of own innovation}
-
-The model moment that corresponds here is the share of growth due to own innovation by incumbents of age >= 6. In the model, the fraction of OI growth due to incumbents in a given age group is exactly their fraction of employment: innovations arrive at the same rate for each incumbent, and their impact on aggregate growth is proportional to the incumbent's relative quality, which is proportional to employment. Hence old incumbents' share of growth due to own innovation is simply one minus the employment share calculated in the previous paragraph, $e^{((\hat{\tau}_I -1)g - (\hat{\tau} + (1-x)z \nu))\cdot 6}$. Finally, the fraction of aggregate growth due to OI is $\hat{\tau}_i$, defined above. The fraction of growth due to incumbents of age at least 6 is the product of the two, 
-\begin{align*}
-\textrm{Age >= 6 share of OI} &= \hat{\tau}_I \frac{\ell(6)}{\ell(0)} \\
- &= \hat{\tau}_I e^{((\hat{\tau}_I -1)g - (\hat{\tau} + (1-x)z \nu))\cdot 6} 
-\end{align*}
-
-\subsubsection{R\&D-induced spinout employment share}
-
-Because entering spinouts and entering ordinary firms have identical life-cycles post entry in expectation, the BGP share of employment in firms started as spinouts is their share of new incumbents $\frac{\tau^S}{\tau^S+ (\frac{2}{3})\hat{\tau}}$, multiplied by the employment share of incumbents $1- (\frac{2}{3})\hat{z}$, 
-\begin{align*}
-	\textrm{Spinout employment share} &= \frac{\tau^S}{\tau^S + \frac{2}{3}\hat{\tau}} (1 - \frac{2}{3}\hat{z}) 
-\end{align*}
-
-Again, the factor 2/3 is because this is the fraction of entrants in the model which the calibration maps to new firms in the data.
 
 
 \begin{table}[]
@@ -813,11 +824,18 @@ Again, the factor 2/3 is because this is the fraction of entrants in the model w
 
 \subsection{Identification}
 
-\autoref{calibration_identificationSources} shows the elasticity of model moments to calibrated model parameters. This is the jacobian matrix of the mapping that takes log parameters to log model moments. On its own it suggests how identification occurs by showing which moments are sensitive to which parameters. 
+\autoref{calibration_identificationSources} shows the elasticity of model moments to calibrated model parameters.\footnote{This is computed as the jacobian matrix of the mapping that takes log parameters to log model moments.} It suggests how identification occurs by showing which moments are sensitive to which parameters. All moments are influenced by all parameters. Therefore, there is no one-to-one correspondence between moments and parameters used to identify them. 
 
-\autoref{calibration_sensitivity} inverts this matrix to obtain the elasticity of calibrated parameters to moment targets. This is feasible because the model is locally exactly identified by the target moments. This provides a more complete picture of the identification, since it takes into account the interaction of the various sensitivities of moments to parameters when it inverts the matrix. For example, while an increase in $\lambda$ causes a large increase in Growth Share OI, increasing the Growth Share OI moment target decreases the estimated $\lambda$. The calibration prefers to match the higher Growth Share OI with a much higher $\chi$ and slightly lower $\lambda$ to compensate for the distortions it causes. This kind of effect is difficult to infer from \autoref{calibration_identificationSources}. 
+To get a better sense of how identification is actually occurring in the model, \autoref{calibration_sensitivity} shows the elasticity of calibrated parameters to moment targets.\footnote{This is calculated by inverting the matrix shown in the previous figure. This is feasible because the model is locally exactly identified by the target moments.} This provides a more complete picture of the identification, since it takes into account the interaction of the various sensitivities of moments to parameters when it inverts the matrix. And it shows that conclusions based on \autoref{calibration_identificationSources} can be misleading. For example, while an increase in $\lambda$ causes a large increase in Growth Share OI, increasing the Growth Share OI moment target decreases the estimated $\lambda$. Given all the moments that need to be matched, the calibration prefers to match the higher Growth Share OI with a much higher $\chi$ and slightly lower $\lambda$.
 
-Next, \autoref{calibration_identificationSources_full} augments \autoref{calibration_identificationSources} with non-calibrated parameters included as both parameters and target moments. As before, \autoref{calibration_sensitivity_full} inverts this matrix to obtain the elasticity of calibrated parameters to moment targets and non-calibrated parameters. 
+\autoref{calibration_identificationSources_full} augments \autoref{calibration_identificationSources} with non-calibrated parameters included as both parameters and target moments. As before, \autoref{calibration_sensitivity_full} inverts this matrix to obtain the elasticity of calibrated parameters to moment targets and non-calibrated parameters. This gives the complete picture of how the model parameters are inferred. Based on this picture, I draw the following conclusions:
+
+\begin{enumerate}
+	\item The discount rate $\rho$ is identified to simultaneously match the interest rate, growth rate and IES
+	\item The parameters $\lambda, \chi_I, \chi_E$ are determined in a complicated way, as can be seen from the fact that their profiles of sensitivities have similar shapes (modulo flipping the vertical axis). Still, they are not exactly the same: the effect of E on $\chi_E$ is larger in proportion to the effect of OI on $\chi_E$ than it is for $\lambda, \chi_I$. In addition, there are other subtle differences. An increase in $r$ has the same effect on $\chi_I$ as an increase in OI or E, but a different effect on $\lambda, \chi_E$. An increase in $g$ has the same sign effect as OI or E on $\chi_E$, but a different sign effect for $\lambda, \chi_I$. Finally, it can be seen from the $\chi_E$ panel that the externally set parameters $\beta, \psi$ have a large effect on $\chi_E$.
+	\item The parameter $\kappa_E$ is distinguished from $\chi_E$ by matching the R\&D / GDP ratio.
+	\item The parameter $\nu$ is identified by matching employment share of WSOs. 
+\end{enumerate}
 
 \begin{table}[]
 	\centering
@@ -850,34 +868,18 @@ Next, \autoref{calibration_identificationSources_full} augments \autoref{calibra
 \end{figure}
 
 \begin{figure}[]
-	\includegraphics[scale = 0.43]{../code/julia/figures/simpleModel/calibrationSensitivity.pdf}
-	\caption{Plot showing the elasticity of parameters to moments. It is computed by inverting the jacobian matrix of the mapping from log parameters to log model moments (whose entries comprise the previous figure). These elasticities, along with estimates of the noisiness of the moments used in the calibration, can be used to estimate confidence intervals for the parameters in the model, and thereby for the welfare comparison in question.}
-	\label{calibration_sensitivity}
-\end{figure}
-
-\begin{figure}[]
-	\includegraphics[scale = 0.43]{../code/julia/figures/simpleModel/identificationSourcesFull.pdf}
-	\caption{Plot showing the elasticity of moments to model parameters, including parameters taken from the literature $\theta , \beta, \psi$. These non-calibrated parameters are added in as effective moments to be matched, allowing the sensitivity of calibrated parameters $\rho, \lambda, \chi, \hat{\chi}, \kappa_E, \nu$ to these parameters to be computed by simply inverting this matrix, as before.}
-	\label{calibration_identificationSources_full}
-\end{figure}
-
-\begin{figure}[]
 	\includegraphics[scale = 0.43]{../code/julia/figures/simpleModel/calibrationSensitivityFull.pdf}
 	\caption{Same as \autoref{calibration_sensitivity}, but now including non-calibrated parameters. As before, this calculated by inverting the jacobian displayed in \autoref{calibration_identificationSources_full}.}
 	\label{calibration_sensitivity_full}
 \end{figure}
 
-\section{Policy analysis}
+\section{Welfare effect of NCA enforcement and other policies}\label{sec:policy_analysis}
 
-The key tradeoff in this economy is between the fact that innovation and creative destruction by spinouts expands the innovation possibilities frontier while reducing incentives for incumbents to use their existing innovation possibilities. The net effect on the growth rate from, say, an increase in $\nu$, is ambiguous. Because welfare is increasing in and very sensitive to the BGP growth rate, the net effect on welfare is also ambiguous.
+The key tradeoff in this economy is that CD by WSOs expands the innovation possibilities frontier (i.e., same resources create more innovations) but at the same time reduces the incentive for incumbent firms to innovate, pushing the decentralized equilibrium inside the frontier. As I emphasize in the introduction and throughout the paper, the effect of NCA enforcement can be to improve or reduce efficiency, depending on parameters. 
 
-In some cases, the availability of NCAs can, in theory, help mitigate this friction. NCAs ensure that if spinouts are ex-ante bilaterally inefficient -- that is, if the pair would be better off setting $\nu = 0$ and splitting the proceeds -- then spinouts in fact will not occur. This can mitigate the disincentive effect and thereby could improve growth and welfare. 
+To assess the extent to which NCAs can improve the decentralized equilibrium, a natural starting point is to solve the social planner's problem, which can serve as a benchmark against which to evaluate the effects of NCAs. However, in this model some of the primitives, in particular the cost of entry $\kappa_e \lambda V(q,t)$ and the cost of NCAs $\kappa_c \nu V(q,t)$, are specified as a function of the equilibrium value of incumbency. These objects are only well-defined in a decentralized market equilibrium, so the first-best allocation is itself not well-defined in this setting. As discussed previously, the model could easily be rewritten and solved without this somewhat unusual feature, but the solution would not be as analytically convenient. 
 
-On the other hand, NCA usage can also reduce aggregate growth. First, bilateral inefficiency does not imply social inefficiency. Innovation by spinouts has positive externalities: it increases the consumer surplus, improves the overall productivity of the economy (recall the production function (\ref{intermediate_goods_production})), and improves the innovation technology of entrants. Second, in this economy the aggregate amount of R\&D labor does not depend on incentives. A reduction in R\&D spending by incumbent is met with an equivalent increase in R\&D by entrants. This attenuates its negative effect on growth. 
-
-Typically, the most fundamental social planner problem to study is that of characterizing the first-best allocation. However, in this model some of the primitives, in particular the cost of entry $\kappa_e \lambda V(q,t)$ and the cost of NCAs $\kappa_c \nu V(q,t)$, are specified as a function of value functions. As these are only well-defined in a decentralized market equilibrium, the first-best allocation is itself not well-defined.
-
-To circumvent this difficulty, I conduct a sequence of second-best analyses assuming the planner can control one or more parameters or Pigouvian taxes. Specifically, I consider planners who can control the following: 
+Instead, I preserve the simplicity of the model by conducting a sequence of second-best analyses assuming the planner can control one or more parameters or Pigouvian taxes. I study the effect of the cost of NCA enforcement $\kappa_c$ but also study other policies that may be growth and welfare-enhancing in this context, such as R\&D subsidies targetted at OI. Specifically, I consider planners who can control the following: 
 
 \begin{enumerate}
 	\item Cost of NCAs: $\kappa_c$ 
@@ -890,49 +892,37 @@ To circumvent this difficulty, I conduct a sequence of second-best analyses assu
 
 \paragraph{Public finance} 
 
-In cases of taxes (subsidies), I assume that they are rebated to (financed by) the representative household in a lump-sum payment. Because there is no labor-leisure choice, this does not create any additional distortions in the economy. 
-
-\paragraph{Welfare}
-
-Over the course of a given equilibrium, there exist $\tilde{Y},\tilde{C},\tilde{W}$ such that output, consumption and welfare at time $t$ are given by $Y_t = \tilde{Y} Q_t, C_t = \tilde{C} Q_t, W_t = \tilde{W} Q_t^{1-\theta}$. Normalized welfare $\tilde{W}$ is given by\footnote{I have added the constant $\frac{1}{(1-\theta)\rho}$ to welfare, since it does not affect the implications for consumption-equivalent measures of welfare.}
-\begin{align}
-\tilde{W} &= \frac{\big(\overbrace{\tilde{Y} - (\hat{\tau} + \tau^S) \kappa_{e} \lambda \tilde{V} - x z \kappa_c \nu \tilde{V}}^{\tilde{C}}\big)^{1-\theta}}{(1-\theta)(\rho - g(1-\theta))} \label{eq:agg_welfare}
-\end{align}
-
-
-For welfare comparisons to be meaningful, they must be converted into consumption-equivalent (CEV) terms. For $\theta < 1$, a $\frac{\xi}{1-\theta}\%$ increase in CEV welfare results from a $\xi\%$ increase in the first term in (\ref{eq:agg_welfare}). For $\theta > 1$, a $\frac{\xi}{\theta-1}\%$ increase in CEV welfare results from an $\xi\%$ decrease in the absolute value of the same term.\footnote{The case $\theta = 1$ corresponds to log utility, in which case
-	\begin{align}
-	\tilde{W} &= \frac{\rho \log(\tilde{C}) + g}{\rho^2} \label{eq:agg_welfare_log}
-	\end{align}
-	
-	In this case, there is no simple correspondence to obtain CEV welfare changes, but they are easy to compute directly. Under the null policy, initial consumption is $\tilde{C}$ and growth is $g$. Under the new policy, initial consumption is $\tilde{C}^+$ and growth is $g^+$. The CEV welfare change is $\frac{\tilde{C}^* - \tilde{C}}{\tilde{C}}$, where $\tilde{C}^*$ is defined by 
-	\begin{align}
-	\frac{\rho\log(\tilde{C}^*) + g}{\rho^2} = \frac{\rho \log(\tilde{C}^+) + g^+}{\rho^2} \label{eq:agg_welfare_log_CEV}
-	\end{align}}
+In cases of taxes (subsidies), I assume that they are rebated to (financed by) the representative household in a lump-sum payment. Because there is no labor-leisure choice, this does not create any additional distortions in the economy.\footnote{In general, however, this is a matter of first-order importance and an interesting avenue for further research. Policies should be evaluated in terms of "bang for buck."}
 
 \subsection{NCA cost $\kappa_c$} 
 
-Consider a planner who controls the parameter $\kappa_c$. I interpret this as a policymaker changing the extent of restrictions on NCAs so that they are more or less expensive to enforce. 
+The focus of this paper is on the effect of NCAs on aggregate growth and welfare. 
 
-A natural assumption is to posit a minimum cost $\munderbar{\kappa}_c \ge 0$ such that $\kappa_c \ge \munderbar{\kappa}_C$. NCAs require costs for enforcement even if they are fully endorsed by the legal system: a contract must be written and, in the case of infringement, it must be established that the employee is, in fact, competing with their previous employer. For simplicity, in the analysis below I assume $\munderbar{\kappa}_c = 0$.
+
+The overall effect is the net of two countervailing forces. On the one hand, if NCAs can be used, then spinouts which are otherwise bilaterally inefficient can be prevented from entering. This mitigates the disincentive WSOs pose for OI by incumbents, increasing OI at the expense of CD and, if (\ref{cs:growth_misallocation_condition}) holds, increasing growth.
+
+On the other hand, NCA enforcement can also be to reduce growth. NCA usage can also reduce aggregate growth, for two reasons. First, while NCAs prevent bilaterally inefficient WSOs, bilateral inefficiency does not imply social inefficiency. More innovation by spinouts has positive externalities: it increases the consumer surplus, improves the overall productivity of the economy (recall the production function (\ref{intermediate_goods_production})), and improves the innovation technology of entrants. Such externalities mean that if it possible to prevent WSOs using NCAs, the incumbent-employee pair may overly restrict their formation from a social perspective. Second, in this economy the aggregate amount of R\&D labor is fixed. A reduction in OI R\&D spending by incumbents is met with an increase in R\&D by entrants. This attenuates the negative effect on growth of the reduction in OI.
+
+As discussed in Section \ref{model:properties:misallocation}, the incentive effect dominates for welfare roughly when the R\&D misallocation inequality (\ref{cs:growth_misallocation_condition}) holds with sufficient slack. In this section, I go further and weigh the strength of these two forces numerically. I consider a planner who controls the parameter $\kappa_c$. I interpret this as a policymaker changing the extent of restrictions on NCAs so that they are more or less expensive to enforce. A natural assumption is to posit a minimum cost $\munderbar{\kappa}_c \ge 0$ such that $\kappa_c \ge \munderbar{\kappa}_c$. NCAs require costs for enforcement even if they are fully endorsed by the legal system: a contract must be written and, in the case of infringement, it must be established that the employee is, in fact, competing with their previous employer. For simplicity, in the analysis below I assume $\munderbar{\kappa}_c = 0$.
 
 \subsubsection{Effect on growth}
 
-Suppose that $x = 1$ and $z > 0$ at $\kappa_{c0}$ and the planner increases the cost of NCAs to $\kappa_{c1} > \kappa_{c0}$. Equation (\ref{eq:effort_entrant}) immediately implies that $\hat{z}$ increases and Equation (\ref{eq:zI_asFuncZe}) in turn that $z$ decreases. Intuitively, the increase in $\kappa_c$ makes R\&D more expensive for the incumbent, reducing $z$ to zero in partial equilibrium. To clear the labor market, $\hat{w}_{RD}$ must decline to induce more R\&D. In the new equilibrium, the premium the incumbent must pay in effective cost of R\&D, relative to the entrant, is larger, and as a result she employs a smaller share of the R\&D labor.
+Suppose that $x = 1$ and $z > 0$ at $\kappa_{c0}$ and the planner increases the cost of NCAs to $\kappa_{c1} > \kappa_{c0}$. Equation (\ref{eq:effort_entrant}) immediately implies that $\hat{z}$ increases and Equation (\ref{eq:zI_asFuncZe}) in turn that $z$ decreases. Intuitively, the increase in $\kappa_c$ makes R\&D more expensive for incumbents, reducing $z$ to zero in partial equilibrium. To clear the labor market, $\hat{w}_{RD}$ must decline to induce more R\&D. Because incumbents pay for R\&D not just through wages but implicitly through future WSOs, in the new equilibrium, their effective cost of R\&D is higher relative to entrants, whose only R\&D cost is the R\&D wage. As a result, incumbents employs a smaller share of the R\&D labor in equilibrium.
 
-This reallocation of R\&D labor decreases the BGP growth rate if and only if the marginal effect on growth of entrant R\&D is less than the marginal efect on growth of incumbent R\&D. The latter is equal to the constant exogenous parameter $\chi$. The former is equal to 
+This reallocation of R\&D labor decreases the BGP growth rate if and only if the marginal effect on growth of incumbent R\&D is higher than the marginal efect on growth of entrant R\&D. As discussed in Section \ref{model:properties:misallocation}, the former is equal to $\chi + (1-x)\nu$, while the latter is equal to 
 \begin{align}
-\frac{d}{d\hat{z}} \hat{\tau}(\kappa_c) &= (1-\psi) \hat{\chi} \hat{z} (\kappa_c)^{-\psi} \label{eq:marginal_effect_effort_entrant}
+\frac{d}{d\hat{z}} \hat{\tau}(\kappa_c) &= (1-\psi) \hat{\chi} \hat{z} (\kappa_c)^{-\psi} \label{eq:marginal_effect_effort_entrant_kappaC}
 \end{align}
 
-where $\hat{\tau}(\kappa_c), \hat{z}(\kappa_c)$ denote the equilibrium value of $\hat{\tau}, \hat{z}$ for a given parameter value of $\kappa_c$. Because $\hat{z}(\kappa_c)$ is monotonically increasing and $\psi > 0$, $\frac{d}{d\hat{z}} \hat{\tau} |_{\kappa_c}$ is monotonically decreasing in $\kappa_c$. Therefore, $\frac{d}{d\hat{z}}\hat{\tau} |_{\kappa_c} < \frac{d}{d\hat{z}}\hat{\tau}|_0$. Substituting the expression for $\hat{z}$ in (\ref{eq:effort_entrant}) into the inequality $\frac{d}{d\hat{z}}\hat{\tau} |_{0}< \chi$ and rearranging yields 
-\begin{align}
-\overbrace{\frac{\lambda-1}{\lambda}}^{\mathclap{\text{Business stealing}}} \times \underbrace{(1-\psi)}_{\mathclap{\text{Fishing out}}} \times  \overbrace{\frac{1}{1-\kappa_{e}}}^{\mathclap{\text{Entry cost}}}< 1 \label{cs:growth_decreasing_condition}
+where $\hat{\tau}(\kappa_c), \hat{z}(\kappa_c)$ denote the equilibrium value of $\hat{\tau}, \hat{z}$ for a given parameter value of $\kappa_c$. This is a restatement of (\ref{eq:marginal_effect_effort_entrant}) which explicitly shows the dependence of equilibrium objects on the parameter $\kappa_c$. Because $\hat{z}(\kappa_c)$ is monotonically increasing and $\psi > 0$, $\frac{d}{d\hat{z}} \hat{\tau} |_{\kappa_c}$ is monotonically decreasing in $\kappa_c$. Therefore, $\frac{d}{d\hat{z}}\hat{\tau} |_{\kappa_c} < \frac{d}{d\hat{z}}\hat{\tau}|_0$, which implies that if $\chi + (1-x)\nu > \frac{d}{d\hat{z}} \hat{\tau} |_0$, then $\chi + (1-x)\nu > \frac{d}{d\hat{z}} \hat{\tau} |_{\kappa_c}$ for $\kappa_c > 0$. Using (\ref{cs:growth_misallocation_condition}) at $\kappa_c = 0$ and $x = 1$ yields
+\begin{align} \overbrace{\frac{\lambda-1}{\lambda}}^{\mathclap{\text{Business stealing}}} \times \underbrace{(1-\psi)}_{\mathclap{\text{Fishing out}}} \times  \overbrace{\frac{1}{1-\kappa_{e}}}^{\mathclap{\text{Entry cost}}}< 1 \label{cs:growth_decreasing_condition}
 \end{align}
 
-The term $\frac{\lambda - 1}{\lambda} < 1$ reflects the \textit{business stealing} effect: innovation by entrants imposes a negative externality on the profits of the incumbent. The term $1-\psi < 1$ reflects the \textit{fishing out} effect: individual entrants impose a negative externality on the expected returns of other entrants by reducing their rate of winning the innovation race per unit of R\&D. Both of these terms reflect additional incentives for innovation by entrants than exist for incumbents, pushing equilibrium $\hat{z}$ to a level such that its marginal effect on growth is lower than that of $z$. Finally, the term $\frac{1}{1-\kappa_e} > 1$ reflects the additional entry cost paid by entrants upon innovating. As this reduces $\hat{z}$ in equilibrium, it leads to an increase in the marginal effect on growth of innovation by entrants.\footnote{Of course, it also entails a reduction in $\tilde{C}$ of $\kappa_e \lambda \tilde{V}$, which tends to reduce welfare.}
+If (\ref{cs:growth_decreasing_condition}) holds, then increasing $\kappa_c$ with $x = 1$ reduces growth. In this calibration, the LHS of (\ref{cs:growth_decreasing_condition}) is equal to about 0.33 and $\kappa_c = 0$ implies $x = 1$ because $\bar{\kappa}_c > 0$. Therefore, increasing $\kappa_c$ on $[0,\bar{\kappa}_c)$ reduces the equilibrium growth rate.
 
-Next, suppose $x = 0$ and $z > 0$ at $\kappa_{c0} < \bar{\kappa}_c$ and consider an increase to $\kappa_{c1}$. If $\kappa_{c1} < \bar{\kappa}_c$ then $x = 0$ and there is no change in the equilibrium. If $\kappa_{c1}$ is large enough then $x = 1$. Upon crossing the $\bar{\kappa}_c$ threshold, $\tau^S$ jumps from $0$ to $\nu z$ while $z,\hat{z}$ do not jump. By the growth accounting equation (\ref{eq:growth_accounting}), the growth rate jumps to $g_1 > g_0$. By the Euler equation (\ref{eq:euler}), the interest rate jumps from $r$ to $r_1>r_0$. To preserve the incumbent's HJB (\ref{eq:hjb_incumbent_noNCA}), the R\&D wage declines to $w_{RD1} < w_{RD0}$.
+Next, suppose $x = 0$ and $z > 0$ at $\kappa_{c0} < \bar{\kappa}_c$ and consider an increase to $\kappa_{c1}$. If $\kappa_{c1} < \bar{\kappa}_c$ then $x = 0$ and there is no change in the equilibrium because the NCA cost is not paid in either case. If $\kappa_{c1}$ is large enough then $x = 1$. Upon crossing the $\bar{\kappa}_c$ threshold, $\tau^S$ jumps from $0$ to $\nu z$ while $z,\hat{z}$ do not jump. By the growth accounting equation (\ref{eq:growth_accounting}), the growth rate jumps to $g_1 > g_0$. By the Euler equation (\ref{eq:euler}), the interest rate jumps from $r$ to $r_1>r_0$. Equation (\ref{eq:hjb_incumbent_gordon_formula}) then implies that $\tilde{V}$ declines. If $z > 0$ with $\kappa_{c1}$, the incumbent FOC (\ref{eq:hjb_incumbent_foc}) then implies that the R\&D wage declines to $w_{RD1} < w_{RD0}$. If $z = 0$ with $\kappa_{c1}$, then the above changes occur until the threshold $\kappa_{c}'$ such that $z = 0$, beyond which further increases in $\kappa_c$ have no effect on the equilibrium. 
+
+Intuitively, the increase in $\tau^S$ at the jump from $x = 1$ to $x = 0$ reduces the value of incumbency due to the increased rate of creative destruction. Because total R\&D labor supply is inelastic, this reduction in the value of incumbency has no effect on total R\&D spending in equilibrium. Moreover, because the payoff to successful innovation is reduced by the same factor for both incumbents and entrants, it has no effect on the allocation of R\&D spending. These observations together imply that productivity growth unambiguously increases following the jump from $x = 1$ and $\tau^S = 0$ to $x = 0$ and $\tau^S > 0$.  
 
 The countervailing economic forces described in the introduction of this section are clearly laid out in the above comparisons. If the LHS of (\ref{cs:growth_decreasing_condition}) is much smaller than the RHS, the disincentive to the incumbent is large compared to the mitigation by increased R\&D from entrants and the boost to the economy's overall innovation efficiency from free spinout entry. More concretely, the discussion implies that, small increases in $\kappa_c$ are negative for growth but large increases can be positive or negative.
 
@@ -946,13 +936,13 @@ It is more difficult to establish the effect of NCAs on normalized consumption $
 &= \tilde{Y} - \Big( \hat{\chi} (\bar{L}_{RD} - z)^{1-\psi} \kappa_e \lambda + z \nu \kappa_c \Big) \tilde{V} \label{cs:consumption_eq}
 \end{align}
 
-The presence of the exponent $1-\psi$ complicates the analysis here. 
-
-However, if we assume $\psi = 0.5$ as in the baseline calibration, it can be shown that when $z / \hat{z}$ is high, the elasticity of $z$ with respect to $\kappa_c$ is greater than $-1$. In such a case, consumption falls as $\kappa_c$ increases. 
+The presence of the exponent $1-\psi$ complicates the analysis here. However, if we assume $\psi = 0.5$ as in the baseline calibration, it can be shown that when $z / \hat{z}$ is high enough, the elasticity of $z$ with respect to $\kappa_c$ is greater than $-1$. In such a case, consumption falls as $\kappa_c$ increases in $(0,1)$. In fact, this is the case in the calibration, as can be seen in the next section.
 
 \subsubsection{Effect on welfare}
 
-\autoref{calibration_summaryPlot} shows how the equilibrium varies with $\kappa_c$. As $\kappa_c$ increases in $[0,\bar{\kappa}_c)$, welfare decreases (third row, third panel). This is driven by the changes in the growth rate (first row, third panel). The movements in the growth rate in turn drive movements in the interest rate, via the Euler equation (second row, second panel). Both R\&D wages paid by incumbents and entrants decline and then jump downwards at the $\bar{\kappa}_c$ threshold (second row, third panel). The growth rate is driven by the changes in the innovation rate (first row, second panel). The incumbent reduces innovation gradually, while the entrant increases gradually, but by less due to lower marginal returns to R\&D in equilibrium, as inequality (\ref{cs:growth_decreasing_condition}) holds (the LHS is equal to 0.33 in this parametrization). The spinout increases innovation discretely as the threshold increases. Finally, the incumbent value decreases continuously until the threshold, where it jumps downwards (second row, first panel).
+\autoref{calibration_summaryPlot} shows how the equilibrium varies with $\kappa_c$. As $\kappa_c$ increases in $[0,\bar{\kappa}_c)$, welfare decreases (third row, third panel). This is driven by the changes in the growth rate (first row, third panel). The movements in the growth rate in turn drive movements in the interest rate, via the Euler equation (second row, second panel). Both R\&D wages paid by incumbents and entrants decline and then jump downwards at the $\bar{\kappa}_c$ threshold (second row, third panel). The growth rate is driven by the changes in the innovation rate (first row, second panel). The incumbent reduces innovation gradually, while the entrant increases gradually, but by less due to lower marginal returns to R\&D in equilibrium, as inequality (\ref{cs:growth_decreasing_condition}) holds (the LHS is equal to 0.33 in this parametrization). WSOs increase the growth rate by a discrete amount as the threshold $\bar{\kappa}_c$ is crossed. Finally, the incumbent value decreases continuously until the threshold, where it jumps downwards (second row, first panel). 
+
+To validate this result, I study its robustness to variations in the target moments in \ref{appendix:policyanalysis:ncacost}. I conclude that the result is robust to up to a 10\% or so standard deviation in the target moments (with zero correlation between moment uncertainty). Also, I show that the welfare result is reversed when calibrating the model to a 4\%, rather than 8.35\%, employment share of entering firms. This occurs due to a much higher calibrated value of $\lambda$, reducing the slack with which (\ref{cs:growth_misallocation_condition}) holds.  
 
 \begin{figure}[]
 	\includegraphics[scale = 0.57]{../code/julia/figures/simpleModel/calibration_summaryPlot.pdf}
@@ -960,70 +950,15 @@ However, if we assume $\psi = 0.5$ as in the baseline calibration, it can be sho
 	\label{calibration_summaryPlot}
 \end{figure}
 
-
-
-
-\paragraph{Robustness of welfare gain from NCA enforcement}
-
-\autoref{welfareComparisonSensitivityFull} shows the sensitivity of the welfare comparison the moments targeted, including the externally calibrated parameters as pseudo-moments as before. It is computed as $\nabla_m \tilde{W}|_m = (J^{-1})^T \nabla_p W|_p$, where $J$ is the Jacobian of the mapping from log parameters to moments (so that $J^{-1}$ is the Jacobian of the inverse mapping), and $W$ is the mapping from parameters the log \% change (or raw \% change, in \autoref{levelsWelfareComparisonSensitivityFull})) in CEV welfare from reducing $\kappa_c$ from $\infty$ to $0$. That is, it is the gradient of the change in welfare to the change in target moments or uncalibrated parameters, taking as given the change in parameters required to continue matching the target moments. For reference, $\nabla_p W|_p$  for each definition of $W$ can be found in \autoref{welfareComparisonParameterSensitivityFull} and \autoref{levelsWelfareComparisonParameterSensitivityFull}.
-
-Suppose that the log of each moment is assumed to have a standard deviation of $\sigma = 0.05$, and that this uncertainty is statistically independent across moments. The uncertainty propagates such that the standard deviation of the CEV welfare change is the square root of $(\nabla_m \tilde{W}|_m)^T \Sigma_m \nabla_m \tilde{W}|_m$, where $\Sigma_m = \sigma^2 I_{9\times 9}$. In this examples this yields 0.31 log points (0.45 percentage points). Also, in both cases the result is linear in $\sigma$. Hence with $\sigma = 0.1$, the result is 0.62 log points (0.90 percentage points), etc. 
-
-The estimated welfare improvement is about 1.4\%. Taking the uncertainty into account, the $2\sigma$ uncertainty region excludes zero for $\sigma \le .112$. This suggests the result is quite sensitive to the moments and non-calibrated parameters used in the calibration. 
-
-
-\begin{figure}[]
-	\includegraphics[scale = 0.36]{../code/julia/figures/simpleModel/welfareComparisonSensitivityFull.pdf}
-	\caption{Sensitivity of welfare comparison to moments. This is $(J^{-1})^T \nabla_p W$, where $W(p)$ maps log parameters to the log of the percentage change in BGP consumption which is equivalent to the change in welfare from changing $\kappa_c$ from $\infty$ to $0$ (i.e. going from banning to frictionlessly enforcing NCAs). The way to read this is the following. Looking at the column labeled \textit{E}, the chart says that a 1\% increase in the targeted employment share of young firms, which corresponds to a log change of about $0.01$, leads to a 4\% increase in the percentage CEV percentage welfare change. In this calibration it is about 1.42\%, so this is about $0.057$ percentage points.}
-	\label{welfareComparisonSensitivityFull}
-\end{figure}
-
-
-\paragraph{When are NCAs bad for welfare?}
-
-The sensitivity of the welfare improvement to the entry rate shown in (\ref{welfareComparisonSensitivityFull}) suggests that a calibration targeting a lower rate of creative destruction could have the opposite result. \autoref{calibration_lowEntry_summaryPlot} shows the analogue of \autoref{calibration_summaryPlot} if entry rate targeted is 4\% instead of 8.35\%. The model is again able to match the moments exactly; inferred parameter values are shown in \autoref{calibration_lowEntry_parameters}.
-
-As expected, growth and welfare fall when $\kappa_C$ is reduced so that $x = 1$. Mathematically, this results from the much higher inferred value of $\lambda$: it is 1.65 in this calibration instead of 1.17 in the original calibration. Intuitively, the lower rate of entry means that each entry must have a higher effect on growth in order for the model to match the growth rate. Furthermore, as shown in \autoref{welfareComparisonParameterSensitivityFull}, the increase in $\lambda$ significantly reduces the welfare gain from reducing $\kappa_C$. A higher value of $\lambda$ weakens inequality (\ref{cs:growth_decreasing_condition}), reducing the effect of the incumbent disincentive on growth. While the inequality still holds, the extent of misallocation is weaker. Therefore, inducing further misallocation via an increase in $\kappa_C$ has a smaller negative effect on growth. The present exercise shows that these local relationships are to some extent global and in fact strong enough to switch the sign of the welfare comparison.
-
-\begin{figure}[]
-	\includegraphics[scale = 0.57]{../code/julia/figures/simpleModel/calibration_lowEntry_summaryPlot.pdf}
-	\caption{Summary of equilibrium for baseline parameter values and various values of $\kappa_c$.}
-	\label{calibration_lowEntry_summaryPlot}
-\end{figure}
-
-\begin{table}[]
-	\centering
-	\captionof{table}{Low entry rate calibration}\label{calibration_lowEntry_parameters}
-	\begin{tabular}{rlll}
-		\toprule \toprule
-		Parameter & Value & Description & Source \tabularnewline
-		\midrule
-		$\rho$ & 0.0339 & Discount rate  & Indirect inference \tabularnewline
-		$\theta$ & 2 & $\theta^{-1} = $ IES & External calibration 
-		\tabularnewline
-		$\beta$ & 0.094 & $\beta^{-1} = $ EoS intermediate goods & Exactly identified \tabularnewline 
-		$\psi$ & 0.5 & Entrant R\&D elasticity & External calibration \tabularnewline
-		$\lambda$ & 1.65 & Quality ladder step size & Indirect inference 
-		\tabularnewline
-		$\chi$ & 0.366 & Incumbent R\&D productivity & Indirect inference 
-		\tabularnewline
-		$\hat{\chi}$ & 0.0474 & Entrant R\&D productivity & Indirect inference \tabularnewline 
-		$\kappa_e$ & 0.703 & Non-R\&D entry cost & Indirect inference \tabularnewline
-		$\nu$ & 0.0126 & Spinout generation rate  & Indirect inference\tabularnewline
-		$\bar{L}_{RD}$ & 0.05 & R\&D labor allocation  & Normalization \tabularnewline
-		\bottomrule
-	\end{tabular}
-\end{table}
-
 \subsection{NCA tax (subsidy)}
 
 Consider a planner that can subsidize or tax the use of NCAs. Specifically, suppose that the flow cost of using an NCA is with quality $q$ is $(\kappa_c + T_{NCA})\nu  V(q,t)$. If $T_{NCA} < 0$, the planner subsidizes the use of NCAs. This specification restricts the tax or subsidy to be proportional to $\nu V(q,t)$.\footnote{The scaling with $\nu$ is only a normalization since $\nu$ is assumed to be constant.} This scaling, or at least linear scaling with $q$, are essential for a BGP to exist. I also rule out $T_{NCA} < -\kappa_c$ so that NCAs are only used by incumbents and R\&D employees.
 
-NCA taxes strictly dominate costly legal barriers to NCA enforcement. To be precise, for any equilibrium with $\kappa_{c0} > \munderbar{\kappa}_c$, there corresponds an equilibrium with $\kappa_{c1} = \munderbar{\kappa}_c$ and $T_NCA > \kappa_{c0} - \munderbar{\kappa}_c$ which has the same innovation rates and growth but weakly higher consumption and welfare. This results from the fact that $T_{NCA}$ is isomorphic to $\kappa_c$ except for the fact that it is a transfer, not a static social cost. 
+NCA taxes strictly dominate costly legal barriers to NCA enforcement. To be precise, for any equilibrium with $\kappa_{c0} > \munderbar{\kappa}_c$, there corresponds an equilibrium with $\kappa_{c1} = \munderbar{\kappa}_c$ and $T_{NCA} > \kappa_{c0} - \munderbar{\kappa}_c$ which has the same innovation rates and growth but weakly higher consumption and welfare. This results from the fact that $T_{NCA}$ is isomorphic to $\kappa_c$ except for the fact that it is a transfer, not a static social cost. 
 
 In the baseline calibration, however, there is no social improvement to the availability of NCA taxes. Welfare is optimized either at $\kappa_c = 0$ or $\kappa_c > \bar{\kappa}_c$. In neither case is a cost paid to enforce NCAs in equilibrium, since $x = 0$ when $\kappa_c > \bar{\kappa}_c$. If a planner who can only control $\kappa_c$ a high value of $\kappa_c = \kappa_c^*$, the planner who can choose $T_{NCA}$ as well will also find this equilibrium optimal (that is, with $T_{NCA} = 0$); and will be indifferent between it and an identical equilibrium with $\kappa_c = 0$ and $T_{NCA} = \kappa_c^*$. 
 
-If $\kappa_c = 0$ in the baseline social optimum, then it turns out that a subsidy to the use of NCAs could in principle improve welfare for two reasons. First, if $x = 1$ in the social optimum, then a subsidy to the use of NCAs becomes equivalent to a targeted subsidy to incumbent R\&D. If (\ref{cs:growth_decreasing_condition}) holds, the planner would like to subsidize incumbent R\&D specifically in order to reallocate R\&D labor to incumbents instead of entrants. I will take up this case in \autoref{cs:oi_rd_subsidy}.
+If $\kappa_c = 0$ in the baseline social optimum, then it turns out that a subsidy to the use of NCAs could in principle improve welfare for two reasons. First, if $x = 1$ in the social optimum, then a subsidy to the use of NCAs becomes equivalent to a targeted subsidy to incumbent R\&D. If (\ref{cs:growth_decreasing_condition}) holds, the planner would like to subsidize incumbent R\&D specifically in order to reallocate R\&D labor to incumbents instead of entrants. I will take up this case in Section \ref{cs:oi_rd_subsidy}.
 
 If $\kappa_c = x = 0$ in the baseline social optimum, then subsidizing the use of NCAs so that $x = 1$ could potentially improve welfare if NCAs are underutilized from a social perspective even when they are free to enforce. However, I suspect this will typically not be the case, since the vast majority of any social harm from the spinout is borne by the incumbent who generates it. More likely, inducing $x = 1$ could be worthwhile because further subsidies to NCAs act as a targeted subsidy to incumbent R\&D.
 
@@ -1368,11 +1303,23 @@ Because $T_{NCA}$ dominates $\kappa_c$, we know that the planner will choose $\k
 
 \appendix
 
+\counterwithin{proposition}{section}
+\counterwithin{proposition_corollary}{section}
+\counterwithin{lemma}{section}
+\counterwithin{lemma_corollary}{section}
+
 \section{Appendix of tables}
+
+\setcounter{table}{0}
+\renewcommand{\thetable}{\Alph{section}\arabic{table}}
 
 \input{../empirics/figures/tables/table1_founder2.tex}
 
 \input{../empirics/figures/tables/summaryTables/VS_startupCountsAll.tex}
+
+\input{../empirics/figures/tables/summaryTables/VS_previousEmployersPositionsCounts_executive.tex}
+
+\input{../empirics/figures/tables/summaryTables/VS_previousEmployersPositionsCounts_technical.tex}
 
 \begin{table}[!htb]
 	\centering
@@ -1398,8 +1345,13 @@ Because $T_{NCA}$ dominates $\kappa_c$, we know that the planner will choose $\k
 	\end{tabular}
 \end{table}
 
+
+
 \newpage
 \section{Appendix of figures}
+
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{\Alph{section}\arabic{figure}}
 
 \begin{figure}[!htb]
 	\centering
@@ -1422,6 +1374,18 @@ Because $T_{NCA}$ dominates $\kappa_c$, we know that the planner will choose $\k
 	\label{figure:scatterPlot_RD-Founders}
 \end{figure}
 
+\begin{figure}[]
+	\includegraphics[scale = 0.43]{../code/julia/figures/simpleModel/calibrationSensitivity.pdf}
+	\caption{Plot showing the elasticity of parameters to moments. It is computed by inverting the jacobian matrix of the mapping from log parameters to log model moments (whose entries comprise the previous figure). These elasticities, along with estimates of the noisiness of the moments used in the calibration, can be used to estimate confidence intervals for the parameters in the model, and thereby for the welfare comparison in question.}
+	\label{calibration_sensitivity}
+\end{figure}
+
+\begin{figure}[]
+	\includegraphics[scale = 0.43]{../code/julia/figures/simpleModel/identificationSourcesFull.pdf}
+	\caption{Plot showing the elasticity of moments to model parameters, including parameters taken from the literature $\theta , \beta, \psi$. These non-calibrated parameters are added in as effective moments to be matched, allowing the sensitivity of calibrated parameters $\rho, \lambda, \chi, \hat{\chi}, \kappa_E, \nu$ to these parameters to be computed by simply inverting this matrix, as before.}
+	\label{calibration_identificationSources_full}
+\end{figure}
+
 \begin{figure}[!htb]
 	\includegraphics[scale = 0.36]{../code/julia/figures/simpleModel/levelsWelfareComparisonSensitivityFull.pdf}
 	\caption{Sensitivity of welfare comparison to moments. This is $(J^{-1})^T \nabla_p W$, where $W(p)$ maps log parameters to the percentage change in BGP consumption which is equivalent to the change in welfare from changing $\kappa_c$ from $\infty$ to $0$ (i.e. going from banning to frictionlessly enforcing NCAs). In contrast with the elasticity of the previous figure, this is a semi-elasticity. In particular it can allow for the change in welfare to be negative. The way to read this is the following. Looking at the column labeled \textit{E}, the chart says that a 1\% increase in the targeted employment share of young firms, which corresponds to a log change of about $0.01$, leads to an increase in the \% welfare improvement of approximately $6 \times 0.01 = 0.06$ percentage points.}
@@ -1439,6 +1403,197 @@ Because $T_{NCA}$ dominates $\kappa_c$, we know that the planner will choose $\k
 	\caption{Sensitivity of welfare comparison to moments. This is $\nabla_p W$, wahere $W(p)$ maps log parameters to the percentage change in BGP consumption which is equivalent to the change in welfare from changing $\kappa_c$ from $\infty$ to $0$ (i.e. going from banning to frictionlessly enforcing NCAs).}
 	\label{levelsWelfareComparisonParameterSensitivityFull}
 \end{figure}
+
+\section{Model}\label{appendix:model}
+
+
+
+\subsection{DRS incumbent innovation technology}
+
+In this section I show why it is analytically convenient to have CRS innovation on the incumbent. Without it, the model must be solved numerically.
+
+\begin{proposition}
+	Suppose $z$ units of R\&D yields a Poisson rate
+	\begin{align}
+	\chi z^{1-\psi}  
+	\end{align}
+	for the incumbents and $\hat{z}$ units of R\&D yields a Poisson rate 
+	\begin{align}
+	\hat{\chi}\hat{z}^{1-\hat{\psi}}
+	\end{align}
+	for entrants.\footnote{Note that I have switched the notation so that $\psi$ with no hat refers to incumbents, so that it is consistent with the convention that hats go on variables related to entrants.}
+	
+	Consider $\psi \in [0,1)$. If $\psi = 0$, we have the baseline model, which admits a closed form solution. If $\psi = 0.5$, then $\tilde{V}$ has a closed form solution given parameters and $\hat{w}_{RD}$, but the model itself does not have a closed-form solution. For all other $\psi \in [0,1)$, there is no closed form solution for $\tilde{V}$ or the equilibrium given $\tilde{V}$.  
+\end{proposition}
+
+\begin{proof}
+	The normalized incumbent HJB is now
+	\begin{align}
+	(r + \hat{\tau}) \tilde{V} &= \tilde{\pi} + \max_{\substack{x \in \{0,1\} \\ z \ge 0}} \Big\{  z \Big( z^{-\psi} \chi (\lambda - 1) \tilde{V} - \hat{w}_{RD} - (1-x)(1 - (1-\kappa_e) \lambda)\nu \tilde{V} - x \kappa_c \nu \tilde{V}  \Big)   \Big\} \label{appendix:model:drsincumbent:hjb}
+	\end{align} 
+	
+	The first order condition is
+	\begin{align}
+	(1-\psi) z^{-\psi} \chi (\lambda -1)\tilde{V} &= \hat{w}_{RD} + (1-x) (1-(1-\kappa_e)\lambda)\nu \tilde{V} + x \kappa_c \nu \tilde{V}
+	\end{align}
+	
+	which implies
+	\begin{align}
+	z^{1-\psi} &= \Big( \frac{\hat{w}_{RD} + \zeta_1\tilde{V}}{C_2\tilde{V}} \Big)^{\frac{\psi -1}{\psi}} \\
+	\zeta_1 &= (1-x)(1-(1-\kappa_e)\lambda)\nu + x\kappa_c\nu \\
+	\zeta_2 &= (1-\psi) \chi (\lambda-1)
+	\end{align}
+	
+	Substituting into (\ref{appendix:model:drsincumbent:hjb}) yields
+	\begin{align}
+	(r + \hat{\tau}) \tilde{V} &= \tilde{\pi} + \Big( \frac{\hat{w}_{RD} + \zeta_1\tilde{V}}{C_2\tilde{V}} \Big)^{\frac{\psi -1}{\psi}} \zeta_2 \tilde{V} - \hat{w}_{RD} - \zeta_1 \tilde{V} 
+	\end{align}
+	
+	This equation has no closed form expression for $\tilde{V}$ except in the quadratic cost case of $\psi = 0.5$, when $\frac{\psi - 1}{\psi} = -1$ and the above becomes
+	\begin{align}
+	(r + \hat{\tau}) \tilde{V} &= \tilde{\pi} +  \frac{1}{\hat{w}_{RD} + \zeta_1\tilde{V}} - \hat{w}_{RD} - \zeta_1 \tilde{V} 
+	\end{align}
+	
+	Multiplying both sides by $\hat{w}_{RD} + \zeta_1 \tilde{V}$ yields a quadratic equation for $\tilde{V}$, which has solution
+	\begin{align}
+		\tilde{V} &= \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+	\end{align}
+	
+	However, the dependence of $\tilde{V}$ on $\hat{w}_{RD}$, given model parameters, is no longer linear. This means that $\hat{z}$ and $\hat{w}_{RD}$ must be solved in a simultaneous system which does not have a 
+	
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Calibration}\label{appendix:calibration}
+
+\subsection{Computing model moments}
+
+\subsubsection{R\&D / GDP}\label{appendix:calibration:rd/gdp}
+
+In the model, the R\&D share is the ratio of the wage paid to R\&D workers to GDP. This is
+\begin{align*}
+\frac{\textrm{R\&D wage bill}}{\textrm{GDP}} &= \frac{\overline{w}_{RD,I} z + \overline{w}_{RD,E} \hat{z}}{\tilde{Y}} \\ 
+&= \frac{\overline{w}_{RD,E} (z + \hat{z}) + (\overline{w}_{RD,I} - \overline{w}_{RD,E})z}{\tilde{Y}} \\
+&= \frac{\overline{w}_{RD,E} (z + \hat{z}) - (1-\kappa_e) \lambda \tilde{V} \tau^S}{\tilde{Y}}
+\end{align*}
+
+where I used $\overline{w}_{RD,I} - \overline{w}_{RD,E} = -(1-x)(1-\kappa_e) \lambda \tilde{V} \nu$ and $\tau^S = (1-x)\nu z$. 
+
+\subsubsection{Growth share OI}\label{appendix:calibration:growthShareOI}
+
+The model moment that corresponds here is the share of growth due to own innovation by incumbents of age >= 6. In the model, the fraction of OI growth due to incumbents in a given age group is exactly their fraction of employment: innovations arrive at the same rate for each incumbent, and their impact on aggregate growth is proportional to the incumbent's relative quality, which is proportional to employment. Hence old incumbents' share of growth due to own innovation is simply one minus the employment share calculated in the previous paragraph, $e^{((\hat{\tau}_I -1)g - (\hat{\tau} + (1-x)z \nu))\cdot 6}$. Finally, the fraction of aggregate growth due to OI is $\hat{\tau}_i$, defined above. The fraction of growth due to incumbents of age at least 6 is the product of the two, 
+\begin{align*}
+\textrm{Age >= 6 share of OI} &= \hat{\tau}_I \frac{\ell(6)}{\ell(0)} \\
+&= \hat{\tau}_I e^{((\hat{\tau}_I -1)g - (\hat{\tau} + (1-x)z \nu))\cdot 6} 
+\end{align*}
+
+
+\subsubsection{Entry rate}\label{appendix:calibration:entryRate}
+
+Let $\ell(a)$ denote the density of incumbent employment at age $a$ incumbents. Then $\ell(a)$ is characterized by 
+\begin{align*}
+\ell(a) &= \ell(0)e^{((\hat{\tau}_I -1)g - (\hat{\tau} + (1-x)z \nu))a}  \\
+1 + \bar{L}_{RD} - \hat{z} &= \int_0^{\infty} \ell(a) da
+\end{align*}
+
+where $\hat{\tau}_I = \frac{\tau}{\tau + \hat{\tau} + \tau^S}$ is the fraction of innovations that are incumbents' own innovations. 
+
+The intuition for this characterization of $\ell(a)$ has two parts. First, because all shocks are \textit{iid} across firms in equilibrium, the law of large numbers applied to each cohort of firms implies that we can consider directly the evolution of the cohort as a whole instead of explicitly analyzing the dynamics each individual firm in the cohort.  Second, the employment of a firm is proportional to its relative quality, $l_j \propto \tilde{q}_j = q_j / Q$, as long as it is the leader. When it is no longer the leader, its employment is zero forever. Putting these two together, $\ell(a)$ must decline at exponential rate $g$ due to the increase in $Q_t$ (obsolescence), increase at rate $\hat{\tau}_I g$ due to incumbents own innovations, and decline at rate $\hat{\tau} + \tau^S$ due to creative destruction.\footnote{The second equation imposes consistency with aggregate employment; it implies $\ell(0) = -((\hat{\tau}_I -1)g - (\hat{\tau} + \tau^S))(1 + \bar{L}_{RD})$. The calibration does not require this explicit calculation since it is based only on employment shares.} Note that the employment density is strictly decreasing in $a$. This is because there are no adjustment costs: firms achieve their optimal scale immediately upon entry, and subsequently become obsolete (on average) or lose the innovation race to an entrant. Finally, due to the constant exponential decay of $\ell(a)$, the share of incumbent employment in incumbents of strictly less than 6 years of age is given by 
+\begin{align*}
+\Xi_{[0,6)} &=  1 - \frac{\ell(6)}{\ell(0)} \\
+&= 1 - e^{((\hat{\tau}_I -1)g - (\hat{\tau} + \tau^S))\cdot 6}
+\end{align*}  
+
+
+The share of overall employment in incumbents of age < 6, including R\&D performed by non-producing entrants, is equal to the previously calculated $\Xi_{[0,6)}$, multiplied by the share of total labor in incumbents, $1 - \hat{z}$, added to the R\&D labor used by entrants $\hat{z}$, 
+\begin{align*}
+\textrm{Age < 6 share of employment} &= \frac{2}{3}(\Xi_{[0,6)} (1-\hat{z}) + \hat{z})
+\end{align*}
+
+The factor 2/3 follows from interpreting entrants in the model as either new firms or incumbents engaging in creative destruction. According to KH 2020, creative destruction by incumbents is responsible for half as much growth as creative destruction by entrants. In this interpretation of the model, both types of creative destruction use the same technology. Therefore, 2/3 of employment in young firms in the model represents employment in young firms in the data.\footnote{Also, note that this formula extrapolates the employment-age distribution to the entire economy and calculated shares in that way. If I did not do this, the formula would be
+	\begin{align*}
+	\textrm{Age < 6 share of employment} &= \frac{2}{3} \frac{(\Xi_{[0,6)} (1 - L_F -\hat{z}) + \hat{z})}{1-L_F}
+	\end{align*}
+	
+	This has only minor effects on the inferred parameters. They are listed in \autoref{calibration_2_parameters}.}
+
+\subsubsection{Employment share of WSOs}\label{appendix:calibration:WSOempShare}
+
+Because entering spinouts and entering ordinary firms have identical life-cycles post entry in expectation, the BGP share of employment in firms started as spinouts is their share of new incumbents $\frac{\tau^S}{\tau^S+ (\frac{2}{3})\hat{\tau}}$, multiplied by the employment share of incumbents $1- (\frac{2}{3})\hat{z}$, 
+\begin{align*}
+\textrm{Spinout employment share} &= \frac{\tau^S}{\tau^S + \frac{2}{3}\hat{\tau}} (1 - \frac{2}{3}\hat{z}) 
+\end{align*}
+
+Again, the factor 2/3 is because this is the fraction of entrants in the model which the calibration maps to new firms in the data.
+
+
+\section{Policy analysis}
+
+\subsection{NCA cost $\kappa_c$}\label{appendix:policyanalysis:ncacost}
+
+\paragraph{Robustness of welfare gain from NCA enforcement}
+
+\autoref{welfareComparisonSensitivityFull} shows the sensitivity of the welfare comparison the moments targeted, including the externally calibrated parameters as pseudo-moments as before. It is computed as $\nabla_m \tilde{W}|_m = (J^{-1})^T \nabla_p W|_p$, where $J$ is the Jacobian of the mapping from log parameters to moments (so that $J^{-1}$ is the Jacobian of the inverse mapping), and $W$ is the mapping from parameters the log \% change (or raw \% change, in \autoref{levelsWelfareComparisonSensitivityFull})) in CEV welfare from reducing $\kappa_c$ from $\infty$ to $0$. That is, it is the gradient of the change in welfare to the change in target moments or uncalibrated parameters, taking as given the change in parameters required to continue matching the target moments. For reference, $\nabla_p W|_p$  for each definition of $W$ can be found in \autoref{welfareComparisonParameterSensitivityFull} and \autoref{levelsWelfareComparisonParameterSensitivityFull}.
+
+Suppose that the log of each moment is assumed to have a standard deviation of $\sigma = 0.05$, and that this uncertainty is statistically independent across moments. The uncertainty propagates such that the standard deviation of the CEV welfare change is the square root of $(\nabla_m \tilde{W}|_m)^T \Sigma_m \nabla_m \tilde{W}|_m$, where $\Sigma_m = \sigma^2 I_{9\times 9}$. In this examples this yields 0.31 log points (0.45 percentage points). Also, in both cases the result is linear in $\sigma$. Hence with $\sigma = 0.1$, the result is 0.62 log points (0.90 percentage points), etc. 
+
+The estimated welfare improvement is about 1.4\%. Taking the uncertainty into account, the $2\sigma$ uncertainty region excludes zero for $\sigma \le .112$. This suggests the result is quite sensitive to the moments and non-calibrated parameters used in the calibration. 
+
+
+\begin{figure}[]
+	\includegraphics[scale = 0.36]{../code/julia/figures/simpleModel/welfareComparisonSensitivityFull.pdf}
+	\caption{Sensitivity of welfare comparison to moments. This is $(J^{-1})^T \nabla_p W$, where $W(p)$ maps log parameters to the log of the percentage change in BGP consumption which is equivalent to the change in welfare from changing $\kappa_c$ from $\infty$ to $0$ (i.e. going from banning to frictionlessly enforcing NCAs). The way to read this is the following. Looking at the column labeled \textit{E}, the chart says that a 1\% increase in the targeted employment share of young firms, which corresponds to a log change of about $0.01$, leads to a 4\% increase in the percentage CEV percentage welfare change. In this calibration it is about 1.42\%, so this is about $0.057$ percentage points.}
+	\label{welfareComparisonSensitivityFull}
+\end{figure}
+
+
+\paragraph{When are NCAs bad for welfare?}
+
+The sensitivity of the welfare improvement to the entry rate shown in (\ref{welfareComparisonSensitivityFull}) suggests that a calibration targeting a lower rate of creative destruction could have the opposite result. \autoref{calibration_lowEntry_summaryPlot} shows the analogue of \autoref{calibration_summaryPlot} if entry rate targeted is 4\% instead of 8.35\%. The model is again able to match the moments exactly; inferred parameter values are shown in \autoref{calibration_lowEntry_parameters}.
+
+As expected, growth and welfare fall when $\kappa_C$ is reduced so that $x = 1$. Mathematically, this results from the much higher inferred value of $\lambda$: it is 1.65 in this calibration instead of 1.17 in the original calibration. Intuitively, the lower rate of entry means that each entry must have a higher effect on growth in order for the model to match the growth rate. Furthermore, as shown in \autoref{welfareComparisonParameterSensitivityFull}, the increase in $\lambda$ significantly reduces the welfare gain from reducing $\kappa_C$. A higher value of $\lambda$ weakens inequality (\ref{cs:growth_decreasing_condition}), reducing the effect of the incumbent disincentive on growth. While the inequality still holds, the extent of misallocation is weaker. Therefore, inducing further misallocation via an increase in $\kappa_C$ has a smaller negative effect on growth. The present exercise shows that these local relationships are to some extent global and in fact strong enough to switch the sign of the welfare comparison.
+
+\begin{figure}[]
+	\includegraphics[scale = 0.57]{../code/julia/figures/simpleModel/calibration_lowEntry_summaryPlot.pdf}
+	\caption{Summary of equilibrium for baseline parameter values and various values of $\kappa_c$.}
+	\label{calibration_lowEntry_summaryPlot}
+\end{figure}
+
+\begin{table}[]
+	\centering
+	\captionof{table}{Low entry rate calibration}\label{calibration_lowEntry_parameters}
+	\begin{tabular}{rlll}
+		\toprule \toprule
+		Parameter & Value & Description & Source \tabularnewline
+		\midrule
+		$\rho$ & 0.0339 & Discount rate  & Indirect inference \tabularnewline
+		$\theta$ & 2 & $\theta^{-1} = $ IES & External calibration 
+		\tabularnewline
+		$\beta$ & 0.094 & $\beta^{-1} = $ EoS intermediate goods & Exactly identified \tabularnewline 
+		$\psi$ & 0.5 & Entrant R\&D elasticity & External calibration \tabularnewline
+		$\lambda$ & 1.65 & Quality ladder step size & Indirect inference 
+		\tabularnewline
+		$\chi$ & 0.366 & Incumbent R\&D productivity & Indirect inference 
+		\tabularnewline
+		$\hat{\chi}$ & 0.0474 & Entrant R\&D productivity & Indirect inference \tabularnewline 
+		$\kappa_e$ & 0.703 & Non-R\&D entry cost & Indirect inference \tabularnewline
+		$\nu$ & 0.0126 & Spinout generation rate  & Indirect inference\tabularnewline
+		$\bar{L}_{RD}$ & 0.05 & R\&D labor allocation  & Normalization \tabularnewline
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+
+
+
 
 
 

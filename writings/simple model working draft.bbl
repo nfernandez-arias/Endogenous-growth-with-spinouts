@@ -29,16 +29,6 @@ Salome Baslandze.
 \newblock Spinout {Entry}, {Innovation}, and {Growth}.
 \newblock \emph{Working Paper}, 2019.
 
-\bibitem[Bloom et~al.(2013)Bloom, Schankerman, and
-  Reenen]{bloom_identifying_2013}
-Nicholas Bloom, Mark Schankerman, and John~Van Reenen.
-\newblock Identifying {Technology} {Spillovers} and {Product} {Market}
-  {Rivalry}.
-\newblock \emph{Econometrica}, 81\penalty0 (4):\penalty0 1347--1393, 2013.
-\newblock ISSN 1468-0262.
-\newblock \doi{10.3982/ECTA9466}.
-\newblock URL \url{https://onlinelibrary.wiley.com/doi/abs/10.3982/ECTA9466}.
-
 \bibitem[Colombo et~al.(2013)Colombo, Dawid, Piva, and
   Vivarelli]{colombo_does_2013}
 Luca Colombo, Herbert Dawid, Mariacristina Piva, and Marco Vivarelli.
@@ -78,6 +68,15 @@ April~M. Franco and Matthew~F. Mitchell.
 \newblock \doi{10.1111/j.1530-9134.2008.00187.x}.
 \newblock URL
   \url{https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1530-9134.2008.00187.x}.
+
+\bibitem[Franco and Filson(2006)]{franco_spin-outs_2006}
+April~Mitchell Franco and Darren Filson.
+\newblock Spin-outs: knowledge diffusion through employee mobility.
+\newblock \emph{The RAND Journal of Economics}, 37\penalty0 (4):\penalty0
+  841--860, December 2006.
+\newblock ISSN 07416261, 17562171.
+\newblock \doi{10.1111/j.1756-2171.2006.tb00060.x}.
+\newblock URL \url{http://doi.wiley.com/10.1111/j.1756-2171.2006.tb00060.x}.
 
 \bibitem[Garcia-Macia et~al.(2019)Garcia-Macia, Hsieh, and
   Klenow]{garcia-macia_how_2019}

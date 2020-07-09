@@ -99,7 +99,7 @@ print(startupCountsXtable, "figures/tables/summaryTables/VS_startupCountsAll.tex
 
 
 
-
+data_store <- data
 data <- data[all == 1]
 
 ### Title counts 
@@ -150,25 +150,32 @@ hist(fracBoardOutsiders$V1, breaks = 100)
 # Employment Bios summary
 #----------------------------------------#
 
-                    
-employerCounts <- data[!is.na(EmployerCase) & EmployerCase != ""]
-employerCounts <- employerCounts[ , .N, by = EmployerCase]  
-employerCounts <- employerCounts[order(-N)]
-setnames(employerCounts,"N","Count")
-setnames(employerCounts,"EmployerCase","Employer")
+makeEmployerTable <- function(data,string) {
+  
+  temp <- data[!is.na(EmployerCase) & EmployerCase != ""]
+  temp <- temp[ , .N, by = EmployerCase]  
+  temp <- temp[order(-N)]
+  setnames(temp,"N","Count")
+  setnames(temp,"EmployerCase","Employer")
+  
+  
+  positionCounts <- data[!is.na(Position) & Position != ""]
+  positionCounts <- positionCounts[ , .N, by = Position]
+  positionCounts <- positionCounts[order(-N)]
+  positionCounts[ , Percentage := 100 * N / sum(N)]
+  setnames(positionCounts,"N","Count")
+  
+  outputTable <- cbind(temp[1:20],positionCounts[1:20])
+  
+  outputXtable <- xtable(outputTable, digits = 1, align = c("r","r","l","r","l","l"),
+                                         caption = paste0("Top 20 previous employers and previous positions for ",string," founders in VS data."),
+                                         label = "table:VS_previousEmployersSummaryTable")
+  
+  print(outputXtable, paste0("figures/tables/summaryTables/VS_previousEmployersPositionsCounts_",string,".tex"), type = "latex", size = "\\footnotesize", floating = TRUE, include.rownames = FALSE, booktabs = TRUE, table.placement = "!htb")
 
+}
 
-positionCounts <- data[!is.na(Position) & Position != ""]
-positionCounts <- positionCounts[ , .N, by = Position]
-positionCounts <- positionCounts[order(-N)]
-positionCounts[ , Percentage := 100 * N / sum(N)]
-setnames(positionCounts,"N","Count")
-
-employerPositionCounts <- cbind(employerCounts[1:20],positionCounts[1:20])
-
-employerPositionCountsXtable <- xtable(employerPositionCounts, digits = 1, align = c("r","r","l","r","l","l"),
-                                       caption = "Top 20 previous employers and previous positions for founders in VS data.",
-                                       label = "table:VS_previousEmployersSummaryTable")
-
-print(employerPositionCountsXtable, "figures/tables/summaryTables/VS_previousEmployersPositionsCounts.tex", type = "latex", size = "\\footnotesize", floating = TRUE, include.rownames = FALSE, booktabs = TRUE, table.placement = "!htb")
-      
+makeEmployerTable(data,"all")
+makeEmployerTable(data_store[founder2 == 1],"founder2")
+makeEmployerTable(data_store[technical == 1],"technical")
+makeEmployerTable(data_store[executive == 1],"executive")

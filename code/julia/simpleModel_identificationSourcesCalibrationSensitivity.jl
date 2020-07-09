@@ -60,7 +60,7 @@ fnt = Plots.font("sans-serif", 9)
 fnt2 = Plots.font("sans-serif", 13)
 
 
-xAxisLabels = ["\$ \\rho \$"; "\$ \\lambda \$"; "\$ \\chi_I \$"; "\$ \\chi_E \$"; "\$ \\kappa_E \$"; "\$ \\nu \$"]
+xAxisLabels = ["\$ \\rho \$"; "\$ \\lambda \$"; "\$ \\chi \$"; L"\hat{\chi}"; "\$ \\kappa_E \$"; "\$ \\nu \$"]
 
 p1 = bar(xAxisLabels, jac[1,:], xticks = :all, title = "Interest rate")
 p2 = bar(xAxisLabels, jac[2,:], xticks = :all, title = "Growth rate")
@@ -89,8 +89,8 @@ xAxisLabels = ["r"; "g"; "OI share"; "Entry"; "Spinouts"; "R&D"]
 
 p1 = bar(xAxisLabels, jacInv[1,:], xticks = :all, title = "\$ \\rho \$", rotation = 0)
 p2 = bar(xAxisLabels, jacInv[2,:], xticks = :all, title = "\$ \\lambda \$", rotation = 0)
-p3 = bar(xAxisLabels, jacInv[3,:], xticks = :all, title = "\$ \\chi_I \$", rotation = 0)
-p4 = bar(xAxisLabels, jacInv[4,:], xticks = :all, title = "\$ \\chi_E \$", rotation = 0)
+p3 = bar(xAxisLabels, jacInv[3,:], xticks = :all, title = "\$ \\chi \$", rotation = 0)
+p4 = bar(xAxisLabels, jacInv[4,:], xticks = :all, title = L"\hat{\chi}", rotation = 0)
 p5 = bar(xAxisLabels, jacInv[5,:], xticks = :all, title = "\$ \\kappa_E \$", rotation = 0)
 p6 = bar(xAxisLabels, jacInv[6,:], xticks = :all, title = "\$ \\nu \$", rotation = 0)
 
@@ -105,7 +105,7 @@ savefig(p,"figures/simpleModel/calibrationSensitivity.pdf")
 # on the equilibrium.
 #
 
-xAxisLabels = ["\$ \\rho \$"; "\$ \\theta \$"; "\$ \\beta \$"; "\$ \\psi \$"; "\$ \\lambda \$"; "\$ \\chi_I \$"; "\$ \\chi_E \$"; "\$ \\kappa_E \$"; "\$ \\nu \$"]
+xAxisLabels = ["\$ \\rho \$"; "\$ \\theta \$"; "\$ \\beta \$"; "\$ \\psi \$"; "\$ \\lambda \$"; "\$ \\chi \$"; L"\hat{\chi}"; "\$ \\kappa_E \$"; "\$ \\nu \$"]
 
 p1 = bar(xAxisLabels, jac2[1,:], xticks = :all, title = "Interest rate", titlefont = Plots.font("sans-serif", 12))
 p2 = bar(xAxisLabels, jac2[2,:], xticks = :all, title = "Growth rate", titlefont = Plots.font("sans-serif", 12))
@@ -132,15 +132,15 @@ savefig(p,"figures/simpleModel/identificationSourcesFull.pdf")
 jac2Inv = inv(float.(jac2))
 fnt2 = Plots.font("sans-serif", 10)
 fnt3 = Plots.font("sans-serif", 17)
-xAxisLabels = ["r"; "g"; "OI"; "E"; "S"; "RD"; "\$ \\Large \\theta \$"; "\$ \\Large  \\beta \$"; "\$ \\Large  \\psi \$"]
+xAxisLabels = ["r"; "g"; "OI"; "E"; "S"; "RD"; L"\theta"; L"\beta"; L"\psi"]
 
 p1 = bar(xAxisLabels, jac2Inv[1,:], xticks = :all, title = "\$ \\rho \$", xrotation = 0)
 p2 = bar(xAxisLabels, jac2Inv[2,:], xticks = :all, title = "\$ \\theta \$", xrotation = 0)
 p3 = bar(xAxisLabels, jac2Inv[3,:], xticks = :all, title = "\$ \\beta \$", xrotation = 0)
 p4 = bar(xAxisLabels, jac2Inv[4,:], xticks = :all, title = "\$ \\psi \$", xrotation = 0)
 p5 = bar(xAxisLabels, jac2Inv[5,:], xticks = :all, title = "\$ \\lambda \$", xrotation = 0)
-p6 = bar(xAxisLabels, jac2Inv[6,:], xticks = :all, title = "\$ \\chi_I \$", xrotation = 0)
-p7 = bar(xAxisLabels, jac2Inv[7,:], xticks = :all, title = "\$ \\chi_E \$", xrotation = 0)
+p6 = bar(xAxisLabels, jac2Inv[6,:], xticks = :all, title = "\$ \\chi \$", xrotation = 0)
+p7 = bar(xAxisLabels, jac2Inv[7,:], xticks = :all, title = L"\hat{\chi}", xrotation = 0)
 p8 = bar(xAxisLabels, jac2Inv[8,:], xticks = :all, title = "\$ \\kappa_E \$", xrotation = 0)
 p9 = bar(xAxisLabels, jac2Inv[9,:], xticks = :all, title = "\$ \\nu \$", xrotation = 0)
 

@@ -1,7 +1,7 @@
 # This file contains the code
 # for plotting the solution to the simple expository model
 
-using Plots, Measures
+using Plots, Measures, LaTeXStrings
 gr()
 
 export SimpleModelParameters, SimpleModelSolution, solveSimpleModel, computeWelfareComparison, initializeSimpleModel, makePlots, makePlotsRDSubsidy, makePlotsKappaCRDSubsidy, makePlotsEntryTax, makePlotsRDSubsidyTargeted, makePlotsALL
@@ -316,53 +316,23 @@ function makePlots(modelPar::SimpleModelParameters,string::String)
     Plots.scalefontsizes(0.6)
     fnt = Plots.font("sans-serif", 9)
 
-    valuePlot = plot(κC_grid,V,title = "Incumbent value", xlabel = "\\kappa_c", label = "V", legend = false)
-    #savefig(valuePlot,"figures/simpleModel/$(string)_V.pdf")
+    valuePlot = plot(κC_grid,V,title = "Incumbent value", xlabel = L"\kappa_c", label = "V", legend = false)
 
-    p = plot(κC_grid,zI, title = "Incumbent R&D Effort", xlabel = "\\kappa_c", label = "\$z_I\$", legend = false)
-    savefig(p,"figures/simpleModel/$(string)_zI.pdf")
+    effortPlot = plot(κC_grid,[zI zE], title = "Innovation effort", legend = :bottomright, xlabel = L"\kappa_c", label = ["Incumbent" "Entrant"])
 
-    incumbentInnovationPlot = plot(κC_grid,τI, title = "Incumbent innovation rate", ylabel = "Innovations per year", xlabel = "\\kappa_c", label = "\$\\tau_I\$")
-    #savefig(incumbentInnovationPlot,"figures/simpleModel/$(string)_tauI.pdf")
+    innovationRatesPlot = plot(κC_grid,[τI τE τS (τI + τE + τS)], title = "Innovation rate", legend = :bottomright, ylabel = "Innovations per year", xlabel = L"\kappa_c", label = ["Incumbent" "Entrant" "Spinout" "Total"])
 
-    p = plot(κC_grid,zE, title = "Entrant R&D Effort", xlabel = "\\kappa_c", label = "\$z_E\$")
-    #savefig(p,"figures/simpleModel/$(string)_zE.pdf")
+    wagePlot = plot(κC_grid,[wRD_NCA wRD_NCA .- (1 .- x) .* modelPar.ν .* (1-modelPar.κE) .* V], title = "R&D wage", xlabel = L"\kappa_c", label = ["Entrant" "Incumbent"])
 
-    entrantInnovationPlot = plot(κC_grid,τE, title = "Entrant innovation rate", ylabel = "Innovations per year", xlabel = "\\kappa_c", label = "\$\\tau_E\$")
-    #savefig(entrantInnovationPlot,"figures/simpleModel/$(string)_tauE.pdf")
+    interestRatePlot = plot(κC_grid,100*r,title = "Interest rate", ylabel = "% per year", xlabel = L"\kappa_c", label = "r", legend = false)
 
-    spinoutInnovationPlot = plot(κC_grid,τS, title = "Spinout innovation rate", ylabel = "Innovations per year", xlabel = "\\kappa_c", label = "\$\\tau_S\$")
-    #savefig(p,"figures/simpleModel/$(string)_tauS.pdf")
+    growthPlot = plot(κC_grid,g*100, title = "Growth rate", ylabel = "% per year", xlabel = L"\kappa_c", label = "g", legend = false)
 
-    effortPlot = plot(κC_grid,[zI zE], title = "Innovation effort", legend = :bottomright, xlabel = "\\kappa_c", label = ["Incumbent" "Entrant"])
+    staticCostPlot = plot(κC_grid,[100*(entryCost./Y) 100*(NCACost./Y) 100*((entryCost + NCACost)./Y)], title = "Entry and NCA costs (% GDP)", xlabel = L"\kappa_c", label = ["Entry cost" "NCA cost" "Total"])
 
-    innovationRatesPlot = plot(κC_grid,[τI τE τS (τI + τE + τS)], title = "Innovation rate", legend = :bottomright, ylabel = "Innovations per year", xlabel = "\\kappa_c", label = ["Incumbent" "Entrant" "Spinout" "Total"])
+    consumptionPlot = plot(κC_grid,C,title = "Consumption", xlabel = L"\kappa_c", legend = false)
 
-    p = plot(κC_grid,x, title = "NCA usage", xlabel = "\\kappa_c", label = "x")
-    #savefig(p,"figures/simpleModel/$(string)_NCA.pdf")
-
-    wagePlot = plot(κC_grid,[wRD_NCA wRD_NCA .- (1 .- x) .* modelPar.ν .* (1-modelPar.κE) .* V], title = "R&D wage", xlabel = "\\kappa_c", label = ["Entrant" "Incumbent"])
-    #savefig(p,"figures/simpleModel/$(string)_wageRD.pdf")
-
-    interestRatePlot = plot(κC_grid,100*r,title = "Interest rate", ylabel = "% per year", xlabel = "\\kappa_c", label = "r", legend = false)
-    #savefig(p,"figures/simpleModel/$(string)_interestrate.pdf")
-
-    growthPlot = plot(κC_grid,g*100, title = "Growth rate", ylabel = "% per year", xlabel = "\\kappa_c", label = "g", legend = false)
-    #savefig(growthPlot,"figures/simpleModel/$(string)_growth.pdf")
-
-    #plot(κC_grid,W)
-    #plot(κC_grid,W2)
-
-    staticCostPlot = plot(κC_grid,[entryCost NCACost], title = "Entry and NCA costs", xlabel = "\\kappa_c", label = ["Entry cost" "NCA cost"])
-
-    consumptionPlot = plot(κC_grid,C,title = "Consumption", xlabel = "\\kappa_c", legend = false)
-
-    welfarePlot = plot(κC_grid,W3, title = "CE welfare chg.", ylabel = "% chg", xlabel = "\\kappa_{c}", label = "\$\\tilde{C}^*\$", legend = false)
-    #savefig(welfarePlot,"figures/simpleModel/$(string)_CEwelfare.pdf")
-
-    p = plot(κC_grid,W4, title = "CE Welfare chg.", ylabel = "% chg", xlabel = "(Cost of NCAs) (\\kappa_{c})", label = "\$\\tilde{C}^*\$")
-    #savefig(p,"figures/simpleModel/$(string)_CEwelfare_nocosts.pdf")
-
+    welfarePlot = plot(κC_grid,W3, title = "CE welfare chg.", ylabel = "% chg", xlabel = L"\kappa_c", label = L"\tilde{C}^*", legend = false)
 
     summaryPlot = plot(effortPlot,innovationRatesPlot,growthPlot,valuePlot,interestRatePlot,wagePlot,staticCostPlot,consumptionPlot,welfarePlot, bottom_margin = 5mm, xtickfont = fnt, ytickfont = fnt, guidefont = fnt, size = (800,750))
     savefig(summaryPlot,"figures/simpleModel/$(string)_summaryPlot.pdf")
@@ -425,47 +395,23 @@ function makePlotsRDSubsidy(modelPar::SimpleModelParameters,string::String)
     fnt = Plots.font("sans-serif", 9)
     guideFont = Plots.font("sans-serif",11)
 
-    valuePlot = plot(τRD_grid,V,title = "Incumbent value", xlabel = "\$T_{RD}\$", label = "V", legend = false)
-    #savefig(valuePlot,"figures/simpleModel/$(string)_V.pdf")
+    valuePlot = plot(τRD_grid,V,title = "Incumbent value", xlabel = L"T_{RD}", label = "V", legend = false)
 
-    p = plot(τRD_grid,zI, title = "Incumbent R&D Effort", xlabel = "\$T_{RD}\$", label = "\$z_I\$", legend = false)
-    savefig(p,"figures/simpleModel/$(string)_zI.pdf")
+    effortPlot = plot(τRD_grid,[zI zE], title = "Innovation effort", legend = :bottomright, xlabel = L"T_{RD}", label = ["Incumbent" "Entrant"])
 
-    incumbentInnovationPlot = plot(τRD_grid,τI, title = "Incumbent innovation rate", ylabel = "Innovations per year", xlabel = "\$T_{RD}\$", label = "\$\\tau_I\$")
-    #savefig(incumbentInnovationPlot,"figures/simpleModel/$(string)_tauI.pdf")
+    innovationRatesPlot = plot(τRD_grid,[τI τE τS (τI + τE + τS)], title = "Innovation rate", legend = :bottomright, ylabel = "Innovations per year", xlabel = L"T_{RD}", label = ["Incumbent" "Entrant" "Spinout" "Total"])
 
-    p = plot(τRD_grid,zE, title = "Entrant R&D Effort", xlabel = "\$T_{RD}\$", label = "\$z_E\$")
-    #savefig(p,"figures/simpleModel/$(string)_zE.pdf")
+    wagePlot = plot(τRD_grid,[wRD_NCA wRD_NCA .- (1 .- x) .* modelPar.ν .* (1-modelPar.κE) .* V], title = "R&D wage", xlabel = L"T_{RD}", label = ["Entrant" "Incumbent"])
 
-    effortPlot = plot(τRD_grid,[zI zE], title = "Innovation effort", legend = :bottomright, xlabel = "\$T_{RD}\$", label = ["Incumbent" "Entrant"])
+    interestRatePlot = plot(τRD_grid,100*r,title = "Interest rate", ylabel = "% per year", xlabel = L"T_{RD}", label = "r", legend = false)
 
-    entrantInnovationPlot = plot(τRD_grid,τE, title = "Entrant innovation rate", ylabel = "Innovations per year", xlabel = "\$T_{RD}\$", label = "\$\\tau_E\$")
-    #savefig(entrantInnovationPlot,"figures/simpleModel/$(string)_tauE.pdf")
+    growthPlot = plot(τRD_grid,g*100, title = "Growth rate", ylabel = "% per year", xlabel = L"T_{RD}", label = "g", legend = false)
 
-    spinoutInnovationPlot = plot(τRD_grid,τS, title = "Spinout innovation rate", ylabel = "Innovations per year", xlabel = "\$T_{RD}\$", label = "\$\\tau_S\$")
-    #savefig(p,"figures/simpleModel/$(string)_tauS.pdf")
+    staticCostPlot = plot(τRD_grid,[entryCost NCACost], title = "Entry and NCA costs", xlabel = L"T_{RD}", label = ["Entry cost" "NCA cost"])
 
-    innovationRatesPlot = plot(τRD_grid,[τI τE τS (τI + τE + τS)], title = "Innovation rate", legend = :bottomright, ylabel = "Innovations per year", xlabel = "\$T_{RD}\$", label = ["Incumbent" "Entrant" "Spinout" "Total"])
+    consumptionPlot = plot(τRD_grid,C,title = "Consumption", xlabel = L"T_{RD}", legend = false)
 
-    p = plot(τRD_grid,x, title = "NCA usage", xlabel = "\$T_{RD}\$", label = "x")
-    #savefig(p,"figures/simpleModel/$(string)_NCA.pdf")
-
-    wagePlot = plot(τRD_grid,[wRD_NCA wRD_NCA .- (1 .- x) .* modelPar.ν .* (1-modelPar.κE) .* V], title = "R&D wage", xlabel = "\$T_{RD}\$", label = ["Entrant" "Incumbent"])
-    #savefig(p,"figures/simpleModel/$(string)_wageRD.pdf")
-
-    interestRatePlot = plot(τRD_grid,100*r,title = "Interest rate", ylabel = "% per year", xlabel = "\$T_{RD}\$", label = "r", legend = false)
-    #savefig(p,"figures/simpleModel/$(string)_interestrate.pdf")
-
-    growthPlot = plot(τRD_grid,g*100, title = "Growth rate", ylabel = "% per year", xlabel = "\$T_{RD}\$", label = "g", legend = false)
-    #savefig(growthPlot,"figures/simpleModel/$(string)_growth.pdf")
-
-    staticCostPlot = plot(τRD_grid,[entryCost NCACost], title = "Entry and NCA costs", xlabel = "\$T_{RD}\$", label = ["Entry cost" "NCA cost"])
-
-    consumptionPlot = plot(τRD_grid,C,title = "Consumption", xlabel = "\$T_{RD}\$", legend = false)
-
-    welfarePlot = plot(τRD_grid,W3, title = "CE welfare chg.", ylabel = "% chg", xlabel = "\$T_{RD}\$", label = "\$\\tilde{C}^*\$", legend = false)
-    #savefig(welfarePlot,"figures/simpleModel/$(string)_CEwelfare.pdf")
-
+    welfarePlot = plot(τRD_grid,W3, title = "CE welfare chg.", ylabel = "% chg", xlabel = L"T_{RD}", label = "\$\\tilde{C}^*\$", legend = false)
 
     summaryPlot = plot(effortPlot,innovationRatesPlot,growthPlot,valuePlot,interestRatePlot,wagePlot,staticCostPlot,consumptionPlot,welfarePlot, bottom_margin = 5mm, xtickfont = fnt, ytickfont = fnt, guidefont = guideFont, size = (800,750))
     savefig(summaryPlot,"figures/simpleModel/$(string)_RDSubsidy_summaryPlot.pdf")
@@ -528,46 +474,23 @@ function makePlotsEntryTax(modelPar::SimpleModelParameters,string::String)
     fnt = Plots.font("sans-serif", 9)
     guideFont = Plots.font("sans-serif",11)
 
-    valuePlot = plot(Te_grid,V,title = "Incumbent value", xlabel = "\$T_e\$", label = "V", legend = false)
-    #savefig(valuePlot,"figures/simpleModel/$(string)_V.pdf")
+    valuePlot = plot(Te_grid,V,title = "Incumbent value", xlabel = L"T_e", label = "V", legend = false)
 
-    p = plot(Te_grid,zI, title = "Incumbent R&D Effort", xlabel = "\$T_e\$", label = "\$z_I\$", legend = false)
-    savefig(p,"figures/simpleModel/$(string)_zI.pdf")
+    effortPlot = plot(Te_grid,[zI zE], title = "Innovation effort", legend = :bottomright, xlabel = L"T_e", label = ["Incumbent" "Entrant"])
 
-    incumbentInnovationPlot = plot(Te_grid,τI, title = "Incumbent innovation rate", ylabel = "Innovations per year", xlabel = "\$T_e\$", label = "\$\\tau_I\$")
-    #savefig(incumbentInnovationPlot,"figures/simpleModel/$(string)_tauI.pdf")
+    innovationRatesPlot = plot(Te_grid,[τI τE τS (τI + τE + τS)], title = "Innovation rate", legend = :bottomright, ylabel = "Innovations per year", xlabel = L"T_e", label = ["Incumbent" "Entrant" "Spinout" "Total"])
 
-    p = plot(Te_grid,zE, title = "Entrant R&D Effort", xlabel = "\$T_e\$", label = "\$z_E\$")
-    #savefig(p,"figures/simpleModel/$(string)_zE.pdf")
+    wagePlot = plot(Te_grid,[wRD_NCA wRD_NCA .- (1 .- x) .* modelPar.ν .* (1-modelPar.κE) .* V], title = "R&D wage", xlabel = L"T_e", label = ["Entrant" "Incumbent"])
 
-    effortPlot = plot(Te_grid,[zI zE], title = "Innovation effort", legend = :bottomright, xlabel = "\$T_e\$", label = ["Incumbent" "Entrant"])
+    interestRatePlot = plot(Te_grid,100*r,title = "Interest rate", ylabel = "% per year", xlabel = L"T_e", label = "r", legend = false)
 
-    entrantInnovationPlot = plot(Te_grid,τE, title = "Entrant innovation rate", ylabel = "Innovations per year", xlabel = "\$T_e\$", label = "\$\\tau_E\$")
-    #savefig(entrantInnovationPlot,"figures/simpleModel/$(string)_tauE.pdf")
+    growthPlot = plot(Te_grid,g*100, title = "Growth rate", ylabel = "% per year", xlabel = L"T_e", label = "g", legend = false)
 
-    spinoutInnovationPlot = plot(Te_grid,τS, title = "Spinout innovation rate", ylabel = "Innovations per year", xlabel = "\$T_e\$", label = "\$\\tau_S\$")
-    #savefig(p,"figures/simpleModel/$(string)_tauS.pdf")
+    staticCostPlot = plot(Te_grid,[entryCost NCACost], title = "Entry and NCA costs", xlabel = L"T_e", label = ["Entry cost" "NCA cost"])
 
-    innovationRatesPlot = plot(Te_grid,[τI τE τS (τI + τE + τS)], title = "Innovation rate", legend = :bottomright, ylabel = "Innovations per year", xlabel = "\$T_e\$", label = ["Incumbent" "Entrant" "Spinout" "Total"])
+    consumptionPlot = plot(Te_grid,C,title = "Consumption", xlabel = L"T_e", legend = false)
 
-    p = plot(Te_grid,x, title = "NCA usage", xlabel = "\$T_e\$", label = "x")
-    #savefig(p,"figures/simpleModel/$(string)_NCA.pdf")
-
-    wagePlot = plot(Te_grid,[wRD_NCA wRD_NCA .- (1 .- x) .* modelPar.ν .* (1-modelPar.κE) .* V], title = "R&D wage", xlabel = "\$T_e\$", label = ["Entrant" "Incumbent"])
-    #savefig(p,"figures/simpleModel/$(string)_wageRD.pdf")
-
-    interestRatePlot = plot(Te_grid,100*r,title = "Interest rate", ylabel = "% per year", xlabel = "\$T_e\$", label = "r", legend = false)
-    #savefig(p,"figures/simpleModel/$(string)_interestrate.pdf")
-
-    growthPlot = plot(Te_grid,g*100, title = "Growth rate", ylabel = "% per year", xlabel = "\$T_e\$", label = "g", legend = false)
-    #savefig(growthPlot,"figures/simpleModel/$(string)_growth.pdf")
-
-    staticCostPlot = plot(Te_grid,[entryCost NCACost], title = "Entry and NCA costs", xlabel = "\$T_e\$", label = ["Entry cost" "NCA cost"])
-
-    consumptionPlot = plot(Te_grid,C,title = "Consumption", xlabel = "\$T_e\$", legend = false)
-
-    welfarePlot = plot(Te_grid,W3, title = "CE welfare chg.", ylabel = "% chg", xlabel = "\$T_e\$", label = "\$\\tilde{C}^*\$", legend = false)
-    #savefig(welfarePlot,"figures/simpleModel/$(string)_CEwelfare.pdf")
+    welfarePlot = plot(Te_grid,W3, title = "CE welfare chg.", ylabel = "% chg", xlabel = L"T_e", label = "\$\\tilde{C}^*\$", legend = false)
 
     summaryPlot = plot(effortPlot,innovationRatesPlot,growthPlot,valuePlot,interestRatePlot,wagePlot,staticCostPlot,consumptionPlot,welfarePlot, bottom_margin = 5mm, xtickfont = fnt, ytickfont = fnt, guidefont = guideFont, size = (800,750))
     savefig(summaryPlot,"figures/simpleModel/$(string)_EntryTax_summaryPlot.pdf")
@@ -631,47 +554,23 @@ function makePlotsRDSubsidyTargeted(modelPar::SimpleModelParameters,string::Stri
     fnt2 = Plots.font("sans-serif", 8)
     guideFont = Plots.font("sans-serif",11)
 
-    valuePlot = plot(τRD_I_grid,V,title = "Incumbent value", xlabel = "\$T_{RD,I}\$", label = "V", legend = false)
-    #savefig(valuePlot,"figures/simpleModel/$(string)_V.pdf")
+    valuePlot = plot(τRD_I_grid,V,title = "Incumbent value", xlabel = L"T_{RD,I}", label = "V", legend = false)
 
-    p = plot(τRD_I_grid,zI, title = "Incumbent R&D Effort", xlabel = "\$T_{RD,I}\$", label = "\$z_I\$", legend = false)
-    savefig(p,"figures/simpleModel/$(string)_zI.pdf")
+    effortPlot = plot(τRD_I_grid,[zI zE], title = "Innovation effort", legend = :bottomright, xlabel = L"T_{RD,I}", label = ["Incumbent" "Entrant"])
 
-    incumbentInnovationPlot = plot(τRD_I_grid,τI, title = "Incumbent innovation rate", ylabel = "Innovations per year", xlabel = "\$T_{RD,I}\$", label = "\$\\tau_I\$")
-    #savefig(incumbentInnovationPlot,"figures/simpleModel/$(string)_tauI.pdf")
+    innovationRatesPlot = plot(τRD_I_grid,[τI τE τS (τI + τE + τS)], title = "Innovation rate", legend = :bottomright, ylabel = "Innovations per year", xlabel = L"T_{RD,I}", label = ["Incumbent" "Entrant" "Spinout" "Total"])
 
-    p = plot(τRD_I_grid,zE, title = "Entrant R&D Effort", xlabel = "\$T_{RD,I}\$", label = "\$z_E\$")
-    #savefig(p,"figures/simpleModel/$(string)_zE.pdf")
+    wagePlot = plot(τRD_I_grid,[wRD_NCA wRD_NCA .- (1 .- x) .* modelPar.ν .* (1-modelPar.κE) .* V], title = "R&D wage", xlabel = L"T_{RD,I}", label = ["Entrant" "Incumbent"])
 
-    effortPlot = plot(τRD_I_grid,[zI zE], title = "Innovation effort", legend = :bottomright, xlabel = "\$T_{RD,I}\$", label = ["Incumbent" "Entrant"])
+    interestRatePlot = plot(τRD_I_grid,100*r,title = "Interest rate", ylabel = "% per year", xlabel = L"T_{RD,I}", label = "r", legend = false)
 
-    entrantInnovationPlot = plot(τRD_I_grid,τE, title = "Entrant innovation rate", ylabel = "Innovations per year", xlabel = "\$T_{RD,I}\$", label = "\$\\tau_E\$")
-    #savefig(entrantInnovationPlot,"figures/simpleModel/$(string)_tauE.pdf")
+    growthPlot = plot(τRD_I_grid,g*100, title = "Growth rate", ylabel = "% per year", xlabel = L"T_{RD,I}", label = "g", legend = false)
 
-    spinoutInnovationPlot = plot(τRD_I_grid,τS, title = "Spinout innovation rate", ylabel = "Innovations per year", xlabel = "\$T_{RD,I}\$", label = "\$\\tau_S\$")
-    #savefig(p,"figures/simpleModel/$(string)_tauS.pdf")
+    staticCostPlot = plot(τRD_I_grid,[entryCost NCACost], title = "Entry and NCA costs", xlabel = L"T_{RD,I}", label = ["Entry cost" "NCA cost"])
 
-    innovationRatesPlot = plot(τRD_I_grid,[τI τE τS (τI + τE + τS)], title = "Innovation rate", legend = :bottomright, ylabel = "Innovations per year", xlabel = "\$T_{RD,I}\$", label = ["Incumbent" "Entrant" "Spinout" "Total"])
+    consumptionPlot = plot(τRD_I_grid,C,title = "Consumption", xlabel = L"T_{RD,I}", legend = false)
 
-    p = plot(τRD_I_grid,x, title = "NCA usage", xlabel = "\$T_{RD,I}\$", label = "x")
-    #savefig(p,"figures/simpleModel/$(string)_NCA.pdf")
-
-    wagePlot = plot(τRD_I_grid,[wRD_NCA wRD_NCA .- (1 .- x) .* modelPar.ν .* (1-modelPar.κE) .* V], title = "R&D wage", xlabel = "\$T_{RD,I}\$", label = ["Entrant" "Incumbent"])
-    #savefig(p,"figures/simpleModel/$(string)_wageRD.pdf")
-
-    interestRatePlot = plot(τRD_I_grid,100*r,title = "Interest rate", ylabel = "% per year", xlabel = "\$T_{RD,I}\$", label = "r", legend = false)
-    #savefig(p,"figures/simpleModel/$(string)_interestrate.pdf")
-
-    growthPlot = plot(τRD_I_grid,g*100, title = "Growth rate", ylabel = "% per year", xlabel = "\$T_{RD,I}\$", label = "g", legend = false)
-    #savefig(growthPlot,"figures/simpleModel/$(string)_growth.pdf")
-
-    staticCostPlot = plot(τRD_I_grid,[entryCost NCACost], title = "Entry and NCA costs", xlabel = "\$T_{RD,I}\$", label = ["Entry cost" "NCA cost"])
-
-    consumptionPlot = plot(τRD_I_grid,C,title = "Consumption", xlabel = "\$T_{RD,I}\$", legend = false)
-
-    welfarePlot = plot(τRD_I_grid,W3, title = "CE welfare chg.", ylabel = "% chg", xlabel = "\$T_{RD,I}\$", label = "\$\\tilde{C}^*\$", legend = false)
-    #savefig(welfarePlot,"figures/simpleModel/$(string)_CEwelfare.pdf")
-
+    welfarePlot = plot(τRD_I_grid,W3, title = "CE welfare chg.", ylabel = "% chg", xlabel = L"T_{RD,I}", label = "\$\\tilde{C}^*\$", legend = false)
 
     summaryPlot = plot(effortPlot,innovationRatesPlot,growthPlot,valuePlot,interestRatePlot,wagePlot,staticCostPlot,consumptionPlot,welfarePlot, bottom_margin = 5mm, xtickfont = fnt2, ytickfont = fnt, guidefont = guideFont, size = (800,750))
     savefig(summaryPlot,"figures/simpleModel/$(string)_RDSubsidyTargeted_summaryPlot.pdf")
@@ -696,51 +595,20 @@ function makePlotsALL(modelPar::SimpleModelParameters,string::String)
 
     Wbenchmark = solveSimpleModel(κC, 0, 0, 0, 0, modelPar).W
 
-    valuePlot = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> solveSimpleModel(κCmin,0,0,x,y,modelPar).V,title = "Incumbent value", xlabel = "\$T_{RD,I}\$", ylabel = "\$T_{NCA}\$", label = "V", legend = false)
-    #savefig(valuePlot,"figures/simpleModel/$(string)_V.pdf")
+    valuePlot = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> solveSimpleModel(κCmin,0,0,x,y,modelPar).V,title = "Incumbent value", xlabel = L"T_{RD,I}", ylabel = L"T_{NCA}", label = "V", legend = false)
 
-    #p = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> makePlotsALL(κCmin,0,0,x,y,modelPar).zI, title = "Incumbent R&D Effort", xlabel = "\$T_{RD,I}\$", ylabel = "\$T_{NCA}\$", label = "\$z_I\$", legend = false)
-    #savefig(p,"figures/simpleModel/$(string)_zI.pdf")
+    xPlot = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> solveSimpleModel(κCmin,0,0,x,y,modelPar).x,title = "Noncompete usage", xlabel = L"T_{RD,I}", ylabel = L"T_{NCA}", label = "x", legend = false)
 
-    xPlot = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> solveSimpleModel(κCmin,0,0,x,y,modelPar).x,title = "Noncompete usage", xlabel = "\$T_{RD,I}\$", ylabel = "\$T_{NCA}\$", label = "x", legend = false)
+    interestRatePlot = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> 100*solveSimpleModel(κCmin,0,0,x,y,modelPar).r,title = "Interest rate", ylabel = L"T_{NCA}", xlabel = L"T_{RD,I}", label = "r", legend = false)
 
-    #incumbentInnovationPlot = surface(T_RD_I_grid,T_NCA_grid,τI, title = "Incumbent innovation rate", ylabel = "\$T_{NCA}\$", xlabel = "\$T_{RD,I}\$", label = "\$\\tau_I\$")
-    #savefig(incumbentInnovationPlot,"figures/simpleModel/$(string)_tauI.pdf")
+    growthPlot = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> solveSimpleModel(κCmin,0,0,x,y,modelPar).g*100, title = "Growth rate", ylabel = L"T_{NCA}", xlabel = L"T_{RD,I}", label = "g", legend = false)
 
-    #p = surface(T_RD_I_grid,T_NCA_grid,zE, title = "Entrant R&D Effort", xlabel = "\$T_{RD,I}\$", ylabel = "\$T_{NCA}\$", label = "\$z_E\$")
-    #savefig(p,"figures/simpleModel/$(string)_zE.pdf")
+    consumptionPlot = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> solveSimpleModel(κCmin,0,0,x,y,modelPar).C,title = "Consumption", xlabel = L"T_{RD,I}", ylabel = L"T_{NCA}", legend = false)
 
-    #effortPlot = surface(T_RD_I_grid,T_NCA_grid,[zI zE], title = "Innovation effort", legend = :bottomright, xlabel = "\$T_{RD,I}\$", ylabel = "\$T_{NCA}\$", label = ["Incumbent" "Entrant"])
-
-    #entrantInnovationPlot = surface(T_RD_I_grid,T_NCA_grid,τE, title = "Entrant innovation rate", ylabel = "\$T_{NCA}\$", xlabel = "\$T_{RD,I}\$", label = "\$\\tau_E\$")
-    #savefig(entrantInnovationPlot,"figures/simpleModel/$(string)_tauE.pdf")
-
-    #spinoutInnovationPlot = surface(T_RD_I_grid,T_NCA_grid,τS, title = "Spinout innovation rate", ylabel = "\$T_{NCA}\$", xlabel = "\$T_{RD,I}\$", label = "\$\\tau_S\$")
-    #savefig(p,"figures/simpleModel/$(string)_tauS.pdf")
-
-    #innovationRatesPlot = surface(T_RD_I_grid,T_NCA_grid,[τI τE τS (τI + τE + τS)], title = "Innovation rate", legend = :bottomright, ylabel = "\$T_{NCA}\$", xlabel = "\$T_{RD,I}\$", label = ["Incumbent" "Entrant" "Spinout" "Total"])
-
-    #p = surface(T_RD_I_grid,T_NCA_grid,x, title = "NCA usage", xlabel = "\$T_{RD,I}\$", ylabel = "\$T_{NCA}\$", label = "x")
-    #savefig(p,"figures/simpleModel/$(string)_NCA.pdf")
-
-    #wagePlot = surface(T_RD_I_grid,T_NCA_grid,[wRD_NCA wRD_NCA .- (1 .- x) .* modelPar.ν .* (1-modelPar.κE) .* V], title = "R&D wage", xlabel = "\$T_{RD,I}\$", ylabel = "\$T_{NCA}\$", label = ["Entrant" "Incumbent"])
-    #savefig(p,"figures/simpleModel/$(string)_wageRD.pdf")
-
-    interestRatePlot = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> 100*solveSimpleModel(κCmin,0,0,x,y,modelPar).r,title = "Interest rate", ylabel = "\$T_{NCA}\$", xlabel = "\$T_{RD,I}\$", label = "r", legend = false)
-    #savefig(p,"figures/simpleModel/$(string)_interestrate.pdf")
-
-    growthPlot = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> solveSimpleModel(κCmin,0,0,x,y,modelPar).g*100, title = "Growth rate", ylabel = "\$T_{NCA}\$", xlabel = "\$T_{RD,I}\$", label = "g", legend = false)
-    #savefig(growthPlot,"figures/simpleModel/$(string)_growth.pdf")
-
-    #staticCostPlot = surface(T_RD_I_grid,T_NCA_grid,[entryCost NCACost], title = "Entry and NCA costs", xlabel = "\$T_{RD,I}\$", ylabel = "\$T_{NCA}\$", label = ["Entry cost" "NCA cost"])
-
-    consumptionPlot = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> solveSimpleModel(κCmin,0,0,x,y,modelPar).C,title = "Consumption", xlabel = "\$T_{RD,I}\$", ylabel = "\$T_{NCA}\$", legend = false)
-
-    welfarePlot = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> -((abs(solveSimpleModel(κCmin,0,0,x,y,modelPar).W)/abs(Wbenchmark)) - 1) * 100 * abs(1-modelPar.θ), title = "CE welfare chg. (%)", ylabel = "\$T_{NCA}\$", xlabel = "\$T_{RD,I}\$", label = "\$\\tilde{C}^*\$", legend = false)
-    #savefig(welfarePlot,"figures/simpleModel/$(string)_CEwelfare.pdf")
+    welfarePlot = surface(T_RD_I_grid,T_NCA_grid,(x,y) -> -((abs(solveSimpleModel(κCmin,0,0,x,y,modelPar).W)/abs(Wbenchmark)) - 1) * 100 * abs(1-modelPar.θ), title = "CE welfare chg. (%)", ylabel = L"T_{NCA}", xlabel = L"T_{RD,I}", label = "\$\\tilde{C}^*\$", legend = false)
 
     summaryPlot = plot(growthPlot,valuePlot,xPlot,interestRatePlot,consumptionPlot,welfarePlot, bottom_margin = 5mm, xtickfont = fnt2, ytickfont = fnt3, guidefont = guideFont, size = (1000,900))
-    savefig(summaryPlot,"figures/simpleModel/$(string)_ALL_summaryPlot.png")
+    savefig(summaryPlot,"figures/simpleModel/$(string)_ALL_summaryPlot.pdf")
 end
 
 
