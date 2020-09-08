@@ -74,7 +74,7 @@ for (founderType in c("all","founder2","executive","technical"))
   devUnweightedString <- paste("devUnw",founderType, sep = ".")
   
   # Construct counts
-  temp1 <- parentsSpinouts[ , .(sum(get(founderType)), 
+  temp1 <- parentsSpinouts[ fromPublic == 1, .(sum(get(founderType)), 
                                 sum(NaRV.omit(get(weightString) * get(founderType))), 
                                 sum(NaRV.omit(get(weightString) * get(founderType) * discountedFFValue)), 
                                 sum(NaRV.omit(get(founderType) * discountedFFValue)),
@@ -114,7 +114,7 @@ for (founderType in c("all","founder2","executive","technical"))
     devUnweightedStringNonwso_inner <- paste(devUnweightedString,nonwsoFlag,sep = ".")
 
     # Construct counts
-    temp2 <- parentsSpinouts[ , .(sum(NaRV.omit(get(wsoFlag) * get(founderType))),
+    temp2 <- parentsSpinouts[fromPublic == 1 , .(sum(NaRV.omit(get(wsoFlag) * get(founderType))),
                                   sum(NaRV.omit(get(wsoFlag) * get(weightString) *  get(founderType))), 
                                   sum(NaRV.omit(get(wsoFlag) * get(weightString) * get(founderType) * discountedFFValue)), 
                                   sum(NaRV.omit(get(wsoFlag) * get(founderType) * discountedFFValue)),

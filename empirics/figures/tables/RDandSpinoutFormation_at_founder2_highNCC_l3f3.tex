@@ -5,32 +5,31 @@
                     &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}&\multicolumn{1}{c}{(7)}&\multicolumn{1}{c}{(8)}\\
                     &\multicolumn{1}{c}{$\frac{\textrm{Founders}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{Founders}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{Founders}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{Founders}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{WSO4}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{WSO4}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{WSO4}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{WSO4}}{\textrm{Assets}}$}\\
 \midrule
-$\frac{\textrm{R\&D}}{\textrm{Assets}}$&        1.71\sym{***}&        1.34         &        1.41         &        1.88\sym{+}  &        0.89\sym{***}&        0.66\sym{*}  &        0.61\sym{+}  &        2.12\sym{*}  \\
-                    &      (0.42)         &      (1.12)         &      (1.14)         &      (1.29)         &      (0.24)         &      (0.40)         &      (0.40)         &      (1.16)         \\
+$\frac{\textrm{R\&D}}{\textrm{Assets}}$&        1.71\sym{***}&        1.34         &        1.41         &        1.41         &        0.89\sym{***}&        0.66\sym{*}  &        0.61\sym{+}  &        0.61\sym{**} \\
+                    &      (0.42)         &      (1.12)         &      (1.14)         &      (1.19)         &      (0.24)         &      (0.40)         &      (0.40)         &      (0.30)         \\
 \addlinespace
 highNCC=0 $\times$ $\frac{\textrm{R\&D}}{\textrm{Assets}}$&           0         &           0         &           0         &           0         &           0         &           0         &           0         &           0         \\
                     &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         \\
 \addlinespace
-highNCC=1 $\times$ $\frac{\textrm{R\&D}}{\textrm{Assets}}$&        0.34         &       -0.56         &       -0.54         &       -0.18         &        0.12         &       -0.30         &       -0.27         &       -0.36         \\
-                    &      (0.64)         &      (1.39)         &      (1.42)         &      (1.82)         &      (0.34)         &      (0.76)         &      (0.76)         &      (1.72)         \\
+highNCC=1 $\times$ $\frac{\textrm{R\&D}}{\textrm{Assets}}$&        0.34         &       -0.56         &       -0.54         &       -0.54         &        0.12         &       -0.30         &       -0.27         &       -0.27         \\
+                    &      (0.64)         &      (1.39)         &      (1.42)         &      (1.36)         &      (0.34)         &      (0.76)         &      (0.76)         &      (0.47)         \\
 \addlinespace
-NAICS4-State-Age-Year FE&          No         &          No         &          No         &         Yes         &          No         &          No         &          No         &         Yes         \\
-\addlinespace
-NAICS4-Year FE      &          No         &          No         &         Yes         &          No         &          No         &          No         &         Yes         &          No         \\
-\addlinespace
-State-Year FE       &          No         &          No         &         Yes         &          No         &          No         &          No         &         Yes         &          No         \\
+No FE               &         Yes         &          No         &          No         &          No         &         Yes         &          No         &          No         &          No         \\
 \addlinespace
 Firm FE             &          No         &         Yes         &         Yes         &         Yes         &          No         &         Yes         &         Yes         &         Yes         \\
 \addlinespace
-Age FE              &          No         &          No         &         Yes         &          No         &          No         &          No         &         Yes         &          No         \\
-\addlinespace
 Year FE             &          No         &         Yes         &          No         &          No         &          No         &         Yes         &          No         &          No         \\
 \addlinespace
-No FE               &         Yes         &          No         &          No         &          No         &         Yes         &          No         &          No         &          No         \\
+Age FE              &          No         &          No         &         Yes         &         Yes         &          No         &          No         &         Yes         &         Yes         \\
+\addlinespace
+Industry-Year FE    &          No         &          No         &         Yes         &         Yes         &          No         &          No         &         Yes         &         Yes         \\
+\addlinespace
+State-Year FE       &          No         &          No         &         Yes         &         Yes         &          No         &          No         &         Yes         &         Yes         \\
 \midrule
-r2\_a                &       0.014         &        0.26         &        0.21         &        0.55         &       0.010         &        0.27         &        0.22         &        0.58         \\
-r2\_a\_within         &       0.014         &      0.0021         &      0.0020         &      0.0029         &       0.010         &     0.00093         &     0.00086         &      0.0087         \\
-N                   &       60687         &       59477         &       57948         &       10842         &       60687         &       59477         &       57948         &       10842         \\
+Clustering          &       gvkey         &       gvkey         &       gvkey         &naics4 Statecode         &       gvkey         &       gvkey         &       gvkey         &naics4 Statecode         \\
+R-squared (adj.)    &       0.014         &        0.26         &        0.21         &        0.21         &       0.010         &        0.27         &        0.22         &        0.22         \\
+R-squared (within, adj)&       0.014         &      0.0021         &      0.0020         &      0.0020         &       0.010         &     0.00093         &     0.00086         &     0.00086         \\
+Observations        &       60687         &       59477         &       57948         &       57948         &       60687         &       59477         &       57948         &       57948         \\
 \bottomrule
 \multicolumn{9}{l}{\footnotesize Standard errors in parentheses}\\
 \multicolumn{9}{l}{\footnotesize \sym{++} \(p<0.2\), \sym{+} \(p<0.15\), \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\

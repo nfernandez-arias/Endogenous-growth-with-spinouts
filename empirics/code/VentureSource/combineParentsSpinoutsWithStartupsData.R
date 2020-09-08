@@ -50,12 +50,17 @@ for (i in 1:6)
   wsoFlag <- paste("wso",i,sep = "")
   parentsSpinouts[(substr(NAICS1,1,i) == substr(naics,1,i)) | (substr(NAICS2,1,i) == substr(naics,1,i)) | (substr(NAICS3,1,i) == substr(naics,1,i)) | (substr(NAICS4,1,i) == substr(naics,1,i)), (wsoFlag) := 1]
   parentsSpinouts[ is.na(get(wsoFlag)) , (wsoFlag) := 0]
+  
+  wsoInStateFlag <- paste0("wso",i,"inState")
+  
+  parentsSpinouts[ get(wsoFlag) == 1 & EntityState == state, (wsoInStateFlag) := 1]
+  parentsSpinouts[ is.na(get(wsoInStateFlag)), (wsoInStateFlag) := 0]
+  
 }
 
 ## Save main dataset, so it can be used later (in /analysis/compareSpinoutsToEntrants.R)
 
 fwrite(parentsSpinouts,"data/parentsSpinoutsWSO.csv")
-
 
 # Clean up
 rm(list = ls.str(mode = "list"))

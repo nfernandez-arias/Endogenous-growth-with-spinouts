@@ -1,0 +1,65 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Model}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Individual endowments and preferences}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Production of intermediate and final goods}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Innovation}{section.2}% 5
+\BOOKMARK [3][-]{subsubsection.2.3.1}{Own-product innovation by incumbents}{subsection.2.3}% 6
+\BOOKMARK [3][-]{subsubsection.2.3.2}{Creative destruction by entrants}{subsection.2.3}% 7
+\BOOKMARK [3][-]{subsubsection.2.3.3}{Creative destruction by employee spinouts}{subsection.2.3}% 8
+\BOOKMARK [3][-]{subsubsection.2.3.4}{Entry cost}{subsection.2.3}% 9
+\BOOKMARK [3][-]{subsubsection.2.3.5}{Competitive financial intermediary}{subsection.2.3}% 10
+\BOOKMARK [2][-]{subsection.2.4}{Equilibrium}{section.2}% 11
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Static equilibrium}{subsection.2.4}% 12
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Dynamic equilibrium}{subsection.2.4}% 13
+\BOOKMARK [1][-]{section.3}{Efficiency and theoretical policy analysis}{}% 14
+\BOOKMARK [2][-]{subsection.3.1}{Preliminaries}{section.3}% 15
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Welfare}{subsection.3.1}% 16
+\BOOKMARK [2][-]{subsection.3.2}{Efficiency of decentralized equilibrium}{section.3}% 17
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Misallocation of production labor: monopoly distortion}{subsection.3.2}% 18
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Misallocation of R\046D labor}{subsection.3.2}% 19
+\BOOKMARK [3][-]{subsubsection.3.2.3}{Misallocation of NCAs}{subsection.3.2}% 20
+\BOOKMARK [2][-]{subsection.3.3}{Effect of NCA enforcement and other policies}{section.3}% 21
+\BOOKMARK [3][-]{subsubsection.3.3.1}{NCA cost c}{subsection.3.3}% 22
+\BOOKMARK [3][-]{subsubsection.3.3.2}{RD subsidy \(tax\)}{subsection.3.3}% 23
+\BOOKMARK [3][-]{subsubsection.3.3.3}{Creative destruction tax \(subsidy\)}{subsection.3.3}% 24
+\BOOKMARK [3][-]{subsubsection.3.3.4}{OI R\046D subsidy \(tax\)}{subsection.3.3}% 25
+\BOOKMARK [3][-]{subsubsection.3.3.5}{All policies}{subsection.3.3}% 26
+\BOOKMARK [1][-]{section.4}{Empirics}{}% 27
+\BOOKMARK [2][-]{subsection.4.1}{Data}{section.4}% 28
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Sources}{subsection.4.1}% 29
+\BOOKMARK [3][-]{subsubsection.4.1.2}{Construction of dataset}{subsection.4.1}% 30
+\BOOKMARK [2][-]{subsection.4.2}{Corporate R\046D and spinout formation}{section.4}% 31
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Preliminaries}{subsection.4.2}% 32
+\BOOKMARK [3][-]{subsubsection.4.2.2}{Regressions}{subsection.4.2}% 33
+\BOOKMARK [3][-]{subsubsection.4.2.3}{Economic magnitude}{subsection.4.2}% 34
+\BOOKMARK [1][-]{section.5}{Calibration}{}% 35
+\BOOKMARK [2][-]{subsection.5.1}{Parameters}{section.5}% 36
+\BOOKMARK [2][-]{subsection.5.2}{Targets}{section.5}% 37
+\BOOKMARK [2][-]{subsection.5.3}{Identification}{section.5}% 38
+\BOOKMARK [1][-]{section.6}{Welfare effect of NCA enforcement and other policies}{}% 39
+\BOOKMARK [2][-]{subsection.6.1}{NCA cost c}{section.6}% 40
+\BOOKMARK [2][-]{subsection.6.2}{R\046D subsidy \(tax\)}{section.6}% 41
+\BOOKMARK [2][-]{subsection.6.3}{CD tax \(subsidy\)}{section.6}% 42
+\BOOKMARK [2][-]{subsection.6.4}{OI R\046D subsidy \(tax\)}{section.6}% 43
+\BOOKMARK [2][-]{subsection.6.5}{All policies}{section.6}% 44
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 45
+\BOOKMARK [1][-]{appendix.A}{Appendix of tables}{}% 46
+\BOOKMARK [1][-]{appendix.B}{Appendix of figures}{}% 47
+\BOOKMARK [1][-]{appendix.C}{Model}{}% 48
+\BOOKMARK [2][-]{subsection.C.1}{Proofs of propositions}{appendix.C}% 49
+\BOOKMARK [3][-]{subsubsection.C.1.1}{Proof of Proposition 1}{subsection.C.1}% 50
+\BOOKMARK [2][-]{subsection.C.2}{Derivations for efficiency and theoretical policy analysis}{appendix.C}% 51
+\BOOKMARK [3][-]{subsubsection.C.2.1}{CD tax \(subsidy\)}{subsection.C.2}% 52
+\BOOKMARK [3][-]{subsubsection.C.2.2}{OI R\046D subsidy \(tax\)}{subsection.C.2}% 53
+\BOOKMARK [3][-]{subsubsection.C.2.3}{All policies}{subsection.C.2}% 54
+\BOOKMARK [2][-]{subsection.C.3}{DRS incumbent innovation technology}{appendix.C}% 55
+\BOOKMARK [2][-]{subsection.C.4}{Symmetric equilibria without xjt = x}{appendix.C}% 56
+\BOOKMARK [3][-]{subsubsection.C.4.1}{Application to model with static heterogeneity}{subsection.C.4}% 57
+\BOOKMARK [1][-]{appendix.D}{Calibration}{}% 58
+\BOOKMARK [2][-]{subsection.D.1}{Computing model moments}{appendix.D}% 59
+\BOOKMARK [3][-]{subsubsection.D.1.1}{R\046D / GDP}{subsection.D.1}% 60
+\BOOKMARK [3][-]{subsubsection.D.1.2}{Growth share OI}{subsection.D.1}% 61
+\BOOKMARK [3][-]{subsubsection.D.1.3}{Entry rate}{subsection.D.1}% 62
+\BOOKMARK [3][-]{subsubsection.D.1.4}{Employment share of WSOs}{subsection.D.1}% 63
+\BOOKMARK [1][-]{appendix.E}{Policy analysis}{}% 64
+\BOOKMARK [2][-]{subsection.E.1}{NCA cost c}{appendix.E}% 65

@@ -20,14 +20,14 @@ source("code/VentureSource/linkEntitiesToEntityNamesAndFoundingDates.R")
 # Determine which is the previous firm the employee worked at
 source("code/VentureSource/findLastEmployer.R")
 
+# Classify entrepreneurs into various classes
+source("code/VentureSource/classifyFounders.R")
+
 # Clean results from AltDG
 source("code/AltDG/cleanAltDGResults.R")
 
 # Link bios to Compustat
 source("code/VentureSource/linkBiosToCompustat2.R")
-
-# Classify entrepreneurs into various classes
-source("code/VentureSource/classifyFounders.R")
 
 # Construct WSO flags for spinouts / incorproate industry information 
 # into broader dataset on founders

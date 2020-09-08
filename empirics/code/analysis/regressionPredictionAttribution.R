@@ -6,7 +6,7 @@ data[ , xrd.l3 := xrd.l3 / 1000]
 
 # Construct predictions based on regression results.
 data[ , founders.Prediction := xrd.l3 * 0.7]
-data[ , founders.wso4.Prediction := xrd.l3 * 0.3]
+data[ , founders.wso4.Prediction := xrd.l3 * 0.35]
 
 data[ , founders.Explained :=  founders.Prediction / founders.founder2.f3]
 data[ , founders.wso4.Explained := founders.wso4.Prediction / founders.founder2.wso4.f3]
@@ -30,7 +30,7 @@ ggplot(data[naics1 ==3 | naics1 == 5], aes(x = founders.founder2.f3, y = founder
   geom_point(aes(color = as.factor(naics1))) +
   geom_smooth(method = "lm", se = FALSE, aes(linetype = "Unweighted", color = as.factor(naics1))) + 
   #geom_smooth(method = "lm", se = FALSE, aes(weight = xrd.l3, linetype = "Weighted by R&D spending")) +
-  #geom_abline(slope = 1) +
+  geom_abline(slope = 1) +
   coord_fixed() + 
   labs(title = "Fit of prediction to data at firm-year level",
        subtitle = "All spinouts") + 
@@ -169,24 +169,27 @@ dataByIndustryYear <- data[ , .(naics1 = max(naics1), naics2 = max(naics2), naic
                             by = .(naics4,year)]
 
 dataByIndustryYear[ , founders.Prediction2 := xrd.l3 * 0.7]
-dataByIndustryYear[ , founders.wso4.Prediction2 := xrd.l3 * 0.4]
+dataByIndustryYear[ , founders.wso4.Prediction2 := xrd.l3 * 0.35]
 
 dataByIndustryYear[ , founders.Explained :=  founders.Prediction / founders.founder2.f3]
 dataByIndustryYear[ , founders.wso4.Explained := founders.wso4.Prediction / founders.founder2.wso4.f3]
 
-ggplot(dataByIndustryYear[naics1 %in% c("3","5")], aes(x = founders.founder2.wso4.f3, y = founders.wso4.Prediction)) + 
+p <- ggplot(dataByIndustryYear[naics1 %in% c("3","5")], aes(x = founders.founder2.wso4.f3, y = founders.wso4.Prediction)) + 
   geom_point(aes(size = xrd.l3, color = as.factor(naics1))) +
   geom_smooth(method = "lm", se = FALSE, aes(linetype = "Unweighted", color = as.factor(naics1)), show.legend = FALSE) +
-  #geom_smooth(method = "lm", se = FALSE, aes(weight = xrd.l3, linetype = "Weighted by R&D spending")) +
-  geom_abline(slope = 1, size = 1.5, linetype = "dotted", color = "black", show.legend = FALSE) +
+  geom_smooth(method = "lm", se = FALSE, aes(weight = xrd.l3, linetype = "Weighted by R&D spending", color = as.factor(naics1))) +
+  #geom_abline(slope = 1, size = 1.5, linetype = "dotted", color = "black", show.legend = FALSE) +
   coord_fixed() +
   labs(title = "R&D-induced vs total WSO4s, 4-digit industry-year level",
        subtitle = "All spinouts") +
   scale_color_discrete(name = "Industry", labels = c("3","5")) + 
   scale_size_continuous(name = "R&D spending") +
   scale_linetype_discrete() +
-  xlab("Actual founders") + 
-  ylab("Predicted founders")
+  ylab("Predicted founders") + 
+  xlab("Actual founders")
+
+ggsave("figures/founder2_founders_wso4_f3_Accounting_industryYear.pdf", plot = p, width = 8, height = 4, units = "in")
+
 
 ggplot(dataByIndustryYear[naics1 %in% c("3","5")], aes(x = xrd.l3, y = founders.founder2.wso4.f3)) + 
   geom_point(aes(size = xrd.l3, color = as.factor(naics1))) +
@@ -364,7 +367,7 @@ ggplot(dataByStateYear, aes(x = founders.founder2.f3, y = founders.Prediction)) 
   #geom_text(aes(label = State)) +
   geom_smooth(method = "lm", se = FALSE, aes(linetype = "Unweighted")) + 
   geom_smooth(method = "lm", aes(weight = xrd.l3, linetype = "Weighted by R&D spending"), se = FALSE) +
-  #geom_abline(slope = 1) + 
+  geom_abline(slope = 1) + 
   scale_linetype_discrete(name = "Regression line") + 
   scale_size_continuous(name = "R&D spending")
 
@@ -378,7 +381,7 @@ dataByYear <- data[ , .(xrd = sum(xrd), xrd.l3 = sum(xrd.l3),
 dataByYear[ , founders.Explained :=  founders.Prediction / founders.founder2.f3]
 dataByYear[ , founders.wso4.Explained := founders.wso4.Prediction / founders.founder2.wso4.f3]
 
-ggplot(dataByYear[ year <= 2006], aes(x = year, y = xrd.l3)) + 
+ggplot(dataByYear[ year >= 1986 & year <= 2006], aes(x = year, y = xrd.l3)) + 
   geom_line(aes(linetype = "xrd.l3")) + 
   scale_linetype_discrete(name = "", labels = "R&D") + 
   labs(title = "Real effective R&D spending by year", 
@@ -432,4 +435,10 @@ p4 <- ggplot(dataByYear[year <= 2006], aes(x = year)) +
 p <- grid.arrange(p1,p2,p3,p4)
 
 ggsave("figures/founder2_founders_f3_Accounting.pdf", plot = p, width = 12, height = 8, units = "in")
+
+p <- grid.arrange(p2,p4)
+
+ggsave("figures/founder2_founders_wso4_f3_Accounting.pdf", plot = p, width = 12, height = 8, units = "in")
+
+ggsave("figures/founder2_founders_wso4_f3_Accounting_noShares.pdf", plot = p2, width = 6, height = 4, units = "in")
     

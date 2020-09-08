@@ -81,9 +81,11 @@ function computeSimpleModelMoments(modelPar::SimpleModelParameters)
 
     # share of overall employment
 
-    youngFirmEmploymentShare = (2/3) * ( Ξ * (1 - sol.LF - sol.zE) + sol.zE ) / (1 - sol.LF)
+    #youngFirmEmploymentShare = (2/3) * ( Ξ * (1 - sol.LF - sol.zE) + sol.zE ) / (1 - sol.LF)
 
-    spinoutEmploymentShare = (sol.τS / (sol.τS + (2/3) * sol.τE)) * (1 - (2/3) * sol.zE)
+    youngFirmEmploymentShare = (2/3) * ( Ξ * (1 - sol.zE)   + sol.zE )
+
+    spinoutEmploymentShare = (sol.τS / (sol.τS + (2/3) * sol.τE)) * (1 - sol.LF - (2/3) * sol.zE)/(1 - sol.LF)
 
     #------------#
     # growthShareOI
@@ -223,9 +225,6 @@ function calibrateModel(modelPar::SimpleModelParameters,calibPar::SimpleCalibrat
 
 
     calibrationResults = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(outer_iterations = 1000000, iterations = 10000000, store_trace = true))
-    #results = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer))
-    #results = optimize(f,initial_x,inner_optimizer,Optim.Options(iterations = 1, store_trace = true, show_trace = true))
-    #results = optimize(f,initial_x,method = inner_optimizer,iterations = 1,store_trace = true, show_trace = false)
 
     x = calibrationResults.minimizer
 

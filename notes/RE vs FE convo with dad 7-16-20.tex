@@ -1,0 +1,131 @@
+\documentclass[11pt,english]{article}
+\usepackage{lmodern}
+\linespread{1.05}
+%\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+
+
+
+\usepackage{chngcntr}
+
+\usepackage[nocomma]{optidef}
+
+\usepackage[section]{placeins}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{amsfonts}
+
+\usepackage{accents}
+\newcommand\munderbar[1]{%
+	\underaccent{\bar}{#1}}
+
+
+\usepackage{svg}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{blindtext}
+%\renewcommand{\arraystretch}{1.2}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{rotating}
+\usepackage{mathtools}
+\usepackage{chngcntr}
+
+% TikZ stuff
+
+\usepackage{tikz}
+\usepackage{mathdots}
+\usepackage{yhmath}
+\usepackage{cancel}
+\usepackage{color}
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usetikzlibrary{fadings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shadows.blur}
+
+\usepackage[font=small]{caption}
+%\usepackage[printfigures]{figcaps}
+%\usepackage[nomarkers]{endfloat}
+
+
+%\usepackage{caption}
+%\captionsetup{justification=raggedright,singlelinecheck=false}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+
+%\theoremstyle{remark}
+%\newtheorem{remark}{Remark}
+%\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}
+\newtheorem{proposition_corollary}{Corollary}[proposition]
+\newtheorem{lemma}{Lemma}
+\newtheorem{lemma_corollary}{Corollary}[lemma]
+
+\begin{document}
+	
+	
+	
+\begin{align}
+	y_{it} = \alpha + \gamma_i + \sigma_{j(i),t} + \xi_{s(i),t} + \beta X_{it} + \epsilon_{it}
+\end{align}
+	
+where $i$ is firm, $t$ is time, $j(i)$ is the firm's industry $j$, $s(i)$ is the firm's state $s$. 	
+
+And I assume that $X_{it}$ is correlated with $\gamma_i$ and $\sigma_{j(i),t}$ and $\xi_{s(i),t}$, so pooled OLS of $y_{it}$ on $X_{it}$ is inconsistent for $\beta$. Pooled OLS of $y_{it}$ on $X_{it}$ is the problem of finding $\hat{\beta}$ that minimizes $\sum_{it} (y_{it} - \hat{\beta} X_{it})^2$. 
+
+Suppose instead I have
+\begin{align}
+	y_{it} = \alpha + \gamma_i + \beta X_{it}  + \epsilon_{it} \label{idfe}
+\end{align}
+	
+The \textbf{classical RE estimator} uses GLS on equation (\ref{idfe}), assuming that the $\{ \epsilon_{it} \}$ are conditionally mean zero and \textit{iid}. If $\text{Cov}(\gamma_i ,X_{it}) = 0$, then this estimator is both \textbf{consistent} and \textbf{efficient} for $\beta$. This is the null hypothesis in the \textbf{classical Hausman test}. The \textbf{classical FE estimator} is also \textbf{consistent}, but not \textbf{efficient}. 
+
+In the alternative hypothesis, $\text{Cov}(\gamma_i, X_{it}) \ne 0$ and the \textbf{classical RE estimator} is no longer consistent (nor, of course, efficient). The \textbf{FE estimator} (which uses OLS on the within-transformed i.e. demeaned data) is \textbf{consistent} but not necessarily efficient (we don't need this for the Hausman test proof). 
+
+The Hausman test statistic is based on the difference in the two estimates, $\hat{\beta}_{RE} - \hat{\beta}_{FE}$. Since both are consistent, its mean is zero asymptotically. The variance is 
+\begin{align}
+	\text{Var}(\hat{\beta}_{RE} - \hat{\beta}_{FE}) &= \text{Var}(\hat{\beta}_{RE}) + \text{Var}(\hat{\beta}_{FE}) - 2\text{Cov}(\hat{\beta}_{RE}, \hat{\beta}_{FE})
+\end{align}
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+\end{document}

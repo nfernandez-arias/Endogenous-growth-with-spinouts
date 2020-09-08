@@ -1,0 +1,37 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{8}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}&\multicolumn{1}{c}{(7)}&\multicolumn{1}{c}{(8)}\\
+                    &\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}\\
+\midrule
+log(R\&D)           &        0.81\sym{***}&        0.25\sym{*}  &        0.52\sym{**} &        0.52\sym{***}&        1.55\sym{***}&        0.60\sym{***}&        1.18\sym{**} &        1.18\sym{**} \\
+                    &      (0.11)         &      (0.15)         &      (0.22)         &     (0.088)         &      (0.13)         &      (0.22)         &      (0.46)         &      (0.46)         \\
+\addlinespace
+highNCC\_1991=0 $\times$ log(R\&D)&           0         &           0         &           0         &           0         &           0         &           0         &           0         &           0         \\
+                    &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         \\
+\addlinespace
+highNCC\_1991=1 $\times$ log(R\&D)&      -0.010         &        0.47\sym{***}&      -0.059         &      -0.059         &      -0.027         &      -0.093         &        1.25         &        1.25\sym{**} \\
+                    &     (0.059)         &      (0.14)         &      (0.31)         &      (0.32)         &     (0.077)         &      (0.19)         &      (1.12)         &      (0.50)         \\
+\addlinespace
+No FE               &         Yes         &          No         &          No         &          No         &         Yes         &          No         &          No         &          No         \\
+\addlinespace
+Firm FE             &          No         &         Yes         &         Yes         &         Yes         &          No         &         Yes         &         Yes         &         Yes         \\
+\addlinespace
+Year FE             &          No         &         Yes         &          No         &          No         &          No         &         Yes         &          No         &          No         \\
+\addlinespace
+Age FE              &          No         &          No         &         Yes         &         Yes         &          No         &          No         &         Yes         &         Yes         \\
+\addlinespace
+Industry-Year FE    &          No         &          No         &         Yes         &         Yes         &          No         &          No         &         Yes         &         Yes         \\
+\addlinespace
+State-Year FE       &          No         &          No         &         Yes         &         Yes         &          No         &          No         &         Yes         &         Yes         \\
+\midrule
+Clustering          &       gvkey         &       gvkey         &       gvkey         &naics4 Statecode         &       gvkey         &       gvkey         &       gvkey         &naics4 Statecode         \\
+R-squared (adj.)    &                     &                     &                     &                     &                     &                     &                     &                     \\
+R-squared (within, adj)&                     &                     &                     &                     &                     &                     &                     &                     \\
+Observations        &        7434         &        2416         &        1335         &        1335         &        7434         &         898         &         436         &         436         \\
+\bottomrule
+\multicolumn{9}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{9}{l}{\footnotesize \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

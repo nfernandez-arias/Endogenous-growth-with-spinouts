@@ -1,0 +1,31 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+                    &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
+\hline
+WSO4                &       -0.30         &       -0.66\sym{***}&       -0.61\sym{***}&       -0.63\sym{***}\\
+                    &      (0.22)         &      (0.12)         &     (0.097)         &     (0.080)         \\
+[1em]
+Constant            &        0.87\sym{**} &        0.89\sym{***}&        0.89\sym{***}&        0.89\sym{***}\\
+                    &      (0.34)         &   (0.00094)         &   (0.00059)         &    (0.0012)         \\
+[1em]
+State FE            &          No         &         Yes         &         Yes         &         Yes         \\
+[1em]
+NAICS4-Year FE      &          No         &         Yes         &         Yes         &          No         \\
+[1em]
+NAICS4-Age FE       &          No         &         Yes         &          No         &         Yes         \\
+[1em]
+NAICS4-Cohort FE    &          No         &          No         &         Yes         &         Yes         \\
+[1em]
+No FE               &         Yes         &          No         &          No         &          No         \\
+\hline
+clustvar            &statecode naics1\_4 year         &statecode naics1\_4         &statecode naics1\_4         &statecode naics1\_4         \\
+r2\_a                &    0.000016         &       0.032         &       0.032         &       0.018         \\
+r2\_a\_within         &    0.000016         &    0.000086         &    0.000070         &    0.000075         \\
+N                   &      251910         &      251577         &      251665         &      251771         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

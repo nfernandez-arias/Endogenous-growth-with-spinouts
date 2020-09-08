@@ -1,0 +1,79 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{8}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}&\multicolumn{1}{c}{(7)}&\multicolumn{1}{c}{(8)}\\
+                    &\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}\\
+\midrule
+R\&D                &      0.0047         &       0.066         &        0.46         &        0.46\sym{***}&       -0.20         &      -0.031         &        0.10         &        0.10\sym{**} \\
+                    &         (.)         &      (0.40)         &      (0.38)         &      (0.15)         &         (.)         &         (.)         &         (.)         &     (0.051)         \\
+\addlinespace
+highNCC=0 $\times$ R\&D&           0         &           0         &           0         &           0         &           0         &           0         &           0         &           0         \\
+                    &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         \\
+\addlinespace
+highNCC=1 $\times$ R\&D&        0.40         &       -1.38\sym{**} &       -1.78\sym{***}&       -1.78\sym{***}&        0.32         &        0.26         &        0.12         &        0.12         \\
+                    &         (.)         &      (0.62)         &      (0.49)         &      (0.37)         &         (.)         &         (.)         &         (.)         &     (0.084)         \\
+\addlinespace
+highNCC=0 $\times$ xrd\_l3\_industry\_1dig2&       0.019         &       -0.23         &       -0.58         &       -0.58\sym{**} &        0.31         &       0.033         &      -0.093         &      -0.093         \\
+                    &         (.)         &      (0.43)         &      (0.42)         &      (0.22)         &         (.)         &         (.)         &         (.)         &     (0.087)         \\
+\addlinespace
+highNCC=1 $\times$ xrd\_l3\_industry\_1dig2&       -2.17         &        3.78         &        2.68         &        2.68         &       -1.18         &       -0.44         &      -0.029         &      -0.029         \\
+                    &         (.)         &      (3.68)         &      (4.37)         &      (4.67)         &         (.)         &         (.)         &         (.)         &      (1.05)         \\
+\addlinespace
+highNCC=0 $\times$ xrd\_l3\_industry\_1dig3&        0.50         &        0.40         &      0.0035         &      0.0035         &        0.45         &        0.29         &        0.14         &        0.14\sym{***}\\
+                    &         (.)         &      (0.42)         &      (0.40)         &      (0.13)         &         (.)         &         (.)         &         (.)         &     (0.034)         \\
+\addlinespace
+highNCC=1 $\times$ xrd\_l3\_industry\_1dig3&       -0.27         &        1.74\sym{***}&        1.75\sym{***}&        1.75\sym{***}&     -0.0070         &      -0.034         &      -0.040         &      -0.040         \\
+                    &         (.)         &      (0.46)         &      (0.38)         &      (0.43)         &         (.)         &         (.)         &         (.)         &      (0.14)         \\
+\addlinespace
+highNCC=0 $\times$ xrd\_l3\_industry\_1dig4&        4.06         &        2.64\sym{***}&        0.94         &        0.94\sym{**} &        0.14         &       0.030         &       -0.18         &       -0.18\sym{**} \\
+                    &         (.)         &      (0.59)         &      (0.68)         &      (0.40)         &         (.)         &         (.)         &         (.)         &     (0.086)         \\
+\addlinespace
+highNCC=1 $\times$ xrd\_l3\_industry\_1dig4&        1.51         &        3.64\sym{**} &        1.81         &        1.81         &       -0.16         &       -0.19         &      -0.099         &      -0.099         \\
+                    &         (.)         &      (1.59)         &      (1.54)         &      (1.55)         &         (.)         &         (.)         &         (.)         &      (0.35)         \\
+\addlinespace
+highNCC=0 $\times$ xrd\_l3\_industry\_1dig5&        2.02         &        1.62\sym{***}&        1.37\sym{**} &        1.37         &        1.36         &        0.98         &        0.94         &        0.94\sym{***}\\
+                    &         (.)         &      (0.53)         &      (0.55)         &      (0.86)         &         (.)         &         (.)         &         (.)         &      (0.20)         \\
+\addlinespace
+highNCC=1 $\times$ xrd\_l3\_industry\_1dig5&        0.31         &        3.40\sym{***}&        3.42\sym{***}&        3.42\sym{***}&        0.15         &        0.44         &        0.44         &        0.44\sym{***}\\
+                    &         (.)         &      (0.48)         &      (0.40)         &      (0.45)         &         (.)         &         (.)         &         (.)         &      (0.11)         \\
+\addlinespace
+highNCC=0 $\times$ xrd\_l3\_industry\_1dig6&        2.06         &        1.43         &        4.58\sym{***}&        4.58\sym{***}&      -0.072         &      -0.025         &       -0.25         &       -0.25         \\
+                    &         (.)         &      (1.55)         &      (1.53)         &      (1.65)         &         (.)         &         (.)         &         (.)         &      (0.33)         \\
+\addlinespace
+highNCC=1 $\times$ xrd\_l3\_industry\_1dig6&        7.32         &        6.76\sym{*}  &        6.05         &        6.05\sym{*}  &       -0.48         &       -0.23         &       -0.50         &       -0.50\sym{*}  \\
+                    &         (.)         &      (3.52)         &      (4.11)         &      (3.13)         &         (.)         &         (.)         &         (.)         &      (0.28)         \\
+\addlinespace
+highNCC=0 $\times$ xrd\_l3\_industry\_1dig7&       -0.73         &       -0.27         &       -1.04\sym{*}  &       -1.04\sym{***}&       0.091         &        0.19         &       -0.27         &       -0.27         \\
+                    &         (.)         &      (0.45)         &      (0.55)         &      (0.33)         &         (.)         &         (.)         &         (.)         &      (0.26)         \\
+\addlinespace
+highNCC=1 $\times$ xrd\_l3\_industry\_1dig7&        1.70         &        6.13         &        34.7\sym{***}&        34.7\sym{***}&        1.47         &        0.37         &        4.25         &        4.25         \\
+                    &         (.)         &      (7.90)         &      (9.72)         &      (10.0)         &         (.)         &         (.)         &         (.)         &      (3.52)         \\
+\addlinespace
+highNCC=0 $\times$ xrd\_l3\_industry\_1dig8&       -3.40         &        3.07\sym{***}&       -5.08         &       -5.08\sym{*}  &       -1.03         &        0.58         &      -0.022         &      -0.022         \\
+                    &         (.)         &      (1.03)         &      (3.50)         &      (2.85)         &         (.)         &         (.)         &         (.)         &      (0.57)         \\
+\addlinespace
+highNCC=1 $\times$ xrd\_l3\_industry\_1dig8&       -2.13         &       -1.10\sym{*}  &       -3.37         &       -3.37\sym{**} &       -0.19         &       -0.77         &       -0.39         &       -0.39         \\
+                    &         (.)         &      (0.63)         &      (2.16)         &      (1.64)         &         (.)         &         (.)         &         (.)         &      (0.50)         \\
+\addlinespace
+No FE               &         Yes         &          No         &          No         &          No         &         Yes         &          No         &          No         &          No         \\
+\addlinespace
+Firm FE             &          No         &         Yes         &         Yes         &         Yes         &          No         &         Yes         &         Yes         &         Yes         \\
+\addlinespace
+Year FE             &          No         &         Yes         &          No         &          No         &          No         &         Yes         &          No         &          No         \\
+\addlinespace
+Age FE              &          No         &          No         &         Yes         &         Yes         &          No         &          No         &         Yes         &         Yes         \\
+\addlinespace
+Industry-Year FE    &          No         &          No         &         Yes         &         Yes         &          No         &          No         &         Yes         &         Yes         \\
+\addlinespace
+State-Year FE       &          No         &          No         &         Yes         &         Yes         &          No         &          No         &         Yes         &         Yes         \\
+\midrule
+Clustering          &       gvkey         &       gvkey         &       gvkey         &naics4 Statecode         &       gvkey         &       gvkey         &       gvkey         &naics4 Statecode         \\
+R-squared (adj.)    &        0.31         &        0.74         &        0.74         &        0.74         &        0.31         &        0.69         &        0.67         &        0.67         \\
+R-squared (within, adj)&        0.31         &        0.38         &        0.38         &        0.38         &        0.31         &        0.32         &        0.31         &        0.31         \\
+Observations        &       65009         &       63732         &       62211         &       62211         &       65009         &       63732         &       62211         &       62211         \\
+\bottomrule
+\multicolumn{9}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{9}{l}{\footnotesize \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

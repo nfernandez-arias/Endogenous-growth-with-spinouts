@@ -1,0 +1,1017 @@
+\documentclass[english,usenames,dvipsnames,handout]{beamer}
+\usetheme{Boadilla}
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{footline}[frame number]
+\setbeamercolor{alerted text}{fg=blue1}
+%\setbeamercolor{frametitle}{fg=blue2}
+\usepackage[utf8]{inputenc}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{appendixnumberbeamer}
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[nocomma]{optidef}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{bbm}
+\usepackage{tikz}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{verbatim}
+%\usepackage{palatino}
+\definecolor{red1}{RGB}{155,50,0}
+\definecolor{blue1}{RGB}{0,0,155}
+\definecolor{blue2}{rgb}{0.22,0.37,1}
+\definecolor{green1}{RGB}{34,139,35}
+
+\setbeamertemplate{itemize items}[default]
+
+\setbeamersize{text margin left=10mm,text margin right=10mm} 
+
+
+\title{Creating Creative Destruction: Endogenous Growth with Employee Spinouts and Non-compete Agreements}
+\author{Nicolas Fernandez-Arias}
+\date{\today }
+
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{proposition_corollary}{Corollary}[proposition]
+%\newtheorem{lemma}{Lemma}
+%\newtheorem{lemma_corollary}{Corollary}[lemma]
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+\begin{frame}{Background}\label{motivation_spillovers}
+\begin{itemize}
+	\item<+-> Long-run output per capita growth driven by \alert{\textbf{productivity}} \hyperlink{economic_growth_facts}{\beamergotobutton{growth accounting}}
+	\smallskip
+	\item<+-> \alert{\textbf{Firm entry}} important for productivity growth \hyperlink{motivation:importance_of_firm_entry}{\beamergotobutton{stylized facts}}
+	\smallskip
+	\item<+-> \alert{\textbf{Creative destruction}} significant source of firm entry \hyperlink{motivation:importance_of_creative_destruction}{\beamergotobutton{stylized facts}}
+	\item<+-> \alert{\textbf{Within-industry spinouts}} (not spinoffs!) important source of creative destruction  \hyperlink{spinouts_facts_from_literature}{\beamergotobutton{stylized facts}} 	\hyperlink{fairchildren_early}{\beamergotobutton{Fairchildren}}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Motivation}\label{motivation}
+\begin{itemize}
+	\item<+-> \alert{\textbf{Incumbent firm R\&D}} may lead to \alert{\textbf{more employee spinouts}}
+	\begin{itemize}
+		\item R\&D workers learn by doing 
+		\item empirical evidence in Babina \& Howell 2019, this paper
+	\end{itemize}
+	\smallskip
+	\item<+-> \alert{\textbf{Non-compete agreements (NCAs)}} allow employees to commit to not forming spinouts
+	\begin{itemize}
+		\item<+-> increases return to incumbent R\&D
+		\item<+-> \ldots but (socially valuable) spinout innovation stymied
+	\end{itemize}
+	\smallskip
+	\item<+-> Ongoing \alert{\textbf{policy debate}}
+	\begin{itemize}
+		\item states passing laws restricting enforcement of noncompetes (e.g., Hawaii in 2015, Massachussetts and Maryland in 2019) 
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{This project}
+\begin{itemize}
+	\item GE model of endogenous growth where incumbent firm \alert{\textbf{R\&D induces employee spinouts}}
+	\smallskip
+	\item Empirics of R\&D and employee spinouts
+	\smallskip
+	\item Calibrate model to aggregate data and estimates from empirical analysis
+	\smallskip
+	\item Study effect of policy on aggregate growth and welfare
+	\begin{itemize}
+		\item \alert{\textbf{this presentation:}} reducing barriers to use of NCAs
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Findings}\label{intro_findings}
+	\begin{itemize}
+		\item<+-> Empirics
+		\begin{itemize}
+			\item corporate R\&D is \alert{\textbf{robustly associated}} with future employee spinout formation
+			\item relationship is \alert{\textbf{economically significant}} and can \alert{\textbf{account for $\approx$ 75\%}} of employees founding within-industry spinouts
+		\end{itemize}
+		\medskip
+		\item<+-> Policy analysis
+		\begin{itemize}
+			\item reducing the cost of NCA enforcement to zero \alert{\textbf{increases welfare by 3\%}} in consumption-equivalent terms
+			\item even better to \alert{\textbf{ban NCAs}} and \alert{\textbf{subsidize incumbent R\&D}} 
+		\end{itemize}
+		\medskip
+		\item<+-> Bigger picture
+		\begin{itemize}
+			\item \alert{\textbf{allocation}} of R\&D matters, not just \alert{\textbf{amount}} of R\&D
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Related literature}
+\begin{itemize}
+\item Firm dynamics and endogenous growth
+\begin{itemize}
+\item Romer 1986, Grossman \& Helpman 1991, Aghion \& Howitt 1992, Klette \& Kortum 2004, Acmemoglu \& Akcigit 2012, Akcigit \& Kerr 2017
+\end{itemize}
+\smallskip
+\item Models of employee spinouts
+\begin{itemize}
+\item Klepper 2002, Klepper \& Sleeper 2005, Anton \& Yao 1994/1995, Franco \& Filson 2006, Franco \& Mitchell 2008, Rauch 2015, Rossi-Hansberg \& Chatterjee 2012
+\item Baslandze 2019
+\end{itemize}
+\smallskip
+\item Empirics on employee mobility, spinouts
+\begin{itemize}
+\item Spawning of spinouts: Gompers et al. 2005, Garmaise 2011, Baslandze 2019, Babina \& Howell 2019
+\item Characteristics of spinouts: Muendler 2012
+\item Effect on parent firms: Campbell et. al 2012, Wezel et al. 2006
+\item Effect of non-compete enforcement: Garmaise 2009, Marx et al 2009, Samila-Sorenson 2011, Jeffers 2018, Shi 2018
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Model}
+
+\begin{frame}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{Model}
+	\begin{itemize}	
+		\item Quality ladder model of endogenous growth through creative destruction 
+		\begin{itemize}
+			\item builds on Grossman-Helpman 1991
+		\end{itemize}
+		\medskip
+		\item \alert{\textbf{New:}} R\&D workers \textbf{\alert{acquire ability to form spinouts}} on the job
+		\medskip
+		\item \alert{\textbf{New:}} Non-compete agreements
+		\begin{itemize}
+			\item shut down formation of spinouts, \textbf{\alert{shrinking production possibilities frontier}}
+			\item \textbf{\alert{may increase welfare}} due to effect on incumbent R\&D incentives
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Individual endowments and preferences}
+	\begin{itemize}
+		\item Continuous time, $t \ge 0$
+		\item Rep. household has CRRA preferences 
+		\begin{align*}
+		U(\{C(t)\}_{t \ge 0}) &= \mathbb{E} \int_0^{\infty} e^{-\rho t} \frac{C(t)^{1-\theta} - 1}{1 - \theta} ds
+		\end{align*}
+		\item Labor endowment
+		\begin{itemize}
+			\item $\bar{L}_{RD}$ units R\&D labor
+			\item $1 - \bar{L}_{RD}$ units of production labor
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Production technology overview}
+	\begin{itemize}
+		\item Continuum of intermediate goods $j \in [0,1]$ 
+		\begin{itemize}
+			\item finite set of qualities $\{q_{jti}\}_{0 \le i \le I_{jt}}$
+			\item produced with production labor 
+			\item monopolistic competition
+		\end{itemize}
+		\smallskip
+		\item Final good
+		\begin{itemize}
+			\item produced with intermediate goods and production labor
+			\item competitive
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Intermediate goods production}\label{intermediate_goods_production}
+	\begin{itemize}
+		\item<+-> Equilibrium $\Rightarrow$ only \alert{\textbf{highest quality}} version of good $j$ is produced \hyperlink{two_stage_bertrand2}{\beamergotobutton{details}}
+		\begin{itemize}
+			\item referred to as \alert{\textbf{frontier}} good $j$, denoted $\bar{q}_{jt}$
+			\item producer of frontier good $j$ is known as  \alert{\textbf{incumbent}} $j$ 
+		\end{itemize}
+		\medskip
+		\item<+-> Production function
+		\begin{align*}
+		k_{jt} = Q_t \ell_{jt}
+		\end{align*}
+		\begin{itemize}
+			\item average quality $Q_t = \int_0^1 \bar{q}_{jt} dj$
+		\end{itemize}
+		\medskip
+		\item<.-> No storage of intermediate goods 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Final goods production}\label{main:final_goods_production}
+	\begin{itemize}
+		\item<+-> Given only frontier goods $j$ used, production of final good follows
+		\begin{align*}
+		Y_t &= \frac{L_{Ft}^{\beta}}{1-\beta} \int_0^1 \bar{q}_{jt}^{\beta} k_{jt}^{1-\beta} dj 
+		\end{align*}
+		\begin{itemize}
+			\item $L_{Ft}$: final goods labor
+			\item $k_{jt}$: quantity of frontier good $j$
+		\end{itemize} \hyperlink{definition:final_goods_production}{\beamergotobutton{Full final goods production function}} 
+		\smallskip
+		\item<.-> No storage of final good
+	\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Innovation overview}
+	\begin{itemize}
+		\item<+-> Sources of innovation
+		\begin{itemize}
+			\item own-product innovation by incumbents
+			\item creative destruction by entrants 
+			\item creative destruction by spinouts
+		\end{itemize}
+		\medskip
+		\item<+-> Innovator on good $j$ becomes new incumbent $j$
+		\begin{itemize}
+			\item<+-> frontier quality improves by factor $\lambda > 1$
+			\item<+-> no ``catch-up" innovation $\Rightarrow$ \alert{\textbf{tractability}} (standard)
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Innovation by incumbents and entrants}
+	\begin{itemize}
+		\item<+-> $z$ units of R\&D $\Leftrightarrow (\frac{\bar{q}_{jt}}{Q_t})z$ units of R\&D labor
+		\bigskip
+		\item<+-> \alert{\textbf{Incumbent R\&D}} $z_{jt}$ yields innovation rate 
+		\begin{align*}
+		\tau(z_{jt}) &= \chi z_{jt}, \quad \chi > 0
+		\end{align*}
+		\item<+-> For $e \in [0,1]$, \alert{\textbf{entrant innovation}} $\hat{z}_{jet}$ yields innovation rate
+		\begin{align*}
+		\hat{\tau}(\hat{z}_{jet};\hat{z}_{jt}) &= \hat{\chi} \hat{z}_{jet} \hat{z}_{jt}^{-\psi}, \quad \hat{\chi} > 0, \psi \in (0,1) \\
+		\hat{z}_{jt} &= \int_0^1 \hat{z}_{jet} de
+		\end{align*}
+		\begin{itemize}
+			\item<.-> decreasing returns at good-$j$ level ($\psi > 0$) due to \textbf{\alert{duplication of research}} from lack of coordination
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Innovation by spinouts and NCAs}
+	\begin{itemize}
+		\item<+-> \alert{\textbf{NCA choice:}} each $t$ incumbent $j$ chooses NCA policy
+		\begin{itemize}
+			\item<.-> $\mathbbm{1}^{NCA}_{jt} = 1$ $\Leftrightarrow$ NCA is imposed during $dt$
+		\end{itemize}
+		\medskip
+		\item<+-> Given $\mathbbm{1}^{NCA}_{jt}$, spinout in good $j$ generated at Poisson rate
+		\begin{align*}
+		\tau^S(z_{jt},\mathbbm{1}^{NCA}_{jt}) &= \overbrace{(1-\mathbbm{1}_{jt}^{NCA})}^{\mathclap{= 0 \text{ when NCA is imposed}}} \nu z_{jt}, \quad \nu \ge 0
+		\end{align*}
+		\begin{itemize}
+			\item<+-> $\mathbbm{1}^{NCA}_{jt} = 0$ $\Rightarrow$ compensation via spinouts $\Rightarrow$ \alert{\textbf{lower eq. wage compensation}}
+		\end{itemize}
+		\medskip
+		\item<+-> \alert{\textbf{Cost of NCA enforcement:}} incumbent pays flow cost 
+		\begin{align*}
+			\mathbbm{1}^{NCA}_{jt} \kappa_c \nu V(j,t | \bar{q}_{jt}) z_{jt}, \quad \kappa_c \ge 0
+		\end{align*} 
+		\begin{itemize}
+			\item<+-> $V(j,t|\bar{q}_{jt})$ is \alert{\textbf{endogenous}} value of incumbency $\Rightarrow$ \alert{\textbf{tractability}} 
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Creative destruction cost}
+	\begin{itemize}
+		\item Successful entrants and spinouts pay creative destruction cost
+		\begin{align*}
+			\kappa_e V(j,t|\lambda \bar{q}_{jt}), \quad \kappa_e \in [0,1)
+		\end{align*}
+		\item \alert{\textbf{Interpretation:}} extra (non-R\&D) costs of developing a new product vs. improving an existing product
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Ownership structure of firms}
+	\begin{itemize}
+		\item Household owns competitive financial intermediary which in turn owns all firms in the economy
+		\begin{itemize}
+			\item firms maximize individual profits subject to risk-free discount rate (i.e. ownership concentration does not lead to collusion)
+			\item aggregate profits remitted to rep. household
+		\end{itemize}
+		\medskip
+		\item Spinouts are sold to competitive financial intermediary at full private value
+		\begin{itemize}
+			\item i.e. intermediary takes spinout entry as given
+		\end{itemize}
+		\medskip
+		\item Incumbent \alert{\textbf{assumed}} unable to buy spinout 
+		\begin{itemize}
+			\item consistent with finding that few firms acquire their employee spinouts (e.g., Babina \& Howell 2019)
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Equilibrium}\label{definition:symmetric_bgp}
+	\hyperlink{definition:equilibrium}{\beamergotobutton{Definition of equilibrium}}
+	\begin{definition}
+		A \textbf{symmetric BGP} is an equilibrium in which there exists a growth rate $g > 0$ and R\&D efforts $z,\hat{z} \ge 0$ such that for all intermediate goods $j \in [0,1]$ and $t \ge 0$, 
+		\begin{align*}
+			\frac{\dot{Q}_t}{Q_t} &= g \\
+			z_{jt} &= z \\
+			\hat{z}_{jt} &= \hat{z}
+		\end{align*}
+	\end{definition}
+\end{frame}
+
+
+\begin{frame}{Characterizing the symmetric BGP}\label{closing_the_model}
+	\begin{itemize}
+		\item<+-> Static equilibrium conditions given $\{\bar{q}_{jt}\}_{j \in [0,1]}$ \hyperlink{static_eq_conditions}{\beamergotobutton{details}}
+		\begin{itemize}
+			\item<.-> two-stage Bertrand competition within good $j$ $\Rightarrow$ only frontier good used, monopolistic competition pricing \hyperlink{two_stage_bertrand}{\beamergotobutton{details}}
+		\end{itemize}
+		\medskip
+		\item<+-> Dynamic equilibrium conditions
+		\begin{itemize}
+			\item<.-> individual optimization \hyperlink{HJB_incumbent}{\beamergotobutton{incumbents}} \hyperlink{household_optimization}{\beamergotobutton{households}} 
+			\item<.-> on symmetric BGP, $V(j,t|\bar{q}_{jt}) = \tilde{V} \bar{q}_{jt}$ and wages scaling with $Q_t$  \hyperlink{proposition:hjb_scaling}{\beamergotobutton{Proposition}} 
+			\item<.-> factors $Q_t$, $\bar{q}_{jt}$ drop out of equilibrium conditions 
+			\item<.-> solve system of eq. recursively 
+			\hyperlink{eq_innovation_and_growth}{\beamergotobutton{details}} 
+		\end{itemize}
+		\medskip
+		\item<+-> Results 
+		\begin{itemize}
+			\item<.-> on symmetric BGP, $\mathbbm{1}^{NCA}_{jt} = \mathbbm{1}^{NCA} \in \{0,1\}$ for all $j,t$
+			\item<.-> existence and uniqueness (except knife-edge) \hyperlink{existence_and_uniqueness}{\beamergotobutton{Proposition}} 
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Equilibrium use of NCAs}\label{use_of_ncas}
+	\begin{itemize}
+		\item In eq., NCAs \alert{\textbf{maximize bilateral value}}: $\mathbbm{1}^{NCA}_{jt} \equiv 1$ iff
+		\begin{align*}
+		\overbrace{\kappa_c}^{\mathclap{(\nu \tilde{V})^{-1} (\text{Direct cost of NCA})}} &< \underbrace{1 - (1-\kappa_e) \lambda}_{\mathclap{(\nu\tilde{V})^{-1}\mathbb{E}[\text{Bilateral cost of spinout formation}]}}
+		\end{align*}
+		\hyperlink{use_of_ncas_details}{\beamergotobutton{details}}
+	\end{itemize}
+\end{frame}
+
+\section{Efficiency}
+
+\begin{frame}
+	\tableofcontents[currentsection]
+\end{frame}
+
+
+\begin{frame}{Efficiency}\label{efficiency}
+	\hyperlink{welfare}{\beamergotobutton{definition of welfare}} 
+	\medskip
+	\begin{itemize}
+		\item Allocation of production labor
+		\begin{itemize}
+			\item final good vs. intermediate goods
+			\item monopolistic competition
+		\end{itemize}
+		\medskip
+		\item Allocation of R\&D labor  
+		\begin{itemize}
+			\item own-product innovation vs. creative destruction 
+			\item business stealing externality \hyperlink{misallocation_of_rd}{\beamergotobutton{details}} 
+		\end{itemize}
+		\medskip
+		\item Use of NCAs 
+		\begin{itemize}
+			\item incumbent innovation vs. entrant and spinout innovation  \hyperlink{misallocation_of_nca}{\beamergotobutton{details}} 
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\section{Empirics}
+
+\begin{frame}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{Overview of empirics}
+	\begin{itemize}
+		\item Construct dataset matching incumbents to employee spinouts
+		\smallskip
+		\item Document empirical relationship between R\&D and subsequent employee spinout formation
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Consructing dataset}
+\begin{itemize}
+	\item<+-> \alert{\textbf{Venture Source:}} 
+	\begin{itemize}
+		\item deal and company data for US-based startups funded by VCs
+		\item \alert{\textbf{employment biographies}} for founders / C-level / board members
+		\item subsample of startups founded in US between 1986 and 2008
+		\item 23,008 startups, 147,516 individuals, 89,382 financing rounds
+	\end{itemize}
+	\medskip
+	\item<+-> Merge with \alert{\textbf{Compustat:}}
+	\begin{itemize}
+		\item company data on publicly traded firms 
+		\item R\&D spending and other time-varying firm controls
+		\item match by parsing previous employer from Venture Source and string matching to company name
+	\end{itemize}
+	\medskip
+	\item<+-> Merge with \alert{\textbf{NBER-USPTO patent data}}
+	\begin{itemize}
+		\item data on all USPTO-registered patents and their citations (also data on inventors, associated firms)
+		\item crosswalk to Compustat firms
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Corporate R\&D is associated with spinout formation}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale= 0.4]{../empirics/figures/scatterPlot_RD-FoundersWSO4_dIntersection.pdf}
+\caption{Scatterplot of average firm-level yearly within-industry spinout founder counts in $t+1,t+2,t+3$ versus average yearly R\&D spending in $t,t-1,t-2$. Both variables are demeaned, first at firm level then at the industry-state-age-year level.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Regressions}
+\begin{table}
+\tiny
+\centering
+\input{../empirics/figures/tables/RDandSpinoutFormation_onlyWSOs_absolute_founder2_l3f3.tex}
+\caption{\scriptsize The dependent variable is average yearly number of founders joining WSOs in years $t+1,t+2,t+3$. The independent variables are averages over $t,t-1,t-2$. Firm controls are employment, assets, intangible assets, investment, net income, cumulative citation-weighted patents, and total market value of the firm's equity and debt.}
+\end{table}
+\end{frame}
+
+
+\section{Calibration}
+
+
+\begin{frame}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{Calibration targets}\label{calibration_targets}
+\begin{table}[]
+	\centering
+	\captionof{table}{Calibration targets}\label{calibration_targets}
+	\small
+	\begin{tabular}{rcll}
+		\toprule \toprule
+		& Key parameter(s) & Target & Model \tabularnewline
+		\midrule
+		Profit (\% GDP) & $\beta$ & 8.5\% & 8.5\% 
+		\tabularnewline
+		R\&D emp. share & $\bar{L}_{RD}$ & 1\% & 1\% 
+		\tabularnewline
+		Interest rate & $\rho$ & 6\% & 6\% 
+		\tabularnewline
+		Growth rate (CD + OI) & $\mathbf{\lambda, \chi, \hat{\chi}}$ & 1.487\% & 1.487\%
+		\tabularnewline		
+		Age $\ge$ 6 growth share & $\chi, \hat{\chi}$  & 65\% & 65\%
+		\tabularnewline
+		Age $<$ 6 emp. share  & $\lambda, \hat{\chi}$ & 13.34\% & 13.34\%
+		\tabularnewline
+		Spinout emp. share &$\nu$  & 10\% & 10\%
+		\tabularnewline
+		R\&D spending (\% GDP) & $\chi, \hat{\chi}, \kappa_e$  & 1.35\% & 1.35\%
+		\tabularnewline
+		\bottomrule
+	\end{tabular}
+\end{table}
+	\hyperlink{economic_magnitude}{\beamergotobutton{R\&D-induced spinout emp. share details}} 
+\end{frame}
+
+
+\begin{frame}{Parameters}\label{parameters}
+\begin{table}[]
+	\footnotesize
+	\centering
+	\captionof{table}{Calibrated parameters}\label{calibration_parameters}
+	\begin{tabular}{rlll}
+		\toprule \toprule
+		Parameter & Value & Description & Source \tabularnewline
+		\midrule
+		$\rho$ & 0.0303 & Discount rate  & Indirect inference \tabularnewline
+		$\theta$ & 2 & $\theta^{-1} = $ IES & External calibration 
+		\tabularnewline
+		$\beta$ & 0.094 & $\beta^{-1} = $ EoS intermediate goods & Exactly identified \tabularnewline 
+		$\psi$ & 0.5 & Entrant R\&D elasticity & External calibration \tabularnewline
+		$\lambda$ & 1.084 & Quality ladder step size & Indirect inference 
+		\tabularnewline
+		$\chi$ & 21.217 & Incumbent R\&D productivity & Indirect inference 
+		\tabularnewline
+		$\hat{\chi}$ & 0.554 & Entrant R\&D productivity & Indirect inference \tabularnewline 
+		$\kappa_e$ & 0.859 & Non-R\&D entry cost & Indirect inference \tabularnewline
+		$\nu$ & 0.345 & Spinout generation rate  & Indirect inference\tabularnewline
+		$\bar{L}_{RD}$ & 0.01 & R\&D labor allocation  & Exactly identified \tabularnewline
+		\bottomrule
+	\end{tabular}
+\end{table}
+\end{frame}
+
+\section{Policy analysis}
+
+\begin{frame}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{Reducing barriers to the use of noncompetes $\kappa_c$}\label{reducing_kappa_c_table}
+	\begin{table}
+		\centering
+		\small
+		\begin{tabular}{lrlll}
+			\toprule \toprule
+			Measure & Variable & $\kappa_c > \bar{\kappa}_c$ & $\kappa_c = 0$ & Chg. \tabularnewline
+			\midrule
+			Growth & $g$ & 1.487\% & 1.597\% & 7.4\% \tabularnewline
+			Initial consumption & $\tilde{C}$  & 0.776 &  0.781 & 0.64\% \tabularnewline 
+			\tabularnewline
+			Welfare & $\tilde{W}$  &  & & \alert{\textbf{2.96\%}} (CEV terms)  \tabularnewline
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	\hyperlink{decomposition_growth_increase}{\beamergotobutton{decomposition}}
+	\hyperlink{reducing_kappa_c}{\beamergotobutton{plots}}
+	\hyperlink{robustness_to_moments}{\beamergotobutton{robustness to moments}} \hyperlink{robustness_to_parameters}{\beamergotobutton{robustness to parameters}}
+\end{frame}
+
+\begin{frame}{Conclusion}
+	\begin{itemize}
+		\item Link between R\&D spending and future within-industry employee spinouts
+		\begin{itemize}
+			\item \alert{\textbf{statistically}} and \alert{\textbf{economically}} significant relationship
+		\end{itemize}
+		\medskip
+		\item NCAs imply \alert{\textbf{economic tradeoff}} between \alert{\textbf{allocation of R\&D}} and \alert{\textbf{innovation by within-industry spinouts}}
+		\medskip
+		\item In a calibrated model, reducing NCA costs \alert{\textbf{increases growth }} (+7\%), \alert{\textbf{consumption}} (+0.6\%) and \alert{\textbf{welfare}} (+3\% in consumption-equivalent terms)
+		\begin{itemize}
+			\item results from strong \alert{\textbf{business stealing}} externality
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\appendix
+
+\section{Appendix}
+
+\begin{frame}{Decomposing per-capita GDP growth in USA}\label{economic_growth_facts}\hyperlink{motivation_spillovers}{\beamergotobutton{back}}
+	\begin{table}
+		\includegraphics[scale = 0.35]{figures/presentation/economic_growth_facts.png}
+		\caption{Growth accounting (from Jones 2016, "The Facts of Economic Growth")}
+	\end{table}
+\end{frame}
+
+\begin{frame}{Importance of firm entry in productivity growth}\label{motivation:importance_of_firm_entry}
+	\hyperlink{motivation_spillovers}{\beamergotobutton{back}}
+	\begin{itemize}
+		\item Firm entry contributes substantially to productivity growth
+		\begin{itemize}
+			\item 25\% of labor productivity growth in manufacturing (Baily, Bartelsman \& Haltiwanger 1996)
+			\item 25\% of aggregate productivity growth (Akcigit \& Kerr 2017)
+			\item 20-30\% of aggregate productivity growth (Garcia-Macia, Hsieh \& Klenow 2019)
+			\item 40\% of aggregate productivity growth (Klenow \& Yi 2020)
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Importance of creative destruction in firm entry}\label{motivation:importance_of_creative_destruction}
+	\hyperlink{motivation_spillovers}{\beamergotobutton{back}}
+	\begin{itemize}
+		\item Creative destruction is significant part of new firm entry
+		\begin{itemize}
+			\item Garcia-Macia, Hsieh and Klenow 2018 finds approx. 70\% of productivity growth from entry is creative destruction, using firm-level employment data
+			\item Klenow \& Yi 2020 estimate 30\% using plant-level sales and employment data
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}\label{spinouts_facts_from_literature}
+\hyperlink{motivation_spillovers}{\beamergotobutton{back}}
+	\begin{itemize}
+	\item Within-industry spinouts
+		\begin{itemize}
+		\item 15\% of entrants; larger at entry, grow faster, higher survival rates (Muendler et al. 2012, Brazilian data)
+		\item Similar findings in my dataset
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Spinouts of Fairchild Semiconductor}\label{fairchildren_early}
+\hyperlink{motivation_spillovers}{\beamergotobutton{back}}
+\begin{figure}
+	\includegraphics[scale=0.34]{../figures/fairchildren_early.png}
+\end{figure}
+\end{frame}
+
+\subsection{Model}
+
+\begin{frame}{Final goods production function}\label{definition:final_goods_production}\hyperlink{main:final_goods_production}{\beamergotobutton{back}}
+	\begin{itemize}
+		\item Final goods production function is given by
+		\begin{align*}
+		Y_t = F(L_{Ft},\{I_{jt}\},\{k_{jti}\}) &= \frac{L_{Ft}^{\beta}}{1-\beta} \int_0^1 \Big(\sum_{i = 0}^{I_{jt}} (\lambda^{i})^{\frac{\beta}{1-\beta}} k_{jti} \Big)^{1-\beta} dj 
+		\end{align*}
+		\begin{itemize}
+			\item \alert{\textbf{quality ladder}} assumption: $\{q_{jti}\}_{0 \le i \le I_{jt}} = \{\lambda^i\}_{0 \le i \le I_{jt}}$
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+\subsection{Equilibrium}
+
+\begin{frame}{Definition of equilibrium}\label{definition:equilibrium}\hyperlink{definition:symmetric_bgp}{\beamergotobutton{back}}
+	\begin{definition}
+		An \textbf{equilibrium} consists of prices (R\&D wages for entrants and incumbents with and without NCAs; intermediate goods prices; and the interest rate) and allocations (R\&D labor at entrants and incumbents; noncompete usage; intermediate goods labor; and final goods labor) that satisfy individual optimization (household labor supply; incumbent R\&D, NCA usage, and production + pricing; and entrant R\&D) and market clearing (R\&D and production labor, intermediate goods and final goods)
+	\end{definition}
+\end{frame}
+
+
+\begin{frame}{Static equilibrium}\label{static_eq_conditions}
+	\hyperlink{closing_the_model}{\beamergotobutton{back}}
+	\begin{itemize}
+		\small 
+		\item Final goods optimization and monopolistic competition prices + quantities yield equilibrium wages and incumbent profits 
+		\begin{align*}
+			\bar{w}_t &= \tilde{\beta} Q_t \\ 
+			\tilde{\beta} &= \beta^{\beta} (1-\beta)^{1-2\beta}  \\
+			\pi_{jt} &= (1-\beta) \tilde{\beta} L_F \bar{q}_{jt}
+		\end{align*}
+		\small
+		\item Labor allocation and output
+		\begin{align*}
+			L_{It} &= \Big( \frac{1-\beta}{\tilde{\beta}} \Big)^{1 / \beta} L_{Ft} \\
+			L_{Ft} &= \frac{1 - \bar{L}_{RD}}{1 + \Big(\frac{1-\beta}{\tilde{\beta}}\Big)^{1/\beta}} \\
+			Y_t &= \frac{(1-\beta)^{1-2\beta}}{\beta^{1-\beta}} Q_t L_{Ft} 
+		\end{align*}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Two-stage Bertrand game}\label{two_stage_bertrand2}
+	\hyperlink{intermediate_goods_production}{\beamergotobutton{back}}
+	\begin{itemize}
+		\item For each good $j$ two-stage game each instant $t \ge 0$
+		\begin{itemize}
+			\item stage 1: pay fee $\varepsilon > 0$ units of final good
+			\item stage 2: Bertrand competition within and across goods $j$
+		\end{itemize}
+		\item Bertrand competition $\Rightarrow$ only frontier good $j$ earns profits in stage 2 $\Rightarrow$ only frontier pay fee $\varepsilon$
+		\item Monopolistic competition pricing (i.e. no limit pricing)
+		\begin{align*}
+		p_j &= \frac{\overline{w}}{(1-\beta) Q} \\
+		\end{align*}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Two-stage Bertrand game}\label{two_stage_bertrand}
+	\hyperlink{closing_the_model}{\beamergotobutton{back}}
+	\begin{itemize}
+		\item For each good $j$ two-stage game each instant $t \ge 0$
+		\begin{itemize}
+			\item stage 1: pay fee $\varepsilon > 0$ units of final good
+			\item stage 2: Bertrand competition within and across goods $j$
+		\end{itemize}
+		\item Bertrand competition $\Rightarrow$ only frontier good $j$ earns profits in stage 2 $\Rightarrow$ only frontier pay fee $\varepsilon$
+		\item Monopolistic competition pricing (i.e. no limit pricing)
+		\begin{align*}
+		p_j &= \frac{\overline{w}}{(1-\beta) Q} \\
+		\end{align*}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Household optimization}\label{household_optimization}
+	\hyperlink{closing_the_model}{\beamergotobutton{back}}
+	\begin{itemize}
+		\item Household solves
+		\tiny
+		\begin{maxi*}[1]<b>
+			{\substack{\{C(t) \}_{t \ge 0} \\ \{ L(t)  \}_{t \ge 0} \\ \{\ell_{RD,j}(t)\}_{j \in [0,1], t \ge 0} \\ \{\hat{\ell}_{RD,j}(t)\}_{j \in [0,1], t \ge 0}  }} {\mathbb{E} \int_0^{\infty} \frac{C(t)^{1-\theta}-1}{1-\theta} dt}{}{}
+			\addConstraint{ C(t)}{ \le \Pi_t + \bar{w}_tL(t)} 
+			\addConstraint{ }{+ \int_0^1 \big( w_{RD,jt} + (1-\mathbbm{1}^{NCA}_{jt})(\frac{\bar{q}_{jt}}{Q_t})^{-1} \nu (1-\kappa_e) V(j,t|\lambda \bar{q}_{jt}) \big) \ell_{RD,j}(t) dj}
+			\addConstraint{ }{+ \int_0^1 \hat{w}_{RD,t} \hat{\ell}_{RD,j}(t) dj}
+			\addConstraint{\int_0^1 (\ell_{RD,j}(t) + \hat{\ell}_{RD,j}(t))dj}{ \le \bar{L}_{RD}} 
+			\addConstraint{L(t)}{\le 1 - \bar{L}_{RD}}
+		\end{maxi*}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Incumbent optimization}\label{HJB_incumbent}
+\hyperlink{closing_the_model}{\beamergotobutton{back}}
+\begin{itemize}
+\item Incumbent value $V(j,t|\bar{q}_{jt})$ satisfies
+\tiny
+\begin{align*}
+	(r_t + \hat{\tau}(j,t|q)) &V(j,t |q) - \dot{V}(j,t|q) = \pi(j,t|q) \nonumber \\_{}
+	&+ \max_{\substack{\mathbbm{1}^{NCA} \in \{0,1\} \\ z \ge 0}} \Bigg\{ z \Big[ \chi \big( V(j,t|\lambda q) - V(j,t|q)\big)  \nonumber \\
+	&- \big(\frac{q}{Q_t}\big) \Big( w_{RD,jt}(x) + \big(\frac{q}{Q_t}\big)^{-1} (1-\mathbbm{1}^{NCA}) \nu V(j,t|q) + \big(\frac{q}{Q_t}\big)^{-1}  \mathbbm{1}^{NCA} \kappa_c \nu V(j,t|q) \Big)  \Big] \Bigg\} 
+\end{align*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Symmetric BGPs are linear}\label{proposition:hjb_scaling}
+	\hyperlink{closing_the_model}{\beamergotobutton{back}}
+	\small
+	\begin{proposition}
+		In a symmetric BGP, the value function of the incumbent is given by
+		\begin{align*}
+		V(j,t|q) &= \tilde{V} q
+		\end{align*}
+		for some $\tilde{V} > 0$. Further, the equilibrium R\&D wages are given by 
+		\begin{align*}
+		\hat{w}_{RD,t} &= \hat{w}_{RD} Q_t \\
+		w_{RD,jt}(\mathbbm{1}^{NCA}) &= w_{RD}(\mathbbm{1}^{NCA}) Q_t \textrm{, if $z > 0$}
+		\end{align*}
+	\end{proposition}
+\end{frame}
+
+\begin{frame}{Equilibrium use of NCAs}\label{use_of_ncas_details}
+	\hyperlink{use_of_ncas}{\beamergotobutton{back}}
+	\begin{itemize}
+		\item Incumbent must offer \alert{\textbf{total compensation}} equal to entrant
+		\begin{align*}
+		w_{RD}(\mathbbm{1}^{NCA}) + \underbrace{(1-\mathbbm{1}^{NCA}) \nu (1-\kappa_e) \lambda \tilde{V}}_{\mathclap{\text{Employee's value of future spinouts}}} &= \overbrace{\hat{w}_{RD}}^{\mathclap{\text{Entrant R\&D wage}}} 
+		\end{align*}
+		\begin{itemize}
+			\item $\mathbbm{1}^{NCA}_{jt} = 0$ $\Rightarrow$ \alert{\textbf{wage discount}}
+		\end{itemize}
+		\item Incumbent minimizes \alert{\textbf{effective cost of R\&D}} given by
+		\begin{align*}
+		\hat{w}_{RD} + \mathbbm{1}^{NCA}_{jt} \overbrace{ \kappa_c \nu \tilde{V}}^{\mathclap{\text{Direct cost of NCA}}} + (1- \mathbbm{1}^{NCA}_{jt}) \overbrace{(1 - (1-\kappa_e) \lambda) \nu \tilde{V}}^{\mathclap{\mathbb{E}[\text{Loss of business}] - \mathbb{E}[\text{Wage discount}]}} 
+		\end{align*}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Equilibrium innovation and growth}\label{eq_innovation_and_growth}
+	\hyperlink{closing_the_model}{\beamergotobutton{back}} 
+	\begin{itemize}
+		\item Entrant optimization condition $\hat{z}^{-\psi} \hat{\chi} (1-\kappa_e) \lambda \tilde{V}= \hat{w}_{RD}$ yields
+		\begin{align*}
+		\hat{z} &= \Big( \frac{ \overbrace{\hat{\chi} (1-\kappa_e) \lambda}^{\mathclap{\propto \text{ private payoff to entrant innovation}}}}{\underbrace{\chi(\lambda -1)}_{\mathclap{\propto \text{ private payoff incumbent}}} - \Big[\underbrace{(1-\mathbbm{1}^{NCA}) (1- (1-\kappa_e) \lambda)\nu + \mathbbm{1}^{NCA} \kappa_c \nu \Big]}_{\mathclap{w_{RD}(\mathbbm{1}^{NCA}) + \mathbbm{1}^{NCA} \kappa_c  - \hat{w}_{RD}}} }\Big)^{1/\psi} \\
+		z &= \underbrace{\bar{L}_{RD} - \hat{z}}_{\mathclap{\text{R\&D labor resource constraint}}} 
+		\end{align*}
+		with spinout formation rate $\tau^S = (1-\mathbbm{1}^{NCA}) z$
+		\item Growth rate
+		\begin{align*}
+		g &= \frac{\dot{Q}_t}{Q_t} = (\lambda - 1) (\tau + \hat{\tau} + \tau^S)
+		\end{align*}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Existence and uniqueness}\label{existence_and_uniqueness}\hyperlink{eq_innovation_and_growth}{\beamergotobutton{back}} 
+	\begin{proposition}\label{proposition:purstrategyeq:positiveOI}
+		If $\theta \ge 1$, $\kappa_c \ne \bar{\kappa}_c$, and $\Big( \frac{\hat{\chi} (1-\kappa_{e}) \lambda}{\chi(\lambda-1) - \nu \min\{ 1-(1-\kappa_e) \lambda, \kappa_c \}} \Big)^{1/\psi} < \bar{L}_{RD}$, then:
+		\begin{enumerate}
+			\item There exists a unique symmetric BGP.
+			\item On the symmetric BGP, $z > 0$ and $\mathbbm{1}^{NCA}_{jt} = x$
+		\end{enumerate}
+	\end{proposition}
+	\begin{itemize}
+		\item On the knife-edge $\kappa_c = \bar{\kappa}_c$ there is a continuum of symmetric BGPs
+	\end{itemize}
+\end{frame}
+
+\subsection{Efficiency}
+
+\begin{frame}{Welfare}\label{welfare}
+	\hyperlink{efficiency}{\beamergotobutton{back}}
+	\begin{itemize}
+		\item Social welfare
+		\begin{align*}
+		W &= \int_0^{\infty} e^{-\rho t} \frac{C(t)^{1-\theta} - 1}{1-\theta} dt
+		\end{align*}
+		\item $C(t) = \tilde{C} e^{gt}$ implies
+		\begin{align*}
+		W &= \overbrace{\frac{\tilde{C}^{1-\theta}}{(1-\theta)(\rho - g(1-\theta))}}^{\mathclap{\tilde{W}}} + \text{ Constant} 
+		\end{align*}
+		\item $\therefore$ Welfare determined by
+		\begin{itemize}
+			\item $g$: growth rate of consumption 
+			\item $\tilde{C}$: level of consumption given each $Q_t$ 
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Misallocation of R\&D}\label{misallocation_of_rd}
+	\hyperlink{efficiency}{\beamergotobutton{back}} 
+	\begin{itemize}
+		\item Reallocating R\&D labor from entrants to incumbents increases BGP growth iff $\frac{d}{d\hat{z}} \hat{\tau} < \chi + (1-\mathbbm{1}^{NCA})\nu$ $\Leftrightarrow$
+		\footnotesize
+		\begin{multline}
+		1 >  \underbrace{\frac{1}{1-\kappa_{e}}}_{\mathclap{\text{Entry cost}}} \times \overbrace{\frac{\chi(\lambda-1) -(1-\mathbbm{1}^{NCA}) (1-(1-\kappa_e)\lambda)\nu - \mathbbm{1}^{NCA} \kappa_c \nu}{\chi(\lambda-1)}}^{\mathclap{\text{Entrants face different effective cost of R\&D}}} \\
+		\times \underbrace{\frac{\chi}{\chi + (1-\mathbbm{1}^{NCA})\nu}}_{\mathclap{\text{Effect of OI on spinout formation}}} \times \overbrace{\frac{\lambda-1}{\lambda}}^{\mathclap{\text{Business stealing}}} \times  \underbrace{(1-\psi)}_{\mathclap{\text{Congestion}}} \label{eq:RD_reallocation} 
+		\end{multline}
+		\normalsize
+		\item Effective cost of R\&D, spinout formation, congestion, and especially \alert{\textbf{business stealing}} produce \alert{\textbf{excessive creative destruction}}
+		\item Entry cost effect works in opposite direction as $\frac{1}{1-\kappa_e} > 1$
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Misallocation of NCAs}\label{misallocation_of_nca}
+	\hyperlink{efficiency}{\beamergotobutton{back}} 
+	\begin{itemize}
+		\item Suppose $z > 0$ and $\kappa_c > \bar{\kappa}_c > 0$, so that $\mathbbm{1}^{NCA} = 0$ 
+		\begin{itemize}
+			\item setting $\kappa_c' = \bar{\kappa}_c - \varepsilon \Rightarrow \mathbbm{1}^{NCA} = 1$ and $\tau^S = 0$
+			\item setting $\kappa_c'' < \kappa_c'$ lowers incumbent's effective cost of R\&D
+			\begin{itemize}
+				\item more incumbent R\&D ($z \uparrow$), less entrant R\&D ($\hat{z} \downarrow$)
+			\end{itemize}
+		\end{itemize}
+		\item Overall change in growth rate from reduction to $\kappa_c''$
+		\begin{align*}
+		\Delta g  &= (\lambda -1) (\Delta (\underbrace{\tau + \hat{\tau}}_{\mathclap{\chi z + \hat{\chi} \hat{z}^{1-\psi}}}) - \underbrace{\tau^S_0}_{\mathclap{ \nu z_0}})
+		\end{align*}
+		\begin{itemize}
+			\item if (\ref{eq:RD_reallocation}) holds, $\Delta(\tau+ \hat{\tau}) > 0$ 
+			\item growth can \alert{\textbf{increase}} or \alert{\textbf{decrease}}  
+		\end{itemize}
+		\item Need \alert{\textbf{quantitative discipline}} on parameters
+	\end{itemize}
+\end{frame}
+
+\subsection{Empirics}
+
+
+\begin{frame}{Results of match to Compustat}\label{results_of_match}
+	\hyperlink{economic_magnitude}{\beamergotobutton{back}}
+	\begin{figure}
+		\includegraphics[scale=0.24]{figures/presentation/table1_founder2.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Founders explained by regression coefficient}\label{regs_economic_significance}
+	\hyperlink{economic_magnitude}{\beamergotobutton{back}}
+	\begin{figure}[!htb]
+		\includegraphics[scale=0.3]{../empirics/figures/founder2_founders_wso4_f3_Accounting.pdf}
+		\caption{\small Accounting for WSOs using regression estimated relationship between R\&D and founders leaving to WSOs.}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}{Economic magnitude II: employment}\label{regs_startup_lifecycle_employment}
+	\hyperlink{economic_magnitude}{\beamergotobutton{back}}
+	\begin{table}[!htb]
+		\Tiny
+		\centering
+		\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_lemployeecount_founder2_overall.tex}
+		\caption{\footnotesize Dependent variable is logarithm of employee count divided by number of founders. Indepdendent variable is fraction of founders whose previous employer was in the same industry.} 
+		\label{table:startupLifeCycle_founder2founders_lemployeecount_founder2}
+	\end{table}
+\end{frame}
+
+
+\begin{frame}{Economic magnitude II: revenue}\label{regs_startup_lifecycle_revenue}
+	\hyperlink{economic_magnitude}{\beamergotobutton{back}}
+	\begin{table}[!htb]
+		\Tiny
+		\centering
+		\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_lrevenue_founder2_overall.tex}
+		\caption{\footnotesize Dependent variable is logarithm of revenue divided by number of founders. Indepdendent variable is fraction of founders whose previous employer was in the same industry.} 
+		\label{table:startupLifeCycle_founder2founders_lrevenue_founder2}
+	\end{table}
+\end{frame}
+
+
+\begin{frame}{Economic magnitude II: valuation}\label{regs_startup_lifecycle_valuation}
+	\hyperlink{economic_magnitude}{\beamergotobutton{back}}
+	\begin{table}[!htb]
+		\Tiny
+		\centering
+		\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_lpostvalusd_founder2_overall.tex}
+		\caption{\footnotesize Dependent variable is logarithm of valuation divided by number of founders. Indepdendent variable is fraction of founders whose previous employer was in the same industry.} 
+		\label{table:startupLifeCycle_founder2founders_lpostvalusd_founder2}
+	\end{table}
+\end{frame}
+
+
+\begin{frame}{Economic magnitude II: going out of business}\label{regs_startup_lifecycle_goingoutofbusiness}
+	\hyperlink{economic_magnitude}{\beamergotobutton{back}}
+	\begin{table}[!htb]
+		\Tiny
+		\centering
+		\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_goingoutofbusiness_overall.tex}
+		\caption{\footnotesize Dependent variable is an indicator for the startup going out of business that year. Indepdendent variable is fraction of founders whose previous employer was in the same industry.} 
+		\label{table:startupLifeCycle_founder2founders_goingoutofbusiness}
+	\end{table}
+\end{frame}
+
+\begin{frame}{Economic magnitude II: M\&A and IPO}\label{regs_startup_lifecycle_successfullyexiting}
+	\hyperlink{economic_magnitude}{\beamergotobutton{back}}
+	\begin{table}[!htb]
+		\Tiny
+		\centering
+		\input{../empirics/figures/tables/startupLifeCycle_founder2founders_regs_successfullyexiting_overall.tex}
+		\caption{\footnotesize Dependent variable is an indicator for the startup being acquired or having an IPO in that year. Indepdendent variable is fraction of founders whose previous employer was in the same industry.} 
+		\label{table:startupLifeCycle_founder2founders_successfullyexiting}
+	\end{table}
+\end{frame}
+
+
+\subsection{Calibration}
+
+\begin{frame}{Economic magnitude}\label{economic_magnitude}
+	\hyperlink{calibration_targets}{\beamergotobutton{back}}
+	\begin{itemize}
+		\item WSO founders (assume all creative destruction) are approx. $8\%$ of founders  \hyperlink{results_of_match}{\beamergotobutton{details}}
+		\item Corporate R\&D can account for approx. $75\%$ of founder departures to WSOs in the data \hyperlink{regs_economic_significance}{\beamergotobutton{details}}
+		\item Per founder, WSOs are approx 35\% larger (employment, revenue, valuation) than other spinouts \hyperlink{regs_startup_lifecycle_employment}{\beamergotobutton{employment}} \hyperlink{regs_startup_lifecycle_revenue}{\beamergotobutton{revenue}} \hyperlink{regs_startup_lifecycle_valuation}{\beamergotobutton{valuation}}  \hyperlink{regs_startup_lifecycle_goingoutofbusiness}{\beamergotobutton{exit rate}} \hyperlink{regs_startup_lifecycle_successfullyexiting}{\beamergotobutton{M\&A and IPO}} 
+		\item \alert{\textbf{Conclusion:}} R\&D induced spinouts account for roughly 8\% of startup employment / revenue / valuation 
+		\begin{itemize}
+			\item Creative destruction constitutes 30-70\% of growth from startups $\Rightarrow$ 72\% - 93\% of startup employment if $\lambda = 1.2$ (higher if $\lambda < 1.2$)
+			\item $\Rightarrow$ R\&D-induced spinouts account for 8.6\% to 11.1\% of creative destruction startup employment / revenue / valuation
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Identification}\label{identification}\hyperlink{parameters}{\beamergotobutton{back}} 
+	\begin{figure}
+		\includegraphics[scale = 0.23]{../code/julia/figures/simpleModel/calibrationSensitivityFull.pdf}
+		\caption{\small Elasticity of each calibrated parameter to each moment $r,g,OI,E,S,RD$ or external parameter $\theta, \beta, \psi$}
+	\end{figure}
+\end{frame}
+
+
+\subsection{Policy}
+
+
+\begin{frame}{Robustness of welfare gain to moments}\label{robustness_to_moments}
+\hyperlink{reducing_kappa_c_table}{\beamergotobutton{back}}
+	\begin{figure}
+		\includegraphics[scale = 0.21]{../code/julia/figures/simpleModel/WelfareComparisonSensitivityFull.pdf}
+		\caption{Elasticity of CEV welfare improvement with respect to target moments and exactly or externally calibrated parameters.}
+		\label{WelfareComparisonSensitivityFull}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Robustness of welfare gain to parameters}\label{robustness_to_parameters}
+	\hyperlink{reducing_kappa_c_table}{\beamergotobutton{back}}
+	\begin{figure}
+		\includegraphics[scale = 0.21]{../code/julia/figures/simpleModel/WelfareComparisonParameterSensitivityFull.pdf}
+		\caption{Elasticity of CEV welfare improvement with respect to model parameters.}
+		\label{WelfareComparisonSensitivityFull}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Decomposition of growth increase}\label{decomposition_growth_increase}
+	\hyperlink{reducing_kappa_c_table}{\beamergotobutton{back}}
+	\begin{table}
+		\centering
+		\footnotesize
+		\begin{tabular}{lrlll}
+			\toprule \toprule
+			Measure & Variable & $\kappa_c > \bar{\kappa}_c$ & $\kappa_c = 0$ & Chg. \tabularnewline
+			\midrule
+			Growth & $g$ & 1.487\% & 1.597\% & 7.4\% \tabularnewline
+			\multicolumn{1}{r}{incumbents} &  & 81\% & 86.2\% & 6.42\% \tabularnewline
+			\multicolumn{1}{r}{entrants} &  & 17.7\% & 13.8\% & -22\% \tabularnewline
+			\multicolumn{1}{r}{spinouts} &  & 1.32\% & 0\% & -100\% \tabularnewline
+			\tabularnewline
+			R\&D & & & & 
+			\tabularnewline
+			\multicolumn{1}{r}{incumbents (\%)}  & $z / \bar{L}_{RD}$ & 67.7\% & 77.4\% & 14.3\% \tabularnewline 
+			
+			\multicolumn{1}{r}{entrants (\%)}  & $\hat{z} / \bar{L}_{RD}$ & 32.3\% & 22.5\% & -30.3\% \tabularnewline
+			\bottomrule
+		\end{tabular}
+	\end{table}
+\end{frame}
+
+
+\begin{frame}{Reducing barriers to the use of noncompetes $\kappa_c$} \label{reducing_kappa_c} 
+	\hyperlink{reducing_kappa_c_table}{\beamergotobutton{back}}
+	\begin{figure}[]
+		\includegraphics[scale = 0.26]{../code/julia/figures/simpleModel/calibrationFixed_summaryPlot.pdf}
+		\caption{Sufficiently reducing $\kappa_c$ improves growth and welfare.}
+	\end{figure}
+\end{frame}
+
+
+
+
+
+
+
+\end{document}

@@ -13,6 +13,20 @@
 
 data <- fread("data/compustat-spinouts.csv")
 
+# merge with founding dates
+
+foundingDates <- setDT(read.xlsx("raw/compustat/age19752019.xlsx"))[ !is.na(CUSIP)]
+foundingDates[ str_length(CUSIP) == 8, CUSIP := paste0(CUSIP,"0")]
+
+foundingDates <- unique(foundingDates, by = "CUSIP")
+
+setkey(data,cusip)
+setkey(foundingDates,CUSIP)
+
+data <- foundingDates[ , .(CUSIP,Founding)][data]
+
+# set key as (gvkey,year) for the rest of the script
+
 setkey(data,gvkey,year)
 
 # Set NA xrd values to zero 
@@ -76,13 +90,17 @@ for (var in parentFirmControls)
 # Sort data 
 data <- data[order(gvkey,year)]
 
-# Compute firm age  
+## Compute firm age  
+
+# based on first date in compustat
 data[, firmAge := rowidv(gvkey) - 1]
+# based on founding date of firm (but incomplete data)
+data[ , firmAge_founding := year - Founding]
 
 
 # Force the right time frame
 
-data <- data[year >= 1986]
+data <- data[year >= 1983]
 data <- data[year <= 2018]
 
 # Construct 1,2,3,4,5,6-digit NAICS codes
@@ -146,7 +164,7 @@ for (col in countCols)
 
 # Construct variable normalized by asset holdings
 
-parentFirmVars <- c("xrd","patentApplicationCount","patentApplicationCount_CW","patentCount_CW","patentCount_CW_cumulative","emp","Tobin_Q","lfirm","lstate","lfirm_bloom","lstate_bloom")
+parentFirmVars <- c("xrd","patentCount_CW_cumulative","emp","Tobin_Q","Tobin_Q_noitcb","lfirm","lstate","lfirm_bloom","lstate_bloom")
 
 
 #data[ , at_ma5 := (1/5) * Reduce(`+`, shift(at,0L:4L,type="lag")), by = gvkey]
@@ -259,6 +277,8 @@ proc.time() - ptm
 #-------------------------#
 
 data[ , tobinqat := Tobin_Q * at]
+
+data[ , tobinqat_l3 := rollapplyr(tobinqat, FUN = mean, width = 3, align = "right", partial = TRUE), by = gvkey]
       
 if (normalizeVariablesStata == TRUE)
 {

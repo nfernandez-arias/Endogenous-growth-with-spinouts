@@ -1,0 +1,37 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{8}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}&\multicolumn{1}{c}{(7)}&\multicolumn{1}{c}{(8)}\\
+                    &\multicolumn{1}{c}{$\frac{\textrm{Founders}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{Founders}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{Founders}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{Founders}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{WSO4}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{WSO4}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{WSO4}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{WSO4}}{\textrm{Assets}}$}\\
+\midrule
+$\frac{\textrm{R\&D}}{\textrm{Assets}}$&        1.79\sym{***}&        1.67         &        1.68         &        1.68         &        0.93\sym{***}&        0.82\sym{*}  &        0.78\sym{+}  &        0.78\sym{**} \\
+                    &      (0.42)         &      (1.31)         &      (1.36)         &      (1.39)         &      (0.24)         &      (0.48)         &      (0.52)         &      (0.32)         \\
+\addlinespace
+highNCC\_1991=0 $\times$ $\frac{\textrm{R\&D}}{\textrm{Assets}}$&           0         &           0         &           0         &           0         &           0         &           0         &           0         &           0         \\
+                    &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         &         (.)         \\
+\addlinespace
+highNCC\_1991=1 $\times$ $\frac{\textrm{R\&D}}{\textrm{Assets}}$&        0.14         &       -1.09         &       -0.96         &       -0.96         &       0.035         &       -0.54         &       -0.54         &       -0.54         \\
+                    &      (0.64)         &      (1.52)         &      (1.57)         &      (1.55)         &      (0.34)         &      (0.75)         &      (0.77)         &      (0.44)         \\
+\addlinespace
+No FE               &         Yes         &          No         &          No         &          No         &         Yes         &          No         &          No         &          No         \\
+\addlinespace
+Firm FE             &          No         &         Yes         &         Yes         &         Yes         &          No         &         Yes         &         Yes         &         Yes         \\
+\addlinespace
+Year FE             &          No         &         Yes         &          No         &          No         &          No         &         Yes         &          No         &          No         \\
+\addlinespace
+Age FE              &          No         &          No         &         Yes         &         Yes         &          No         &          No         &         Yes         &         Yes         \\
+\addlinespace
+Industry-Year FE    &          No         &          No         &         Yes         &         Yes         &          No         &          No         &         Yes         &         Yes         \\
+\addlinespace
+State-Year FE       &          No         &          No         &         Yes         &         Yes         &          No         &          No         &         Yes         &         Yes         \\
+\midrule
+Clustering          &       gvkey         &       gvkey         &       gvkey         &naics4 Statecode         &       gvkey         &       gvkey         &       gvkey         &naics4 Statecode         \\
+R-squared (adj.)    &       0.014         &        0.26         &        0.21         &        0.21         &       0.010         &        0.27         &        0.22         &        0.22         \\
+R-squared (within, adj)&       0.014         &      0.0024         &      0.0021         &      0.0021         &       0.010         &      0.0011         &      0.0010         &      0.0010         \\
+Observations        &       60687         &       59477         &       57948         &       57948         &       60687         &       59477         &       57948         &       57948         \\
+\bottomrule
+\multicolumn{9}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{9}{l}{\footnotesize \sym{++} \(p<0.2\), \sym{+} \(p<0.15\), \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

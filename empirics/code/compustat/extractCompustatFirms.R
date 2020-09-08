@@ -6,8 +6,7 @@
 #
 # Purpose:
 #
-# This script links EntityNames to the Compustat database
-# to find parent firms. 
+# Extracts relevant compustat variables
 #------------------------------------------------#
 
 compustat <- fread("raw/compustat/compustat_annual.csv")[indfmt=="INDL" & datafmt=="STD" & popsrc=="D" & consol=="C" & loc == "USA"]

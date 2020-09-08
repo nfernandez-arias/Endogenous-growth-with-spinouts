@@ -27,6 +27,7 @@ library(readstata13)
 library(openxlsx)
 library(foreign)
 library(haven)
+library(RColorBrewer)
 
 # Load and set up plotting libraries
 library(ggplot2)
@@ -111,7 +112,6 @@ source("code/VentureSource/constructStartupAttributes.R")
 source("code/findSpinouts.R")
 
 # Construct parentFirm-year spinout counts and spinout indicator 
-# (for now, not considering industry)             
 source("code/constructSpinoutCounts.R") 
 
 # Combine with data on R&D from compustat_annual      
@@ -168,6 +168,10 @@ source("code/analysis/makeScatterPlots.R")
 source("code/analysis/compareSpinoutsToEntrants.R")
 
 source("code/analysis/regressionPredictionAttribution.R")
+
+# Make some graphs showing where R&D comes from -- it is focused in a 
+# handful of 3-digit NAICS industries.
+source("code/analysis/RDDecompositionByIndustry.R")
 
 # Make some parent-child heatmaps: by industry, by state
 

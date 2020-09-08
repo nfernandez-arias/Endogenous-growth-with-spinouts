@@ -1,0 +1,30 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{8}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}&\multicolumn{1}{c}{(7)}&\multicolumn{1}{c}{(8)}\\
+                    &\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}\\
+\midrule
+log(R\&D)           &        0.81\sym{***}&        0.49\sym{***}&        0.50\sym{**} &        0.50\sym{***}&        1.54\sym{***}&        0.55\sym{***}&        1.28\sym{***}&        1.28\sym{***}\\
+                    &     (0.098)         &      (0.15)         &      (0.22)         &      (0.13)         &      (0.13)         &      (0.20)         &      (0.44)         &      (0.49)         \\
+\addlinespace
+No FE               &         Yes         &          No         &          No         &          No         &         Yes         &          No         &          No         &          No         \\
+\addlinespace
+Firm FE             &          No         &         Yes         &         Yes         &         Yes         &          No         &         Yes         &         Yes         &         Yes         \\
+\addlinespace
+Year FE             &          No         &         Yes         &          No         &          No         &          No         &         Yes         &          No         &          No         \\
+\addlinespace
+Age FE              &          No         &          No         &         Yes         &         Yes         &          No         &          No         &         Yes         &         Yes         \\
+\addlinespace
+Industry-Year FE    &          No         &          No         &         Yes         &         Yes         &          No         &          No         &         Yes         &         Yes         \\
+\addlinespace
+State-Year FE       &          No         &          No         &         Yes         &         Yes         &          No         &          No         &         Yes         &         Yes         \\
+\midrule
+Clustering          &       gvkey         &       gvkey         &       gvkey         &naics4 Statecode         &       gvkey         &       gvkey         &       gvkey         &naics4 Statecode         \\
+pseudo R-squared    &        0.44         &        0.49         &        0.54         &        0.54         &        0.45         &        0.38         &        0.38         &        0.38         \\
+Observations        &        7434         &        2416         &        1335         &        1335         &        7434         &         898         &         436         &         436         \\
+\bottomrule
+\multicolumn{9}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{9}{l}{\footnotesize \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

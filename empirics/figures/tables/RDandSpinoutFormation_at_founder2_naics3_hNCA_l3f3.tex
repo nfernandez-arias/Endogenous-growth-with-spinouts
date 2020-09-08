@@ -1,0 +1,62 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
+                    &\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}\\
+\midrule
+hNCA\_xrd\_at\_l3\_ind\_3dig325&       -69.2         &       -65.1         &       -65.1         &       -52.4         &       -64.2         &       -64.2         \\
+                    &      (43.4)         &      (50.9)         &      (54.8)         &      (36.9)         &      (40.7)         &      (43.4)         \\
+\addlinespace
+hNCA\_xrd\_at\_l3\_ind\_3dig333&       582.7         &       789.0\sym{**} &       789.0\sym{***}&       141.9\sym{**} &       183.9\sym{***}&       183.9\sym{***}\\
+                    &     (425.5)         &     (306.2)         &     (227.3)         &      (64.0)         &      (69.7)         &      (46.4)         \\
+\addlinespace
+hNCA\_xrd\_at\_l3\_ind\_3dig334&        52.6         &        97.6         &        97.6         &        14.3         &        15.2         &        15.2         \\
+                    &     (181.9)         &     (203.9)         &     (155.1)         &      (54.5)         &      (61.8)         &      (36.1)         \\
+\addlinespace
+hNCA\_xrd\_at\_l3\_ind\_3dig336&      -378.7         &      -329.0         &      -329.0         &        7.24         &       -4.98         &       -4.98         \\
+                    &     (393.9)         &     (350.0)         &     (331.1)         &     (180.1)         &     (185.2)         &      (68.5)         \\
+\addlinespace
+hNCA\_xrd\_at\_l3\_ind\_3dig511&     -1161.2         &       -18.5         &       -18.5         &      -404.0         &       -65.4         &       -65.4         \\
+                    &    (1435.7)         &     (545.9)         &     (233.9)         &     (501.8)         &     (336.4)         &      (88.5)         \\
+\addlinespace
+hNCA\_xrd\_at\_l3\_ind\_3dig519&      1735.1         &      2426.6\sym{**} &      2426.6\sym{***}&        81.4         &       411.2         &       411.2\sym{**} \\
+                    &    (1095.5)         &    (1119.6)         &     (413.7)         &     (190.0)         &     (562.4)         &     (165.8)         \\
+\addlinespace
+naics3\_selected=0 $\times$ $\frac{\textrm{R\&D}}{\textrm{Assets}}$&        16.7         &       -11.1         &       -11.1         &        29.3\sym{***}&        18.9\sym{*}  &        18.9         \\
+                    &      (26.9)         &      (30.0)         &      (35.7)         &      (10.7)         &      (10.3)         &      (17.1)         \\
+\addlinespace
+naics3\_selected=325 $\times$ $\frac{\textrm{R\&D}}{\textrm{Assets}}$&        29.3         &        41.2         &        41.2         &        43.0\sym{*}  &        68.1\sym{*}  &        68.1\sym{**} \\
+                    &      (28.9)         &      (43.2)         &      (38.5)         &      (24.5)         &      (36.8)         &      (30.7)         \\
+\addlinespace
+naics3\_selected=333 $\times$ $\frac{\textrm{R\&D}}{\textrm{Assets}}$&      -533.8         &      -634.9\sym{**} &      -634.9\sym{***}&      -148.3\sym{**} &      -170.0\sym{**} &      -170.0\sym{***}\\
+                    &     (439.0)         &     (295.7)         &     (142.0)         &      (71.4)         &      (67.8)         &      (37.9)         \\
+\addlinespace
+naics3\_selected=334 $\times$ $\frac{\textrm{R\&D}}{\textrm{Assets}}$&        47.9         &        56.4         &        56.4         &        54.6         &        41.4         &        41.4         \\
+                    &     (100.4)         &     (101.8)         &     (127.9)         &      (37.2)         &      (43.8)         &      (40.0)         \\
+\addlinespace
+naics3\_selected=511 $\times$ $\frac{\textrm{R\&D}}{\textrm{Assets}}$&        15.6         &       -55.6         &       -55.6         &        71.6         &        59.1         &        59.1         \\
+                    &     (550.1)         &     (558.4)         &     (328.0)         &     (317.7)         &     (345.1)         &     (138.6)         \\
+\addlinespace
+naics3\_selected=519 $\times$ $\frac{\textrm{R\&D}}{\textrm{Assets}}$&       -11.4         &     -1422.0         &     -1422.0\sym{***}&      -119.3         &       -95.1         &       -95.1\sym{*}  \\
+                    &     (621.9)         &    (1005.3)         &     (140.7)         &     (122.4)         &     (285.2)         &      (50.6)         \\
+\addlinespace
+Firm FE             &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+\addlinespace
+Year FE             &         Yes         &          No         &          No         &         Yes         &          No         &          No         \\
+\addlinespace
+NAICS3*-Age FE      &          No         &         Yes         &         Yes         &          No         &         Yes         &         Yes         \\
+\addlinespace
+Industry-Year FE    &          No         &         Yes         &         Yes         &          No         &         Yes         &         Yes         \\
+\addlinespace
+NAICS3*-State-Year FE&          No         &         Yes         &         Yes         &          No         &         Yes         &         Yes         \\
+\midrule
+Clustering          &       gvkey         &       gvkey         &naics4 Statecode         &       gvkey         &       gvkey         &naics4 Statecode         \\
+R-squared (adj.)    &        0.55         &        0.68         &        0.68         &        0.54         &        0.63         &        0.63         \\
+R-squared (within, adj)&       0.017         &      0.0067         &      0.0067         &       0.017         &      0.0091         &      0.0091         \\
+Observations        &       59481         &       57145         &       57145         &       59481         &       57145         &       57145         \\
+\bottomrule
+\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

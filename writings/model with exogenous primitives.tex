@@ -1,0 +1,202 @@
+\documentclass[11pt,english]{article}
+\usepackage{lmodern}
+\linespread{1.05}
+%\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+
+
+
+\usepackage{chngcntr}
+\usepackage[nocomma]{optidef}
+
+\usepackage[section]{placeins}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{bbm}
+\usepackage{amsfonts}
+
+\usepackage{accents}
+\newcommand\munderbar[1]{%
+	\underaccent{\bar}{#1}}
+
+
+\usepackage{svg}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{blindtext}
+%\renewcommand{\arraystretch}{1.2}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{rotating}
+\usepackage{mathtools}
+\usepackage{chngcntr}
+
+% TikZ stuff
+
+\usepackage{tikz}
+\usepackage{mathdots}
+\usepackage{yhmath}
+\usepackage{cancel}
+\usepackage{color}
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usetikzlibrary{fadings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shadows.blur}
+
+\usepackage[font=small]{caption}
+%\usepackage[printfigures]{figcaps}
+%\usepackage[nomarkers]{endfloat}
+
+
+%\usepackage{caption}
+%\captionsetup{justification=raggedright,singlelinecheck=false}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+
+\bibliographystyle{plainnat}
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+
+\let\oldFootnote\footnote
+\newcommand\nextToken\relax
+
+\renewcommand\footnote[1]{%
+	\oldFootnote{#1}\futurelet\nextToken\isFootnote}
+
+\newcommand\isFootnote{%
+	\ifx\footnote\nextToken\textsuperscript{,}\fi}
+
+%\usepackage{esint}
+\onehalfspacing
+
+%\theoremstyle{remark}
+%\newtheorem{remark}{Remark}
+%\newtheorem{theorem}{Theorem}[section]
+\newtheorem{assumption}{Assumption}
+\newtheorem{proposition}{Proposition}
+\newtheorem{proposition_corollary}{Corollary}[proposition]
+\newtheorem{lemma}{Lemma}
+\newtheorem{lemma_corollary}{Corollary}[lemma]
+
+\begin{document}
+	
+\title{Model with exogenous primitives}
+
+\author{Nicolas Fernandez-Arias} 
+%\date{\today \\ \small
+%	%\href{https://drive.google.com/file/d/1gu4CT1ft4LY4MsKKgluxb8Gu_YoP8DLD/view?usp=sharing}%{Click for most recent version}}
+
+\date{\today}
+
+\maketitle
+
+
+%\setcounter{tocdepth}{2}
+%\tableofcontents
+
+
+\section{Introduction}
+
+Have NCA cost $\kappa_c \nu q$ and entry cost $\kappa_e \lambda q$. So indifference condition is now 
+\begin{align}
+	w_{RD}(\mathbbm{1}^{NCA}) = \hat{w}_{RD} - \nu (\lambda \tilde{V} - \kappa_e)
+\end{align}
+
+Incumbent therefore uses NCA iff
+\begin{align}
+	\nu (\tilde{V}(1-\lambda) + \kappa_e ) > \nu \kappa_c 
+\end{align}
+
+This suggests a simple algorithm. Compute the equilibrium under the assumption that $\mathbbm{1}^{NCA} = 1$. Compute the inequality. If it holds, then we have found an equilibrium. Otherwise the equilibrium has $\mathbbm{1}^{NCA} = 1$. Not sure about uniqueness yet.
+
+If $\mathbbm{1}^{NCA} = 1$ then incumbent HJB implies
+\begin{align}
+	\chi (\lambda - 1) \tilde{V} = \hat{w}_{RD} + \kappa_c \nu 
+\end{align}
+
+Entrant optimization implies
+\begin{align}
+	\hat{\chi} \hat{z}^{-\psi} \Big( \lambda \tilde{V} - \kappa_e  \Big) = \hat{w}_{RD}
+\end{align}
+
+Substituting into the previous equation yields
+\begin{align}
+	\chi(\lambda -1) \tilde{V} = \hat{\chi} \hat{z}^{-\psi} \Big( \lambda \tilde{V} - \kappa_e \Big) + \kappa_c \nu 
+\end{align}
+
+The value of the incumbent no longer cancels out. So have no simple equation for $\hat{z}$. But whatever, you get an expression for $\hat{z}(\tilde{V})$. The other model is nice because you immediately get $g$ at this point, so you can solve for $r$ and the rest of the equilibrium. Here, $g$ is still a function of $\tilde{V}$. But anyway, use the above expression and the labor resource condition to obtain $g(\tilde{V})$, which then yields $r(\tilde{V})$ via the Euler equation. Then the incumbent yields, via $r(\tilde{V}), \hat{\tau}(\tilde{V})$ and $\tilde{\pi}$, an equation
+\begin{align}
+	\tilde{V} = \frac{\tilde{\pi}}{r(\tilde{V}) + \hat{\tau}(\tilde{V})}
+\end{align}
+
+which can be solved for $\tilde{V}$. Then the NCA use condition can be checked. If it does not hold, this means that the incumbent value is too high for it to hold. Well, if noncompetes are not used, growth is higher, and therefore the interest rate is higher and the the incumbent value is lower. 
+
+But the overall conclusion is that the equations are a mess and it's really not that transparent. Also, I am not sure but it might be the case that in many cases there only exists a mixed strategy equilibrium. The reason is that the incumbent value now matters for the noncompete policy. Following the model solution algorithm above, one could end up in a case where assuming the opposite NCA use implies that the incumbent value overshoots and is now too low. The solution in that case is to have a mixed strategy equilibrium. 
+
+Suppose $\kappa_c = 0$ and $\kappa_e$ is large so that noncompetes will be used.  
+
+
+\section{Planner's problem}
+
+The planner maximizes
+\begin{align}
+	\tilde{W} = \frac{\tilde{Y} - \kappa_e (\hat{\tau} + \tau^S) - \mathbbm{1}^{NCA} \kappa_c \nu z}{(1-\theta)(r - g(1-\theta))}
+\end{align}
+
+To simplify, consider the case of log utility. The planner then optimizes
+\begin{align}
+	\tilde{W} = \frac{\rho \log (\tilde{Y} - \kappa_e (\hat{\tau} + \tau^S) - \mathbbm{1}^{NCA} \kappa_c \nu z) + g}{\rho^2}
+\end{align}
+
+The planner will never choose $\mathbbm{1}^{NCA} = 1$ because he can just set $\tau^S = 0$ without doing so, if socially beneficial. The social planner's problem is therefore
+\begin{align}
+	\max_{\substack{z \ge 0 \\ \hat{z} \ge 0 \\ \tau^S \in [0,\nu z]}}  \frac{\rho \log (\tilde{Y} - \kappa_e (\hat{\chi} \hat{z}^{1-\psi}+ \tau^S)) + (\lambda -1) (\chi z + \hat{\chi} \hat{z}^{1-\psi} + \tau^S)}{\rho^2}
+\end{align}
+
+subject to the labor resource constraint
+\begin{align}
+	z + \hat{z} = \bar{L}_{RD}
+\end{align}
+
+Substituting the labor resource constraint yields
+\begin{align}
+\max_{\substack{\hat{z} \ge 0 \\ \tau^S \in [0,\nu (\bar{L}_{RD} - \hat{z})]}}  \frac{\rho \log (\tilde{Y} - \kappa_e (\hat{\chi} \hat{z}^{1-\psi}+ \tau^S)) + (\lambda -1) (\chi (\bar{L}_{RD} - \hat{z}) + \hat{\chi} \hat{z}^{1-\psi} + \tau^S)}{\rho^2}
+\end{align}
+
+Lagrangean
+\begin{align}
+ \frac{\rho \log (\tilde{Y} - \kappa_e (\hat{\chi} \hat{z}^{1-\psi}+ \tau^S)) + (\lambda -1) (\chi (\bar{L}_{RD} - \hat{z}) + \hat{\chi} \hat{z}^{1-\psi} + \tau^S)}{\rho^2} + \mu (\nu (\bar{L}_{RD} - \hat{z})) 
+\end{align}
+
+FOC w.r.t $\hat{z}$ yields
+\begin{align}
+	\frac{\kappa_e (1-\psi)\hat{\chi} \hat{z}^{-\psi} }{\tilde{Y} - \kappa_e (\hat{\chi} \hat{z}^{1-\psi} + \tau^S)} +  (\lambda -1) \chi = (\lambda -1) \hat{\chi} \hat{z}^{-\psi}
+\end{align}
+
+
+
+
+
+
+\end{document}

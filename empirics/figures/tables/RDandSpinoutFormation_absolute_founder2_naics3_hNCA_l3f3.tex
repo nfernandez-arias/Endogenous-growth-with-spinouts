@@ -1,0 +1,62 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
+                    &\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{Founders}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}\\
+\midrule
+hNCA\_xrd\_l3\_ind\_3dig325&       0.077         &       0.078         &       0.078         &       -0.11         &       -0.15\sym{**} &       -0.15\sym{***}\\
+                    &     (0.055)         &     (0.056)         &     (0.055)         &     (0.079)         &     (0.076)         &     (0.039)         \\
+\addlinespace
+hNCA\_xrd\_l3\_ind\_3dig333&       -0.67         &       -0.65         &       -0.65         &       -0.36\sym{***}&       -0.41\sym{***}&       -0.41\sym{***}\\
+                    &      (0.54)         &      (0.49)         &      (0.40)         &      (0.12)         &      (0.14)         &      (0.14)         \\
+\addlinespace
+hNCA\_xrd\_l3\_ind\_3dig334&        0.81\sym{**} &        0.85\sym{**} &        0.85\sym{***}&        0.39\sym{**} &        0.40\sym{**} &        0.40\sym{*}  \\
+                    &      (0.34)         &      (0.40)         &      (0.11)         &      (0.19)         &      (0.18)         &      (0.20)         \\
+\addlinespace
+hNCA\_xrd\_l3\_ind\_3dig336&       0.016         &       0.062         &       0.062         &      -0.063\sym{*}  &      -0.073\sym{*}  &      -0.073         \\
+                    &      (0.31)         &      (0.32)         &      (0.33)         &     (0.035)         &     (0.041)         &     (0.055)         \\
+\addlinespace
+hNCA\_xrd\_l3\_ind\_3dig511&       -2.65\sym{***}&       -4.21\sym{***}&       -4.21\sym{***}&       -1.97\sym{***}&       -2.67\sym{***}&       -2.67\sym{***}\\
+                    &      (0.75)         &      (1.28)         &      (0.72)         &      (0.45)         &      (0.85)         &      (0.40)         \\
+\addlinespace
+hNCA\_xrd\_l3\_ind\_3dig519&        11.4\sym{***}&        11.1\sym{***}&        11.1\sym{***}&        1.42\sym{***}&        0.76         &        0.76         \\
+                    &      (2.71)         &      (2.75)         &      (0.87)         &      (0.52)         &      (0.69)         &      (1.14)         \\
+\addlinespace
+naics3\_selected=0 $\times$ R\&D&        0.12         &       0.097         &       0.097         &       0.056         &       0.069\sym{*}  &       0.069         \\
+                    &      (0.28)         &      (0.30)         &      (0.32)         &     (0.034)         &     (0.040)         &     (0.053)         \\
+\addlinespace
+naics3\_selected=325 $\times$ R\&D&        0.41\sym{***}&        0.43\sym{***}&        0.43\sym{***}&        0.38\sym{***}&        0.38\sym{***}&        0.38\sym{***}\\
+                    &     (0.072)         &     (0.097)         &     (0.093)         &     (0.062)         &     (0.083)         &     (0.074)         \\
+\addlinespace
+naics3\_selected=333 $\times$ R\&D&        0.76\sym{**} &        0.83\sym{***}&        0.83\sym{**} &        0.29\sym{***}&        0.30\sym{***}&        0.30\sym{***}\\
+                    &      (0.30)         &      (0.30)         &      (0.37)         &     (0.052)         &     (0.070)         &     (0.072)         \\
+\addlinespace
+naics3\_selected=334 $\times$ R\&D&        0.35         &        0.35         &        0.35\sym{**} &      -0.042         &      -0.049         &      -0.049         \\
+                    &      (0.36)         &      (0.38)         &      (0.17)         &      (0.13)         &      (0.15)         &     (0.052)         \\
+\addlinespace
+naics3\_selected=511 $\times$ R\&D&        1.08\sym{***}&        1.26\sym{***}&        1.26\sym{***}&        0.83\sym{***}&        0.96\sym{***}&        0.96\sym{***}\\
+                    &      (0.30)         &      (0.38)         &      (0.15)         &      (0.22)         &      (0.24)         &     (0.087)         \\
+\addlinespace
+naics3\_selected=519 $\times$ R\&D&       -3.56         &       -6.36\sym{***}&       -6.36\sym{***}&       -1.79\sym{***}&       -2.25\sym{***}&       -2.25\sym{***}\\
+                    &      (2.51)         &      (1.07)         &      (0.46)         &      (0.51)         &      (0.30)         &      (0.28)         \\
+\addlinespace
+Firm FE             &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+\addlinespace
+Year FE             &         Yes         &          No         &          No         &         Yes         &          No         &          No         \\
+\addlinespace
+NAICS3*-Age FE      &          No         &         Yes         &         Yes         &          No         &         Yes         &         Yes         \\
+\addlinespace
+Industry-Year FE    &          No         &         Yes         &         Yes         &          No         &         Yes         &         Yes         \\
+\addlinespace
+NAICS3*-State-Year FE&          No         &         Yes         &         Yes         &          No         &         Yes         &         Yes         \\
+\midrule
+Clustering          &       gvkey         &       gvkey         &naics4 Statecode         &       gvkey         &       gvkey         &naics4 Statecode         \\
+R-squared (adj.)    &        0.75         &        0.76         &        0.75         &        0.72         &        0.72         &        0.72         \\
+R-squared (within, adj)&        0.45         &        0.24         &        0.24         &        0.41         &        0.24         &        0.24         \\
+Observations        &       59485         &       57149         &       57149         &       59485         &       57149         &       57149         \\
+\bottomrule
+\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

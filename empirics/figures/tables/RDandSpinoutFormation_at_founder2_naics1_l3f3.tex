@@ -1,0 +1,53 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
+                    &\multicolumn{1}{c}{$\frac{\textrm{Founders}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{Founders}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{Founders}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{WSO4}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{WSO4}}{\textrm{Assets}}$}&\multicolumn{1}{c}{$\frac{\textrm{WSO4}}{\textrm{Assets}}$}\\
+\midrule
+xrd\_at\_l3\_industry\_1dig1&        0.13         &        0.57         &        0.57         &        0.17         &        0.39         &        0.39         \\
+                    &      (0.36)         &      (1.05)         &      (0.70)         &      (0.21)         &      (0.86)         &      (0.39)         \\
+\addlinespace
+xrd\_at\_l3\_industry\_1dig2&       -0.14         &       -0.24         &       -0.24         &       0.013         &       0.046         &       0.046         \\
+                    &      (0.14)         &      (0.19)         &      (0.17)         &     (0.073)         &      (0.12)         &     (0.066)         \\
+\addlinespace
+xrd\_at\_l3\_industry\_1dig3&        1.35         &        1.44         &        1.44         &        0.60         &        0.62         &        0.62\sym{***}\\
+                    &      (0.87)         &      (0.89)         &      (0.94)         &      (0.38)         &      (0.42)         &      (0.20)         \\
+\addlinespace
+xrd\_at\_l3\_industry\_1dig4&       -0.33         &        0.38         &        0.38         &       -0.13         &        0.19         &        0.19         \\
+                    &      (1.07)         &      (1.10)         &      (1.14)         &      (0.16)         &      (0.38)         &      (0.19)         \\
+\addlinespace
+xrd\_at\_l3\_industry\_1dig5&       0.034         &      -0.090         &      -0.090         &        0.33         &      -0.099         &      -0.099         \\
+                    &      (1.02)         &      (1.07)         &      (1.15)         &      (0.75)         &      (0.90)         &      (0.85)         \\
+\addlinespace
+xrd\_at\_l3\_industry\_1dig6&        0.22         &        0.95         &        0.95         &       -0.12         &       -0.14         &       -0.14         \\
+                    &      (0.57)         &      (0.94)         &      (1.11)         &      (0.16)         &      (0.21)         &      (0.21)         \\
+\addlinespace
+xrd\_at\_l3\_industry\_1dig7&       -13.8\sym{***}&       -15.8\sym{***}&       -15.8\sym{***}&       -0.31         &       -0.47         &       -0.47         \\
+                    &      (5.20)         &      (4.09)         &      (3.44)         &      (0.71)         &      (0.95)         &      (0.86)         \\
+\addlinespace
+xrd\_at\_l3\_industry\_1dig8&        0.53\sym{*}  &        0.54         &        0.54         &      -0.060         &       -0.43         &       -0.43         \\
+                    &      (0.28)         &      (0.79)         &      (0.69)         &      (0.17)         &      (0.33)         &      (0.33)         \\
+\addlinespace
+xrd\_at\_l3\_industry\_1dig9&       -0.30         &       -0.46         &       -0.46         &      -0.063         &      -0.026         &      -0.026         \\
+                    &      (0.38)         &      (0.58)         &      (0.37)         &     (0.075)         &      (0.13)         &     (0.091)         \\
+\addlinespace
+Firm FE             &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+\addlinespace
+Year FE             &         Yes         &          No         &          No         &         Yes         &          No         &          No         \\
+\addlinespace
+Age FE              &          No         &         Yes         &         Yes         &          No         &         Yes         &         Yes         \\
+\addlinespace
+Industry-Year FE    &          No         &         Yes         &         Yes         &          No         &         Yes         &         Yes         \\
+\addlinespace
+State-Year FE       &          No         &         Yes         &         Yes         &          No         &         Yes         &         Yes         \\
+\midrule
+Clustering          &       gvkey         &       gvkey         &naics4 Statecode         &       gvkey         &       gvkey         &naics4 Statecode         \\
+R-squared (adj.)    &        0.26         &        0.21         &        0.21         &        0.27         &        0.22         &        0.22         \\
+R-squared (within, adj)&      0.0023         &      0.0022         &      0.0022         &     0.00079         &     0.00083         &     0.00083         \\
+Observations        &       59477         &       57948         &       57948         &       59477         &       57948         &       57948         \\
+\bottomrule
+\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

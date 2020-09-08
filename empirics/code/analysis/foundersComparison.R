@@ -24,7 +24,7 @@ for (founderType in c("all","technical","founder2","executive"))
   # Raw counts    
   #-----------------#
   
-  temp <- parentsSpinouts[ , .(wso4 = sum(na.omit(wso4 * get(founderType))), 
+  temp <- parentsSpinouts[ , .(wso4 = sum(na.omit(fromPublic * wso4 * get(founderType))), 
                                nonwso4 = sum(na.omit(get(founderType) * (fromPublic - wso4))), 
                                nonSpinout = sum(na.omit(get(founderType) * (1 - fromPublic))), 
                                startups = sum(get(founderType))), 
@@ -88,7 +88,7 @@ for (founderType in c("all","technical","founder2","executive"))
   # Fractions -- hasBio == 1
   #-----------------#
   
-  temp <- parentsSpinouts[ hasBio == 1, .(wso4 = sum(na.omit(wso4 * get(founderType))), 
+  temp <- parentsSpinouts[ hasBio == 1, .(wso4 = sum(na.omit(fromPublic * wso4 * get(founderType))), 
                                           nonwso4 = sum(na.omit(get(founderType) * (fromPublic - wso4))), 
                                           nonSpinout = sum(na.omit(get(founderType) * (1 - fromPublic))),
                                           startups = sum(get(founderType))), 
@@ -125,7 +125,7 @@ for (founderType in c("all","technical","founder2","executive"))
   # Fractions -- hasBio == 1 and joinYearImputed == 0
   #-----------------#
   
-  temp <- parentsSpinouts[ hasBio == 1 & joinYearImputed == 0, .(wso4 = sum(na.omit(wso4 * get(founderType))), 
+  temp <- parentsSpinouts[ hasBio == 1 & joinYearImputed == 0, .(wso4 = sum(na.omit(fromPublic * wso4 * get(founderType))), 
                                                                  nonwso4 = sum(na.omit(get(founderType) * (fromPublic - wso4))), 
                                                                  nonSpinout = sum(na.omit(get(founderType) * (1 - fromPublic))), 
                                                                  startups = sum(get(founderType))), 
@@ -162,7 +162,7 @@ for (founderType in c("all","technical","founder2","executive"))
   # Counts - By state and year
   #----------------------------#
   
-  temp <- parentsSpinouts[ , .(wso4 = sum(na.omit(wso4 * get(founderType))), 
+  temp <- parentsSpinouts[ , .(wso4 = sum(na.omit(fromPublic * wso4 * get(founderType))), 
                                nonwso4 = sum(na.omit(get(founderType) * (fromPublic - wso4))), 
                                nonSpinout = sum(na.omit(get(founderType) * (1 - fromPublic))), 
                                startups = sum(get(founderType))), 
@@ -196,7 +196,7 @@ for (founderType in c("all","technical","founder2","executive"))
   # PERCENTAGES by state and year
   #----------------------------#
   
-  temp <- parentsSpinouts[ , .(wso4 = sum(na.omit(wso4 * get(founderType))), 
+  temp <- parentsSpinouts[ , .(wso4 = sum(na.omit(fromPublic * wso4 * get(founderType))), 
                                nonwso4 = sum(na.omit(get(founderType) * (fromPublic - wso4))), 
                                nonSpinout = sum(na.omit(get(founderType) * (1 - fromPublic))), 
                                startups = sum(get(founderType))), 
@@ -233,7 +233,7 @@ for (founderType in c("all","technical","founder2","executive"))
   # only when hasBio == 1
   #----------------------------#
   
-  temp <- parentsSpinouts[ hasBio == 1, .(wso4 = sum(na.omit(wso4 * get(founderType))), 
+  temp <- parentsSpinouts[ hasBio == 1, .(wso4 = sum(na.omit(fromPublic * wso4 * get(founderType))), 
                                           nonwso4 = sum(na.omit(get(founderType) * (fromPublic - wso4))), 
                                           nonSpinout = sum(na.omit(get(founderType) * (1 - fromPublic))), 
                                           startups = sum(get(founderType))), 
@@ -306,7 +306,7 @@ for (founderType in c("all","technical","founder2","executive"))
     founderFracsTemp <- dcast(get(founderFracsString),year ~ variable, value.var = "value")
     founderFracsHasBioTemp <- dcast(get(founderFracsHasBioString),year ~ variable, value.var = "value")
     
-    founderCountsTemp[ , `:=` (spinoutsCount = as.integer(wso4 + nonwso4), allCount = as.integer(startups))]
+    founderCountsTemp[ , `:=` (spinoutsCount = as.integer((wso4 + nonwso4)), allCount = as.integer(startups))]
     founderFracsTemp[ , `:=` (spinoutsFrac = (wso4Frac + nonwso4Frac)*100, wso4Frac = wso4Frac * 100)]
     founderFracsHasBioTemp[ , `:=` (spinoutsFracHasBio = (wso4Frac + nonwso4Frac)*100, wso4FracHasBio = wso4Frac * 100)]
     
@@ -326,7 +326,7 @@ for (founderType in c("all","technical","founder2","executive"))
     
     setcolorder(temp,c("year","allCount","startupsCount","spinoutsCount","spinoutsFrac","spinoutsFracHasBio","wso4Frac","wso4FracHasBio"))
     
-    temp <- temp[ year >= 1986]
+    temp <- temp[ year >= VSminFoundingYear & year <= VSmaxFoundingYear]
     
     temp <- temp[order(year)]
     

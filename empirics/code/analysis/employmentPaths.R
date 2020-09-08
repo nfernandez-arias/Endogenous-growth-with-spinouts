@@ -14,27 +14,30 @@ tempvarlist <- c()
 #---------------------------#
 # For each definition of founder, 
 # construct entity-level indicator which
-# denotes whether there is at least one
+# denotes whether there is at least oneTable \ref{table:GStable_founder2} shows that WSO founders account for roughly 10\% of all founders
 # founder from public, or from WSOi for i = 1:4
 #---------------------------@
               
 for (founderType in c("all","founder2","technical","executive"))
 {
   entityfounderString <- paste("Entity_",founderType,sep = "")
+  entityfounderCountString <- paste("Entity_",founderType,"_count",sep = "")
   entityfounderFromPublicString <- paste(entityfounderString,"_fromPublic", sep = "")
   
   # Construct flag as from public if at least startupSpinoutFounderFraction of founders are from public
   
   parentsSpinouts[ , (entityfounderString) := max(get(founderType)), by = EntityID]
   
+  parentsSpinouts[ , (entityfounderCountString) := sum(na.omit(get(founderType))), by = EntityID]
+  
   parentsSpinouts[ , (entityfounderFromPublicString) := sum(fromPublic * get(founderType)) / sum(get(founderType)), 
                    by = EntityID]
   
-  parentsSpinouts[ get(entityfounderFromPublicString) >= startupSpinoutFounderFraction & get(entityfounderString) == 1,
-                   (entityfounderFromPublicString) := 1]
+  #parentsSpinouts[ get(entityfounderFromPublicString) >= startupSpinoutFounderFraction & get(entityfounderString) == 1,
+   #                (entityfounderFromPublicString) := 1]
   
-  parentsSpinouts[ get(entityfounderFromPublicString) < startupSpinoutFounderFraction & get(entityfounderString) == 1,
-                   (entityfounderFromPublicString) := 0]
+  #parentsSpinouts[ get(entityfounderFromPublicString) < startupSpinoutFounderFraction & get(entityfounderString) == 1,
+    #               (entityfounderFromPublicString) := 0]
   
   parentsSpinouts[ get(entityfounderString) == 0, (entityfounderFromPublicString) := NA]
   
@@ -49,10 +52,10 @@ for (founderType in c("all","founder2","technical","executive"))
     # Construct flag as WSOi if at least startupSpinoutFounderFraction of founders of founderType as WSOi
     parentsSpinouts[ , (entitywsoString) := sum(get(wsoLowerCase) * get(founderType)) /sum(get(founderType)), 
                      by = EntityID]
-    parentsSpinouts[ get(entitywsoString) >= startupSpinoutFounderFraction & get(entitywsoString) != Inf, 
-                     (entitywsoString) := 1]
-    parentsSpinouts[ get(entitywsoString) < startupSpinoutFounderFraction & get(entitywsoString) != Inf, 
-                     (entitywsoString) := 0]
+    #parentsSpinouts[ get(entitywsoString) >= startupSpinoutFounderFraction & get(entitywsoString) != Inf, 
+    #                 (entitywsoString) := 1]
+    #parentsSpinouts[ get(entitywsoString) < startupSpinoutFounderFraction & get(entitywsoString) != Inf, 
+    #                 (entitywsoString) := 0]
     parentsSpinouts[ get(entityfounderString) == 0, (entitywsoString) := NA ]
     
     #parentsSpinouts[ , (entitywsoString) := max(get(wsoLowerCase) * get(founderType)) , by = EntityID]
@@ -61,7 +64,7 @@ for (founderType in c("all","founder2","technical","executive"))
     
   }
   
-  tempvarlist <- c(tempvarlist,entityfounderString,entityfounderFromPublicString) 
+  tempvarlist <- c(tempvarlist,entityfounderString,entityfounderCountString,entityfounderFromPublicString) 
   
 }
 

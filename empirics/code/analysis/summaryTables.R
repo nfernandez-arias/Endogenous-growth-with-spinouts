@@ -12,7 +12,7 @@
 #startupsData <- fread("data/VentureSource/startupsData.csv")
 #startupsData <- startupsData[ foundingYear >= VSminFoundingYear & foundingYear <= VSmaxFoundingYear]
 
-data <- fread("data/parentsSpinoutsWSO.csv")
+data <- fread("data/parentsSpinoutsWSO.csv")[ foundingYear >= VSminFoundingYear & foundingYear <= VSmaxFoundingYear]
 
 startupsData <- unique(data, by = "EntityID")[ foundingYear >= VSminFoundingYear & foundingYear <= VSmaxFoundingYear]
 
@@ -128,6 +128,22 @@ title2CountsXtable <- xtable(title2Counts[1:20], digits = 1, align = c("r","r","
 
 print(title2CountsXtable, "figures/tables/summaryTables/titleCounts.tex", 
       type = "latex", size = "\\footnotesize", floating = TRUE, include.rownames = FALSE, booktabs = TRUE, table.placement = "!htb")
+
+## Same table but only founder2 founders
+title2Counts <- data[founder2 == 1 & Title2 != ""][ , .N, by = Title2][order(-N)]
+
+title2Counts[ , Percentage := 100 * N / sum(N)]
+
+setnames(title2Counts,"Title2","Title")
+setnames(title2Counts,"N","Individuals")
+
+title2CountsXtable <- xtable(title2Counts, digits = 1, align = c("r","r","l","l"),
+                             caption = "Most frequent titles among key founders in VS data.",
+                             label = "table:VS_founder2_titlesSummaryTable")
+
+print(title2CountsXtable, "figures/tables/summaryTables/titleCounts_founder2.tex", 
+      type = "latex", size = "\\normalsize", floating = TRUE, include.rownames = FALSE, booktabs = TRUE, table.placement = "")
+
   
 
 data[ Title2 == "Board member (outsider)", boardMember := 1]
@@ -171,7 +187,14 @@ makeEmployerTable <- function(data,string) {
                                          caption = paste0("Top 20 previous employers and previous positions for ",string," founders in VS data."),
                                          label = "table:VS_previousEmployersSummaryTable")
   
-  print(outputXtable, paste0("figures/tables/summaryTables/VS_previousEmployersPositionsCounts_",string,".tex"), type = "latex", size = "\\footnotesize", floating = TRUE, include.rownames = FALSE, booktabs = TRUE, table.placement = "!htb")
+  print(outputXtable, paste0("figures/tables/summaryTables/VS_previousEmployersPositionsCounts_",string,".tex"), type = "latex", size = "\\normalsize", floating = TRUE, include.rownames = FALSE, booktabs = TRUE, table.placement = "")
+  
+  
+  outputXtable2 <- xtable(cbind(temp[1:10],temp[11:20]), digits = 1, align = c("r","r","l","r","l"),
+                         caption = paste0("Top 20 previous employers for ",string," founders in VS data."),
+                         label = "table:VS_previousEmployersNoPositionsSummaryTable")
+  
+  print(outputXtable2, paste0("figures/tables/summaryTables/VS_previousEmployersCounts_",string,".tex"), type = "latex", size = "\\normalsize", floating = TRUE, include.rownames = FALSE, booktabs = TRUE, table.placement = "")
 
 }
 

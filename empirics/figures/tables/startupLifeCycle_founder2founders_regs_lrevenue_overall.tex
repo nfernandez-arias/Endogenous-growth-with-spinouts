@@ -4,26 +4,26 @@
 \hline\hline
                     &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
 \hline
-Spinout=1           &        0.23\sym{***}&        0.20\sym{***}&        0.21\sym{***}&        0.20\sym{***}\\
-                    &     (0.081)         &     (0.056)         &     (0.050)         &     (0.056)         \\
+WSO4                &       -0.12         &        0.43\sym{***}&        0.42\sym{***}&        0.39\sym{***}\\
+                    &      (0.16)         &      (0.14)         &      (0.13)         &      (0.14)         \\
 [1em]
-WSO4=1              &       -0.16         &       0.094         &       0.082\sym{*}  &       0.082\sym{**} \\
-                    &      (0.11)         &     (0.072)         &     (0.040)         &     (0.037)         \\
+Constant            &        1.90\sym{***}&        1.80\sym{***}&        1.84\sym{***}&        1.83\sym{***}\\
+                    &      (0.14)         &     (0.010)         &    (0.0096)         &     (0.010)         \\
 [1em]
-Constant            &        1.83\sym{***}&        1.64\sym{***}&        1.72\sym{***}&        1.69\sym{***}\\
-                    &      (0.15)         &     (0.020)         &     (0.021)         &     (0.030)         \\
+State FE            &          No         &         Yes         &         Yes         &         Yes         \\
 [1em]
-State-NAICS4-Year FE&          No         &         Yes         &         Yes         &          No         \\
+NAICS4-Year FE      &          No         &         Yes         &         Yes         &          No         \\
 [1em]
-State-NAICS4-Age FE &          No         &         Yes         &          No         &         Yes         \\
+NAICS4-Age FE       &          No         &         Yes         &          No         &         Yes         \\
 [1em]
-State-NAICS4-Cohort FE&          No         &          No         &         Yes         &         Yes         \\
+NAICS4-Cohort FE    &          No         &          No         &         Yes         &         Yes         \\
 [1em]
 No FE               &         Yes         &          No         &          No         &          No         \\
 \hline
-r2\_a                &      0.0021         &        0.29         &        0.37         &        0.39         \\
-r2\_a\_within         &      0.0021         &      0.0052         &      0.0051         &      0.0043         \\
-N                   &       16948         &       10349         &       10749         &       11521         \\
+clustvar            &statecode naics1\_4 year         &statecode naics1\_4         &statecode naics1\_4         &statecode naics1\_4         \\
+r2\_a                &     0.00011         &        0.31         &        0.36         &        0.36         \\
+r2\_a\_within         &     0.00011         &      0.0028         &      0.0027         &      0.0022         \\
+N                   &       17838         &       16891         &       16875         &       17134         \\
 \hline\hline
 \multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
 \multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\

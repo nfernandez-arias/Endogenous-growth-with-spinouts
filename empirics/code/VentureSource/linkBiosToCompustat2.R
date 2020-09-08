@@ -31,29 +31,27 @@
 
 compustatFirmsSegments <- fread("data/compustat/firmsSegments.csv")
 
-# Some standardizations - doesn't hurt, but not sure why it's here
+# Some standardizations - 
 compustatFirmsSegments[tic == "IBM", conml := "IBM"]
 compustatFirmsSegments[tic == "GS", conml := "Goldman Sachs"] 
 compustatFirmsSegments[tic == "HPQ", conml := "Hewlett-Packard"]
+
+# fix typo in compustat (no final s...)
+compustatFirmsSegments[tic == "CATP", conml := "cambridge technology partners"]
+
+# fix etrade
+compustatFirmsSegments[tic == "ETFC", conml := "e*trade"]
 compustatFirmsSegments[snms == "HP", snms := ""] 
 compustatFirmsSegments <- compustatFirmsSegments[ , .(gvkey,state,city,cusip,naics,NAICSS1,NAICSS2,dataYear,conml,snms,tic)]
 compustatFirmsSegments[ , conml := gsub("[.]$","",conml)]
 compustatFirmsSegments[ , conml := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",conml)]
 compustatFirmsSegments[ , conml := tolower(conml)]
 
-EntitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")[!is.na(FoundingDate)][year(ymd(FoundingDate)) >= 1986]
-EntitiesPrevEmployers[ , foundingYear := as.integer(year(ymd(FoundingDate)))]
-EntitiesPrevEmployers[ , joinYear := as.integer(year(ymd(JoinDate)))]
-
-# As before, if missing info on joinYear, treat joinYear as foundingYear 
-EntitiesPrevEmployers[ is.na(joinYear) , `:=` (joinYear = foundingYear, joinYearImputed = 1)]
-EntitiesPrevEmployers[ is.na(joinYearImputed), joinYearImputed := 0]  
 
 
+EntitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")[foundingYear >= 1986 & foundingYear <= 2008]
 ## Prepare data
-EntitiesPrevEmployers <- EntitiesPrevEmployers[, .(EntityID,EntityName,foundingYear,FirstName,LastName,joinYear,joinYearImputed,Title,TitleCode,Employer,Position,hasBio)]
-EntitiesPrevEmployers[ TitleCode %in% founderTitles, founder2 := 1]
-EntitiesPrevEmployers[ is.na(founder2), founder2 := 0]
+EntitiesPrevEmployers <- EntitiesPrevEmployers[, .(EntityID,EntityName,foundingYear,FirstName,LastName,joinYear,joinYearImputed,Title,TitleCode,Employer,Position,hasBio,founder2,technical,executive,all)]
 EntitiesPrevEmployers[ Employer == "Cisco", Employer := "Cisco Systems"]
 EntitiesPrevEmployers[ Employer == "Amazon", Employer := "Amazon.com"]
 EntitiesPrevEmployers[ Employer == "Yahoo" | Employer == "Yahoo!", Employer :=  "Verizon"]
@@ -70,10 +68,14 @@ EntitiesPrevEmployers[ , Employer := tolower(Employer)]
 #------------------------------#
 
 firms <- unique(compustatFirmsSegments,by = "gvkey")[ , .(gvkey,conml,tic,cusip,state,city,naics) ]
+firms2 <- unique(compustatFirmsSegments,by = "conml")[ , .(gvkey,conml,tic,cusip,state,city,naics) ]
 EntitiesPrevEmployers[ , count := .N, by = c("Employer","joinYear")]
-EntitiesPrevEmployers[ , globCount := .N, by = Employer]
+EntitiesPrevEmployers[ , globCount := sum(all), by = Employer]
 EntitiesPrevEmployers[ , founder2Count := sum(founder2), by = Employer]
-prevEmployers <- unique(EntitiesPrevEmployers, by = c("Employer","joinYear"))[ , .(Employer,joinYear,count,globCount,founder2Count)]
+EntitiesPrevEmployers[ , founder2LocalCount := sum(founder2), by = .(Employer,joinYear)]
+EntitiesPrevEmployers[ , technicalCount := sum(technical), by = Employer]
+EntitiesPrevEmployers[ , executiveCount := sum(executive), by = Employer]
+prevEmployers <- unique(EntitiesPrevEmployers, by = c("Employer","joinYear"))[ , .(Employer,joinYear,count,globCount,founder2Count,founder2LocalCount,technicalCount,executiveCount)]
 
 setkey(prevEmployers,Employer)
 setkey(firms,conml)
@@ -81,8 +83,8 @@ setkey(firms,conml)
 firmsPrevEmployers <- firms[,.(gvkey,conml)][prevEmployers]
 
 # Construct subsample of matched and unmatched startup-founder observations
-matched <- firmsPrevEmployers[ !is.na(gvkey)][ , .(gvkey,conml,joinYear,count,globCount,founder2Count)]
-unmatched <- firmsPrevEmployers[ is.na(gvkey)][ , .(conml,joinYear,count,globCount,founder2Count)]
+matched <- firmsPrevEmployers[ !is.na(gvkey)][ , .(gvkey,conml,joinYear,count,globCount,founder2Count,founder2LocalCount,technicalCount,executiveCount)]
+unmatched <- firmsPrevEmployers[ is.na(gvkey)][ , .(conml,joinYear,count,globCount,founder2Count,founder2LocalCount)]
 
 matched[ , source := "regex"]
 
@@ -103,7 +105,7 @@ unmatched <- segments[unmatched]
 # as per the Compustat business segment database
 
 matchedSegments <- unmatched[!is.na(gvkey)]
-unmatched <- unmatched[is.na(gvkey)][ , .(snms,joinYear,count,globCount,founder2Count)]
+unmatched <- unmatched[is.na(gvkey)][ , .(snms,joinYear,count,globCount,founder2Count,founder2LocalCount)]
 
 matchedSegments[ , source := "compustat segments"]
 
@@ -120,7 +122,7 @@ setkey(firmsTickers,query)
 unmatched <- firmsTickers[unmatched]
 
 matchedQueries <- unmatched[!is.na(Ticker)]
-unmatched <- unmatched[is.na(Ticker)][ , .(query,joinYear,count,globCount,founder2Count)]
+unmatched <- unmatched[is.na(Ticker)][ , .(query,joinYear,count,globCount,founder2Count,founder2LocalCount)]
 
 matchedQueries[ , source := "altdg"]
 
@@ -128,7 +130,7 @@ matchedQueries[ , source := "altdg"]
 setkey(matchedQueries,Ticker)
 setkey(firms,tic)
 
-matchedQueries <- firms[matchedQueries][, .(gvkey,tic,query,count,globCount,founder2Count,joinYear,source)]
+matchedQueries <- firms[matchedQueries][, .(gvkey,tic,query,count,globCount,founder2Count,founder2LocalCount,joinYear,source)]
 
 unmatchedQueries <- matchedQueries[is.na(gvkey)]
 matchedQueries <- matchedQueries[ !is.na(gvkey)]

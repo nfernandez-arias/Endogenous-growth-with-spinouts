@@ -25,11 +25,11 @@ modelPar = initializeSimpleModel()
 #-------------------------------#
 
 interestRate = SimpleCalibrationTarget(0.06,1)
-growthRate = SimpleCalibrationTarget(0.010,1)
-growthShareOI = SimpleCalibrationTarget(0.7,1)
-youngFirmEmploymentShare = SimpleCalibrationTarget(0.0835,1)
-spinoutEmploymentShare = SimpleCalibrationTarget(0.137,1)
-rdShare = SimpleCalibrationTarget(0.015,1)
+growthRate = SimpleCalibrationTarget(0.01487,1)
+growthShareOI = SimpleCalibrationTarget(0.65,1)
+youngFirmEmploymentShare = SimpleCalibrationTarget(0.1334,1)
+spinoutEmploymentShare = SimpleCalibrationTarget(0.03,1)
+rdShare = SimpleCalibrationTarget(0.0135,1)
 
 calibPar = SimpleCalibrationParameters(interestRate,growthRate,growthShareOI,youngFirmEmploymentShare,spinoutEmploymentShare,rdShare)
 

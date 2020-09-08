@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: simple model working draft new.aux
+The style file: plainnat.bst
+Database file #1: references.bib
+Warning--empty journal in klenow_innovative_2020
+You've used 27 entries,
+            2773 wiz_defined-function locations,
+            811 strings with 10876 characters,
+and the built_in function-call counts, 12522 in all, are:
+= -- 1241
+> -- 576
+< -- 22
++ -- 198
+- -- 171
+* -- 1051
+:= -- 1968
+add.period$ -- 136
+call.type$ -- 27
+change.case$ -- 137
+chr.to.int$ -- 27
+cite$ -- 55
+duplicate$ -- 556
+empty$ -- 1015
+format.name$ -- 216
+if$ -- 2614
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 27
+newline$ -- 198
+num.names$ -- 108
+pop$ -- 198
+preamble$ -- 1
+purify$ -- 111
+quote$ -- 0
+skip$ -- 399
+stack$ -- 0
+substring$ -- 534
+swap$ -- 54
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 292
+warning$ -- 1
+while$ -- 120
+width$ -- 0
+write$ -- 463
+(There was 1 warning)

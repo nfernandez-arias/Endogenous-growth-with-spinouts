@@ -5,7 +5,7 @@ dat <- fread("data/compustat-spinouts_Stata.csv")[ , .(gvkey,naics1,naics2,naics
 dat <- dat[ naics1 %in% c("3","5")]
 
 
-dat[ firmAge <= 5, newFirm := 1]
+dat[ firmAge <= 6, newFirm := 1]
 dat[ is.na(newFirm), newFirm := 0]
 
 industryEntryRates <- dat[ , .(entryRate = sum(newFirm) / .N, empRate = sum(na.omit(emp * newFirm)) / sum(na.omit(emp)), numFirms = .N), by = .(naics2,year)]

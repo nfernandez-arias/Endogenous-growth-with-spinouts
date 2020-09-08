@@ -1,0 +1,252 @@
+\documentclass[11pt,english]{article}
+\usepackage{lmodern}
+\linespread{1.05}
+%\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+
+
+
+\usepackage{chngcntr}
+
+\usepackage[nocomma]{optidef}
+
+\usepackage[section]{placeins}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{amsfonts}
+
+\usepackage{accents}
+\newcommand\munderbar[1]{%
+	\underaccent{\bar}{#1}}
+
+
+\usepackage{svg}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{blindtext}
+%\renewcommand{\arraystretch}{1.2}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{rotating}
+\usepackage{mathtools}
+\usepackage{chngcntr}
+
+% TikZ stuff
+
+\usepackage{tikz}
+\usepackage{mathdots}
+\usepackage{bbm}
+\usepackage{yhmath}
+\usepackage{cancel}
+\usepackage{color}
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usetikzlibrary{fadings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shadows.blur}
+
+\usepackage[font=small]{caption}
+%\usepackage[printfigures]{figcaps}
+%\usepackage[nomarkers]{endfloat}
+
+
+%\usepackage{caption}
+%\captionsetup{justification=raggedright,singlelinecheck=false}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+%\usepackage{esint}
+\onehalfspacing
+
+%\theoremstyle{remark}
+%\newtheorem{remark}{Remark}
+%\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}
+\newtheorem{proposition_corollary}{Corollary}[proposition]
+\newtheorem{lemma}{Lemma}
+\newtheorem{lemma_corollary}{Corollary}[lemma]
+
+\begin{document}
+	
+\title{Existence and uniqueness proofs}
+
+\author{Nicolas Fernandez-Arias} 
+\date{\today \\ \small
+	\href{https://drive.google.com/file/d/1gu4CT1ft4LY4MsKKgluxb8Gu_YoP8DLD/view?usp=sharing}{Click for most recent version}}
+\maketitle
+
+
+%\setcounter{tocdepth}{2}
+%\tableofcontents
+
+\section{Introduction}
+
+Here I prove some results about the model.
+
+
+\subsection{Existence and uniqueness of symmetric BGP}
+
+A symmetric BGP is a BGP where $z_{jt} = z, \hat{z}_{jt} = \hat{z}$.
+
+\begin{proposition}
+	On a symmetric BGP with $z_{jt} = z, \hat{z}_{jt} = \hat{z}$, the value function satisfies $V(j,t|q) = \tilde{V}q$ and R\&D wages satisfy $\hat{w}_{RD,t} = \hat{w}_{RD} Q_t$ and $w_{RD,t}(x) = w_{RD}(x) Q_t$.
+\end{proposition}
+
+
+\begin{proof}
+	\textbf{[Note: I seem to be assuming that the value is differentiable in $t$ in between shocks. I'm not sure if this is technically without loss of generality but it is an assumption that is also implicitly made in the JET paper I'm basing this on, as far as I can tell.]} 
+	
+	The entrant optimization condition is (using $z_{jt} = z$)
+	\begin{align}
+	\hat{\chi} \hat{z}^{-\psi} V(j,t|\lambda q) &= \frac{q}{Q_t} \hat{w}_{RD,t}
+	\end{align}
+	
+	Rearranging,
+	\begin{align}
+	\hat{\chi}^{-1} \hat{z}^{\psi} &= \frac{V(j,t|\lambda q)}{q} \frac{Q_t}{\hat{w}_{RD,t}} 
+	\end{align}
+	
+	The only term which varies with $j$ is $V(j,t|\lambda q)$. This implies that $V(j,t| \lambda q) =  \tilde{V}(t| \lambda q)$. In fact, the equation also shows that $V(t|\lambda q) / q$ is constant over $q$, i.e. that $\tilde{V}(t|\lambda q) = \tilde{V}(t) \lambda q$. Note, however, that it does not directly imply anything about $V(j,t|q)$: constant entrant innovation effort $\hat{z}_{jt} = \hat{z}$ implies that the value of incumbency tomorrow must be proportional to $q$, but it does not directly imply that the value of incumbency today is proportional to $q$. It makes sense intuitively that the same logic should imply that $V(j,t|q) = \bar{\tilde{V}}(t) q$: otherwise, the equilibrium we are on cannot have satisfied the (rational) expectations of previous entrants. Heuristically maybe this is enough, but I haven't found a rigorous proof along these lines. Instead, I show that $V(j,t|q) = \tilde{V}q$ by arguing that other solutions to the incumbent HJB contradict equilbrium requirements. Then the fact that at any time $V(j,t|q)$ has this form implies that innovators (entrants, incumbents, spinouts) expect this value in the future and therefore that they forecast their future payoffs using $V(j,t|\lambda q) = \tilde{V} \lambda q$.
+	
+	First, differentiating both sides with respect to $t$ and using $\frac{\dot{Q}_t}{Q_t} = g$ on the BGP yields
+	\begin{align}
+	- \frac{\dot{V}(t|\lambda q)}{V(t|\lambda q)} &= g - \frac{\dot{\hat{w}}_{RD,t}}{\hat{w}_{RD,t}} \label{appendix:eq:freeEntryDifferentiated}
+	\end{align}
+
+	The incumbent HJB implies
+	\begin{align}
+		(r_t + \hat{\tau}) V(j,t|q) - \dot{V}(j,t|q) &= \tilde{\pi} q
+	\end{align}
+	
+	The static equilibrium implies that $C_t \propto Q_t$. Therefore $\frac{\dot{Q}_t}{Q_t} = g$ implies $\frac{\dot{C}_t}{C_t} = g$, and the Euler equation then implies $r_t = r$. Therefore, 
+	\begin{align}
+		(r + \hat{\tau}) V(j,t|q) - \dot{V}(j,t|q) &= \tilde{\pi} q
+	\end{align}
+	
+	This differential equation has a constant solution equal to 
+	\begin{align}
+		V(j,t|q) &= \frac{\tilde{\pi} q}{r + \hat{\tau}} \\
+		         &= \tilde{V} q 
+	\end{align}
+	
+	I want to show that this is the only solution which is compatible with equilibrium. Rearranging the original differential equation,
+	\begin{align}
+		\dot{V}(j,t|q) &= (r + \hat{\tau}) V(j,t|q) - \tilde{\pi} q \label{appendix:eq:hjbGeneral}
+	\end{align}	
+
+	Differentiating this expression again yields
+	\begin{align}
+		\ddot{V}(j,t|q) &= (r + \hat{\tau}) \dot{V}(j,t|q) \label{appendix:eq:hjbGeneralDifferentiated}
+	\end{align}
+	
+	This means that if $\dot{V} < 0$ initially, then $\ddot{V} < 0$ initially as well, and similarly if $\dot{V} > 0$ initially then $\ddot{V} > 0$ initially as well. Hence, if in equilbrium $V(j,t|q)$ drifts locally, it must drift monotonically.
+	
+	If $\dot{V} < 0$ then (\ref{appendix:eq:hjbGeneral}) implies that $\dot{V}$ tends to $-\tilde{\pi}q$ as $t \to \infty$. This means that $V$ reaches a negative value in finite time with positive probability. This contradicts optimality since the incumbent is always free to choose $z = 0$ and earn flow profits $\tilde{\pi} q$; hence, this solution to the HJB is incompatible with equilibrium. 
+	
+	Next, rearrange the expression in the form
+	\begin{align}
+		\frac{\dot{V}(j,t|q)}{V(j,t|q)} &= r + \hat{\tau} - \frac{\tilde{\pi}q}{V(j,t|q)}
+	\end{align}
+	
+	
+	If $\dot{V} > 0$ intially, the second term on the RHS tends to zero and asymptotically $V$ grows at exponential rate $r + \hat{\tau}$. 
+	
+	First, suppose that $z > 0$. The FOC of the incumbent is
+	\begin{align}
+	\chi \Big( V(t|\lambda q) - V(j,t|q) \Big) &= \frac{q}{Q_t} \hat{w}_{RD,t} + \nu V(j,t|q) \nonumber \\
+	&+ (1 - \mathbbm{1}^{NCA}_{jt}) (1- \kappa_e) \nu V(t|\lambda q) + \mathbbm{1}^{NCA}_{jt}  \kappa_c \nu V(j,t|q) \Big) 
+	\end{align}
+	
+	Divide both sides by $q$, differentiate with respect to $t$, use $\frac{\dot{Q}_t}{Q_t} = g$ and  (\ref{appendix:eq:freeEntryDifferentiated}) to obtain
+	\begin{align}
+	-\frac{\dot{V}(j,t|q)}{V(j,t|q)} &= g - \frac{\dot{\hat{w}}_{RD,t}}{\hat{w}_{RD,t}}  \label{appendix:eq:freeEntryDifferentiatedImplication}
+	\end{align}
+	
+	Using (\ref{appendix:eq:freeEntryDifferentiatedImplication}), this implies that with positive probability the R\&D wage grows to the point where $\hat{w}_{RD} \hat{z} > \tilde{Y}$, which contradicts equilbirium.
+	
+	Next, suppose that $z = 0$. First, recall that we still have (\ref{appendix:eq:freeEntryDifferentiated}) and therefore $V(j,t|\lambda q) = V(t | \lambda q)$ for all $j,t$. Otherwise, $\hat{z}_{jt} = \hat{z}$ violates entrant optimality. If we impose the assumption that the policies only depend on $j,q,t$, rather than allowing them to depend on the history of shocks, then 
+	
+	
+	
+	
+	Then the incumbent's transversality condition states that
+	\begin{align}
+		0 = \lim_{t' \to \infty} e^{-r(t'-t)} \mathbb{E}[\mathbbm{1}_{s(j,t) > t'} V(j,t',q)]
+	\end{align}
+	
+	where $s(j,t)$ is the (random) time at which the current incumbent is displaced by an entrant. Because the time is exponentially distributed, this is the same as
+	\begin{align}
+		0 = \lim_{t' \to \infty} e^{-r(t'-t)} e^{-\hat{\tau} (t'-t)} V(j,t'|q)
+	\end{align}
+	
+	However, we are in the case where $V(j,t'|q)$ grows at rate $r + \hat{\tau}$ asymptotically, i.e.
+	\begin{align}
+		V(j,t'|q) 
+	\end{align}
+	
+	We have a situation with 
+	\begin{align}
+		\frac{\dot{X}}{X} &= r + \hat{\tau}, \quad  \text{i.e. } X(t') = e^{-(r + \hat{\tau})(t' - t)} \\
+		\frac{\dot{Y}}{Y} &= r + \hat{\tau} - \frac{\tilde{\pi}q}{Y}, \quad \text{i.e. } Y(t') = V(j,t'|q)
+	\end{align}
+	
+	I want to show that
+	\begin{align}
+		\lim_{t \to \infty} \frac{Y}{X} > 0 
+	\end{align}
+	
+	We know that
+	\begin{align}
+		\frac{d}{dt} \Big(\frac{Y}{X} \Big) &= \frac{Y}{X} \Big( \frac{\dot{Y}}{Y} - \frac{\dot{X}}{X} \Big)
+	\end{align}
+	
+	This yields
+	\begin{align}
+		\frac{d}{dt'} \Big(\frac{Y}{X} \Big) &= -\frac{\tilde{\pi}q}{Y} \frac{Y}{X}  \\
+		&= - \frac{\tilde{\pi}q}{X} \\
+		&= - \tilde{\pi} q e^{-(r +\hat{\tau}) (t' - t)}
+	\end{align}
+	
+	using the definition of $X$. We know that $Y(t) = V(j,t|q) > \frac{\tilde{\pi} q}{r + \hat{\tau}}$ otherwise $\dot{V}(j,t|q) \le 0$ and it must continue to decline locally by (\ref{appendix:eq:hjbGeneralDifferentiated}). Since $X(t) = 1$, we have $\frac{Y(t)}{X(t)} > \frac{\tilde{\pi} q}{r + \hat{\tau}}$. Integrating, have 
+	\begin{align}
+		\lim_{t' \to \infty} \frac{Y(t')}{X(t')} &=  \frac{Y(t)}{X(t)} + \lim_{t' \to \infty} \int_t^{t'} \frac{d}{ds} \Big(\frac{Y(s)}{X(s)} \Big) ds \\
+		       &= \frac{Y(t)}{X(t)} - \lim_{t' \to \infty} \int_t^{t'}  \tilde{\pi} q e^{-(r +\hat{\tau}) (s-t)} dt \\
+		       &> \frac{\tilde{\pi} q}{r + \hat{\tau}} - \underbrace{\lim_{t' \to \infty} \int_t^{t'}  \tilde{\pi} q e^{-(r +\hat{\tau}) (s-t)} dt}_{\mathclap{\frac{\tilde{\pi}q}{r + \hat{\tau}}}} \\ 
+		       &= 0
+	\end{align}
+	
+	Therefore, the TVC is violated. I conclude that the only solution to the HJB compatible with equilibrium is 
+	\begin{align}
+		V(j,t|q) &= \frac{\tilde{\pi} q}{r + \hat{\tau}}
+	\end{align}	
+
+	which has the linear form required in the proposition.
+	
+\end{proof}
+
+
+
+
+\end{document}

@@ -3,7 +3,7 @@ clear all
 set more off, permanently
 set matsize 10000, permanently
 
-cd "Z:\home\nico\nfernand@princeton.edu\PhD - Thesis\Research\Endogenous-growth-with-spinouts\empirics"
+cd "Z:\home\nico\Insync\nfernand@princeton.edu\Google Drive\PhD - Thesis\Research\Endogenous-growth-with-spinouts\empirics"
 
 insheet using "data/VentureSource/startupsPathsStata.csv"
 
@@ -22,6 +22,7 @@ label variable goingoutofbusiness "Out of business (hazard)"
 label variable successfullyexiting "IPO / Acquisition (hazard)"
 label variable lpostvalusddivemployeecount "log(Valuation / Employee)"
 label variable lrevenuedivemployeecount "log(Revenue / Employee)"
+
 
 * Spinouts vs non-Spinouts
 

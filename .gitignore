@@ -17,6 +17,8 @@
 *.eps
 *.xls
 *.xlsx
+*.txt
+*.gph
 *.RData
 *cbp16co.txt
 *.html

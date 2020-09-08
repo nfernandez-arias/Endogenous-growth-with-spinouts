@@ -1,0 +1,14 @@
+\babel@toc {english}{}
+\beamer@sectionintoc {1}{Introduction}{2}{0}{1}
+\beamer@sectionintoc {2}{Model}{7}{0}{2}
+\beamer@sectionintoc {3}{Efficiency}{21}{0}{3}
+\beamer@sectionintoc {4}{Empirics}{23}{0}{4}
+\beamer@sectionintoc {5}{Calibration}{28}{0}{5}
+\beamer@sectionintoc {6}{Policy analysis}{31}{0}{6}
+\beamer@sectionintoc {7}{Appendix}{34}{1}{7}
+\beamer@subsectionintoc {7}{1}{Model}{39}{1}{7}
+\beamer@subsectionintoc {7}{2}{Equilibrium}{40}{1}{7}
+\beamer@subsectionintoc {7}{3}{Efficiency}{50}{1}{7}
+\beamer@subsectionintoc {7}{4}{Empirics}{53}{1}{7}
+\beamer@subsectionintoc {7}{5}{Calibration}{60}{1}{7}
+\beamer@subsectionintoc {7}{6}{Policy}{62}{1}{7}
