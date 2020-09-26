@@ -58,7 +58,16 @@ setnames(productivityGrowth,"Year","year")
 setnames(productivityGrowth,"growthFactor","productivityDeflator")
 setkey(productivityGrowth,year)
 
-fwrite(productivityGrowth[ , .(year,productivityDeflator)],"data/deflators/productivityDeflator.csv")
+productivityGrowth2 <- fread("raw/deflators/productivityGrowth2.csv")
+setnames(productivityGrowth2,"PRS85006092","prodGrowth")
+productivityGrowth2[ , year := year(ymd(DATE))]
+productivityGrowth2 <- productivityGrowth2[ year > 1947 & year < 2019]
+productivityGrowth2[ , annualProdGrowth := prod(1 + prodGrowth/100)^(1/4), by = year]
+productivityGrowth2 <- unique(productivityGrowth2[ , .(year,annualProdGrowth)])
+productivityGrowth2[ , cumGrowth := cumprod(annualProdGrowth)]
+productivityGrowth2[ , growthFactor := cumGrowth / cumGrowth[year == 2012]]
+setnames(productivityGrowth2,"growthFactor","productivityDeflator")
+fwrite(productivityGrowth2[ , .(year,productivityDeflator)],"data/deflators/productivityDeflator.csv")
 
 # Clear data
 rm(list = ls.str(mode = "list"))

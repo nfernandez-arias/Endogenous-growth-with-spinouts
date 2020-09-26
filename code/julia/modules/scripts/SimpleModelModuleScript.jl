@@ -4,7 +4,7 @@
 using Plots, Measures, LaTeXStrings
 gr()
 
-export SimpleModelParameters, SimpleModelSolution, solveSimpleModel, computeWelfareComparison, initializeSimpleModel, makePlots, makePlotsRDSubsidy, makePlotsKappaCRDSubsidy, makePlotsEntryTax, makePlotsRDSubsidyTargeted, makePlotsALL
+export SimpleModelParameters, SimpleModelSolution, solveSimpleModel, computeWelfareComparison, initializeSimpleModel, makePlots, makePlotsRDSubsidy, makePlotsKappaCRDSubsidy, makePlotsEntryTax, makePlotsRDSubsidyTargeted, makePlotsALL, makePlotsALL_contour
 export SimpleCalibrationTarget,SimpleCalibrationParameters,SimpleModelMoments,SimpleModelParameterLimit,SimpleModelParameterLimitList,welfareComparison, computeOptimalPolicy
 
 mutable struct SimpleModelParameters
@@ -615,6 +615,41 @@ function makePlotsALL(modelPar::SimpleModelParameters,string::String)
     summaryPlot = plot(xPlot,growthPlot,consumptionPlot,welfarePlot, bottom_margin = 5mm, xtickfont = fnt2, ytickfont = fnt3, guidefont = guideFont, size = (1000,900))
     savefig(summaryPlot,"figures/simpleModel/$(string)_ALL_summaryPlot.pdf")
     savefig(summaryPlot,"figures/simpleModel/$(string)_ALL_summaryPlot.png")
+end
+
+function makePlotsALL_contour(modelPar::SimpleModelParameters,string::String)
+
+    κC = 1.1*(1 - (1-modelPar.κE)*modelPar.λ)
+
+    κCmin = 0
+    κCmax = 2*κC
+
+    T_RD_I_grid = 0:0.005:.9999
+    κC_grid = κCmin:0.005:κCmax
+
+    fnt = Plots.font("sans-serif", 9)
+    fnt2 = Plots.font("sans-serif", 8)
+    fnt3 = Plots.font("sans-serif", 8)
+    guideFont = Plots.font("sans-serif",9)
+
+    Wbenchmark = solveSimpleModel(κC, 0, 0, 0, 0, modelPar).W
+
+    valuePlot = contour(T_RD_I_grid,κC_grid,(x,y) -> solveSimpleModel(y,0,0,x,0,modelPar).V,title = "Incumbent value", xlabel = L"T_{RD,I}", ylabel = L"\kappa_c", label = "V", legend = false, fill = true)
+
+    xPlot = contour(T_RD_I_grid,κC_grid,(x,y) -> solveSimpleModel(y,0,0,x,0,modelPar).x,title = "Noncompete usage", xlabel = L"T_{RD,I}", ylabel = L"\kappa_c", label = "x", legend = false, fill = true)
+
+    interestRatePlot = contour(T_RD_I_grid,κC_grid,(x,y) -> 100*solveSimpleModel(y,0,0,x,0,modelPar).r,title = "Interest rate", ylabel = L"\kappa_c", xlabel = L"T_{RD,I}", label = "r", legend = false, fill = true)
+
+    growthPlot = contour(T_RD_I_grid,κC_grid,(x,y) -> solveSimpleModel(y,0,0,x,0,modelPar).g*100, title = "Growth rate", ylabel = L"\kappa_c", xlabel = L"T_{RD,I}", label = "g", legend = false, fill = true, levels = 20)
+
+    consumptionPlot = contour(T_RD_I_grid,κC_grid,(x,y) -> solveSimpleModel(y,0,0,x,0,modelPar).C,title = "Consumption", xlabel = L"T_{RD,I}", ylabel = L"\kappa_c", legend = false, fill = true)
+
+    welfarePlot = contour(T_RD_I_grid,κC_grid,(x,y) -> -((abs(solveSimpleModel(y,0,0,x,0,modelPar).W)/abs(Wbenchmark)) - 1) * 100 * abs(1-modelPar.θ), title = "CE welfare chg. (%)", ylabel = L"\kappa_c", xlabel = L"T_{RD,I}", label = "\$\\tilde{C}^*\$", legend = false, fill = true, levels = [0,1,2,3,4,5,6,7,8,8.25,8.5,8.75,9,9.04,9.06,9.08])
+
+    #summaryPlot = plot(growthPlot,valuePlot,xPlot,interestRatePlot,consumptionPlot,welfarePlot, bottom_margin = 5mm, xtickfont = fnt2, ytickfont = fnt3, guidefont = guideFont, size = (1000,900))
+    summaryPlot = plot(xPlot,growthPlot,consumptionPlot,welfarePlot, bottom_margin = 5mm, xtickfont = fnt2, ytickfont = fnt3, guidefont = guideFont, size = (1000,900))
+    savefig(summaryPlot,"figures/simpleModel/$(string)_ALL_summaryPlot_contour.pdf")
+    savefig(summaryPlot,"figures/simpleModel/$(string)_ALL_summaryPlot_contour.png")
 end
 
 

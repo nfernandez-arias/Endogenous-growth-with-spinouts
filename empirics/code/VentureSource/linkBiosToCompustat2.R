@@ -48,8 +48,7 @@ compustatFirmsSegments[ , conml := gsub("( Inc| Corp| LLC| Ltd| Co| LP)$","",con
 compustatFirmsSegments[ , conml := tolower(conml)]
 
 
-
-EntitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")[foundingYear >= 1986 & foundingYear <= 2008]
+EntitiesPrevEmployers <- fread("data/VentureSource/EntitiesPrevEmployers.csv")[foundingYear >= 1986]
 ## Prepare data
 EntitiesPrevEmployers <- EntitiesPrevEmployers[, .(EntityID,EntityName,foundingYear,FirstName,LastName,joinYear,joinYearImputed,Title,TitleCode,Employer,Position,hasBio,founder2,technical,executive,all)]
 EntitiesPrevEmployers[ Employer == "Cisco", Employer := "Cisco Systems"]
@@ -172,9 +171,7 @@ matchedDistUnique <- unique(matchedDist, by = c("conml","name"))[ , .(conml,name
 # really I need to go back and manually ensure that the data is correct.
 # Still, this is MUCH easier than just going with the initial list of names.
 
-
 # Still need to figure out what is going on with AOL / Time Warner/ Verizon / Netscape
-
 
 matched[ name == "merrill lynch" & joinYear <= 2008 + mergerThreshold, `:=` (gvkey = 7267, tic = "BAC2", conml = "Merrill Lynch & Co Inc", naics = 523110, state = "NY", city = "New York", cusip = "59098Z002")]
 
@@ -273,18 +270,6 @@ matched[ name == "veritas" & joinYear <= 2008, gvkey := NA]  # Private before ac
 matched[ name == "zulily" & joinYear <= 2008, gvkey := NA]  # Private before acquisition by Pepperball
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 matched[ , count := NULL]
 matched[ , globCount := NULL]
 matched[ , founder2Count := NULL]
@@ -308,7 +293,7 @@ if (excludeAltDG == TRUE)
   parentsSpinouts[ source %in% c("altdg","unmatched") | hasBio == 0, fromPublic := as.integer(0)]
 } else
 {
-  parentsSpinouts[ source %in% c("unmatched") | hasBio == 0 | source == "altdg" & founder2Count < minimumSpinoutsThreshold, fromPublic := as.integer(0)] 
+  parentsSpinouts[ source %in% c("unmatched") | hasBio == 0 | (source == "altdg" & founder2Count < minimumSpinoutsThreshold), fromPublic := as.integer(0)] 
 }
 parentsSpinouts[ is.na(fromPublic), fromPublic := as.integer(1)]
 
@@ -316,8 +301,6 @@ fwrite(parentsSpinouts,"data/parentsSpinouts.csv")
   
 # Clean up
 rm(list = ls.str(mode = "list"))
-
-
 
 
 

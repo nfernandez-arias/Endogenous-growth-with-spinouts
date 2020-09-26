@@ -1,0 +1,13 @@
+\babel@toc {english}{}
+\beamer@sectionintoc {1}{Introduction}{2}{0}{1}
+\beamer@sectionintoc {2}{Empirics of R\&D and employee spinouts}{16}{0}{2}
+\beamer@sectionintoc {3}{Model}{24}{0}{3}
+\beamer@sectionintoc {4}{Calibration}{50}{0}{4}
+\beamer@sectionintoc {5}{Policy analysis}{53}{0}{5}
+\beamer@sectionintoc {6}{Appendix}{79}{1}{6}
+\beamer@subsectionintoc {6}{1}{Model}{84}{1}{6}
+\beamer@subsectionintoc {6}{2}{Equilibrium}{85}{1}{6}
+\beamer@subsectionintoc {6}{3}{Efficiency}{95}{1}{6}
+\beamer@subsectionintoc {6}{4}{Empirics}{96}{1}{6}
+\beamer@subsectionintoc {6}{5}{Calibration}{103}{1}{6}
+\beamer@subsectionintoc {6}{6}{Policy}{105}{1}{6}

@@ -20,17 +20,21 @@ compustat <- fread("data/compustat/compustat_withBloomInstruments.csv")
 compustat <- compustat[ seq > 0]
 compustat[ , pref := coalesce(pstkrv,pstkl,pstk)]
 compustat[ , BE := seq + txdb + itcb - pref]
-#compustat[ , itcb2 := itcb]
-#compustat[ is.na(itcb2), itcb2 := 0]
 
-compustat[ , BE2 := seq + txdb - pref]
+# Version where missings for small items are counted as zero
+compustat[ , itcb2 := itcb]
+compustat[ is.na(itcb2), itcb2 := 0]
+compustat[ , txdb2 := txdb]
+compustat[ is.na(txdb2), txdb2 := 0]
+
+compustat[ , BE2 := seq + txdb2 + itcb2 - pref]
 compustat[ , ME := prcc_c * csho]
 compustat[ is.na(re), re := 0]
 compustat[ is.na(act), act := 0]
 compustat[ BE > 0 , MtB := ME / BE]
 compustat[ BE2 > 0, MtB2 := ME / BE2]
 compustat[ , Tobin_Q := (at + ME - BE) / at]
-compustat[ , Tobin_Q_noitcb := (at + ME - BE2) / at]
+compustat[ , Tobin_Q2 := (at + ME - BE2) / at]
 compustat[ , EnterpriseValue := at + ME - BE]
 
 setnames(compustat,"year","fyear")
@@ -38,10 +42,7 @@ setnames(compustat,"year","fyear")
 # Some tests about firms that don't have compustat data
 
 
-
-
-
-compustat <- compustat[ , .(gvkey,cusip,fyear,Tobin_Q,Tobin_Q_noitcb,EnterpriseValue,datadate,loc,state,xrd,sale,lfirm,lfirm_bloom,lstate,lstate_bloom,capx,capxv,sppe,ppent,ebitda,ni,ch,emp,revt,intan,at,sic,naics)]
+compustat <- compustat[ , .(gvkey,cusip,fyear,Tobin_Q,Tobin_Q2,datadate,loc,state,xrd,sale,lfirm,lfirm_bloom,lstate,lstate_bloom,capx,capxv,sppe,ppent,ebitda,ni,ch,emp,revt,intan,at,sic,naics,prcc_c)]
 compustat <- compustat[!is.na(fyear)]
 
 

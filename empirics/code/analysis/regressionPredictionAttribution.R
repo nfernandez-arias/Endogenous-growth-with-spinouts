@@ -1,4 +1,4 @@
-data <- fread("data/compustat-spinouts_Stata.csv")[ , .(gvkey,year,State,naics1,naics2,naics3,naics4,xrd,xrd.l3,founders.founder2.f3, founders.founder2.wso4.f3)]
+data <- fread("data/compustat-spinouts_Stata_newest.csv")[ , .(gvkey,year,State,naics1,naics2,naics3,naics4,xrd,xrd.l3,founders.founder2.f3, founders.founder2.wso4.f3)]
 
 # Raw fit
 
@@ -6,7 +6,7 @@ data[ , xrd.l3 := xrd.l3 / 1000]
 
 # Construct predictions based on regression results.
 data[ , founders.Prediction := xrd.l3 * 0.7]
-data[ , founders.wso4.Prediction := xrd.l3 * 0.35]
+data[ , founders.wso4.Prediction := xrd.l3 * 0.25]
 
 data[ , founders.Explained :=  founders.Prediction / founders.founder2.f3]
 data[ , founders.wso4.Explained := founders.wso4.Prediction / founders.founder2.wso4.f3]
@@ -169,7 +169,7 @@ dataByIndustryYear <- data[ , .(naics1 = max(naics1), naics2 = max(naics2), naic
                             by = .(naics4,year)]
 
 dataByIndustryYear[ , founders.Prediction2 := xrd.l3 * 0.7]
-dataByIndustryYear[ , founders.wso4.Prediction2 := xrd.l3 * 0.35]
+dataByIndustryYear[ , founders.wso4.Prediction2 := xrd.l3 * 0.25]
 
 dataByIndustryYear[ , founders.Explained :=  founders.Prediction / founders.founder2.f3]
 dataByIndustryYear[ , founders.wso4.Explained := founders.wso4.Prediction / founders.founder2.wso4.f3]
@@ -178,7 +178,7 @@ p <- ggplot(dataByIndustryYear[naics1 %in% c("3","5")], aes(x = founders.founder
   geom_point(aes(size = xrd.l3, color = as.factor(naics1))) +
   geom_smooth(method = "lm", se = FALSE, aes(linetype = "Unweighted", color = as.factor(naics1)), show.legend = FALSE) +
   geom_smooth(method = "lm", se = FALSE, aes(weight = xrd.l3, linetype = "Weighted by R&D spending", color = as.factor(naics1))) +
-  #geom_abline(slope = 1, size = 1.5, linetype = "dotted", color = "black", show.legend = FALSE) +
+  geom_abline(slope = 1, size = 1.5, linetype = "dotted", color = "black", show.legend = FALSE) +
   coord_fixed() +
   labs(title = "R&D-induced vs total WSO4s, 4-digit industry-year level",
        subtitle = "All spinouts") +

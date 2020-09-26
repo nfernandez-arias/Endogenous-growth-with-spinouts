@@ -1,7 +1,7 @@
 
 data <- fread("data/compustat-spinouts_Stata.csv")
 
-RDbyIndustryYear = data[ , .(xrd.l3 = sum(na.omit(xrd.l3))), by = .(naics1,year)] 
+RDbyIndustryYear = data[ , .(xrd.l3 = sum(na.omit(xrd.l3))), by = .(naics2,year)] 
 
 RDbyYear = data[ , .(xrd.l3 = sum(na.omit(xrd.l3))), by = year]
 

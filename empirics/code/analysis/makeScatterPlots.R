@@ -88,10 +88,11 @@ ggsave("figures/scatterPlot_RD-Founders_dIntersection.png", plot = last_plot(), 
 
 
 ggplot(data = data, aes(x = xrd.l3.dIntersection, y = founders.founder2.wso4.f3.dIntersection)) + 
-  geom_point(size = 0.1) +
+  #geom_point(size = 0.1) +
   geom_smooth(method = "lm_robust", formula = y ~ poly(x,1), se = TRUE, color = "black", fill = "grey") + 
   #geom_smooth(method = "lm_robust", data = data[founders.founder2.f3 > 0], formula = y ~ poly(x,1), se = TRUE, color = "black", fill = "grey", aes(linetype = "# founders > 0")) + 
   #scale_color_manual(values = my_palette) + 
+  stat_summary_bin(fun = 'mean', bins = 10, shape = 0) + 
   theme(legend.position = "bottom") +
   scale_linetype_discrete(name = "") + 
   #theme(legend.position = "none") +

@@ -4,7 +4,7 @@
 # 
 # Author: Nicolas Fernandez-Arias
 #
-# Purpose:    dat <- fread("data/compus
+# Purpose:    
 #
 # This is the main script for the empirical component
 #------------------------------------------------#

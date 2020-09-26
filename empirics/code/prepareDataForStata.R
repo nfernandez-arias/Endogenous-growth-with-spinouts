@@ -13,7 +13,7 @@
 
 data <- fread("data/compustat-spinouts.csv")
 
-# merge with founding dates
+# merge with founding dates (decided not to do this because not available for enough firms)
 
 foundingDates <- setDT(read.xlsx("raw/compustat/age19752019.xlsx"))[ !is.na(CUSIP)]
 foundingDates[ str_length(CUSIP) == 8, CUSIP := paste0(CUSIP,"0")]
@@ -33,9 +33,6 @@ setkey(data,gvkey,year)
 data[is.na(xrd), xrd := 0]
 data[is.na(capxv), capxv := 0]
 data[is.na(sppe), sppe := 0]
-
-# Change units
-#data[ , xrd := xrd / 1000]
 
 #-------------------------------#     
 #
@@ -100,7 +97,7 @@ data[ , firmAge_founding := year - Founding]
 
 # Force the right time frame
 
-data <- data[year >= 1983]
+#data <- data[year >= 1986]
 data <- data[year <= 2018]
 
 # Construct 1,2,3,4,5,6-digit NAICS codes
@@ -164,12 +161,12 @@ for (col in countCols)
 
 # Construct variable normalized by asset holdings
 
-parentFirmVars <- c("xrd","patentCount_CW_cumulative","emp","Tobin_Q","Tobin_Q_noitcb","lfirm","lstate","lfirm_bloom","lstate_bloom")
+parentFirmVars <- c("xrd","patentCount_CW_cumulative","emp","Tobin_Q","Tobin_Q2","lfirm","lstate","lfirm_bloom","lstate_bloom")
 
 
 #data[ , at_ma5 := (1/5) * Reduce(`+`, shift(at,0L:4L,type="lag")), by = gvkey]
-data[ , at_ma5 := rollapplyr(at, FUN = mean, width = 5, align = "right", partial = TRUE), by = gvkey]
-data[ , emp_ma5 := rollapplyr(emp, FUN = mean, width = 5, align = "right", partial = TRUE), by = gvkey]
+data[ , at_ma5 := rollapplyr(at, FUN = mean, width = 5, align = "right", fill = NA, partial = TRUE), by = gvkey]
+data[ , emp_ma5 := rollapplyr(emp, FUN = mean, width = 5, align = "right", fill = NA, partial = TRUE), by = gvkey]
 #data[ , at_ma5_rollapplyr_false := rollapplyr(at, FUN = mean, width = 5, align = "right", partial = FALSE, fill = c(NA,NA,NA)), by = gvkey]
 
 #setcolorder(data,c("gvkey","year","at","at_ma5","at_ma5_rollapplyr","at_ma5_rollapplyr_false"))
@@ -277,8 +274,10 @@ proc.time() - ptm
 #-------------------------#
 
 data[ , tobinqat := Tobin_Q * at]
-
 data[ , tobinqat_l3 := rollapplyr(tobinqat, FUN = mean, width = 3, align = "right", partial = TRUE), by = gvkey]
+
+data[ , tobinq2at := Tobin_Q2 * at]
+data[ , tobinq2at_l3 := rollapplyr(tobinq2at, FUN = mean, width = 3, align = "right", partial = TRUE), by = gvkey]
       
 if (normalizeVariablesStata == TRUE)
 {

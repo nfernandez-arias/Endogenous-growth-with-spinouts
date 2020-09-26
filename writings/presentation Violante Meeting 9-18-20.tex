@@ -1,4 +1,4 @@
-\documentclass[english,usenames,dvipsnames,handout]{beamer}
+\documentclass[english,usenames,dvipsnames]{beamer}
 \usetheme{Boadilla}
 \beamertemplatenavigationsymbolsempty
 \setbeamertemplate{footline}[frame number]
@@ -80,9 +80,9 @@
 
 \begin{frame}{This project}
 \begin{itemize}
-	\item GE model of endogenous growth where incumbent firm \alert{\textbf{R\&D induces employee spinouts}}
+	\item Empirics relating corporate R\&D to future employee spinouts
 	\smallskip
-	\item Empirics of R\&D and employee spinouts
+	\item GE model of endogenous growth where incumbent firm \alert{\textbf{R\&D induces employee spinouts}}
 	\smallskip
 	\item Calibrate model to aggregate data and estimates from empirical analysis
 	\smallskip
@@ -97,8 +97,8 @@
 	\begin{itemize}
 		\item<+-> Empirics
 		\begin{itemize}
-			\item corporate R\&D is \alert{\textbf{robustly associated}} with future employee spinout formation
-			\item relationship is \alert{\textbf{economically significant}} and can \alert{\textbf{account for $\approx$ 75\%}} of employees founding within-industry spinouts
+			\item corporate R\&D associated with future employee spinout formation
+			\item relationship is \alert{\textbf{economically significant}} and can \alert{\textbf{account for $\approx$ 75\%}} of employees founding within-industry spinouts during the sample period
 		\end{itemize}
 		\medskip
 		\item<+-> Policy analysis
@@ -137,6 +137,73 @@
 \end{itemize}
 \end{frame}
 
+\section{Empirics of R\&D and employee spinouts}
+
+\begin{frame}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{Overview}
+	\begin{itemize}
+		\item Construct dataset matching incumbents to employee spinouts
+		\smallskip
+		\item Document empirical relationship between R\&D and subsequent employee spinout formation
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Consructing dataset}
+	\begin{itemize}
+		\item<+-> \alert{\textbf{Venture Source:}} 
+		\begin{itemize}
+			\item deal and company data for US-based startups funded by VCs
+			\item \alert{\textbf{employment biographies}} for founders / C-level / board members
+			\item subsample of startups founded in US between 1986 and 2008
+			\item 23,008 startups, 147,516 individuals, 89,382 financing rounds
+		\end{itemize}
+		\medskip
+		\item<+-> Merge with \alert{\textbf{Compustat:}}
+		\begin{itemize}
+			\item company data on publicly traded firms 
+			\item R\&D spending and other time-varying firm controls
+			\item match by parsing previous employer from Venture Source and string matching to company name
+		\end{itemize}
+		\medskip
+		\item<+-> Merge with \alert{\textbf{NBER-USPTO patent data}}
+		\begin{itemize}
+			\item data on all USPTO-registered patents and their citations (also data on inventors, associated firms)
+			\item crosswalk to Compustat firms
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Prevalence of WSOs}
+	\begin{figure}[]
+		\centering
+		\includegraphics[scale=0.4]{../empirics/figures/plots/industry_row_heatmap_naics2_founder2.pdf}
+		\caption{Distribution of child 2-digit NAICS code (column) conditional on parent NAICS code (row). Darker hues indicate a higher density.}
+		\label{figure:industry_row_heatmap_naics2_founder2}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Corporate R\&D is associated with spinout formation}
+	
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[scale= 0.4]{../empirics/figures/scatterPlot_RD-FoundersWSO4_dIntersection.pdf}
+		\caption{\footnotesize Binned scatterplot of average firm-level yearly within-industry spinout founder counts in $t+1,t+2,t+3$ versus average yearly R\&D spending in $t,t-1,t-2$. Both variables are demeaned, first at firm level then at the industry-state-age-year level.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Regression: R\&D predicts employee spinout formation}
+	\begin{table}
+		\tiny
+		\centering
+		\input{../empirics/figures/tables/RDandSpinoutFormation_headlineRegs.tex}
+		\caption{\scriptsize The dependent variable is average yearly number of founders joining WSOs in years $t+1,t+2,t+3$. The independent variables are averages over $t,t-1,t-2$. Firm controls include are employment, assets, intangible assets, investment, net income, cumulative citation-weighted patents, and Tobin's Q.}
+	\end{table}
+\end{frame}
+
+
 \section{Model}
 
 \begin{frame}
@@ -159,7 +226,6 @@
 		\end{itemize}
 	\end{itemize}
 \end{frame}
-
 
 \begin{frame}{Individual endowments and preferences}
 	\begin{itemize}
@@ -227,9 +293,6 @@
 		\item<.-> No storage of final good
 	\end{itemize}
 \end{frame}
-
-
-
 
 \begin{frame}{Innovation overview}
 	\begin{itemize}
@@ -369,94 +432,6 @@
 	\end{itemize}
 \end{frame}
 
-\section{Efficiency}
-
-\begin{frame}
-	\tableofcontents[currentsection]
-\end{frame}
-
-
-\begin{frame}{Efficiency}\label{efficiency}
-	\hyperlink{welfare}{\beamergotobutton{definition of welfare}} 
-	\medskip
-	\begin{itemize}
-		\item Allocation of production labor
-		\begin{itemize}
-			\item final good vs. intermediate goods
-			\item monopolistic competition
-		\end{itemize}
-		\medskip
-		\item Allocation of R\&D labor  
-		\begin{itemize}
-			\item own-product innovation vs. creative destruction 
-			\item business stealing externality \hyperlink{misallocation_of_rd}{\beamergotobutton{details}} 
-		\end{itemize}
-		\medskip
-		\item Use of NCAs 
-		\begin{itemize}
-			\item incumbent innovation vs. entrant and spinout innovation  \hyperlink{misallocation_of_nca}{\beamergotobutton{details}} 
-		\end{itemize}
-	\end{itemize}
-\end{frame}
-
-\section{Empirics}
-
-\begin{frame}
-\tableofcontents[currentsection]
-\end{frame}
-
-\begin{frame}{Overview of empirics}
-	\begin{itemize}
-		\item Construct dataset matching incumbents to employee spinouts
-		\smallskip
-		\item Document empirical relationship between R\&D and subsequent employee spinout formation
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Consructing dataset}
-\begin{itemize}
-	\item<+-> \alert{\textbf{Venture Source:}} 
-	\begin{itemize}
-		\item deal and company data for US-based startups funded by VCs
-		\item \alert{\textbf{employment biographies}} for founders / C-level / board members
-		\item subsample of startups founded in US between 1986 and 2008
-		\item 23,008 startups, 147,516 individuals, 89,382 financing rounds
-	\end{itemize}
-	\medskip
-	\item<+-> Merge with \alert{\textbf{Compustat:}}
-	\begin{itemize}
-		\item company data on publicly traded firms 
-		\item R\&D spending and other time-varying firm controls
-		\item match by parsing previous employer from Venture Source and string matching to company name
-	\end{itemize}
-	\medskip
-	\item<+-> Merge with \alert{\textbf{NBER-USPTO patent data}}
-	\begin{itemize}
-		\item data on all USPTO-registered patents and their citations (also data on inventors, associated firms)
-		\item crosswalk to Compustat firms
-	\end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Corporate R\&D is associated with spinout formation}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale= 0.4]{../empirics/figures/scatterPlot_RD-FoundersWSO4_dIntersection.pdf}
-\caption{Scatterplot of average firm-level yearly within-industry spinout founder counts in $t+1,t+2,t+3$ versus average yearly R\&D spending in $t,t-1,t-2$. Both variables are demeaned, first at firm level then at the industry-state-age-year level.}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Regressions}
-\begin{table}
-\tiny
-\centering
-\input{../empirics/figures/tables/RDandSpinoutFormation_onlyWSOs_absolute_founder2_l3f3.tex}
-\caption{\scriptsize The dependent variable is average yearly number of founders joining WSOs in years $t+1,t+2,t+3$. The independent variables are averages over $t,t-1,t-2$. Firm controls are employment, assets, intangible assets, investment, net income, cumulative citation-weighted patents, and total market value of the firm's equity and debt.}
-\end{table}
-\end{frame}
-
-
 \section{Calibration}
 
 
@@ -549,18 +524,229 @@
 	\hyperlink{robustness_to_moments}{\beamergotobutton{robustness to moments}} \hyperlink{robustness_to_parameters}{\beamergotobutton{robustness to parameters}}
 \end{frame}
 
+
+\begin{frame}{Efficiency}\label{efficiency}
+	\hyperlink{welfare}{\beamergotobutton{definition of welfare}} 
+	\medskip
+	\begin{itemize}
+		\item Allocation of production labor
+		\begin{itemize}
+			\item final good vs. intermediate goods
+			\item monopolistic competition
+		\end{itemize}
+		\medskip
+		\item Allocation of R\&D labor  
+		\begin{itemize}
+			\item own-product innovation vs. creative destruction 
+			\item business stealing externality \hyperlink{misallocation_of_rd}{\beamergotobutton{details}} 
+		\end{itemize}
+		\medskip
+		\item Use of NCAs 
+		\begin{itemize}
+			\item incumbent innovation vs. entrant and spinout innovation  \hyperlink{misallocation_of_nca}{\beamergotobutton{details}} 
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Misallocation of R\&D}\label{misallocation_of_rd}
+	\hyperlink{efficiency}{\beamergotobutton{back}} 
+	\begin{itemize}
+		\item <+-> Reallocating R\&D labor from entrants to incumbents increases BGP growth iff $\frac{d}{d\hat{z}} \hat{\tau} < \chi + (1-\mathbbm{1}^{NCA})\nu$
+		\item <+-> Equivalently, 
+		\footnotesize
+		\begin{multline}
+		1 >  \underbrace{\frac{1}{1-\kappa_{e}}}_{\mathclap{\text{Entry cost}}} \times \overbrace{\frac{\chi(\lambda-1) -(1-\mathbbm{1}^{NCA}) (1-(1-\kappa_e)\lambda)\nu - \mathbbm{1}^{NCA} \kappa_c \nu}{\chi(\lambda-1)}}^{\mathclap{\text{Entrants face different effective cost of R\&D}}} \\
+		\times \underbrace{\frac{\chi}{\chi + (1-\mathbbm{1}^{NCA})\nu}}_{\mathclap{\text{Effect of OI on spinout formation}}} \times \overbrace{\frac{\lambda-1}{\lambda}}^{\mathclap{\text{Business stealing}}} \times  \underbrace{(1-\psi)}_{\mathclap{\text{Congestion}}} \label{eq:RD_reallocation} 
+		\end{multline}
+		\normalsize
+		\item <+-> Effective cost of R\&D, spinout formation, congestion, and especially \alert{\textbf{business stealing}} produce \alert{\textbf{excessive creative destruction}}
+		\item <+-> Entry cost effect works in opposite direction as $\frac{1}{1-\kappa_e} > 1$ (caveat: increases non-R\&D cost of CD so smaller effect on welfare)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Misallocation of NCAs}\label{misallocation_of_nca}
+	\hyperlink{efficiency}{\beamergotobutton{back}} 
+	\begin{itemize}
+		\item <+-> Suppose $z > 0$ and $\kappa_c > \bar{\kappa}_c > 0$, so that $\mathbbm{1}^{NCA} = 0$ 
+		\begin{itemize}
+			\item setting $\kappa_c' = \bar{\kappa}_c - \varepsilon \Rightarrow \mathbbm{1}^{NCA} = 1$ and $\tau^S = 0$
+			\item setting $\kappa_c'' < \kappa_c'$ lowers incumbent's effective cost of R\&D
+			\begin{itemize}
+				\item more incumbent R\&D ($z \uparrow$), less entrant R\&D ($\hat{z} \downarrow$)
+			\end{itemize}
+		\end{itemize}
+		\item <+-> Overall change in growth rate from reduction to $\kappa_c''$
+		\begin{align*}
+		\Delta g  &= (\lambda -1) (\Delta (\underbrace{\tau + \hat{\tau}}_{\mathclap{\chi z + \hat{\chi} \hat{z}^{1-\psi}}}) - \underbrace{\tau^S_0}_{\mathclap{ \nu z_0}})
+		\end{align*}
+		\begin{itemize}
+			\item if (\ref{eq:RD_reallocation}) holds, $\Delta(\tau+ \hat{\tau}) > 0$ 
+			\item growth can \alert{\textbf{increase}} or \alert{\textbf{decrease}}  
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Why reducing $\kappa_c$ increases growth in the calibration}
+	\begin{itemize}
+		\item Business stealing, congestion
+		\begin{itemize}
+			\item large equilibrium difference in marginal effect on innovation of R\&D labor in OI vs CD
+			\item reducing $\kappa_c$ reallocates R\&D to OI, increasing growth
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Other factors determining magnitude of growth increase}
+	\begin{itemize}
+		\item <+-> Rate of spinout formation $\nu$
+		\begin{itemize}
+			\item higher $\nu$ $\Rightarrow$ reduction in $\kappa_c$ implies proportionally larger decrease in effective cost of incumbent innovation
+			\item proportionally more spinout innovation lost when $\kappa_c < \bar{\kappa}_c$ 
+		\end{itemize}
+		\medskip
+		\item <+-> Scope for reductions in $\kappa_c$
+		\begin{itemize}
+		\item large $\bar{\kappa}_c = 1 - (1-\kappa_e)\lambda $ means more scope for reducing incumbent cost of R\&D through reduction in $\kappa_c$
+		\end{itemize}
+		\medskip
+		\item <+-> Elasticity of R\&D spending 
+		\begin{itemize}
+			\item higher price-elasticity of R\&D spending $\Rightarrow$ more reallocation of R\&D
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Welfare}
+	\begin{itemize}
+		\item Initial consumption effects complicate general statements about welfare
+		\begin{itemize}
+			\item initial consumption affected by entry cost
+			\item entry cost depends on incumbent value $\tilde{V}$ 
+			\item incumbent value $\tilde{V}$ can increase or decrease as $\kappa_c \to 0$ b.c. $r \uparrow$ (as $g \uparrow$)
+		\end{itemize}
+		\medskip
+		\item As long as $\tilde{V}$ at $\kappa_c = 0$ is larger than $\tilde{V}$ at $\bar{\kappa}_c$,
+		\begin{itemize}
+			\item $g(\kappa_c = 0) > g(\kappa_c = \bar{\kappa}_c)$ implies $\tilde{W}(\kappa_c = 0) > \tilde{W}(\kappa_c = \bar{\kappa}_c)$
+			\smallskip
+			\item follows from $\tilde{C} = \tilde{Y} - (\hat{\tau} + \tau^S)\kappa_e \tilde{V} - \kappa_c \nu z$
+			\item this is the case in the calibration above
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{R\&D subsidies reduce growth and welfare, induce NCAs}\label{RDsubsidy_table}
+		\begin{table}
+			\centering
+			\scriptsize
+			\caption*{Effect on growth, NCAs, consumption and welfare of varying $T_{RD}$}
+			\begin{tabular}{lrlllll}
+				\toprule \toprule
+				 &  & \multicolumn{4}{c}{$T_{RD}$} \tabularnewline
+				Measure &Variable & 0 & 0.2 & 0.4 & 0.6 \tabularnewline
+				\midrule
+				Growth & $g$ & 1.49\% & 1.48\% & 1.47\% & 1.45\% \tabularnewline
+				NCA usage & $\mathbbm{1}^{NCA}$ & 0 & 0 & 0 & \alert{\textbf{1}} \tabularnewline
+				Initial consumption & $\tilde{C}$  & 0.776 &  0.776 & 0.776 & 0.776 \tabularnewline 
+				\tabularnewline
+				$\Delta$ Welfare (CEV) & $\tilde{W}$  &  & -0.16\% & -0.32\% & -0.89\% \tabularnewline
+				\bottomrule
+			\end{tabular}
+		\end{table}
+		\hyperlink{plots:rd_subsidies}{\beamergotobutton{plots}}
+\end{frame}
+
+\begin{frame}{Intuition}
+	\begin{itemize}
+		\item <+-> R\&D subsidy reduces cost of R\&D for entrants more than for incumbents
+		\begin{itemize}
+			\item future loss of business is not subsidized
+		\end{itemize}
+		\medskip
+		\item <+-> Equilibrium reallocation of R\&D towards creative destruction
+		\begin{itemize}
+			\item reduces growth on the margin
+		\end{itemize}
+		\medskip
+		\item <+-> Subsidies also induce the use of NCAs
+		\begin{itemize}
+			\item incumbents prefer to pay employees via (subsidized) wages instead of via future spinouts (cost not subsidized)
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{OI-targeted R\&D subsidies increase growth and welfare}\label{OI_RDsubsidy_table}
+	\begin{table}
+		\centering
+		\caption*{Effect on growth, NCAs, consumption and welfare of varying $T_{RD,I}$}
+		\scriptsize
+		\begin{tabular}{lrlllll}
+			\toprule \toprule
+			 &  & \multicolumn{4}{c}{$T_{RD,I}$} \tabularnewline
+			Measure &Variable & 0 & 0.2 & 0.4 & 0.6 \tabularnewline
+			\midrule
+			Growth & $g$ & 1.49\% & 1.64\% & 1.75\% & 1.79\% \tabularnewline
+			NCA usage & $\mathbbm{1}^{NCA}$ & 0 & 0 & 0 & \alert{\textbf{1}} \tabularnewline
+			Initial cons. & $\tilde{C}$  & 0.776 &  0.780 & 0.783 & 0.787 \tabularnewline 
+			\tabularnewline
+			$\Delta$ Welfare (CEV) & $\tilde{W}$  &  & 3.71\% & 6.36\% & 7.56\% \tabularnewline
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	\hyperlink{plots:oi_rd_subsidies}{\beamergotobutton{plots}}
+\end{frame}
+
+\begin{frame}{Intuition}
+	\begin{itemize}
+		\item <+-> Targeted R\&D subsidy corrects misallocation of R\&D
+		\begin{itemize}
+			\item tax on creative destruction R\&D isomorphic (except R\&D wage)
+		\end{itemize}
+		\smallskip
+		\item <+-> Large subsidy induces use of NCAs
+		\begin{itemize}
+			\item same logic as untargeted subsidies
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Optimal policy} \label{plots:all_policies} 
+	\begin{figure}[]
+		\includegraphics[scale = 0.22]{../code/julia/figures/simpleModel/testContourplots_ALL_summaryPlot_contour.pdf}
+		\caption{Summary of equilibrium for baseline parameter values and various values of $T_{RD,I}$ and $\kappa_c$. Optimum improves welfare by 9.08\%.}
+		\label{calibration_ALL_summaryPlot}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Intuition}
+	\begin{itemize}
+		\item <+-> NCAs are a socially costly way to provide incentive for incumbent R\&D
+		\begin{itemize}
+			\item sacrifice innovation by spinouts
+		\end{itemize}
+		\smallskip
+		\item <+-> Dominated by large targeted R\&D subsidies
+		\smallskip
+		\item <+-> Still a role for NCAs if targeted subsidies are small
+	\end{itemize}
+\end{frame}
+
 \begin{frame}{Conclusion}
 	\begin{itemize}
 		\item Link between R\&D spending and future within-industry employee spinouts
-		\begin{itemize}
-			\item \alert{\textbf{statistically}} and \alert{\textbf{economically}} significant relationship
-		\end{itemize}
 		\medskip
 		\item NCAs imply \alert{\textbf{economic tradeoff}} between \alert{\textbf{allocation of R\&D}} and \alert{\textbf{innovation by within-industry spinouts}}
 		\medskip
 		\item In a calibrated model, reducing NCA costs \alert{\textbf{increases growth }} (+7\%), \alert{\textbf{consumption}} (+0.6\%) and \alert{\textbf{welfare}} (+3\% in consumption-equivalent terms)
 		\begin{itemize}
 			\item results from strong \alert{\textbf{business stealing}} externality
+		\end{itemize}
+		\medskip
+		\item Optimal policy is \alert{\textbf{large incumbent R\&D subsidies + ban on NCAs}} ($\kappa_c = \infty$)
+		\begin{itemize}
+			\item for smaller subsidies \alert{\textbf{allowing NCAs}} ($\kappa_c = 0$) is optimal
+			\item subsidies to R\&D spending reduce growth and welfare
 		\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -814,44 +1000,6 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Misallocation of R\&D}\label{misallocation_of_rd}
-	\hyperlink{efficiency}{\beamergotobutton{back}} 
-	\begin{itemize}
-		\item Reallocating R\&D labor from entrants to incumbents increases BGP growth iff $\frac{d}{d\hat{z}} \hat{\tau} < \chi + (1-\mathbbm{1}^{NCA})\nu$ $\Leftrightarrow$
-		\footnotesize
-		\begin{multline}
-		1 >  \underbrace{\frac{1}{1-\kappa_{e}}}_{\mathclap{\text{Entry cost}}} \times \overbrace{\frac{\chi(\lambda-1) -(1-\mathbbm{1}^{NCA}) (1-(1-\kappa_e)\lambda)\nu - \mathbbm{1}^{NCA} \kappa_c \nu}{\chi(\lambda-1)}}^{\mathclap{\text{Entrants face different effective cost of R\&D}}} \\
-		\times \underbrace{\frac{\chi}{\chi + (1-\mathbbm{1}^{NCA})\nu}}_{\mathclap{\text{Effect of OI on spinout formation}}} \times \overbrace{\frac{\lambda-1}{\lambda}}^{\mathclap{\text{Business stealing}}} \times  \underbrace{(1-\psi)}_{\mathclap{\text{Congestion}}} \label{eq:RD_reallocation} 
-		\end{multline}
-		\normalsize
-		\item Effective cost of R\&D, spinout formation, congestion, and especially \alert{\textbf{business stealing}} produce \alert{\textbf{excessive creative destruction}}
-		\item Entry cost effect works in opposite direction as $\frac{1}{1-\kappa_e} > 1$
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Misallocation of NCAs}\label{misallocation_of_nca}
-	\hyperlink{efficiency}{\beamergotobutton{back}} 
-	\begin{itemize}
-		\item Suppose $z > 0$ and $\kappa_c > \bar{\kappa}_c > 0$, so that $\mathbbm{1}^{NCA} = 0$ 
-		\begin{itemize}
-			\item setting $\kappa_c' = \bar{\kappa}_c - \varepsilon \Rightarrow \mathbbm{1}^{NCA} = 1$ and $\tau^S = 0$
-			\item setting $\kappa_c'' < \kappa_c'$ lowers incumbent's effective cost of R\&D
-			\begin{itemize}
-				\item more incumbent R\&D ($z \uparrow$), less entrant R\&D ($\hat{z} \downarrow$)
-			\end{itemize}
-		\end{itemize}
-		\item Overall change in growth rate from reduction to $\kappa_c''$
-		\begin{align*}
-		\Delta g  &= (\lambda -1) (\Delta (\underbrace{\tau + \hat{\tau}}_{\mathclap{\chi z + \hat{\chi} \hat{z}^{1-\psi}}}) - \underbrace{\tau^S_0}_{\mathclap{ \nu z_0}})
-		\end{align*}
-		\begin{itemize}
-			\item if (\ref{eq:RD_reallocation}) holds, $\Delta(\tau+ \hat{\tau}) > 0$ 
-			\item growth can \alert{\textbf{increase}} or \alert{\textbf{decrease}}  
-		\end{itemize}
-		\item Need \alert{\textbf{quantitative discipline}} on parameters
-	\end{itemize}
-\end{frame}
-
 \subsection{Empirics}
 
 
@@ -1007,6 +1155,74 @@
 		\caption{Sufficiently reducing $\kappa_c$ improves growth and welfare.}
 	\end{figure}
 \end{frame}
+
+\begin{frame}{Decomposition of growth increase}\label{decomposition_growth_increase}
+	\hyperlink{reducing_kappa_c_table}{\beamergotobutton{back}}
+	\begin{table}
+		\centering
+		\footnotesize
+		\begin{tabular}{lrlll}
+			\toprule \toprule
+			Measure & Variable & $\kappa_c > \bar{\kappa}_c$ & $\kappa_c = 0$ & Chg. \tabularnewline
+			\midrule
+			Growth & $g$ & 1.487\% & 1.597\% & 7.4\% \tabularnewline
+			\multicolumn{1}{r}{incumbents} &  & 81\% & 86.2\% & 6.42\% \tabularnewline
+			\multicolumn{1}{r}{entrants} &  & 17.7\% & 13.8\% & -22\% \tabularnewline
+			\multicolumn{1}{r}{spinouts} &  & 1.32\% & 0\% & -100\% \tabularnewline
+			\tabularnewline
+			R\&D & & & & 
+			\tabularnewline
+			\multicolumn{1}{r}{incumbents (\%)}  & $z / \bar{L}_{RD}$ & 67.7\% & 77.4\% & 14.3\% \tabularnewline 
+			
+			\multicolumn{1}{r}{entrants (\%)}  & $\hat{z} / \bar{L}_{RD}$ & 32.3\% & 22.5\% & -30.3\% \tabularnewline
+			\bottomrule
+		\end{tabular}
+	\end{table}
+\end{frame}
+
+\begin{frame}{R\&D subsidies} \label{plots:rd_subsidies} 
+	\hyperlink{RDsubsidy_table}{\beamergotobutton{back}}
+	\begin{figure}[]
+		\includegraphics[scale = 0.26]{../code/julia/figures/simpleModel/calibrationFixed_RDSubsidy_summaryPlot.pdf}
+		\caption{Summary of equilibrium for baseline parameter values and various values of $T_{RD}$. This assumes that $\kappa_c = 1.1 \bar{\kappa}_c$.}
+		\label{calibration_RDSubsidy_summaryPlot}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Decomposition of growth increase}\label{decomposition_growth_increase}
+	\hyperlink{reducing_kappa_c_table}{\beamergotobutton{back}}
+	\begin{table}
+		\centering
+		\footnotesize
+		\begin{tabular}{lrlll}
+			\toprule \toprule
+			Measure & Variable & $\kappa_c > \bar{\kappa}_c$ & $\kappa_c = 0$ & Chg. \tabularnewline
+			\midrule
+			Growth & $g$ & 1.487\% & 1.597\% & 7.4\% \tabularnewline
+			\multicolumn{1}{r}{incumbents} &  & 81\% & 86.2\% & 6.42\% \tabularnewline
+			\multicolumn{1}{r}{entrants} &  & 17.7\% & 13.8\% & -22\% \tabularnewline
+			\multicolumn{1}{r}{spinouts} &  & 1.32\% & 0\% & -100\% \tabularnewline
+			\tabularnewline
+			R\&D & & & & 
+			\tabularnewline
+			\multicolumn{1}{r}{incumbents (\%)}  & $z / \bar{L}_{RD}$ & 67.7\% & 77.4\% & 14.3\% \tabularnewline 
+			
+			\multicolumn{1}{r}{entrants (\%)}  & $\hat{z} / \bar{L}_{RD}$ & 32.3\% & 22.5\% & -30.3\% \tabularnewline
+			\bottomrule
+		\end{tabular}
+	\end{table}
+\end{frame}
+
+\begin{frame}{R\&D subsidies} \label{plots:oi_rd_subsidies} 
+	\hyperlink{OI_RDsubsidy_table}{\beamergotobutton{back}}
+	\begin{figure}[]
+		\includegraphics[scale = 0.26]{../code/julia/figures/simpleModel/calibrationFixed_RDSubsidyTargeted_summaryPlot.pdf}
+		\caption{Summary of equilibrium for baseline parameter values and various values of $T_{RD,I}$. This assumes that $\kappa_c = 1.1 \bar{\kappa}_c$.}
+		\label{calibration_OI_RDSubsidy_summaryPlot}
+	\end{figure}
+\end{frame}
+
+
 
 
 
