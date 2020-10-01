@@ -34,6 +34,7 @@ library(ggplot2)
 library(estimatr)
 library(ggthemr)
 ggthemr("flat")# Set theme -- controls all plots
+library(extrafont)
 library(gridExtra)
 library(gplots)
 library(heatmap3)

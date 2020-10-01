@@ -4,7 +4,7 @@ set more off, permanently
 
 cd "Z:\home\nico\Insync\nfernand@princeton.edu\Google Drive\PhD - Thesis\Research\Endogenous-growth-with-spinouts\empirics"
 
-use "data/compustat-spinouts_Stata_newProdDeflator.dta", clear
+use "data/compustat-spinouts_Stata.dta", clear
 
 encode State, gen(Statecode)
 label variable Statecode "State"
@@ -12,7 +12,7 @@ label variable gvkey "Firm"
 
 xtset gvkey year
 
-keep if year <= 2006
+keep if year <= 2006 & year >= 1986
 
 label variable founders_founder2 "Founders"
 label variable founders_founder2_at "$\frac{\textrm{Founders}}{\textrm{Assets}}$"
@@ -71,8 +71,8 @@ replace xrd_at_l3 = xrd_at_l3 / 1000
 
 * Define control variables
 global controlsLevels patentCount_CW_cumulative emp_l3 at_l3 intan_l3 capxv_l3 ni_l3 tobinqat_l3
-global controlsAssetNormalized patentCount_CW_cumulative_at emp_at_l3 intan_at_l3 capxv_at_l3 ni_at_l3 Tobin_Q2_l3
-global controlsLogs lpatentCount_CW_cumulative lemp_l3 lat_l3 lintan_l3 lcapxv_l3 lni_l3 Tobin_Q2_l3
+global controlsAssetNormalized patentCount_CW_cumulative_at emp_at_l3 intan_at_l3 capxv_at_l3 ni_at_l3 Tobin_Q_l3
+global controlsLogs lpatentCount_CW_cumulative lemp_l3 lat_l3 lintan_l3 lcapxv_l3 lni_l3 Tobin_Q_l3
 
 
 /*
@@ -289,7 +289,7 @@ eststo: quietly ppmlhdfe founders_founder2_wso4_f3 lxrd_l3  $controlsLogs, absor
 
 estfe . *, labels(_cons "No FE" gvkey "Firm FE" year "Year FE" firmAge "Age FE" naics4#firmAge "Industry-Age FE" naics4#year "Industry-Year FE" Statecode#year "State-Year FE" naics4#Statecode#year "Industry-State-Year FE")
 return list
-esttab using "figures/tables/RDandSpinoutFormation_headlineRegs.tex", replace se star(+ 0.2 ++ 0.15 * 0.1 ** 0.05 *** 0.01) label keep(*xrd_l3* *xrd_at_l3* *lxrd_l3*) indicate(`r(indicate_fe)') stats(clustvar r2_a r2_a_within N, labels(Clustering "R-squared (adj.)" "R-squared (within, adj)" Observations)) interaction(" $\times$ ") style(tex) booktabs b(a2)
+esttab using "figures/tables/RDandSpinoutFormation_headlineRegs.tex", replace se star(* 0.1 ** 0.05 *** 0.01) label keep(*xrd_l3* *xrd_at_l3* *lxrd_l3*) indicate(`r(indicate_fe)') stats(clustvar r2_a r2_a_within N, labels(Clustering "R-squared (adj.)" "R-squared (within, adj)" Observations)) interaction(" $\times$ ") style(tex) booktabs b(a2)
 estfe . *, restore
 
 

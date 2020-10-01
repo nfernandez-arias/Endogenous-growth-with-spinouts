@@ -1,4 +1,4 @@
-\begin{thebibliography}{27}
+\begin{thebibliography}{29}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -180,6 +180,26 @@ Steven~Neil Kaplan.
 Peter~J Klenow and Huiyu Li.
 \newblock Innovative {Growth} {Accounting}.
 \newblock page~66, May 2020.
+
+\bibitem[Klepper(2007)]{klepper_disagreements_2007}
+Steven Klepper.
+\newblock Disagreements, {Spinoffs}, and the {Evolution} of {Detroit} as the
+  {Capital} of the {U}.{S}. {Automobile} {Industry}.
+\newblock \emph{Management Science}, 53\penalty0 (4):\penalty0 616--631, April
+  2007.
+\newblock ISSN 0025-1909, 1526-5501.
+\newblock \doi{10.1287/mnsc.1060.0683}.
+\newblock URL
+  \url{http://pubsonline.informs.org/doi/abs/10.1287/mnsc.1060.0683}.
+
+\bibitem[Klepper and Sleeper(2005)]{klepper_entry_2005}
+Steven Klepper and Sally Sleeper.
+\newblock Entry by {Spinoffs}.
+\newblock \emph{Management Science}, 51\penalty0 (8):\penalty0 1291--1306,
+  August 2005.
+\newblock ISSN 0025-1909.
+\newblock \doi{10.1287/mnsc.1050.0411}.
+\newblock URL \url{https://pubsonline.informs.org/doi/10.1287/mnsc.1050.0411}.
 
 \bibitem[Marx et~al.(2009)Marx, Strumsky, and Fleming]{marx_mobility_2009}
 Matt Marx, Deborah Strumsky, and Lee Fleming.

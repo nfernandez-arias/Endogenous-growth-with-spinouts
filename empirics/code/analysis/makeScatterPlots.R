@@ -1,6 +1,5 @@
 
-data <- fread("data/compustat-spinouts_Stata.csv")
-
+data <- fread("data/compustat-spinouts_Stata.csv")[ year >= 1986 & year <= 2006]
 
 
 for (var in c("xrd.l3","xrd.at.l3",
@@ -92,24 +91,25 @@ ggplot(data = data, aes(x = xrd.l3.dIntersection, y = founders.founder2.wso4.f3.
   geom_smooth(method = "lm_robust", formula = y ~ poly(x,1), se = TRUE, color = "black", fill = "grey") + 
   #geom_smooth(method = "lm_robust", data = data[founders.founder2.f3 > 0], formula = y ~ poly(x,1), se = TRUE, color = "black", fill = "grey", aes(linetype = "# founders > 0")) + 
   #scale_color_manual(values = my_palette) + 
-  stat_summary_bin(fun = 'mean', bins = 10, shape = 0) + 
+  stat_summary_bin(fun = 'mean', bins = 10, shape = 1) + 
   theme(legend.position = "bottom") +
   scale_linetype_discrete(name = "") + 
   #theme(legend.position = "none") +
-  labs(title = "Higher R&D is associated with more employee WSO4 formation", 
-       subtitle = "Levels") +
+  labs(title = "Corporate R&D predicts employee spinouts") +
   #ggtitle("Unadjusted") + 
   #ylim(0,1500) + 
   ylab("Founders") +
-  xlab("Real effective R&D spending")
+  xlab("R&D spending") + 
+  theme(text=element_text(family="Latin Modern Roman"))
 
-ggsave("figures/scatterPlot_RD-FoundersWSO4_dIntersection.pdf", plot = last_plot(), width = 9, height = 6, units = "in")
+ggsave("figures/scatterPlot_RD-FoundersWSO4_dIntersection.png", plot = last_plot(), width = 6, height = 4, units = "in")
 
 ggplot(data = data, aes(x = xrd.l3.d4, y = founders.founder2.wso4.f3.d4)) + 
   geom_point(size = 0.1) +
-  geom_smooth(method = "lm_robust", formula = y ~ poly(x,3), se = TRUE, color = "black", fill = "grey") + 
+  geom_smooth(method = "lm_robust", formula = y ~ poly(x,1), se = TRUE, color = "black", fill = "grey") + 
   #geom_smooth(method = "lm_robust", data = data[founders.founder2.f3 > 0], formula = y ~ poly(x,1), se = TRUE, color = "black", fill = "grey", aes(linetype = "# founders > 0")) + 
-  #scale_color_manual(values = my_palette) + 
+  #scale_color_manual(values = my_palette) +
+  stat_summary_bin(fun = 'mean', bins = 10, shape = 1) + 
   theme(legend.position = "bottom") +
   scale_linetype_discrete(name = "") + 
   #theme(legend.position = "none") +

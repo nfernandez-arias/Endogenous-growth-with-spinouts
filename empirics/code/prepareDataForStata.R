@@ -278,7 +278,9 @@ data[ , tobinqat_l3 := rollapplyr(tobinqat, FUN = mean, width = 3, align = "righ
 
 data[ , tobinq2at := Tobin_Q2 * at]
 data[ , tobinq2at_l3 := rollapplyr(tobinq2at, FUN = mean, width = 3, align = "right", partial = TRUE), by = gvkey]
-      
+
+
+# Deprecated, but leaving in here in case I want to use it later. Need to make some fixes      
 if (normalizeVariablesStata == TRUE)
 {
   for (col in c("Tobin_Q", "tobinqat", parentFirmVars, parentFirmControls, parentCols, paste0(parentCols,".l3")))

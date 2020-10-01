@@ -1,0 +1,156 @@
+\documentclass[11pt,english]{article}
+\usepackage{lmodern}
+\linespread{1.05}
+%\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+
+
+
+\usepackage{chngcntr}
+\usepackage[nocomma]{optidef}
+
+\usepackage[section]{placeins}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{bbm}
+\usepackage{amsfonts}
+
+\usepackage{accents}
+\newcommand\munderbar[1]{%
+	\underaccent{\bar}{#1}}
+
+
+\usepackage{svg}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{blindtext}
+%\renewcommand{\arraystretch}{1.2}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{rotating}
+\usepackage{mathtools}
+\usepackage{chngcntr}
+
+% TikZ stuff
+
+\usepackage{tikz}
+\usepackage{mathdots}
+\usepackage{yhmath}
+\usepackage{cancel}
+\usepackage{color}
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usetikzlibrary{fadings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shadows.blur}
+
+\usepackage[font=small]{caption}
+%\usepackage[printfigures]{figcaps}
+%\usepackage[nomarkers]{endfloat}
+
+
+%\usepackage{caption}
+%\captionsetup{justification=raggedright,singlelinecheck=false}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+
+\bibliographystyle{plainnat}
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+
+\let\oldFootnote\footnote
+\newcommand\nextToken\relax
+
+\renewcommand\footnote[1]{%
+	\oldFootnote{#1}\futurelet\nextToken\isFootnote}
+
+\newcommand\isFootnote{%
+	\ifx\footnote\nextToken\textsuperscript{,}\fi}
+
+%\usepackage{esint}
+\onehalfspacing
+
+%\theoremstyle{remark}
+%\newtheorem{remark}{Remark}
+%\newtheorem{theorem}{Theorem}[section]
+\newtheorem{assumption}{Assumption}
+\newtheorem{proposition}{Proposition}
+\newtheorem{proposition_corollary}{Corollary}[proposition]
+\newtheorem{lemma}{Lemma}
+\newtheorem{lemma_corollary}{Corollary}[lemma]
+
+\begin{document}
+	
+\title{Summary of "Endogenous Growth with Employee Spinouts, Creative Destruction, and Noncompete Agreements"}
+
+\author{Nicolas Fernandez-Arias} 
+\date{\today }
+
+%\date{\today}
+
+\maketitle
+
+\begin{abstract}
+	I study the effect of non-compete agreements (NCAs) on aggregate productivity growth. The central tradeoff I consider is that the availability of NCAs can prevent innovation by within-industry employee spinouts (firms whose founders previously worked in the same industry, hereafter just "spinouts") while increasing the incentive for own-product innovation by incumbent firms. To study this tradeoff, first I assemble a new dataset of venture capital funded startups matched to the previous employers of their founders. Regression analyses on these data reveal a statistically significant relationship between corporate R\&D and subsequent employee spinout formation. The relationship is economically significant, accounting for roughly 10\% of startup employment in the data. To study the implications of this microeconomic relationship, I extend a standard quality ladders model of endogenous growth to include R\&D-induced employee spinouts and noncompete contracts. I calibrate the model to match the micro estimates, aggregate moments and existing estimates from the literature. I then use the calibrated model as a laboratory to study the effect of reducing barriers to the use of NCAs. According to the calibrated model, reducing all barriers to the use of NCAs increases welfare by 3\% in consumption equivalent terms by improving the allocation of R\&D spending. The optimal policy is a combination of large R\&D subsidies targeted at own-product innovation (or, isomorphically, R\&D taxes on creative destruction innovation) and a ban on the use of NCAs. For small targeted R\&D subsidies (anything less than about 60\%), low barriers to the use of NCAs remains optimal. Untargeted R\&D subsidies reduce growth and welfare by overallocating R\&D to creative destruction. 
+\end{abstract}
+
+
+\section{Summary of JMP}
+
+The entry of new firms contributes significantly to long-run growth in labor productivity. In turn, the entry of new firms often occurs on the basis of the diffusion of knowledge developed at incumbent firms. In particular, within-industry employee spinouts (hereafter spinouts) -- new firms whose founders previously worked at incumbent firms in the same industry -- typically rely to some degree on knowledge gained at those incumbents. The classic example of this phenomenon discussed in the literature is that of Fairchild Semiconductor, one of the first leading semiconductor firms of Silicon Valley. Fairchild was a spinout of Shockley Laboratories, another semiconductor firm, and in turn Fiarchild spawned some of the most well-known modern firms in the industry, such as Intel and AMD. 
+
+To avoid the possibility of competition by spinouts, incumbents may reduce their investment in R\&D and other forms of costly knowledge creation, as they require training potential future rivals. Alternatively, they may take steps to prevent the formation spinouts directly, mitigate the disincentive to their own innovative efforts but simultaneously preventing productivity-enhancing knowledge diffusion. The most salient example of this kind of effort is the non-compete agreement (NCA), a type of employment contracts. Such contracts preclude the employee from founding a competing firm after ceasing his or her current employment until a prespecified amount of time has passed. Thus, NCAs allow the employee to commit not to form spinouts. 
+
+Noncompetes, therefore, inhibit innovation by spinouts while increasing the incentive for incumbents to innovate on their products. This observation motivates several questions. First, what is the effect of NCAs on aggregate productivity growth? Second, how does this depend on structural parameters that may be different in different locations, industries or time periods? Third, is it socially optimal to permit the free use of NCAs?
+
+This paper takes a step towards a quantitative answer to these questions. To this end, first I construct and analyze a micro dataset of incumbent firms and startups and find a statistically significant and economically meaningful relationship between parent firm R\&D and subsequent employee startup formation. Using this finding as motivation, I develop a tractable model of endogenous growth which augments a standard quality ladders model (e.g., as described in \cite{acemoglu_introduction_2009}) to include R\&D-induced spinouts and NCAs. I then calibrate the model to capture the relationship between R\&D and employee entrepreneurship. I analzye policy counterfactuals using the calibrated model. First, I study the effect of reducing barriers to the use of NCAs. describe the model-implied optimal policy. I find that eliminiation of all barriers to NCAs can increase welfare by approximately 3\% in consumption-equivalent terms.  Next, I study how the effect of other policies differs from the predictions of the standard model. I find that R\&D subsidies can have the counterintuitive effect of reducing growth by misallocating R\&D labor to creative destruction instead of own-product innovation incumbents. They also induce incumbents to use noncompetes, further worsening the allocation. On the other hand, R\&D subsidies targeted at own-product innovation improve welfare (equivalently, taxes on R\&D targeted at creative destruction). The optimal policy involves very large targeted R\&D subsidies and a ban on NCAs. 
+
+I use microeconomic data on R\&D and spinout formation as well as aggregate data on productivity growth and the macroeconomy. First, I assemble a new dataset of parent firms and startups founded by their employees by combining Compustat data on publicly traded firms and private Venture Source data on VC-funded startups and their founders. Venture Source is the only dataset on startups with broad coverage of information on the most recent employer of the startup's key employees. Still, matching these datasets is somewhat challenging as there are is no common company identifier so it must be done by name only. This is non-trivial since companies go by different names. I solve this problem by using string matching techniques (e.g., regular expressions). I define a startup as a spinout if its CEO, CTO, President, Chairman or Founder (1) was most recently employed at a firm in Compustat and (2) joined the startup in its first three years. Using this definition, I identify approximately 15,000 employee departures to found within industry spinouts. Finally, I match this dataset to the NBER-USPTO database, which contains information on all US patents, providing a measure of the stock of knowledge in the parent firm.
+
+Because R\&D spending is endogenous, a simple correlation of number of employee spinouts on lagged R\&D spending will generally suffer from omitted variable bias. To control for this, I use firm-specific controls, such as employment, assets, Tobin's Q, and citation-weighted patents, as well as firm, state-year, NAICS 4 digit industry-year (at 4-digit NAICS level). Firm fixed effects control for unobservable firm-level factors that are time-invariant; firm age fixed effects control for the effect of the typical firm life cycle; and state-year and industry-year fixed effects attempt to control time-varying factors, such as shocks to investment opportunities or overall industry or state conditions. The resulting estimates are statistically and economically significant. According to these estimates, R\&D can account for roughly 10\% of employee entrepreneurship in the data.
+
+The empirical results motivate the development of a model which consists of a standard general equilibrium model of endogenous growth with creative destruction augmented to include employee entrepreneurship and NCAs. It assumes that, via a learning-by-doing type assumption, R\&D employees eventually gain the knowledge to form a competing spinout. This reduces the incentive for R\&D spending by the employers which fear being replaced. In equilibrium, NCAs are used exactly when they maximize the joint value of employment. This bilateral optimization occurs through the wage, as the employer is able to hire the employee at a lower wage if he does not require an NCA. In that case, R\&D employees effectively pay ex-ante for the damage they will cause. When this ex-ante implicit payment exceeds the employer's expected loss of profits due to future spinout formation, 
+
+In order for the model to generate a role for NCAs, then, some friction in the employment relationship needs to be present so that, absent NCAs, bilaterally inefficient outcomes will occur. For example, I assume that it is not possible to ``synthesize" an NCA ex-post by buying an employee spinout only to shut it down (i.e., preventing the bilaterally inefficient outcome). I leave the particular friction unmodeled, simply assuming that there is no market in which spinouts can be sold to the incumbent firm that generated them. In reality, such a friction could relate to asymmetric information concerning the quality of the idea, disagreements between the employee and the employer concerning the idea's quality, or a simple lack of commitment power on the part of the employee (i.e., the employee cannot commit not to implement the idea even after selling it to his employer). In addition, antitrust law could prevent this type of ex-post buyout.
+
+The result is a model in which spinouts expand the innovation possibilities frontier of the economy while having an ambiguous effect on equilibrium innovation and productivity growth. This is the case even though R\&D requires inelastically supplied labor because the threat of spinouts can worsen the allocation of R\&D across uses. Specifically, spinouts reduce own-product innovation, shifting R\&D labor into creative destruction, where it typically has a lower social return on the margin due to the business-stealing externality. Depending on the strength of this mechanism relative to the growth impact of spinouts, the freedom to use NCAs can increase or decrease the equilibrium growth rate. In turn, this depends on the model parameters. 
+
+I calibrate the model using the empirical results in the first section as well as aggregate statistics and growth accounting estimates from recent innovative growth accounting paper (Garcia-Macia et al 2019 and Klenow \& Yi 2020). I also choose some parameters from the literature. The calibrated model can then be used to study the effect on productivity growth and welfare of reducing the cost of using NCAs to zero. As stated previously, I find that welfare rises 3\% in consumption-equivalent terms. I discuss how these results depend on the parameters and, via the calibration, on the value of the targeted moments. I also exhibit an alternative calibration with a smaller share of employment in young firms which returns the opposite conclusion and discuss why this results.
+
+Finally, I study alternative policies that could improve welfare in this context. I consider R\&D subsidies, both overall and targeted specifically at own innovation by incumbent firms; a tax on creative destruction; and finally the combination of all studied policies. There are two main findings. First, untargeted R\&D subsidies (that is, that apply to creative destruction as well as own-product innovation) can have the unintended effect of shifting R\&D to entrants, and potentially even inducing the use of NCAs. The latter occurs because incumbents prefer to pay R\&D employees through subsidized wages rather than implicitly through future spinout formation (whose cost to the incumbent is not subsidized). The former is due to a similar reason. Second, targeted R\&D subsidies avoid this problem and, in combination with a ban on the use of NCAs, can achieve a first-best where the incumbent does enough R\&D while still allowing for spinouts to enter. This might be a difficult policy to implement, and I discuss some of the potential barriers.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -11,7 +11,7 @@
 # and where they go (child state). 
 #------------------------------------------------#
 
-temp <- fread("data/parentsSpinoutsWSO.csv")
+temp <- fread("data/parentsSpinoutsWSO.csv")[ joinYear >= 1987 & joinYear <= 2009]
 
 for (ndigits in c(1,2,3,4))
 {
@@ -68,17 +68,17 @@ for (ndigits in c(1,2,3,4))
     
     naicsPairsCounts <- unique(naicsPairsCounts, by = c("ParentNAICS","ChildNAICS"))
     
-    naicsPairsCounts <- dcast(naicsPairsCounts, ParentNAICS ~ ChildNAICS, value.var = "N")
+    naicsPairsCounts_wide <- dcast(naicsPairsCounts, ParentNAICS ~ ChildNAICS, value.var = "N")
     
     #### Finally CONSTRUCT HEATMAPS
     ################################
     
-    rnames <- naicsPairsCounts[ ,1]
-    dataCounts <- as.matrix(naicsPairsCounts[ , 2:ncol(naicsPairsCounts)])
+    rnames <- naicsPairsCounts_wide[ ,1]
+    dataCounts <- as.matrix(naicsPairsCounts_wide[ , 2:ncol(naicsPairsCounts_wide)])
     rownames(dataCounts) <- t(rnames)
     
     library(RColorBrewer)
-    pal <- colorRampPalette( brewer.pal(name="Blues",n=9))(100)
+    pal <- colorRampPalette( brewer.pal(name="Blues",n=9))(600)
     
     pdf(paste0("figures/plots/industry_noscale_heatmap_naics",ndigits,"_",founderType,".pdf"))
     heatmap3(dataCounts, na.rm = TRUE, Rowv = NA, symm = TRUE, col = pal, scale = "none", cexRow = 1.2 - 0.2 * ndigits, cexCol = 1.2 - 0.2 * ndigits)
@@ -92,7 +92,31 @@ for (ndigits in c(1,2,3,4))
     heatmap3(dataCounts, na.rm = TRUE, Rowv = NA, symm = TRUE, col = pal, scale = "row", cexRow = 1.2 - 0.2 * ndigits, cexCol = 1.2 - 0.2 * ndigits)
     dev.off()
     
+    
+    naicsPairsCounts[ , N := (N - mean(na.omit(N))) / sd(na.omit(N)), by = ParentNAICS]
+    
+    naicsPairsCounts2 <- naicsPairsCounts
+    naicsPairsCounts2[ , `:=` (ParentNAICS = as.factor(ParentNAICS), ChildNAICS = as.factor(ChildNAICS))]
+    
+    font_import("Computer Modern Roman")
+    
+    ggplot(naicsPairsCounts2, aes(x = ChildNAICS, y =  ParentNAICS, fill = N )) + 
+      geom_tile() + 
+      scale_x_discrete(position = "top") +
+      scale_y_discrete(limits = rev(levels(as.factor(naicsPairsCounts2$ParentNAICS)))) + 
+      coord_fixed() + 
+      labs(fill = "Count (z-score)") + 
+      scale_fill_gradientn( colors = brewer.pal(name="Blues",n=9)) + 
+      xlab("Spinout industry") +
+      ylab("Parent industry") + 
+      theme(text=element_text(family="Latin Modern Roman"))
+
+    
+    ggsave(paste0("figures/plots/industry_row_heatmap_naics",ndigits,"_",founderType,"_ggplot2.png"), plot = last_plot(), width = 8, height = 5.333333, units = "in")
+    
     assign(dataStorageString,dataCounts)
+    
+    
   }
   
   

@@ -4,45 +4,45 @@ The top-level auxiliary file: simple model working draft new.aux
 The style file: plainnat.bst
 Database file #1: references.bib
 Warning--empty journal in klenow_innovative_2020
-You've used 27 entries,
+You've used 29 entries,
             2773 wiz_defined-function locations,
-            811 strings with 10876 characters,
-and the built_in function-call counts, 12522 in all, are:
-= -- 1241
-> -- 576
-< -- 22
-+ -- 198
-- -- 171
-* -- 1051
-:= -- 1968
-add.period$ -- 136
-call.type$ -- 27
-change.case$ -- 137
-chr.to.int$ -- 27
-cite$ -- 55
-duplicate$ -- 556
-empty$ -- 1015
-format.name$ -- 216
-if$ -- 2614
+            827 strings with 11311 characters,
+and the built_in function-call counts, 13473 in all, are:
+= -- 1343
+> -- 607
+< -- 24
++ -- 209
+- -- 180
+* -- 1133
+:= -- 2115
+add.period$ -- 148
+call.type$ -- 29
+change.case$ -- 146
+chr.to.int$ -- 29
+cite$ -- 59
+duplicate$ -- 596
+empty$ -- 1097
+format.name$ -- 229
+if$ -- 2814
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 27
-newline$ -- 198
-num.names$ -- 108
-pop$ -- 198
+missing$ -- 29
+newline$ -- 214
+num.names$ -- 116
+pop$ -- 207
 preamble$ -- 1
-purify$ -- 111
+purify$ -- 118
 quote$ -- 0
-skip$ -- 399
+skip$ -- 426
 stack$ -- 0
-substring$ -- 534
-swap$ -- 54
+substring$ -- 594
+swap$ -- 58
 text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 292
+type$ -- 314
 warning$ -- 1
-while$ -- 120
+while$ -- 130
 width$ -- 0
-write$ -- 463
+write$ -- 501
 (There was 1 warning)
