@@ -59,17 +59,23 @@ jac2 = fullJacobian(x)
 fnt = Plots.font("sans-serif", 9)
 fnt2 = Plots.font("sans-serif", 13)
 
+fnt_legend = Plots.font("times", 7)
+fnt_ticksGuides = Plots.font("times", 9)
+fnt_ticksGuides2 = Plots.font("times",13)
+fnt_title = Plots.font("times",9)
 
-xAxisLabels = ["\$ \\rho \$"; "\$ \\lambda \$"; "\$ \\chi \$"; L"\hat{\chi}"; "\$ \\kappa_E \$"; "\$ \\nu \$"]
+
+#xAxisLabels = ["\$ \\rho \$"; "\$ \\lambda \$"; "\$ \\chi \$"; L"\chi_e"; "\$ \\kappa_e \$"; "\$ \\nu \$"]
+xAxisLabels = [L"\rho"; L"\lambda"; L"\chi"; L"\hat{\chi}"; L"\kappa_e"; L"\nu"]
 
 p1 = bar(xAxisLabels, jac[1,:], xticks = :all, title = "Interest rate")
 p2 = bar(xAxisLabels, jac[2,:], xticks = :all, title = "Growth rate")
-p3 = bar(xAxisLabels, jac[3,:], xticks = :all, title = "Growth share OI")
+p3 = bar(xAxisLabels, jac[3,:], xticks = :all, title = "Firm age > 6 growth share")
 p4 = bar(xAxisLabels, jac[4,:], xticks = :all, title = "Firm age < 6 employment share")
 p5 = bar(xAxisLabels, jac[5,:], xticks = :all, title = "Spinout employment share")
 p6 = bar(xAxisLabels, jac[6,:], xticks = :all, title = "R&D (% GDP)")
 
-p = plot(p1,p2,p3,p4,p5,p6,xtickfont = fnt2, titlefont = Plots.font("sans-serif", 10),  bottom_margin = 10mm, ytickfont = fnt, guidefont = fnt, size = (1000,650), legend = false)
+p = plot(p1,p2,p3,p4,p5,p6, bottom_margin = 10mm, xguidefontsize = 16, yguidefont = fnt_ticksGuides, titlefont = fnt_title, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, size = (666,500), legend = false)
 
 savefig(p,"figures/simpleModel/identificationSources.pdf")
 
@@ -85,7 +91,7 @@ savefig(p,"figures/simpleModel/identificationSources.pdf")
 jacInv = inv(float.(jac))
 fnt2 = Plots.font("sans-serif", 7)
 fnt3 = Plots.font("sans-serif", 17)
-xAxisLabels = ["r"; "g"; "OI share"; "Entry"; "Spinouts"; "R&D"]
+xAxisLabels = ["r"; "g"; "I"; "E"; "S"; "RD"]
 
 p1 = bar(xAxisLabels, jacInv[1,:], xticks = :all, title = "\$ \\rho \$", rotation = 0)
 p2 = bar(xAxisLabels, jacInv[2,:], xticks = :all, title = "\$ \\lambda \$", rotation = 0)
@@ -94,7 +100,7 @@ p4 = bar(xAxisLabels, jacInv[4,:], xticks = :all, title = L"\hat{\chi}", rotatio
 p5 = bar(xAxisLabels, jacInv[5,:], xticks = :all, title = "\$ \\kappa_E \$", rotation = 0)
 p6 = bar(xAxisLabels, jacInv[6,:], xticks = :all, title = "\$ \\nu \$", rotation = 0)
 
-p = plot(p1,p2,p3,p4,p5,p6,xtickfont = fnt2, titlefont = fnt3, ytickfont = fnt, guidefont = fnt,  bottom_margin = 10mm, size = (1000,650), legend = false)
+p = plot(p1,p2,p3,p4,p5,p6,bottom_margin = 10mm, xguidefontsize = 16, yguidefont = fnt_ticksGuides, titlefont = fnt_title, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, size = (800,600), legend = false)
 
 savefig(p,"figures/simpleModel/calibrationSensitivity.pdf")
 
@@ -105,11 +111,11 @@ savefig(p,"figures/simpleModel/calibrationSensitivity.pdf")
 # on the equilibrium.
 #
 
-xAxisLabels = ["\$ \\rho \$"; "\$ \\theta \$"; "\$ \\beta \$"; "\$ \\psi \$"; "\$ \\lambda \$"; "\$ \\chi \$"; L"\hat{\chi}"; "\$ \\kappa_E \$"; "\$ \\nu \$"]
+xAxisLabels = ["\$ \\rho \$"; "\$ \\theta \$"; "\$ \\beta \$"; "\$ \\psi \$"; "\$ \\lambda \$"; "\$ \\chi \$"; L"\hat{\chi} "; "\$ \\kappa_E \$"; "\$ \\nu \$"]
 
 p1 = bar(xAxisLabels, jac2[1,:], xticks = :all, title = "Interest rate", titlefont = Plots.font("sans-serif", 12))
 p2 = bar(xAxisLabels, jac2[2,:], xticks = :all, title = "Growth rate", titlefont = Plots.font("sans-serif", 12))
-p3 = bar(xAxisLabels, jac2[3,:], xticks = :all, title = "Growth share OI", titlefont = Plots.font("sans-serif", 12))
+p3 = bar(xAxisLabels, jac2[3,:], xticks = :all, title = "Firm age > 6 growth share", titlefont = Plots.font("sans-serif", 12))
 p4 = bar(xAxisLabels, jac2[4,:], xticks = :all, title = "Firm age < 6 employment share", titlefont = Plots.font("sans-serif", 12))
 p5 = bar(xAxisLabels, jac2[5,:], xticks = :all, title = "Spinout employment share", titlefont = Plots.font("sans-serif", 12))
 p6 = bar(xAxisLabels, jac2[6,:], xticks = :all, title = "R&D (% GDP)", titlefont = Plots.font("sans-serif", 12))
@@ -117,7 +123,7 @@ p7 = bar(xAxisLabels, jac2[7,:], xticks = :all, title = "\$ \\theta \$", titlefo
 p8 = bar(xAxisLabels, jac2[8,:], xticks = :all, title = "\$ \\beta \$", titlefont = Plots.font("sans-serif", 15))
 p9 = bar(xAxisLabels, jac2[9,:], xticks = :all, title = "\$ \\psi \$", titlefont = Plots.font("sans-serif", 15))
 
-p = plot(p1,p2,p3,p4,p5,p6,p7,p8,p9,xtickfont = Plots.font("sans-serif", 11), ytickfont = fnt, guidefont = fnt,  bottom_margin = 10mm, size = (1000,800), legend = false)
+p = plot(p1,p2,p3,p4,p5,p6,p7,p8,p9,bottom_margin = 10mm, xguidefontsize = 16, yguidefont = fnt_ticksGuides, titlefont = fnt_title, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, size = (800,600), legend = false)
 
 savefig(p,"figures/simpleModel/identificationSourcesFull.pdf")
 
@@ -132,7 +138,7 @@ savefig(p,"figures/simpleModel/identificationSourcesFull.pdf")
 jac2Inv = inv(float.(jac2))
 fnt2 = Plots.font("sans-serif", 10)
 fnt3 = Plots.font("sans-serif", 17)
-xAxisLabels = ["r"; "g"; "OI"; "E"; "S"; "RD"; L"\theta"; L"\beta"; L"\psi"]
+xAxisLabels = ["r"; "g"; "I"; "E"; "S"; "RD"; L"\theta"; L"\beta"; L"\psi"]
 
 p1 = bar(xAxisLabels, jac2Inv[1,:], xticks = :all, title = "\$ \\rho \$", xrotation = 0)
 p2 = bar(xAxisLabels, jac2Inv[2,:], xticks = :all, title = "\$ \\theta \$", xrotation = 0)
@@ -144,6 +150,6 @@ p7 = bar(xAxisLabels, jac2Inv[7,:], xticks = :all, title = L"\hat{\chi}", xrotat
 p8 = bar(xAxisLabels, jac2Inv[8,:], xticks = :all, title = "\$ \\kappa_E \$", xrotation = 0)
 p9 = bar(xAxisLabels, jac2Inv[9,:], xticks = :all, title = "\$ \\nu \$", xrotation = 0)
 
-p = plot(p1,p2,p3,p4,p5,p6,p7,p8,p9,xtickfont = fnt2, titlefont = fnt3, ytickfont = Plots.font("sans-serif", 8), guidefont = fnt, size = (1000,800), bottom_margin = 10mm, legend = false)
+p = plot(p1,p2,p3,p4,p5,p6,p7,p8,p9,bottom_margin = 10mm, xguidefontsize = 16, yguidefont = fnt_ticksGuides, titlefont = fnt_title, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, size = (800,600), legend = false)
 
 savefig(p,"figures/simpleModel/calibrationSensitivityFull.pdf")

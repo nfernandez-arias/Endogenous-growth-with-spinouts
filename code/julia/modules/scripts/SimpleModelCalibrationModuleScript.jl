@@ -6,7 +6,8 @@
 
 using LinearAlgebra, Statistics, Optim, ForwardDiff
 
-export SimpleCalibrationTarget, SimpleCalibrationParameters, SimpleModelMoments, calibrateModel,computeSimpleModelMoments,computeScore, constructJacobian, constructWelfareComparisonFullGradient, constructLevelsWelfareComparisonFullGradient, constructFullJacobian
+export SimpleCalibrationTarget, SimpleCalibrationParameters, SimpleModelMoments, calibrateModel,calibrateModel_noSpinouts, calibrateModel_noCreativeDestructionCost, computeSimpleModelMoments,computeScore
+export constructJacobian, constructWelfareComparisonFullGradient, constructLevelsWelfareComparisonFullGradient, constructFullJacobian
 
 struct SimpleCalibrationTarget
 
@@ -152,7 +153,7 @@ end
 
 function calibrateModel(modelPar::SimpleModelParameters,calibPar::SimpleCalibrationParameters)
 
-    targets = zeros(length(fieldnames(typeof(calibPar))),1)
+    targets = zeros(length(fieldnames(typeof(calibPar))))
     weights = zeros(size(targets))
 
     for (i,field) = enumerate(fieldnames(typeof(calibPar)))
@@ -182,7 +183,7 @@ function calibrateModel(modelPar::SimpleModelParameters,calibPar::SimpleCalibrat
         modelPar.κE = x[5]
         modelPar.ν = x[6] * x[3]
 
-        modelPar.κC = 2*(1 - (1-modelPar.κE)*modelPar.λ)
+        modelPar.κC = max(0,2*(1 - (1-modelPar.κE)*modelPar.λ))
 
         log_file = open("./figures/SimpleModelCalibrationLog.txt","a")
         write(log_file,"Iteration: ρ = $(modelPar.ρ); λ = $(modelPar.λ); χI = $(modelPar.χI); χE = $(modelPar.χE); κE = $(modelPar.κE); ν = $(modelPar.ν)\n")
@@ -218,7 +219,7 @@ function calibrateModel(modelPar::SimpleModelParameters,calibPar::SimpleCalibrat
                   modelPar.ν / modelPar.χI ]
 
     lower = [0.001, 1.02, 0.1, 0, 0, 0]
-    upper = [0.05, 1.7, 30, 0.5, 0.999999, 0.5]
+    upper = [0.08, 1.7, 30, 0.5, 0.999999, 0.5]
 
     #inner_optimizer = GradientDescent()
     inner_optimizer = LBFGS()
@@ -237,7 +238,7 @@ function calibrateModel(modelPar::SimpleModelParameters,calibPar::SimpleCalibrat
     modelPar.κE = x[5]
     modelPar.ν = x[6] * x[3]
 
-    modelPar.κC = 2*(1 - (1-modelPar.κE)*modelPar.λ)
+    modelPar.κC = max(0,2*(1 - (1-modelPar.κE)*modelPar.λ))
 
     sol = solveSimpleModel(modelPar)
 
@@ -248,6 +249,200 @@ function calibrateModel(modelPar::SimpleModelParameters,calibPar::SimpleCalibrat
     return calibrationResults,finalMoments,sol,finalScore
 
 end
+
+function calibrateModel_noSpinouts(modelPar::SimpleModelParameters,calibPar::SimpleCalibrationParameters)
+
+    targets = zeros(length(fieldnames(typeof(calibPar))))
+    weights = zeros(size(targets))
+
+    for (i,field) = enumerate(fieldnames(typeof(calibPar)))
+
+        temp = getfield(calibPar,field)
+
+        targets[i] = temp.value
+        weights[i] = temp.weight
+
+    end
+
+    #----------------------------------#
+    # Calibrate model based on weights
+    #----------------------------------#
+
+    # First, define objective function f in format that can
+    # be used with ReverseDiff.jl
+
+    function f(x::Array{Float64})
+
+        # Unpack x vector into modelPar struct for inputting into model solver
+
+        modelPar.ρ = x[1]
+        modelPar.λ = x[2]
+        modelPar.χI = x[3]
+        modelPar.χE = x[4] * x[3]
+        modelPar.κE = x[5]
+
+        modelPar.κC = max(0,2*(1 - (1-modelPar.κE)*modelPar.λ))
+
+        log_file = open("./figures/SimpleModelCalibrationLog.txt","a")
+        write(log_file,"Iteration: ρ = $(modelPar.ρ); λ = $(modelPar.λ); χI = $(modelPar.χI); χE = $(modelPar.χE); κE = $(modelPar.κE); ν = $(modelPar.ν)\n")
+        close(log_file)
+
+        output = computeScore(modelPar,targets,weights)
+
+        log_file = open("./figures/SimpleModelCalibrationLog_objectiveValues.txt","a")
+        write(log_file, "Value of objective: $output\n")
+        close(log_file)
+
+        return output
+
+    end
+
+    # Next, define gradient using ReverseDiff.jl
+
+    #function g!(G,x)
+
+        #G = ReverseDiff.gradient(f,x)
+        #ReverseDiff.gradient!(G,f,x)
+    #    ForwardDiff.gradient!(G,f,x)
+
+    #end
+
+    # Finally, use Optim.jl to optimize the objective function
+
+    initial_x = [ modelPar.ρ,
+                  modelPar.λ,
+                  modelPar.χI,
+                  modelPar.χE / modelPar.χI,
+                  modelPar.κE ]
+
+    lower = [0.001, 1.02, 0.1, 0, 0]
+    upper = [0.05, 1.7, 30, 0.5, 0.999999]
+
+    #inner_optimizer = GradientDescent()
+    inner_optimizer = LBFGS()
+
+
+    calibrationResults = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(outer_iterations = 1000000, iterations = 10000000, store_trace = true))
+
+    x = calibrationResults.minimizer
+
+    # UMake some plots and return
+
+    modelPar.ρ = x[1]
+    modelPar.λ = x[2]
+    modelPar.χI = x[3]
+    modelPar.χE = x[4] * x[3]
+    modelPar.κE = x[5]
+
+    modelPar.κC = max(0,2*(1 - (1-modelPar.κE)*modelPar.λ))
+
+    sol = solveSimpleModel(modelPar)
+
+    finalMoments = computeSimpleModelMoments(modelPar)
+
+    finalScore = computeScore(modelPar,targets,weights)
+
+    return calibrationResults,finalMoments,sol,finalScore
+
+end
+
+function calibrateModel_noCreativeDestructionCost(modelPar::SimpleModelParameters,calibPar::SimpleCalibrationParameters)
+
+    targets = zeros(length(fieldnames(typeof(calibPar))))
+    weights = zeros(size(targets))
+
+    for (i,field) = enumerate(fieldnames(typeof(calibPar)))
+
+        temp = getfield(calibPar,field)
+
+        targets[i] = temp.value
+        weights[i] = temp.weight
+
+    end
+
+    #----------------------------------#
+    # Calibrate model based on weights
+    #----------------------------------#
+
+    # First, define objective function f in format that can
+    # be used with ReverseDiff.jl
+
+    function f(x::Array{Float64})
+
+        # Unpack x vector into modelPar struct for inputting into model solver
+
+        modelPar.ρ = x[1]
+        modelPar.λ = x[2]
+        modelPar.χI = x[3]
+        modelPar.χE = x[4] * x[3]
+        #modelPar.κE = x[5]
+        modelPar.ν = x[5] * x[3]
+
+        modelPar.κC = max(0,2*(1 - (1-modelPar.κE)*modelPar.λ))
+
+        log_file = open("./figures/SimpleModelCalibrationLog.txt","a")
+        write(log_file,"Iteration: ρ = $(modelPar.ρ); λ = $(modelPar.λ); χI = $(modelPar.χI); χE = $(modelPar.χE); κE = $(modelPar.κE); ν = $(modelPar.ν)\n")
+        close(log_file)
+
+        output = computeScore(modelPar,targets,weights)
+
+        log_file = open("./figures/SimpleModelCalibrationLog_objectiveValues.txt","a")
+        write(log_file, "Value of objective: $output\n")
+        close(log_file)
+
+        return output
+
+    end
+
+    # Next, define gradient using ReverseDiff.jl
+
+    #function g!(G,x)
+
+        #G = ReverseDiff.gradient(f,x)
+        #ReverseDiff.gradient!(G,f,x)
+    #    ForwardDiff.gradient!(G,f,x)
+
+    #end
+
+    # Finally, use Optim.jl to optimize the objective function
+
+    initial_x = [ modelPar.ρ,
+                  modelPar.λ,
+                  modelPar.χI,
+                  modelPar.χE / modelPar.χI,
+                  modelPar.ν / modelPar.χI ]
+
+    lower = [0.001, 1.02, 0.1, 0, 0]
+    upper = [0.07, 2.5, 30, 0.5, 0.5]
+
+    #inner_optimizer = GradientDescent()
+    inner_optimizer = LBFGS()
+
+
+    calibrationResults = optimize(f,lower,upper,initial_x,Fminbox(inner_optimizer),Optim.Options(outer_iterations = 1000000, iterations = 10000000, store_trace = true))
+
+    x = calibrationResults.minimizer
+
+    # UMake some plots and return
+
+    modelPar.ρ = x[1]
+    modelPar.λ = x[2]
+    modelPar.χI = x[3]
+    modelPar.χE = x[4] * x[3]
+    modelPar.ν = x[5] * x[3]
+
+    modelPar.κC = max(0,2*(1 - (1-modelPar.κE)*modelPar.λ))
+
+    sol = solveSimpleModel(modelPar)
+
+    finalMoments = computeSimpleModelMoments(modelPar)
+
+    finalScore = computeScore(modelPar,targets,weights)
+
+    return calibrationResults,finalMoments,sol,finalScore
+
+end
+
 
 function constructJacobian(modelPar::SimpleModelParameters)
 

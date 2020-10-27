@@ -1,4 +1,4 @@
-data <- fread("data/compustat-spinouts_Stata_newest.csv")[ , .(gvkey,year,State,naics1,naics2,naics3,naics4,xrd,xrd.l3,founders.founder2.f3, founders.founder2.wso4.f3)]
+data <- fread("data/compustat-spinouts_Stata.csv")[ , .(gvkey,year,State,naics1,naics2,naics3,naics4,xrd,xrd.l3,founders.founder2.f3, founders.founder2.wso4.f3)]
 
 # Raw fit
 
@@ -176,19 +176,20 @@ dataByIndustryYear[ , founders.wso4.Explained := founders.wso4.Prediction / foun
 
 p <- ggplot(dataByIndustryYear[naics1 %in% c("3","5")], aes(x = founders.founder2.wso4.f3, y = founders.wso4.Prediction)) + 
   geom_point(aes(size = xrd.l3, color = as.factor(naics1))) +
-  geom_smooth(method = "lm", se = FALSE, aes(linetype = "Unweighted", color = as.factor(naics1)), show.legend = FALSE) +
-  geom_smooth(method = "lm", se = FALSE, aes(weight = xrd.l3, linetype = "Weighted by R&D spending", color = as.factor(naics1))) +
+  geom_smooth(method = "lm", se = FALSE, aes(color = as.factor(naics1)), show.legend = FALSE) +
+  #geom_smooth(method = "lm", se = FALSE, aes(weight = xrd.l3, linetype = "Weighted by R&D spending", color = as.factor(naics1))) +
   geom_abline(slope = 1, size = 1.5, linetype = "dotted", color = "black", show.legend = FALSE) +
   coord_fixed() +
-  labs(title = "R&D-induced vs total WSO4s, 4-digit industry-year level",
-       subtitle = "All spinouts") +
+  ylim(0,25) + 
+  labs(title = "R&D-induced vs total WSO4s, 4-digit industry-year level") +
   scale_color_discrete(name = "Industry", labels = c("3","5")) + 
   scale_size_continuous(name = "R&D spending") +
-  scale_linetype_discrete() +
+  #scale_linetype_discrete() +
   ylab("Predicted founders") + 
-  xlab("Actual founders")
+  xlab("Actual founders") +
+  theme(text=element_text(family="Latin Modern Roman"))
 
-ggsave("figures/founder2_founders_wso4_f3_Accounting_industryYear.pdf", plot = p, width = 8, height = 4, units = "in")
+ggsave("figures/founder2_founders_wso4_f3_Accounting_industryYear.png", plot = p, width = 8, height = 4, units = "in")
 
 
 ggplot(dataByIndustryYear[naics1 %in% c("3","5")], aes(x = xrd.l3, y = founders.founder2.wso4.f3)) + 

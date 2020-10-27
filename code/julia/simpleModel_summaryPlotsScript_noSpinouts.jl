@@ -2,13 +2,14 @@
 
 using Revise, EndogenousGrowthWithSpinouts_SimpleModel
 
-modelPar = initializeSimpleModel()
 
-makePlots(modelPar,"calibrationFixed")
-makePlotsRDSubsidy(modelPar,"calibrationFixed")
-makePlotsEntryTax(modelPar,"calibrationFixed")
-makePlotsRDSubsidyTargeted(modelPar,"calibrationFixed")
-makePlotsALL_contour(modelPar,"calibrationFixed")
+#modelPar = initializeSimpleModel()
+
+#makePlots(modelPar,"noSpinouts")
+makePlotsRDSubsidy(modelPar,"noSpinouts")
+makePlotsEntryTax(modelPar,"noSpinouts")
+makePlotsRDSubsidyTargeted(modelPar,"noSpinouts")
+#makePlotsALL(modelPar,"noSpinouts")
 
 #interestRate = SimpleCalibrationTarget(0.06,1)
 #growthRate = SimpleCalibrationTarget(0.013,1)

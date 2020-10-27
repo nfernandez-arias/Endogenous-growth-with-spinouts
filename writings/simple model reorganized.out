@@ -1,0 +1,57 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Empirics of R\046D and spinout formation}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Data}{section.2}% 3
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Sources}{subsection.2.1}% 4
+\BOOKMARK [3][-]{subsubsection.2.1.2}{Construction of dataset}{subsection.2.1}% 5
+\BOOKMARK [2][-]{subsection.2.2}{Corporate R\046D and spinout formation}{section.2}% 6
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Preliminaries}{subsection.2.2}% 7
+\BOOKMARK [3][-]{subsubsection.2.2.2}{Regressions}{subsection.2.2}% 8
+\BOOKMARK [3][-]{subsubsection.2.2.3}{Economic magnitude}{subsection.2.2}% 9
+\BOOKMARK [1][-]{section.3}{Model}{}% 10
+\BOOKMARK [2][-]{subsection.3.1}{Representative household}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.2}{Final goods producer}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.3}{Intermediate goods production and innovation}{section.3}% 13
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Incumbents}{subsection.3.3}% 14
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Spinouts and noncompete agreeements}{subsection.3.3}% 15
+\BOOKMARK [3][-]{subsubsection.3.3.3}{Entrants}{subsection.3.3}% 16
+\BOOKMARK [2][-]{subsection.3.4}{Competitive financial intermediary}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.5}{Equilibrium}{section.3}% 18
+\BOOKMARK [3][-]{subsubsection.3.5.1}{Definition of equilibrium}{subsection.3.5}% 19
+\BOOKMARK [3][-]{subsubsection.3.5.2}{Static equilibrium}{subsection.3.5}% 20
+\BOOKMARK [3][-]{subsubsection.3.5.3}{Existence and uniqueness of symmetric BGP}{subsection.3.5}% 21
+\BOOKMARK [1][-]{section.4}{Calibration}{}% 22
+\BOOKMARK [2][-]{subsection.4.1}{Parameters}{section.4}% 23
+\BOOKMARK [2][-]{subsection.4.2}{Targets}{section.4}% 24
+\BOOKMARK [2][-]{subsection.4.3}{Identification}{section.4}% 25
+\BOOKMARK [1][-]{section.5}{Welfare effect of NCA enforcement and other policies}{}% 26
+\BOOKMARK [2][-]{subsection.5.1}{Preliminaries}{section.5}% 27
+\BOOKMARK [2][-]{subsection.5.2}{NCA cost c}{section.5}% 28
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Equilibrium R\046D misallocation}{subsection.5.2}% 29
+\BOOKMARK [3][-]{subsubsection.5.2.2}{Robustness}{subsection.5.2}% 30
+\BOOKMARK [2][-]{subsection.5.3}{R\046D subsidy}{section.5}% 31
+\BOOKMARK [2][-]{subsection.5.4}{Targeted R\046D subsidy}{section.5}% 32
+\BOOKMARK [2][-]{subsection.5.5}{NCA enforcement and R\046D subsidies}{section.5}% 33
+\BOOKMARK [1][-]{section.6}{Conclusion}{}% 34
+\BOOKMARK [1][-]{appendix.A}{Appendix of tables}{}% 35
+\BOOKMARK [1][-]{appendix.B}{Appendix of figures}{}% 36
+\BOOKMARK [1][-]{appendix.C}{Model}{}% 37
+\BOOKMARK [2][-]{subsection.C.1}{Proofs of propositions}{appendix.C}% 38
+\BOOKMARK [3][-]{subsubsection.C.1.1}{Proof of Proposition 2}{subsection.C.1}% 39
+\BOOKMARK [3][-]{subsubsection.C.1.2}{Proof of Proposition 3}{subsection.C.1}% 40
+\BOOKMARK [3][-]{subsubsection.C.1.3}{Proof of Proposition 4}{subsection.C.1}% 41
+\BOOKMARK [2][-]{subsection.C.2}{Additional derivations}{appendix.C}% 42
+\BOOKMARK [3][-]{subsubsection.C.2.1}{Growth accounting equation}{subsection.C.2}% 43
+\BOOKMARK [3][-]{subsubsection.C.2.2}{Multiplicity of equilibria}{subsection.C.2}% 44
+\BOOKMARK [2][-]{subsection.C.3}{Policy analysis derivations}{appendix.C}% 45
+\BOOKMARK [3][-]{subsubsection.C.3.1}{R\046D subsidy \(tax\)}{subsection.C.3}% 46
+\BOOKMARK [3][-]{subsubsection.C.3.2}{Targeted R\046D subsidy \(tax\)}{subsection.C.3}% 47
+\BOOKMARK [3][-]{subsubsection.C.3.3}{All policies}{subsection.C.3}% 48
+\BOOKMARK [1][-]{appendix.D}{Calibration}{}% 49
+\BOOKMARK [2][-]{subsection.D.1}{Computing model moments}{appendix.D}% 50
+\BOOKMARK [3][-]{subsubsection.D.1.1}{Profit to GDP}{subsection.D.1}% 51
+\BOOKMARK [3][-]{subsubsection.D.1.2}{R\046D to GDP}{subsection.D.1}% 52
+\BOOKMARK [3][-]{subsubsection.D.1.3}{Growth share OI}{subsection.D.1}% 53
+\BOOKMARK [3][-]{subsubsection.D.1.4}{Entry rate}{subsection.D.1}% 54
+\BOOKMARK [3][-]{subsubsection.D.1.5}{Employment share of WSOs}{subsection.D.1}% 55
+\BOOKMARK [1][-]{appendix.E}{Policy analysis}{}% 56
+\BOOKMARK [2][-]{subsection.E.1}{NCA cost c}{appendix.E}% 57

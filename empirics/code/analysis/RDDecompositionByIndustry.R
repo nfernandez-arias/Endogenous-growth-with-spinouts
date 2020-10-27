@@ -3,7 +3,27 @@ data <- fread("data/compustat-spinouts_Stata.csv")
 
 RDbyIndustryYear = data[ , .(xrd.l3 = sum(na.omit(xrd.l3))), by = .(naics2,year)] 
 
-RDbyYear = data[ , .(xrd.l3 = sum(na.omit(xrd.l3))), by = year]
+RDbyYear <- data[ , .(xrd.l3 = sum(na.omit(xrd.l3))), by = year]
+
+ggplot(RDbyYear, aes(x = year, y = xrd.l3)) + 
+  geom_line()
+
+compustat <- fread("data/compustat_withBloomInstruments.csv")[ year >= 1984 & year <= 2007]
+
+RDbyYear2 <- compustat[ , .(xrd = sum(na.omit(xrd))) , by = year] 
+
+ggplot(RDbyYear2, aes(x = year, y = xrd)) + 
+  geom_line()
+
+RDbyFirmAgeYear = data[ , .(xrd.l3 = sum(na.omit(xrd.l3))), by = .(year,firmAge)]
+
+setkey(RDbyFirmAgeYear,year,firmAge)
+
+RDbyFirmAgeYear[ , cumulativeShare := cumsum(xrd.l3) / sum(xrd.l3), by = year]
+
+ggplot(RDbyFirmAgeYear, aes(x = firmAge, y = xrd.l3)) + 
+  geom_line() + 
+  facet_wrap(~year)
 
 data[ , naics2_selected := naics2]
 data[ naics1 != 3 & naics1 != 5, naics2_selected := 0]

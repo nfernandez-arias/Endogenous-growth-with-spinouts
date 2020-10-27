@@ -1,0 +1,670 @@
+\documentclass[11pt,english]{article}
+\usepackage{lmodern}
+\linespread{1.05}
+%\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+
+
+
+\usepackage{chngcntr}
+\usepackage[nocomma]{optidef}
+
+\usepackage[section]{placeins}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{bbm}
+\usepackage{amsfonts}
+
+\usepackage{accents}
+\newcommand\munderbar[1]{%
+	\underaccent{\bar}{#1}}
+
+
+\usepackage{svg}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{blindtext}
+%\renewcommand{\arraystretch}{1.2}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{rotating}
+\usepackage{mathtools}
+\usepackage{chngcntr}
+
+% TikZ stuff
+
+\usepackage{tikz}
+\usepackage{mathdots}
+\usepackage{yhmath}
+\usepackage{cancel}
+\usepackage{color}
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usetikzlibrary{fadings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shadows.blur}
+
+\usepackage[font=small]{caption}
+%\usepackage[printfigures]{figcaps}
+%\usepackage[nomarkers]{endfloat}
+
+
+%\usepackage{caption}
+%\captionsetup{justification=raggedright,singlelinecheck=false}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+
+\bibliographystyle{plainnat}
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+
+\let\oldFootnote\footnote
+\newcommand\nextToken\relax
+
+\renewcommand\footnote[1]{%
+	\oldFootnote{#1}\futurelet\nextToken\isFootnote}
+
+\newcommand\isFootnote{%
+	\ifx\footnote\nextToken\textsuperscript{,}\fi}
+
+%\usepackage{esint}
+\onehalfspacing
+
+%\theoremstyle{remark}
+%\newtheorem{remark}{Remark}
+%\newtheorem{theorem}{Theorem}[section]
+\newtheorem{assumption}{Assumption}
+\newtheorem{proposition}{Proposition}
+\newtheorem{proposition_corollary}{Corollary}[proposition]
+\newtheorem{lemma}{Lemma}
+\newtheorem{lemma_corollary}{Corollary}[lemma]
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\begin{document}
+	
+	\title{Efficiency and theoretical policy analysis}
+	
+	\author{Nicolas Fernandez-Arias} 
+	\date{\today \\ \small
+		\href{https://drive.google.com/file/d/17bZL7-AUJKllRb78r9fIkZscnNdJwo1G/view?usp=sharing}{Click for most recent version}}
+	
+	%\date{\today}
+	
+	\maketitle
+
+%\setcounter{secnumdepth}{3}
+
+The goal of this section is to motivate the the empirics in Section \ref{sec:empirics} and the calibration that follows in Section \ref{sec:calibration} as well as to provide a theoretical foundation for the quantitative policy analysis of Section \ref{sec:policy_analysis}. I first discuss the three potential sources of misallocation in the decentralized equilibrium, corresponding to the three allocative margins in a symmetric BGP: production labor, R\&D labor, and NCAs. I argue that all three are in general inefficient but that, in certain cases, reducing barriers to the enforcement of NCAs can help mitigate the misallocation of R\&D labor. I discuss how this depends on the parameters of the model, motivating the empirical and quantitative analysis that follows. I then turn to other policies: R\&D subsidies, R\&D subsidies targeted at own-product innovation, a tax on creative destruction. I offer an analogous discussion of each policy and obtain some novel theoretical predictions about the effects of untargeted R\&D subsidies. I close by noting that OI-targeted R\&D subsidies combined with a ban on NCAs is optimal in this setting because it allows spinouts to form while correcting the misallocation of R\&D.\footnote{I defer detailed discussion of this policy to the numerical analysis of Section \ref{sec:policy_analysis}.}
+
+\subsection{Preliminaries}
+
+\subsubsection{Welfare}
+
+Social welfare is simply the representative household's lifetime utility,\footnote{Technically this should be written in terms of $W_t$, the welfare at time $t$. I ignore this detail in the interest of expositional simplicity and without loss of generality since the model grows at constant rate so $W_t = e^{(1-\theta)gt}\tilde{W}$.} 
+\begin{align}
+	\tilde{W} = \int_0^{\infty} e^{-\rho t} \frac{C(t)^{1-\theta} - 1}{1-\theta} ds \label{eq:agg_welfare0}
+\end{align}
+
+Using $C(t) = \tilde{C} e^{gt}$ on the BGP and integrating yields
+\begin{align}
+	\tilde{W} &= \frac{\tilde{C}^{1-\theta} }{(1-\theta)(\rho - g(1-\theta))} + \text{Constant}
+\end{align}
+
+Social welfare can thus be decomposed into a \textit{growth} channel ($g$) and an \textit{initial consumption} channel ($\tilde{C}$). Higher values for either imply higher welfare. In turn, $\tilde{C}$ can be decomposed using 
+\begin{align}
+	\tilde{C} &= \tilde{Y} - \overbrace{(\hat{\tau} + \tau^S) \kappa_e \lambda \tilde{V}}^{\mathclap{\text{Creative destruction cost}}} - \underbrace{x z \kappa_c \nu \tilde{V}}_{\mathclap{\text{NCA enforcement cost}}} \label{eq:agg_consumption_decomposition}
+\end{align}
+
+so that steady-state consumption is flow output of the final good minus the final goods cost of creative destruction and of NCA enforcement.
+
+\subsection{Efficiency of decentralized equilibrium}
+
+As mentioned previously, the decentralized equilibrium is inefficient. The model has three margins: production labor, R\&D labor, and noncompetes. In this section I show that these margins are all affected by externalities in this model and hence in general are not optimal. While the social planer's first-best allocation is not well-defined in this setting\footnote{As discussed previously, the model could be modified in a straightforward way to not have this feature, but the solution would no longer be in closed form.} due to the presence of the equilibrium value $V(j,t|q)$ in the specification of certain technologies, one can still make precise statements regarding the efficiency of the allocation of production labor and the effect of the allocation of R\&D and NCAs on the growth rate. This will provide some theoretical background for the quantitative policy analysis of Section \ref{sec:policy_analysis}.
+
+\subsubsection{Misallocation of production labor: monopoly distortion}
+
+The allocation of production labor in the economy is distorted by the monopoly power of producers in the intermediate goods market. As is standard, this monopoly power induces pricing higher than marginal cost and hence to an underallocation of production labor to intermediate goods production. This reduces $\tilde{C}$. I mention this for completeness only; from now on, I will ignore this source of inefficiency as it is not the focus of this analysis.\footnote{In this setting with exogenous total supply of R\&D, a subsidy to intermediate goods production would correct this externality and have no effect on equilibrium growth.}\footnote{In a model with limit pricing, average markups would depend on the distance between leaders and followers in good $j$. In that case, this distortion interacts with the distortion to R\&D and would need to be considered.}
+
+\subsubsection{Misallocation of R\&D labor}\label{model:efficiency:misallocationRD}
+
+The decentralized allocation of R\&D labor is also, in general, not efficient. Because total R\&D spending is exogenous, any inefficiency must be due to a misallocation of R\&D \textit{between} OI by incumbents and CD by entrants.
+
+To isolate the determinants of the degree of equilibrium misallocation, first consider the equilibrium marginal effects on the innovation rate from more incumbent OI and entrant CD, respectively. If the marginal effect of entrant CD on innovation is lower, then equilibrium innovation, and therefore growth, would increase after a reallocation of R\&D labor to incumbent OI. The marginal effect of OI, including the induced innovation by spinouts, is equal to $\chi + (1-\mathbbm{1}^{NCA}) \nu$. The marginal effect of CD by entrants is
+\begin{align}
+\frac{d}{d\hat{z}} \hat{\tau} &= (1-\psi) \hat{\chi} \hat{z}^{-\psi} \label{eq:marginal_effect_effort_entrant}
+\end{align}
+%
+Substituting the expression for $\hat{z}$ in (\ref{eq:effort_entrant}), dividing by $\chi + (1-\mathbbm{1}^{NCA})\nu$, and rearranging yields 
+\begin{align}
+	\frac{\frac{d}{d\hat{z}} \hat{\tau}}{\chi + (1-\mathbbm{1}^{NCA})\nu} &= \overbrace{\frac{\lambda-1}{\lambda}}^{\mathclap{\text{Business stealing}}} \times \underbrace{(1-\psi)}_{\mathclap{\text{Congestion}}}  \times \overbrace{\frac{\chi(\lambda-1) -(1-\mathbbm{1}^{NCA}) (1-(1-\kappa_e)\lambda)\nu - \mathbbm{1}^{NCA} \kappa_c \nu}{\chi(\lambda-1)}}^{\mathclap{\text{Effective cost of R\&D}}} \nonumber \\
+	&\times \underbrace{\frac{\chi}{\chi + (1-\mathbbm{1}^{NCA})\nu}}_{\mathclap{\text{Spinout formation}}} \times  \overbrace{\frac{1}{1-\kappa_{e}}}^{\mathclap{\text{Entry cost}}}  \label{cs:growth_misallocation_condition}
+\end{align}
+
+If the RHS is less than 1, then reallocating R\&D labor from entrants to incumbents increases the BGP growth rate. This depends on the value of the five factors on the RHS, which I discuss below. 
+
+\subparagraph{Business stealing}
+
+The term $\frac{\lambda - 1}{\lambda} < 1$, reflects the \textit{business stealing} externality.\footnote{This is sometimes referred to as \emph{Arrow's replacement effect}, which emphasizes the fact that incumbents, unlike entrants, take into account the fact that they replace their monopoly. They are two sides of the same coin.} Innovation by entrants imposes a negative externality on the profits of the incumbent. This means that entrants can earn the required (private) return on R\&D with a lower innovation rate per marginal cost than incumbents. In the calibration, $\lambda \approx 1.1$ so $\frac{\lambda-1}{\lambda} \approx 0.09$, so this effect can be strong in magnitude.\footnote{In models such as \cite{aghion_competition_2005}, this effect is attenuated by the fact that incumbents engage in neck-and-neck competition within each good $j$. This means R\&D by incumbents has a negative externality on other incumbents in the same good $j$, making the situation more symmetric between incumbents and entrants. I plan to explore this question further in later work.}
+
+
+\paragraph{Congestion}
+
+The term $1-\psi < 1$ reflects the \textit{congestion} externality. Individual entrants impose a negative externality on the expected returns of other entrants. As with business-stealing, the congestion externality also tends to overallocate R\&D to entrants. To give a sense of magnitude, in the calibration $\psi = 0.5$ so $1-\psi = 0.5$.
+
+\paragraph{Effective cost of R\&D} 
+
+The term $\frac{\chi(\lambda-1) -(1-\mathbbm{1}^{NCA}) (1-(1-\kappa_e)\lambda)\nu - \mathbbm{1}^{NCA} \kappa_c \nu}{\chi(\lambda-1)}$ reflects the fact that entrants pay a different effective cost of R\&D than the incumbent. As long as $(1 - (1-\kappa_e) \lambda > 0$, incumbents pay a higher effective cost because they either internalize the harm from future WSOs or must pay a cost to enforce NCAs to prevent them. All else equal, this means entrants have a higher private return to R\&D than incumbents. In equilibrium these private returns must equate; therefore, there is more more entry and it has a lower marginal effect on growth. Alternatively, if $1 - (1-\kappa_e) \lambda < 0$, incumbents benefit from spinouts \textit{ex ante} because they are bilaterally efficient, and as a consequence they pay a lower effective cost of R\&D. This has the opposite effect of increasing the equilibrium marginal effect on growth of entrant R\&D.
+
+
+\paragraph{Spinout formation}
+
+The term $\frac{\chi}{\chi + (1-\mathbbm{1}^{NCA})\nu} \le 1$ reflects the contribution to the productivity of OI stemming from entry by WSOs. If $\mathbbm{1}^{NCA} = 0$ and $\nu > 0$, the term is strictly less than 1. OI by incumbents has a positive growth externality (through spinout entry) hence, in equilibrium it generates a higher marginal effect on growth from OI. If $\mathbbm{1}^{NCA} = 1$ or $\nu = 0$ this term is equal to 1 and has no effect on the inequality, corresponding to $\tau^S = 0$.
+
+
+\paragraph{Entry cost}
+
+Finally, the term $\frac{1}{1-\kappa_e} \ge 1$ reflects the additional entry cost paid by entrants upon innovating. All else equal, this implies entrants have a lower private return from R\&D spending. In equilibrium, the returns to R\&D spending must be the same therefore $\hat{z}$ declines. This tends to reduce the extent of misallocation, as it works against the net of the other terms on the RHS of equation (\ref{cs:growth_misallocation_condition}). Of course, this comes at the cost of reduced initial consumption $\tilde{C}$. But the net effect of increasing $\kappa_e$ is typically to improve the allocation of R\&D labor overall. Intuitively, while a lack of arbitrage opportunities implies that the private return of innovation by entrants must be equal to that of incumbents, the ratio of their social returns is higher when the entrant's cost is in terms of final goods. The quantitative exercises in Section \ref{sec:policy_analysis} confirm this intuition.
+
+\subsubsection{Misallocation of NCAs}\label{model:efficiency:misallocationNCAs}
+
+Lastly, the allocation of NCAs is also technically inefficient on its own, but can increase inefficiency overall if it helps correct the misallocation of R\&D. First, note that using NCAs is generally suboptimal for growth in a partial equilibrium sense, since it throws away socially productive innovations.\footnote{This only applies when spinouts are socially valuable, which is the case of interest in this paper (and is the case in the calibrated model).} The easiest way to see this is to consider an exogenous shift from $\mathbbm{1}^{NCA} = 1$ to $\mathbbm{1}^{NCA} = 0$ while holding $z,\hat{z}$ constant. This increases the growth rate by $(\lambda -1) z \nu$ because spinout entrepreneurship is no longer prevented and because we have assumed that spinouts represent truly new innovations, rather than ideas stolen from the incumbent.
+
+In general equilibrium, too, there is a force that leads to overallocation of NCAs, as incumbent and their employees do not internalize the positive growth externalities that spinouts have on the rest of the economy. Namely, the increase in steady state consumption for the representative household, the increase in the productivity of all other intermediate goods producers, and the fact that entrants are now able to innovate on a good of higher quality. In this model, this manifests as an expansion of the region in parameter space where NCAs are used but, were they not used, aggregate growth would be higher. In fact there is always such a region, provided spinouts are socially valuable. This can be most clearly seen by considering a case where the cost of NCAs such that incumbents are nearly indifferent between using and not using NCAs, i.e. $\kappa_c = \bar{\kappa}_c - \varepsilon$ for $\varepsilon > 0$ small enough. By Proposition \ref{proposition:purstrategyeq:positiveOI}, there are is a unique symmetric BGP with $\mathbbm{1}^{NCA} = 1$. As $\varepsilon \to 0$, incumbent R\&D effort with and without an NCA converges to the same value $z$. Hence, even if (\ref{cs:growth_misallocation_condition}) is less than 1, imposing $\mathbbm{1}^{NCA} = 0$ implies barely any growth-enhancing reallocation of R\&D, while increasing innnovation by spinouts by a discrete amount. 
+
+However, incumbents also do not internalize the full social value of their own product innovation, for the same reasons as above. And the ability to use NCAs induces them to perform more of it. This means that if (\ref{cs:growth_misallocation_condition}) is less than one, so R\&D labor is not efficiently allocated, both using and not using NCAs has positive externalities, and it is therefore not determined whether imposing barriers to their use has a positive effect on growth and welfare. For example, in the previous paragraph, while it is beneficial to ban NCAs, it might be optimal to further reduce the barriers to the usage of NCAs. I analyze this question in more detail in Section \ref{subsubsec:ncacost}. 
+
+\subsection{Effect of NCA enforcement and other policies}\label{model:efficiency:policy_analysis}
+
+To make more concrete the ideas developed in the previous section, in this section I conduct a sequence of theoretical second-best analyses assuming the planner can control one or more parameters and/or Pigouvian taxes. The central question is whether reducing barriers to the use of NCAs increases or decreasing growth.\footnote{I defer the discussion of overall welfare to the quantitative analysis in Section \ref{sec:policy_analysis}, as the effect on $\tilde{C}$ of the policies I study depend in very complicated ways on parameters and as such the theoretical analysis generates more heat than light.} In addition, I also study other policies which may substitute or complement NCA enforceability policy, such as R\&D subsidies. While such policies can technically be studied in a standard quality ladders model, their \textit{interaction} with the endogenous use of NCAs is novel and yields some new theoretical insights. 
+
+\paragraph{Policies considered} 
+
+I study planners who can control:
+
+\begin{enumerate}
+	\item Cost of NCAs: $\kappa_c$ 
+	\item R\&D subsidy (tax): $T_{RD}$
+	\item Creative destruction tax (subsidy): $T_e$
+	\item OI R\&D subsidy (tax): $T_{RD,I}$
+	\item All of the above: $\{\kappa_c, T_{RD}, T_{RD,I}, T_e\}$
+\end{enumerate}
+
+\paragraph{Comparative statics}
+
+All comparisons below are static comparisons between BGPs. I often use language like "as [a certain parameter or tax] increases..." or "as [parameter] crosses [a threshold], [equilibrium variable] jumps...". This does not refer to a transition path of the economy but to as static comparison of the BGPs for each value of the parameter or tax.\footnote{That being said, in this model it is the case that the economy immediately jumps to the unique new BGP following a parameter or tax change, provided it is assumed that the pre- and post-change equilibria are symmetric.}
+
+\paragraph{Public finance} 
+
+In cases of taxes (subsidies), I assume that they are rebated to (financed by) the representative household in a lump-sum payment. Because there is no labor-leisure choice, this does not create any additional distortions in the economy.
+
+\subsubsection{NCA cost $\kappa_c$}\label{subsubsec:ncacost}
+
+To analyze this question using the model, consider a planner who controls the parameter $\kappa_c$. I will consider the effect of a reduction in $\kappa_c$ on growth, starting from a value $\kappa_c > \bar{\kappa}_c$. I interpret this as a policymaker changing the extent of restrictions on NCAs so that they are more less difficult to use, or simply allowing their free use in cases where they are not currently allowed. Of course, NCAs require costs for enforcement even if they are fully endorsed by the legal system: a contract must be written and, in the case of infringement, it must be established that the employee is, in fact, competing with their previous employer. Therefore, it is reasonable to suppose a minimum NCA cost $\munderbar{\kappa}_c \ge 0$ such that $\kappa_c \ge \munderbar{\kappa}_c$. For simplicity, in the analysis below I assume $\munderbar{\kappa}_c = 0$.
+
+Suppose first that $\mathbbm{1}^{NCA} = 0$ and $z > 0$, with $\kappa_c > \bar{\kappa}_c$. Initially, a marginal reduction in $\kappa_c$ has no effect on the equilibrium as NCAs $\mathbbm{1}^{NCA} = 0$ so the cost is not being paid by any agents. Upon crossing the threshold $\bar{\kappa}_c$, there is a shift to $\mathbbm{1}^{NCA} = 1$ and growth decreases by a discrete amount through a reduction in employee spinout formation. The allocation of R\&D is unchanged at this point because incumbents are indifferent between using and not using NCAs. The reduction in the growth rate induces via general equilibrium a desire to save, which lowers the equilibrium interest rate. This increases the value of the incumbent, so to keep the labor market in equilibrium, the R\&D wage rises discretely.
+
+A further reduction in $\kappa_c$ reallocates R\&D labor from the entrant to the incumbent, using equations (\ref{eq:effort_entrant}) and (\ref{eq:zI_asFuncZe}). This reallocation of R\&D labor decreases the BGP growth rate if and only if the marginal effect on growth of incumbent R\&D is higher than the marginal efect on growth of entrant R\&D. As discussed in Section \ref{model:efficiency:misallocationRD}, this occurs whenever (\ref{cs:growth_misallocation_condition}) is sufficiently less than 1. 
+
+The reallocation of R\&D occurs through a change in the ratio $\hat{w}_{RD} / \tilde{V}$. When $\kappa_c$ decreases, the ratio increases so that the incumbent's FOC continues to hold. This ratio then feeds into the reduction in entrant R\&D with sensitivity given by the return-elasticity of entrant R\&D spending. Intuitively, the increase in $\kappa_c$ makes R\&D more expensive for incumbents, reducing $z$ to zero in partial equilibrium. To clear the labor market, $\hat{w}_{RD}$ must decline to induce more R\&D. Because incumbents pay for R\&D not just through wages but implicitly through future WSOs, in the new equilibrium, their effective cost of R\&D is higher relative to entrants, whose only R\&D cost is the R\&D wage. As a result, incumbents employs a smaller share of the R\&D labor in equilibrium.
+
+Finally note that if $z = 0$ initially, then decreasing $\kappa_{c}$ to values below $\bar{\kappa}_c$ has no effect, as the incumbent is on a corner solution. However, it is possible that for low enough $\kappa_c$, one has $z > 0$ in equilibrium. Thereafter, the effect of a reduction in $\kappa_c$ is the same as described above.
+
+\paragraph{Does eliminating barriers to NCAs increase growth?}
+
+The answer to this question depends on four main factors. The first three factors determine the sign of a maximal reduction in barriers to the use of NCAs. The fourth factor determines the magnitude.
+
+\subparagraph{Extent of R\&D misallocation} The first factor is whether (\ref{cs:growth_misallocation_condition}) is less than 1, and by how much. The smaller is the RHS compared to 1, the more severe is the decentralized misallocation of R\&D spending and therefore the greater the growth increase from a marginal reallocation of R\&D. If the inequality does not hold, the reallocation of R\&D reduces growth and a reduction in $\kappa_c$ is unequivocally bad for welfare. 
+
+\subparagraph{Elasticity of R\&D spending}
+
+The second factor is how much (general equilibrium) reallocation will actually result from a given (partial equilibrium) change in the ratio of private returns to R\&D of incumbents and entrants. The latter is the mechanism by which a reduction in $\kappa_c$ affects the reallocation of R\&D. This depends on the price-elasticity of R\&D spending for both parties. The higher are these elasticities, the more reallocation there is in response to a given change in $\kappa_c$. In this model, the incumbent's elasticity is infinite, as she has constant returns to scale, while the entrant's elasticity is finite due to decreasing returns to scale. This would be more realistic if the incumbent's elasticity were finite, so I consider the case of decreasing returns to incumbent R\&D in a robustness check \textbf{[not yet in this draft]}. Experiments with this model using a very low entrant elasticity suggest that this will not change the results qualitatively, though it may reduce their magnitude somewhat.\footnote{If the incumbent had decreasing returns to R\&D, the increase in incumbent R\&D spending would help to bring the FOC back into alignment and there would be less required reallocation.} 
+
+\subparagraph{Scope for reductions in $\kappa_c$}
+
+Finally, the third factor is simply how large of a reduction in $\kappa_c$ is reasonably under the control of the policy maker. This has two components. If the model is to generate spinouts on the BGP (which is one of the calibrating assumptions), then it must set identify $\kappa_c \ge \bar{\kappa}_c = 1 - (1-\kappa_e) \lambda$. Therefore, the smaller is $(1-\kappa_e) \lambda$, the larger is the model-implied direct cost of using NCAs. In addition, it depends on the value of $\munderbar{\kappa}_c$, as discussed above. Essentially, this is the question of what fraction of the cost $\kappa_c$ should be interpreted as due to restrictions on contracting and how much is due to the direct costs of implementing an employment contract.\footnote{One might imagine subsidizing the use of NCAs (i.e. setting $\kappa_c < 0$), but as they are simply pieces of paper that can be produced even without actually doing R\&D, this would not be incentive compatible in reality. Alternatively, one could imagine directly subsidizing the R\&D spending of the incumbents. In the model when $\mathbbm{1}^{NCA} = 1$ these are equivalent. Later I consider this type of policy and find that it is actually part of the optimal policy.} 
+
+\subparagraph{Rate of spinout formation}
+
+The final factor is the rate of spinout formation $\nu$. A higher value amplifies the effect of reductions in $\kappa_c$. Mathematically, this occurs because $\kappa_c$ is the cost of NCAs per attempted spinout so it appears in the model in the form $\kappa_c \nu$. Hence a higher $\nu$ means that the cost of R\&D is more sensitive to changes in $\kappa_c$. Also, when $\kappa_c$ crosses the $\bar{\kappa}_c$ threshold, the effect on spinout entry is also amplified in the same way. Intuitively, a higher spinout attempted formation rate means that spinouts are more significant both to overall growth and to the incumbents who wish to avoid being replaced by them and hence their incentives for R\&D spending. Whether reducing barriers to NCAs is good or bad for growth, a higher rate of spinout formation amplifies the effect. 
+
+Since all of these factors depend on parameters, I return to this question after I have calibrated the model (see Section \ref{sec:policy_analysis}). 
+ 
+
+\subsubsection{RD subsidy (tax)}
+
+The first alternative policy I consider is a subsidy to R\&D spending. This is a natural class of policy to study due to its significant magnitude the United States, where all told the Federal government funds about 15\% of private R\&D spending.\footnote{In the United States, the marginal R\&D subsidy rate is between 15 and 20\%, which is claimed via  deduction on corporate income taxes. The deduction can be carried forward twenty years. These R\&D subsidies are applied only to R\&D spending above a firm-specific base which is defined in reference to past levels of R\&D and firm sales. Taking this into account direct R\&D subsidies offer about a 5\% effective subsidy.  In addition, federal and local governments directly fund about 10\% of private business-performed R\&D.} In this context one might expect R\&D subsidies to have no effect at all on the equilibrium allocation, manifesting entirely in a higher equilibrium wage for R\&D labor. However, I will find instead that R\&D subsidies can affect the allocation of R\&D labor.
+
+Suppose that the planner subsidizes R\&D spending at rate $T_{RD}$ (tax if $T_{RD} < 0$). In this case, in a symmetric BGP the incumbent's HJB becomes
+\begin{align}
+(r + \hat{\tau}) \tilde{V} = \tilde{\pi} + \max_{\substack{\mathbbm{1}^{NCA} \in \{0,1\} \\ z \ge 0}} \Big\{z &\Big( \overbrace{\chi (\lambda - 1) \tilde{V}}^{\mathclap{\mathbb{E}[\textrm{Benefit from R\&D}]}}- (\underbrace{1-T_{RD}}_{\mathclap{\text{R\&D Subsidy}}}) \big( \overbrace{\hat{w}_{RD} - (1-\mathbbm{1}^{NCA})(1-\kappa_e)\lambda \nu \tilde{V}}^{\mathclap{\text{Incumbent R\&D wage, by Lemma \ref{lemma:RD_worker_indifference1} }}}\big) \label{eq:hjb_incumbent_RDsubsidy} \nonumber \\ 
+&-  \underbrace{(1-\mathbbm{1}^{NCA}) \nu \tilde{V}}_{\mathclap{\text{Net cost from spinout formation}}} - \overbrace{\mathbbm{1}^{NCA} \kappa_{c} \nu \tilde{V}}^{\mathclap{\text{Direct cost of NCA}}}\Big) \Big\} 
+\end{align}
+
+Then if $z > 0$, the incumbent's optimal NCA policy is given by 
+\begin{align}
+x = \begin{cases}
+1 & \textrm{if } \kappa_{c} < \tilde{\bar{\kappa}}_c  \\
+0 & \textrm{if } \kappa_{c} > \tilde{\bar{\kappa}}_c \\
+\{0,1\} & \textrm{if } \kappa_c = \tilde{\bar{\kappa}}_c 
+\end{cases} \label{eq:nca_policy_RDsubsidy}
+\end{align}
+
+where $\tilde{\bar{\kappa}}_c = \tilde{\bar{\kappa}}_c(\kappa_e,\lambda;T_{RD}) = 1 - (1-T_{RD})(1-\kappa_e)\lambda$. Since the argument is the same as in Section \ref{subsubsec:dynamic_equilibrium_original_solution}, I omit the details. Assuming $z > 0$, by the same logic as before one can obtain an expression for equilibrium $\hat{z}$, 
+\begin{align}
+\hat{z} &= \Bigg( \frac{\hat{\chi} (1-\kappa_{e}) \lambda}{\chi(\lambda -1) - \nu (\mathbbm{1}^{NCA}\kappa_c + (1-\mathbbm{1}^{NCA})(1 - (1-T_{RD})(1-\kappa_e)\lambda)) } \Bigg)^{1/\psi} \label{eq:effort_entrant_RDsubsidy}
+\end{align}
+
+The rest of the equilibrium allocation and prices can be computed in the same way as before (including how to account for the possibility of $z = 0$), with the one exception being that the equilibrium R\&D wage is now given by 
+\begin{align}
+\hat{w}_{RD} &= (1-T_{RD})^{-1}\hat{\chi} \hat{z}^{-\psi} (1-\kappa_e) \lambda \tilde{V} \label{eq:wage_rd_labor_RDsubsidy}
+\end{align}
+
+\paragraph{Effect on growth}
+
+First suppose $\mathbbm{1}^{NCA} = 0$ and consider a small increase in $T_{RD}$ from $T_{RD}^0$ to $T_{RD}^1 > T_{RD}^0$. If $\mathbbm{1}^{NCA} = 0$ after the increase in $T_{RD}$, then by (\ref{eq:effort_entrant_RDsubsidy}), $\hat{z}$ increases; and by the labor resource constraint $z$ decreases. If (\ref{cs:growth_misallocation_condition}) is less than 1, this reduces growth. Intuitively, the increased R\&D subsidy reduces the wage expenses paid for R\&D by the same factor $1-\frac{1-T_{RD}^1}{1-T_{RD}^0}$ for both incumbents and entrants. However, the incumbent's effective cost of R\&D also includes the increased likelihood of creative destruction by an employee spinout. Therefore, her effective cost of R\&D is reduced by a factor $\tilde{\tau}_{RD} < 1-\frac{1-T_{RD}^1}{1-T_{RD}^0}$. In general equilibrium, R\&D labor is reallocated to entrants and growth declines.
+
+If the increase in $T_{RD}$ is large enough, $\mathbbm{1}^{NCA}$ changes from $\mathbbm{1}^{NCA} = 0$ to $\mathbbm{1}^{NCA} = 1$ and therefore $\tau^S$ jumps to zero, reducing growth further. Intuitively, higher R\&D subsidies mean the incumbent prefers to pay for the R\&D with wages, which receive a subsidy, rather than implicitly through future spinouts, the cost of which is not subsidized. Incumbents therefore opt to use NCAs, bringing spinout entry to zero and reducing growth by a discrete jump. In addition, there are no indirect effects on growth through changes in $\hat{z}$,$z$, as these variables do not jump: according to (\ref{eq:nca_policy_RDsubsidy}), the transition from $\mathbbm{1}^{NCA} = 0$ to $\mathbbm{1}^{NCA} =1$ occurs at the value of $T_{RD}$ such that $\kappa_c$ is equal to the term multiplying $(1-\mathbbm{1}^{NCA})$, implying that $\hat{z}$, and therefore $z$, does not jump. If $T_{RD}$ is increased even further beyond this point, there is no change in the equilibrium allocation. The only change is the wage of R\&D labor, which by (\ref{eq:wage_rd_labor_RDsubsidy}) increases to equilibriate the R\&D labor market.
+
+Finally, note that all of these effects rely on the assumption that R\&D subsidies are manifested in the wage of R\&D labor rather than the total amount of R\&D labor supply. This is the case when the aggregate supply of R\&D labor is relatively price-inelastic, for example in the medium to short term. Still, in the price-elastic supply case, the present mechanism would mitigate the benefits of R\&D subsidies. It implies that they have a weaker effect than they would have in a model with no spinouts. 
+
+\subsubsection{Creative destruction tax (subsidy)}
+
+Creative destruction taxes are a natural policy to consider in this framework as the core misallocation in the economy is typically that there is too much creative destruction. Similar policies are often studied in quality ladder models, e.g. \cite{acemoglu_innovation_2015}. In this case, I will find that entry taxes can have a beneficial effect on growth and welfare. 
+
+Suppose that the planner taxes entry at rate $T_e$ (subsidy if $T_e < 0$). Specifically, the planner taxes the entry fixed cost $\kappa_e \lambda \tilde{V} q$ at rate $T_e$ so that a firm entering with quality $\lambda q$ perceives a total cost of $(1+T_e) \kappa_e \lambda \tilde{V}q$ units of the final good. Economically, this can be interpreted as a tax on non-R\&D expenses related to the development of new versions of products currently not sold by the firm in question.\footnote{Because the tax is proportional to these expenses, rather than a fixed tax on entry, it does not induce any reallocation of R\&D towards higher quality goods.}
+
+In this setup, the R\&D labor supply indifference condition becomes
+\begin{align}
+\hat{w}_{RD} &= w_{RD}(\mathbbm{1}^{NCA}) + (1-\mathbbm{1}^{NCA}) \nu (1-(1+T_e)\kappa_e) \lambda \tilde{V} \label{eq:RD_worker_indifference_entryTax}
+\end{align}
+
+Substituting this into the incumbent's HJB and using the same argument as before, this implies that if $z > 0$, the allocation of NCAs is 
+\begin{align}
+\mathbbm{1}^{NCA} = \begin{cases}
+1 & \textrm{if } \kappa_{c} < \hat{\bar{\kappa}}_c  \\
+0 & \textrm{if } \kappa_{c} > \hat{\bar{\kappa}}_c \\
+\{0,1\} & \textrm{if } \kappa_c = \hat{\bar{\kappa}}_c 
+\end{cases} \label{eq:nca_policy_entryTax}
+\end{align}
+
+where
+\begin{align}
+\hat{\bar{\kappa}}_c = \hat{\bar{\kappa}}_c(\kappa_e,\lambda;T_e) = 1 - (1-(1+T_e)\kappa_e)\lambda  \label{eq:barkappa_entryTax}
+\end{align}
+
+If $(1 + T_e) \kappa_e > 1$ then $\hat{z} = 0$ and $z = \bar{L}_{RD}$. Otherwise, the free entry condition is now
+\begin{align}
+\underbrace{\hat{\chi} \hat{z}^{-\psi}}_{\mathclap{\text{Marginal innovation rate}}} \overbrace{(1-(1+T_e)\kappa_e) \lambda \tilde{V}}^{\mathclap{\text{Payoff from innovation}}} &= \underbrace{\hat{w}_{RD}}_{\mathclap{\text{MC of R\&D}}} \label{eq:free_entry_condition_entryTax}
+\end{align}
+
+Substituting the incumbent FOC into (\ref{eq:free_entry_condition_entryTax}) to eliminate $\tilde{V}$ yields an expression for $\hat{z}$, 
+\begin{align}
+\hat{z} &= \Bigg( \frac{\hat{\chi} (1-(1+T_e)\kappa_{e}) \lambda}{\chi(\lambda -1) - \nu (\mathbbm{1}^{NCA}\kappa_c + (1-\mathbbm{1}^{NCA})(1 - (1-(1+T_e)\kappa_e)\lambda)) } \Bigg)^{1/\psi} \label{eq:effort_entrant_entryTax}
+\end{align}
+
+From here, the rest of the model (including the case where $(1-\kappa_e)\lambda < 1$ and $\hat{z} = 0$) can be solved in a similar way as before (details in Appendix \ref{appendix:model:efficiencyderivations:CDtax}). 
+
+\paragraph{Effect on growth}
+
+Suppose that $\mathbbm{1}^{NCA} = 1$ and the tax is increased from $T_e$ to $T_e' > T_e$. Then (\ref{eq:effort_entrant_entryTax}) implies that $\hat{z}$ falls, (\ref{eq:labor_resource_constraint_entryTax}) implies that $z$ increase to keep $L_{RD} = \bar{L}_{RD}$. Following the same logic as Section \ref{model:efficiency:misallocationRD}, if (\ref{cs:growth_misallocation_condition}) is less than 1, then growth increases. Intuitively, when $\mathbbm{1}^{NCA} = 1$ the only effect of the entry tax is to reduce the misallocation of R\&D labor to entrants. 
+
+However, if $\mathbbm{1}^{NCA} = 0$, the situation changes, for two reasons. First, as can be seen readily in (\ref{eq:effort_entrant_entryTax}), the effect of $T_e$ on $\hat{z}$ is ambiguous, since the denominator now decreases in $T_e$ as well as the numerator. Intuitively, an increase in $T_e$ reduces the value of future spinouts, requiring incumbents to compensate workers with higher wages in equilibrum. However, the expected harm to incumbents from WSOs per unit of $z$ is unchanged. This follows from the assumption that potential WSOs arise as a by-product of working in R\&D rather than as a result of intentional side projects by R\&D workers. The net effect is that incumbents' effective cost of R\&D increases and R\&D labor is reallocated to the entrant. The mechanism in the previous paragraph is still present, however; the logic here only serves to attenuate the increase in growth from an increase in $T_e$ when (\ref{cs:growth_misallocation_condition}) is less than 1 with $\mathbbm{1}^{NCA} = 0$.
+
+Second, by (\ref{eq:nca_policy_entryTax}) and (\ref{eq:barkappa_entryTax}), a sufficiently large increase in $T_e$ induces a change from $\mathbbm{1}^{NCA} = 0$ to $\mathbbm{1}^{NCA} = 1$. Intuitively, as mentioned in the previous paragraph, a higher $T_e$ means it is relatively more expensive for incumbents to compensate their employees with future spinouts as they are less valuable but cause the same harm to the incumbent. For a high enough $T_e$, incumbents prefer to use NCAs and pay their employees with wages directly. Using the logic of Section \ref{model:efficiency:misallocationNCAs}, this switch implies a reduction in growth.
+
+Overall, entry taxes can be a useful tool to mitigate the overallocation of R\&D to creative destruction. However, they are not a particularly efficient way to do so as they also make employee spinouts (artifically) more bilaterally suboptimal, making them a stronger drag on incumbent R\&D spending when NCAs are too expensive to use, as incumbents receive a smaller wage discount when the tax on entry is higher. For this reason, next I consider R\&D subsidies targeted at incumbent R\&D, which do not have this property.  
+
+\subsubsection{OI R\&D subsidy (tax)}\label{subsubsec:oiRDsubsidy}
+
+Suppose that the plannner can subsidize R\&D spent on improving a product while excluding R\&D aiming at creative destruction. In the model, this corresponds to a targeted subsidy to R\&D spending by incumbents, of magnitude $T_{RD,I}$ (tax if $T_{RD,I} < 0$). In practice, this policy may be difficult to implement for the same reason as the CD tax. Firms may not be expected to be truthful regarding the purpose of their R\&D or the effect of their R\&D on their competitors' profits. It may not even be possible to tell in advance whether R\&D will result in creative CD, OI, or even new varieties of products. Furthermore, innovation to improve existing products can be a form of creative destruction when incumbents compete against each other.\footnote{I return to this when I make suggestions for future work in the conclusion.} Nevertheless, it is still useful as a theoretical benchmark.
+
+In this case, the incumbent HJB can be rearranged to a form analogous to (\ref{eq:hjb_incumbent_workerIndiff}),
+\begin{align}
+(r + \hat{\tau}) \tilde{V} = \tilde{\pi} + \max_{\substack{\mathbbm{1}^{NCA} \in \{0,1\} \\ z \ge 0}} \Big\{z &\Big( \overbrace{\chi (\lambda - 1) \tilde{V}}^{\mathclap{\mathbb{E}[\textrm{Benefit from R\&D}]}}- (1-T_{RD,I}) \hat{w}_{RD} \\
+&-  \underbrace{(1-\mathbbm{1}^{NCA})(1 - (1-T_{RD,I})(1-\kappa_{e})\lambda)\nu \tilde{V}}_{\mathclap{\text{Net cost from spinout formation}}} - \overbrace{\mathbbm{1}^{NCA} \kappa_{c} \nu \tilde{V}}^{\mathclap{\text{Direct cost of NCA}}}\Big) \Big\} \label{eq:hjb_incumbent_RDsubsidyTargeted_2}
+\end{align}
+
+The non-compete policy is the same as with untargeted R\&D subsidies. That is, define
+\begin{align}
+\tilde{\bar{\kappa}}_c = \tilde{\bar{\kappa}}_c(\kappa_e,\lambda;T_{RD}) = 1 - (1-T_{RD,I})(1-\kappa_e)\lambda
+\end{align} 
+
+Then $z > 0$ implies that the incumbent's optimal NCA policy is given by 
+\begin{align}
+\mathbbm{1}^{NCA} = \begin{cases}
+1 & \textrm{if } \kappa_{c} < \tilde{\bar{\kappa}}_c  \\
+0 & \textrm{if } \kappa_{c} > \tilde{\bar{\kappa}}_c \\
+\{0,1\} & \textrm{if } \kappa_c = \tilde{\bar{\kappa}}_c 
+\end{cases} \label{eq:nca_policy_RDsubsidyTargeted}
+\end{align}
+
+Using the same approach as before one obtains an expression for $\hat{z}$, 
+\begin{align}
+	\hat{z} &= \Bigg( \frac{(1-T_{RD,I})\hat{\chi} (1-\kappa_{e}) \lambda}{\chi(\lambda -1) - \nu (\mathbbm{1}^{NCA} \kappa_c + (1-\mathbbm{1}^{NCA})(1 - (1-T_{RD,I})(1-\kappa_e)\lambda)) } \Bigg)^{1/\psi} \label{eq:effort_entrant_RDsubsidyTargeted}
+\end{align}
+
+The rest of the equilibrium allocation and prices can be computed in a similar way as before (details in Appendix \ref{appendix:model:efficiencyderivations:OIRDtax}). 
+
+
+
+
+
+
+\paragraph{Effect on growth}
+
+If $\mathbbm{1}^{NCA} = 1$, increasing $T_{RD,I}$ reduces $\hat{z}$ by (\ref{eq:effort_entrant_RDsubsidyTargeted}) and will increase growth if the (\ref{cs:growth_misallocation_condition}) is less than 1. Intuitively, a subsidy to incumbent R\&D causes the R\&D wage to increase, reducing R\&D by the entrant in equilibrium. 
+
+If $\mathbbm{1}^{NCA} = 0$, increasing $T_{RD,I}$ has a more complicated effect on $\hat{z}$ because it reduces the denominator as well. This follows from the same reasoning as in the case of the untargeted R\&D subsidy: incumbents pay partially through future spinouts and so not all of their costs are subsidized at rate $T_{RD,I}$. From this economic interpretation, it follows immediately that the net effect is still to reduce incumbent R\&D expenses relative to those of the entrant and hence to lower $\hat{z}$ and increase $z$, and this is confirmed in the numerical analysis of the next subsection.
+
+Finally, (\ref{eq:nca_policy_RDsubsidyTargeted}) implies that if the increase in $T_{RD,I}$ is sufficiently large, it will induce the use of NCAs by incumbents. As in the case of the untargeted R\&D subsidy, targeted R\&D subsidies do not reduce the harm to the incumbent's profits due to future employee spinouts. At a certain point, the incumbent prefers the higher but tax-deductible wages of an NCA contract. This switch unambiguously reduces growth.
+
+The last observation implies that even targeted R\&D subsidies are unable to achieve the socially valuable outcome high spinout entry and high incumbent R\&D. In order to achieve this result, it is necessary to pair the targeted R\&D subsidy with an increase in legal barriers to NCAs $\kappa_c$ or an increase in the tax on NCA usage $T_{NCA}$. 
+
+\subsubsection{All policies}
+
+The BGP of the model when the planner can use all of the above policies simultaneously is derived in Appendix \ref{appendix:model:efficiencyderivations:allPolicies}. I discuss the growth and welfare implications of this case in detail in the quantitative analysis of Section \ref{sec:policy_analysis}. As a prelude, notice that with a combination of OI R\&D subsidies and an increase in $\kappa_c$, the social planner can achieve something like a "first best"\footnote{As noted previously, there is no well-defined first-best here. In fact, there is no well-defined second-best either because there is no well-defined equilibrium R\&D wage in a model where the social planner makes all R\&D decisions, and hence there is no well-defined value of the incumbent, which is necessary for computing consumption. Again, the model can easily be modified to allow this type of analysis, but the current one is more transparent.} where incumbents do the socially optimal amount of R\&D while still allowing for growth-enhancing spinouts to innovate.
+
+
+\section{Other stuff}
+
+
+\subsection{DRS incumbent innovation technology}
+
+In this section I show why it is analytically convenient to have CRS innovation on the incumbent. Without it, the model must be solved numerically.
+
+\begin{proposition}
+	Suppose $z$ units of R\&D yields a Poisson rate
+	\begin{align}
+		\chi z^{1-\psi}  
+	\end{align}
+	for the incumbents and $\hat{z}$ units of R\&D yields a Poisson rate 
+	\begin{align}
+		\hat{\chi}\hat{z}^{1-\hat{\psi}}
+	\end{align}
+	for entrants.\footnote{Note that I have switched the notation so that $\psi$ with no hat refers to incumbents, so that it is consistent with the convention that hats go on variables related to entrants.}
+	
+	Consider $\psi \in [0,1)$. If $\psi = 0$, we have the baseline model, which admits a closed form solution. If $\psi = 0.5$, then $\tilde{V}$ has a closed form solution given parameters and $\hat{w}_{RD}$, but the model itself does not have a closed-form solution. For all other $\psi \in [0,1)$, there is no closed form solution for $\tilde{V}$ or the equilibrium given $\tilde{V}$.  
+\end{proposition}
+
+\begin{proof}
+	The normalized incumbent HJB is now
+	\begin{align}
+		(r + \hat{\tau}) \tilde{V} &= \tilde{\pi} + \max_{\substack{\mathbbm{1}^{NCA} \in \{0,1\} \\ z \ge 0}} \Big\{  z \Big( z^{-\psi} \chi (\lambda - 1) \tilde{V} - \hat{w}_{RD} - (1-\mathbbm{1}^{NCA})(1 - (1-\kappa_e) \lambda)\nu \tilde{V} - \mathbbm{1}^{NCA} \kappa_c \nu \tilde{V}  \Big)   \Big\} \label{appendix:model:drsincumbent:hjb}
+	\end{align} 
+	
+	The first order condition is
+	\begin{align}
+		(1-\psi) z^{-\psi} \chi (\lambda -1)\tilde{V} &= \hat{w}_{RD} + (1-\mathbbm{1}^{NCA}) (1-(1-\kappa_e)\lambda)\nu \tilde{V} + \mathbbm{1}^{NCA} \kappa_c \nu \tilde{V}
+	\end{align}
+	
+	which implies
+	\begin{align}
+		z^{1-\psi} &= \Big( \frac{\hat{w}_{RD} + \zeta_1\tilde{V}}{C_2\tilde{V}} \Big)^{\frac{\psi -1}{\psi}} \\
+		\zeta_1 &= (1-\mathbbm{1}^{NCA})(1-(1-\kappa_e)\lambda)\nu + x\kappa_c\nu \\
+		\zeta_2 &= (1-\psi) \chi (\lambda-1)
+	\end{align}
+	
+	Substituting into (\ref{appendix:model:drsincumbent:hjb}) yields
+	\begin{align}
+		(r + \hat{\tau}) \tilde{V} &= \tilde{\pi} + \Big( \frac{\hat{w}_{RD} + \zeta_1\tilde{V}}{C_2\tilde{V}} \Big)^{\frac{\psi -1}{\psi}} \zeta_2 \tilde{V} - \hat{w}_{RD} - \zeta_1 \tilde{V} 
+	\end{align}
+	
+	This equation has no closed form expression for $\tilde{V}$ except in the quadratic cost case of $\psi = 0.5$, when $\frac{\psi - 1}{\psi} = -1$ and the above becomes
+	\begin{align}
+		(r + \hat{\tau}) \tilde{V} &= \tilde{\pi} +  \frac{1}{\hat{w}_{RD} + \zeta_1\tilde{V}} - \hat{w}_{RD} - \zeta_1 \tilde{V} 
+	\end{align}
+	
+	Multiplying both sides by $\hat{w}_{RD} + \zeta_1 \tilde{V}$ yields a quadratic equation for $\tilde{V}$, which has solution
+	\begin{align}
+		\tilde{V} &= \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+	\end{align}
+	
+	However, the dependence of $\tilde{V}$ on $\hat{w}_{RD}$, given model parameters, is no longer linear. This means that $\hat{z}$ and $\hat{w}_{RD}$ are defined implicitly as the solution of two equation system, and the model must be solved numerically.	
+\end{proof}
+
+
+
+
+In this case, the equilibrium R\&D allocation and growth rate are uniquely determined, so there is no harm in simply restricting attention to the case where $V(j,t|\bar{q}_{jt}) = \tilde{V}\bar{q}_{jt}, V(j,t|\lambda \bar{q}_{jt}) = \tilde{V} \bar{q}_{jt}$ for all $(j,t)$. However, below I have some discussion of how one would show that the value function has this form in any symmetric equilibrium.	
+
+We still know that $V(j,t|\lambda q) = \tilde{V}(t) \lambda q$, by (\ref{constant_vw_ratio}). However, we no longer have the incumbent FOC which helps to connect statements we make about $V(j,t|\lambda q) / q$ and $\hat{w}_{RD,t} / Q_t$ to statements about $V(j,t|q)$. However, the proof is simpler in this case because incumbents do no R\&D. This means that the value functions of the initial incumbents do not affect the rest of the equilibrium. More precisely, the BGP that arises in this model has exactly the same observable variables (except for the market price of initial incumbents, which may be a bubble in the model) as a BGP where $V(j,t|q) = \tilde{V}q$ and $V(j,t|\lambda q) = \tilde{V} \lambda q$ for all $(j,t,q)$, provided one can show that $\tilde{V}(t) = \tilde{V}$. 
+
+In principle, this equation could fail to hold because $\hat{w}_{RD,t} / Q_t$ fluctuates over time. When it grows (shrinks), $V(t)$ grows (shrinks) by the same proportion. To rule this out, suppose that $V(t') > V(t)$. With positive probability, the next innovation occurs at time $dt'$; alternatively, with positive probability the next innovation occurs at time $dt$. It cannot be true that $V(j,t|\lambda q) = V(j,t'|\lambda q) =  \frac{\tilde{\pi}\lambda q}{r + \hat{\tau}}$ is the value of the monopolist ex post. If $V(j,t|\lambda q) < \frac{\tilde{\pi}\lambda q}{r + \hat{\tau}}$ then by the logic above the value can go negative with positive probability, which violates optimality. 
+
+If $V(j,t|\lambda q) > \frac{\tilde{\pi}\lambda q}{r + \hat{\tau}}$ for some $(j,t)$ then this will violate the incumbent's transversality condition.\footnote{The incumbent's dynamic optimization problem has a transversality condition, because the dividend vs R\&D investment decision is an optimal control problem (the state being controlled is the quality of the incumbent).} It states that
+\begin{align}
+	0 = \lim_{t' \to \infty} e^{-r(t'-t)} \mathbb{E}[\mathbbm{1}_{s(j,t) > t'} V(j,t',q)]
+\end{align}
+
+where $s(j,t)$ is the (random) time at which the current incumbent is displaced by an entrant. Because the time is exponentially distributed, this is the same as
+\begin{align}
+	0 = \lim_{t' \to \infty} e^{-r(t'-t)} e^{-\hat{\tau} (t'-t)} V(j,t'|q)
+\end{align}
+
+However, we are in the case where $V(j,t'|q)$ grows at rate $r + \hat{\tau}$ asymptotically, i.e.
+\begin{align}
+	\frac{\dot{V}(j,t|q)}{V(j,t|q)} &= r + \hat{\tau} - \frac{\tilde{\pi}q}{V(j,t|q)}
+\end{align}
+
+We have a situation with 
+\begin{align}
+	\frac{\dot{X}}{X} &= r + \hat{\tau}, \quad  \text{i.e. } X(t') = e^{(r + \hat{\tau})(t' - t)} \\
+	\frac{\dot{Y}}{Y} &= r + \hat{\tau} - \frac{\tilde{\pi}q}{Y}, \quad \text{i.e. } Y(t') = V(j,t'|q)
+\end{align}
+
+I want to show that
+\begin{align}
+	\lim_{t \to \infty} \frac{Y}{X} > 0 
+\end{align}
+
+We know that
+\begin{align}
+	\frac{d}{dt'}\Big(\frac{Y}{X} \Big) &= \frac{Y}{X} \Big( \frac{\dot{Y}}{Y} - \frac{\dot{X}}{X} \Big)
+\end{align}
+
+This yields
+\begin{align}
+	\frac{d}{dt'} \Big(\frac{Y}{X} \Big) &= -\frac{\tilde{\pi}q}{Y} \frac{Y}{X}  \\
+	&= - \frac{\tilde{\pi}q}{X} \\
+	&= - \tilde{\pi} q e^{-(r +\hat{\tau}) (t' - t)}
+\end{align}
+
+using the definition of $X$. We know that $Y(t) = V(j,t|q) > \frac{\tilde{\pi} q}{r + \hat{\tau}}$ otherwise $\dot{V}(j,t|q) \le 0$ and it must continue to decline locally by (\ref{appendix:eq:hjbGeneralDifferentiated}). Since $X(t) = 1$, we have $\frac{Y(t)}{X(t)} > \frac{\tilde{\pi} q}{r + \hat{\tau}}$. Integrating, 
+\begin{align}
+	\lim_{t' \to \infty} \frac{Y(t')}{X(t')} &=  \frac{Y(t)}{X(t)} + \lim_{t' \to \infty} \int_t^{t'} \frac{d}{ds} \Big(\frac{Y(s)}{X(s)} \Big) ds \\
+	&= \frac{Y(t)}{X(t)} - \lim_{t' \to \infty} \int_t^{t'}  \tilde{\pi} q e^{-(r +\hat{\tau}) (s-t)} dt \\
+	&> \frac{\tilde{\pi} q}{r + \hat{\tau}} - \underbrace{\lim_{t' \to \infty} \int_t^{t'}  \tilde{\pi} q e^{-(r +\hat{\tau}) (s-t)} dt}_{\mathclap{\frac{\tilde{\pi}q}{r + \hat{\tau}}}} \\ 
+	&= 0
+\end{align}
+
+Therefore, the TVC is violated. I conclude that the only solution to the HJB compatible with equilibrium is 
+\begin{align}
+	V(j,t|q) &= \frac{\tilde{\pi} q}{r + \hat{\tau}}
+\end{align}	
+
+which has the linear form required in the proposition.
+
+
+
+
+
+\begin{proof}
+	
+	
+	Note, however, that it does not directly imply anything about $V(j,t|q)$: constant entrant innovation effort $\hat{z}_{jt} = \hat{z}$ implies that the value of incumbency tomorrow must be proportional to $q$, but it does not directly imply that the value of incumbency today is proportional to $q$. It makes sense intuitively that the same logic should imply that $V(j,t|q) = \bar{\tilde{V}}(t) q$: otherwise, the equilibrium we are on cannot have satisfied the (rational) expectations of previous entrants. Heuristically maybe this is enough, but I haven't found a rigorous proof along these lines. Instead, I show that $V(j,t|q) = \tilde{V}q$ by arguing that other solutions to the incumbent HJB contradict equilbrium requirements. Then the fact that at any time $V(j,t|q)$ has this form implies that innovators (entrants, incumbents, spinouts) expect this value in the future and therefore that they forecast their future payoffs using $V(j,t|\lambda q) = \tilde{V} \lambda q$.
+	
+	First, differentiating both sides with respect to $t$ and using $\frac{\dot{Q}_t}{Q_t} = g$ on the BGP yields
+	\begin{align}
+		- \frac{\dot{V}(t|\lambda q)}{V(t|\lambda q)} &= g - \frac{\dot{\hat{w}}_{RD,t}}{\hat{w}_{RD,t}} \label{appendix:eq:freeEntryDifferentiated}
+	\end{align}
+	
+	Rearranging the original differential equation,
+	\begin{align}
+		\dot{V}(j,t|q) &= (r + \hat{\tau}) V(j,t|q) - \tilde{\pi} q \label{appendix:eq:hjbGeneral}
+	\end{align}	
+	
+	
+	
+	
+	
+	Next, rearrange the expression in the form
+	\begin{align}
+		\frac{\dot{V}(j,t|q)}{V(j,t|q)} &= r + \hat{\tau} - \frac{\tilde{\pi}q}{V(j,t|q)}
+	\end{align}
+	
+	
+	
+	
+	First, suppose that $z > 0$. The FOC of the incumbent is
+	\begin{align}
+		\chi \Big( V(t|\lambda q) - V(j,t|q) \Big) &= \frac{q}{Q_t} \hat{w}_{RD,t} + \nu V(j,t|q) \nonumber \\
+		&+ (1 - \mathbbm{1}^{NCA}_{jt}) (1- \kappa_e) \nu V(t|\lambda q) + \mathbbm{1}^{NCA}_{jt}  \kappa_c \nu V(j,t|q) \Big) 
+	\end{align}
+	
+	Divide both sides by $q$, differentiate with respect to $t$, use $\frac{\dot{Q}_t}{Q_t} = g$ and  (\ref{appendix:eq:freeEntryDifferentiated}) to obtain
+	\begin{align}
+		-\frac{\dot{V}(j,t|q)}{V(j,t|q)} &= g - \frac{\dot{\hat{w}}_{RD,t}}{\hat{w}_{RD,t}}  \label{appendix:eq:freeEntryDifferentiatedImplication}
+	\end{align}
+	
+	Using (\ref{appendix:eq:freeEntryDifferentiatedImplication}), this implies that with positive probability the R\&D wage grows to the point where $\hat{w}_{RD} \hat{z} > \tilde{Y}$, which contradicts equilbirium.
+	
+	Next, suppose that $z = 0$. The entrant optimality condition requires that $\frac{V(j,t|\lambda q)}{\hat{w}_{RD}(t)}$ be constant. This implies $V(j,t|) $ \textbf{[finish]}
+	
+	
+	
+	
+\end{proof}
+
+Finally, I consider how the model might be extended to a case with heterogeneity in the incumbents. 
+
+\paragraph{Application to model with incumbent heterogeneity}\label{appendix:model:heterogeneity}
+
+\textbf{[Think about whether putting this in makes sense given that it kind of requires also adding decreasing returns for the incumbent...]}
+
+The above construction and derivation can be adapted to a richer model where there is heterogeneity in $\xi_{jt} = \{\kappa_{e,jt}, \kappa_{c,jt}, \nu_{jt}\}$ across goods $j$ and times $t$, inducing heterogeneity in chosen $\{z_{jt}, \hat{z}_{jt}, \mathbbm{1}^{NCA}_{jt}\}$. A symmetric BGP in this kind of setting has a more general definition.
+
+\begin{definition}
+	A symmetric BGP in the model with incumbent heterogeneity is a BGP where there exist functions $z(\kappa_e, \kappa_c, \nu), \hat{z}(\kappa_e, \kappa_c , \nu), \mathbbm{1}^{NCA} (\kappa_e , \kappa_c, \nu)$ such that 
+	\begin{align}
+		z_{jt} &= z(\kappa_{e,jt}, \kappa_{c,jt}, \nu_{jt}), \\
+		\hat{z}_{jt} &= \hat{z}_{jt} (\kappa_{e,jt}, \kappa_{c,jt}, \nu_{jt}), \\
+		\mathbbm{1}^{NCA}_{jt} &= \mathbbm{1}^{NCA} (\kappa_{e,jt}, \kappa_{c,jt}, \nu_{jt}),
+	\end{align}
+	where $\kappa_{e,jt}, \kappa_{c,jt}, \nu_{jt}$ denote particular realizations of the random process describing the evolution of $\kappa_e, \kappa_c, \nu$ in good $j$. 
+\end{definition}
+
+That is, a symmetric BGP is one in which all agents behave the same way when they are in the same exogenous state.\footnote{I include a symmetry condition on $\mathbbm{1}^{NCA}_{jt}$ here as with a dynamic state it is not natural to rule out the possibility of occasionally hitting the knife-edge.} As in the preceding result, a tractable BGP in this setup only requires that the state variable follow an exogenous stationary Markov process which satisfies a ``mixing'' condition. The latter condition essentially requires that there be no absorbing subset of states. This is similar to the standard necessary conditions for the existence of a stationary equilibrium in models with heterogeneous agents.
+
+As before, to compute the equilibrium in this model, one must be able to compute the growth rate,
+\begin{align}
+	g &= (\lambda - 1) 
+\end{align}
+
+
+The nature of this equation depends on the nature of the supposed Markov process for $\xi_t = (\kappa_{e,jt}, \kappa_{c,jt}, \nu_{jt})$. To simplify the exposition, I consider an example in which (1) there is a discrete set of states, (2) transition probabilities do not depend on the current state, and (3) the state jumps each time there is a new incumbent. However, the logic could be extended to a case where $\xi_{jt}$ follows a diffusion with jumps, at the cost of additional mathematical machinery. Given these simplifying assumptions, we are in a similar situation as in the ``mixed strategy'' equilibrium of the original model, with the exception that $z_{jt}, \hat{z}_{jt}$ now depend on the state $\xi_{jt}$. It is easy to see how to modify the equations in this case. For terms involving inflows or outflows from a given state, the rate of the flow depends on the incumbent and entrant policies in the source state. Suppose that the Markov chain $\xi_{jt}$ takes on values $s \in S$, where $|S| = N > 0$. Define, as before, 
+\begin{align}
+	\Gamma_t(\xi) &= m_t(\xi) \gamma_t(\xi) Q_t, 
+\end{align}
+\begin{align}
+	\dot{\Gamma}_t (\xi) &= \sum_{i = 1}^{N} 
+\end{align}
+
+
+The system of difference equations for $m^{\textbf{x}} \Gamma_t^{\textbf{x}}$ are replaced by a functional difference equation, 
+\begin{align}
+	\mu(\mathbbm{1}^{NCA}) \Gamma_{t+\Delta}^x &= (1- \text{CD}(\mathbbm{1}^{NCA}) \Delta) \mu(\mathbbm{1}^{NCA}) \Gamma_t^x + \text{OI}(\mathbbm{1}^{NCA}) \Delta (\lambda -1) \mu(\mathbbm{1}^{NCA}) \Gamma_t^x +  j^x \Delta  \lambda \int_{x' \in \mathbf{X}} \text{CD}(x') \Gamma_t^{x'} \mu(x') dx'
+\end{align}
+where $j^x$ is the density of the injection rate into state $x$ out of new incumbents. This can then be used to derive a functional differential equation,
+\begin{align}
+	\frac{\dot{\Gamma}_{t}^x}{\Gamma_t^x} &= OI(\mathbbm{1}^{NCA}) (\lambda -1) - CD(\mathbbm{1}^{NCA}) + j^x \lambda (\mu(\mathbbm{1}^{NCA}) \Gamma_t^x)^{-1} \int_{x' \in \mathbf{X}} \text{CD}(x') \Gamma_t^{x'} \mu(x') dx'
+\end{align}
+
+Imposing the condition $\frac{\dot{\Gamma}_{t}^x}{\Gamma_t^x} = g$ for an unknown constant $g$ pins down the ratio $\frac{\int_{x' \in \mathbf{X}} \text{CD}(x') \Gamma_t^{x'} \mu(x') dx'}{\mu(\mathbbm{1}^{NCA}) \Gamma_t^x}$ for each $x$, determining the shape of the distribution $\Gamma_t^x$ (since $\mu(\mathbbm{1}^{NCA})$ is already determined by the KF equation). If the relevant functions are differentiable, the condition can also be derived by differentiating the expression for $\frac{\dot{\Gamma}_t^x}{\Gamma_t^x}$ with respect to $x$ and setting it equal to zero. This yields
+\begin{align}
+	0 = \text{OI}'(\mathbbm{1}^{NCA}) (\lambda -1) - \text{CD}'(\mathbbm{1}^{NCA}) + \lambda \int_{x' \in \mathbf{X}} \text{CD}(x') \Gamma_t^{x'} \mu(x') dx' \Big(\frac{d}{dx} j^x \mu(\mathbbm{1}^{NCA}) \Gamma_t^x \Big)^{-1}
+\end{align} 
+
+where one would need to expand the last derivative using the product rule (recalling that all three terms depend on $x$). 
+
+The scale of the distribution at time $t$ is determined by 
+\begin{align}
+	\int_{x' \in \mathbf{X}} \Gamma_t^{x'} \mu(x') dx' = Q_t
+\end{align}
+
+
+
+
+\subsubsection{NCA enforcement and targeted R\&D subsidy}\label{appendix:model:efficiencyderivations:allPolicies}
+
+Suppose that the planner subsidizes incumbent R\&D spending at rate $T_{RD,I}$ (tax if $T_{RD,I} < 0$) and is also able to control $\kappa_c$. By the same argument as before, Proposition \ref{proposition:hjb_scaling} holds, so $V(j,t|q) = \tilde{V}q$. Similarly, Lemma \ref{lemma:RD_worker_indifference1} holds. The incumbent value $\tilde{V}$ satisfies
+\begin{align}
+	(r + \hat{\tau}) \tilde{V} = \tilde{\pi} + \max_{\substack{\mathbbm{1}^{NCA} \in \{0,1\} \\ z \ge 0}} \Big\{z &\Big( \overbrace{\chi (\lambda - 1) \tilde{V}}^{\mathclap{\mathbb{E}[\textrm{Benefit from R\&D}]}}-  (\underbrace{1 - T_{RD} - T_{RD,I}}_{\mathclap{\text{R\&D subsidies}}})\big( \overbrace{\hat{w}_{RD} - (1-\mathbbm{1}^{NCA})(1-\kappa_e)\lambda \nu \tilde{V}}^{\mathclap{\text{R\&D wage}}}\big) \label{eq:hjb_incumbent_all} \nonumber \\ 
+	&-  \underbrace{(1-\mathbbm{1}^{NCA}) \nu \tilde{V}}_{\mathclap{\text{Net cost from spinout formation}}} - \overbrace{x \kappa_{c} \nu \tilde{V}}^{\mathclap{\text{Direct cost of NCA}}}\Big) \Big\},
+\end{align}
+By the same argument as before, $\mathbbm{1}^{NCA} = 1$ if and only if $\kappa_c < \bar{\bar{\kappa}}_c$, where
+\begin{align}
+	\bar{\bar{\kappa}}_c = 1 - (1-T_{RD} - T_{RD,I})(1-\kappa_e)\lambda. \label{eq:barkappa_all}
+\end{align} 
+If $z > 0$, the incumbent's optimal NCA policy is given by 
+\begin{align}
+	x = \begin{cases}
+		1 & \textrm{if } \kappa_c < \bar{\bar{\kappa}}_c, \\g
+		0 & \textrm{if } \kappa_c > \bar{\bar{\kappa}}_c, \\
+		\{0,1\} & \textrm{if } \kappa_c = \bar{\bar{\kappa}}_c.
+	\end{cases} \label{eq:nca_policy_all}
+\end{align}
+By the usual argument, $z > 0$ implies that the incumbent's FOC can be rearranged to
+\begin{align}
+	\tilde{V} &= \frac{(1-T_{RD} - T_{RD,I})\hat{w}_{RD}}{\chi(\lambda -1) - \nu (x\kappa_c + (1-\mathbbm{1}^{NCA})(1 - (1-T_{RD} - T_{RD,I})(1-(1+T_e)\kappa_e)\lambda)) }. \label{eq:hjb_incumbent_foc_all}
+\end{align}
+The entrant optimality condition is
+\begin{align}
+	\underbrace{\hat{\chi} \hat{z}^{-\psi}}_{\mathclap{\text{Marginal innovation rate}}} \overbrace{(1-(1+T_e)\kappa_e) \lambda \tilde{V}}^{\mathclap{\text{Payoff from innovation}}} &= (1-T_{RD})\underbrace{\hat{w}_{RD}}_{\mathclap{\text{MC of R\&D}}}. \label{eq:free_entry_condition_all}
+\end{align}
+Substituting (\ref{eq:hjb_incumbent_foc_all}) into (\ref{eq:free_entry_condition_all}) to eliminate $\tilde{V}$ yields an expression for $\hat{z}$, 
+\begin{align}
+	\hat{z} &= \Bigg( \frac{\Big(\frac{1-T_{RD} -T_{RD,I}}{1-T_{RD}} \Big)\hat{\chi} (1-(1+T_e)\kappa_{e}) \lambda}{\chi(\lambda -1) - \nu (x\kappa_c  + (1-\mathbbm{1}^{NCA})(1 - (1-T_{RD} - T_{RD,I})(1-(1+T_e)\kappa_e)\lambda)) } \Bigg)^{1/\psi}. \label{eq:effort_entrant_all}
+\end{align}
+The remaining equilibrium conditions are given by
+\begin{align}
+	\hat{\tau} &= \hat{\chi} \hat{z}^{1-\psi}, \\
+	z &= \bar{L}_{RD} - \hat{z}, \label{eq:labor_resource_constraint_all}\\ 
+	\tau &= \chi z, \\
+	\tau^S &= (1-\mathbbm{1}^{NCA}) \nu z, \\
+	g &= (\lambda - 1) (\tau + \tau^S + \hat{\tau}), \\
+	r &= \theta g + \rho, \\
+	\tilde{V} &= \frac{\tilde{\pi}}{r + \hat{\tau}}, \\ 
+	\hat{w}_{RD} &= (1-T_{RD})^{-1}\hat{\chi} \hat{z}^{-\psi} (1 - \kappa_e) \lambda \tilde{V} \label{eq:wage_rd_labor_all}
+\end{align}
+Finaly, if $\hat{z}$, as given by (\ref{eq:effort_entrant_all}), violates $\hat{z} \le \bar{L}_{RD}$, then $\hat{z} = \bar{L}_{RD}$ and $z = 0$. The rest of the equilibrium can be derived as is in the baseline case.
+
+\subsection{Symmetric equilibria without $\mathbbm{1}^{NCA}_{jt} = x$}\label{appendix:model:proofs:proposition:mixedstrategyeq}
+
+
+
+Using this dataset, I analyze the relationship between corporate R\&D spending and the number employees leaving to found startups. This requires some care to account for possible endogeneity. R\&D is, of course, highly endogenous: firms perform R\&D as a profit maximizing decision based on firm, industry, and aggregate economic conditions. Moreover, such conditions may also affect the incentives and technology for forming new, competing firms. Reverse causality could be an issue as well, as R\&D spending could be caused by spinout formation if the parent firm then has to compete with a new rival. For these reasons, a firm-year level correlation of R\&D spending and the number of employee spinouts could simply mean that there are omitted factors which affect both variables. To control for this, I use firm, state-year, industry-year (at 4-digit NAICS level), and age fixed effects, as well as firm-specific controls such as employment, assets, intangible assets, net income, capital expenditures, Tobin's Q, and patents. Firm fixed effects control for unobservable firm-level factors that are time-invariant; firm age fixed effects control for the effect of the typical firm life cycle; and state-year and industry-year fixed effects attempt to control time-varying factors, such as shocks to investment opportunities or overall industry or state conditions. Finally, to be robust to reverse causality, my regression specifications all relate employee spinouts in years $t+1,t+2,t+3$ to R\&D spending in years $t-2,t-1,t$. According to this methodology, the relationship between R\&D spending and employee spinout formation is highly statistically significant. It is also economically significant, as it can account, in level terms, for roughly 85\% of employee departures to WSOs in the data. 
+
+\end{document}

@@ -34,17 +34,22 @@ x[9] = log(modelPar.ν)
 
 grad = gradient(x)
 
-fnt = Plots.font("sans-serif", 9)
-fnt2 = Plots.font("sans-serif", 18)
-fnt3 = Plots.font("sans-serif", 24)
+fnt = Plots.font("times", 9)
+fnt2 = Plots.font("times", 18)
+fnt3 = Plots.font("times", 24)
+
+fnt_legend = Plots.font("times", 7)
+fnt_ticksGuides = Plots.font("times", 9)
+fnt_ticksGuides2 = Plots.font("times",13)
+fnt_title = Plots.font("times",16)
 
 # Plot gradient
 
 xAxisLabels = [L"\rho"; L"\theta"; L"\beta"; L"\psi"; L"\lambda"; L"\chi"; L"\hat{\chi}"; L"\kappa_E"; L"\nu"]
 
-#L"\nabla_p \log ( \text{CEV Welfare chg. \%})"
+#L"\nabla_p \log ( \text{CE Welfare chg. \%})"
 
-p = bar(xAxisLabels,grad,xticks = :all, title = L"\nabla_{\log\ p} \log\ ( CEV\ Welfare\ chg. \%)",xtickfont = fnt2, titlefont = fnt3, ytickfont = Plots.font("sans-serif", 16), guidefont = fnt, size = (1200,600), bottom_margin = 10mm, legend = false)
+p = bar(xAxisLabels,grad,xticks = :all, title = L"\nabla_{\log\ p} \log\ ( CE\ Welfare\ chg. \%)", xtickfont = fnt_ticksGuides, titlefont = fnt_title, ytickfont = fnt_ticksGuides, guidefont = fnt_ticksGuides, size = (600,400), legend = false)
 savefig(p,"figures/simpleModel/welfareComparisonParameterSensitivityFull.pdf")
 
 jacobian = constructFullJacobian(modelPar)
@@ -57,7 +62,7 @@ sensitivity = transpose(invjac) * grad
 
 xAxisLabels = ["r"; "g"; "OI"; "E"; "S"; "RD"; L"\theta"; L"\beta"; L"\psi"]
 
-p = bar(xAxisLabels, transpose(invjac) * grad, xticks = :all, title = L"\nabla_{\log\ m} \log\ ( CEV\ Welfare\ chg. \%)",xtickfont = fnt2, titlefont = fnt3, ytickfont = Plots.font("sans-serif", 16), guidefont = fnt, size = (1200,600), bottom_margin = 10mm, legend = false)
+p = bar(xAxisLabels, transpose(invjac) * grad, xticks = :all, title = L"\nabla_{\log\ m} \log\ ( CE\ Welfare\ chg. \%)", xtickfont = fnt_ticksGuides, titlefont = fnt_title, ytickfont = fnt_ticksGuides, guidefont = fnt_ticksGuides, size = (600,400), legend = false)
 
 savefig(p,"figures/simpleModel/welfareComparisonSensitivityFull.pdf")
 
@@ -73,16 +78,16 @@ sd_logs = sqrt(var)
 
 ## Semi-elasticity
 
-fnt = Plots.font("sans-serif", 9)
-fnt2 = Plots.font("sans-serif", 18)
-fnt3 = Plots.font("sans-serif", 24)
+fnt = Plots.font("times", 9)
+fnt2 = Plots.font("times", 18)
+fnt3 = Plots.font("times", 24)
 
 gradient = constructLevelsWelfareComparisonFullGradient(modelPar)
 
 grad = gradient(x)
 
 xAxisLabels = [L"\rho"; L"\theta"; L"\beta"; L"\psi"; L"\lambda"; L"\chi"; L"\hat{\chi}"; L"\kappa_E"; L"\nu"]
-p = bar(xAxisLabels,grad,xticks = :all, title = L"\nabla_{\log\ p} \ ( CEV\ Welfare\ chg. \%)",xtickfont = fnt2, titlefont = fnt3, ytickfont = Plots.font("sans-serif", 16), guidefont = fnt, size = (1200,600), bottom_margin = 10mm, legend = false)
+p = bar(xAxisLabels,grad,xticks = :all, title = L"\nabla_{\log\ p} \ ( CE\ Welfare\ chg. \%)", xtickfont = fnt_ticksGuides, titlefont = fnt_title, ytickfont = fnt_ticksGuides, guidefont = fnt_ticksGuides, size = (600,400), legend = false)
 savefig(p,"figures/simpleModel/levelsWelfareComparisonParameterSensitivityFull.pdf")
 
 jacobian = constructFullJacobian(modelPar)
@@ -95,16 +100,16 @@ sensitivity = transpose(invjac) * grad
 
 xAxisLabels = ["r"; "g"; "OI"; "E"; "S"; "RD"; L"\theta"; L"\beta"; L"\psi"]
 
-fnt = Plots.font("sans-serif", 9)
-fnt2 = Plots.font("sans-serif", 18)
-fnt3 = Plots.font("sans-serif", 24)
-p = bar(xAxisLabels, sensitivity, xticks = :all, title = L"\nabla_{\log\ m} \ ( CEV\ Welfare\ chg. \%)",xtickfont = fnt2, titlefont = fnt3, ytickfont = Plots.font("sans-serif", 16), guidefont = fnt, size = (1200,600), bottom_margin = 10mm, legend = false)
+fnt = Plots.font("times", 9)
+fnt2 = Plots.font("times", 18)
+fnt3 = Plots.font("times", 24)
+p = bar(xAxisLabels, sensitivity, xticks = :all, title = L"\nabla_{\log\ m} \ ( CE\ Welfare\ chg. \%)", xtickfont = fnt_ticksGuides, titlefont = fnt_title, ytickfont = fnt_ticksGuides, guidefont = fnt_ticksGuides, size = (600,400), legend = false)
 savefig(p,"figures/simpleModel/levelsWelfareComparisonSensitivityFull.pdf")
 
 ## Calculation of standard errors
 
 # Standard deviation of log of each parameter
-σ = 0.1
+σ = 0.14
 
 # Standard error
 var = transpose(sensitivity) * (σ^2 * I) * sensitivity
