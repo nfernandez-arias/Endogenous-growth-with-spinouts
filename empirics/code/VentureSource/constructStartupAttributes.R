@@ -15,7 +15,7 @@
     
 
 # Load funding information about all startups
-deals <- fread("raw/VentureSource/01Deals.csv")[year (ymd(StartDate)) >= 1986][, .(EntityID, EntityName,State, StartDate, CloseDate,
+deals <- fread("raw/VentureSource/01Deals.csv")[year(ymd(StartDate)) >= VSminFoundingYear & year(ymd(StartDate)) <= VSmaxFoundingYear][, .(EntityID, EntityName,State, StartDate, CloseDate,
                                                                                   RoundNo, RoundID, RoundClass, RoundType, RoundBusinessStatus,
                                                                                   OwnershipStatus, OwnerStatDate, BusinessStatus, EmployeeCount,
                                                                                   RaisedDA, RaisedUSD, PostValueDA, PostValUSD, 

@@ -50,7 +50,7 @@ for (founderType in c("all","founder2","technical","executive"))
     entitywsoString <- paste("Entity_",founderType,"_",wsoString, sep = "")
   
     # Construct flag as WSOi if at least startupSpinoutFounderFraction of founders of founderType as WSOi
-    parentsSpinouts[ , (entitywsoString) := sum(get(wsoLowerCase) * get(founderType)) /sum(get(founderType)), 
+    parentsSpinouts[ , (entitywsoString) := sum(get(wsoLowerCase) * fromPublic * get(founderType)) /sum(get(founderType)), 
                      by = EntityID]
     #parentsSpinouts[ get(entitywsoString) >= startupSpinoutFounderFraction & get(entitywsoString) != Inf, 
     #                 (entitywsoString) := 1]
@@ -81,7 +81,7 @@ setkey(data,EntityID)
 data <- spinoutsID[data]
     
 # Export for regression analysis
-fwrite(data,"data/VentureSource/startupsPathsStata.csv")
+fwrite(data,"data/VentureSource/startupsPathsStata_11-11.csv")
 #write.dta(data,"data/VentureSource/startupPathsStata.dta")
 
 

@@ -5,7 +5,7 @@ set matsize 10000, permanently
 
 cd "Z:\home\nico\Insync\nfernand@princeton.edu\Google Drive\PhD - Thesis\Research\Endogenous-growth-with-spinouts\empirics"
 
-insheet using "data/VentureSource/startupsPathsStata.csv"
+insheet using "data/VentureSource/startupsPathsStata_11-11.csv"
 
 encode(state), gen(statecode)
 

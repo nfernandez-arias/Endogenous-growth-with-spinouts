@@ -1,0 +1,9 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Statistically independent deflator}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Baseline case}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Excluding zi-1 from the specification}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Using a constant in the deflated regression}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Extension to multiple fixed effects}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.5}{Discussion}{section.2}% 7
+\BOOKMARK [1][-]{section.3}{Allowing for interdependence of zi and xi}{}% 8
+\BOOKMARK [2][-]{subsection.3.1}{Multiple fixed effects}{section.3}% 9

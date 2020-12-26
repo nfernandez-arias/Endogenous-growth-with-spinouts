@@ -1,4 +1,4 @@
-\begin{thebibliography}{45}
+\begin{thebibliography}{64}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -19,6 +19,33 @@ Daron Acemoglu and Dan Cao.
 \newblock URL
   \url{http://www.sciencedirect.com/science/article/pii/S0022053115000034}.
 
+\bibitem[Acemoglu et~al.(2018)Acemoglu, Akcigit, Alp, Bloom, and
+  Kerr]{acemoglu_innovation_2018}
+Daron Acemoglu, Ufuk Akcigit, Harun Alp, Nicholas Bloom, and William Kerr.
+\newblock Innovation, {Reallocation}, and {Growth}.
+\newblock \emph{American Economic Review}, 108\penalty0 (11):\penalty0
+  3450--3491, November 2018.
+\newblock ISSN 0002-8282.
+\newblock \doi{10.1257/aer.20130470}.
+\newblock URL \url{https://www.aeaweb.org/articles?id=10.1257/aer.20130470}.
+
+\bibitem[Agarwal et~al.(2002)Agarwal, Echambadi, Franco, and
+  Sarkar]{agarwal_knowledge_2002}
+Rajshree Agarwal, Raj Echambadi, April Franco, and Bidyut Sarkar.
+\newblock Knowledge {Transfer} through {Congenital} {Learning}: {Spin}-{Out}
+  {Generation}, {Growth} and {Survival}.
+\newblock February 2002.
+
+\bibitem[Agarwal et~al.(2013)Agarwal, Campbell, Franco, and
+  Ganco]{agarwal_what_2013}
+Rajshree Agarwal, Benjamin~A. Campbell, April Franco, and Martin Ganco.
+\newblock What {Do} {I} {Take} with {Me}?: {The} {Mediating} {Effect} of
+  {Spin}-{Out} {Team} {Size} and {Tenure} on the {Founder}-{Firm} {Performance}
+  {Relationship}.
+\newblock {SSRN} {Scholarly} {Paper} ID 2247653, Social Science Research
+  Network, Rochester, NY, April 2013.
+\newblock URL \url{https://papers.ssrn.com/abstract=2247653}.
+
 \bibitem[Aghion and Howitt(1992)]{aghion_model_1992}
 Philippe Aghion and Peter Howitt.
 \newblock A {Model} of {Growth} {Through} {Creative} {Destruction}.
@@ -35,6 +62,17 @@ Philippe Aghion, Nick Bloom, Richard Blundell, Rachel Griffith, and Peter
 \newblock \emph{The Quarterly Journal of Economics}, 120\penalty0 (2):\penalty0
   701--728, 2005.
 \newblock URL \url{http://www.jstor.org/stable/25098750}.
+
+\bibitem[Aghion et~al.(2014)Aghion, Akcigit, and Howitt]{aghion_chapter_2014}
+Philippe Aghion, Ufuk Akcigit, and Peter Howitt.
+\newblock Chapter 1 - {What} {Do} {We} {Learn} {From} {Schumpeterian} {Growth}
+  {Theory}?
+\newblock In Philippe Aghion and Steven~N. Durlauf, editors, \emph{Handbook of
+  {Economic} {Growth}}, volume~2 of \emph{Handbook of {Economic} {Growth}},
+  pages 515--563. Elsevier, January 2014.
+\newblock \doi{10.1016/B978-0-444-53540-5.00001-X}.
+\newblock URL
+  \url{http://www.sciencedirect.com/science/article/pii/B978044453540500001X}.
 
 \bibitem[Aghion et~al.(2019)Aghion, Bergeaud, Boppart, Klenow, and
   Li]{aghion_theory_2019}
@@ -112,12 +150,44 @@ Salome Baslandze.
 \newblock Spinout {Entry}, {Innovation}, and {Growth}.
 \newblock \emph{Working Paper}, 2019.
 
+\bibitem[Bishara(2011)]{bishara_fifty_2011}
+Norman Bishara.
+\newblock Fifty {Ways} to {Leave} {Your} {Employer}: {Relative} {Enforcement}
+  of {Covenants} {Not} to {Compete}, {Trends}, and {Implications} for
+  {Employee} {Mobility} {Policy}.
+\newblock \emph{University of Pennsylvania Journal of Business Law},
+  13\penalty0 (3):\penalty0 751, April 2011.
+\newblock ISSN 0021-9460.
+\newblock URL \url{https://scholarship.law.upenn.edu/jbl/vol13/iss3/5}.
+
 \bibitem[Bishara and Starr(2016)]{bishara_incomplete_2016}
 Norman Bishara and Evan Starr.
 \newblock The {Incomplete} {Noncompete} {Picture}.
 \newblock {SSRN} {Scholarly} {Paper} ID 2782137, Social Science Research
   Network, Rochester, NY, June 2016.
 \newblock URL \url{https://papers.ssrn.com/abstract=2782137}.
+
+\bibitem[Bloom et~al.(2013)Bloom, Schankerman, and
+  Reenen]{bloom_identifying_2013}
+Nicholas Bloom, Mark Schankerman, and John~Van Reenen.
+\newblock Identifying {Technology} {Spillovers} and {Product} {Market}
+  {Rivalry}.
+\newblock \emph{Econometrica}, 81\penalty0 (4):\penalty0 1347--1393, 2013.
+\newblock ISSN 1468-0262.
+\newblock \doi{10.3982/ECTA9466}.
+\newblock URL \url{https://onlinelibrary.wiley.com/doi/abs/10.3982/ECTA9466}.
+
+\bibitem[Campbell et~al.(2012)Campbell, Ganco, Franco, and
+  Agarwal]{campbell_who_2012}
+Benjamin~A. Campbell, Martin Ganco, April~M. Franco, and Rajshree Agarwal.
+\newblock Who leaves, where to, and why worry? employee mobility,
+  entrepreneurship and effects on source firm performance.
+\newblock \emph{Strategic Management Journal}, 33\penalty0 (1):\penalty0
+  65--87, 2012.
+\newblock ISSN 1097-0266.
+\newblock \doi{10.1002/smj.943}.
+\newblock URL \url{https://onlinelibrary.wiley.com/doi/abs/10.1002/smj.943}.
+\newblock \_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1002/smj.943.
 
 \bibitem[Chatterjee and Rossi-Hansberg(2012)]{chatterjee_spinoffs_2012}
 Satyajit Chatterjee and Esteban Rossi-Hansberg.
@@ -155,6 +225,16 @@ Raffaele Conti.
 \newblock ISSN 1097-0266.
 \newblock \doi{10.1002/smj.2155}.
 \newblock URL \url{https://onlinelibrary.wiley.com/doi/abs/10.1002/smj.2155}.
+
+\bibitem[Doraszelski and Jaumandreu(2013)]{doraszelski_rd_2013}
+Ulrich Doraszelski and Jordi Jaumandreu.
+\newblock R\&{D} and {Productivity}: {Estimating} {Endogenous} {Productivity}.
+\newblock \emph{The Review of Economic Studies}, 80\penalty0 (4):\penalty0
+  1338--1383, October 2013.
+\newblock ISSN 0034-6527.
+\newblock \doi{10.1093/restud/rdt011}.
+\newblock URL \url{https://academic.oup.com/restud/article/80/4/1338/1580686}.
+\newblock Publisher: Oxford Academic.
 
 \bibitem[Franco and Mitchell(2008)]{franco_covenants_2008}
 April~M. Franco and Matthew~F. Mitchell.
@@ -205,6 +285,17 @@ Mark~J. Garmaise.
 \newblock \doi{10.1093/jleo/ewp033}.
 \newblock URL \url{https://academic.oup.com/jleo/article/27/2/376/2194339}.
 
+\bibitem[Gilbert(2006)]{gilbert_looking_2006}
+Richard Gilbert.
+\newblock Looking for {Mr}. {Schumpeter}: {Where} {Are} {We} in the
+  {Competition} and {Innovation} {Debate}?
+\newblock \emph{Innovation Policy and the Economy}, 6:\penalty0 159--215,
+  January 2006.
+\newblock ISSN 1531-3468.
+\newblock \doi{10.1086/ipe.6.25056183}.
+\newblock URL
+  \url{https://www.journals.uchicago.edu/doi/abs/10.1086/ipe.6.25056183}.
+
 \bibitem[Gompers et~al.(2005)Gompers, Lerner, and
   Scharfstein]{gompers_entrepreneurial_2005}
 Paul Gompers, Josh Lerner, and David Scharfstein.
@@ -217,6 +308,27 @@ Paul Gompers, Josh Lerner, and David Scharfstein.
 \newblock URL
   \url{https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1540-6261.2005.00740.x}.
 
+\bibitem[Griliches(1979)]{griliches_issues_1979}
+Zvi Griliches.
+\newblock Issues in {Assessing} the {Contribution} of {Research} and
+  {Development} to {Productivity} {Growth}.
+\newblock \emph{The Bell Journal of Economics}, 10\penalty0 (1):\penalty0
+  92--116, 1979.
+\newblock ISSN 0361-915X.
+\newblock \doi{10.2307/3003321}.
+\newblock URL \url{https://www.jstor.org/stable/3003321}.
+\newblock Publisher: [RAND Corporation, Wiley].
+
+\bibitem[Griliches(1992)]{griliches_search_1992}
+Zvi Griliches.
+\newblock The {Search} for {R}\&{D} {Spillovers}.
+\newblock \emph{The Scandinavian Journal of Economics}, 94:\penalty0 S29--S47,
+  1992.
+\newblock ISSN 0347-0520.
+\newblock \doi{10.2307/3440244}.
+\newblock URL \url{https://www.jstor.org/stable/3440244}.
+\newblock Publisher: [Wiley, The Scandinavian Journal of Economics].
+
 \bibitem[Grossman and Helpman(1991)]{grossman_quality_1991}
 Gene~M. Grossman and Elhanan Helpman.
 \newblock Quality {Ladders} in the {Theory} of {Growth}.
@@ -226,6 +338,29 @@ Gene~M. Grossman and Elhanan Helpman.
 \newblock \doi{10.2307/2298044}.
 \newblock URL \url{https://www.jstor.org/stable/2298044}.
 
+\bibitem[Hall et~al.(2010)Hall, Mairesse, and Mohnen]{hall_chapter_2010}
+Bronwyn~H. Hall, Jacques Mairesse, and Pierre Mohnen.
+\newblock Chapter 24 - {Measuring} the {Returns} to {R}\&{D}.
+\newblock In Bronwyn~H. Hall and Nathan Rosenberg, editors, \emph{Handbook of
+  the {Economics} of {Innovation}}, volume~2 of \emph{Handbook of the
+  {Economics} of {Innovation}, {Volume} 2}, pages 1033--1082. North-Holland,
+  January 2010.
+\newblock \doi{10.1016/S0169-7218(10)02008-3}.
+\newblock URL
+  \url{http://www.sciencedirect.com/science/article/pii/S0169721810020083}.
+
+\bibitem[Harrison et~al.(2014)Harrison, Jaumandreu, Mairesse, and
+  Peters]{harrison_does_2014}
+Rupert Harrison, Jordi Jaumandreu, Jacques Mairesse, and Bettina Peters.
+\newblock Does innovation stimulate employment? {A} firm-level analysis using
+  comparable micro-data from four {European} countries.
+\newblock \emph{International Journal of Industrial Organization}, 35:\penalty0
+  29--43, July 2014.
+\newblock ISSN 0167-7187.
+\newblock \doi{10.1016/j.ijindorg.2014.06.001}.
+\newblock URL
+  \url{http://www.sciencedirect.com/science/article/pii/S0167718714000563}.
+
 \bibitem[Jeffers(2018)]{jeffers_impact_2018}
 Jessica Jeffers.
 \newblock The {Impact} of {Restricting} {Labor} {Mobility} on {Corporate}
@@ -233,6 +368,15 @@ Jessica Jeffers.
 \newblock {SSRN} {Scholarly} {Paper} ID 3040393, Social Science Research
   Network, Rochester, NY, May 2018.
 \newblock URL \url{https://papers.ssrn.com/abstract=3040393}.
+
+\bibitem[Jones and Williams(1998)]{jones_measuring_1998}
+Charles~I. Jones and John~C. Williams.
+\newblock Measuring the {Social} {Return} to {R} \& {D}.
+\newblock \emph{The Quarterly Journal of Economics}, 113\penalty0 (4):\penalty0
+  1119--1135, 1998.
+\newblock ISSN 0033-5533.
+\newblock URL \url{https://www.jstor.org/stable/2586976}.
+\newblock Publisher: Oxford University Press.
 
 \bibitem[Kaplan et~al.(2002)Kaplan, Sensoy, and Stromberg]{kaplan_how_2002}
 Steven~N. Kaplan, Berk~M. Sensoy, and Per Stromberg.
@@ -250,6 +394,17 @@ Steven~Neil Kaplan.
 Peter~J Klenow and Huiyu Li.
 \newblock Innovative {Growth} {Accounting}.
 \newblock page~66, May 2020.
+
+\bibitem[Klepper(2002)]{klepper_capabilities_2002}
+Steven Klepper.
+\newblock The capabilities of new firms and the evolution of the {US}
+  automobile industry.
+\newblock \emph{Industrial and Corporate Change}, 11\penalty0 (4):\penalty0
+  645--666, August 2002.
+\newblock ISSN 0960-6491.
+\newblock \doi{10.1093/icc/11.4.645}.
+\newblock URL \url{https://academic.oup.com/icc/article/11/4/645/705814}.
+\newblock Publisher: Oxford Academic.
 
 \bibitem[Klepper(2007)]{klepper_disagreements_2007}
 Steven Klepper.
@@ -271,6 +426,16 @@ Steven Klepper and Sally Sleeper.
 \newblock \doi{10.1287/mnsc.1050.0411}.
 \newblock URL \url{https://pubsonline.informs.org/doi/10.1287/mnsc.1050.0411}.
 
+\bibitem[Klepper and Thompson(2010)]{klepper_disagreements_2010}
+Steven Klepper and Peter Thompson.
+\newblock Disagreements and intra-industry spinoffs.
+\newblock \emph{International Journal of Industrial Organization}, 28\penalty0
+  (5):\penalty0 526--538, September 2010.
+\newblock ISSN 0167-7187.
+\newblock \doi{10.1016/j.ijindorg.2010.01.002}.
+\newblock URL
+  \url{http://www.sciencedirect.com/science/article/pii/S0167718710000123}.
+
 \bibitem[Klette and Kortum(2004)]{klette_innovating_2004}
 Tor~Jakob Klette and Samuel Kortum.
 \newblock Innovating {Firms} and {Aggregate} {Innovation}.
@@ -279,6 +444,14 @@ Tor~Jakob Klette and Samuel Kortum.
 \newblock ISSN 0022-3808.
 \newblock \doi{10.1086/422563}.
 \newblock URL \url{https://www.journals.uchicago.edu/doi/10.1086/422563}.
+
+\bibitem[Lentz and Mortensen(2008)]{lentz_empirical_2008}
+Rasmus Lentz and Dale~T. Mortensen.
+\newblock An {Empirical} {Model} of {Growth} through {Product} {Innovation}.
+\newblock \emph{Econometrica}, 76\penalty0 (6):\penalty0 1317--1373, 2008.
+\newblock ISSN 0012-9682.
+\newblock URL \url{https://www.jstor.org/stable/40056508}.
+\newblock Publisher: [Wiley, Econometric Society].
 
 \bibitem[Marx et~al.(2009)Marx, Strumsky, and Fleming]{marx_mobility_2009}
 Matt Marx, Deborah Strumsky, and Lee Fleming.
@@ -297,6 +470,14 @@ Matt Marx, Jasjit Singh, and Lee Fleming.
 \newblock \emph{Research Policy}, 44\penalty0 (2):\penalty0 394--404, 2015.
 \newblock URL
   \url{https://ideas.repec.org/a/eee/respol/v44y2015i2p394-404.html}.
+
+\bibitem[Mohnen and Hall(2013)]{mohnen_innovation_2013}
+Pierre Mohnen and Bronwyn~H. Hall.
+\newblock Innovation and {Productivity}: {An} {Update}.
+\newblock \emph{Eurasian Business Review}, 3\penalty0 (1):\penalty0 47--65,
+  2013.
+\newblock URL \url{https://ideas.repec.org/a/ebz/ebrjrn/v3y2013i1p47-65.html}.
+\newblock Publisher: Eurasia Business and Economics Society.
 
 \bibitem[Muendler et~al.(2012)Muendler, Rauch, and
   Tocoian]{muendler_employee_2012}
@@ -392,5 +573,17 @@ Harald Uhlig.
 \newblock ISSN 0938-2259.
 \newblock URL \url{https://www.jstor.org/stable/25054951}.
 \newblock Publisher: Springer.
+
+\bibitem[Wezel et~al.(2006)Wezel, Cattani, and
+  Pennings]{wezel_competitive_2006}
+Filippo~Carlo Wezel, Gino Cattani, and Johannes~M. Pennings.
+\newblock Competitive {Implications} of {Interfirm} {Mobility}.
+\newblock \emph{Organization Science}, 17\penalty0 (6):\penalty0 691--709,
+  December 2006.
+\newblock ISSN 1047-7039.
+\newblock \doi{10.1287/orsc.1060.0219}.
+\newblock URL
+  \url{https://pubsonline.informs.org/doi/abs/10.1287/orsc.1060.0219}.
+\newblock Publisher: INFORMS.
 
 \end{thebibliography}

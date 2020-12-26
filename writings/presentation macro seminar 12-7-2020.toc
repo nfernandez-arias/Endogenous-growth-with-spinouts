@@ -1,0 +1,18 @@
+\babel@toc {english}{}
+\beamer@sectionintoc {1}{Introduction}{2}{0}{1}
+\beamer@sectionintoc {2}{Empirics of R\&D and employee spinouts}{14}{0}{2}
+\beamer@sectionintoc {3}{Model}{22}{0}{3}
+\beamer@sectionintoc {4}{Calibration}{45}{0}{4}
+\beamer@sectionintoc {5}{Policy analysis}{49}{0}{5}
+\beamer@sectionintoc {6}{Appendix}{86}{1}{6}
+\beamer@subsectionintoc {6}{1}{Model}{92}{1}{6}
+\beamer@subsectionintoc {6}{2}{Equilibrium}{93}{1}{6}
+\beamer@subsectionintoc {6}{3}{Efficiency}{106}{1}{6}
+\beamer@subsectionintoc {6}{4}{Empirics}{106}{1}{6}
+\beamer@subsectionintoc {6}{5}{Calibration}{113}{1}{6}
+\beamer@subsectionintoc {6}{6}{Policy}{115}{1}{6}
+\beamer@subsubsectionintoc {6}{6}{1}{Welfare comparison robustness}{115}{1}{6}
+\beamer@subsubsectionintoc {6}{6}{2}{Noncompete policy}{117}{1}{6}
+\beamer@subsubsectionintoc {6}{6}{3}{R\&D subsidy}{137}{1}{6}
+\beamer@subsubsectionintoc {6}{6}{4}{Targeted R\&D subsidy}{140}{1}{6}
+\beamer@subsubsectionintoc {6}{6}{5}{Optimal policy}{143}{1}{6}

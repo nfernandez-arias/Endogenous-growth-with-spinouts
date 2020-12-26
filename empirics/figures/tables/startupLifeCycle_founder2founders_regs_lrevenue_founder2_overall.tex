@@ -4,11 +4,8 @@
 \toprule
                     &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
 \midrule
-$\frac{\text{WSO4 founders}}{\text{Total founders}}$&       -0.14         &        0.41\sym{***}&        0.36\sym{***}&        0.34\sym{**} \\
-                    &      (0.17)         &      (0.14)         &     (0.086)         &      (0.13)         \\
-\addlinespace
-Constant            &        1.01\sym{***}&        0.90\sym{***}&        0.94\sym{***}&        0.94\sym{***}\\
-                    &      (0.15)         &    (0.0091)         &    (0.0045)         &    (0.0091)         \\
+$\frac{\text{WSO4 founders}}{\text{Total founders}}$&       -0.13         &        0.45\sym{***}&        0.42\sym{***}&        0.39\sym{***}\\
+                    &     (0.094)         &      (0.13)         &     (0.081)         &      (0.12)         \\
 \addlinespace
 State-Year FE       &          No         &         Yes         &         Yes         &          No         \\
 \addlinespace
@@ -21,13 +18,11 @@ NAICS4-Year FE      &          No         &         Yes         &         Yes   
 NAICS4-Age FE       &          No         &         Yes         &          No         &         Yes         \\
 \addlinespace
 NAICS4-Cohort FE    &          No         &          No         &         Yes         &         Yes         \\
-\addlinespace
-No FE               &         Yes         &          No         &          No         &          No         \\
 \midrule
-Clustering          &statecode naics1\_4 year         &statecode naics1\_4         &statecode naics1\_4         &statecode naics1\_4         \\
-R-squared (adj.)    &     0.00017         &        0.27         &        0.36         &        0.36         \\
-R-squared (within, adj)&     0.00017         &      0.0025         &      0.0019         &      0.0017         \\
-Observations        &       17838         &       16424         &       16429         &       16784         \\
+Clustering          &State, Industry         &State, Industry         &State, Industry         &State, Industry         \\
+R-squared (adj.)    &    0.000092         &        0.30         &        0.38         &        0.39         \\
+R-squared (within, adj)&    0.000092         &      0.0030         &      0.0026         &      0.0022         \\
+Observations        &       16948         &       15500         &       15531         &       15905         \\
 \bottomrule
 \multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
 \multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\

@@ -4,7 +4,7 @@
 using Plots, Measures, LaTeXStrings
 gr()
 
-export SimpleModelParameters, SimpleModelSolution, solveSimpleModel, computeWelfareComparison, initializeSimpleModel, makePlots
+export SimpleModelParameters, SimpleModelSolution, solveSimpleModel, computeWelfareComparison, initializeSimpleModel, makePlots, computeGrowthAttribution, computeWelfareImprovement
 export makePlotsRDSubsidy, makePlotsKappaCRDSubsidy, makePlotsEntryTax, makePlotsRDSubsidyTargeted, makePlotsALL, makePlotsALL_contour, makePlotsALL_contour_noSpinouts
 export SimpleCalibrationTarget,SimpleCalibrationParameters,SimpleModelMoments,SimpleModelParameterLimit,SimpleModelParameterLimitList,welfareComparison, computeOptimalPolicy
 
@@ -72,16 +72,16 @@ end
 
 function initializeSimpleModel()
 
-    ρ = 0.030259936
+    ρ = 0.0559597
     θ = 2
     β = 0.094
     L = 0.01
-    χE = 0.5536343
-    χI = 21.21660
+    χE = 0.4608979
+    χI = 26.350845
     ψ = 0.5
     λ = 1.08377
-    ν = 0.3447904
-    κE = 0.85940929
+    ν = 0.430983
+    κE = 0.7393805
     κC = 0
 
     modelPar = SimpleModelParameters(ρ,θ,β,L,χE,χI,ψ,λ,ν,κE,κC)
@@ -327,7 +327,7 @@ function makePlots(modelPar::SimpleModelParameters,string::String)
 
     innovationRatesPlot = plot(κC_grid,[τI τE τS (τI + τE + τS)], title = "Innovation rate", legend = :bottomright, ylabel = "Innovations per year", xlabel = L"\kappa_c", label = ["Incumbent" "Entrant" "Spinout" "Total"])
 
-    wagePlot = plot(κC_grid,[wRD_NCA wRD_NCA .- (1 .- x) .* modelPar.ν .* (1-modelPar.κE) .* V], title = "R&D wage", xlabel = L"\kappa_c", label = ["Entrant" "Incumbent"])
+    wagePlot = plot(κC_grid,[wRD_NCA wRD_NCA .- (1 .- x) .* modelPar.ν .* (1-modelPar.κE) .* V], title = "R&D wage", xlabel = L"\kappa_c", label = ["Entrant" "Incumbent"], legend = :topright)
 
     interestRatePlot = plot(κC_grid,100*r,title = "Interest rate", ylabel = "% per year", xlabel = L"\kappa_c", label = "r", legend = false)
 
@@ -345,13 +345,17 @@ function makePlots(modelPar::SimpleModelParameters,string::String)
 
     welfare2Plot = plot(κC_grid,W4, title = "CE welfare chg.", ylabel = "% chg", xlabel = L"\kappa_c", label = L"\tilde{C}^*", legend = false)
 
-    summaryPlot = plot(effortPlot,innovationRatesPlot,growthPlot,valuePlot,interestRatePlot,wagePlot,staticCostPlot,consumptionPlot,welfarePlot, bottom_margin = 5mm, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, xguidefont = fnt_ticksGuides2, yguidefont = fnt_ticksGuides, titlefont = fnt_title, legendfont = fnt_legend, size = (800,800))
+    effortPlot = plot(effortPlot, legend = :topright, legendfont = Plots.font("times",6), ylims = (0,0.01))
+
+    summaryPlot = plot(effortPlot,innovationRatesPlot,growthPlot,valuePlot,interestRatePlot,wagePlot,staticCostPlot,consumptionPlot,welfarePlot, bottom_margin = 5mm, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, xguidefont = fnt_ticksGuides2, yguidefont = fnt_ticksGuides, titlefont = fnt_title, legendfont = fnt_legend, size = (900,900))
     savefig(summaryPlot,"figures/simpleModel/$(string)_summaryPlot.pdf")
-  
-    effortPlot = plot(effortPlot, legend = :right)
+    savefig(summaryPlot,"figures/simpleModel/$(string)_summaryPlot.png")
+
+    effortPlot = plot(effortPlot, legend = :topright, legendfont = Plots.font("times",6), ylims = (0,0.01))
        
     smallSummaryPlot = plot(effortPlot,growthPlot,staticCostPlot,consumptionPlot, bottom_margin = 5mm, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, xguidefont = fnt_ticksGuides2, titlefont = fnt_title, legendfont = fnt_legend, yguidefont = fnt_ticksGuides, size = (666,500))
     savefig(smallSummaryPlot,"figures/simpleModel/$(string)_smallSummaryPlot.pdf")
+    savefig(smallSummaryPlot,"figures/simpleModel/$(string)_smallSummaryPlot.png")
  
     smallSummaryPlot_entryCostsAreTransfers = plot(effortPlot,growthPlot,staticCost2Plot,consumption2Plot, bottom_margin = 5mm, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, xguidefont = fnt_ticksGuides2, titlefont = fnt_title, legendfont = fnt_legend, yguidefont = fnt_ticksGuides, size = (666,500))
     savefig(smallSummaryPlot_entryCostsAreTransfers,"figures/simpleModel/$(string)_smallSummaryPlot_entryCostsAreTransfers.pdf")
@@ -372,7 +376,7 @@ end
 function makePlotsRDSubsidy(modelPar::SimpleModelParameters,string::String)
 
     κC = 1.1*(1 - (1-modelPar.κE)*modelPar.λ)
-    τRD_grid = -1:0.001:0.75
+    τRD_grid = -0.5:0.001:0.5
 
     V = zeros(size(τRD_grid))
     zI = zeros(size(τRD_grid))
@@ -428,11 +432,11 @@ function makePlotsRDSubsidy(modelPar::SimpleModelParameters,string::String)
 
     valuePlot = plot(100* τRD_grid,V,title = "Incumbent value", xlabel = "R&D Subsidy (%)", label = "V", legend = false)
 
-    effortPlot = plot(100* τRD_grid,[zI zE], title = "R&D labor", legend = :bottomright, xlabel = "R&D Subsidy (%)", label = ["Incumbent" "Entrant"])
+    effortPlot = plot(100* τRD_grid,[zI zE], title = "R&D labor", legend = :left, xlabel = "R&D Subsidy (%)", label = ["Incumbent" "Entrant"])
 
     innovationRatesPlot = plot(100* τRD_grid,[τI τE τS (τI + τE + τS)], title = "Innovation rate", legend = :bottomright, ylabel = "Innovations per year", xlabel = "R&D Subsidy (%)", label = ["Incumbent" "Entrant" "Spinout" "Total"])
 
-    wagePlot = plot(100* τRD_grid,[wRD_NCA wRD_NCA .- (1 .- x) .* modelPar.ν .* (1-modelPar.κE) .* V], title = "R&D wage", xlabel = "R&D Subsidy (%)", label = ["Entrant" "Incumbent"])
+    wagePlot = plot(100* τRD_grid,[wRD_NCA wRD_NCA .- (1 .- x) .* modelPar.ν .* (1-modelPar.κE) .* V], title = "R&D wage", xlabel = "R&D Subsidy (%)", label = ["Entrant" "Incumbent"], legend = :topleft)
 
     interestRatePlot = plot(100* τRD_grid,100*r,title = "Interest rate", ylabel = "% per year", xlabel = "R&D Subsidy (%)", label = "r", legend = false)
 
@@ -444,13 +448,15 @@ function makePlotsRDSubsidy(modelPar::SimpleModelParameters,string::String)
 
     welfarePlot = plot(100* τRD_grid,W3, title = "CE welfare chg.", ylabel = "% chg", xlabel = "R&D Subsidy (%)", label = "\$\\tilde{C}^*\$", legend = false)
 
-    summaryPlot = plot(effortPlot,innovationRatesPlot,growthPlot,valuePlot,interestRatePlot,wagePlot,staticCostPlot,consumptionPlot,welfarePlot, bottom_margin = 5mm, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, xguidefont = fnt_ticksGuides2, yguidefont = fnt_ticksGuides, titlefont = fnt_title, legendfont = fnt_legend, size = (800,800))
-    savefig(summaryPlot,"figures/simpleModel/$(string)_RDSubsidy_summaryPlot.pdf")
+    effortPlot = plot(effortPlot, legend = :topright, ylims = (0,0.01))
 
-    effortPlot = plot(effortPlot, legend = :right)
+    summaryPlot = plot(effortPlot,innovationRatesPlot,growthPlot,valuePlot,interestRatePlot,wagePlot,staticCostPlot,consumptionPlot,welfarePlot, bottom_margin = 5mm, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, xguidefont = fnt_ticksGuides2, yguidefont = fnt_ticksGuides, titlefont = fnt_title, legendfont = fnt_legend, size = (900,900))
+    savefig(summaryPlot,"figures/simpleModel/$(string)_RDSubsidy_summaryPlot.pdf")
+    savefig(summaryPlot,"figures/simpleModel/$(string)_RDSubsidy_summaryPlot.png")
     
     smallSummaryPlot = plot(effortPlot,growthPlot,staticCostPlot,consumptionPlot, bottom_margin = 5mm, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, xguidefont = fnt_ticksGuides2, yguidefont = fnt_ticksGuides, titlefont = fnt_title, legendfont = fnt_legend, size = (666,500))
     savefig(smallSummaryPlot,"figures/simpleModel/$(string)_RDSubsidy_smallSummaryPlot.pdf")
+    savefig(smallSummaryPlot,"figures/simpleModel/$(string)_RDSubsidy_smallSummaryPlot.png")
     
     growthDecomp = plot(innovationRatesPlot,growthPlot, bottom_margin = 10mm, left_margin = 10mm, right_margin = 5mm, top_margin = 10mm, size = (1600,600), titlefontsize = 18, legendfontsize = 12, xguidefontsize = 16, xtickfontsize = 12, ytickfontsize = 12, yguidefontsize = 16)
     savefig(growthDecomp,"figures/simpleModel/$(string)_RDSubsidy_growthDecomp.pdf")
@@ -536,11 +542,13 @@ function makePlotsEntryTax(modelPar::SimpleModelParameters,string::String)
 
     welfarePlot = plot(Te_grid,W3, title = "CE welfare chg.", ylabel = "% chg", xlabel = L"T_e", label = "\$\\tilde{C}^*\$", legend = false)
 
-    summaryPlot = plot(effortPlot,innovationRatesPlot,growthPlot,valuePlot,interestRatePlot,wagePlot,staticCostPlot,consumptionPlot,welfarePlot, bottom_margin = 5mm, xtickfont = fnt, ytickfont = fnt, guidefont = guideFont, size = (800,750))
+    summaryPlot = plot(effortPlot,innovationRatesPlot,growthPlot,valuePlot,interestRatePlot,wagePlot,staticCostPlot,consumptionPlot,welfarePlot, bottom_margin = 5mm, xtickfont = fnt, ytickfont = fnt, guidefont = guideFont, size = (900,900))
     savefig(summaryPlot,"figures/simpleModel/$(string)_EntryTax_summaryPlot.pdf")
+    savefig(summaryPlot,"figures/simpleModel/$(string)_EntryTax_summaryPlot.png")
 
     smallSummaryPlot = plot(growthPlot,consumptionPlot, bottom_margin = 5mm, xtickfont = fnt, ytickfont = fnt, guidefont = fnt, size = (1600,600))
     savefig(smallSummaryPlot,"figures/simpleModel/$(string)_EntryTax_smallSummaryPlot.pdf")
+    savefig(smallSummaryPlot,"figures/simpleModel/$(string)_EntryTax_smallSummaryPlot.png")
 
     growthDecomp = plot(innovationRatesPlot,growthPlot, bottom_margin = 5mm, xtickfont = fnt, ytickfont = fnt, guidefont = fnt, size = (1600,600))
     savefig(growthDecomp,"figures/simpleModel/$(string)_EntryTax_growthDecomp.pdf")
@@ -556,7 +564,7 @@ end
 function makePlotsRDSubsidyTargeted(modelPar::SimpleModelParameters,string::String)
 
     κC = 1.1*(1 - (1-modelPar.κE)*modelPar.λ)
-    τRD_I_grid = -.3:0.001:0.9
+    τRD_I_grid = -.3:0.001:0.95
 
     V = zeros(size(τRD_I_grid))
     zI = zeros(size(τRD_I_grid))
@@ -622,19 +630,23 @@ function makePlotsRDSubsidyTargeted(modelPar::SimpleModelParameters,string::Stri
 
     growthPlot = plot(τRD_I_grid*100,g*100, title = "Growth rate", ylabel = "% per year", xlabel = "Targeted R&D Subsidy (%)", label = "g", legend = false)
 
-    staticCostPlot = plot(τRD_I_grid*100,[100*(entryCost./Y) 100*(NCACost./Y) 100*((entryCost + NCACost)./Y)], title = "Entry and NCA costs", xlabel = "Targeted R&D Subsidy (%)", label = ["Entry cost" "NCA cost" "Total"], legend = :left)
+    staticCostPlot = plot(τRD_I_grid*100,[100*(entryCost./Y) 100*(NCACost./Y) 100*((entryCost + NCACost)./Y)], title = "Entry and NCA costs", xlabel = "Targeted R&D Subsidy (%)", label = ["Entry cost" "NCA cost" "Total"], legend = :outerbottom)
 
     consumptionPlot = plot(τRD_I_grid*100,C,title = "Consumption", xlabel = "Targeted R&D Subsidy (%)", legend = false)
 
     welfarePlot = plot(τRD_I_grid*100,W3, title = "CE welfare chg.", ylabel = "% chg", xlabel = "Targeted R&D Subsidy (%)", label = "\$\\tilde{C}^*\$", legend = false)
 
-    summaryPlot = plot(effortPlot,innovationRatesPlot,growthPlot,valuePlot,interestRatePlot,wagePlot,staticCostPlot,consumptionPlot,welfarePlot, bottom_margin = 5mm, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, xguidefont = fnt_ticksGuides2, yguidefont = fnt_ticksGuides, titlefont = fnt_title, legendfont = fnt_legend, size = (800,800))
+    effortPlot = plot(effortPlot, legend = :topleft, legendfontsize = 5)
+
+    summaryPlot = plot(effortPlot,innovationRatesPlot,growthPlot,valuePlot,interestRatePlot,wagePlot,staticCostPlot,consumptionPlot,welfarePlot, bottom_margin = 5mm, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, xguidefont = fnt_ticksGuides2, yguidefont = fnt_ticksGuides, titlefont = fnt_title, legendfont = fnt_legend, size = (900,900))
     savefig(summaryPlot,"figures/simpleModel/$(string)_RDSubsidyTargeted_summaryPlot.pdf")
+    savefig(summaryPlot,"figures/simpleModel/$(string)_RDSubsidyTargeted_summaryPlot.png")
 
     effortPlot = plot(effortPlot, legend = :right)
        
     smallSummaryPlot = plot(effortPlot,growthPlot,staticCostPlot,consumptionPlot, bottom_margin = 5mm, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, xguidefont = fnt_ticksGuides2, titlefont = fnt_title, legendfont = fnt_legend, yguidefont = fnt_ticksGuides, size = (666,500))
     savefig(smallSummaryPlot,"figures/simpleModel/$(string)_RDSubsidyTargeted_smallSummaryPlot.pdf")
+    savefig(smallSummaryPlot,"figures/simpleModel/$(string)_RDSubsidyTargeted_smallSummaryPlot.png")
     
     growthDecomp = plot(innovationRatesPlot,growthPlot, bottom_margin = 10mm, left_margin = 10mm, right_margin = 5mm, top_margin = 10mm, size = (1600,600), titlefontsize = 18, legendfontsize = 12, xguidefontsize = 16, xtickfontsize = 12, ytickfontsize = 12, yguidefontsize = 16)
     savefig(growthDecomp,"figures/simpleModel/$(string)_RDSubsidyTargeted_growthDecomp.pdf")
@@ -715,21 +727,21 @@ function makePlotsALL_contour(modelPar::SimpleModelParameters,string::String)
 
     consumptionPlot = contour(κC_grid,T_RD_I_grid,(x,y) -> solveSimpleModel(x,0,0,y/100,0,modelPar).C,title = "Consumption", ylabel = "Targeted R&D Subsidy", xlabel = L"\kappa_c", legend = false, fill = true, fillcolor = cgrad(:Blues_9, rev = true))
 
-    welfarePlot = contour(κC_grid,T_RD_I_grid,(x,y) -> -((abs(solveSimpleModel(x,0,0,y/100,0,modelPar).W)/abs(Wbenchmark)) - 1) * 100 * abs(1-modelPar.θ), title = "CE welfare chg. (%)", xlabel = L"\kappa_c", ylabel = "Targeted R&D Subsidy (%)", label = "\$\\tilde{C}^*\$", legend = false, fill = true, fillcolor = cgrad(:Blues_9, rev = true), levels = [0,1,2,3,4,5,6,7,8,8.25,8.5,8.75,9,9.04,9.08])
+    welfarePlot = contour(κC_grid,T_RD_I_grid,(x,y) -> -((abs(solveSimpleModel(x,0,0,y/100,0,modelPar).W)/abs(Wbenchmark)) - 1) * 100 * abs(1-modelPar.θ), title = "CE welfare chg. (%)", xlabel = L"\kappa_c", ylabel = "Targeted R&D Subsidy (%)", label = "\$\\tilde{C}^*\$", legend = false, fill = true, fillcolor = cgrad(:Blues_9, rev = true))
 
-    welfarePlot2 = contour(κC_grid,T_RD_I_grid,(x,y) -> -((abs(solveSimpleModel(x,0,0,y/100,0,modelPar).W2)/abs(Wbenchmark2)) - 1) * 100 * abs(1-modelPar.θ), title = "CE welfare chg. (%)", xlabel = L"\kappa_c", ylabel = "Targeted R&D Subsidy (%)", label = "\$\\tilde{C}^*\$", legend = false, fill = true, fillcolor = cgrad(:Blues_9, rev = true), levels = [0,1,2,3,4,5,6,7,8,8.25,8.5,8.75,9,9.04,9.08])
+    welfarePlot2 = contour(κC_grid,T_RD_I_grid,(x,y) -> -((abs(solveSimpleModel(x,0,0,y/100,0,modelPar).W2)/abs(Wbenchmark2)) - 1) * 100 * abs(1-modelPar.θ), title = "CE welfare chg. (%)", xlabel = L"\kappa_c", ylabel = "Targeted R&D Subsidy (%)", label = "\$\\tilde{C}^*\$", legend = false, fill = true, fillcolor = cgrad(:Blues_9, rev = true))
 
     #summaryPlot = plot(growthPlot,valuePlot,xPlot,interestRatePlot,consumptionPlot,welfarePlot, bottom_margin = 5mm, xtickfont = fnt2, ytickfont = fnt3, guidefont = guideFont, size = (1000,900))
     summaryPlot = plot(welfarePlot,growthPlot,consumptionPlot,xPlot, size = (666,500), titlefont = fnt_title, xguidefont = fnt_ticksGuides2, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, yguidefont = fnt_ticksGuides)
     savefig(summaryPlot,"figures/simpleModel/$(string)_ALL_summaryPlot_contour.pdf")
     savefig(summaryPlot,"figures/simpleModel/$(string)_ALL_summaryPlot_contour.png")
 
-    welfare = plot(welfarePlot,title = "Change in Welfare (% CE)", levels = [0,1,2,3,4,5,6,7,8,8.5,8.8,9,9.08,10], contour_labels = true, legend = true, size = (666,500), titlefont = fnt_title, xguidefont = fnt_ticksGuides2, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, yguidefont = fnt_ticksGuides)
+    welfare = plot(welfarePlot,title = "Change in Welfare (% CE)", levels = [0,1,2,3,4,5,6,7,8,9,10,10.5,11,11.5,12], contour_labels = true, legend = true, size = (666,500), titlefont = fnt_title, xguidefont = fnt_ticksGuides2, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, yguidefont = fnt_ticksGuides)
 
     savefig(welfare,"figures/simpleModel/$(string)_ALL_welfarePlot_contour.png")
     savefig(welfare,"figures/simpleModel/$(string)_ALL_welfarePlot_contour.pdf")   
 
-    welfare_entryCostsAreTransfers = plot(welfarePlot2,title = "Change in Welfare (% CE)", levels = [0,1,2,3,4,5,6,6.5,7,7.15,8], contour_labels = true, legend = true, size = (666,500), titlefont = fnt_title, xguidefont = fnt_ticksGuides2, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, yguidefont = fnt_ticksGuides)
+    welfare_entryCostsAreTransfers = plot(welfarePlot2,title = "Change in Welfare (% CE)", levels = [0,1,2,3,4,5,6,7,8,9,9.5,10,11], contour_labels = true, legend = true, size = (666,500), titlefont = fnt_title, xguidefont = fnt_ticksGuides2, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, yguidefont = fnt_ticksGuides)
 
     savefig(welfare_entryCostsAreTransfers,"figures/simpleModel/$(string)_ALL_welfarePlot_entryCostsAreTransfers_contour.png")
     savefig(welfare_entryCostsAreTransfers,"figures/simpleModel/$(string)_ALL_welfarePlot_entryCostsAreTransfers_contour.pdf")   
@@ -894,5 +906,34 @@ function welfareComparison(parameterLimits::SimpleModelParameterLimitList, numPo
 
     return welfareGainResultsArray
 
+
+end
+
+
+function computeGrowthAttribution(modelPar::SimpleModelParameters, sol::SimpleModelSolution, wold::Real)
+
+    λ = modelPar.λ
+
+    growth = sol.g * 100
+    consumption = sol.C 
+    ncas = sol.x
+    welfare = -((abs(sol.W) / abs(wold)) - 1) * 100 * abs(1-modelPar.θ)
+    welfare2 = -((abs(sol.W2) / abs(wold)) - 1) * 100 * abs(1-modelPar.θ)
+    incumbents = (λ-1) * sol.τI * 100
+    entrants = (λ-1) * sol.τE * 100
+    spinouts = (λ-1) * sol.τS * 100
+
+    incumbentsRD = 100 * sol.zI / modelPar.L
+    entrantsRD = 100 * sol.zE / modelPar.L
+
+
+    return [growth, consumption, ncas, welfare, welfare2, incumbents, entrants, spinouts, incumbentsRD, entrantsRD]
+
+
+end
+
+function computeWelfareImprovement(wold::Real,wnew::Real,modelPar::SimpleModelParameters) 
+
+    return -((abs(wnew) / abs(wold)) - 1) * 100 * abs(1-modelPar.θ)
 
 end

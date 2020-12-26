@@ -219,7 +219,7 @@ function calibrateModel(modelPar::SimpleModelParameters,calibPar::SimpleCalibrat
                   modelPar.ν / modelPar.χI ]
 
     lower = [0.001, 1.02, 0.1, 0, 0, 0]
-    upper = [0.08, 1.7, 30, 0.5, 0.999999, 0.5]
+    upper = [0.08, 1.9, 30, 0.5, 0.999999, 0.5]
 
     #inner_optimizer = GradientDescent()
     inner_optimizer = LBFGS()

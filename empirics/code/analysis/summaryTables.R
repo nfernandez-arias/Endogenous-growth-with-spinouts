@@ -199,6 +199,6 @@ makeEmployerTable <- function(data,string) {
 }
 
 makeEmployerTable(data,"all")
-makeEmployerTable(data_store[founder2 == 1],"founder2")
+makeEmployerTable(data_store[founder2 == 1 & EmployerCase != "Individual Investor"],"founder2")
 makeEmployerTable(data_store[technical == 1],"technical")
 makeEmployerTable(data_store[executive == 1],"executive")

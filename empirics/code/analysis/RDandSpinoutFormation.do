@@ -25,6 +25,7 @@ label variable founders_founder2_wso4_at "$\frac{\textrm{WSO4}}{\textrm{Assets}}
 label variable founders_founder2_wso4_f3 "WSO4"
 label variable founders_founder2_wso4_at_f3 "$\frac{\textrm{WSO4}}{\textrm{Assets}}$"
 label variable founders_founder2_wso4_emp_f3 "$\frac{\textrm{WSO4}}{\textrm{Emp}}$"
+label variable founders_founder2_wso4_sale_f3 "$\frac{\textrm{WSO4}}{\textrm{Sales}}$"
 
 
 
@@ -35,6 +36,8 @@ label variable xrd_at "$\frac{\textrm{R\&D}}{\textrm{Assets}}$"
 
 label variable xrd_l3 "R\&D"
 label variable xrd_at_l3 "$\frac{\textrm{R\&D}}{\textrm{Assets}}$"
+label variable xrd_emp_l3 "$\frac{\textrm{R\&D}}{\textrm{Emp}}$"
+label variable xrd_sale_l3 "$\frac{\textrm{R\&D}}{\textrm{Sales}}$"
 label variable emp "Employment"
 label variable emp_at "$\frac{\textrm{Employment}}{\textrm{Assets}}$"
 label variable emp_l3 "Employment"
@@ -63,16 +66,18 @@ label variable tobinqat "$\textrm{Tobin's Q} \times \textrm{Assets}$"
 label variable Tobin_Q_l3 "Tobin's Q"
 *label variable tobinqat_l3 "$\textrm{Tobin's Q} \times \textrm{Assets}$"
 
-
 replace xrd = xrd / 1000
 replace xrd_l3 = xrd_l3 / 1000
 replace xrd_at_l3 = xrd_at_l3 / 1000
-
+replace xrd_sale_l3 = xrd_sale_l3 / 1000
+replace xrd_emp_l3 = xrd_emp_l3 / 1000
 
 * Define control variables
-global controlsLevels patentCount_CW_cumulative emp_l3 at_l3 intan_l3 capxv_l3 ni_l3 tobinqat_l3
-global controlsAssetNormalized patentCount_CW_cumulative_at emp_at_l3 intan_at_l3 capxv_at_l3 ni_at_l3 Tobin_Q_l3
-global controlsLogs lpatentCount_CW_cumulative lemp_l3 lat_l3 lintan_l3 lcapxv_l3 lni_l3 Tobin_Q_l3
+global controlsLevels patentCount_CW_cumulative emp_l3 at_l3 intan_l3 capxv_l3 ni_l3 sale_l3 tobinqat_l3
+global controlsAssetNormalized patentCount_CW_cumulative_at emp_at_l3 intan_at_l3 capxv_at_l3 ni_at_l3 sale_at_l3 at_at_l3 Tobin_Q_l3
+global controlsSalesNormalized patentCount_CW_cumulative_sale emp_sale_l3 intan_sale_l3 capxv_sale_l3 ni_sale_l3 sale_sale_l3 at_sale_l3 Tobin_Q_l3
+global controlsEmpNormalized patentCount_CW_cumulative_emp intan_emp_l3 capxv_emp_l3 ni_emp_l3 sale_emp_l3 at_emp_l3 emp_emp_l3 Tobin_Q_l3
+global controlsLogs lpatentCount_CW_cumulative lemp_l3 lat_l3 lintan_l3 lcapxv_l3 lni_l3 lsale_l3 Tobin_Q_l3
 
 
 /*
@@ -284,14 +289,45 @@ replace naics3_selected = 0 if industry_3digResid == 1
 
 eststo clear
 eststo: quietly reghdfe founders_founder2_wso4_f3 xrd_l3  $controlsLevels, absorb(gvkey firmAge naics4#year Statecode#year) cluster(naics4 Statecode)
-eststo: quietly reghdfe founders_founder2_wso4_at_f3 xrd_at_l3  $controlsAssetNormalized [aweight = at_ma5], absorb(gvkey firmAge naics4#year Statecode#year) cluster(naics4 Statecode)
+*eststo: quietly reghdfe founders_founder2_wso4_at_f3 xrd_at_l3  $controlsAssetNormalized [aweight = at_ma5], absorb(gvkey) cluster(naics4 Statecode)
+*eststo: quietly reghdfe founders_founder2_wso4_at_f3 xrd_at_l3  $controlsAssetNormalized [aweight = at_ma5], absorb(gvkey firmAge naics4#year Statecode#year) cluster(naics4 Statecode)
+*eststo: quietly reghdfe founders_founder2_wso4_sale_f3 xrd_sale_l3  $controlsSalesNormalized [aweight = sale_ma5] if sale_ma5 > 0, absorb(gvkey firmAge naics4#year Statecode#year) cluster(naics4 Statecode)
+*eststo: quietly reghdfe founders_founder2_wso4_emp_f3 xrd_emp_l3  $controlsEmpNormalized [aweight = emp_ma5], absorb(gvkey firmAge naics4#year Statecode#year) cluster(naics4 Statecode)
+eststo: quietly ppmlhdfe founders_founder2_wso4_f3 lxrd_l3 , absorb(gvkey naics4#firmAge naics4#year Statecode#year) cluster(gvkey)
+eststo: quietly ppmlhdfe founders_founder2_wso4_f3 lxrd_l3 $controlsLogs, cluster(gvkey)
 eststo: quietly ppmlhdfe founders_founder2_wso4_f3 lxrd_l3  $controlsLogs, absorb(gvkey firmAge naics4#year) cluster(gvkey)
+
+estfe . *, labels(gvkey "Firm FE" year "Year FE" firmAge "Age FE" naics4#firmAge "Industry-Age FE" naics4#year "Industry-Year FE" Statecode#year "State-Year FE" naics4#Statecode#year "Industry-State-Year FE")
+return list
+esttab using "figures/tables/RDandSpinoutFormation_headlineRegs2.tex", replace se star(* 0.1 ** 0.05 *** 0.01) label keep(*xrd_l3* *lxrd_l3*) indicate(`r(indicate_fe)') stats(clustvar r2_a r2_a_within r2_p N, labels(Clustering "R-squared (adj.)" "R-squared (within, adj)" "pseudo R-squared" Observations)) interaction(" $\times$ ") style(tex) booktabs b(a2)
+estfe . *, restore
+
+
+*** Table showing that adding industry-age, industry-year and state-year fixed effects to Poisson regression doesn't change things
+
+eststo clear
+eststo: quietly ppmlhdfe founders_founder2_wso4_f3 lxrd_l3 , absorb(gvkey) cluster(gvkey)
+eststo: quietly ppmlhdfe founders_founder2_wso4_f3 lxrd_l3 , absorb(gvkey naics4#firmAge) cluster(gvkey)
+eststo: quietly ppmlhdfe founders_founder2_wso4_f3 lxrd_l3 , absorb(gvkey naics4#firmAge naics4#year) cluster(gvkey)
+eststo: quietly ppmlhdfe founders_founder2_wso4_f3 lxrd_l3 , absorb(gvkey naics4#firmAge naics4#year Statecode#year) cluster(gvkey)
 
 estfe . *, labels(_cons "No FE" gvkey "Firm FE" year "Year FE" firmAge "Age FE" naics4#firmAge "Industry-Age FE" naics4#year "Industry-Year FE" Statecode#year "State-Year FE" naics4#Statecode#year "Industry-State-Year FE")
 return list
-esttab using "figures/tables/RDandSpinoutFormation_headlineRegs.tex", replace se star(* 0.1 ** 0.05 *** 0.01) label keep(*xrd_l3* *xrd_at_l3* *lxrd_l3*) indicate(`r(indicate_fe)') stats(clustvar r2_a r2_a_within N, labels(Clustering "R-squared (adj.)" "R-squared (within, adj)" Observations)) interaction(" $\times$ ") style(tex) booktabs b(a2)
+esttab using "figures/tables/RDandSpinoutFormation_PPMLrobustness.tex", replace se star(* 0.1 ** 0.05 *** 0.01) label keep(*xrd_l3* *lxrd_l3*) indicate(`r(indicate_fe)') stats(clustvar r2_p N, labels(Clustering "pseudo R-squared" Observations)) interaction(" $\times$ ") style(tex) booktabs b(a2)
 estfe . *, restore
 
+
+eststo clear
+eststo: quietly ppmlhdfe founders_founder2_wso4_f3 lxrd_l3 $controlsLogs, absorb(gvkey) cluster(gvkey)
+eststo: quietly ppmlhdfe founders_founder2_wso4_f3 lxrd_l3 $controlsLogs, absorb(gvkey firmAge) cluster(gvkey)
+eststo: quietly ppmlhdfe founders_founder2_wso4_f3 lxrd_l3 $controlsLogs, absorb(gvkey firmAge naics4#year) cluster(gvkey)
+eststo: quietly ppmlhdfe founders_founder2_wso4_f3 lxrd_l3 $controlsLogs, absorb(gvkey firmAge naics4#year Statecode#year) cluster(gvkey)
+
+
+estfe . *, labels(_cons "No FE" gvkey "Firm FE" year "Year FE" firmAge "Age FE" naics4#firmAge "Industry-Age FE" naics4#year "Industry-Year FE" Statecode#year "State-Year FE" naics4#Statecode#year "Industry-State-Year FE")
+return list
+esttab using "figures/tables/RDandSpinoutFormation_PPMLrobustness_withcontrols.tex", replace se star(* 0.1 ** 0.05 *** 0.01) label keep(*xrd_l3* *lxrd_l3*) indicate(`r(indicate_fe)') stats(clustvar r2_p N, labels(Clustering "pseudo R-squared" Observations)) interaction(" $\times$ ") style(tex) booktabs b(a2)
+estfe . *, restore
 
 *** OLS in Levels
 

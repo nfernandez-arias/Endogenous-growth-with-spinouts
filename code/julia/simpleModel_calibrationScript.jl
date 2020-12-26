@@ -24,7 +24,7 @@ modelPar = initializeSimpleModel()
 # Enter calibration targets
 #-------------------------------#
 
-interestRate = SimpleCalibrationTarget(0.06,1)
+interestRate = SimpleCalibrationTarget(0.0857,1)
 growthRate = SimpleCalibrationTarget(0.01487,1)
 growthShareOI = SimpleCalibrationTarget(0.65,1)
 youngFirmEmploymentShare = SimpleCalibrationTarget(0.1334,1)

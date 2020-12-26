@@ -70,9 +70,18 @@ data <- investmentDeflator[data]
 
 parentFirmControls <- c("capx","capxv","at","sppe","intan","ni","ch","ebitda","sale","ppent")
 
-for (var in parentFirmControls) 
+parentFirmControls2 <- c("capx","capxv","at","sppe","intan","ppent")
+
+for (var in parentFirmControls2) 
 {
   data[ , (var) := get(var) / (investmentDeflator * productivityDeflator)]
+}
+
+parentFirmControls3 <- c("ni","ch","ebitda","sale")
+
+for (var in parentFirmControls2) 
+{
+  data[ , (var) := get(var) / (gdpDeflator * productivityDeflator)]
 }
 
 # Ignore compustat firms that never record R&D
@@ -167,6 +176,7 @@ parentFirmVars <- c("xrd","patentCount_CW_cumulative","emp","Tobin_Q","Tobin_Q2"
 #data[ , at_ma5 := (1/5) * Reduce(`+`, shift(at,0L:4L,type="lag")), by = gvkey]
 data[ , at_ma5 := rollapplyr(at, FUN = mean, width = 5, align = "right", fill = NA, partial = TRUE), by = gvkey]
 data[ , emp_ma5 := rollapplyr(emp, FUN = mean, width = 5, align = "right", fill = NA, partial = TRUE), by = gvkey]
+data[ , sale_ma5 := rollapplyr(sale, FUN = mean, width = 5, align = "right", fill = NA, partial = TRUE), by = gvkey]
 #data[ , at_ma5_rollapplyr_false := rollapplyr(at, FUN = mean, width = 5, align = "right", partial = FALSE, fill = c(NA,NA,NA)), by = gvkey]
 
 #setcolorder(data,c("gvkey","year","at","at_ma5","at_ma5_rollapplyr","at_ma5_rollapplyr_false"))
@@ -175,9 +185,12 @@ for (col in c(countCols,parentFirmControls,parentFirmVars))
 {
   colString1 <- paste(col,"at",sep = ".")
   colString2 <- paste(col,"emp",sep = ".")
-  
+  colString3 <- paste(col,"sale",sep = ".")
+
+    
   data[ , (colString1) := get(col) / at_ma5]
   data[ , (colString2) := get(col) / emp_ma5]
+  data[ , (colString3) := get(col) / sale_ma5]
 }
 
 
@@ -230,12 +243,14 @@ for (col in founderCols.f3)
 
 # Construct backward looking independent variables
 
-parentCols <- grep("at$", paste(c(parentFirmControls,parentFirmVars),"at",sep = "."), value = T)
+parentCols_assets <- grep("at$", paste(c(parentFirmControls,parentFirmVars),"at",sep = "."), value = T)
+parentCols_sales <- grep("sale$", paste(c(parentFirmControls,parentFirmVars),"sale",sep = "."), value = T)
+parentCols_emp <- grep("emp$", paste(c(parentFirmControls,parentFirmVars),"emp",sep = "."), value = T)
       
 # Consruct backward looking moving averages   
 ptm <- proc.time()
 
-for (col in c(parentCols,parentFirmControls,parentFirmVars))
+for (col in c(parentCols_assets,parentCols_sales,parentCols_emp,parentFirmControls,parentFirmVars))
 {
   colString <- paste(col,"l3",sep = ".")
   
@@ -291,9 +306,9 @@ if (normalizeVariablesStata == TRUE)
             
 
 # For use in making scatter plots  
-fwrite(data,"data/compustat-spinouts_Stata.csv")
+fwrite(data,"data/compustat-spinouts_Stata_11-11.csv")
 # Much faster for loading in Stata
-write.dta(data,"data/compustat-spinouts_Stata.dta")
+write.dta(data,"data/compustat-spinouts_Stata_11-11.dta")
 
 # Clean up
 rm(list = ls.str(mode = "list"))

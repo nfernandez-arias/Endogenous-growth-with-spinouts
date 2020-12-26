@@ -1,0 +1,245 @@
+\documentclass[11pt,english]{article}
+\usepackage{lmodern}
+\linespread{1.05}
+%\usepackage{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage{utopia}
+\usepackage{microtype}
+
+
+
+\usepackage{chngcntr}
+\usepackage[nocomma]{optidef}
+
+\usepackage[section]{placeins}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+
+\usepackage{babel}
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{bbm}
+\usepackage{amsfonts}
+
+\usepackage{accents}
+\newcommand\munderbar[1]{%
+	\underaccent{\bar}{#1}}
+
+
+\usepackage{svg}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{blindtext}
+%\renewcommand{\arraystretch}{1.2}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{rotating}
+\usepackage{mathtools}
+\usepackage{chngcntr}
+
+% TikZ stuff
+
+\usepackage{tikz}
+\usepackage{mathdots}
+\usepackage{yhmath}
+\usepackage{cancel}
+\usepackage{color}
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usetikzlibrary{fadings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shadows.blur}
+
+\usepackage[font=small]{caption}
+%\usepackage[printfigures]{figcaps}
+%\usepackage[nomarkers]{endfloat}
+
+
+%\usepackage{caption}
+%\captionsetup{justification=raggedright,singlelinecheck=false}
+
+\usepackage{courier}
+\usepackage{verbatim}
+\usepackage[round]{natbib}
+
+\bibliographystyle{plainnat}
+
+\definecolor{red1}{RGB}{128,0,0}
+%\geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.25in,rmargin=1.25in}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{setspace}
+
+\usepackage[colorlinks=true, linkcolor={red!70!black}, citecolor={blue!50!black}, urlcolor={blue!80!black}]{hyperref}
+
+\let\oldFootnote\footnote
+\newcommand\nextToken\relax
+
+\renewcommand\footnote[1]{%
+	\oldFootnote{#1}\futurelet\nextToken\isFootnote}
+
+\newcommand\isFootnote{%
+	\ifx\footnote\nextToken\textsuperscript{,}\fi}
+
+%\usepackage{esint}
+\onehalfspacing
+
+%\theoremstyle{remark}
+%\newtheorem{remark}{Remark}
+%\newtheorem{theorem}{Theorem}[section]
+\newtheorem{assumption}{Assumption}
+\newtheorem{proposition}{Proposition}
+\newtheorem{proposition_corollary}{Corollary}[proposition]
+\newtheorem{lemma}{Lemma}
+\newtheorem{lemma_corollary}{Corollary}[lemma]
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+
+	
+\title{Deflating variables in regression analysis}
+
+\author{Nicolas Fernandez-Arias} 
+\date{\today}
+
+%\date{\today}
+
+\begin{document}
+	
+\maketitle
+
+\section{Introduction}
+
+In this note I provide some sufficient conditions under which a deflated regression's estimated coefficients have the same probability limit as the corresponding regression in levels. I begin by assuming that the DGP is specified in levels; this corresponds to the assumption in my model where the relationship between spinout formation and R\&D spending is linear in levels.
+
+\section{Statistically independent deflator}
+
+\subsection{Baseline case}
+
+Suppose we have a DGP specified in levels,
+\begin{align}
+	y_{i} = \alpha + \beta x_{i} + \varepsilon_{i}, \label{DGP_levels_simplest}
+\end{align}
+where $(x_i , \varepsilon_{i})$ is iid and $\mathbb{E}[\varepsilon_i | x_i] = 0$.\footnote{For simplicity, I am abstracting from the technical conditions on the existence of certain moments which are required for convergence and large-sample asymptotics.} Suppose additionally that there exists a third variable, $z_i$ which is statistically independent of $(x_i, \varepsilon_i)$. For example, suppose $z_i$ is iid. Defining the deflated variables $\tilde{y}_i = \frac{y_i}{z_i}, \tilde{x}_i = \frac{x_i}{z_i},$ and $\tilde{\varepsilon}_i = \frac{\varepsilon_i}{z_i}$, one gets
+\begin{align}
+	\tilde{y}_i = \alpha z_i^{-1} + \beta \tilde{x}_i + \tilde{\varepsilon}_i. \label{deflated_specification_simplestcase}
+\end{align}
+Then
+\begin{align}
+	\mathbb{E}[\tilde{\varepsilon}_i | \tilde{x}_i, z_i^{-1}] &= \mathbb{E}\Big[\frac{\varepsilon_i}{z_i} \Big| \frac{x_i}{z_i}, z_i^{-1}\Big] \\
+	 												&= z_i^{-1} \mathbb{E}[ \varepsilon_i \Big| x_i, z_i^{-1}] \\
+	 												&= z_i^{-1} \mathbb{E}[ \varepsilon_i \Big| x_i] \\
+	 												&= 0.
+\end{align}
+Therefore, OLS estimation of (\ref{deflated_specification_simplestcase}) -- which includes $z_i^{-1}$ as a regressor -- consistently estimates $\beta$ in (\ref{DGP_levels_simplest}). If instead I had assumed only that $\mathbb{E}[x_i \varepsilon_i] = 0$, one has 
+\begin{align}
+	\mathbb{E}[\tilde{x}_i \tilde{\varepsilon}_i ] &= \mathbb{E} [ x_i \varepsilon_i z_i^{-2}] \\
+												  &= \mathbb{E} \Big[ \mathbb{E} [ x_i \varepsilon_i z_i^{-2} | z_i] \Big] = 0, 
+\end{align}
+where the second equality follows from the Law of Iterated Expectations.
+
+\subsection{Excluding $z_i^{-1}$ from the specification}
+
+If $z_i^{-1}$ is excluded from the specification (\ref{deflated_specification_simplestcase}), then typically the estimated coefficient on $\tilde{x}_i$ will not converge to $\beta$ in (\ref{DGP_levels_simplest}). Intuitively, even if $z_i \perp (x_i, \varepsilon_i)$, the average value of $z_i^{-1}$ can play a role. To see this formally, suppose for that we assumed $\mathbb{E}[\varepsilon_i | x_i ] = 0$. Then
+\begin{align}
+	\mathbb{E}[\tilde{\varepsilon}_i + \alpha z_i^{-1} \big| \tilde{x}_i , z_i^{-1}] &=   \overbrace{\mathbb{E} [ \tilde{\varepsilon}_i \big| \tilde{x}_i, z_i^{-1}]}^{\mathclap{= 0}} + \overbrace{\alpha z_i^{-1}}^{\mathclap{\ne 0}}.
+\end{align}
+Analogously,
+\begin{align}
+	\mathbb{E}[\tilde{x}_i (\tilde{\varepsilon}_i + \alpha z_i^{-1})] &= \overbrace{\mathbb{E}[\tilde{x}_i \tilde{\varepsilon}_i]}^{\mathclap{= 0}} + \alpha \overbrace{\mathbb{E}[\tilde{x}_i z_i^{-1}]}^{\mathclap{\ne 0}}.
+\end{align}
+
+\subsection{Using a constant in the deflated regression}
+
+Suppose that a constant is used in the deflated regression, i.e.
+\begin{align}
+	\tilde{y}_i = \sigma + \alpha z_i^{-1} + \beta \tilde{x}_i + \tilde{\varepsilon}_i. \label{specification_simplestcase_deflated_constant}
+\end{align}
+This corresponds to a specification in levels of 
+\begin{align}
+	y_i = \alpha + \beta x_i + \sigma z_i + \varepsilon_i, 
+\end{align}
+which includes the DGP (i.e. $\sigma = 0$). Thus OLS will simply return an estimate of $\sigma = 0$ and the residuals $\tilde{\varepsilon}_i$ will satisfy the sufficient conditions derived above. 
+
+\subsection{Extension to multiple fixed effects}
+
+Suppose that there exist $M$ partitions of the data denoted $\mathcal{P}_m, m = 1, \ldots , M$, with $\mathcal{P}_m = \{I_1, I_2, \ldots, I_{\ell_m}\}$ for non-intersecting subsets of indices $I_s \subset \{1 , \ldots , N\}, s = 1, \ldots , \ell_m$. Let $I^m(i)$ denote the subset that observation $i$ corresponds to in partition $m$. Suppose that the DGP is\footnote{There is no constant as it is redundant given the group fixed effects.}
+\begin{align}
+	y_i &= \sum_{m = 1}^{M} \gamma^m_{I^m(i)} + \beta x_i + \varepsilon_i. \label{deflated_specification_simplestcase_multiplefixedeffects}
+\end{align}
+That is, there is a constant corresponding to each fixed effect cell that observation $i$ belongs to. Then normalizing by $z_i$ yields
+\begin{align}
+	\tilde{y}_i &= \sum_{m = 1}^{M} \gamma^m_{I^m(i)} z_i^{-1} + \beta \tilde{x}_i + \tilde{\varepsilon}_i.
+\end{align}
+In other words, the equivalent deflated specification has a group-specific coefficient on $z_i^{-1}$. By the same reasoning as above, the law of iterated expectations implies that orthogonality or conditional independence of the deflated error term holds depending on which is assumed initially in the DGP (\ref{deflated_specification_simplestcase_multiplefixedeffects}).
+
+Suppose that we include a constant and fixed effects to the deflated regression using the same partitions $\{ \mathcal{P}_m \}$. This yields
+\begin{align}
+	\tilde{y}_i &= \sum_{m = 1}^{M} \sigma^m_{I^m(i)} + \sum_{m = 1}^{M} \gamma^m_{I^m(i)} z_i^{-1} + \beta \tilde{x}_i + \tilde{\varepsilon}_i.
+\end{align}
+This corresponds to the specification in levels
+\begin{align}
+	y_i &= \sum_{m = 1}^{M} \gamma^m_{I^m(i)} + \sum_{m = 1}^{M} \sigma^m_{I^m(i)} z_i + \beta x_i + \varepsilon_i.
+\end{align}
+Again, as before, this includes the original DGP (\ref{deflated_specification_simplestcase_multiplefixedeffects}) and therefore, given that the conditions for consistency of OLS hold, the estimate in the deflated regression converges $\beta$ given in the original DGP. 
+
+\subsection{Discussion}
+
+The takeaway from the above analysis is that when the deflation variable $z_i$ is statistically independent from other regression variables, OLS on the deflated specification should be consistent for the same $\beta$ as in levels as long as $z^{-1}$ is included as an additional control interacted with dummies for any groups for which fixed effects exist the original DGP. 
+
+\section{Allowing for interdependence of $z_i$ and $x_i$}
+
+Suppose the DGP is given by 
+\begin{align}
+	y_i &= \alpha + \beta x_i + \sigma z_i + \varepsilon_i, \label{DGP_interdependence}
+\end{align} 
+along with the assumption that $\mathbb{E}[\varepsilon_i | x_i , z_i] = 0$. The deflated regression is therefore
+\begin{align}
+	\tilde{y}_i &= \sigma + \beta \tilde{x}_i  + \alpha z_i^{-1} + \tilde{\varepsilon}_i. \label{regression_interdependence}
+\end{align}
+Note that now the deflated regression must include a constant; otherwise, it restricts the estimation to be unable to match the true DGP and hence OLS will not in general be consistent for $\beta$ in the DGP (\ref{DGP_interdependence}) when $x_i$ and $z_i$ are not independent. As above, one has
+\begin{align}
+	\mathbb{E}[\tilde{\varepsilon}_i | \tilde{x}_i, z_i^{-1}] &= \mathbb{E}\Big[\frac{\varepsilon_i}{z_i} \Big| \frac{x_i}{z_i}, z_i^{-1}\Big] \\
+	&= \mathbb{E}\Big[\frac{\varepsilon_i}{z_i} \Big| x_i , z_i \Big] \\
+	&= z_i^{-1} \mathbb{E}\Big[\varepsilon_i  \Big| x_i , z_i \Big] \\
+	&= 0,
+\end{align}
+which proves that OLS on the deflated regression specification (\ref{regression_interdependence}) will consistently estimate $\beta$ in (\ref{DGP_interdependence}) if $\mathbb{E}[\varepsilon_i | x_i, z_i]$ is assumed. 
+
+The case is not as clear if one had only assumed orthogonality, i.e. that $\mathbb{E}[ x_i \varepsilon_i ] = \mathbb{E} [ z_i \varepsilon_i] = 0$. The typical calculation fails in that case:
+\begin{align}
+	\mathbb{E}[\tilde{x}_i \tilde{\varepsilon}_i ] &= \mathbb{E} [ x_i \varepsilon_i z_i^{-2}] \nonumber \\
+	&= \mathbb{E} \Big[ \mathbb{E} [ x_i \varepsilon_i z_i^{-2} | z_i] \Big]. \label{regression_consistency_onlyOrthogonal}
+\end{align}
+In order to conclude that the last expression is equal to zero, one needs that $\mathbb{E}[x_i \varepsilon_i | z_i] = 0$. Unfortunately this does not follow from $\mathbb{E}[x_i \varepsilon_i] = 0$.
+To understand this in more detail, calculate
+\begin{align}
+	\mathbb{E}[\tilde{x}_i \tilde{\varepsilon}_i ] &= \mathbb{E} [ x_i \varepsilon_i z_i^{-2}] \\ 
+												   &= \mathrm{Cov}(x_i \varepsilon_i, z_i^{-2}) + \mathbb{E}[ x_i \varepsilon_i] \mathbb{E} [ z_i^{-2}] \\
+												   &= \mathrm{Cov}(x_i \varepsilon_i, z_i^{-2}).
+\end{align}
+In words: when one assumes only orthogonality $\mathbb{E}[x_i \varepsilon_i] = 0$, one may confront the possibility that $x_i \varepsilon_i$ tends to be high when $z_i$ is low. While in the levels regression this averages out, in the normalized regression this introduces an upward bias. Alternatively, if $x_i \varepsilon_i$ is high when $z_i$ is high, there will be a downward bias. In English: if positive unobserved shocks to $y_i$ tend to coincide with high realizations of $x_i$ specifically when $z_i$ is high, this will introduce bias. For example, if $y_i$ is WSO founders, $x_i$ is R\&D and $z_i$ is sales, one expects a downward bias if high sales predicts that other factors will are influencing both R\&D and spinouts in the same direction.
+
+
+\subsection{Multiple fixed effects}
+
+As before, having multiple fixed effects in the DGP translates into group-specific coefficients on $z_i^{-1}$ in the deflated specification; and adding multiple fixed effects in the deflated specification is equivalent to including group-specific coefficients on $z_i$ in the levels specification.
+
+
+
+
+
+
+
+\end{document}

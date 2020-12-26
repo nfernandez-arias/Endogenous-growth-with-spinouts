@@ -1,0 +1,32 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
+\midrule
+$\frac{\text{WSO4 founders}}{\text{Total founders}}$&       -0.17         &       -0.57\sym{***}&       -0.52\sym{***}&       -0.54\sym{***}\\
+                    &      (0.22)         &     (0.095)         &      (0.11)         &      (0.10)         \\
+\addlinespace
+State-Year FE       &          No         &         Yes         &         Yes         &          No         \\
+\addlinespace
+State-Age FE        &          No         &         Yes         &          No         &         Yes         \\
+\addlinespace
+State-Cohort FE     &          No         &          No         &         Yes         &         Yes         \\
+\addlinespace
+NAICS4-Year FE      &          No         &         Yes         &         Yes         &          No         \\
+\addlinespace
+NAICS4-Age FE       &          No         &         Yes         &          No         &         Yes         \\
+\addlinespace
+NAICS4-Cohort FE    &          No         &          No         &         Yes         &         Yes         \\
+\addlinespace
+No FE               &         Yes         &          No         &          No         &          No         \\
+\midrule
+Clustering          &statecode naics1\_4 year         &statecode naics1\_4         &statecode naics1\_4         &statecode naics1\_4         \\
+R-squared (adj.)    &   0.0000013         &       0.031         &       0.033         &       0.018         \\
+R-squared (within, adj)&   0.0000013         &    0.000057         &    0.000043         &    0.000046         \\
+Observations        &      240155         &      239696         &      239788         &      239959         \\
+\bottomrule
+\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

@@ -78,6 +78,7 @@ p6 = bar(xAxisLabels, jac[6,:], xticks = :all, title = "R&D (% GDP)")
 p = plot(p1,p2,p3,p4,p5,p6, bottom_margin = 10mm, xguidefontsize = 16, yguidefont = fnt_ticksGuides, titlefont = fnt_title, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, size = (666,500), legend = false)
 
 savefig(p,"figures/simpleModel/identificationSources.pdf")
+savefig(p,"figures/simpleModel/identificationSources.png")
 
 
 ######
@@ -103,6 +104,7 @@ p6 = bar(xAxisLabels, jacInv[6,:], xticks = :all, title = "\$ \\nu \$", rotation
 p = plot(p1,p2,p3,p4,p5,p6,bottom_margin = 10mm, xguidefontsize = 16, yguidefont = fnt_ticksGuides, titlefont = fnt_title, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, size = (800,600), legend = false)
 
 savefig(p,"figures/simpleModel/calibrationSensitivity.pdf")
+savefig(p,"figures/simpleModel/calibrationSensitivity.png")
 
 
 ######
@@ -126,6 +128,7 @@ p9 = bar(xAxisLabels, jac2[9,:], xticks = :all, title = "\$ \\psi \$", titlefont
 p = plot(p1,p2,p3,p4,p5,p6,p7,p8,p9,bottom_margin = 10mm, xguidefontsize = 16, yguidefont = fnt_ticksGuides, titlefont = fnt_title, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, size = (800,600), legend = false)
 
 savefig(p,"figures/simpleModel/identificationSourcesFull.pdf")
+savefig(p,"figures/simpleModel/identificationSourcesFull.png")
 
 
 
@@ -153,3 +156,5 @@ p9 = bar(xAxisLabels, jac2Inv[9,:], xticks = :all, title = "\$ \\nu \$", xrotati
 p = plot(p1,p2,p3,p4,p5,p6,p7,p8,p9,bottom_margin = 10mm, xguidefontsize = 16, yguidefont = fnt_ticksGuides, titlefont = fnt_title, xtickfont = fnt_ticksGuides, ytickfont = fnt_ticksGuides, size = (800,600), legend = false)
 
 savefig(p,"figures/simpleModel/calibrationSensitivityFull.pdf")
+savefig(p,"figures/simpleModel/calibrationSensitivityFull.png")
+

@@ -58,8 +58,8 @@ normalizeVariablesStata <- FALSE
 
 startupSpinoutFounderFraction <- 0.1
 
-VSminFoundingYear <- 1986
-VSmaxFoundingYear <- 2008
+VSminFoundingYear <- 1987
+VSmaxFoundingYear <- 2009
     
 technicalTitles <- c("CTO","FDR","CSO","CIO","SADV")
 founderTitles <- c("CEO","CTO","CCEO","PCEO","PRE","PCHM","PCOO","FDR","CHF")

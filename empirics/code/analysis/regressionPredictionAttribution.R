@@ -6,7 +6,7 @@ data[ , xrd.l3 := xrd.l3 / 1000]
 
 # Construct predictions based on regression results.
 data[ , founders.Prediction := xrd.l3 * 0.7]
-data[ , founders.wso4.Prediction := xrd.l3 * 0.25]
+data[ , founders.wso4.Prediction := xrd.l3 * 0.15]
 
 data[ , founders.Explained :=  founders.Prediction / founders.founder2.f3]
 data[ , founders.wso4.Explained := founders.wso4.Prediction / founders.founder2.wso4.f3]

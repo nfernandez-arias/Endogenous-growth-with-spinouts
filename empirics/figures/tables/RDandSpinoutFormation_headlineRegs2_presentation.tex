@@ -1,0 +1,36 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
+                    &\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}\\
+\midrule
+R\&D                &        0.24\sym{***}&                     &                     &                     \\
+                    &     (0.053)         &                     &                     &                     \\
+\addlinespace
+log(R\&D)           &                     &        0.47\sym{***}&        1.84\sym{***}&        0.83\sym{***}\\
+                    &                     &     (0.072)         &      (0.17)         &      (0.29)         \\
+\addlinespace
+Firm FE             &         Yes         &         Yes         &          No         &         Yes         \\
+\addlinespace
+Age FE              &         Yes         &          No         &          No         &         Yes         \\
+\addlinespace
+Industry-Age FE     &          No         &         Yes         &          No         &          No         \\
+\addlinespace
+Industry-Year FE    &         Yes         &         Yes         &          No         &         Yes         \\
+\addlinespace
+State-Year FE       &         Yes         &         Yes         &          No         &          No         \\
+\addlinespace
+Controls & Yes & No & Yes & Yes \\
+\addlinespace
+\midrule
+Clustering          & Industry, State         &       Firm         &       Firm         &       Firm         \\
+R-squared (adj.)    &        0.61         &                     &                     &                     \\
+R-squared (within, adj)&        0.23         &                     &                     &                     \\
+pseudo R-squared    &                     &        0.34         &        0.47         &        0.35         \\
+Observations        &       56961         &        4254         &        7049         &         471         \\
+\bottomrule
+\multicolumn{5}{l}{\Tiny Standard errors in parentheses}\\
+\multicolumn{5}{l}{\Tiny \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

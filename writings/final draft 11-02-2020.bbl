@@ -1,0 +1,3465 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nyvt/global//global/global}
+  \entry{acemoglu_introduction_2009}{book}{}
+    \name{author}{1}{}{%
+      {{hash=AD}{%
+         family={Acemoglu},
+         familyi={A\bibinitperiod},
+         given={Daron},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Princeton University Press}%
+    }
+    \strng{namehash}{AD1}
+    \strng{fullhash}{AD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2009}
+    \field{labeldatesource}{}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{title}{Introduction to Modern Economic Growth}
+    \field{year}{2009}
+  \endentry
+
+  \entry{acemoglu_innovation_2015}{article}{}
+    \name{author}{2}{}{%
+      {{hash=AD}{%
+         family={Acemoglu},
+         familyi={A\bibinitperiod},
+         given={Daron},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=CD}{%
+         family={Cao},
+         familyi={C\bibinitperiod},
+         given={Dan},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \keyw{Economic growth, Firm size distribution, Industry structure,
+  Innovation}
+    \strng{namehash}{ADCD1}
+    \strng{fullhash}{ADCD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2015}
+    \field{labeldatesource}{}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{abstract}{%
+    We extend the basic Schumpeterian endogenous growth model by allowing
+  incumbents to undertake innovations to improve their products, while entrants
+  engage in more “radical” innovations to replace incumbents. Our model
+  provides a tractable framework for the analysis of growth driven by both
+  entry of new firms and productivity improvements by continuing firms. The
+  model generates a non-degenerate equilibrium firm size distribution driven by
+  entry of new firms and expansion exit of existing firms. When there is also
+  costly imitation preventing any sector from falling too far below the
+  average, the stationary firm size distribution is Pareto with an exponent
+  approximately equal to one (the so-called “Zipf distribution”).%
+    }
+    \verb{doi}
+    \verb 10.1016/j.jet.2015.01.001
+    \endverb
+    \field{issn}{0022-0531}
+    \field{pages}{255\bibrangedash 294}
+    \field{title}{Innovation by entrants and incumbents}
+    \verb{url}
+    \verb http://www.sciencedirect.com/science/article/pii/S0022053115000034
+    \endverb
+    \field{volume}{157}
+    \field{journaltitle}{Journal of Economic Theory}
+    \field{month}{05}
+    \field{year}{2015}
+    \field{urlday}{18}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{acemoglu_innovation_2018}{article}{}
+    \name{author}{5}{}{%
+      {{hash=AD}{%
+         family={Acemoglu},
+         familyi={A\bibinitperiod},
+         given={Daron},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=AU}{%
+         family={Akcigit},
+         familyi={A\bibinitperiod},
+         given={Ufuk},
+         giveni={U\bibinitperiod},
+      }}%
+      {{hash=AH}{%
+         family={Alp},
+         familyi={A\bibinitperiod},
+         given={Harun},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=BN}{%
+         family={Bloom},
+         familyi={B\bibinitperiod},
+         given={Nicholas},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=KW}{%
+         family={Kerr},
+         familyi={K\bibinitperiod},
+         given={William},
+         giveni={W\bibinitperiod},
+      }}%
+    }
+    \keyw{Capacity, Business Taxes and Subsidies including sales and
+  value-added ({VAT}), Industrial Policy, Capital, Capital, Total Factor, and
+  Multifactor Productivity, Cost, Firm Behavior: Theory, Production, Sectoral
+  Planning Methods, Innovation and Invention: Processes and Incentives,
+  Intellectual Property and Intellectual Capital}
+    \strng{namehash}{AD+1}
+    \strng{fullhash}{ADAUAHBNKW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2018}
+    \field{labeldatesource}{}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{abstract}{%
+    We build a model of firm-level innovation, productivity growth, and
+  reallocation featuring endogenous entry and exit. A new and central economic
+  force is the selection between high- and low-type firms, which differ in
+  terms of their innovative capacity. We estimate the parameters of the model
+  using {US} Census microdata on firm-level output, R\&D, and patenting. The
+  model provides a good fit to the dynamics of firm entry and exit, output, and
+  R\&D. Taxing the continued operation of incumbents can lead to sizable gains
+  (of the order of 1.4 percent improvement in welfare) by encouraging exit of
+  less productive firms and freeing up skilled labor to be used for R\&D by
+  high-type incumbents. Subsidies to the R\&D of incumbents do not achieve this
+  objective because they encourage the survival and expansion of low-type
+  firms.%
+    }
+    \verb{doi}
+    \verb 10.1257/aer.20130470
+    \endverb
+    \field{issn}{0002-8282}
+    \field{number}{11}
+    \field{pages}{3450\bibrangedash 3491}
+    \field{title}{Innovation, Reallocation, and Growth}
+    \verb{url}
+    \verb https://www.aeaweb.org/articles?id=10.1257/aer.20130470
+    \endverb
+    \field{volume}{108}
+    \field{langid}{english}
+    \verb{file}
+    \verb Full Text:/home/nico/Zotero/storage/HJQDTJTG/Acemoglu et al. - 2018 -
+    \verb  Innovation, Reallocation, and Growth.pdf:application/pdf;Snapshot:/h
+    \verb ome/nico/Zotero/storage/6H965K4R/articles.html:text/html
+    \endverb
+    \field{journaltitle}{American Economic Review}
+    \field{month}{11}
+    \field{year}{2018}
+    \field{urlday}{27}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{agarwal_knowledge_2002}{article}{}
+    \name{author}{4}{}{%
+      {{hash=AR}{%
+         family={Agarwal},
+         familyi={A\bibinitperiod},
+         given={Rajshree},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=ER}{%
+         family={Echambadi},
+         familyi={E\bibinitperiod},
+         given={Raj},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=FA}{%
+         family={Franco},
+         familyi={F\bibinitperiod},
+         given={April},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=SB}{%
+         family={Sarkar},
+         familyi={S\bibinitperiod},
+         given={Bidyut},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{AR+1}
+    \strng{fullhash}{ARERFASB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{labelyear}{2002}
+    \field{labeldatesource}{}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{abstract}{%
+    This paper examines the role of knowledge as a driver of an organization's
+  formation, and as a subsequent source of its competitive advantage. We
+  investigate the parent-progeny knowledge transfer relationship, and the
+  impact of this congenital learning on the evolution and performance of a
+  spin-out (an entrepreneurial venture by an ex-employee). Using data from the
+  disk drive industry, we show that incumbent knowledge capabilities, related
+  to technology and market pioneering, predict spin-out formation. Parent's
+  capabilities at the time of spin-out founding positively affect spin-out
+  knowledge capabilities, and result in spin-outs having higher probabilities
+  of survival relative to other entrants.%
+    }
+    \field{shorttitle}{Knowledge Transfer through Congenital Learning}
+    \field{title}{Knowledge Transfer through Congenital Learning: Spin-Out
+  Generation, Growth and Survival}
+    \verb{file}
+    \verb Full Text PDF:/home/nico/Zotero/storage/3JA2U8GX/Agarwal et al. - 200
+    \verb 2 - Knowledge Transfer through Congenital Learning Sp.pdf:application
+    \verb /pdf
+    \endverb
+    \field{day}{01}
+    \field{month}{02}
+    \field{year}{2002}
+  \endentry
+
+  \entry{agarwal_what_2013}{report}{}
+    \name{author}{4}{}{%
+      {{hash=AR}{%
+         family={Agarwal},
+         familyi={A\bibinitperiod},
+         given={Rajshree},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=CBA}{%
+         family={Campbell},
+         familyi={C\bibinitperiod},
+         given={Benjamin\bibnamedelima A.},
+         giveni={B\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=FA}{%
+         family={Franco},
+         familyi={F\bibinitperiod},
+         given={April},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=GM}{%
+         family={Ganco},
+         familyi={G\bibinitperiod},
+         given={Martin},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \keyw{April Franco, Benjamin A. Campbell, Martin Ganco, Rajshree Agarwal,
+  {SSRN}, What Do I Take with Me?: The Mediating Effect of Spin-Out Team Size
+  and Tenure on the Founder-Firm Performance Relationship}
+    \strng{namehash}{AR+1}
+    \strng{fullhash}{ARCBAFAGM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{labelyear}{2013}
+    \field{labeldatesource}{}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{abstract}{%
+    Our study examines the mediating effect of spin-out team characteristics on
+  the relationship between founder quality and parent and spin-out performance.
+  Since the ability to transfer or recreate complementary assets is a critical
+  determinant of performance, we theorize and show that founders with greater
+  ability impact both parent firm and spin-out performance by assembling teams
+  that represent strong complementary human capital. Using linked
+  employee-employer {US} Census data from the legal services industry, we find
+  founding team size and tenure mediate the founder quality effect. Our
+  findings have practical implications for both managers of existing firms and
+  aspiring founders as it relates to their human resource strategies: the
+  factor most salient to performance is not the individual quality per se, but
+  the manner inwhich it impacts the transfer and spillover of complementary
+  human capital.%
+    }
+    \verb{doi}
+    \verb 10.2139/ssrn.2247653
+    \endverb
+    \field{number}{{ID} 2247653}
+    \field{shorttitle}{What Do I Take with Me?}
+    \field{title}{What Do I Take with Me?: The Mediating Effect of Spin-Out
+  Team Size and Tenure on the Founder-Firm Performance Relationship}
+    \verb{url}
+    \verb https://papers.ssrn.com/abstract=2247653
+    \endverb
+    \field{langid}{english}
+    \list{location}{1}{%
+      {Rochester, {NY}}%
+    }
+    \list{institution}{1}{%
+      {Social Science Research Network}%
+    }
+    \verb{file}
+    \verb Submitted Version:/home/nico/Zotero/storage/N3G9D7EI/Agarwal et al. -
+    \verb  2013 - What Do I Take with Me The Mediating Effect of S.pdf:applicat
+    \verb ion/pdf;Snapshot:/home/nico/Zotero/storage/CHFNNQDV/papers.html:text/
+    \verb html
+    \endverb
+    \field{type}{{SSRN} Scholarly Paper}
+    \field{day}{01}
+    \field{month}{04}
+    \field{year}{2013}
+    \field{urlday}{27}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{aghion_model_1992}{article}{}
+    \name{author}{2}{}{%
+      {{hash=AP}{%
+         family={Aghion},
+         familyi={A\bibinitperiod},
+         given={Philippe},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=HP}{%
+         family={Howitt},
+         familyi={H\bibinitperiod},
+         given={Peter},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{APHP1}
+    \strng{fullhash}{APHP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1992}
+    \field{labeldatesource}{}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{abstract}{%
+    [A model of endogenous growth is developed in which vertical innovations,
+  generated by a competitive research sector, constitute the underlying source
+  of growth. Equilibrium is determined by a forward-looking difference
+  equation, according to which the amount of research in any period depends
+  upon the expected amount of research next period. One source of this
+  intertemporal relationship is creative destruction. That is, the prospect of
+  more future research discourages current research by threatening to destroy
+  the rents created by current research. The paper analyzes the positive and
+  normative properties of stationary equilibria, in which research employment
+  is constant and {GNP} follows a random walk with drift, although under some
+  circumstances cyclical equilibria also exist. Both the average growth rate
+  and the variance of the growth rate are increasing functions of the size of
+  innovations, the size of the skilled labor force, and the productivity of
+  research as measured by a parameter indicating the effect of research on the
+  Poisson arrival rate of innovations; and decreasing functions of the rate of
+  time preference of the representative individual. Under laissez faire the
+  economy's growth rate may be more or less than optimal because, in addition
+  to the appropriability and intertemporal spillover effects of other
+  endogenous growth models, which tend to make growth slower than optimal, the
+  model also has effects that work in the opposite direction. In particular,
+  the fact that private research firms do not internalize the destruction of
+  rents generated by their innovations introduces a business-stealing effect
+  similar to that found in the partial-equilibrium patent race literature. When
+  we endogenize the size of innovations we find that business stealing also
+  makes innovations too small.]%
+    }
+    \verb{doi}
+    \verb 10.2307/2951599
+    \endverb
+    \field{issn}{0012-9682}
+    \field{number}{2}
+    \field{pages}{323\bibrangedash 351}
+    \field{title}{A Model of Growth Through Creative Destruction}
+    \verb{url}
+    \verb https://www.jstor.org/stable/2951599
+    \endverb
+    \field{volume}{60}
+    \field{journaltitle}{Econometrica}
+    \field{year}{1992}
+    \field{urlday}{17}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{aghion_competition_2005}{article}{}
+    \name{author}{5}{}{%
+      {{hash=AP}{%
+         family={Aghion},
+         familyi={A\bibinitperiod},
+         given={Philippe},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=BN}{%
+         family={Bloom},
+         familyi={B\bibinitperiod},
+         given={Nick},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=BR}{%
+         family={Blundell},
+         familyi={B\bibinitperiod},
+         given={Richard},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=GR}{%
+         family={Griffith},
+         familyi={G\bibinitperiod},
+         given={Rachel},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=HP}{%
+         family={Howitt},
+         familyi={H\bibinitperiod},
+         given={Peter},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{AP+1}
+    \strng{fullhash}{APBNBRGRHP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2005}
+    \field{labeldatesource}{}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{number}{2}
+    \field{pages}{701\bibrangedash 728}
+    \field{title}{Competition and Innovation: An Inverted-U Relationship}
+    \verb{url}
+    \verb http://www.jstor.org/stable/25098750
+    \endverb
+    \field{volume}{120}
+    \field{langid}{english}
+    \field{journaltitle}{The Quarterly Journal of Economics}
+    \field{year}{2005}
+  \endentry
+
+  \entry{akcigit_growth_2018}{article}{}
+    \name{author}{2}{}{%
+      {{hash=AU}{%
+         family={Akcigit},
+         familyi={A\bibinitperiod},
+         given={Ufuk},
+         giveni={U\bibinitperiod},
+      }}%
+      {{hash=KWR}{%
+         family={Kerr},
+         familyi={K\bibinitperiod},
+         given={William\bibnamedelima R.},
+         giveni={W\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{AUKWR1}
+    \strng{fullhash}{AUKWR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2018}
+    \field{labeldatesource}{}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{abstract}{%
+    We build a tractable growth model in which multiproduct incumbents invest
+  in internal innovations to improve their existing products, while new
+  entrants and incumbents invest in external innovations to acquire new product
+  lines. External and internal innovations generate heterogeneous innovation
+  qualities, and firm size affects innovation incentives. We analyze how
+  different types of innovation contribute to economic growth and the role of
+  the firm size distribution. Our model aligns with many observed empirical
+  regularities, and we quantify our framework with Census Bureau and patent
+  data for {US} firms. Internal innovation scales moderately faster with firm
+  size than external innovation.%
+    }
+    \verb{doi}
+    \verb 10.1086/697901
+    \endverb
+    \field{issn}{0022-3808}
+    \field{number}{4}
+    \field{pages}{1374\bibrangedash 1443}
+    \field{title}{Growth through Heterogeneous Innovations}
+    \verb{url}
+    \verb https://www.journals.uchicago.edu/doi/10.1086/697901
+    \endverb
+    \field{volume}{126}
+    \field{journaltitle}{Journal of Political Economy}
+    \field{month}{03}
+    \field{year}{2018}
+    \field{urlday}{17}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{anton_expropriation_1994}{article}{}
+    \name{author}{2}{}{%
+      {{hash=AJJ}{%
+         family={Anton},
+         familyi={A\bibinitperiod},
+         given={James\bibnamedelima J.},
+         giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=YDA}{%
+         family={Yao},
+         familyi={Y\bibinitperiod},
+         given={Dennis\bibnamedelima A.},
+         giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{AJJYDA1}
+    \strng{fullhash}{AJJYDA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{labelyear}{1994}
+    \field{labeldatesource}{}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{abstract}{%
+    We analyze the problem faced by a financially weak independent inventor
+  when selling a valuable, but easily imitated, invention for which no property
+  rights exist. The inventor can protect his or her intellectual property by
+  negotiating a contingent contract (with a buyer) prior to revealing the
+  invention or, alternatively, the inventor can reveal the invention and then
+  negotiate with the newly informed buyer. Despite the risk of expropriation,
+  we find that, in equilibrium, an inventor with little wealth can expect to
+  appropriate a sizable share of the market value of the invention by adopting
+  the latter approach.%
+    }
+    \field{issn}{0002-8282}
+    \field{number}{1}
+    \field{pages}{190\bibrangedash 209}
+    \field{shorttitle}{Expropriation and Inventions}
+    \field{title}{Expropriation and Inventions: Appropriable Rents in the
+  Absence of Property Rights}
+    \verb{url}
+    \verb https://www.jstor.org/stable/2117978
+    \endverb
+    \field{volume}{84}
+    \field{journaltitle}{The American Economic Review}
+    \field{year}{1994}
+    \field{urlday}{20}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{anton_start-ups_1995}{article}{}
+    \name{author}{2}{}{%
+      {{hash=AJJ}{%
+         family={Anton},
+         familyi={A\bibinitperiod},
+         given={James\bibnamedelima J.},
+         giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=YDA}{%
+         family={Yao},
+         familyi={Y\bibinitperiod},
+         given={Dennis\bibnamedelima A.},
+         giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{AJJYDA1}
+    \strng{fullhash}{AJJYDA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1995}
+    \field{labeldatesource}{}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{abstract}{%
+    [We examine the incentive problem confronting a firm and employee when the
+  employee privately discovers a significant invention and faces a choice
+  between keeping the invention private and leaving the firm to form a new
+  company (start-up), or transferring knowledge and attempting to gain
+  compensation from the firm (spin-off). We focus on inventions that require
+  little start-up capital and for which property rights are either missing or
+  very weak. In such settings, the employee will sometimes form a new company
+  even though joint profits would have been greater had the invention been
+  developed with the original firm. We also identify when the firm has an
+  incentive to pay a substantial sum to the employee via a spin-off, thereby
+  deterring a start-up. Finally, the basic analysis is applied to examine
+  several issues including specific versus general innovations, trade secret
+  law, and legal "shop rights."]%
+    }
+    \field{issn}{8756-6222}
+    \field{number}{2}
+    \field{pages}{362\bibrangedash 378}
+    \field{title}{Start-ups, Spin-offs, and Internal Projects}
+    \verb{url}
+    \verb https://www.jstor.org/stable/765002
+    \endverb
+    \field{volume}{11}
+    \field{journaltitle}{Journal of Law, Economics, \& Organization}
+    \field{year}{1995}
+    \field{urlday}{20}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{anton_sale_2002}{article}{}
+    \name{author}{2}{}{%
+      {{hash=AJJ}{%
+         family={Anton},
+         familyi={A\bibinitperiod},
+         given={James\bibnamedelima J.},
+         giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=YDA}{%
+         family={Yao},
+         familyi={Y\bibinitperiod},
+         given={Dennis\bibnamedelima A.},
+         giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{AJJYDA1}
+    \strng{fullhash}{AJJYDA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{labelyear}{2002}
+    \field{labeldatesource}{}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \verb{doi}
+    \verb 10.1111/1467-937X.t01-1-00020
+    \endverb
+    \field{issn}{0034-6527, 1467-937X}
+    \field{number}{3}
+    \field{pages}{513\bibrangedash 531}
+    \field{shortjournal}{Rev Econ Studies}
+    \field{shorttitle}{The Sale of Ideas}
+    \field{title}{The Sale of Ideas: Strategic Disclosure, Property Rights, and
+  Contracting}
+    \verb{url}
+    \verb https://academic.oup.com/restud/article-lookup/doi/10.1111/1467-937X.
+    \verb t01-1-00020
+    \endverb
+    \field{volume}{69}
+    \field{langid}{english}
+    \verb{file}
+    \verb Anton and Yao - 2002 - The Sale of Ideas Strategic Disclosure, Proper
+    \verb ty .pdf:/home/nico/Zotero/storage/IRXMDUZB/Anton and Yao - 2002 - The
+    \verb  Sale of Ideas Strategic Disclosure, Property .pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Review of Economic Studies}
+    \field{month}{08}
+    \field{year}{2002}
+    \field{urlday}{25}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{arrow_economic_1962}{report}{}
+    \name{author}{1}{}{%
+      {{hash=AK}{%
+         family={Arrow},
+         familyi={A\bibinitperiod},
+         given={Kenneth},
+         giveni={K\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{AK1}
+    \strng{fullhash}{AK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1962}
+    \field{labeldatesource}{}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{pages}{609\bibrangedash 626}
+    \field{title}{Economic Welfare and the Allocation of Resources for
+  Invention}
+    \verb{url}
+    \verb https://econpapers.repec.org/bookchap/nbrnberch/2144.htm
+    \endverb
+    \list{institution}{1}{%
+      {National Bureau of Economic Research, Inc}%
+    }
+    \field{type}{{NBER} Chapters}
+    \field{year}{1962}
+    \field{urlday}{18}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{babina_entrepreneurial_2019}{article}{}
+    \name{author}{2}{}{%
+      {{hash=BT}{%
+         family={Babina},
+         familyi={B\bibinitperiod},
+         given={Tania},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=HST}{%
+         family={Howell},
+         familyi={H\bibinitperiod},
+         given={Sabrina\bibnamedelima T},
+         giveni={S\bibinitperiod\bibinitdelim T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BTHST1}
+    \strng{fullhash}{BTHST1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2019}
+    \field{labeldatesource}{}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{abstract}{%
+    This paper studies how corporate research and development (R\&D) investment
+  affects labor mobility. We use employer-employee matched data in ordinary
+  least squares and instrumental variables analyses to assess four hypotheses.
+  R\&D has no effect on worker retention, exit from employment, or mobility to
+  incumbent firms. Instead, it increases employee departures to
+  entrepreneurship, leading employees to join the founding teams of startups
+  that are venture capital-backed, high tech, high wage, and in different
+  sectors than the parent firm. These highgrowth, high-risk startups emerging
+  from R\&D benefit from a focused, standalone incentive structure and have
+  poor complementarities to the parent firm’s assets.%
+    }
+    \field{pages}{76}
+    \field{title}{Entrepreneurial Spillovers from Corporate R\&D}
+    \field{langid}{english}
+    \verb{file}
+    \verb Babina and Howell - Entrepreneurial Spillovers from Corporate R&D.pdf
+    \verb :/home/nico/Zotero/storage/RW4CNRP5/Babina and Howell - Entrepreneuri
+    \verb al Spillovers from Corporate R&D.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{{NBER} Working Paper}
+    \field{month}{07}
+    \field{year}{2019}
+  \endentry
+
+  \entry{balasubramanian_locked_2020}{article}{}
+    \name{author}{5}{}{%
+      {{hash=BN}{%
+         family={Balasubramanian},
+         familyi={B\bibinitperiod},
+         given={Natarajan},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=CJW}{%
+         family={Chang},
+         familyi={C\bibinitperiod},
+         given={Jin\bibnamedelima Woo},
+         giveni={J\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+      {{hash=SM}{%
+         family={Sakakibara},
+         familyi={S\bibinitperiod},
+         given={Mariko},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Sivadasan},
+         familyi={S\bibinitperiod},
+         given={Jagadeesh},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=SE}{%
+         family={Starr},
+         familyi={S\bibinitperiod},
+         given={Evan},
+         giveni={E\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BN+1}
+    \strng{fullhash}{BNCJWSMSJSE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{labelyear}{2020}
+    \field{labeldatesource}{}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{abstract}{%
+    We study the relationship between the enforceability of covenants not to
+  compete ({CNCs}) and employee mobility and wages. We exploit a 2015 {CNC} ban
+  for technology workers in Hawaii and find that this ban increased mobility by
+  11\% and new-hire wages by 4\%. We supplement the Hawaii evaluation with a
+  cross-state analysis using matched employer-employee data. We find that eight
+  years after starting a job in an average-enforceability state, technology
+  workers have about 8\% fewer jobs and 4.6\% lower cumulative earnings
+  relative to equivalent workers starting in a non-enforcing state. These
+  results are consistent with {CNC} enforceability increasing monopsony power.%
+    }
+    \verb{doi}
+    \verb 10.3368/jhr.monopsony.1218-9931R1
+    \endverb
+    \field{issn}{0022-166X, 1548-8004}
+    \field{note}{Publisher: University of Wisconsin Press}
+    \field{pages}{1218\bibrangedash 9931R1}
+    \field{shortjournal}{J. Human Resources}
+    \field{shorttitle}{Locked In?}
+    \field{title}{Locked In? The Enforceability of Covenants Not to Compete and
+  the Careers of High-Tech Workers}
+    \verb{url}
+    \verb http://jhr.uwpress.org/content/early/2020/05/04/jhr.monopsony.1218-99
+    \verb 31R1
+    \endverb
+    \field{langid}{english}
+    \verb{file}
+    \verb Full Text PDF:/home/nico/Zotero/storage/W8AFFSDY/Balasubramanian et a
+    \verb l. - 2020 - Locked In The Enforceability of Covenants Not to .pdf:app
+    \verb lication/pdf;Snapshot:/home/nico/Zotero/storage/3QKJAN6K/jhr.monopson
+    \verb y.1218-9931R1.html:text/html
+    \endverb
+    \field{journaltitle}{Journal of Human Resources}
+    \field{day}{12}
+    \field{month}{05}
+    \field{year}{2020}
+    \field{urlday}{25}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{baslandze_spinout_2019}{article}{}
+    \name{author}{1}{}{%
+      {{hash=BS}{%
+         family={Baslandze},
+         familyi={B\bibinitperiod},
+         given={Salome},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BS1}
+    \strng{fullhash}{BS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2019}
+    \field{labeldatesource}{}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{abstract}{%
+    Labor market policies, such as non-compete laws ({NCL}), may significantly
+  affect entrepreneur- ship, innovation and productivity growth. I study the
+  effect of {NCL} on the creation of employee spinouts (firms created by former
+  employees of incumbent firms) and the implications of this process for
+  aggregate productivity growth. The process of spinout formation introduces a
+  nontrivial tradeoff between growth-enhancing knowledge diffusion in the form
+  of new produc- tive firms, on the one hand, and the threat of knowledge
+  dissemination and competition that harms innovation by incumbents, on the
+  other hand. I use patents and inventors’ data to iden- tify spinout
+  entrants and empirically explore their characteristics. I document that 1)
+  they outperform regular entrants with no prior experience, 2) spinouts are
+  more likely to separate from more innovative firms, 3) more productive firms
+  spawn better spinouts, and 4) states with weaker {NCL} have higher rates of
+  spinout entry. To analyze the interaction between incumbents innovation
+  incentives and spinout entry, I develop a dynamic general equilibrium
+  endogenous growth model consistent with empirical facts from the data. After
+  calibrating the parameters of the model, I quantify the importance for growth
+  of the two above-mentioned channels. I then quantitatively investigate the
+  implications of different non-compete policies. I find that it is welfare
+  improving to abolish existing non-compete restrictions; however, the policy
+  protecting firms with high technological leadership is growth-maximizing.%
+    }
+    \field{title}{Spinout Entry, Innovation, and Growth}
+    \field{journaltitle}{Working Paper}
+    \field{year}{2019}
+  \endentry
+
+  \entry{bishara_incomplete_2016}{report}{}
+    \name{author}{2}{}{%
+      {{hash=BN}{%
+         family={Bishara},
+         familyi={B\bibinitperiod},
+         given={Norman},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=SE}{%
+         family={Starr},
+         familyi={S\bibinitperiod},
+         given={Evan},
+         giveni={E\bibinitperiod},
+      }}%
+    }
+    \keyw{Covenants not to compete, employee mobility, noncompetes}
+    \strng{namehash}{BNSE1}
+    \strng{fullhash}{BNSE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2016}
+    \field{labeldatesource}{}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{abstract}{%
+    Covenants not to compete (“noncompetes” or “{CNCs}”) are an
+  increasingly controversial element of the U.S. employer–employee
+  relationship. Numerous state legislatures are reconsidering their noncompete
+  policies, however the empirical research remains fractured and ambiguous on
+  several key issues. We begin by discussing the various theoretical
+  perspectives in the relevant legal literature. We then carefully evaluate 24
+  empirical studies focusing on noncompetes (6 utilizing evidence of workers
+  who signed a noncompete, 3 with data on the intra-firm use of noncompetes, 2
+  experimentally allocating noncompetes, and 14 focused on ad hoc measures of
+  noncompete enforceability, which examine how policy differences affect
+  workers, firms, and regions). Despite the rapidly expanding empirical
+  literature, we argue that many of the most basic questions regarding the use
+  and consequences of noncompetes remain either entirely unanswered or at least
+  unsettled. We conclude that major gaps remain in the research and then
+  provide recommendations for future research efforts to provide a solid
+  foundation for evaluating the recent calls for banning or reforming
+  longstanding noncompete policies at the state and now the federal level.%
+    }
+    \field{number}{{ID} 2782137}
+    \field{title}{The Incomplete Noncompete Picture}
+    \verb{url}
+    \verb https://papers.ssrn.com/abstract=2782137
+    \endverb
+    \field{langid}{english}
+    \list{location}{1}{%
+      {Rochester, {NY}}%
+    }
+    \list{institution}{1}{%
+      {Social Science Research Network}%
+    }
+    \verb{file}
+    \verb Snapshot:/home/nico/Zotero/storage/7V5TDKII/papers.html:text/html
+    \endverb
+    \field{type}{{SSRN} Scholarly Paper}
+    \field{day}{29}
+    \field{month}{06}
+    \field{year}{2016}
+    \field{urlday}{25}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{bloom_identifying_2013}{article}{}
+    \name{author}{3}{}{%
+      {{hash=BN}{%
+         family={Bloom},
+         familyi={B\bibinitperiod},
+         given={Nicholas},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=SM}{%
+         family={Schankerman},
+         familyi={S\bibinitperiod},
+         given={Mark},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=vRJ}{%
+         prefix={van},
+         prefixi={v\bibinitperiod},
+         family={Reenen},
+         familyi={R\bibinitperiod},
+         given={John},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \keyw{market value, patents, productivity, R\&D, Spillovers}
+    \strng{namehash}{BN+2}
+    \strng{fullhash}{BNSMRJv1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2013}
+    \field{labeldatesource}{}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{abstract}{%
+    The impact of R\&D on growth through spillovers has been a major topic of
+  economic research over the last thirty years. A central problem in the
+  literature is that firm performance is affected by two countervailing
+  “spillovers” : a positive effect from technology (knowledge) spillovers
+  and a negative business stealing effects from product market rivals. We
+  develop a general framework incorporating these two types of spillovers and
+  implement this model using measures of a firm's position in technology space
+  and productmarket space. Using panel data on U.S. firms, we show that
+  technology spillovers quantitatively dominate, so that the gross social
+  returns to R\&D are at least twice as high as the private returns. We
+  identify the causal effect of R\&D spillovers by using changes in federal and
+  state tax incentives for R\&D. We also find that smaller firms generate lower
+  social returns to R\&D because they operate more in technological niches.
+  Finally, we detail the desirable properties of an ideal spillover measure and
+  how existing approaches, including our new Mahalanobis measure, compare to
+  these criteria.%
+    }
+    \verb{doi}
+    \verb 10.3982/ECTA9466
+    \endverb
+    \field{issn}{1468-0262}
+    \field{number}{4}
+    \field{pages}{1347\bibrangedash 1393}
+    \field{title}{Identifying Technology Spillovers and Product Market Rivalry}
+    \verb{url}
+    \verb https://onlinelibrary.wiley.com/doi/abs/10.3982/ECTA9466
+    \endverb
+    \field{volume}{81}
+    \field{langid}{english}
+    \field{journaltitle}{Econometrica}
+    \field{year}{2013}
+    \field{urlday}{17}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{campbell_who_2012}{article}{}
+    \name{author}{4}{}{%
+      {{hash=CBA}{%
+         family={Campbell},
+         familyi={C\bibinitperiod},
+         given={Benjamin\bibnamedelima A.},
+         giveni={B\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=GM}{%
+         family={Ganco},
+         familyi={G\bibinitperiod},
+         given={Martin},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=FAM}{%
+         family={Franco},
+         familyi={F\bibinitperiod},
+         given={April\bibnamedelima M.},
+         giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=AR}{%
+         family={Agarwal},
+         familyi={A\bibinitperiod},
+         given={Rajshree},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \keyw{entrepreneurship, employee mobility, complementary assets,
+  professional service firms, strategic human capital}
+    \strng{namehash}{CBA+1}
+    \strng{fullhash}{CBAGMFAMAR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{labelyear}{2012}
+    \field{labeldatesource}{}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{abstract}{%
+    We theorize that the value provided by the firm's complementary assets has
+  important implications for the exit decisions of employees and their
+  subsequent effects on the firm's performance. Using linked employee-employer
+  data from the U.S. Census Bureau on legal services, we find that employees
+  with higher earnings are less likely to leave relative to employees with
+  lower earnings, but if they do, are more likely to create a new venture than
+  join another firm. Employee entrepreneurship has a larger adverse impact on
+  source firm performance than moves to established firms, even controlling for
+  observable employee quality. Our findings suggest that in knowledge intensive
+  settings, managers should focus on tailoring compensation packages to help
+  minimize the adverse impact of employee entrepreneurship, particularly among
+  high performing individuals. Copyright © 2011 John Wiley \& Sons, Ltd.%
+    }
+    \verb{doi}
+    \verb 10.1002/smj.943
+    \endverb
+    \field{issn}{1097-0266}
+    \field{note}{\_eprint:
+  https://onlinelibrary.wiley.com/doi/pdf/10.1002/smj.943}
+    \field{number}{1}
+    \field{pages}{65\bibrangedash 87}
+    \field{shorttitle}{Who leaves, where to, and why worry?}
+    \field{title}{Who leaves, where to, and why worry? employee mobility,
+  entrepreneurship and effects on source firm performance}
+    \verb{url}
+    \verb https://onlinelibrary.wiley.com/doi/abs/10.1002/smj.943
+    \endverb
+    \field{volume}{33}
+    \field{langid}{english}
+    \verb{file}
+    \verb Full Text PDF:/home/nico/Zotero/storage/M7A3UT2T/Campbell et al. - 20
+    \verb 12 - Who leaves, where to, and why worry employee mobi.pdf:applicatio
+    \verb n/pdf;Snapshot:/home/nico/Zotero/storage/B57MM8RZ/smj.html:text/html
+    \endverb
+    \field{journaltitle}{Strategic Management Journal}
+    \field{year}{2012}
+    \field{urlday}{27}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{chatterjee_spinoffs_2012}{article}{}
+    \name{author}{2}{}{%
+      {{hash=CS}{%
+         family={Chatterjee},
+         familyi={C\bibinitperiod},
+         given={Satyajit},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=RHE}{%
+         family={Rossi-Hansberg},
+         familyi={R\bibinithyphendelim H\bibinitperiod},
+         given={Esteban},
+         giveni={E\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CSRHE1}
+    \strng{fullhash}{CSRHE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2012}
+    \field{labeldatesource}{}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{abstract}{%
+    [We present a theory of entry through spinoffs where workers generate ideas
+  and possess private information concerning their quality. Because quality is
+  privately observed, adverse selection implies that the market can only offer
+  a price that reflects the average quality of ideas sold. Only workers with
+  good ideas decide to spin off, whereas workers with mediocre ideas sell them.
+  Existing firms pay a price for ideas sold in the market that implies zero
+  expected profits. Hence, firms' project selection is independent of firm
+  size, which can lead to scale-independent growth. This mechanism results in
+  invariant firm-size distributions that resemble the data.]%
+    }
+    \field{issn}{0020-6598}
+    \field{number}{1}
+    \field{pages}{53\bibrangedash 93}
+    \field{title}{Spinoffs and the Market for Ideas}
+    \verb{url}
+    \verb https://www.jstor.org/stable/41349201
+    \endverb
+    \field{volume}{53}
+    \field{journaltitle}{International Economic Review}
+    \field{year}{2012}
+    \field{urlday}{20}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{colombo_does_2013}{article}{}
+    \name{author}{4}{}{%
+      {{hash=CL}{%
+         family={Colombo},
+         familyi={C\bibinitperiod},
+         given={Luca},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=DH}{%
+         family={Dawid},
+         familyi={D\bibinitperiod},
+         given={Herbert},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=PM}{%
+         family={Piva},
+         familyi={P\bibinitperiod},
+         given={Mariacristina},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=VM}{%
+         family={Vivarelli},
+         familyi={V\bibinitperiod},
+         given={Marco},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CL+1}
+    \strng{fullhash}{CLDHPMVM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{labelyear}{2013}
+    \field{labeldatesource}{}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \verb{doi}
+    \verb 10.2139/ssrn.2246689
+    \endverb
+    \field{issn}{1556-5068}
+    \field{shorttitle}{Does Easy Start-Up Formation Hamper Incumbents' R\&D
+  Investment?}
+    \field{title}{Does Easy Start-Up Formation Hamper Incumbents' R\&D
+  Investment? A Theoretical and Empirical Analysis}
+    \verb{url}
+    \verb http://www.ssrn.com/abstract=2246689
+    \endverb
+    \field{langid}{english}
+    \field{journaltitle}{{SSRN} Electronic Journal}
+    \field{year}{2013}
+    \field{urlday}{18}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{comin_rd_2004}{article}{}
+    \name{author}{1}{}{%
+      {{hash=CD}{%
+         family={Comin},
+         familyi={C\bibinitperiod},
+         given={Diego},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CD1}
+    \strng{fullhash}{CD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{labelyear}{2004}
+    \field{labeldatesource}{}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{abstract}{%
+    In this article I evaluate the contribution of R\&D investments to
+  productivity growth. The basis for the analysis are the free entry condition
+  and the fact that most R\&D innovations are embodied. Free entry yields a
+  relationship between the resources devoted to R\&D and the growth rate of
+  technology. Since innovators are small, this relationship is not directly
+  affected by the size of R\&D externalities, or the presence of aggregate
+  diminishing returns in R\&D after controlling for the growth rate of output
+  and the interest rate. The embodiment of R\&D-driven innovations bounds the
+  size of the production externalities. The resulting contribution of R\&D to
+  productivity growth in the {US} is smaller than 3-5 tenths of 1\% point. This
+  constitutes an upper bound for the case where innovators internalize the
+  consequences of their R\&D investments on the cost of conducting future
+  innovations. From a normative perspective, this analysis implies that, if the
+  innovation technology takes the form assumed in the literature, the actual
+  {US} R\&D intensity may be the socially optimal.%
+    }
+    \field{issn}{1381-4338}
+    \field{note}{Publisher: Springer}
+    \field{number}{4}
+    \field{pages}{391\bibrangedash 421}
+    \field{shorttitle}{R\&D}
+    \field{title}{R\&D: A Small Contribution to Productivity Growth}
+    \verb{url}
+    \verb https://www.jstor.org/stable/40215909
+    \endverb
+    \field{volume}{9}
+    \field{journaltitle}{Journal of Economic Growth}
+    \field{year}{2004}
+    \field{urlday}{25}
+    \field{urlmonth}{06}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{conti_non-competition_2014}{article}{}
+    \name{author}{1}{}{%
+      {{hash=CR}{%
+         family={Conti},
+         familyi={C\bibinitperiod},
+         given={Raffaele},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \keyw{innovation, appropriability, non-competition agreements, R\&D
+  strategy, technological breakthroughs}
+    \strng{namehash}{CR1}
+    \strng{fullhash}{CR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2014}
+    \field{labeldatesource}{}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{abstract}{%
+    This study investigates the impact of non-competition agreements on the
+  type of R\&D activity undertaken by companies. Non-competition agreements, by
+  reducing outbound mobility and knowledge leakages to competitors, make
+  high-risk R\&D projects relatively more valuable than low-risk ones. Thus,
+  they induce companies to choose riskier R\&D projects, such that corporate
+  inventions are more likely to lie in the tails of the inventions' value
+  distribution (as breakthroughs or failures) and be in novel technological
+  areas. This study uses data about U.S. patent applications from 1990 to 2000
+  and considers longitudinal variation in the enforcement of non-compete
+  clauses. The results indicate that in states with stricter enforcement,
+  companies undertake riskier R\&D paths than in states that do not enforce
+  non-compete agreements as strictly. Copyright © 2013 John Wiley \& Sons,
+  Ltd.%
+    }
+    \verb{doi}
+    \verb 10.1002/smj.2155
+    \endverb
+    \field{issn}{1097-0266}
+    \field{number}{8}
+    \field{pages}{1230\bibrangedash 1248}
+    \field{title}{Do non-competition agreements lead firms to pursue risky R\&D
+  projects?}
+    \verb{url}
+    \verb https://onlinelibrary.wiley.com/doi/abs/10.1002/smj.2155
+    \endverb
+    \field{volume}{35}
+    \field{langid}{english}
+    \field{journaltitle}{Strategic Management Journal}
+    \field{year}{2014}
+    \field{urlday}{29}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{doraszelski_rd_2013}{article}{}
+    \name{author}{2}{}{%
+      {{hash=DU}{%
+         family={Doraszelski},
+         familyi={D\bibinitperiod},
+         given={Ulrich},
+         giveni={U\bibinitperiod},
+      }}%
+      {{hash=JJ}{%
+         family={Jaumandreu},
+         familyi={J\bibinitperiod},
+         given={Jordi},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{DUJJ1}
+    \strng{fullhash}{DUJJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{labelyear}{2013}
+    \field{labeldatesource}{}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{abstract}{%
+    Abstract. We develop a model of endogenous productivity change to examine
+  the impact of the investment in knowledge on the productivity of firms. Our
+  dynamic i%
+    }
+    \verb{doi}
+    \verb 10.1093/restud/rdt011
+    \endverb
+    \field{issn}{0034-6527}
+    \field{note}{Publisher: Oxford Academic}
+    \field{number}{4}
+    \field{pages}{1338\bibrangedash 1383}
+    \field{shortjournal}{Rev Econ Stud}
+    \field{shorttitle}{R\&D and Productivity}
+    \field{title}{R\&D and Productivity: Estimating Endogenous Productivity}
+    \verb{url}
+    \verb https://academic.oup.com/restud/article/80/4/1338/1580686
+    \endverb
+    \field{volume}{80}
+    \field{langid}{english}
+    \verb{file}
+    \verb Full Text PDF:/home/nico/Zotero/storage/RXQUY98S/Doraszelski and Jaum
+    \verb andreu - 2013 - R&D and Productivity Estimating Endogenous Produc.pdf
+    \verb :application/pdf;Snapshot:/home/nico/Zotero/storage/QW3IYZSW/1580686.
+    \verb html:text/html
+    \endverb
+    \field{journaltitle}{The Review of Economic Studies}
+    \field{day}{01}
+    \field{month}{10}
+    \field{year}{2013}
+    \field{urlday}{27}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{franco_covenants_2008}{article}{}
+    \name{author}{2}{}{%
+      {{hash=FAM}{%
+         family={Franco},
+         familyi={F\bibinitperiod},
+         given={April\bibnamedelima M.},
+         giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=MMF}{%
+         family={Mitchell},
+         familyi={M\bibinitperiod},
+         given={Matthew\bibnamedelima F.},
+         giveni={M\bibinitperiod\bibinitdelim F\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{FAMMMF1}
+    \strng{fullhash}{FAMMMF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2008}
+    \field{labeldatesource}{}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \field{abstract}{%
+    Conventional wisdom among legal scholars is that contractual restrictions
+  on employee mobility affect turnover and led to the overtaking of
+  Massachusetts' Route 128 by Silicon Valley. We study a model of employee
+  mobility in the spirit of Pakes and Nitzan to see when this can be the case.
+  We show that, in fact, with certain frictions taken into account, a model of
+  employee mobility can not only replicate the overtaking by Silicon Valley,
+  but it can also help to explain Route 128s early dominance. Further, the
+  model explains the relative success of firms that start as, or generate,
+  spin-outs.%
+    }
+    \verb{doi}
+    \verb 10.1111/j.1530-9134.2008.00187.x
+    \endverb
+    \field{issn}{1530-9134}
+    \field{number}{3}
+    \field{pages}{581\bibrangedash 606}
+    \field{title}{Covenants not to Compete, Labor Mobility, and Industry
+  Dynamics}
+    \verb{url}
+    \verb https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1530-9134.2008.0018
+    \verb 7.x
+    \endverb
+    \field{volume}{17}
+    \field{langid}{english}
+    \field{journaltitle}{Journal of Economics \& Management Strategy}
+    \field{year}{2008}
+    \field{urlday}{18}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{franco_spin-outs_2006}{article}{}
+    \name{author}{2}{}{%
+      {{hash=FAM}{%
+         family={Franco},
+         familyi={F\bibinitperiod},
+         given={April\bibnamedelima Mitchell},
+         giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=FD}{%
+         family={Filson},
+         familyi={F\bibinitperiod},
+         given={Darren},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{FAMFD1}
+    \strng{fullhash}{FAMFD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{labelyear}{2006}
+    \field{labeldatesource}{}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \verb{doi}
+    \verb 10.1111/j.1756-2171.2006.tb00060.x
+    \endverb
+    \field{issn}{07416261, 17562171}
+    \field{number}{4}
+    \field{pages}{841\bibrangedash 860}
+    \field{shorttitle}{Spin-outs}
+    \field{title}{Spin-outs: knowledge diffusion through employee mobility}
+    \verb{url}
+    \verb http://doi.wiley.com/10.1111/j.1756-2171.2006.tb00060.x
+    \endverb
+    \field{volume}{37}
+    \field{langid}{english}
+    \field{journaltitle}{The {RAND} Journal of Economics}
+    \field{month}{12}
+    \field{year}{2006}
+    \field{urlday}{17}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{gabaix_power_2009}{article}{}
+    \name{author}{1}{}{%
+      {{hash=GX}{%
+         family={Gabaix},
+         familyi={G\bibinitperiod},
+         given={Xavier},
+         giveni={X\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GX1}
+    \strng{fullhash}{GX1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2009}
+    \field{labeldatesource}{}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{abstract}{%
+    A power law ({PL}) is the form taken by a large number of surprising
+  empirical regularities in economics and finance. This review surveys
+  well-documented empirical {PLs} regarding income and wealth, the size of
+  cities and firms, stock market returns, trading volume, international trade,
+  and executive pay. It reviews detailindependent theoretical motivations that
+  make sharp predictions concerning the existence and coefficients of {PLs},
+  without requiring delicate tuning of model parameters. These theoretical
+  mechanisms include random growth, optimization, and the economics of
+  superstars, coupled with extreme value theory. Some empirical regularities
+  currently lack an appropriate explanation. This article highlights these open
+  areas for future research.%
+    }
+    \verb{doi}
+    \verb 10.1146/annurev.economics.050708.142940
+    \endverb
+    \field{issn}{1941-1383, 1941-1391}
+    \field{number}{1}
+    \field{pages}{255\bibrangedash 294}
+    \field{shortjournal}{Annu. Rev. Econ.}
+    \field{title}{Power Laws in Economics and Finance}
+    \verb{url}
+    \verb http://www.annualreviews.org/doi/10.1146/annurev.economics.050708.142
+    \verb 940
+    \endverb
+    \field{volume}{1}
+    \field{langid}{english}
+    \verb{file}
+    \verb Gabaix - 2009 - Power Laws in Economics and Finance.pdf:/home/nico/Zo
+    \verb tero/storage/5PKB8E55/Gabaix - 2009 - Power Laws in Economics and Fin
+    \verb ance.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Annual Review of Economics}
+    \field{day}{02}
+    \field{month}{09}
+    \field{year}{2009}
+    \field{urlday}{22}
+    \field{urlmonth}{08}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{garcia-macia_how_2019}{article}{}
+    \name{author}{3}{}{%
+      {{hash=GMD}{%
+         family={Garcia-Macia},
+         familyi={G\bibinithyphendelim M\bibinitperiod},
+         given={Daniel},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=HCT}{%
+         family={Hsieh},
+         familyi={H\bibinitperiod},
+         given={Chang-Tai},
+         giveni={C\bibinithyphendelim T\bibinitperiod},
+      }}%
+      {{hash=KPJ}{%
+         family={Klenow},
+         familyi={K\bibinitperiod},
+         given={Peter\bibnamedelima J.},
+         giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GMD+1}
+    \strng{fullhash}{GMDHCTKPJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2019}
+    \field{labeldatesource}{}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{abstract}{%
+    Entrants and incumbents can create new products and displace the products
+  of competitors. Incumbents can also improve their existing products. How much
+  of aggregate productivity growth occurs through each of these channels? Using
+  data from the U.S. Longitudinal Business Database on all nonfarm private
+  businesses from 1983 to 2013, we arrive at three main conclusions: First,
+  most growth appears to come from incumbents. We infer this from the modest
+  employment share of entering ﬁrms (deﬁned as those less than 5 years
+  old). Second, most growth seems to occur through improvements of existing
+  varieties rather than creation of brand new varieties. Third, own-product
+  improvements by incumbents appear to be more important than creative
+  destruction. We infer this because the distribution of job creation and
+  destruction has thinner tails than implied by a model with a dominant role
+  for creative destruction.%
+    }
+    \verb{doi}
+    \verb 10.3982/ECTA14930
+    \endverb
+    \field{issn}{0012-9682}
+    \field{number}{5}
+    \field{pages}{1507\bibrangedash 1541}
+    \field{shortjournal}{{ECTA}}
+    \field{title}{How Destructive Is Innovation?}
+    \verb{url}
+    \verb https://www.econometricsociety.org/doi/10.3982/ECTA14930
+    \endverb
+    \field{volume}{87}
+    \field{langid}{english}
+    \verb{file}
+    \verb Garcia-Macia et al. - 2019 - How Destructive Is Innovation.pdf:/home/
+    \verb nico/Zotero/storage/QRBXARB4/Garcia-Macia et al. - 2019 - How Destruc
+    \verb tive Is Innovation.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Econometrica}
+    \field{year}{2019}
+    \field{urlday}{16}
+    \field{urlmonth}{06}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{garmaise_ties_2011}{article}{}
+    \name{author}{1}{}{%
+      {{hash=GMJ}{%
+         family={Garmaise},
+         familyi={G\bibinitperiod},
+         given={Mark\bibnamedelima J.},
+         giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GMJ1}
+    \strng{fullhash}{GMJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{labelyear}{2011}
+    \field{labeldatesource}{}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{abstract}{%
+    Abstract. We study the effects of noncompetition agreements by analyzing
+  time-series and cross-sectional variation in the enforceability of these
+  contracts acr%
+    }
+    \verb{doi}
+    \verb 10.1093/jleo/ewp033
+    \endverb
+    \field{issn}{8756-6222}
+    \field{number}{2}
+    \field{pages}{376\bibrangedash 425}
+    \field{shorttitle}{Ties that Truly Bind}
+    \field{title}{Ties that Truly Bind: Noncompetition Agreements, Executive
+  Compensation, and Firm Investment}
+    \verb{url}
+    \verb https://academic.oup.com/jleo/article/27/2/376/2194339
+    \endverb
+    \field{volume}{27}
+    \field{langid}{english}
+    \field{journaltitle}{The Journal of Law, Economics, and Organization}
+    \field{month}{08}
+    \field{year}{2011}
+    \field{urlday}{17}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{gompers_entrepreneurial_2005}{article}{}
+    \name{author}{3}{}{%
+      {{hash=GP}{%
+         family={Gompers},
+         familyi={G\bibinitperiod},
+         given={Paul},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=LJ}{%
+         family={Lerner},
+         familyi={L\bibinitperiod},
+         given={Josh},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=SD}{%
+         family={Scharfstein},
+         familyi={S\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GP+1}
+    \strng{fullhash}{GPLJSD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{labelyear}{2005}
+    \field{labeldatesource}{}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{abstract}{%
+    We examine two views of the creation of venture-backed start-ups, or
+  “entrepreneurial spawning.” In one, young firms prepare employees for
+  entrepreneurship, educating them about the process, and exposing them to
+  relevant networks. In the other, individuals become entrepreneurs when large
+  bureaucratic employers do not fund their ideas. Controlling for firm size,
+  patents, and industry, the most prolific spawners are originally
+  venture-backed companies located in Silicon Valley and Massachusetts.
+  Undiversified firms spawn more firms. Silicon Valley, Massachusetts, and
+  originally venture-backed firms typically spawn firms only peripherally
+  related to their core businesses. Overall, entrepreneurial learning and
+  networks appear important in creating venture-backed firms.%
+    }
+    \verb{doi}
+    \verb 10.1111/j.1540-6261.2005.00740.x
+    \endverb
+    \field{issn}{1540-6261}
+    \field{number}{2}
+    \field{pages}{577\bibrangedash 614}
+    \field{shorttitle}{Entrepreneurial Spawning}
+    \field{title}{Entrepreneurial Spawning: Public Corporations and the Genesis
+  of New Ventures, 1986 to 1999}
+    \verb{url}
+    \verb https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1540-6261.2005.0074
+    \verb 0.x
+    \endverb
+    \field{volume}{60}
+    \field{langid}{english}
+    \field{journaltitle}{The Journal of Finance}
+    \field{year}{2005}
+    \field{urlday}{18}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{griliches_issues_1979}{article}{}
+    \name{author}{1}{}{%
+      {{hash=GZ}{%
+         family={Griliches},
+         familyi={G\bibinitperiod},
+         given={Zvi},
+         giveni={Z\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GZ1}
+    \strng{fullhash}{GZ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1979}
+    \field{labeldatesource}{}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{abstract}{%
+    This article outlines the production function approach to the estimation of
+  the returns to R\&D and then proceeds to discuss in turn two very difficult
+  problems: the measurement of output in R\&D intensive industries and the
+  definition and measurement of the stock of R\&D "capital." The latter concept
+  leads to a discussion of modeling of the spillover effects of R\&D and to
+  suggestions for possible measurement of such effects via the concept of
+  technological distance between firms and industries. Somewhat more familiar
+  econometric problems (multicollinearity and simultaneity) are taken up in the
+  next section and another section is devoted to estimation and inference
+  problems arising more specifically in the R\&D context. Several recent
+  studies of returns to R\&D are then surveyed, and the paper concludes with a
+  plea for a lowering of expectations as to what the available data can tell us
+  and with suggestions for ways of expanding the current data base in this
+  field.%
+    }
+    \verb{doi}
+    \verb 10.2307/3003321
+    \endverb
+    \field{issn}{0361-915X}
+    \field{note}{Publisher: [{RAND} Corporation, Wiley]}
+    \field{number}{1}
+    \field{pages}{92\bibrangedash 116}
+    \field{title}{Issues in Assessing the Contribution of Research and
+  Development to Productivity Growth}
+    \verb{url}
+    \verb https://www.jstor.org/stable/3003321
+    \endverb
+    \field{volume}{10}
+    \verb{file}
+    \verb Submitted Version:/home/nico/Zotero/storage/S9L752J3/Griliches - 1979
+    \verb  - Issues in Assessing the Contribution of Research a.pdf:application
+    \verb /pdf
+    \endverb
+    \field{journaltitle}{The Bell Journal of Economics}
+    \field{year}{1979}
+    \field{urlday}{27}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{griliches_search_1992}{article}{}
+    \name{author}{1}{}{%
+      {{hash=GZ}{%
+         family={Griliches},
+         familyi={G\bibinitperiod},
+         given={Zvi},
+         giveni={Z\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GZ1}
+    \strng{fullhash}{GZ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1992}
+    \field{labeldatesource}{}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{abstract}{%
+    R\&D spillovers are, potentially, a major source of endogenous growth in
+  various recent "New Growth Theory" models. This paper reviews the basic model
+  of R\&D spillovers and then focuses on the empirical evidence for their
+  existence and magnitude. It surveys the older empirical literature with
+  special attention to the econometric difficulties of actually coming up with
+  convincing evidence on this topic. Taken individually, many of the studies
+  are flawed and subject to a variety of reservations, but the overall
+  impression remains that R\&D spillovers are both prevalent and important.%
+    }
+    \verb{doi}
+    \verb 10.2307/3440244
+    \endverb
+    \field{issn}{0347-0520}
+    \field{note}{Publisher: [Wiley, The Scandinavian Journal of Economics]}
+    \field{pages}{S29\bibrangedash S47}
+    \field{title}{The Search for R\&D Spillovers}
+    \verb{url}
+    \verb https://www.jstor.org/stable/3440244
+    \endverb
+    \field{volume}{94}
+    \verb{file}
+    \verb JSTOR Full Text PDF:/home/nico/Zotero/storage/NBVSU6P5/Griliches - 19
+    \verb 92 - The Search for R&D Spillovers.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{The Scandinavian Journal of Economics}
+    \field{year}{1992}
+    \field{urlday}{27}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{grossman_quality_1991}{article}{}
+    \name{author}{2}{}{%
+      {{hash=GGM}{%
+         family={Grossman},
+         familyi={G\bibinitperiod},
+         given={Gene\bibnamedelima M.},
+         giveni={G\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=HE}{%
+         family={Helpman},
+         familyi={H\bibinitperiod},
+         given={Elhanan},
+         giveni={E\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GGMHE1}
+    \strng{fullhash}{GGMHE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1991}
+    \field{labeldatesource}{}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{abstract}{%
+    [We develop a model of repeated product improvements in a continuum of
+  sectors. Each product follows a stochastic progression up a quality ladder.
+  Progress is not uniform across sectors, so an equilibrium distribution of
+  qualities evolves over time. But the rate of aggregate growth is constant.
+  The growth rate responds to profit incentives in the R\&D sector. We explore
+  the welfare properties of our model. Then we relate our approach to an
+  alternative one that views product innovation as a process of generating an
+  ever-expanding range of horizontally differentiated products. Finally, we
+  apply the model to issues of resource accumulation and international trade.]%
+    }
+    \verb{doi}
+    \verb 10.2307/2298044
+    \endverb
+    \field{issn}{0034-6527}
+    \field{number}{1}
+    \field{pages}{43\bibrangedash 61}
+    \field{title}{Quality Ladders in the Theory of Growth}
+    \verb{url}
+    \verb https://www.jstor.org/stable/2298044
+    \endverb
+    \field{volume}{58}
+    \field{journaltitle}{The Review of Economic Studies}
+    \field{year}{1991}
+    \field{urlday}{17}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{hall_chapter_2010}{incollection}{}
+    \name{author}{3}{}{%
+      {{hash=HBH}{%
+         family={Hall},
+         familyi={H\bibinitperiod},
+         given={Bronwyn\bibnamedelima H.},
+         giveni={B\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+      {{hash=MJ}{%
+         family={Mairesse},
+         familyi={M\bibinitperiod},
+         given={Jacques},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=MP}{%
+         family={Mohnen},
+         familyi={M\bibinitperiod},
+         given={Pierre},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \name{editor}{2}{}{%
+      {{hash=HBH}{%
+         family={Hall},
+         familyi={H\bibinitperiod},
+         given={Bronwyn\bibnamedelima H.},
+         giveni={B\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+      {{hash=RN}{%
+         family={Rosenberg},
+         familyi={R\bibinitperiod},
+         given={Nathan},
+         giveni={N\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {North-Holland}%
+    }
+    \keyw{O30, C23, C81, D24, model estimation, O37, private returns, research
+  and development, returns measurement, social returns, theoretical frameworks}
+    \strng{namehash}{HBH+1}
+    \strng{fullhash}{HBHMJMP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2010}
+    \field{labeldatesource}{}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{abstract}{%
+    We review the econometric literature on measuring the returns to R\&D. The
+  theoretical frameworks that have been used are outlined, followed by an
+  extensive discussion of measurement and econometric issues that arise when
+  estimating the models. We then provide a series of tables summarizing the
+  major results that have been obtained and conclude with a presentation of
+  R\&D spillover returns measurement. In general, the private returns to R\&D
+  are strongly positive and somewhat higher than those for ordinary capital,
+  while the social returns are even higher, although variable and imprecisely
+  measured in many cases.%
+    }
+    \field{booktitle}{Handbook of the Economics of Innovation}
+    \verb{doi}
+    \verb 10.1016/S0169-7218(10)02008-3
+    \endverb
+    \field{pages}{1033\bibrangedash 1082}
+    \field{series}{Handbook of the Economics of Innovation, Volume 2}
+    \field{title}{Chapter 24 - Measuring the Returns to R\&D}
+    \verb{url}
+    \verb http://www.sciencedirect.com/science/article/pii/S0169721810020083
+    \endverb
+    \field{volume}{2}
+    \field{langid}{english}
+    \verb{file}
+    \verb ScienceDirect Full Text PDF:/home/nico/Zotero/storage/6VV898RS/Hall e
+    \verb t al. - 2010 - Chapter 24 - Measuring the Returns to R&D.pdf:applicat
+    \verb ion/pdf;ScienceDirect Snapshot:/home/nico/Zotero/storage/D747M9K2/S01
+    \verb 69721810020083.html:text/html
+    \endverb
+    \field{day}{01}
+    \field{month}{01}
+    \field{year}{2010}
+    \field{urlday}{27}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{harrison_does_2014}{article}{}
+    \name{author}{4}{}{%
+      {{hash=HR}{%
+         family={Harrison},
+         familyi={H\bibinitperiod},
+         given={Rupert},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=JJ}{%
+         family={Jaumandreu},
+         familyi={J\bibinitperiod},
+         given={Jordi},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=MJ}{%
+         family={Mairesse},
+         familyi={M\bibinitperiod},
+         given={Jacques},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=PB}{%
+         family={Peters},
+         familyi={P\bibinitperiod},
+         given={Bettina},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \keyw{Employment, Process innovation, Product innovation}
+    \strng{namehash}{HR+1}
+    \strng{fullhash}{HRJJMJPB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{labelyear}{2014}
+    \field{labeldatesource}{}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{abstract}{%
+    We study the impact of process and product innovations introduced by firms
+  on employment growth with random samples of manufacturing and services from
+  France, Germany, Spain and the {UK} for 1998–2000, totaling about 20,000
+  companies. We develop and estimate a model relating firms' and industry's
+  employment to innovation, that leads us to the conclusions that follow. Trend
+  increases in productivity reinforced by process innovation are an important
+  source of reduction of employment requirements for a given output, but the
+  growth of demand for the old products tends to overcompensate these
+  displacement effects. The switch of production towards new products does not
+  reduce employment requirements, and the growth of the demand for the new
+  products is the strongest force behind employment creation. Reallocation due
+  to business stealing is estimated at a maximum of one third of the net
+  employment created by product innovators. The growth of employment originated
+  from the market expansion induced by the new products can be as important as
+  another third.%
+    }
+    \verb{doi}
+    \verb 10.1016/j.ijindorg.2014.06.001
+    \endverb
+    \field{issn}{0167-7187}
+    \field{pages}{29\bibrangedash 43}
+    \field{shortjournal}{International Journal of Industrial Organization}
+    \field{shorttitle}{Does innovation stimulate employment?}
+    \field{title}{Does innovation stimulate employment? A firm-level analysis
+  using comparable micro-data from four European countries}
+    \verb{url}
+    \verb http://www.sciencedirect.com/science/article/pii/S0167718714000563
+    \endverb
+    \field{volume}{35}
+    \field{langid}{english}
+    \verb{file}
+    \verb ScienceDirect Full Text PDF:/home/nico/Zotero/storage/2E88NRTK/Harris
+    \verb on et al. - 2014 - Does innovation stimulate employment A firm-level.
+    \verb pdf:application/pdf;ScienceDirect Snapshot:/home/nico/Zotero/storage/
+    \verb 64TSFDI7/S0167718714000563.html:text/html
+    \endverb
+    \field{journaltitle}{International Journal of Industrial Organization}
+    \field{day}{01}
+    \field{month}{07}
+    \field{year}{2014}
+    \field{urlday}{27}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{jeffers_impact_2018}{report}{}
+    \name{author}{1}{}{%
+      {{hash=JJ}{%
+         family={Jeffers},
+         familyi={J\bibinitperiod},
+         given={Jessica},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \keyw{entrepreneurship, investment, Labor mobility, non-competes}
+    \strng{namehash}{JJ1}
+    \strng{fullhash}{JJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2018}
+    \field{labeldatesource}{}
+    \field{sortinit}{J}
+    \field{sortinithash}{J}
+    \field{abstract}{%
+    I investigate the impact of restricting labor mobility on two components of
+  growth: entrepreneurship and capital investment. To identify the mechanism, I
+  combine {LinkedIn}'s database of employment histories with staggered changes
+  in the enforceability of non-compete agreements that come mostly from court
+  rulings. Stronger enforceability leads to a substantial decline in employee
+  departures, especially in knowledge-intensive occupations, and reduces
+  entrepreneurship in corresponding sectors. However, these shocks increase the
+  investment rate at existing knowledge-intensive fi rms. The estimates in my
+  sample suggest that, in such sectors, there is roughly \$1.8 million of
+  additional capital investment from publicly-held fi rms for every lost new
+  firm entry.%
+    }
+    \field{number}{{ID} 3040393}
+    \field{title}{The Impact of Restricting Labor Mobility on Corporate
+  Investment and Entrepreneurship}
+    \verb{url}
+    \verb https://papers.ssrn.com/abstract=3040393
+    \endverb
+    \field{langid}{english}
+    \list{location}{1}{%
+      {Rochester, {NY}}%
+    }
+    \list{institution}{1}{%
+      {Social Science Research Network}%
+    }
+    \field{type}{{SSRN} Scholarly Paper}
+    \field{month}{05}
+    \field{year}{2018}
+    \field{urlday}{17}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{jones_measuring_1998}{article}{}
+    \name{author}{2}{}{%
+      {{hash=JCI}{%
+         family={Jones},
+         familyi={J\bibinitperiod},
+         given={Charles\bibnamedelima I.},
+         giveni={C\bibinitperiod\bibinitdelim I\bibinitperiod},
+      }}%
+      {{hash=WJC}{%
+         family={Williams},
+         familyi={W\bibinitperiod},
+         given={John\bibnamedelima C.},
+         giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{JCIWJC1}
+    \strng{fullhash}{JCIWJC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1998}
+    \field{labeldatesource}{}
+    \field{sortinit}{J}
+    \field{sortinithash}{J}
+    \field{abstract}{%
+    Is there too much or too little research and development (R\&D)? In this
+  paper we bridge the gap between the recent growth literature and the
+  empirical productivity literature. We derive in a growth model the
+  relationship between the social rate of return to R\&D and the coefficient
+  estimates of the empirical literature and show that these estimates represent
+  a lower bound. Furthermore, our analytic framework provides a direct mapping
+  from the rate of return to the degree of underinvestment in research.
+  Conservative estimates suggest that optimal R\&D investment is at least two
+  to four times actual investment.%
+    }
+    \field{issn}{0033-5533}
+    \field{note}{Publisher: Oxford University Press}
+    \field{number}{4}
+    \field{pages}{1119\bibrangedash 1135}
+    \field{title}{Measuring the Social Return to R \& D}
+    \verb{url}
+    \verb https://www.jstor.org/stable/2586976
+    \endverb
+    \field{volume}{113}
+    \field{journaltitle}{The Quarterly Journal of Economics}
+    \field{year}{1998}
+    \field{urlday}{27}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{kaplan_how_2002}{article}{}
+    \name{author}{3}{}{%
+      {{hash=KSN}{%
+         family={Kaplan},
+         familyi={K\bibinitperiod},
+         given={Steven\bibnamedelima N.},
+         giveni={S\bibinitperiod\bibinitdelim N\bibinitperiod},
+      }}%
+      {{hash=SBM}{%
+         family={Sensoy},
+         familyi={S\bibinitperiod},
+         given={Berk\bibnamedelima M.},
+         giveni={B\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=SP}{%
+         family={Stromberg},
+         familyi={S\bibinitperiod},
+         given={Per},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KSN+1}
+    \strng{fullhash}{KSNSBMSP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2002}
+    \field{labeldatesource}{}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{title}{How well do venture capital databases reflect actual
+  investments?}
+    \verb{url}
+    \verb https://faculty.chicagobooth.edu/steven.kaplan/research/kss1.pdf
+    \endverb
+    \field{journaltitle}{Working Paper}
+    \field{month}{09}
+    \field{year}{2002}
+  \endentry
+
+  \entry{kaplan_venture_2016}{article}{}
+    \name{author}{1}{}{%
+      {{hash=KSN}{%
+         family={Kaplan},
+         familyi={K\bibinitperiod},
+         given={Steven\bibnamedelima Neil},
+         giveni={S\bibinitperiod\bibinitdelim N\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KSN1}
+    \strng{fullhash}{KSN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2016}
+    \field{labeldatesource}{}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{abstract}{%
+    This paper describes the available data and research on venture capital
+  investments and performance. We comment on the challenges inherent in those
+  data and research as well as possible opportunities to do better.%
+    }
+    \field{pages}{26}
+    \field{title}{Venture Capital Data: Opportunities and Challenges}
+    \field{langid}{english}
+    \field{journaltitle}{{NBER} Working Paper}
+    \field{year}{2016}
+  \endentry
+
+  \entry{klenow_innovative_2020}{report}{}
+    \name{author}{2}{}{%
+      {{hash=KPJ}{%
+         family={Klenow},
+         familyi={K\bibinitperiod},
+         given={Peter\bibnamedelima J.},
+         giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=LH}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Huiyu},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KPJLH1}
+    \strng{fullhash}{KPJLH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2020}
+    \field{labeldatesource}{}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{abstract}{%
+    Founded in 1920, the {NBER} is a private, non-profit, non-partisan
+  organization dedicated to conducting economic research and to disseminating
+  research findings among academics, public policy makers, and business
+  professionals.%
+    }
+    \verb{doi}
+    \verb 10.3386/w27015
+    \endverb
+    \field{number}{w27015}
+    \field{title}{Innovative Growth Accounting}
+    \verb{url}
+    \verb https://www.nber.org/papers/w27015
+    \endverb
+    \field{langid}{english}
+    \list{institution}{1}{%
+      {National Bureau of Economic Research}%
+    }
+    \verb{file}
+    \verb Submitted Version:/home/nico/Zotero/storage/LAQ3NLQX/Klenow and Li -
+    \verb 2020 - Innovative Growth Accounting.pdf:application/pdf;Snapshot:/hom
+    \verb e/nico/Zotero/storage/QUNGKDXK/w27015.html:text/html
+    \endverb
+    \field{day}{20}
+    \field{month}{04}
+    \field{year}{2020}
+    \field{urlday}{14}
+    \field{urlmonth}{11}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{klepper_capabilities_2002}{article}{}
+    \name{author}{1}{}{%
+      {{hash=KS}{%
+         family={Klepper},
+         familyi={K\bibinitperiod},
+         given={Steven},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KS1}
+    \strng{fullhash}{KS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2002}
+    \field{labeldatesource}{}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{abstract}{%
+    Abstract. Firms that diversify into new and existing industries typically
+  outperform de novo entrants, but in some new industries diversifying firms
+  are displa%
+    }
+    \verb{doi}
+    \verb 10.1093/icc/11.4.645
+    \endverb
+    \field{issn}{0960-6491}
+    \field{note}{Publisher: Oxford Academic}
+    \field{number}{4}
+    \field{pages}{645\bibrangedash 666}
+    \field{shortjournal}{Ind Corp Change}
+    \field{title}{The capabilities of new firms and the evolution of the {US}
+  automobile industry}
+    \verb{url}
+    \verb https://academic.oup.com/icc/article/11/4/645/705814
+    \endverb
+    \field{volume}{11}
+    \field{langid}{english}
+    \verb{file}
+    \verb Full Text PDF:/home/nico/Zotero/storage/UVLCKBGF/Klepper - 2002 - The
+    \verb  capabilities of new firms and the evolution of.pdf:application/pdf;S
+    \verb napshot:/home/nico/Zotero/storage/G7TWUCG4/705814.html:text/html
+    \endverb
+    \field{journaltitle}{Industrial and Corporate Change}
+    \field{day}{01}
+    \field{month}{08}
+    \field{year}{2002}
+    \field{urlday}{27}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{klepper_disagreements_2007}{article}{}
+    \name{author}{1}{}{%
+      {{hash=KS}{%
+         family={Klepper},
+         familyi={K\bibinitperiod},
+         given={Steven},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KS1}
+    \strng{fullhash}{KS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2007}
+    \field{labeldatesource}{}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \verb{doi}
+    \verb 10.1287/mnsc.1060.0683
+    \endverb
+    \field{issn}{0025-1909, 1526-5501}
+    \field{number}{4}
+    \field{pages}{616\bibrangedash 631}
+    \field{shortjournal}{Management Science}
+    \field{title}{Disagreements, Spinoffs, and the Evolution of Detroit as the
+  Capital of the U.S. Automobile Industry}
+    \verb{url}
+    \verb http://pubsonline.informs.org/doi/abs/10.1287/mnsc.1060.0683
+    \endverb
+    \field{volume}{53}
+    \field{langid}{english}
+    \verb{file}
+    \verb Klepper - 2007 - Disagreements, Spinoffs, and the Evolution of Detr.p
+    \verb df:/home/nico/Zotero/storage/25UW27LX/Klepper - 2007 - Disagreements,
+    \verb  Spinoffs, and the Evolution of Detr.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Management Science}
+    \field{month}{04}
+    \field{year}{2007}
+    \field{urlday}{29}
+    \field{urlmonth}{09}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{klepper_entry_2005}{article}{}
+    \name{author}{2}{}{%
+      {{hash=KS}{%
+         family={Klepper},
+         familyi={K\bibinitperiod},
+         given={Steven},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=SS}{%
+         family={Sleeper},
+         familyi={S\bibinitperiod},
+         given={Sally},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KSSS1}
+    \strng{fullhash}{KSSS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2005}
+    \field{labeldatesource}{}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{abstract}{%
+    Entry by spinoffs from incumbent firms is investigated for the laser
+  industry. A model in which spinoffs exploit knowledge from their parents is
+  constructed to explain the market conditions conducive to spinoffs, the types
+  of firms that spawn spinoffs, and the relationship of spinoffs to their
+  parents. The model is tested using detailed data on all laser entrants from
+  the start of the industry through 1994. Our findings support the basic
+  premise of the model that spinoffs inherit knowledge from their parents that
+  shapes their nature at birth. Implications of our findings for organizational
+  behavior, business strategy, entry and industry evolution, and technological
+  change are discussed.%
+    }
+    \verb{doi}
+    \verb 10.1287/mnsc.1050.0411
+    \endverb
+    \field{issn}{0025-1909}
+    \field{number}{8}
+    \field{pages}{1291\bibrangedash 1306}
+    \field{title}{Entry by Spinoffs}
+    \verb{url}
+    \verb https://pubsonline.informs.org/doi/10.1287/mnsc.1050.0411
+    \endverb
+    \field{volume}{51}
+    \field{journaltitle}{Management Science}
+    \field{month}{08}
+    \field{year}{2005}
+    \field{urlday}{17}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{klepper_disagreements_2010}{article}{}
+    \name{author}{2}{}{%
+      {{hash=KS}{%
+         family={Klepper},
+         familyi={K\bibinitperiod},
+         given={Steven},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=TP}{%
+         family={Thompson},
+         familyi={T\bibinitperiod},
+         given={Peter},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \keyw{Learning, Spinoffs, Strategic disagreement}
+    \strng{namehash}{KSTP1}
+    \strng{fullhash}{KSTP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2010}
+    \field{labeldatesource}{}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{abstract}{%
+    A growing empirical literature on spinoff formation has begun to reveal
+  some striking regularities about which firms are most likely to spawn
+  spinoffs, when they are most likely to spawn them, and the relationship
+  between the quality of the parent firm and its spinoffs. Deeper
+  investigations into the causes of spinoffs have highlighted the importance of
+  strategic disagreements in driving some employees to resign and found a new
+  venture. Motivated by this literature, we construct a new theory of spinoff
+  formation driven by strategic disagreements and explore how well it explains
+  the emerging empirical regularities.%
+    }
+    \verb{doi}
+    \verb 10.1016/j.ijindorg.2010.01.002
+    \endverb
+    \field{issn}{0167-7187}
+    \field{number}{5}
+    \field{pages}{526\bibrangedash 538}
+    \field{shortjournal}{International Journal of Industrial Organization}
+    \field{title}{Disagreements and intra-industry spinoffs}
+    \verb{url}
+    \verb http://www.sciencedirect.com/science/article/pii/S0167718710000123
+    \endverb
+    \field{volume}{28}
+    \field{langid}{english}
+    \verb{file}
+    \verb ScienceDirect Full Text PDF:/home/nico/Zotero/storage/KKRYDV4R/Kleppe
+    \verb r and Thompson - 2010 - Disagreements and intra-industry spinoffs.pdf
+    \verb :application/pdf;ScienceDirect Snapshot:/home/nico/Zotero/storage/QPN
+    \verb SDWEA/S0167718710000123.html:text/html
+    \endverb
+    \field{journaltitle}{International Journal of Industrial Organization}
+    \field{day}{01}
+    \field{month}{09}
+    \field{year}{2010}
+    \field{urlday}{27}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{klette_innovating_2004}{article}{}
+    \name{author}{2}{}{%
+      {{hash=KTJ}{%
+         family={Klette},
+         familyi={K\bibinitperiod},
+         given={Tor\bibnamedelima Jakob},
+         giveni={T\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=KS}{%
+         family={Kortum},
+         familyi={K\bibinitperiod},
+         given={Samuel},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KTJKS1}
+    \strng{fullhash}{KTJKS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2004}
+    \field{labeldatesource}{}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{abstract}{%
+    We develop a parsimonious model of innovation to confront firm‐level
+  evidence. It captures the dynamics of individual heterogeneous firms,
+  describes the behavior of an industry with firm entry and exit, and delivers
+  a general equilibrium model of technological change. While unifying the
+  theoretical analysis of firms, industries, and the aggregate economy, the
+  model yields insights into empirical work on innovating firms. It accounts
+  for the persistence of firms’ R\&D investment, the concentration of R\&D
+  among incumbents, the link between R\&D and patenting, and why R\&D as a
+  fraction of revenues is positively correlated with firm productivity but not
+  with firm size or growth.%
+    }
+    \verb{doi}
+    \verb 10.1086/422563
+    \endverb
+    \field{issn}{0022-3808}
+    \field{number}{5}
+    \field{pages}{986\bibrangedash 1018}
+    \field{title}{Innovating Firms and Aggregate Innovation}
+    \verb{url}
+    \verb https://www.journals.uchicago.edu/doi/10.1086/422563
+    \endverb
+    \field{volume}{112}
+    \field{journaltitle}{Journal of Political Economy}
+    \field{month}{10}
+    \field{year}{2004}
+    \field{urlday}{17}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{lentz_empirical_2008}{article}{}
+    \name{author}{2}{}{%
+      {{hash=LR}{%
+         family={Lentz},
+         familyi={L\bibinitperiod},
+         given={Rasmus},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=MDT}{%
+         family={Mortensen},
+         familyi={M\bibinitperiod},
+         given={Dale\bibnamedelima T.},
+         giveni={D\bibinitperiod\bibinitdelim T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LRMDT1}
+    \strng{fullhash}{LRMDT1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2008}
+    \field{labeldatesource}{}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{abstract}{%
+    Productivity differences across firms are large and persistent, but the
+  evidence for worker reallocation as an important source of aggregate
+  productivity growth is mixed. The purpose of this paper is to estimate the
+  structure of an equilibrium model of growth through innovation designed to
+  identify and quantify the role of resource reallocation in the growth
+  process. The model is a version of the Schumpeterian theory of firm evolution
+  and growth developed by Klette and Kortum (2004) extended to allow for firm
+  heterogeneity. The data set is a panel of Danish firms that includes
+  information on value added, employment, and wages. The model's fit is good.
+  The estimated model implies that more productive firms in each cohort grow
+  faster and consequently crowd out less productive firms in steady state. This
+  selection effect accounts for 53\% of aggregate growth in the estimated
+  version of the model.%
+    }
+    \field{issn}{0012-9682}
+    \field{note}{Publisher: [Wiley, Econometric Society]}
+    \field{number}{6}
+    \field{pages}{1317\bibrangedash 1373}
+    \field{title}{An Empirical Model of Growth through Product Innovation}
+    \verb{url}
+    \verb https://www.jstor.org/stable/40056508
+    \endverb
+    \field{volume}{76}
+    \field{journaltitle}{Econometrica}
+    \field{year}{2008}
+    \field{urlday}{27}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{marx_regional_2015}{article}{}
+    \name{author}{3}{}{%
+      {{hash=MM}{%
+         family={Marx},
+         familyi={M\bibinitperiod},
+         given={Matt},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Singh},
+         familyi={S\bibinitperiod},
+         given={Jasjit},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=FL}{%
+         family={Fleming},
+         familyi={F\bibinitperiod},
+         given={Lee},
+         giveni={L\bibinitperiod},
+      }}%
+    }
+    \keyw{Labor mobility, Non-compete agreements, Regional economics}
+    \strng{namehash}{MM+1}
+    \strng{fullhash}{MMSJFL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{labelyear}{2015}
+    \field{labeldatesource}{}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{abstract}{%
+    A growing body of research has documented the local impact of employee
+  non-compete agreements, but their effect on interstate migration patterns
+  remains unexplored. Exploiting an inadvertent policy reversal in Michigan as
+  a natural experiment, we show that non-compete agreements are responsible for
+  a “brain drain” of knowledge workers out of states that enforce such
+  contracts to states where they are not enforceable. Importantly, this effect
+  is felt most strongly on the margin of workers who are more collaborative and
+  whose work is more impactful.%
+    }
+    \field{number}{2}
+    \field{pages}{394\bibrangedash 404}
+    \field{shorttitle}{Regional disadvantage?}
+    \field{title}{Regional disadvantage? Employee non-compete agreements and
+  brain drain}
+    \verb{url}
+    \verb https://ideas.repec.org/a/eee/respol/v44y2015i2p394-404.html
+    \endverb
+    \field{volume}{44}
+    \field{langid}{english}
+    \field{journaltitle}{Research Policy}
+    \field{year}{2015}
+    \field{urlday}{18}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{marx_mobility_2009}{article}{}
+    \name{author}{3}{}{%
+      {{hash=MM}{%
+         family={Marx},
+         familyi={M\bibinitperiod},
+         given={Matt},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=SD}{%
+         family={Strumsky},
+         familyi={S\bibinitperiod},
+         given={Deborah},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=FL}{%
+         family={Fleming},
+         familyi={F\bibinitperiod},
+         given={Lee},
+         giveni={L\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MM+1}
+    \strng{fullhash}{MMSDFL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2009}
+    \field{labeldatesource}{}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{abstract}{%
+    Whereas a number of studies have considered the implications of employee
+  mobility, comparatively little research has considered institutional factors
+  governing the ability of employees to move from one firm to another. This
+  paper explores a legal constraint on mobility—employee non-compete
+  agreements—by exploiting Michigan's apparently inadvertent 1985 reversal of
+  its non-compete enforcement policy as a natural experiment. Using a
+  differences-in-differences approach, and controlling for changes in the auto
+  industry central to Michigan's economy, we find that the enforcement of
+  non-competes indeed attenuates mobility. Moreover, non-compete enforcement
+  decreases mobility more sharply for inventors with firm-specific skills and
+  for those who specialize in narrow technical fields. The results speak to the
+  literature on employee mobility while offering a credibly exogenous source of
+  variation that can extend previous research on the implications of such
+  mobility.%
+    }
+    \verb{doi}
+    \verb 10.1287/mnsc.1080.0985
+    \endverb
+    \field{issn}{0025-1909}
+    \field{number}{6}
+    \field{pages}{875\bibrangedash 889}
+    \field{title}{Mobility, Skills, and the Michigan Non-Compete Experiment}
+    \verb{url}
+    \verb https://pubsonline.informs.org/doi/abs/10.1287/mnsc.1080.0985
+    \endverb
+    \field{volume}{55}
+    \field{journaltitle}{Management Science}
+    \field{month}{04}
+    \field{year}{2009}
+    \field{urlday}{18}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{mohnen_innovation_2013}{article}{}
+    \name{author}{2}{}{%
+      {{hash=MP}{%
+         family={Mohnen},
+         familyi={M\bibinitperiod},
+         given={Pierre},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=HBH}{%
+         family={Hall},
+         familyi={H\bibinitperiod},
+         given={Bronwyn\bibnamedelima H.},
+         giveni={B\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+    }
+    \keyw{Innovation, Productivity}
+    \strng{namehash}{MPHBH1}
+    \strng{fullhash}{MPHBH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{labelyear}{2013}
+    \field{labeldatesource}{}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{abstract}{%
+    This paper reviews the existing evidence regarding the effects of
+  technological and non-technological innovations on the productivity of firms
+  and the existence of possible complementarities between these different forms
+  of innovation.%
+    }
+    \field{note}{Publisher: Eurasia Business and Economics Society}
+    \field{number}{1}
+    \field{pages}{47\bibrangedash 65}
+    \field{shorttitle}{Innovation and Productivity}
+    \field{title}{Innovation and Productivity: An Update}
+    \verb{url}
+    \verb https://ideas.repec.org/a/ebz/ebrjrn/v3y2013i1p47-65.html
+    \endverb
+    \field{volume}{3}
+    \field{langid}{english}
+    \verb{file}
+    \verb Snapshot:/home/nico/Zotero/storage/ZV2VJ4KA/v3y2013i1p47-65.html:text
+    \verb /html
+    \endverb
+    \field{journaltitle}{Eurasian Business Review}
+    \field{year}{2013}
+    \field{urlday}{27}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{muendler_employee_2012}{article}{}
+    \name{author}{3}{}{%
+      {{hash=MMA}{%
+         family={Muendler},
+         familyi={M\bibinitperiod},
+         given={Marc-Andreas},
+         giveni={M\bibinithyphendelim A\bibinitperiod},
+      }}%
+      {{hash=RJE}{%
+         family={Rauch},
+         familyi={R\bibinitperiod},
+         given={James\bibnamedelima E.},
+         giveni={J\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=TO}{%
+         family={Tocoian},
+         familyi={T\bibinitperiod},
+         given={Oana},
+         giveni={O\bibinitperiod},
+      }}%
+    }
+    \keyw{Employee spinoffs, Entrepreneurship, Firm performance, Labor
+  turnover}
+    \strng{namehash}{MMA+1}
+    \strng{fullhash}{MMARJETO1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{labelyear}{2012}
+    \field{labeldatesource}{}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{abstract}{%
+    We gauge the prevalence and performance of firms founded as employee
+  spinoffs, relative to other new firms with and without parents, and relative
+  to diversification ventures of existing firms entering new industries. Using
+  a comprehensive linked employer–employee database from Brazil for the
+  universe of formal firms during the period 1995–2001, we are able to
+  identify an employee spinoff either when the director/manager moved from a
+  parent in the same industry or when one-quarter of the employees shifted from
+  a common parent. Depending on definition, employee spinoffs account for
+  between one-sixth and one-third of the new firms in Brazil's private sector
+  during this period. Regardless of definition, size at entry is larger for
+  employee spinoffs than for new firms without parents but smaller than for
+  diversification ventures of existing firms. Similarly, survival rates for
+  employee spinoffs are higher than for new firms without parents and
+  comparable to those for diversification ventures of existing firms. These
+  results suggest that we can think of some part of a firm's productivity and
+  riskiness as embodied in the firm's employees and portable.%
+    }
+    \verb{doi}
+    \verb 10.1016/j.ijindorg.2012.02.001
+    \endverb
+    \field{issn}{0167-7187}
+    \field{number}{5}
+    \field{pages}{447\bibrangedash 458}
+    \field{shorttitle}{Employee spinoffs and other entrants}
+    \field{title}{Employee spinoffs and other entrants: Stylized facts from
+  Brazil}
+    \verb{url}
+    \verb http://www.sciencedirect.com/science/article/pii/S0167718712000288
+    \endverb
+    \field{volume}{30}
+    \field{journaltitle}{International Journal of Industrial Organization}
+    \field{month}{09}
+    \field{year}{2012}
+    \field{urlday}{17}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{romer_increasing_1986}{article}{}
+    \name{author}{1}{}{%
+      {{hash=RPM}{%
+         family={Romer},
+         familyi={R\bibinitperiod},
+         given={Paul\bibnamedelima M.},
+         giveni={P\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RPM1}
+    \strng{fullhash}{RPM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1986}
+    \field{labeldatesource}{}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \verb{doi}
+    \verb 10.1086/261420
+    \endverb
+    \field{issn}{0022-3808, 1537-534X}
+    \field{number}{5}
+    \field{pages}{1002\bibrangedash 1037}
+    \field{title}{Increasing Returns and Long-Run Growth}
+    \verb{url}
+    \verb https://www.journals.uchicago.edu/doi/10.1086/261420
+    \endverb
+    \field{volume}{94}
+    \field{langid}{english}
+    \field{journaltitle}{Journal of Political Economy}
+    \field{month}{10}
+    \field{year}{1986}
+    \field{urlday}{17}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{romer_endogenous_1990}{article}{}
+    \name{author}{1}{}{%
+      {{hash=RPM}{%
+         family={Romer},
+         familyi={R\bibinitperiod},
+         given={Paul\bibnamedelima M.},
+         giveni={P\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RPM1}
+    \strng{fullhash}{RPM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1990}
+    \field{labeldatesource}{}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{abstract}{%
+    Growth in this model is driven by technological change that arises from
+  intentional investment decisions made by profit-maximizing agents. The
+  distinguishing feature of the technology as an input is that it is neither a
+  conventional good nor a public good; it is a nonrival, partially excludable
+  good. Because of the nonconvexity introduced by a nonrival good, price-taking
+  competition cannot be supported. Instead, the equilibrium is one with
+  monopolistic competition. The main conclusions are that the stock of human
+  capital determines the rate of growth, that too little human capital is
+  devoted to research in equilibrium, that integration into world markets will
+  increase growth rates, and that having a large population is not sufficient
+  to generate growth.%
+    }
+    \verb{doi}
+    \verb 10.1086/261725
+    \endverb
+    \field{issn}{0022-3808}
+    \field{note}{Publisher: The University of Chicago Press}
+    \field{number}{5}
+    \field{pages}{S71\bibrangedash S102}
+    \field{shortjournal}{Journal of Political Economy}
+    \field{title}{Endogenous Technological Change}
+    \verb{url}
+    \verb https://www.journals.uchicago.edu/doi/abs/10.1086/261725
+    \endverb
+    \field{volume}{98}
+    \verb{file}
+    \verb Submitted Version:/home/nico/Zotero/storage/NI4XK97I/Romer - 1990 - E
+    \verb ndogenous Technological Change.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Journal of Political Economy}
+    \field{day}{01}
+    \field{month}{10}
+    \field{year}{1990}
+    \field{urlday}{04}
+    \field{urlmonth}{12}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{samila_venture_2010}{article}{}
+    \name{author}{2}{}{%
+      {{hash=SS}{%
+         family={Samila},
+         familyi={S\bibinitperiod},
+         given={Sampsa},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=SO}{%
+         family={Sorenson},
+         familyi={S\bibinitperiod},
+         given={Olav},
+         giveni={O\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SSSO1}
+    \strng{fullhash}{SSSO1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2010}
+    \field{labeldatesource}{}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{abstract}{%
+    Using a panel of U.S. metropolitan areas, we find that increases in the
+  supply of venture capital positively affect firm starts, employment, and
+  aggregate income. Our results remain robust to a variety of specifications,
+  including ones that address endogeneity. The estimated magnitudes imply that
+  venture capital stimulates the creation of more firms than it funds, which
+  appears consistent with two mechanisms: First, would-be entrepreneurs
+  anticipating financing needs more likely start firms when the supply of
+  capital expands. Second, funded companies may transfer know-how to their
+  employees, thereby enabling spin-offs, and may encourage others to become
+  entrepreneurs through demonstration effects.%
+    }
+    \verb{doi}
+    \verb 10.1162/REST_a_00066
+    \endverb
+    \field{issn}{0034-6535}
+    \field{number}{1}
+    \field{pages}{338\bibrangedash 349}
+    \field{title}{Venture Capital, Entrepreneurship, and Economic Growth}
+    \verb{url}
+    \verb https://www.mitpressjournals.org/doi/10.1162/REST_a_00066
+    \endverb
+    \field{volume}{93}
+    \field{journaltitle}{The Review of Economics and Statistics}
+    \field{month}{07}
+    \field{year}{2010}
+    \field{urlday}{17}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{shi_restrictions_2018}{article}{}
+    \name{author}{1}{}{%
+      {{hash=SL}{%
+         family={Shi},
+         familyi={S\bibinitperiod},
+         given={Liyan},
+         giveni={L\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SL1}
+    \strng{fullhash}{SL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2018}
+    \field{labeldatesource}{}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{abstract}{%
+    This paper assesses the aggregate e↵ect of non-competition employment
+  contracts, agreements that exclude employees from joining competing firms for
+  a duration of time, in the managerial labor market. These contracts encourage
+  firm investment but restrict manager mobility. To explore this tradeo↵, I
+  develop a dynamic contracting model in which firms use non-competition to
+  enforce buyout payment when their managers are poached, ultimately extracting
+  rent from outside firms. Such rent extraction encour- ages initial employing
+  firms to undertake more investment, as they partially capture the external
+  payo↵, but distorts manager allocation. I show that the privately-optimal
+  contract over-extracts rent by setting an excessively long non-competition
+  duration. Therefore, restrictions on non-competition can improve efficiency.
+  To quantitatively evaluate the theory, I assemble a new dataset on
+  non-competition contracts for ex- ecutives in U.S. public firms. Using the
+  contract data, I find that executives under non-competition are associated
+  with a lower separation rate and higher firm invest- ment. I also provide new
+  empirical evidence consistent with non-competition reducing wage-backloading
+  in the model. The calibrated model suggests that the optimal re- striction on
+  non-competition duration is close to banning non-competition.%
+    }
+    \field{title}{Restrictions on Executive Mobility and Reallocation: The
+  Aggregate Effect of Non-Competition Contracts}
+    \field{journaltitle}{Working Paper}
+    \field{month}{01}
+    \field{year}{2018}
+  \endentry
+
+  \entry{starr_consider_2018}{report}{}
+    \name{author}{1}{}{%
+      {{hash=SE}{%
+         family={Starr},
+         familyi={S\bibinitperiod},
+         given={Evan},
+         giveni={E\bibinitperiod},
+      }}%
+    }
+    \keyw{Covenants Not to Compete, Employee Mobility, Training, Wages}
+    \strng{namehash}{SE1}
+    \strng{fullhash}{SE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{labelyear}{2018}
+    \field{labeldatesource}{}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{abstract}{%
+    This study examines the effect of noncompete enforceability on training and
+  wages. An increase from non-enforcement to mean enforceability is associated
+  with a 14\% increase in training, which tends to be firm-sponsored and
+  designed to upgrade or teach new skills. In contrast to theoretical
+  expectations, the results show no evidence of a relationship between
+  noncompete enforceability and self-sponsored training. Despite the increases
+  in training, an increase from non-enforcement to mean enforceability is
+  associated with a 4\% decrease in hourly wages. Consistent with reduced
+  bargaining power, noncompete enforceability is associated with a reduction in
+  the return to tenure, and less educated workers experience additional wage
+  losses in the face of increased enforceability relative to more educated
+  workers. Suggestive evidence indicates that consideration policies exhibit
+  differential effects relative to other types of noncompete policies.%
+    }
+    \field{number}{{ID} 2556669}
+    \field{shorttitle}{Consider This}
+    \field{title}{Consider This: Training, Wages, and the Enforceability of
+  Covenants Not to Compete}
+    \verb{url}
+    \verb https://papers.ssrn.com/abstract=2556669
+    \endverb
+    \field{langid}{english}
+    \list{location}{1}{%
+      {Rochester, {NY}}%
+    }
+    \list{institution}{1}{%
+      {Social Science Research Network}%
+    }
+    \field{type}{{SSRN} Scholarly Paper}
+    \field{month}{05}
+    \field{year}{2018}
+    \field{urlday}{21}
+    \field{urlmonth}{10}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{starr_screening_2018}{article}{}
+    \name{author}{3}{}{%
+      {{hash=SE}{%
+         family={Starr},
+         familyi={S\bibinitperiod},
+         given={Evan},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=BN}{%
+         family={Balasubramanian},
+         familyi={B\bibinitperiod},
+         given={Natarajan},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=SM}{%
+         family={Sakakibara},
+         familyi={S\bibinitperiod},
+         given={Mariko},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SE+1}
+    \strng{fullhash}{SEBNSM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{labelyear}{2018}
+    \field{labeldatesource}{}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{abstract}{%
+    This paper examines how the enforceability of noncompete covenants aﬀects
+  the creation, growth, and survival of spinouts and other new entrants. The
+  impact of noncompete enforceability on new ﬁrms is ambiguous, since
+  noncompetes reduce knowledge leakage but impose hiring costs. However, we
+  posit that enforceability screens formation of within-industry spinouts
+  ({WSOs}) relative to non-{WSOs} by dissuading founders with lower human
+  capital. Using data on 5.5 million new ﬁrms, we ﬁnd greater
+  enforceability is associated with fewer {WSOs}, but relative to non-{WSOs},
+  {WSOs} that are created tend to start and stay larger, are founded by
+  higher-earners, and are more likely to survive their initial years. In
+  contrast, we ﬁnd no impact on non-{WSO} entry and a negative eﬀect on
+  size and short-term survival.%
+    }
+    \verb{doi}
+    \verb 10.1287/mnsc.2016.2614
+    \endverb
+    \field{issn}{0025-1909, 1526-5501}
+    \field{number}{2}
+    \field{pages}{552\bibrangedash 572}
+    \field{shortjournal}{Management Science}
+    \field{shorttitle}{Screening Spinouts?}
+    \field{title}{Screening Spinouts? How Noncompete Enforceability Affects the
+  Creation, Growth, and Survival of New Firms}
+    \verb{url}
+    \verb http://pubsonline.informs.org/doi/10.1287/mnsc.2016.2614
+    \endverb
+    \field{volume}{64}
+    \field{langid}{english}
+    \verb{file}
+    \verb Starr et al. - 2018 - Screening Spinouts How Noncompete Enforceabilit
+    \verb y .pdf:/home/nico/Zotero/storage/YVBUG2MQ/Starr et al. - 2018 - Scree
+    \verb ning Spinouts How Noncompete Enforceability .pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Management Science}
+    \field{month}{02}
+    \field{year}{2018}
+    \field{urlday}{25}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{starr_noncompetes_2019}{report}{}
+    \name{author}{3}{}{%
+      {{hash=SE}{%
+         family={Starr},
+         familyi={S\bibinitperiod},
+         given={Evan},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=PJJ}{%
+         family={Prescott},
+         familyi={P\bibinitperiod},
+         given={J.\bibnamedelima J.},
+         giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=BN}{%
+         family={Bishara},
+         familyi={B\bibinitperiod},
+         given={Norman},
+         giveni={N\bibinitperiod},
+      }}%
+    }
+    \keyw{contracts, covenants not to compete, employment law, monopsony power,
+  training, wages}
+    \strng{namehash}{SE+1}
+    \strng{fullhash}{SEPJJBN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2019}
+    \field{labeldatesource}{}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{abstract}{%
+    Using nationally representative survey data on 11,505 labor force
+  participants, we examine the use, implementation, and labor market outcomes
+  associated with noncompete agreements. Nearly 1 in 5 labor force participants
+  were bound by noncompetes in 2014, and nearly 40\% had signed at least one
+  noncompete in the past. Noncompetes are more likely to be found in
+  high-skill, high-paying jobs, but they are also common in low-skill,
+  low-paying jobs as well as in states that do not enforce them. Less than 10\%
+  of employees negotiate over their noncompetes and roughly one-third of
+  noncompetes are signed after applicants have already accepted their job
+  offers (but not with a raise or promotion). Differences in the timing of the
+  noncompete are associated with different outcomes: those presented with a
+  noncompete before accepting the associated job offer earn 9.7\% higher wages,
+  receive 11\% more training, and are 6.6\% more satisfied in their job than
+  those not bound by noncompetes. However, those asked to sign after accepting
+  the job offer are 12.5\% less satisfied in their job and experience no wage
+  and training benefits. We conclude that noncompetes may be efficient
+  contracting tools, but that they can also serve as intertemporal conduits of
+  monopsony power.%
+    }
+    \field{number}{{ID} 2625714}
+    \field{title}{Noncompetes in the U.S. Labor Force}
+    \verb{url}
+    \verb https://papers.ssrn.com/abstract=2625714
+    \endverb
+    \field{langid}{english}
+    \list{location}{1}{%
+      {Rochester, {NY}}%
+    }
+    \list{institution}{1}{%
+      {Social Science Research Network}%
+    }
+    \field{type}{{SSRN} Scholarly Paper}
+    \field{month}{01}
+    \field{year}{2019}
+    \field{urlday}{20}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{starr_behavioral_2020}{report}{}
+    \name{author}{3}{}{%
+      {{hash=SE}{%
+         family={Starr},
+         familyi={S\bibinitperiod},
+         given={Evan},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=PJJ}{%
+         family={Prescott},
+         familyi={P\bibinitperiod},
+         given={J.\bibnamedelima J.},
+         giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=BN}{%
+         family={Bishara},
+         familyi={B\bibinitperiod},
+         given={Norman},
+         giveni={N\bibinitperiod},
+      }}%
+    }
+    \keyw{Covenants Not to Compete, Employee Mobility, In Terorrem Effects,
+  Unenforceable Contracts}
+    \strng{namehash}{SE+1}
+    \strng{fullhash}{SEPJJBN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2020}
+    \field{labeldatesource}{}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{abstract}{%
+    Do contracts influence behavior independent of the law governing their
+  enforceability? We explore this question in the context of employment
+  noncompetes, using nationally representative data for 11,500 labor force
+  participants. We show that noncompetes are associated with reductions in
+  employee mobility and changes in the direction of that mobility (i.e., toward
+  noncompetitors) in both states that do and do not enforce noncompetes.
+  Decomposing mobility into job offer generation and acceptance, we detect no
+  evidence of differences in job search, recruitment, or offer activity
+  associated with noncompetes. Rather, we find that employees with
+  noncompetes—even in states that do not enforce them—frequently point to
+  their noncompete as an important reason for declining offers from
+  competitors. Our data further show that these employees’ beliefs about the
+  likelihood of a lawsuit or legal enforcement are important predictors of
+  their citing a noncompete as a factor in their decision to decline competitor
+  offers.%
+    }
+    \verb{doi}
+    \verb 10.2139/ssrn.2858637
+    \endverb
+    \field{number}{{ID} 2858637}
+    \field{title}{The Behavioral Effects of (Unenforceable) Contracts}
+    \verb{url}
+    \verb https://papers.ssrn.com/abstract=2858637
+    \endverb
+    \field{langid}{english}
+    \list{location}{1}{%
+      {Rochester, {NY}}%
+    }
+    \list{institution}{1}{%
+      {Social Science Research Network}%
+    }
+    \verb{file}
+    \verb Snapshot:/home/nico/Zotero/storage/T2GWXSCI/papers.html:text/html
+    \endverb
+    \field{type}{{SSRN} Scholarly Paper}
+    \field{day}{18}
+    \field{month}{09}
+    \field{year}{2020}
+    \field{urlday}{25}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{stuart_liquidity_2003}{article}{}
+    \name{author}{2}{}{%
+      {{hash=STE}{%
+         family={Stuart},
+         familyi={S\bibinitperiod},
+         given={Toby\bibnamedelima E.},
+         giveni={T\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=SO}{%
+         family={Sorenson},
+         familyi={S\bibinitperiod},
+         given={Olav},
+         giveni={O\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{STESO1}
+    \strng{fullhash}{STESO1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2003}
+    \field{labeldatesource}{}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{abstract}{%
+    [In this paper, we examine the ecological consequences of initial public
+  offerings ({IPOs}) and acquisitions, specifically how the spatial
+  distribution of these events influences the location-specific founding rates
+  of new companies. We explore whether relatively small spatial units
+  (metropolitan statistical areas) in close geographic proximity to firms that
+  recently have been acquired or experienced an {IPO} exhibit high new venture
+  creation rates and whether the magnitudes of these effects depend on regional
+  differences in statutes governing the freedom of employees to move between
+  employers. Count models of biotechnology firm foundings establish three
+  findings: (1) {IPOs} of organizations located contiguous to or within an
+  {MSA} accelerate the founding rate within that {MSA}, (2) acquisitions of
+  biotech firms situated near to or within an {MSA} accelerate the founding
+  rate within the {MSA}, but only when the acquirer enters from outside of the
+  biotech industry, and (3) the enforceability of post-employment non-compete
+  covenants, which is determined at the state level, strongly moderates these
+  effects.]%
+    }
+    \verb{doi}
+    \verb 10.2307/3556656
+    \endverb
+    \field{issn}{0001-8392}
+    \field{number}{2}
+    \field{pages}{175\bibrangedash 201}
+    \field{title}{Liquidity Events and the Geographic Distribution of
+  Entrepreneurial Activity}
+    \verb{url}
+    \verb https://www.jstor.org/stable/3556656
+    \endverb
+    \field{volume}{48}
+    \field{journaltitle}{Administrative Science Quarterly}
+    \field{year}{2003}
+    \field{urlday}{31}
+    \field{urlmonth}{03}
+    \field{urlyear}{2019}
+  \endentry
+
+  \entry{uhlig_law_1996}{article}{}
+    \name{author}{1}{}{%
+      {{hash=UH}{%
+         family={Uhlig},
+         familyi={U\bibinitperiod},
+         given={Harald},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{UH1}
+    \strng{fullhash}{UH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1996}
+    \field{labeldatesource}{}
+    \field{sortinit}{U}
+    \field{sortinithash}{U}
+    \field{abstract}{%
+    Let X(i), i∈[0; 1] be a collection of identically distributed and
+  pairwise uncorrelated random variables with common finite mean μ and
+  variance \${\textbackslash}sigma {\textasciicircum}\{2\}\$. This paper shows
+  the law of large numbers, i.e. the fact that
+  \${\textbackslash}int\_\{0\}{\textasciicircum}\{1\}X(i)di={\textbackslash}mu
+  \$. It does so by interpreting the integral as a Pettis-integral. Studying
+  Riemann sums, the paper first provides a simple proof involving no more than
+  the calculation of variances, and demonstrates, that the measurability
+  problem pointed out by Judd (1985) is avoided by requiring convergence in
+  mean square rather than convergence almost everywhere. We raise the issue of
+  when a random continuum economy is a good abstraction for a large finite
+  economy and give an example in which it is not.%
+    }
+    \field{issn}{0938-2259}
+    \field{note}{Publisher: Springer}
+    \field{number}{1}
+    \field{pages}{41\bibrangedash 50}
+    \field{title}{A Law of Large Numbers for Large Economies}
+    \verb{url}
+    \verb https://www.jstor.org/stable/25054951
+    \endverb
+    \field{volume}{8}
+    \field{journaltitle}{Economic Theory}
+    \field{year}{1996}
+    \field{urlday}{06}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+
+  \entry{werth_antidote_2014}{book}{}
+    \name{author}{1}{}{%
+      {{hash=WB}{%
+         family={Werth},
+         familyi={W\bibinitperiod},
+         given={Barry},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Simon \& Schuster}%
+    }
+    \strng{namehash}{WB1}
+    \strng{fullhash}{WB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2014}
+    \field{labeldatesource}{}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{isbn}{978-1-4516-5566-7}
+    \field{title}{The Antidote: Inside the World of New Pharma}
+    \list{location}{1}{%
+      {New York, {NY}}%
+    }
+    \field{month}{02}
+    \field{year}{2014}
+  \endentry
+
+  \entry{wezel_competitive_2006}{article}{}
+    \name{author}{3}{}{%
+      {{hash=WFC}{%
+         family={Wezel},
+         familyi={W\bibinitperiod},
+         given={Filippo\bibnamedelima Carlo},
+         giveni={F\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+      {{hash=CG}{%
+         family={Cattani},
+         familyi={C\bibinitperiod},
+         given={Gino},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=PJM}{%
+         family={Pennings},
+         familyi={P\bibinitperiod},
+         given={Johannes\bibnamedelima M.},
+         giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{WFC+1}
+    \strng{fullhash}{WFCCGPJM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2006}
+    \field{labeldatesource}{}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{abstract}{%
+    This paper examines the competitive consequences of interfirm mobility.
+  Because the loss of key members (defined as top decision makers) to competing
+  firms may amount to a replication of a firm’s higher-order routines, we
+  investigate the conditions under which interfirm mobility triggers transfer
+  of routines across organizational boundaries. We examine membership lists
+  pertinent to the Dutch accounting industry to study key member exits and firm
+  dissolutions over the period 1880–1986. We exploit information on the type
+  of membership migration (individual versus collective) and the competitive
+  saliency of the destination firm as inferred from the recipient status
+  (incumbent versus start-up) and its geographic location (same versus
+  different province). The dissolution risk is highest when collective
+  interfirm mobility results in a new venture within the same geographic area.
+  The theoretical implications of this study are discussed.%
+    }
+    \verb{doi}
+    \verb 10.1287/orsc.1060.0219
+    \endverb
+    \field{issn}{1047-7039}
+    \field{note}{Publisher: {INFORMS}}
+    \field{number}{6}
+    \field{pages}{691\bibrangedash 709}
+    \field{shortjournal}{Organization Science}
+    \field{title}{Competitive Implications of Interfirm Mobility}
+    \verb{url}
+    \verb https://pubsonline.informs.org/doi/abs/10.1287/orsc.1060.0219
+    \endverb
+    \field{volume}{17}
+    \verb{file}
+    \verb Full Text PDF:/home/nico/Zotero/storage/LF55EEWU/Wezel et al. - 2006
+    \verb - Competitive Implications of Interfirm Mobility.pdf:application/pdf;
+    \verb Snapshot:/home/nico/Zotero/storage/AY4ZQFZY/orsc.1060.html:text/html
+    \endverb
+    \field{journaltitle}{Organization Science}
+    \field{day}{01}
+    \field{month}{12}
+    \field{year}{2006}
+    \field{urlday}{27}
+    \field{urlmonth}{10}
+    \field{urlyear}{2020}
+  \endentry
+\enddatalist
+\endinput
