@@ -1,0 +1,18 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{3}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
+                    &\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}\\
+\midrule
+log(R\&D)           &        0.47\sym{***}&        1.84\sym{***}&        0.83\sym{***}\\
+                    &     (0.072)         &      (0.17)         &      (0.29)         \\
+\midrule
+Clustering          &       Firm         &       Firm         &       Firm         \\
+pseudo R-squared    &        0.34         &        0.47         &        0.35         \\
+Observations        &        4254         &        7049         &         471         \\
+\bottomrule
+\multicolumn{4}{l}{\tiny Standard errors in parentheses}\\
+\multicolumn{4}{l}{\tiny \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

@@ -1,0 +1,26 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
+                    &\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}&\multicolumn{1}{c}{WSO4}\\
+\midrule
+log(R\&D)           &        0.40\sym{***}&        0.52\sym{***}&        0.44\sym{***}&        0.47\sym{***}\\
+                    &     (0.044)         &     (0.067)         &     (0.062)         &     (0.072)         \\
+\addlinespace
+Firm FE             &         Yes         &         Yes         &         Yes         &         Yes         \\
+\addlinespace
+Industry-Age FE     &          No         &         Yes         &         Yes         &         Yes         \\
+\addlinespace
+Industry-Year FE    &          No         &          No         &         Yes         &         Yes         \\
+\addlinespace
+State-Year FE       &          No         &          No         &          No         &         Yes         \\
+\midrule
+Clustering          &       Firm         &       Firm         &       Firm         &       Firm         \\
+pseudo R-squared    &        0.28         &        0.31         &        0.33         &        0.34         \\
+Observations        &        5308         &        4928         &        4784         &        4254         \\
+\bottomrule
+\multicolumn{5}{l}{\tiny Standard errors in parentheses}\\
+\multicolumn{5}{l}{\tiny \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

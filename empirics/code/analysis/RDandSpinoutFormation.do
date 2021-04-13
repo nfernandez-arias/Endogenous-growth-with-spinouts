@@ -285,7 +285,33 @@ replace naics3_selected = 0 if industry_3digResid == 1
 ***********************************************************************************************************************
 ***********************************************************************************************************************
 
-*** One table with headline regressions for paper and presentations
+*** One table with only levels regression for presentation
+eststo clear
+eststo: quietly reghdfe founders_founder2_wso4_f3 xrd_l3  $controlsLevels, absorb(gvkey firmAge naics4#year Statecode#year) cluster(naics4 Statecode)
+
+estfe . *, labels(gvkey "Firm FE" year "Year FE" firmAge "Age FE" naics4#firmAge "Industry-Age FE" naics4#year "Industry-Year FE" Statecode#year "State-Year FE" naics4#Statecode#year "Industry-State-Year FE")
+return list
+esttab using "figures/tables/RDandSpinoutFormation_headlineReg_presentation.tex", replace se star(* 0.1 ** 0.05 *** 0.01) label keep(*xrd_l3*) stats(clustvar r2_a r2_a_within N, labels(Clustering "R-squared (adj.)" "R-squared (within, adj)" Observations)) interaction(" $\times$ ") style(tex) booktabs b(a2)
+estfe . *, restore
+
+
+*** Another table with Poisson pseudo-Maximum Likelihood regs for presentation
+
+
+eststo clear
+eststo: quietly ppmlhdfe founders_founder2_wso4_f3 lxrd_l3 , absorb(gvkey naics4#firmAge naics4#year Statecode#year) cluster(gvkey)
+eststo: quietly ppmlhdfe founders_founder2_wso4_f3 lxrd_l3 $controlsLogs, cluster(gvkey)
+eststo: quietly ppmlhdfe founders_founder2_wso4_f3 lxrd_l3  $controlsLogs, absorb(gvkey firmAge naics4#year) cluster(gvkey)
+
+estfe . *, labels(gvkey "Firm FE" year "Year FE" firmAge "Age FE" naics4#firmAge "Industry-Age FE" naics4#year "Industry-Year FE" Statecode#year "State-Year FE" naics4#Statecode#year "Industry-State-Year FE")
+return list
+esttab using "figures/tables/RDandSpinoutFormation_ppmlRegs_presentation.tex", replace se star(* 0.1 ** 0.05 *** 0.01) label keep(*lxrd_l3*) stats(clustvar r2_p N, labels(Clustering "pseudo R-squared" Observations)) interaction(" $\times$ ") style(tex) booktabs b(a2)
+estfe . *, restore
+
+
+
+
+*** One table with headline regressions for paper
 
 eststo clear
 eststo: quietly reghdfe founders_founder2_wso4_f3 xrd_l3  $controlsLevels, absorb(gvkey firmAge naics4#year Statecode#year) cluster(naics4 Statecode)

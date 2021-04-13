@@ -1,0 +1,18 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
+\midrule
+$\frac{\text{WSO4 founders}}{\text{Total founders}}$&        0.20         &        0.32\sym{***}&        0.32\sym{***}&        0.30\sym{***}\\
+                    &      (0.18)         &     (0.023)         &     (0.025)         &     (0.031)         \\
+\midrule
+Clustering          &State, Industry         &State, Industry         &State, Industry         &State, Industry         \\
+R-squared (adj.)    &     0.00063         &        0.38         &        0.41         &        0.39         \\
+R-squared (within, adj)&     0.00063         &      0.0025         &      0.0025         &      0.0023         \\
+Observations        &       54424         &       53509         &       53311         &       53425         \\
+\bottomrule
+\multicolumn{5}{l}{\tiny Standard errors in parentheses}\\
+\multicolumn{5}{l}{\tiny \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

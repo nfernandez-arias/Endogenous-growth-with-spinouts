@@ -787,7 +787,7 @@ The data on R\&D spending is from the National Patterns of R\&D resources.\footn
 
 \paragraph{Interest rate}
 
-The interest rate in the model corresponds to the discount factor used to price a risky firm. The annual real return on the S\&P 500 in the time period 1984-2006 was 9.15\%. BAA corporate bonds earned an annual real return of 7.58\%. To calculate the excess return of all corporate liabilities, I take a weighted average of the the excess return of stock and equity using the sample period average debt to equity ratio of 58\%, or a debt to market value of 37\%. This implies an overall real return of 8.57\%. \footnote{The calibration and analysis that follows uses a value of 6\% for the interest rate; I am in the process of updating the results. Robustness checks (not reported) show that calibrating to a higher interest increases slightly the magnitude of my main result.}
+The interest rate in the model corresponds to the discount factor used to price a risky firm. The annual real return on the S\&P 500 in the time period 1984-2006 was 9.15\%. BAA corporate bonds earned an annual real return of 7.58\%. To calculate the excess return of all corporate liabilities, I take a weighted average of the the excess return of stock and equity using the sample period average debt to equity ratio of 58\%, or a debt to market value of 37\%. This implies an overall real return of 8.57\%. 
 
 \paragraph{Profits to GDP} 
 
@@ -1384,14 +1384,14 @@ The model could be extended in several ways at the cost of requiring a numerical
 
 \begin{figure}[]
 	\centering
-	\includegraphics[scale = 0.56]{../code/julia/figures/simpleModel/identificationSourcesFull.png}
+	\includegraphics[scale = 0.56]{../code/julia/figures/simpleModel/identificationSourcesFull.pdf}
 	\caption{Plot showing the elasticity of moments to model parameters, including parameters chosen externally $\theta , \beta, \psi$. These non-calibrated parameters are added in as effective moments to be matched, allowing the sensitivity of calibrated parameters $\rho, \lambda, \chi, \hat{\chi}, \kappa_E, \nu$ to these parameters to be computed by simply inverting this matrix, as before.}
 	\label{calibration_identificationSources_full}
 \end{figure}
 
 \begin{figure}[]
 	\centering
-	\includegraphics[scale = 0.7]{../code/julia/figures/simpleModel/welfareComparisonParameterSensitivityFull.png}
+	\includegraphics[scale = 0.7]{../code/julia/figures/simpleModel/welfareComparisonParameterSensitivityFull.pdf}
 	\caption{Sensitivity of welfare comparison to model parameters. This is $\nabla_p W$, where $W(p)$ maps log parameters to the log of the percentage change in BGP consumption which is equivalent to the change in welfare from changing $\kappa_c$ from $\kappa_c > \bar{\kappa_c}$ to $\kappa_c = 0$ (i.e. going from banning to frictionlessly enforcing NCAs).}
 	\label{welfareComparisonParameterSensitivityFull}
 \end{figure}
@@ -1857,7 +1857,7 @@ To get a sense of what this means about robustness of the results, suppose that 
 
 \begin{figure}[]
 	\centering
-	\includegraphics[scale = 0.7]{../code/julia/figures/simpleModel/levelsWelfareComparisonSensitivityFull.png}
+	\includegraphics[scale = 0.7]{../code/julia/figures/simpleModel/levelsWelfareComparisonSensitivityFull.pdf}
 	\caption{Sensitivity of welfare comparison to moments. This is $(J^{-1})^T \nabla_p W$, where $W(p)$ maps log parameters to the log of the percentage change in BGP consumption which is equivalent to the change in welfare from changing $\kappa_c$ from $\infty$ to $0$ (i.e. going from banning to frictionlessly enforcing NCAs).}
 	\label{levelsWelfareComparisonSensitivityFull}
 \end{figure}
