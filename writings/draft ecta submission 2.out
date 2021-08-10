@@ -1,0 +1,85 @@
+\BOOKMARK [1][-]{section.0.1}{Introduction}{}% 1
+\BOOKMARK [2][-]{paragraph.0.1.0.0.1}{Related literature}{section.0.1}% 2
+\BOOKMARK [1][-]{section.0.2}{Empirics of R\046D and spinout formation}{}% 3
+\BOOKMARK [2][-]{subsection.0.2.1}{Data}{section.0.2}% 4
+\BOOKMARK [3][-]{subsubsection.0.2.1.1}{Sources}{subsection.0.2.1}% 5
+\BOOKMARK [4][-]{paragraph.0.2.1.1.1}{VentureSource}{subsubsection.0.2.1.1}% 6
+\BOOKMARK [4][-]{paragraph.0.2.1.1.2}{Compustat}{subsubsection.0.2.1.1}% 7
+\BOOKMARK [4][-]{paragraph.0.2.1.1.3}{NBER-USPTO}{subsubsection.0.2.1.1}% 8
+\BOOKMARK [3][-]{subsubsection.0.2.1.2}{Construction of dataset}{subsection.0.2.1}% 9
+\BOOKMARK [2][-]{subsection.0.2.2}{Corporate R\046D and spinout formation}{section.0.2}% 10
+\BOOKMARK [3][-]{subsubsection.0.2.2.1}{Preliminaries}{subsection.0.2.2}% 11
+\BOOKMARK [3][-]{subsubsection.0.2.2.2}{Regressions}{subsection.0.2.2}% 12
+\BOOKMARK [1][-]{section.0.3}{Model}{}% 13
+\BOOKMARK [2][-]{subsection.0.3.1}{Representative household}{section.0.3}% 14
+\BOOKMARK [2][-]{subsection.0.3.2}{Final goods producer}{section.0.3}% 15
+\BOOKMARK [2][-]{subsection.0.3.3}{Intermediate goods production and innovation}{section.0.3}% 16
+\BOOKMARK [3][-]{subsubsection.0.3.3.1}{Incumbents}{subsection.0.3.3}% 17
+\BOOKMARK [4][-]{paragraph.0.3.3.1.1}{Intermediate goods market structure}{subsubsection.0.3.3.1}% 18
+\BOOKMARK [4][-]{paragraph.0.3.3.1.2}{Own-product innovation}{subsubsection.0.3.3.1}% 19
+\BOOKMARK [3][-]{subsubsection.0.3.3.2}{Spinouts and noncompete agreeements}{subsection.0.3.3}% 20
+\BOOKMARK [3][-]{subsubsection.0.3.3.3}{Entrants}{subsection.0.3.3}% 21
+\BOOKMARK [2][-]{subsection.0.3.4}{Competitive financial intermediary}{section.0.3}% 22
+\BOOKMARK [2][-]{subsection.0.3.5}{Equilibrium}{section.0.3}% 23
+\BOOKMARK [3][-]{subsubsection.0.3.5.1}{Definition of equilibrium}{subsection.0.3.5}% 24
+\BOOKMARK [3][-]{subsubsection.0.3.5.2}{Static equilibrium}{subsection.0.3.5}% 25
+\BOOKMARK [3][-]{subsubsection.0.3.5.3}{Existence and uniqueness of symmetric BGP}{subsection.0.3.5}% 26
+\BOOKMARK [4][-]{paragraph.0.3.5.3.1}{Household optimization}{subsubsection.0.3.5.3}% 27
+\BOOKMARK [4][-]{paragraph.0.3.5.3.2}{Entrant optimization}{subsubsection.0.3.5.3}% 28
+\BOOKMARK [4][-]{paragraph.0.3.5.3.3}{Incumbent optimization}{subsubsection.0.3.5.3}% 29
+\BOOKMARK [4][-]{paragraph.0.3.5.3.4}{Equilibrium innovation and growth}{subsubsection.0.3.5.3}% 30
+\BOOKMARK [1][-]{section.0.4}{Calibration}{}% 31
+\BOOKMARK [2][-]{subsection.0.4.1}{Parameters}{section.0.4}% 32
+\BOOKMARK [2][-]{subsection.0.4.2}{Targets}{section.0.4}% 33
+\BOOKMARK [3][-]{paragraph.0.4.2.0.1}{Growth rate due to CD and OI}{subsection.0.4.2}% 34
+\BOOKMARK [4][-]{paragraph.0.4.2.0.2}{Growth share of older firms}{paragraph.0.4.2.0.1}% 35
+\BOOKMARK [4][-]{paragraph.0.4.2.0.3}{R\046D spending to GDP}{paragraph.0.4.2.0.1}% 36
+\BOOKMARK [4][-]{paragraph.0.4.2.0.4}{Interest rate}{paragraph.0.4.2.0.1}% 37
+\BOOKMARK [4][-]{paragraph.0.4.2.0.5}{Profits to GDP}{paragraph.0.4.2.0.1}% 38
+\BOOKMARK [4][-]{paragraph.0.4.2.0.6}{Employment share of young firms}{paragraph.0.4.2.0.1}% 39
+\BOOKMARK [4][-]{paragraph.0.4.2.0.7}{R\046D-induced spinout share of employment}{paragraph.0.4.2.0.1}% 40
+\BOOKMARK [2][-]{subsection.0.4.3}{Identification}{section.0.4}% 41
+\BOOKMARK [1][-]{section.0.5}{Welfare effect of NCA enforcement and other policies}{}% 42
+\BOOKMARK [2][-]{subsection.0.5.1}{Preliminaries}{section.0.5}% 43
+\BOOKMARK [3][-]{paragraph.0.5.1.0.1}{Welfare}{subsection.0.5.1}% 44
+\BOOKMARK [4][-]{paragraph.0.5.1.0.2}{Consumption-equivalent change in welfare}{paragraph.0.5.1.0.1}% 45
+\BOOKMARK [2][-]{subsection.0.5.2}{NCA cost c}{section.0.5}% 46
+\BOOKMARK [3][-]{subsubsection.0.5.2.1}{Equilibrium R\046D misallocation}{subsection.0.5.2}% 47
+\BOOKMARK [4][-]{paragraph.0.5.2.1.1}{Magnitude of overall effect on growth of reducing c}{subsubsection.0.5.2.1}% 48
+\BOOKMARK [3][-]{subsubsection.0.5.2.2}{Robustness}{subsection.0.5.2}% 49
+\BOOKMARK [2][-]{subsection.0.5.3}{R\046D subsidy}{section.0.5}% 50
+\BOOKMARK [2][-]{subsection.0.5.4}{Targeted R\046D subsidy}{section.0.5}% 51
+\BOOKMARK [2][-]{subsection.0.5.5}{NCA cost c and targeted R\046D subsidy}{section.0.5}% 52
+\BOOKMARK [1][-]{section.0.6}{Conclusion}{}% 53
+\BOOKMARK [1][-]{appendix.A}{Appendix A: Apprendix of Tables}{}% 54
+\BOOKMARK [1][-]{appendix.B}{Appendix B: Appendix of figures}{}% 55
+\BOOKMARK [1][-]{appendix.C}{Appendix C: Model appendix}{}% 56
+\BOOKMARK [2][-]{subsection.C.1}{Proofs of propositions}{appendix.C}% 57
+\BOOKMARK [3][-]{subsubsection.C.1.1}{Proof of Proposition 2}{subsection.C.1}% 58
+\BOOKMARK [3][-]{subsubsection.C.1.2}{Proof of Proposition 3}{subsection.C.1}% 59
+\BOOKMARK [3][-]{subsubsection.C.1.3}{Proof of Proposition 4}{subsection.C.1}% 60
+\BOOKMARK [2][-]{subsection.C.2}{Additional derivations}{appendix.C}% 61
+\BOOKMARK [3][-]{subsubsection.C.2.1}{Growth accounting equation}{subsection.C.2}% 62
+\BOOKMARK [3][-]{subsubsection.C.2.2}{Multiplicity of equilibria}{subsection.C.2}% 63
+\BOOKMARK [2][-]{subsection.C.3}{Policy analysis derivations}{appendix.C}% 64
+\BOOKMARK [3][-]{subsubsection.C.3.1}{R\046D subsidy \(tax\)}{subsection.C.3}% 65
+\BOOKMARK [3][-]{subsubsection.C.3.2}{Targeted R\046D subsidy \(tax\)}{subsection.C.3}% 66
+\BOOKMARK [1][-]{appendix.D}{Appendix D: Calibration appendix}{}% 67
+\BOOKMARK [2][-]{subsection.D.1}{Computing model moments}{appendix.D}% 68
+\BOOKMARK [3][-]{subsubsection.D.1.1}{Profit to GDP}{subsection.D.1}% 69
+\BOOKMARK [3][-]{subsubsection.D.1.2}{R\046D to GDP}{subsection.D.1}% 70
+\BOOKMARK [3][-]{subsubsection.D.1.3}{Growth share OI}{subsection.D.1}% 71
+\BOOKMARK [3][-]{subsubsection.D.1.4}{Entry rate}{subsection.D.1}% 72
+\BOOKMARK [3][-]{subsubsection.D.1.5}{Employment share of WSOs}{subsection.D.1}% 73
+\BOOKMARK [1][-]{appendix.E}{Appendix E: Policy analysis robustness appendix}{}% 74
+\BOOKMARK [2][-]{subsection.E.1}{NCA cost c}{appendix.E}% 75
+\BOOKMARK [3][-]{subsubsection.E.1.1}{Entry costs as transfers}{subsection.E.1}% 76
+\BOOKMARK [3][-]{subsubsection.E.1.2}{Incumbent decreasing returns to scale in innovation}{subsection.E.1}% 77
+\BOOKMARK [4][-]{paragraph.E.1.2.1}{Equilibrium conditions}{subsubsection.E.1.2}% 78
+\BOOKMARK [4][-]{paragraph.E.1.2.2}{Solution algorithm}{subsubsection.E.1.2}% 79
+\BOOKMARK [4][-]{paragraph.E.1.2.3}{Results}{subsubsection.E.1.2}% 80
+\BOOKMARK [3][-]{subsubsection.E.1.3}{Variation in target moments}{subsection.E.1}% 81
+\BOOKMARK [3][-]{subsubsection.E.1.4}{When is c = 0 bad for welfare?}{subsection.E.1}% 82
+\BOOKMARK [2][-]{subsection.E.2}{NCA cost c and targeted R\046D subsidy}{appendix.E}% 83
+\BOOKMARK [3][-]{subsubsection.E.2.1}{Entry costs as transfers}{subsection.E.2}% 84
+\BOOKMARK [1][-]{bibliography-section.1}{References}{}% 85
