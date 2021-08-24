@@ -51,35 +51,37 @@
 \BOOKMARK [2][-]{subsection.0.5.4}{Targeted R\046D subsidy}{section.0.5}% 51
 \BOOKMARK [2][-]{subsection.0.5.5}{NCA cost c and targeted R\046D subsidy}{section.0.5}% 52
 \BOOKMARK [1][-]{section.0.6}{Conclusion}{}% 53
-\BOOKMARK [1][-]{appendix.A}{Appendix A: Apprendix of Tables}{}% 54
+\BOOKMARK [1][-]{appendix.A}{Appendix A: Appendix of Tables}{}% 54
 \BOOKMARK [1][-]{appendix.B}{Appendix B: Appendix of figures}{}% 55
 \BOOKMARK [1][-]{appendix.C}{Appendix C: Model appendix}{}% 56
 \BOOKMARK [2][-]{subsection.C.1}{Proofs of propositions}{appendix.C}% 57
-\BOOKMARK [3][-]{subsubsection.C.1.1}{Proof of Proposition 2}{subsection.C.1}% 58
-\BOOKMARK [3][-]{subsubsection.C.1.2}{Proof of Proposition 3}{subsection.C.1}% 59
-\BOOKMARK [3][-]{subsubsection.C.1.3}{Proof of Proposition 4}{subsection.C.1}% 60
-\BOOKMARK [2][-]{subsection.C.2}{Additional derivations}{appendix.C}% 61
-\BOOKMARK [3][-]{subsubsection.C.2.1}{Growth accounting equation}{subsection.C.2}% 62
-\BOOKMARK [3][-]{subsubsection.C.2.2}{Multiplicity of equilibria}{subsection.C.2}% 63
-\BOOKMARK [2][-]{subsection.C.3}{Policy analysis derivations}{appendix.C}% 64
-\BOOKMARK [3][-]{subsubsection.C.3.1}{R\046D subsidy \(tax\)}{subsection.C.3}% 65
-\BOOKMARK [3][-]{subsubsection.C.3.2}{Targeted R\046D subsidy \(tax\)}{subsection.C.3}% 66
-\BOOKMARK [1][-]{appendix.D}{Appendix D: Calibration appendix}{}% 67
-\BOOKMARK [2][-]{subsection.D.1}{Computing model moments}{appendix.D}% 68
-\BOOKMARK [3][-]{subsubsection.D.1.1}{Profit to GDP}{subsection.D.1}% 69
-\BOOKMARK [3][-]{subsubsection.D.1.2}{R\046D to GDP}{subsection.D.1}% 70
-\BOOKMARK [3][-]{subsubsection.D.1.3}{Growth share OI}{subsection.D.1}% 71
-\BOOKMARK [3][-]{subsubsection.D.1.4}{Entry rate}{subsection.D.1}% 72
-\BOOKMARK [3][-]{subsubsection.D.1.5}{Employment share of WSOs}{subsection.D.1}% 73
-\BOOKMARK [1][-]{appendix.E}{Appendix E: Policy analysis robustness appendix}{}% 74
-\BOOKMARK [2][-]{subsection.E.1}{NCA cost c}{appendix.E}% 75
-\BOOKMARK [3][-]{subsubsection.E.1.1}{Entry costs as transfers}{subsection.E.1}% 76
-\BOOKMARK [3][-]{subsubsection.E.1.2}{Incumbent decreasing returns to scale in innovation}{subsection.E.1}% 77
-\BOOKMARK [4][-]{paragraph.E.1.2.1}{Equilibrium conditions}{subsubsection.E.1.2}% 78
-\BOOKMARK [4][-]{paragraph.E.1.2.2}{Solution algorithm}{subsubsection.E.1.2}% 79
-\BOOKMARK [4][-]{paragraph.E.1.2.3}{Results}{subsubsection.E.1.2}% 80
-\BOOKMARK [3][-]{subsubsection.E.1.3}{Variation in target moments}{subsection.E.1}% 81
-\BOOKMARK [3][-]{subsubsection.E.1.4}{When is c = 0 bad for welfare?}{subsection.E.1}% 82
-\BOOKMARK [2][-]{subsection.E.2}{NCA cost c and targeted R\046D subsidy}{appendix.E}% 83
-\BOOKMARK [3][-]{subsubsection.E.2.1}{Entry costs as transfers}{subsection.E.2}% 84
-\BOOKMARK [1][-]{bibliography-section.1}{References}{}% 85
+\BOOKMARK [3][-]{subsubsection.C.1.1}{Proof of Proposition 3.2}{subsection.C.1}% 58
+\BOOKMARK [3][-]{subsubsection.C.1.2}{Proof of Proposition 3.3}{subsection.C.1}% 59
+\BOOKMARK [3][-]{subsubsection.C.1.3}{Proof of Proposition 3.4}{subsection.C.1}% 60
+\BOOKMARK [2][-]{subsection.C.2}{Policy analysis derivations}{appendix.C}% 61
+\BOOKMARK [3][-]{subsubsection.C.2.1}{R\046D subsidy \(tax\)}{subsection.C.2}% 62
+\BOOKMARK [3][-]{subsubsection.C.2.2}{Targeted R\046D subsidy \(tax\)}{subsection.C.2}% 63
+\BOOKMARK [1][-]{appendix.D}{Appendix D: Calibration appendix}{}% 64
+\BOOKMARK [2][-]{subsection.D.1}{Computing model moments}{appendix.D}% 65
+\BOOKMARK [3][-]{subsubsection.D.1.1}{Profit to GDP}{subsection.D.1}% 66
+\BOOKMARK [3][-]{subsubsection.D.1.2}{R\046D to GDP}{subsection.D.1}% 67
+\BOOKMARK [3][-]{subsubsection.D.1.3}{Entry rate}{subsection.D.1}% 68
+\BOOKMARK [3][-]{subsubsection.D.1.4}{Growth share OI}{subsection.D.1}% 69
+\BOOKMARK [3][-]{subsubsection.D.1.5}{Employment share of WSOs}{subsection.D.1}% 70
+\BOOKMARK [1][-]{bibliography-section.1}{References}{}% 71
+\BOOKMARK [1][-]{appendix.A}{Appendix A: Supplementary appendix of tables}{}% 72
+\BOOKMARK [1][-]{appendix.B}{Appendix B: Supplementary appendix of figures}{}% 73
+\BOOKMARK [1][-]{appendix.C}{Appendix C: Supplementary model appendix}{}% 74
+\BOOKMARK [2][-]{subsection.C.1}{Growth accounting equation}{appendix.C}% 75
+\BOOKMARK [2][-]{subsection.C.2}{Multiplicity of equilibria}{appendix.C}% 76
+\BOOKMARK [1][-]{appendix.D}{Appendix D: Policy analysis robustness appendix}{}% 77
+\BOOKMARK [2][-]{subsection.D.1}{NCA cost c}{appendix.D}% 78
+\BOOKMARK [3][-]{subsubsection.D.1.1}{Entry costs as transfers}{subsection.D.1}% 79
+\BOOKMARK [3][-]{subsubsection.D.1.2}{Incumbent decreasing returns to scale in innovation}{subsection.D.1}% 80
+\BOOKMARK [4][-]{paragraph.D.1.2.1}{Equilibrium conditions}{subsubsection.D.1.2}% 81
+\BOOKMARK [4][-]{paragraph.D.1.2.2}{Solution algorithm}{subsubsection.D.1.2}% 82
+\BOOKMARK [4][-]{paragraph.D.1.2.3}{Results}{subsubsection.D.1.2}% 83
+\BOOKMARK [3][-]{subsubsection.D.1.3}{Variation in target moments}{subsection.D.1}% 84
+\BOOKMARK [3][-]{subsubsection.D.1.4}{When is c = 0 bad for welfare?}{subsection.D.1}% 85
+\BOOKMARK [2][-]{subsection.D.2}{NCA cost c and targeted R\046D subsidy}{appendix.D}% 86
+\BOOKMARK [3][-]{subsubsection.D.2.1}{Entry costs as transfers}{subsection.D.2}% 87

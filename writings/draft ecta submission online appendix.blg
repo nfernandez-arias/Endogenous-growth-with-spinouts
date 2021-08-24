@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: draft ecta submission online appendix.aux
+The style file: ecta.bst
+Database file #1: references_bibtex.bib
+Warning--empty journal in agarwal_knowledge_2002
+You've used 61 entries,
+            2849 wiz_defined-function locations,
+            945 strings with 14610 characters,
+and the built_in function-call counts, 36920 in all, are:
+= -- 3177
+> -- 1480
+< -- 90
++ -- 485
+- -- 404
+* -- 3170
+:= -- 5616
+add.period$ -- 120
+call.type$ -- 61
+change.case$ -- 391
+chr.to.int$ -- 61
+cite$ -- 62
+duplicate$ -- 2724
+empty$ -- 2719
+format.name$ -- 699
+if$ -- 7334
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 504
+newline$ -- 188
+num.names$ -- 306
+pop$ -- 870
+preamble$ -- 1
+purify$ -- 378
+quote$ -- 0
+skip$ -- 983
+stack$ -- 0
+substring$ -- 1945
+swap$ -- 1393
+text.length$ -- 8
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 724
+warning$ -- 1
+while$ -- 276
+width$ -- 0
+write$ -- 748
+(There was 1 warning)
