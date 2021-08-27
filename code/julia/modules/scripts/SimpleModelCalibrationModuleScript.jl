@@ -25,9 +25,7 @@ struct SimpleCalibrationParameters
     youngFirmEmploymentShare::SimpleCalibrationTarget
     spinoutEmploymentShare::SimpleCalibrationTarget
     rdShare::SimpleCalibrationTarget
-    #WageRatio::SimpleCalibrationTarget
-    #WageRatioIncumbents::SimpleCalibrationTarget
-    #SpinoutsNCShare::SimpleCalibrationTarget
+
 
 end
 
@@ -39,6 +37,8 @@ struct SimpleModelMoments
     youngFirmEmploymentShare::Real
     spinoutEmploymentShare::Real
     rdShare::Real
+    rdShareEmployment::Real
+    profitShare::Real
 
 end
 
@@ -109,7 +109,7 @@ function computeSimpleModelMoments(modelPar::SimpleModelParameters)
 
     ## Return model moments
 
-    simpleModelMoments = SimpleModelMoments(sol.r, sol.g, growthShareOI, youngFirmEmploymentShare, spinoutEmploymentShare, rdShare)
+    simpleModelMoments = SimpleModelMoments(sol.r, sol.g, growthShareOI, youngFirmEmploymentShare, spinoutEmploymentShare, rdShare, L, β*(1-β))
 
     #print(typeof(simpleModelMoments))
 
@@ -471,6 +471,8 @@ function constructJacobian(modelPar::SimpleModelParameters)
         modelParTemp.χE = exp(x[4])
         modelParTemp.κE = exp(x[5])
         modelParTemp.ν = exp(x[6])
+        modelParTemp.L = exp(x[7])
+        modelParTemp.β = exp(x[8])
 
         # Now compute model moments
         moments = computeSimpleModelMoments(modelParTemp)
@@ -479,7 +481,7 @@ function constructJacobian(modelPar::SimpleModelParameters)
 
         # Has to be in vector form or automatic differentiation doesn't work
 
-        outputVec = Vector{}(undef,6)
+        outputVec = Vector{}(undef,8)
 
         outputVec[1] = log(moments.interestRate)
         outputVec[2] = log(moments.growthRate)
@@ -487,12 +489,14 @@ function constructJacobian(modelPar::SimpleModelParameters)
         outputVec[4] = log(moments.youngFirmEmploymentShare)
         outputVec[5] = log(moments.spinoutEmploymentShare)
         outputVec[6] = log(moments.rdShare)
+        outputVec[7] = log(moments.rdShareEmployment)
+        outputVec[8] = log(moments.profitShare)
 
         return outputVec
 
     end
 
-    x = Vector{}(undef,6)
+    x = Vector{}(undef,8)
 
     x[1] = log(modelPar.ρ)
     x[2] = log(modelPar.λ)
@@ -500,6 +504,8 @@ function constructJacobian(modelPar::SimpleModelParameters)
     x[4] = log(modelPar.χE)
     x[5] = log(modelPar.κE)
     x[6] = log(modelPar.ν)
+    x[7] = log(modelPar.L)
+    x[8] = log(modelPar.β)
 
     g = x -> ForwardDiff.jacobian(f,x)
 
@@ -643,13 +649,14 @@ function constructFullJacobian(modelPar::SimpleModelParameters)
 
         modelParTemp.ρ = exp(x[1])
         modelParTemp.θ = exp(x[2])
-        modelParTemp.β = exp(x[3])
-        modelParTemp.ψ = exp(x[4])
-        modelParTemp.λ = exp(x[5])
-        modelParTemp.χI = exp(x[6])
-        modelParTemp.χE = exp(x[7])
-        modelParTemp.κE = exp(x[8])
-        modelParTemp.ν = exp(x[9])
+        modelParTemp.ψ = exp(x[3])
+        modelParTemp.λ = exp(x[4])
+        modelParTemp.χI = exp(x[5])
+        modelParTemp.χE = exp(x[6])
+        modelParTemp.κE = exp(x[7])
+        modelParTemp.ν = exp(x[8])
+        modelParTemp.L = exp(x[9])
+        modelParTemp.β = exp(x[10])
 
         # Now compute model moments
         moments = computeSimpleModelMoments(modelParTemp)
@@ -658,36 +665,37 @@ function constructFullJacobian(modelPar::SimpleModelParameters)
 
         # Has to be in vector form or automatic differentiation doesn't work
 
-        outputVec = Vector{}(undef,9)
+        outputVec = Vector{}(undef,10)
 
         outputVec[1] = log(moments.interestRate)
-        outputVec[2] = log(moments.growthRate)
-        outputVec[3] = log(moments.growthShareOI)
-        outputVec[4] = log(moments.youngFirmEmploymentShare)
-        outputVec[5] = log(moments.spinoutEmploymentShare)
-        outputVec[6] = log(moments.rdShare)
+        outputVec[2] = x[2] # θ 
+        outputVec[3] = x[3] # ψ
+        outputVec[4] = log(moments.growthRate)
+        outputVec[5] = log(moments.growthShareOI)
+        outputVec[6] = log(moments.youngFirmEmploymentShare)
+        outputVec[7] = log(moments.spinoutEmploymentShare)
+        outputVec[8] = log(moments.rdShare)
+        outputVec[9] = log(moments.rdShareEmployment)
+        outputVec[10] = log(moments.profitShare)
 
         # Non-calibrated parameters
-
-        outputVec[7] = x[2] # θ
-        outputVec[8] = x[3] # β
-        outputVec[9] = x[4] # ψ
 
         return outputVec
 
     end
 
-    x = Vector{}(undef,9)
+    x = Vector{}(undef,10)
 
     x[1] = log(modelPar.ρ)
     x[2] = log(modelPar.θ)
-    x[3] = log(modelPar.β)
-    x[4] = log(modelPar.ψ)
-    x[5] = log(modelPar.λ)
-    x[6] = log(modelPar.χI)
-    x[7] = log(modelPar.χE)
-    x[8] = log(modelPar.κE)
-    x[9] = log(modelPar.ν)
+    x[3] = log(modelPar.ψ)
+    x[4] = log(modelPar.λ)
+    x[5] = log(modelPar.χI)
+    x[6] = log(modelPar.χE)
+    x[7] = log(modelPar.κE)
+    x[8] = log(modelPar.ν)
+    x[9] = log(modelPar.L)
+    x[10] = log(modelPar.β)
 
     g = x -> ForwardDiff.jacobian(f,x)
 
